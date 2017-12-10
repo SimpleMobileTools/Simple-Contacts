@@ -142,7 +142,9 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
     }
 
     private fun addNewContact() {
-
+        Intent(applicationContext, ContactActivity::class.java).apply {
+            startActivity(this)
+        }
     }
 
     override fun refreshItems() {

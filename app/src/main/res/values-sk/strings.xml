@@ -2,4 +2,13 @@
     <string name="app_name">Jednoduché kontakty</string>
     <string name="app_launcher_name">Kontakty</string>
     <string name="number">Číslo</string>
+
+    <string name="new_contact">Nový kontakt</string>
+    <string name="edit_contact">Upraviť kontakt</string>
+    <string name="email">Email</string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
 </resources>

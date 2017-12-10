@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contact_scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/activity_margin">
+
+    <RelativeLayout
+        android:id="@+id/contact_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/contact_photo"
+            android:layout_width="@dimen/contact_photo_size"
+            android:layout_height="@dimen/contact_photo_size"
+            android:padding="@dimen/activity_margin"
+            android:src="@drawable/ic_person"/>
+
+        <ImageView
+            android:id="@+id/contact_sms"
+            style="@style/MyBorderlessBackgroundStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/contact_photo"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/contact_photo"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:paddingLeft="@dimen/activity_margin"
+            android:paddingRight="@dimen/activity_margin"
+            android:scaleType="center"
+            android:src="@drawable/ic_sms"/>
+
+        <ImageView
+            android:id="@+id/contact_call"
+            style="@style/MyBorderlessBackgroundStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/contact_photo"
+            android:layout_alignTop="@+id/contact_photo"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/contact_sms"
+            android:adjustViewBounds="true"
+            android:paddingLeft="@dimen/activity_margin"
+            android:paddingRight="@dimen/activity_margin"
+            android:scaleType="center"
+            android:src="@drawable/ic_phone"/>
+
+        <ImageView
+            android:id="@+id/contact_email"
+            style="@style/MyBorderlessBackgroundStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/contact_photo"
+            android:layout_alignTop="@+id/contact_photo"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/contact_call"
+            android:adjustViewBounds="true"
+            android:paddingLeft="@dimen/activity_margin"
+            android:paddingRight="@dimen/activity_margin"
+            android:scaleType="center"
+            android:src="@drawable/ic_email"/>
+
+        <ImageView
+            android:id="@+id/contact_name_image"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/contact_name_value"
+            android:layout_alignTop="@+id/contact_name_value"
+            android:paddingBottom="@dimen/medium_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@drawable/ic_person"/>
+
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/contact_name_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_photo"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:layout_toRightOf="@+id/contact_name_image"
+            android:hint="@string/name"
+            android:inputType="textCapWords"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="@dimen/big_text_size"/>
+
+        <ImageView
+            android:id="@+id/contact_number_image"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/contact_number_value"
+            android:layout_alignTop="@+id/contact_number_value"
+            android:paddingBottom="@dimen/medium_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@drawable/ic_phone"/>
+
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/contact_number_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_name_value"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:layout_toRightOf="@+id/contact_name_image"
+            android:hint="@string/number"
+            android:inputType="phone"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="@dimen/big_text_size"/>
+
+        <ImageView
+            android:id="@+id/contact_email_image"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/contact_email_value"
+            android:layout_alignTop="@+id/contact_email_value"
+            android:paddingBottom="@dimen/medium_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@drawable/ic_email"/>
+
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/contact_email_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_number_value"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:layout_toRightOf="@+id/contact_name_image"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="@dimen/big_text_size"/>
+
+    </RelativeLayout>
+</ScrollView>
