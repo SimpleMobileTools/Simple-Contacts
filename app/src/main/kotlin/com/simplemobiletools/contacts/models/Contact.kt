@@ -11,7 +11,13 @@ data class Contact(val id: Int, var name: String, var number: String, var photoU
     override fun compareTo(other: Contact): Int {
         var result = when {
             (sorting and SORT_BY_NUMBER != 0) -> number.toLowerCase().compareTo(other.number.toLowerCase())
-            else -> name.toLowerCase().compareTo(other.name.toLowerCase())
+            else -> if (name.first().isLetter() && !other.name.first().isLetter()) {
+                -1
+            } else if (!name.first().isLetter() && other.name.first().isLetter()) {
+                1
+            } else {
+                name.toLowerCase().compareTo(other.name.toLowerCase())
+            }
         }
 
         if (sorting and SORT_DESCENDING != 0) {

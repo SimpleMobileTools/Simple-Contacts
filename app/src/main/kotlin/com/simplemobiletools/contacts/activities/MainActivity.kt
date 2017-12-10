@@ -64,6 +64,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         }
 
         contacts_fastscroller.updateBubbleColors()
+        contacts_fastscroller.allowBubbleDisplay = config.showInfoBubble
         updateTextColors(contacts_holder)
     }
 
@@ -127,7 +128,6 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
                 contacts_list.adapter = this
             }
 
-            contacts_fastscroller.allowBubbleDisplay = config.showInfoBubble
             contacts_fastscroller.setViews(contacts_list) {
                 val item = contacts.getOrNull(it)
                 contacts_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
