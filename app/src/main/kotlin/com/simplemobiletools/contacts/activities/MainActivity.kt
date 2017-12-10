@@ -16,7 +16,7 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 
 class MainActivity : SimpleActivity() {
-    var storedUseEnglish = false
+    private var storedUseEnglish = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
