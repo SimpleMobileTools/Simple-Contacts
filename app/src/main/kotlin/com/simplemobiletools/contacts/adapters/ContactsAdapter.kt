@@ -5,6 +5,9 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
@@ -89,6 +92,17 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
             contact_name.setTextColor(textColor)
             contact_number.text = contact.number
             contact_number.setTextColor(textColor)
+
+            if (contact.photoUri.isNotEmpty()) {
+                val options = RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .error(contactDrawable)
+                        .centerCrop()
+
+                Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+            } else {
+                contact_tmb.setImageDrawable(contactDrawable)
+            }
         }
     }
 }
