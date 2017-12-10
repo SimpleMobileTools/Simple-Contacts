@@ -3,7 +3,7 @@ package com.simplemobiletools.contacts.models
 import com.simplemobiletools.commons.helpers.SORT_BY_NUMBER
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 
-data class Contact(val id: Int, var name: String, var number: String, var photoUri: String) : Comparable<Contact> {
+data class Contact(val id: Int, var name: String, var number: String, var photoUri: String, var email: String) : Comparable<Contact> {
     companion object {
         var sorting: Int = 0
     }

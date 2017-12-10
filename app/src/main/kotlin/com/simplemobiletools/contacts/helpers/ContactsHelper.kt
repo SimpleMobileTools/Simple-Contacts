@@ -13,13 +13,7 @@ class ContactsHelper(val activity: SimpleActivity) {
         val contacts = ArrayList<Contact>()
         Thread {
             val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
-            val projection = arrayOf(
-                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
-                    ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-                    ContactsContract.CommonDataKinds.Phone.NUMBER,
-                    ContactsContract.CommonDataKinds.Phone.PHOTO_URI
-            )
-
+            val projection = getContactProjection()
             var cursor: Cursor? = null
             try {
                 cursor = activity.contentResolver.query(uri, projection, null, null, null)
@@ -27,9 +21,9 @@ class ContactsHelper(val activity: SimpleActivity) {
                     do {
                         val id = cursor.getIntValue(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)
                         val name = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME) ?: continue
-                        val number = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.NUMBER) ?: continue
+                        val number = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.NUMBER) ?: ""
                         val photoUri = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.PHOTO_URI) ?: ""
-                        val contact = Contact(id, name, number, photoUri)
+                        val contact = Contact(id, name, number, photoUri, "")
                         contacts.add(contact)
                     } while (cursor.moveToNext())
                 }
@@ -41,4 +35,36 @@ class ContactsHelper(val activity: SimpleActivity) {
             callback(contacts)
         }.start()
     }
+
+    fun getContactWithId(id: Int): Contact? {
+        if (id == 0) {
+            return null
+        }
+
+        val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+        val projection = getContactProjection()
+        val selection = "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(id.toString())
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                val name = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME) ?: return null
+                val number = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.NUMBER) ?: ""
+                val photoUri = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.PHOTO_URI) ?: ""
+                return Contact(id, name, number, photoUri, "")
+            }
+        } finally {
+            cursor?.close()
+        }
+
+        return null
+    }
+
+    private fun getContactProjection() = arrayOf(
+            ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
+            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+            ContactsContract.CommonDataKinds.Phone.NUMBER,
+            ContactsContract.CommonDataKinds.Phone.PHOTO_URI
+    )
 }
