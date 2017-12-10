@@ -13,6 +13,7 @@ import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.helpers.ContactsHelper
 
 class MainActivity : SimpleActivity() {
     var storedUseEnglish = false
@@ -68,6 +69,8 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun initContacts() {
+        ContactsHelper(this).getContacts {
 
+        }
     }
 }
