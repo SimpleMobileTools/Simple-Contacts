@@ -7,6 +7,7 @@ import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.appLaunched
 import com.simplemobiletools.commons.extensions.restartActivity
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
@@ -22,6 +23,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
     private var storedUseEnglish = false
+    private var storedTextColor = 0
+    private var storedBackgroundColor = 0
+    private var storedPrimaryColor = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +51,20 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
             restartActivity()
             return
         }
+
+        if (storedTextColor != config.textColor) {
+            (contacts_list.adapter as ContactsAdapter).apply {
+                updateTextColor(config.textColor)
+                initDrawables()
+            }
+        }
+
+        if (storedPrimaryColor != config.primaryColor) {
+            contacts_fastscroller.updatePrimaryColor()
+        }
+
+        contacts_fastscroller.updateBubbleColors()
+        updateTextColors(contacts_holder)
     }
 
     override fun onPause() {
@@ -80,7 +98,12 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
     }
 
     private fun storeStateVariables() {
-        storedUseEnglish = config.useEnglish
+        config.apply {
+            storedUseEnglish = useEnglish
+            storedTextColor = textColor
+            storedBackgroundColor = backgroundColor
+            storedPrimaryColor = primaryColor
+        }
     }
 
     private fun initContacts() {
