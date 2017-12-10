@@ -14,6 +14,7 @@ import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
+import com.simplemobiletools.contacts.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
@@ -36,6 +37,8 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
                 finish()
             }
         }
+
+        storeStateVariables()
     }
 
     override fun onResume() {
@@ -58,6 +61,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.sort -> showSortingDialog()
             R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
             R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
@@ -65,12 +69,18 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         return true
     }
 
-    private fun storeStateVariables() {
-        storedUseEnglish = config.useEnglish
+    private fun showSortingDialog() {
+        ChangeSortingDialog(this) {
+            initContacts()
+        }
     }
 
     private fun launchAbout() {
         startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT, BuildConfig.VERSION_NAME)
+    }
+
+    private fun storeStateVariables() {
+        storedUseEnglish = config.useEnglish
     }
 
     private fun initContacts() {
@@ -113,6 +123,6 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
     }
 
     override fun refreshItems() {
-
+        initContacts()
     }
 }
