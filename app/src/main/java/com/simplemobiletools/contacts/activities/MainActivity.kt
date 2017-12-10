@@ -6,8 +6,10 @@ import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.appLaunched
 import com.simplemobiletools.commons.extensions.restartActivity
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
+import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
@@ -19,6 +21,15 @@ class MainActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched()
+
+        handlePermission(PERMISSION_WRITE_CONTACTS) {
+            if (it) {
+                initContacts()
+            } else {
+                toast(R.string.no_contacts_permission)
+                finish()
+            }
+        }
     }
 
     override fun onResume() {
@@ -54,5 +65,9 @@ class MainActivity : SimpleActivity() {
 
     private fun launchAbout() {
         startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT, BuildConfig.VERSION_NAME)
+    }
+
+    private fun initContacts() {
+
     }
 }
