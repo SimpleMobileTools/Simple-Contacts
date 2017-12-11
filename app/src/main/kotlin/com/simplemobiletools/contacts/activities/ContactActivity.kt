@@ -62,6 +62,8 @@ class ContactActivity : SimpleActivity() {
             setupEditContact()
         }
 
+        contact_send_sms.beVisibleIf(contact!!.number.isNotEmpty())
+        contact_start_call.beVisibleIf(contact!!.number.isNotEmpty())
         contact_send_email.beVisibleIf(contact!!.email.isNotEmpty())
 
         contact_photo.background = ColorDrawable(config.primaryColor)
