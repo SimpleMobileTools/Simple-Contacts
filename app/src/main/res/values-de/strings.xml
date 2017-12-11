@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Schlichte Kontakte</string>
+    <string name="app_launcher_name">Kontakte</string>
+    <string name="number">Nummer</string>
+
+    <string name="new_contact">Neuer Kontakt</string>
+    <string name="edit_contact">Kontakt bearbeiten</string>
+    <string name="email">Email</string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
