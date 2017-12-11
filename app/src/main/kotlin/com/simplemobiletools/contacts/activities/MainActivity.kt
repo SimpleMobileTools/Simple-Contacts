@@ -17,6 +17,7 @@ import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.startCallIntent
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
@@ -122,7 +123,11 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         val currAdapter = contacts_list.adapter
         if (currAdapter == null) {
             ContactsAdapter(this, contacts, this, contacts_list) {
-                itemClicked(it as Contact)
+                if (config.callContact) {
+                    startCallIntent((it as Contact).number)
+                } else {
+                    itemClicked(it as Contact)
+                }
             }.apply {
                 setupDragListener(true)
                 addVerticalDividers(true)

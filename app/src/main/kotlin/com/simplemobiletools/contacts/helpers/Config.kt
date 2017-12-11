@@ -12,4 +12,8 @@ class Config(context: Context) : BaseConfig(context) {
     var sorting: Int
         get() = prefs.getInt(SORTING, SORT_BY_NAME)
         set(sorting) = prefs.edit().putInt(SORTING, sorting).apply()
+
+    var callContact: Boolean
+        get() = prefs.getBoolean(CALL_CONTACT_ON_CLICK, false)
+        set(callContact) = prefs.edit().putBoolean(CALL_CONTACT_ON_CLICK, callContact).apply()
 }

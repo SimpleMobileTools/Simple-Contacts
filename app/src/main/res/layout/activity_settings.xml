@@ -69,5 +69,25 @@
                 android:text="@string/show_info_bubble"/>
 
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/settings_call_contact_on_click_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_margin">
+
+            <com.simplemobiletools.commons.views.MySwitchCompat
+                android:id="@+id/settings_call_contact_on_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:paddingLeft="@dimen/medium_margin"
+                android:paddingStart="@dimen/medium_margin"
+                android:text="@string/call_contact_on_click"/>
+
+        </RelativeLayout>
     </LinearLayout>
 </ScrollView>

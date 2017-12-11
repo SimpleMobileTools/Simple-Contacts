@@ -21,6 +21,7 @@ class SettingsActivity : SimpleActivity() {
         setupCustomizeColors()
         setupUseEnglish()
         setupShowInfoBubble()
+        setupCallContactOnClick()
         updateTextColors(settings_holder)
     }
 
@@ -45,6 +46,14 @@ class SettingsActivity : SimpleActivity() {
         settings_show_info_bubble_holder.setOnClickListener {
             settings_show_info_bubble.toggle()
             config.showInfoBubble = settings_show_info_bubble.isChecked
+        }
+    }
+
+    private fun setupCallContactOnClick() {
+        settings_call_contact_on_click.isChecked = config.callContact
+        settings_call_contact_on_click_holder.setOnClickListener {
+            settings_call_contact_on_click.toggle()
+            config.callContact = settings_call_contact_on_click.isChecked
         }
     }
 }
