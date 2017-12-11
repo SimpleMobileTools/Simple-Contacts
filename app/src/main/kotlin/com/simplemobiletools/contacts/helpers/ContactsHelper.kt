@@ -40,6 +40,24 @@ class ContactsHelper(val activity: SimpleActivity) {
         }.start()
     }
 
+    fun getContactEmail(id: Int): String {
+        val uri = ContactsContract.CommonDataKinds.Email.CONTENT_URI
+        val projection = arrayOf(ContactsContract.CommonDataKinds.Email.DATA)
+        val selection = "${ContactsContract.CommonDataKinds.Email.CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(id.toString())
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                return cursor.getStringValue(ContactsContract.CommonDataKinds.Email.DATA)
+            }
+        } finally {
+            cursor?.close()
+        }
+
+        return ""
+    }
+
     fun getContactWithId(id: Int): Contact? {
         if (id == 0) {
             return null
@@ -56,7 +74,8 @@ class ContactsHelper(val activity: SimpleActivity) {
                 val name = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME) ?: return null
                 val number = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.NUMBER) ?: ""
                 val photoUri = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.PHOTO_URI) ?: ""
-                return Contact(id, name, number, photoUri, "")
+                val email = getContactEmail(id)
+                return Contact(id, name, number, photoUri, email)
             }
         } finally {
             cursor?.close()
