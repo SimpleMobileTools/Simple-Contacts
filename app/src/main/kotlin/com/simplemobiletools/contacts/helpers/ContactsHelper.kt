@@ -13,7 +13,7 @@ import com.simplemobiletools.contacts.models.Contact
 
 class ContactsHelper(val activity: SimpleActivity) {
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
-        val contacts = ArrayList<Contact>()
+        val contacts = HashMap<Int, Contact>()
         Thread {
             val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
             val projection = getContactProjection()
@@ -28,7 +28,7 @@ class ContactsHelper(val activity: SimpleActivity) {
                         val number = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.NUMBER) ?: ""
                         val photoUri = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.PHOTO_URI) ?: ""
                         val contact = Contact(id, name, number, photoUri, "")
-                        contacts.add(contact)
+                        contacts.put(id, contact)
                     } while (cursor.moveToNext())
                 }
             } catch (e: Exception) {
@@ -36,8 +36,35 @@ class ContactsHelper(val activity: SimpleActivity) {
             } finally {
                 cursor?.close()
             }
-            callback(contacts)
+
+            getEmails().forEach {
+                if (contacts.containsKey(it.first)) {
+                    contacts[it.first]!!.email = it.second
+                }
+            }
+
+            callback(ArrayList(contacts.values))
         }.start()
+    }
+
+    private fun getEmails(): ArrayList<Pair<Int, String>> {
+        val pairs = ArrayList<Pair<Int, String>>()
+        val uri = ContactsContract.CommonDataKinds.Email.CONTENT_URI
+        val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.CONTACT_ID, ContactsContract.CommonDataKinds.Email.DATA)
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, null, null, null)
+            if (cursor?.moveToFirst() == true) {
+                do {
+                    val id = cursor.getIntValue(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)
+                    val email = cursor.getStringValue(ContactsContract.CommonDataKinds.Email.DATA)
+                    pairs.add(Pair(id, email))
+                } while (cursor.moveToNext())
+            }
+        } finally {
+            cursor?.close()
+        }
+        return pairs
     }
 
     fun getContactEmail(id: Int): String {
