@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Simple Contacts</string>
-    <string name="app_launcher_name">Contacts</string>
-    <string name="number">Number</string>
+    <string name="app_name">Schlichte Kontakte</string>
+    <string name="app_launcher_name">Kontakte</string>
+    <string name="number">Nummer</string>
 
-    <string name="new_contact">New contact</string>
-    <string name="edit_contact">Edit contact</string>
+    <string name="new_contact">Neuer Kontakt</string>
+    <string name="edit_contact">Kontakt bearbeiten</string>
     <string name="email">Email</string>
 
     <!--
