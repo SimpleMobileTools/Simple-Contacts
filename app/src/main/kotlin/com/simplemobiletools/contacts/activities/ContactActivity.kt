@@ -1,10 +1,19 @@
 package com.simplemobiletools.contacts.activities
 
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.contacts.R
@@ -53,8 +62,28 @@ class ContactActivity : SimpleActivity() {
 
         contact_send_email.beVisibleIf(contact!!.email.isNotEmpty())
 
-        contact_photo.applyColorFilter(config.primaryColor.getContrastColor())
         contact_photo.background = ColorDrawable(config.primaryColor)
+
+        if (contact!!.photoUri.isEmpty()) {
+            applyPhotoPlaceholder()
+        } else {
+            val options = RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .centerCrop()
+
+            Glide.with(this)
+                    .load(contact!!.photoUri)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .apply(options)
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean) = false
+
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                            applyPhotoPlaceholder()
+                            return true
+                        }
+                    }).into(contact_photo)
+        }
 
         val textColor = config.textColor
         contact_send_sms.applyColorFilter(textColor)
@@ -104,6 +133,13 @@ class ContactActivity : SimpleActivity() {
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
+    }
+
+    private fun applyPhotoPlaceholder() {
+        val placeholder = resources.getColoredBitmap(R.drawable.ic_person, config.primaryColor.getContrastColor())
+        val padding = resources.getDimension(R.dimen.activity_margin).toInt()
+        contact_photo.setPadding(padding, padding, padding, padding)
+        contact_photo.setImageBitmap(placeholder)
     }
 
     private fun saveContact() {

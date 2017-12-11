@@ -14,9 +14,7 @@
         <ImageView
             android:id="@+id/contact_photo"
             android:layout_width="@dimen/contact_photo_size"
-            android:layout_height="@dimen/contact_photo_size"
-            android:padding="@dimen/activity_margin"
-            android:src="@drawable/ic_person"/>
+            android:layout_height="@dimen/contact_photo_size"/>
 
         <ImageView
             android:id="@+id/contact_send_sms"
