@@ -17,8 +17,8 @@ import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.openContact
 import com.simplemobiletools.contacts.extensions.startCallIntent
-import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
@@ -126,7 +126,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
                 if (config.callContact) {
                     startCallIntent((it as Contact).number)
                 } else {
-                    itemClicked(it as Contact)
+                    openContact(it as Contact)
                 }
             }.apply {
                 setupDragListener(true)
@@ -140,13 +140,6 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
             }
         } else {
             (currAdapter as ContactsAdapter).updateItems(contacts)
-        }
-    }
-
-    private fun itemClicked(contact: Contact) {
-        Intent(applicationContext, ContactActivity::class.java).apply {
-            putExtra(CONTACT_ID, contact.id)
-            startActivity(this)
         }
     }
 

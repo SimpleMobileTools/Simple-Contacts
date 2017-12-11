@@ -16,6 +16,8 @@ import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
+import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.openContact
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.item_contact.view.*
 
@@ -30,7 +32,11 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
 
     override fun getActionMenuId() = R.menu.cab
 
-    override fun prepareActionMode(menu: Menu) {}
+    override fun prepareActionMode(menu: Menu) {
+        menu.apply {
+            findItem(R.id.cab_edit).isVisible = activity.config.callContact && isOneItemSelected()
+        }
+    }
 
     override fun prepareItemSelection(view: View) {}
 
@@ -40,6 +46,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
 
     override fun actionItemPressed(id: Int) {
         when (id) {
+            R.id.cab_edit -> editContact()
             R.id.cab_select_all -> selectAll()
             R.id.cab_delete -> askConfirmDelete()
         }
@@ -66,6 +73,11 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     fun updateItems(newItems: MutableList<Contact>) {
         contactItems = newItems
         notifyDataSetChanged()
+        finishActMode()
+    }
+
+    private fun editContact() {
+        activity.openContact(contactItems[selectedPositions.first()])
         finishActMode()
     }
 
