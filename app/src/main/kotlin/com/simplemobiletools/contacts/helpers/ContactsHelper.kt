@@ -5,7 +5,10 @@ import android.provider.ContactsContract
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.getStringValue
 import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.commons.helpers.SORT_BY_NAME
+import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.activities.SimpleActivity
+import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.models.Contact
 
 class ContactsHelper(val activity: SimpleActivity) {
@@ -14,9 +17,10 @@ class ContactsHelper(val activity: SimpleActivity) {
         Thread {
             val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
             val projection = getContactProjection()
+            val sortOrder = getSortString()
             var cursor: Cursor? = null
             try {
-                cursor = activity.contentResolver.query(uri, projection, null, null, null)
+                cursor = activity.contentResolver.query(uri, projection, null, null, sortOrder)
                 if (cursor?.moveToFirst() == true) {
                     do {
                         val id = cursor.getIntValue(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)
@@ -67,4 +71,17 @@ class ContactsHelper(val activity: SimpleActivity) {
             ContactsContract.CommonDataKinds.Phone.NUMBER,
             ContactsContract.CommonDataKinds.Phone.PHOTO_URI
     )
+
+    private fun getSortString(): String {
+        val sorting = activity.config.sorting
+        var sort = when {
+            sorting and SORT_BY_NAME != 0 -> "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} COLLATE NOCASE"
+            else -> ContactsContract.CommonDataKinds.Phone.NUMBER
+        }
+
+        if (sorting and SORT_DESCENDING != 0) {
+            sort += " DESC"
+        }
+        return sort
+    }
 }
