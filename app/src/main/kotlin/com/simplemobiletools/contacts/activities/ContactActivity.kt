@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
-import com.simplemobiletools.commons.extensions.applyColorFilter
-import com.simplemobiletools.commons.extensions.getContrastColor
-import com.simplemobiletools.commons.extensions.toast
-import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.sendEmail
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
@@ -47,11 +45,13 @@ class ContactActivity : SimpleActivity() {
             }
         }
 
-        if (contact != null) {
-            setupEditContact()
-        } else {
+        if (contact == null) {
             setupNewContact()
+        } else {
+            setupEditContact()
         }
+
+        contact_send_email.beVisibleIf(contact!!.email.isNotEmpty())
 
         contact_photo.applyColorFilter(config.primaryColor.getContrastColor())
         contact_photo.background = ColorDrawable(config.primaryColor)
@@ -67,7 +67,9 @@ class ContactActivity : SimpleActivity() {
         contact_photo.setOnClickListener { }
         contact_send_sms.setOnClickListener { }
         contact_start_call.setOnClickListener { }
-        contact_email.setOnClickListener { }
+        contact_send_email.setOnClickListener {
+            sendEmail(contact!!.email)
+        }
 
         updateTextColors(contact_scrollview)
         wasActivityInitialized = true
