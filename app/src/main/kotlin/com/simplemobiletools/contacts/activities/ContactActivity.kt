@@ -18,7 +18,8 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.sendEmail
+import com.simplemobiletools.contacts.extensions.sendEmailIntent
+import com.simplemobiletools.contacts.extensions.sendSMSIntent
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
@@ -94,10 +95,12 @@ class ContactActivity : SimpleActivity() {
         contact_email_image.applyColorFilter(textColor)
 
         contact_photo.setOnClickListener { }
-        contact_send_sms.setOnClickListener { }
+        contact_send_sms.setOnClickListener {
+            sendSMSIntent(contact!!.number)
+        }
         contact_start_call.setOnClickListener { }
         contact_send_email.setOnClickListener {
-            sendEmail(contact!!.email)
+            sendEmailIntent(contact!!.email)
         }
 
         updateTextColors(contact_scrollview)

@@ -9,8 +9,20 @@ import com.simplemobiletools.contacts.helpers.Config
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
 
-fun Context.sendEmail(recipient: String) {
-    Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", recipient, null)).apply {
+fun Context.sendEmailIntent(recipient: String) {
+    Intent(Intent.ACTION_SENDTO).apply {
+        data = Uri.fromParts("mailto", recipient, null)
+        if (resolveActivity(packageManager) != null) {
+            startActivity(this)
+        } else {
+            toast(R.string.no_app_found)
+        }
+    }
+}
+
+fun Context.sendSMSIntent(recipient: String) {
+    Intent(Intent.ACTION_SENDTO).apply {
+        data = Uri.fromParts("smsto", recipient, null)
         if (resolveActivity(packageManager) != null) {
             startActivity(this)
         } else {
