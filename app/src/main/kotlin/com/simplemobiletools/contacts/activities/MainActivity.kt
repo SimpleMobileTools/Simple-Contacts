@@ -10,6 +10,7 @@ import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
+import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.contacts.BuildConfig
@@ -36,9 +37,16 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         appLaunched()
         contacts_fab.setOnClickListener { addNewContact() }
 
-        handlePermission(PERMISSION_WRITE_CONTACTS) {
+        handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {
-                initContacts()
+                handlePermission(PERMISSION_WRITE_CONTACTS) {
+                    if (it) {
+                        initContacts()
+                    } else {
+                        toast(R.string.no_contacts_permission)
+                        finish()
+                    }
+                }
             } else {
                 toast(R.string.no_contacts_permission)
                 finish()

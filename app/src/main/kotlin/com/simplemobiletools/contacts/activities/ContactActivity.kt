@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
@@ -35,9 +36,16 @@ class ContactActivity : SimpleActivity() {
         setContentView(R.layout.activity_contact)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross)
 
-        handlePermission(PERMISSION_WRITE_CONTACTS) {
+        handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {
-                initContact()
+                handlePermission(PERMISSION_WRITE_CONTACTS) {
+                    if (it) {
+                        initContact()
+                    } else {
+                        toast(R.string.no_contacts_permission)
+                        finish()
+                    }
+                }
             } else {
                 toast(R.string.no_contacts_permission)
                 finish()
