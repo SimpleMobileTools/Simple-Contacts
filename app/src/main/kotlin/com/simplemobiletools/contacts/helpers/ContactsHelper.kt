@@ -30,7 +30,8 @@ class ContactsHelper(val activity: SimpleActivity) {
                 cursor?.close()
             }
 
-            callback(ArrayList<String>(accounts))
+            val sourcesWithContacts = ArrayList(accounts).filter { doesSourceContainContacts(it) } as ArrayList
+            callback(sourcesWithContacts)
         }.start()
     }
 
@@ -49,7 +50,9 @@ class ContactsHelper(val activity: SimpleActivity) {
                         val name = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME) ?: continue
                         val number = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.NUMBER) ?: ""
                         val photoUri = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.PHOTO_URI) ?: ""
-                        val contact = Contact(id, name, number, photoUri, "")
+                        val email = ""  // proper value is obtained below
+                        val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
+                        val contact = Contact(id, name, number, photoUri, email, accountName)
                         contacts.put(id, contact)
                     } while (cursor.moveToNext())
                 }
@@ -67,6 +70,20 @@ class ContactsHelper(val activity: SimpleActivity) {
 
             callback(ArrayList(contacts.values))
         }.start()
+    }
+
+    fun doesSourceContainContacts(source: String): Boolean {
+        val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+        val projection = arrayOf(ContactsContract.CommonDataKinds.Email.CONTACT_ID)
+        val selection = "${ContactsContract.RawContacts.ACCOUNT_NAME} = ?"
+        val selectionArgs = arrayOf(source)
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            return (cursor?.moveToFirst() == true)
+        } finally {
+            cursor?.close()
+        }
     }
 
     private fun getEmails(): ArrayList<Pair<Int, String>> {
@@ -124,7 +141,7 @@ class ContactsHelper(val activity: SimpleActivity) {
                 val number = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.NUMBER) ?: ""
                 val photoUri = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.PHOTO_URI) ?: ""
                 val email = getContactEmail(id)
-                return Contact(id, name, number, photoUri, email)
+                return Contact(id, name, number, photoUri, email, "")
             }
         } finally {
             cursor?.close()
@@ -137,7 +154,8 @@ class ContactsHelper(val activity: SimpleActivity) {
             ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
             ContactsContract.CommonDataKinds.Phone.NUMBER,
-            ContactsContract.CommonDataKinds.Phone.PHOTO_URI
+            ContactsContract.CommonDataKinds.Phone.PHOTO_URI,
+            ContactsContract.RawContacts.ACCOUNT_NAME
     )
 
     private fun getSortString(): String {
