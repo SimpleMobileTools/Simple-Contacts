@@ -10,6 +10,7 @@ import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.models.Contact
+import com.simplemobiletools.contacts.overloads.times
 import java.util.*
 
 class ContactsHelper(val activity: SimpleActivity) {
@@ -38,12 +39,16 @@ class ContactsHelper(val activity: SimpleActivity) {
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
         val contacts = HashMap<Int, Contact>()
         Thread {
+            val sources = activity.config.displayContactSources
+            val questionMarks = ("?," * sources.size).trimEnd(',')
             val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
             val projection = getContactProjection()
+            val selection = if (activity.config.showAllContacts()) null else "${ContactsContract.RawContacts.ACCOUNT_NAME} IN ($questionMarks)"
+            val selectionArgs = if (activity.config.showAllContacts()) null else sources.toTypedArray()
             val sortOrder = getSortString()
             var cursor: Cursor? = null
             try {
-                cursor = activity.contentResolver.query(uri, projection, null, null, sortOrder)
+                cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, sortOrder)
                 if (cursor?.moveToFirst() == true) {
                     do {
                         val id = cursor.getIntValue(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)

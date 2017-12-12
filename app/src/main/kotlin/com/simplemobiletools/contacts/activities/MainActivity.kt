@@ -151,7 +151,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
             }
 
             contacts_fastscroller.setViews(contacts_list) {
-                val item = contacts.getOrNull(it)
+                val item = (contacts_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
                 contacts_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
             }
         } else {
