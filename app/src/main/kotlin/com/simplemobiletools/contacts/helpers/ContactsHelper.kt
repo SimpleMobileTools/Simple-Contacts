@@ -10,8 +10,30 @@ import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.models.Contact
+import java.util.*
 
 class ContactsHelper(val activity: SimpleActivity) {
+    fun getContactSources(callback: (ArrayList<String>) -> Unit) {
+        val accounts = HashSet<String>()
+        Thread {
+            val uri = ContactsContract.RawContacts.CONTENT_URI
+            val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_NAME)
+            var cursor: Cursor? = null
+            try {
+                cursor = activity.contentResolver.query(uri, projection, null, null, null)
+                if (cursor?.moveToFirst() == true) {
+                    do {
+                        accounts.add(cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME))
+                    } while (cursor.moveToNext())
+                }
+            } finally {
+                cursor?.close()
+            }
+
+            callback(ArrayList<String>(accounts))
+        }.start()
+    }
+
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
         val contacts = HashMap<Int, Contact>()
         Thread {

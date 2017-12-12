@@ -16,6 +16,7 @@ import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.dialogs.ChangeSortingDialog
+import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.openContact
 import com.simplemobiletools.contacts.extensions.startCallIntent
@@ -83,6 +84,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.sort -> showSortingDialog()
+            R.id.filter -> showFilterDialog()
             R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
             R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
@@ -92,6 +94,12 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
+            initContacts()
+        }
+    }
+
+    private fun showFilterDialog() {
+        FilterContactSourcesDialog(this) {
             initContacts()
         }
     }

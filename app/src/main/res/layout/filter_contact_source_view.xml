@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/filter_contact_source_holder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:padding="@dimen/normal_margin">
+
+    <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+        android:id="@+id/filter_contact_source_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/medium_margin"
+        android:clickable="false"
+        android:paddingLeft="@dimen/small_margin"/>
+
+</RelativeLayout>

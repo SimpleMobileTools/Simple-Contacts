@@ -16,4 +16,8 @@ class Config(context: Context) : BaseConfig(context) {
     var callContact: Boolean
         get() = prefs.getBoolean(CALL_CONTACT_ON_CLICK, false)
         set(callContact) = prefs.edit().putBoolean(CALL_CONTACT_ON_CLICK, callContact).apply()
+
+    var displayContactSources: Set<String>
+        get() = prefs.getStringSet(DISPLAY_CONTACT_SOURCES, hashSetOf("-1"))
+        set(displayContactSources) = prefs.edit().remove(DISPLAY_CONTACT_SOURCES).putStringSet(DISPLAY_CONTACT_SOURCES, displayContactSources).apply()
 }
