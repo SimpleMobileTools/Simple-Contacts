@@ -19,6 +19,7 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.R.string.email
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.sendEmailIntent
 import com.simplemobiletools.contacts.extensions.sendSMSIntent
@@ -26,6 +27,7 @@ import com.simplemobiletools.contacts.extensions.startCallIntent
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
+import com.simplemobiletools.contacts.models.Emails
 import kotlinx.android.synthetic.main.activity_contact.*
 
 class ContactActivity : SimpleActivity() {
@@ -73,7 +75,7 @@ class ContactActivity : SimpleActivity() {
 
         contact_send_sms.beVisibleIf(contact!!.number.isNotEmpty())
         contact_start_call.beVisibleIf(contact!!.number.isNotEmpty())
-        contact_send_email.beVisibleIf(contact!!.email.isNotEmpty())
+        //contact_send_email.beVisibleIf(contact!!.email.isNotEmpty())
 
         contact_photo.background = ColorDrawable(config.primaryColor)
 
@@ -110,7 +112,7 @@ class ContactActivity : SimpleActivity() {
         contact_photo.setOnClickListener { }
         contact_send_sms.setOnClickListener { sendSMSIntent(contact!!.number) }
         contact_start_call.setOnClickListener { startCallIntent(contact!!.number) }
-        contact_send_email.setOnClickListener { sendEmailIntent(contact!!.email) }
+        //contact_send_email.setOnClickListener { sendEmailIntent(contact!!.email) }
         contact_source.setOnClickListener { showAccountSourcePicker() }
 
         updateTextColors(contact_scrollview)
@@ -142,14 +144,14 @@ class ContactActivity : SimpleActivity() {
         contact_middle_name.setText(contact!!.middleName)
         contact_surname.setText(contact!!.surname)
         contact_number.setText(contact!!.number)
-        contact_email.setText(contact!!.email)
+        //contact_email.setText(contact!!.email)
         contact_source.text = contact!!.source
     }
 
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        contact = Contact(0, "", "", "", "", "", "", "")
+        contact = Contact(0, "", "", "", "", "", Emails(), "")
     }
 
     private fun applyPhotoPlaceholder() {
@@ -165,7 +167,7 @@ class ContactActivity : SimpleActivity() {
             middleName = contact_middle_name.value
             surname = contact_surname.value
             number = contact_number.value
-            email = contact_email.value
+            //email = contact_email.value
 
             if (ContactsHelper(this@ContactActivity).updateContact(this)) {
                 finish()
