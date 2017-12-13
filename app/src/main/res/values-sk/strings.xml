@@ -6,6 +6,11 @@
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
     <string name="email">Email</string>
+    <string name="first_name">Krstné meno</string>
+    <string name="middle_name">Stredné meno</string>
+    <string name="surname">Priezvisko</string>
+    <string name="take_photo">Vytvoriť foto</string>
+    <string name="choose_photo">Zvoliť foto</string>
 
     <!-- Settings -->
     <string name="call_contact_on_click">Zavolať kontaktu po kliknutí</string>

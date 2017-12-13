@@ -6,6 +6,11 @@
     <string name="new_contact">New contact</string>
     <string name="edit_contact">Edit contact</string>
     <string name="email">Email</string>
+    <string name="first_name">First name</string>
+    <string name="middle_name">Middle name</string>
+    <string name="surname">Surname</string>
+    <string name="take_photo">Take photo</string>
+    <string name="choose_photo">Choose photo</string>
 
     <!-- Settings -->
     <string name="call_contact_on_click">Call contact on click</string>
