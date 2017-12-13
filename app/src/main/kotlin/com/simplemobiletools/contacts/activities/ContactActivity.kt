@@ -160,7 +160,17 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun saveContact() {
+        contact!!.apply {
+            firstName = contact_first_name.value
+            middleName = contact_middle_name.value
+            surname = contact_surname.value
+            number = contact_number.value
+            email = contact_email.value
 
+            if (ContactsHelper(this@ContactActivity).updateContact(this)) {
+                finish()
+            }
+        }
     }
 
     private fun deleteContact() {

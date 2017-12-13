@@ -244,6 +244,27 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return sort
     }
 
+    fun updateContact(contact: Contact): Boolean {
+        return try {
+            val operations = ArrayList<ContentProviderOperation>()
+            ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
+                val selectionArgs = arrayOf(contact.id.toString(), ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                withSelection(selection, selectionArgs)
+                withValue(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, contact.firstName)
+                withValue(ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME, contact.middleName)
+                withValue(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME, contact.surname)
+                operations.add(this.build())
+            }
+
+            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            true
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+            false
+        }
+    }
+
     fun deleteContact(contact: Contact) = deleteContacts(arrayListOf(contact))
 
     fun deleteContacts(contacts: ArrayList<Contact>) {
