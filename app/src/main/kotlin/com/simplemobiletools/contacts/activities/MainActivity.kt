@@ -1,13 +1,11 @@
 package com.simplemobiletools.contacts.activities
 
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.simplemobiletools.commons.extensions.appLaunched
-import com.simplemobiletools.commons.extensions.restartActivity
-import com.simplemobiletools.commons.extensions.toast
-import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
@@ -77,6 +75,12 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         contacts_fastscroller.updateBubbleColors()
         contacts_fastscroller.allowBubbleDisplay = config.showInfoBubble
         updateTextColors(contacts_holder)
+
+        contacts_placeholder_2.paintFlags = contacts_placeholder_2.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        contacts_placeholder_2.setTextColor(config.primaryColor)
+        contacts_placeholder_2.setOnClickListener {
+            showFilterDialog()
+        }
     }
 
     override fun onPause() {
@@ -136,6 +140,9 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
     }
 
     private fun setupContacts(contacts: ArrayList<Contact>) {
+        contacts_placeholder_2.beVisibleIf(contacts.isEmpty())
+        contacts_placeholder.beVisibleIf(contacts.isEmpty())
+
         val currAdapter = contacts_list.adapter
         if (currAdapter == null) {
             ContactsAdapter(this, contacts, this, contacts_list) {
