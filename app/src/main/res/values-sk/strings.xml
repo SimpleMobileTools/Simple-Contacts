@@ -14,6 +14,7 @@
 
     <!-- Settings -->
     <string name="call_contact_on_click">Zavolať kontaktu po kliknutí</string>
+    <string name="start_name_with_surname">Začať meno priezviskom</string>
 
     <!--
         Haven't found some strings? There's more at
