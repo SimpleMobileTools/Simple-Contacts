@@ -18,20 +18,20 @@
     <string name="start_name_with_surname">Namen mit Vornamen beginnen</string>
 
     <!-- Email types -->
-    <string name="home">Home</string>
-    <string name="work">Work</string>
-    <string name="other">Other</string>
+    <string name="home">Privat</string>
+    <string name="work">Arbeit</string>
+    <string name="other">Sonstiges</string>
 
     <!-- Phone number types -->
-    <string name="mobile">Mobile</string>
-    <string name="main_number">Main</string>
-    <string name="work_fax">Work Fax</string>
-    <string name="home_fax">Home Fax</string>
+    <string name="mobile">Mobil</string>
+    <string name="main_number">Festnetz</string>
+    <string name="work_fax">Arbeit Fax</string>
+    <string name="home_fax">Privat Fax</string>
     <string name="pager">Pager</string>
 
     <!-- Events -->
-    <string name="birthday">Birthday</string>
-    <string name="anniversary">Anniversary</string>
+    <string name="birthday">Geburtstag</string>
+    <string name="anniversary">Jahrestag</string>
 
     <!--
         Haven't found some strings? There's more at
