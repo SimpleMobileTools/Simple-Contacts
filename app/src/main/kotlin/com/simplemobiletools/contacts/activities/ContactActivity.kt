@@ -104,11 +104,13 @@ class ContactActivity : SimpleActivity() {
         contact_name_image.applyColorFilter(textColor)
         contact_number_image.applyColorFilter(textColor)
         contact_email_image.applyColorFilter(textColor)
+        contact_source_image.applyColorFilter(textColor)
 
         contact_photo.setOnClickListener { }
         contact_send_sms.setOnClickListener { sendSMSIntent(contact!!.number) }
         contact_start_call.setOnClickListener { startCallIntent(contact!!.number) }
         contact_send_email.setOnClickListener { sendEmailIntent(contact!!.email) }
+        contact_source.setOnClickListener { showAccountSourcePicker() }
 
         updateTextColors(contact_scrollview)
         wasActivityInitialized = true
@@ -140,6 +142,7 @@ class ContactActivity : SimpleActivity() {
         contact_surname.setText(contact!!.surname)
         contact_number.setText(contact!!.number)
         contact_email.setText(contact!!.email)
+        contact_source.text = contact!!.source
     }
 
     private fun setupNewContact() {
@@ -160,6 +163,10 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun deleteContact() {
+
+    }
+
+    private fun showAccountSourcePicker() {
 
     }
 }
