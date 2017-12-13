@@ -24,10 +24,13 @@ import kotlinx.android.synthetic.main.item_contact.view.*
 class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Contact>, val listener: RefreshRecyclerViewListener?,
                       recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, itemClick) {
 
+    var config = activity.config
     lateinit private var contactDrawable: Drawable
+    var startNameWithSurname: Boolean
 
     init {
         initDrawables()
+        startNameWithSurname = config.startNameWithSurname
     }
 
     override fun getActionMenuId() = R.menu.cab
@@ -100,7 +103,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
 
     private fun setupView(view: View, contact: Contact) {
         view.apply {
-            contact_first_name.text = contact.getFullName()
+            contact_first_name.text = contact.getFullName(startNameWithSurname)
             contact_first_name.setTextColor(textColor)
             contact_number.text = contact.number
             contact_number.setTextColor(textColor)

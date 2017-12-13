@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
-import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
@@ -28,6 +25,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
     private var storedTextColor = 0
     private var storedBackgroundColor = 0
     private var storedPrimaryColor = 0
+    private var storedStartNameWithSurname = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +68,14 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
 
         if (storedPrimaryColor != config.primaryColor) {
             contacts_fastscroller.updatePrimaryColor()
+        }
+
+        if (storedStartNameWithSurname != config.startNameWithSurname) {
+            (contacts_list.adapter as ContactsAdapter).apply {
+                startNameWithSurname = config.startNameWithSurname
+                config.sorting = if (config.startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
+                initContacts()
+            }
         }
 
         contacts_fastscroller.updateBubbleColors()
@@ -126,6 +132,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
             storedTextColor = textColor
             storedBackgroundColor = backgroundColor
             storedPrimaryColor = primaryColor
+            storedStartNameWithSurname = startNameWithSurname
         }
     }
 

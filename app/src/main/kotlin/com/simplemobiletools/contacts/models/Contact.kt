@@ -1,6 +1,9 @@
 package com.simplemobiletools.contacts.models
 
-import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
+import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
+import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
+import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 
 data class Contact(val id: Int, var firstName: String, var middleName: String, var surname: String, var photoUri: String, var number: String,
                    var email: String, var source: String) : Comparable<Contact> {
@@ -13,7 +16,7 @@ data class Contact(val id: Int, var firstName: String, var middleName: String, v
             sorting and SORT_BY_FIRST_NAME != 0 -> compareStrings(firstName, other.firstName)
             sorting and SORT_BY_MIDDLE_NAME != 0 -> compareStrings(middleName, other.middleName)
             sorting and SORT_BY_SURNAME != 0 -> compareStrings(surname, other.surname)
-            else -> number.toLowerCase().compareTo(other.number.toLowerCase())
+            else -> compareStrings(number, other.number)
         }
 
         if (sorting and SORT_DESCENDING != 0) {
@@ -24,16 +27,19 @@ data class Contact(val id: Int, var firstName: String, var middleName: String, v
     }
 
     fun getBubbleText() = when {
-        sorting and SORT_BY_NUMBER != 0 -> number
-        else -> firstName
+        sorting and SORT_BY_FIRST_NAME != 0 -> firstName
+        sorting and SORT_BY_MIDDLE_NAME != 0 -> middleName
+        sorting and SORT_BY_SURNAME != 0 -> surname
+        else -> number
     }
 
-    fun getFullName(): String {
-        var name = firstName
+    fun getFullName(startWithSurname: Boolean): String {
+        var firstPart = if (startWithSurname) surname else firstName
         if (middleName.isNotEmpty()) {
-            name += " $middleName"
+            firstPart += " $middleName"
         }
-        return "$name $surname".trim()
+        val lastPart = if (startWithSurname) firstName else surname
+        return "$firstPart $lastPart".trim()
     }
 
     private fun compareStrings(first: String, second: String): Int {

@@ -22,6 +22,7 @@ class SettingsActivity : SimpleActivity() {
         setupUseEnglish()
         setupShowInfoBubble()
         setupCallContactOnClick()
+        setupStartNameWithSurname()
         updateTextColors(settings_holder)
     }
 
@@ -54,6 +55,14 @@ class SettingsActivity : SimpleActivity() {
         settings_call_contact_on_click_holder.setOnClickListener {
             settings_call_contact_on_click.toggle()
             config.callContact = settings_call_contact_on_click.isChecked
+        }
+    }
+
+    private fun setupStartNameWithSurname() {
+        settings_start_with_surname.isChecked = config.startNameWithSurname
+        settings_start_with_surname_holder.setOnClickListener {
+            settings_start_with_surname.toggle()
+            config.startNameWithSurname = settings_start_with_surname.isChecked
         }
     }
 }

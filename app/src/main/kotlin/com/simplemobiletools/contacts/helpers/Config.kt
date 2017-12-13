@@ -22,4 +22,8 @@ class Config(context: Context) : BaseConfig(context) {
         set(displayContactSources) = prefs.edit().remove(DISPLAY_CONTACT_SOURCES).putStringSet(DISPLAY_CONTACT_SOURCES, displayContactSources).apply()
 
     fun showAllContacts() = displayContactSources.size == 1 && displayContactSources.first() == "-1"
+
+    var startNameWithSurname: Boolean
+        get() = prefs.getBoolean(START_NAME_WITH_SURNAME, false)
+        set(startNameWithSurname) = prefs.edit().putBoolean(START_NAME_WITH_SURNAME, startNameWithSurname).apply()
 }
