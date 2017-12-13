@@ -58,15 +58,15 @@ class ContactsHelper(val activity: SimpleActivity) {
                         val id = cursor.getIntValue(ContactsContract.CommonDataKinds.StructuredName.CONTACT_ID)
                         val firstName = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
                         val middleName = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
-                        val familyName = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
-                        if (firstName.isEmpty() && middleName.isEmpty() && familyName.isEmpty())
+                        val surname = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
+                        if (firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty())
                             continue
 
                         val photoUri = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
                         val number = ""  // proper value is obtained below
                         val email = ""  // proper value is obtained below
                         val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
-                        val contact = Contact(id, firstName, middleName, familyName, photoUri, number, email, accountName)
+                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, email, accountName)
                         contacts.put(id, contact)
                     } while (cursor.moveToNext())
                 }
@@ -203,12 +203,12 @@ class ContactsHelper(val activity: SimpleActivity) {
             if (cursor?.moveToFirst() == true) {
                 val firstName = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
                 val middleName = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
-                val familyName = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
+                val surname = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
                 val photoUri = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.PHOTO_URI) ?: ""
                 val number = getContactNumber(id)
                 val email = getContactEmail(id)
                 val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
-                return Contact(id, firstName, middleName, familyName, photoUri, number, email, accountName)
+                return Contact(id, firstName, middleName, surname, photoUri, number, email, accountName)
             }
         } finally {
             cursor?.close()

@@ -24,7 +24,7 @@
             android:src="@drawable/ic_person"/>
 
         <TextView
-            android:id="@+id/contact_name"
+            android:id="@+id/contact_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/contact_tmb"
@@ -40,7 +40,7 @@
             android:id="@+id/contact_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_name"
+            android:layout_below="@+id/contact_first_name"
             android:layout_toRightOf="@+id/contact_tmb"
             android:maxLines="1"
             android:paddingLeft="@dimen/small_margin"

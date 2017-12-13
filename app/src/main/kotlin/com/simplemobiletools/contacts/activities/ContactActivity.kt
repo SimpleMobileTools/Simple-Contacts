@@ -135,7 +135,9 @@ class ContactActivity : SimpleActivity() {
     private fun setupEditContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         supportActionBar?.title = resources.getString(R.string.edit_contact)
-        contact_name.setText(contact!!.firstName)
+        contact_first_name.setText(contact!!.firstName)
+        contact_middle_name.setText(contact!!.middleName)
+        contact_surname.setText(contact!!.surname)
         contact_number.setText(contact!!.number)
         contact_email.setText(contact!!.email)
     }

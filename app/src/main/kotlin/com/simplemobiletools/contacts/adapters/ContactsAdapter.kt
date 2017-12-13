@@ -100,8 +100,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
 
     private fun setupView(view: View, contact: Contact) {
         view.apply {
-            contact_name.text = contact.getFullName()
-            contact_name.setTextColor(textColor)
+            contact_first_name.text = contact.getFullName()
+            contact_first_name.setTextColor(textColor)
             contact_number.text = contact.number
             contact_number.setTextColor(textColor)
 

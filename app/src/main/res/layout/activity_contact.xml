@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/contact_scrollview"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/activity_margin">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/contact_holder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_margin">
 
         <ImageView
             android:id="@+id/contact_photo"
@@ -63,14 +63,14 @@
             android:id="@+id/contact_name_image"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/contact_name"
-            android:layout_alignTop="@+id/contact_name"
+            android:layout_alignBottom="@+id/contact_first_name"
+            android:layout_alignTop="@+id/contact_first_name"
             android:paddingBottom="@dimen/medium_margin"
             android:paddingTop="@dimen/medium_margin"
             android:src="@drawable/ic_person"/>
 
         <com.simplemobiletools.commons.views.MyEditText
-            android:id="@+id/contact_name"
+            android:id="@+id/contact_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_photo"
@@ -78,7 +78,39 @@
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="@dimen/activity_margin"
             android:layout_toRightOf="@+id/contact_name_image"
-            android:hint="@string/name"
+            android:hint="@string/first_name"
+            android:inputType="textCapWords"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="@dimen/big_text_size"/>
+
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/contact_middle_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_first_name"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:layout_toRightOf="@+id/contact_name_image"
+            android:hint="@string/middle_name"
+            android:inputType="textCapWords"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="@dimen/big_text_size"/>
+
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/contact_surname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_middle_name"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:layout_toRightOf="@+id/contact_name_image"
+            android:hint="@string/surname"
             android:inputType="textCapWords"
             android:lines="1"
             android:maxLines="1"
@@ -99,7 +131,7 @@
             android:id="@+id/contact_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_name"
+            android:layout_below="@+id/contact_surname"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="@dimen/activity_margin"
