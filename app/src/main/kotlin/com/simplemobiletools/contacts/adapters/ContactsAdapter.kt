@@ -18,6 +18,7 @@ import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.openContact
+import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.item_contact.view.*
 
@@ -91,7 +92,14 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     }
 
     private fun deleteContacts() {
+        if (selectedPositions.isEmpty()) {
+            return
+        }
 
+        val contacts = ArrayList<Contact>()
+        selectedPositions.forEach { contacts.add(contactItems[it]) }
+        ContactsHelper(activity).deleteContacts(contacts)
+        removeSelectedItems()
     }
 
     override fun onViewRecycled(holder: ViewHolder?) {

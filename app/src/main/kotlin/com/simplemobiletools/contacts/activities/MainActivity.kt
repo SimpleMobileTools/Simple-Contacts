@@ -87,6 +87,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         contacts_placeholder_2.setOnClickListener {
             showFilterDialog()
         }
+        initContacts()
     }
 
     override fun onPause() {
@@ -140,8 +141,11 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         ContactsHelper(this).getContacts {
             Contact.sorting = config.sorting
             it.sort()
-            runOnUiThread {
-                setupContacts(it)
+
+            if (it.hashCode() != (contacts_list.adapter as? ContactsAdapter)?.contactItems?.hashCode()) {
+                runOnUiThread {
+                    setupContacts(it)
+                }
             }
         }
     }

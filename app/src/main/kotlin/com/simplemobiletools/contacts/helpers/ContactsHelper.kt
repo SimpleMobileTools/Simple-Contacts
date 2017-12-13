@@ -1,7 +1,9 @@
 package com.simplemobiletools.contacts.helpers
 
+import android.content.ContentProviderOperation
 import android.database.Cursor
 import android.provider.ContactsContract
+import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.getStringValue
 import com.simplemobiletools.commons.extensions.showErrorToast
@@ -9,13 +11,12 @@ import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
-import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.overloads.times
 import java.util.*
 
-class ContactsHelper(val activity: SimpleActivity) {
+class ContactsHelper(val activity: BaseSimpleActivity) {
     fun getContactSources(callback: (ArrayList<String>) -> Unit) {
         val accounts = HashSet<String>()
         Thread {
@@ -241,5 +242,21 @@ class ContactsHelper(val activity: SimpleActivity) {
             sort += " DESC"
         }
         return sort
+    }
+
+    fun deleteContact(contact: Contact) = deleteContacts(arrayListOf(contact))
+
+    fun deleteContacts(contacts: ArrayList<Contact>) {
+        try {
+            val operations = ArrayList<ContentProviderOperation>()
+            val selection = "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} = ?"
+            contacts.forEach {
+                val selectionArgs = arrayOf(it.id.toString())
+                operations.add(ContentProviderOperation.newDelete(ContactsContract.RawContacts.CONTENT_URI).withSelection(selection, selectionArgs).build())
+            }
+            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        }
     }
 }

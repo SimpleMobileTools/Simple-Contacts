@@ -14,6 +14,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
@@ -163,7 +164,10 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun deleteContact() {
-
+        ConfirmationDialog(this) {
+            ContactsHelper(this).deleteContact(contact!!)
+            finish()
+        }
     }
 
     private fun showAccountSourcePicker() {
