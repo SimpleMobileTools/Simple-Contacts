@@ -8,7 +8,7 @@ import com.simplemobiletools.commons.interfaces.MyAdapterListener
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
-import kotlinx.android.synthetic.main.filter_contact_source_view.view.*
+import kotlinx.android.synthetic.main.item_filter_contact_source.view.*
 import java.util.*
 
 class FilterContactSourcesAdapter(val activity: SimpleActivity, val contactSources: List<String>, val displayContactSources: Set<String>) :
@@ -53,7 +53,7 @@ class FilterContactSourcesAdapter(val activity: SimpleActivity, val contactSourc
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = activity.layoutInflater.inflate(R.layout.filter_contact_source_view, parent, false)
+        val view = activity.layoutInflater.inflate(R.layout.item_filter_contact_source, parent, false)
         return ViewHolder(view, adapterListener, activity)
     }
 

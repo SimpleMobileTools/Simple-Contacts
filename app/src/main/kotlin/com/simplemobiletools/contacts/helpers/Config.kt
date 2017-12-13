@@ -2,7 +2,7 @@ package com.simplemobiletools.contacts.helpers
 
 import android.content.Context
 import com.simplemobiletools.commons.helpers.BaseConfig
-import com.simplemobiletools.commons.helpers.SORT_BY_NAME
+import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 
 class Config(context: Context) : BaseConfig(context) {
     companion object {
@@ -10,7 +10,7 @@ class Config(context: Context) : BaseConfig(context) {
     }
 
     var sorting: Int
-        get() = prefs.getInt(SORTING, SORT_BY_NAME)
+        get() = prefs.getInt(SORTING, SORT_BY_FIRST_NAME)
         set(sorting) = prefs.edit().putInt(SORTING, sorting).apply()
 
     var callContact: Boolean
