@@ -135,7 +135,7 @@ class ContactActivity : SimpleActivity() {
     private fun setupEditContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         supportActionBar?.title = resources.getString(R.string.edit_contact)
-        contact_name.setText(contact!!.name)
+        contact_name.setText(contact!!.firstName)
         contact_number.setText(contact!!.number)
         contact_email.setText(contact!!.email)
     }
@@ -143,7 +143,7 @@ class ContactActivity : SimpleActivity() {
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        contact = Contact(0, "", "", "", "", "")
+        contact = Contact(0, "", "", "", "", "", "", "")
     }
 
     private fun applyPhotoPlaceholder() {
