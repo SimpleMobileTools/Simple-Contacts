@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">심플 연락처</string>
+    <string name="app_launcher_name">연락처</string>
+    <string name="number">전화번호</string>
+
+    <string name="new_contact">새로운 연락처</string>
+    <string name="edit_contact">연락처 수정</string>
+    <string name="email">Email</string>
+
+    <!-- Settings -->
+    <string name="call_contact_on_click">클릭으로 전화걸기</string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
