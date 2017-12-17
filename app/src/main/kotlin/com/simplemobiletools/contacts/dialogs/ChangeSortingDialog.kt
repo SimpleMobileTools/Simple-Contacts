@@ -3,7 +3,10 @@ package com.simplemobiletools.contacts.dialogs
 import android.support.v7.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.setupDialogStuff
-import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
+import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
+import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
+import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
 import kotlinx.android.synthetic.main.dialog_change_sorting.view.*
@@ -31,8 +34,7 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, val callback: () -> 
         val sortBtn = when {
             currSorting and SORT_BY_FIRST_NAME != 0 -> sortingRadio.sorting_dialog_radio_first_name
             currSorting and SORT_BY_MIDDLE_NAME != 0 -> sortingRadio.sorting_dialog_radio_middle_name
-            currSorting and SORT_BY_SURNAME != 0 -> sortingRadio.sorting_dialog_radio_surname
-            else -> sortingRadio.sorting_dialog_radio_number
+            else -> sortingRadio.sorting_dialog_radio_surname
         }
         sortBtn.isChecked = true
     }
@@ -52,8 +54,7 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, val callback: () -> 
         var sorting = when (sortingRadio.checkedRadioButtonId) {
             R.id.sorting_dialog_radio_first_name -> SORT_BY_FIRST_NAME
             R.id.sorting_dialog_radio_middle_name -> SORT_BY_MIDDLE_NAME
-            R.id.sorting_dialog_radio_surname -> SORT_BY_SURNAME
-            else -> SORT_BY_NUMBER
+            else -> SORT_BY_SURNAME
         }
 
         if (view.sorting_dialog_radio_order.checkedRadioButtonId == R.id.sorting_dialog_radio_descending) {

@@ -2,7 +2,6 @@ package com.simplemobiletools.contacts.models
 
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
-import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 
 data class Contact(val id: Int, var firstName: String, var middleName: String, var surname: String, var photoUri: String, var number: String,
@@ -15,8 +14,7 @@ data class Contact(val id: Int, var firstName: String, var middleName: String, v
         var result = when {
             sorting and SORT_BY_FIRST_NAME != 0 -> compareStrings(firstName, other.firstName)
             sorting and SORT_BY_MIDDLE_NAME != 0 -> compareStrings(middleName, other.middleName)
-            sorting and SORT_BY_SURNAME != 0 -> compareStrings(surname, other.surname)
-            else -> compareStrings(number, other.number)
+            else -> compareStrings(surname, other.surname)
         }
 
         if (sorting and SORT_DESCENDING != 0) {
@@ -29,8 +27,7 @@ data class Contact(val id: Int, var firstName: String, var middleName: String, v
     fun getBubbleText() = when {
         sorting and SORT_BY_FIRST_NAME != 0 -> firstName
         sorting and SORT_BY_MIDDLE_NAME != 0 -> middleName
-        sorting and SORT_BY_SURNAME != 0 -> surname
-        else -> number
+        else -> surname
     }
 
     fun getFullName(startWithSurname: Boolean): String {
