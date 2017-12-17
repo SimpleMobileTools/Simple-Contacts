@@ -14,6 +14,7 @@ import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.models.Contact
+import com.simplemobiletools.contacts.models.Email
 import com.simplemobiletools.contacts.models.Emails
 import com.simplemobiletools.contacts.overloads.times
 import java.util.*
@@ -138,7 +139,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         emails.put(id, Emails())
                     }
 
-                    emails[id]!!.fillEmail(email, type)
+                    emails[id]!!.emails.add(Email(email, type))
                 } while (cursor.moveToNext())
             }
         } finally {
