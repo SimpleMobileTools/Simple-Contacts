@@ -13,9 +13,7 @@ import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.models.Contact
-import com.simplemobiletools.contacts.models.Email
-import com.simplemobiletools.contacts.models.Emails
+import com.simplemobiletools.contacts.models.*
 import com.simplemobiletools.contacts.overloads.times
 import java.util.*
 
@@ -69,8 +67,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                             continue
 
                         val photoUri = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
-                        val number = ""  // proper value is obtained below
-                        val emails = Emails()  // proper value is obtained below
+                        val number = PhoneNumbers()     // proper value is obtained below
+                        val emails = Emails()           // proper value is obtained below
                         val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
                         val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, accountName)
                         contacts.put(id, contact)
@@ -83,14 +81,17 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             }
 
             val emails = getEmails()
-            val size = emails.size()
+            var size = emails.size()
             for (i in 0 until size) {
                 val key = emails.keyAt(i)
                 contacts[key]?.emails = emails.valueAt(i)
             }
 
-            getNumbers().forEach {
-                contacts[it.first]?.number = it.second
+            val phoneNumbers = getPhoneNumbers()
+            size = phoneNumbers.size()
+            for (i in 0 until size) {
+                val key = phoneNumbers.keyAt(i)
+                contacts[key]?.phoneNumbers = phoneNumbers.valueAt(i)
             }
 
             val contactsSize = contacts.size()
@@ -149,27 +150,38 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return emails
     }
 
-    private fun getNumbers(): ArrayList<Pair<Int, String>> {
-        val pairs = ArrayList<Pair<Int, String>>()
+    private fun getPhoneNumbers(contactId: Int? = null): SparseArray<PhoneNumbers> {
+        val phoneNumbers = SparseArray<PhoneNumbers>()
         val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
         val projection = arrayOf(
                 ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
-                ContactsContract.CommonDataKinds.Phone.NUMBER
+                ContactsContract.CommonDataKinds.Phone.NUMBER,
+                ContactsContract.CommonDataKinds.Phone.TYPE
         )
+
+        val selection = if (contactId == null) null else "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} = ?"
+        val selectionArgs = if (contactId == null) null else arrayOf(contactId.toString())
+
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, null, null, null)
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)
                     val number = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                    pairs.add(Pair(id, number))
+                    val type = cursor.getIntValue(ContactsContract.CommonDataKinds.Phone.TYPE)
+
+                    if (phoneNumbers[id] == null) {
+                        phoneNumbers.put(id, PhoneNumbers())
+                    }
+
+                    phoneNumbers[id].phoneNumbers.add(PhoneNumber(number, type))
                 } while (cursor.moveToNext())
             }
         } finally {
             cursor?.close()
         }
-        return pairs
+        return phoneNumbers
     }
 
     fun getContactNumber(id: Int): String {
@@ -207,7 +219,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val middleName = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
                 val surname = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
                 val photoUri = cursor.getStringValue(ContactsContract.CommonDataKinds.Phone.PHOTO_URI) ?: ""
-                val number = getContactNumber(id)
+                val number = getPhoneNumbers(id)[id] ?: PhoneNumbers()
                 val emails = getEmails(id)[id] ?: Emails()
                 val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
                 return Contact(id, firstName, middleName, surname, photoUri, number, emails, accountName)

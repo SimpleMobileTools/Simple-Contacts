@@ -164,7 +164,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         if (currAdapter == null) {
             ContactsAdapter(this, contacts, this, contacts_list) {
                 if (config.callContact) {
-                    startCallIntent((it as Contact).number)
+                    //startCallIntent((it as Contact).number)
                 } else {
                     openContact(it as Contact)
                 }
