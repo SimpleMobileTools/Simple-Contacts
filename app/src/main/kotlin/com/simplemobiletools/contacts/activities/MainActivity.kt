@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.activities
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.*
@@ -26,6 +27,8 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
     private var storedBackgroundColor = 0
     private var storedPrimaryColor = 0
     private var storedStartNameWithSurname = false
+
+    private var isFirstResume = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +90,10 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         contacts_placeholder_2.setOnClickListener {
             showFilterDialog()
         }
-        initContacts()
+        if (!isFirstResume) {
+            initContacts()
+        }
+        isFirstResume = false
     }
 
     override fun onPause() {
