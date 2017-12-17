@@ -185,12 +185,28 @@
             android:layout_marginLeft="@dimen/medium_margin"
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="@dimen/normal_margin"
+            android:layout_toLeftOf="@+id/contact_email_type"
             android:layout_toRightOf="@+id/contact_name_image"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:lines="1"
             android:maxLines="1"
             android:singleLine="true"
+            android:textSize="@dimen/bigger_text_size"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/contact_email_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/contact_email"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/contact_email"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingLeft="@dimen/medium_margin"
+            android:paddingRight="@dimen/medium_margin"
+            android:text="@string/home"
             android:textSize="@dimen/bigger_text_size"/>
 
         <ImageView

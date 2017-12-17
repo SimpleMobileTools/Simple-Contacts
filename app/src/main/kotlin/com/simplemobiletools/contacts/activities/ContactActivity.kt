@@ -115,6 +115,7 @@ class ContactActivity : SimpleActivity() {
         //contact_send_email.setOnClickListener { sendEmailIntent(contact!!.email) }
         contact_source.setOnClickListener { showAccountSourcePicker() }
         contact_number_type.setOnClickListener { }
+        contact_email_type.setOnClickListener { }
 
         updateTextColors(contact_scrollview)
         wasActivityInitialized = true
