@@ -8,8 +8,11 @@
     <string name="first_name">Krstné meno</string>
     <string name="middle_name">Stredné meno</string>
     <string name="surname">Priezvisko</string>
+
+    <!-- Photo -->
     <string name="take_photo">Vytvoriť foto</string>
     <string name="choose_photo">Zvoliť foto</string>
+    <string name="remove_photo">Odstrániť foto</string>
 
     <!-- Settings -->
     <string name="call_contact_on_click">Zavolať kontakt po kliknutí</string>

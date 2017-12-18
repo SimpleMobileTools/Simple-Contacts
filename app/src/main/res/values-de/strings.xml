@@ -8,8 +8,11 @@
     <string name="first_name">Vorname</string>
     <string name="middle_name">Zweiter Vorname</string>
     <string name="surname">Familienname</string>
+
+    <!-- Photo -->
     <string name="take_photo">Foto machen</string>
     <string name="choose_photo">Foto auswählen</string>
+    <string name="remove_photo">Remove photo</string>
 
     <!-- Settings -->
     <string name="call_contact_on_click">Kontakt bei Klick anrufen</string>
