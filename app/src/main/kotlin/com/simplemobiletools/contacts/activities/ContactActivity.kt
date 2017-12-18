@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.ViewGroup
 import android.view.WindowManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -24,6 +25,8 @@ import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_contact.*
+import kotlinx.android.synthetic.main.item_email.view.*
+import kotlinx.android.synthetic.main.item_phone_number.view.*
 
 class ContactActivity : SimpleActivity() {
     private var wasActivityInitialized = false
@@ -113,8 +116,6 @@ class ContactActivity : SimpleActivity() {
         //contact_start_call.setOnClickListener { startCallIntent(contact!!.number) }
         //contact_send_email.setOnClickListener { sendEmailIntent(contact!!.email) }
         contact_source.setOnClickListener { showAccountSourcePicker() }
-//        contact_number_type.setOnClickListener { }
-//        contact_email_type.setOnClickListener { }
         contact_number_add_new.setOnClickListener { addNewPhoneNumberField() }
         contact_email_add_new.setOnClickListener { addNewEmailField() }
 
@@ -149,20 +150,28 @@ class ContactActivity : SimpleActivity() {
         contact_source.text = contact!!.source
 
         contact!!.phoneNumbers.forEachIndexed { index, number ->
-            if (index == 0) {
-                /*contact_number.setText(number.value)
-                contact_number_type.setText(number.getTextId())*/
-            } else {
+            var numberHolder = contact_numbers_holder.getChildAt(index)
+            if (numberHolder == null) {
+                numberHolder = layoutInflater.inflate(R.layout.item_phone_number, contact_numbers_holder, false)
+                contact_numbers_holder.addView(numberHolder)
+            }
 
+            (numberHolder as? ViewGroup)?.apply {
+                contact_number.setText(number.value)
+                contact_number_type.setText(number.getTextId())
             }
         }
 
         contact!!.emails.forEachIndexed { index, email ->
-            if (index == 0) {
-                /*contact_email.setText(email.value)
-                contact_email_type.setText(email.getTextId())*/
-            } else {
+            var emailHolder = contact_emails_holder.getChildAt(index)
+            if (emailHolder == null) {
+                emailHolder = layoutInflater.inflate(R.layout.item_email, contact_emails_holder, false)
+                contact_emails_holder.addView(emailHolder)
+            }
 
+            (emailHolder as? ViewGroup)?.apply {
+                contact_email.setText(email.value)
+                contact_email_type.setText(email.getTextId())
             }
         }
     }
