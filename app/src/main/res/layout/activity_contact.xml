@@ -122,49 +122,31 @@
             android:id="@+id/contact_number_image"
             android:layout_width="@dimen/contact_icons_size"
             android:layout_height="@dimen/contact_icons_size"
-            android:layout_alignTop="@+id/contact_number"
+            android:layout_alignTop="@+id/contact_numbers_holder"
             android:paddingBottom="@dimen/small_margin"
             android:paddingEnd="@dimen/small_margin"
             android:paddingRight="@dimen/small_margin"
             android:paddingTop="@dimen/medium_margin"
             android:src="@drawable/ic_phone"/>
 
-        <com.simplemobiletools.commons.views.MyEditText
-            android:id="@+id/contact_number"
+        <LinearLayout
+            android:id="@+id/contact_numbers_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_surname"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:layout_toLeftOf="@+id/contact_number_type"
-            android:layout_toRightOf="@+id/contact_name_image"
-            android:hint="@string/number"
-            android:inputType="phone"
-            android:lines="1"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textSize="@dimen/bigger_text_size"/>
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_toRightOf="@+id/contact_number_image"
+            android:orientation="vertical">
 
-        <com.simplemobiletools.commons.views.MyTextView
-            android:id="@+id/contact_number_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/contact_number"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/contact_number"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingLeft="@dimen/medium_margin"
-            android:paddingRight="@dimen/medium_margin"
-            android:text="@string/mobile"
-            android:textSize="@dimen/bigger_text_size"/>
+            <include layout="@layout/item_phone_number"/>
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/contact_number_add_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_number"
+            android:layout_below="@+id/contact_numbers_holder"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/small_margin"
             android:background="@drawable/button_background"
@@ -178,49 +160,31 @@
             android:id="@+id/contact_email_image"
             android:layout_width="@dimen/contact_icons_size"
             android:layout_height="@dimen/contact_icons_size"
-            android:layout_alignTop="@+id/contact_email"
+            android:layout_alignTop="@+id/contact_emails_holder"
             android:paddingBottom="@dimen/small_margin"
             android:paddingEnd="@dimen/small_margin"
             android:paddingRight="@dimen/small_margin"
             android:paddingTop="@dimen/medium_margin"
             android:src="@drawable/ic_email"/>
 
-        <com.simplemobiletools.commons.views.MyEditText
-            android:id="@+id/contact_email"
+        <LinearLayout
+            android:id="@+id/contact_emails_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_number_add_new"
-            android:layout_centerVertical="true"
             android:layout_marginTop="@dimen/medium_margin"
-            android:layout_toLeftOf="@+id/contact_email_type"
             android:layout_toRightOf="@+id/contact_name_image"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:lines="1"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textSize="@dimen/bigger_text_size"/>
+            android:orientation="vertical">
 
-        <com.simplemobiletools.commons.views.MyTextView
-            android:id="@+id/contact_email_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/contact_email"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/contact_email"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingLeft="@dimen/medium_margin"
-            android:paddingRight="@dimen/medium_margin"
-            android:text="@string/home"
-            android:textSize="@dimen/bigger_text_size"/>
+            <include layout="@layout/item_email"/>
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/contact_email_add_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_email"
+            android:layout_below="@+id/contact_emails_holder"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/small_margin"
             android:background="@drawable/button_background"

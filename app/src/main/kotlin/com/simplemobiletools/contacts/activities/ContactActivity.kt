@@ -113,10 +113,10 @@ class ContactActivity : SimpleActivity() {
         //contact_start_call.setOnClickListener { startCallIntent(contact!!.number) }
         //contact_send_email.setOnClickListener { sendEmailIntent(contact!!.email) }
         contact_source.setOnClickListener { showAccountSourcePicker() }
-        contact_number_type.setOnClickListener { }
-        contact_email_type.setOnClickListener { }
-        contact_number_add_new.setOnClickListener { }
-        contact_email_add_new.setOnClickListener { }
+//        contact_number_type.setOnClickListener { }
+//        contact_email_type.setOnClickListener { }
+        contact_number_add_new.setOnClickListener { addNewPhoneNumberField() }
+        contact_email_add_new.setOnClickListener { addNewEmailField() }
 
         updateTextColors(contact_scrollview)
         wasActivityInitialized = true
@@ -150,8 +150,8 @@ class ContactActivity : SimpleActivity() {
 
         contact!!.phoneNumbers.forEachIndexed { index, number ->
             if (index == 0) {
-                contact_number.setText(number.value)
-                contact_number_type.setText(number.getTextId())
+                /*contact_number.setText(number.value)
+                contact_number_type.setText(number.getTextId())*/
             } else {
 
             }
@@ -159,8 +159,8 @@ class ContactActivity : SimpleActivity() {
 
         contact!!.emails.forEachIndexed { index, email ->
             if (index == 0) {
-                contact_email.setText(email.value)
-                contact_email_type.setText(email.getTextId())
+                /*contact_email.setText(email.value)
+                contact_email_type.setText(email.getTextId())*/
             } else {
 
             }
@@ -192,6 +192,14 @@ class ContactActivity : SimpleActivity() {
                 finish()
             }
         }
+    }
+
+    private fun addNewPhoneNumberField() {
+
+    }
+
+    private fun addNewEmailField() {
+
     }
 
     private fun deleteContact() {
