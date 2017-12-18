@@ -31,6 +31,13 @@ android {
     }
 }
 
+ext {
+    leakCanaryVersion = '1.5.4'
+}
+
 dependencies {
     implementation 'com.simplemobiletools:commons:3.2.19'
+
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }

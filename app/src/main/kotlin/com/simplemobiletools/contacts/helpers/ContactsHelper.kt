@@ -55,6 +55,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 selection += " AND ${ContactsContract.RawContacts.ACCOUNT_NAME} IN ($questionMarks)"
                 selectionArgs += sources.toTypedArray()
             }
+
             val sortOrder = getSortString()
             var cursor: Cursor? = null
             try {
