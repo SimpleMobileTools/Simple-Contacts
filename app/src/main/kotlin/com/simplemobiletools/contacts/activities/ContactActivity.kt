@@ -68,9 +68,9 @@ class ContactActivity : SimpleActivity() {
             setupEditContact()
         }
 
-        //contact_send_sms.beVisibleIf(contact!!.number.isNotEmpty())
-        //contact_start_call.beVisibleIf(contact!!.number.isNotEmpty())
-        //contact_send_email.beVisibleIf(contact!!.email.isNotEmpty())
+        contact_send_sms.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
+        contact_start_call.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
+        contact_send_email.beVisibleIf(contact!!.emails.isNotEmpty())
 
         contact_photo.background = ColorDrawable(config.primaryColor)
 
@@ -103,6 +103,10 @@ class ContactActivity : SimpleActivity() {
         contact_number_image.applyColorFilter(textColor)
         contact_email_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
+        contact_number_add_new.applyColorFilter(config.primaryColor)
+        contact_number_add_new.background.applyColorFilter(textColor)
+        contact_email_add_new.applyColorFilter(config.primaryColor)
+        contact_email_add_new.background.applyColorFilter(textColor)
 
         contact_photo.setOnClickListener { }
         //contact_send_sms.setOnClickListener { sendSMSIntent(contact!!.number) }
@@ -111,6 +115,8 @@ class ContactActivity : SimpleActivity() {
         contact_source.setOnClickListener { showAccountSourcePicker() }
         contact_number_type.setOnClickListener { }
         contact_email_type.setOnClickListener { }
+        contact_number_add_new.setOnClickListener { }
+        contact_email_add_new.setOnClickListener { }
 
         updateTextColors(contact_scrollview)
         wasActivityInitialized = true
