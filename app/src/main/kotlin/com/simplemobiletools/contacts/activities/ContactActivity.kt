@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.activities
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -29,6 +30,9 @@ import kotlinx.android.synthetic.main.item_email.view.*
 import kotlinx.android.synthetic.main.item_phone_number.view.*
 
 class ContactActivity : SimpleActivity() {
+    private val DEFAULT_EMAIL_TYPE = ContactsContract.CommonDataKinds.Email.TYPE_HOME
+    private val DEFAULT_PHONE_NUMBER_TYPE = ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
+
     private var wasActivityInitialized = false
     private var contact: Contact? = null
 
@@ -158,7 +162,7 @@ class ContactActivity : SimpleActivity() {
 
             (numberHolder as? ViewGroup)?.apply {
                 contact_number.setText(number.value)
-                contact_number_type.setText(number.getTextId())
+                contact_number_type.setText(getPhoneNumberTextId(number.type))
             }
         }
 
@@ -171,7 +175,7 @@ class ContactActivity : SimpleActivity() {
 
             (emailHolder as? ViewGroup)?.apply {
                 contact_email.setText(email.value)
-                contact_email_type.setText(email.getTextId())
+                contact_email_type.setText(getEmailTextId(email.type))
             }
         }
     }
@@ -194,8 +198,6 @@ class ContactActivity : SimpleActivity() {
             firstName = contact_first_name.value
             middleName = contact_middle_name.value
             surname = contact_surname.value
-            //number = contact_number.value
-            //email = contact_email.value
 
             if (ContactsHelper(this@ContactActivity).updateContact(this)) {
                 finish()
@@ -204,11 +206,17 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun addNewPhoneNumberField() {
-
+        val view = layoutInflater.inflate(R.layout.item_phone_number, contact_numbers_holder, false)
+        updateTextColors(view as ViewGroup)
+        view.contact_number_type.setText(getPhoneNumberTextId(DEFAULT_PHONE_NUMBER_TYPE))
+        contact_numbers_holder.addView(view)
     }
 
     private fun addNewEmailField() {
-
+        val view = layoutInflater.inflate(R.layout.item_email, contact_emails_holder, false)
+        updateTextColors(view as ViewGroup)
+        view.contact_email_type.setText(getEmailTextId(DEFAULT_EMAIL_TYPE))
+        contact_emails_holder.addView(view)
     }
 
     private fun deleteContact() {
@@ -220,5 +228,23 @@ class ContactActivity : SimpleActivity() {
 
     private fun showAccountSourcePicker() {
 
+    }
+
+    private fun getEmailTextId(type: Int) = when (type) {
+        ContactsContract.CommonDataKinds.Email.TYPE_HOME -> R.string.home
+        ContactsContract.CommonDataKinds.Email.TYPE_WORK -> R.string.work
+        ContactsContract.CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
+        else -> R.string.other
+    }
+
+    private fun getPhoneNumberTextId(type: Int) = when (type) {
+        ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE -> R.string.mobile
+        ContactsContract.CommonDataKinds.Phone.TYPE_HOME -> R.string.home
+        ContactsContract.CommonDataKinds.Phone.TYPE_WORK -> R.string.work
+        ContactsContract.CommonDataKinds.Phone.TYPE_MAIN -> R.string.main_number
+        ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK -> R.string.work_fax
+        ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME -> R.string.home_fax
+        ContactsContract.CommonDataKinds.Phone.TYPE_PAGER -> R.string.pager
+        else -> R.string.other
     }
 }
