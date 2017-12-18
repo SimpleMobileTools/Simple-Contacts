@@ -163,7 +163,12 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         if (currAdapter == null) {
             ContactsAdapter(this, contacts, this, contacts_list) {
                 if (config.callContact) {
-                    tryStartCall(it as Contact)
+                    val contact = it as Contact
+                    if (contact.phoneNumbers.isNotEmpty()) {
+                        tryStartCall(it)
+                    } else {
+                        toast(R.string.no_phone_number_found)
+                    }
                 } else {
                     openContact(it as Contact)
                 }

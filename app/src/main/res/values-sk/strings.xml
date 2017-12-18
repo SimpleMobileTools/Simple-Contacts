@@ -31,6 +31,7 @@
     <string name="work_fax">Pracovný fax</string>
     <string name="home_fax">Domáci fax</string>
     <string name="pager">Pager</string>
+    <string name="no_phone_number_found">Nenašlo sa žiadne telefónne číslo</string>
 
     <!-- Events -->
     <string name="birthday">Narodeniny</string>

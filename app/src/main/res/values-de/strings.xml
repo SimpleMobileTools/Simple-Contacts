@@ -31,6 +31,7 @@
     <string name="work_fax">Arbeit Fax</string>
     <string name="home_fax">Privat Fax</string>
     <string name="pager">Pager</string>
+    <string name="no_phone_number_found">No phone number has been found</string>
 
     <!-- Events -->
     <string name="birthday">Geburtstag</string>
