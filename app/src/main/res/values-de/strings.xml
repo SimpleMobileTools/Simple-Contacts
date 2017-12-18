@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Schlichte Kontakte</string>
     <string name="app_launcher_name">Kontakte</string>
-    <string name="address">Address</string>
+    <string name="address">Adresse</string>
 
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
@@ -12,7 +12,7 @@
     <!-- Photo -->
     <string name="take_photo">Foto machen</string>
     <string name="choose_photo">Foto auswählen</string>
-    <string name="remove_photo">Remove photo</string>
+    <string name="remove_photo">Foto entfernen</string>
 
     <!-- Settings -->
     <string name="call_contact_on_click">Kontakt bei Klick anrufen</string>
