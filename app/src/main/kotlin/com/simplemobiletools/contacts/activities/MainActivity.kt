@@ -3,7 +3,6 @@ package com.simplemobiletools.contacts.activities
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.*
@@ -16,7 +15,7 @@ import com.simplemobiletools.contacts.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.openContact
-import com.simplemobiletools.contacts.extensions.startCallIntent
+import com.simplemobiletools.contacts.extensions.tryStartCall
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
@@ -164,7 +163,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         if (currAdapter == null) {
             ContactsAdapter(this, contacts, this, contacts_list) {
                 if (config.callContact) {
-                    //startCallIntent((it as Contact).number)
+                    tryStartCall(it as Contact)
                 } else {
                     openContact(it as Contact)
                 }

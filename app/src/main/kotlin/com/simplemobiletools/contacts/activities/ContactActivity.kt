@@ -17,11 +17,16 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
+import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
+import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.sendEmailIntent
+import com.simplemobiletools.contacts.extensions.sendSMSIntent
+import com.simplemobiletools.contacts.extensions.tryStartCall
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
@@ -116,9 +121,9 @@ class ContactActivity : SimpleActivity() {
         contact_email_add_new.background.applyColorFilter(textColor)
 
         contact_photo.setOnClickListener { }
-        //contact_send_sms.setOnClickListener { sendSMSIntent(contact!!.number) }
-        //contact_start_call.setOnClickListener { startCallIntent(contact!!.number) }
-        //contact_send_email.setOnClickListener { sendEmailIntent(contact!!.email) }
+        contact_send_sms.setOnClickListener { trySendSMS() }
+        contact_start_call.setOnClickListener { tryStartCall(contact!!) }
+        contact_send_email.setOnClickListener { trySendEmail() }
         contact_source.setOnClickListener { showAccountSourcePicker() }
         contact_number_add_new.setOnClickListener { addNewPhoneNumberField() }
         contact_email_add_new.setOnClickListener { addNewEmailField() }
@@ -228,6 +233,38 @@ class ContactActivity : SimpleActivity() {
 
     private fun showAccountSourcePicker() {
 
+    }
+
+    private fun trySendSMS() {
+        val numbers = contact!!.phoneNumbers
+        if (numbers.size == 1) {
+            sendSMSIntent(numbers.first().value)
+        } else if (numbers.size > 1) {
+            val items = ArrayList<RadioItem>()
+            numbers.forEachIndexed { index, phoneNumber ->
+                items.add(RadioItem(index, phoneNumber.value, phoneNumber.value))
+            }
+
+            RadioGroupDialog(this, items) {
+                sendSMSIntent(it as String)
+            }
+        }
+    }
+
+    private fun trySendEmail() {
+        val emails = contact!!.emails
+        if (emails.size == 1) {
+            sendEmailIntent(emails.first().value)
+        } else if (emails.size > 1) {
+            val items = ArrayList<RadioItem>()
+            emails.forEachIndexed { index, email ->
+                items.add(RadioItem(index, email.value, email.value))
+            }
+
+            RadioGroupDialog(this, items) {
+                sendEmailIntent(it as String)
+            }
+        }
     }
 
     private fun getEmailTextId(type: Int) = when (type) {
