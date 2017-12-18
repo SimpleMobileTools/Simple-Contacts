@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">Schlichte Kontakte</string>
     <string name="app_launcher_name">Kontakte</string>
-    <string name="number">Nummer</string>
     <string name="address">Address</string>
 
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
-    <string name="email">Email</string>
     <string name="first_name">Vorname</string>
     <string name="middle_name">Zweiter Vorname</string>
     <string name="surname">Familienname</string>
@@ -17,12 +15,14 @@
     <string name="call_contact_on_click">Kontakt bei Klick anrufen</string>
     <string name="start_name_with_surname">Namen mit Vornamen beginnen</string>
 
-    <!-- Email types -->
+    <!-- Emails -->
+    <string name="email">Email</string>
     <string name="home">Privat</string>
     <string name="work">Arbeit</string>
     <string name="other">Sonstiges</string>
 
-    <!-- Phone number types -->
+    <!-- Phone numbers -->
+    <string name="number">Nummer</string>
     <string name="mobile">Mobil</string>
     <string name="main_number">Festnetz</string>
     <string name="work_fax">Arbeit Fax</string>

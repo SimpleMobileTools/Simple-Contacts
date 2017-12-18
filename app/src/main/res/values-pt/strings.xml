@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Contactos</string>
-    <string name="number">Número</string>
     <string name="address">Address</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
-    <string name="email">E-mail</string>
     <string name="first_name">First name</string>
     <string name="middle_name">Middle name</string>
     <string name="surname">Surname</string>
@@ -17,12 +15,14 @@
     <string name="call_contact_on_click">Call contact on click</string>
     <string name="start_name_with_surname">Start name with surname</string>
 
-    <!-- Email types -->
+    <!-- Emails -->
+    <string name="email">E-mail</string>
     <string name="home">Home</string>
     <string name="work">Work</string>
     <string name="other">Other</string>
 
-    <!-- Phone number types -->
+    <!-- Phone numbers -->
+    <string name="number">Número</string>
     <string name="mobile">Mobile</string>
     <string name="main_number">Main</string>
     <string name="work_fax">Work Fax</string>

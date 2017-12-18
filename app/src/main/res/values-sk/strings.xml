@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">Jednoduché kontakty</string>
     <string name="app_launcher_name">Kontakty</string>
-    <string name="number">Číslo</string>
     <string name="address">Adresa</string>
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
-    <string name="email">Email</string>
     <string name="first_name">Krstné meno</string>
     <string name="middle_name">Stredné meno</string>
     <string name="surname">Priezvisko</string>
@@ -17,12 +15,14 @@
     <string name="call_contact_on_click">Zavolať kontakt po kliknutí</string>
     <string name="start_name_with_surname">Začať meno priezviskom</string>
 
-    <!-- Email types -->
+    <!-- Emails -->
+    <string name="email">Email</string>
     <string name="home">Domov</string>
     <string name="work">Práca</string>
     <string name="other">Iné</string>
 
-    <!-- Phone number types -->
+    <!-- Phone numbers -->
+    <string name="number">Číslo</string>
     <string name="mobile">Mobil</string>
     <string name="main_number">Hlavné</string>
     <string name="work_fax">Pracovný fax</string>
