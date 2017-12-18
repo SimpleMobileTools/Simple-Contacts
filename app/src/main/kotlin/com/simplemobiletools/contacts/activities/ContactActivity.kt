@@ -146,9 +146,25 @@ class ContactActivity : SimpleActivity() {
         contact_first_name.setText(contact!!.firstName)
         contact_middle_name.setText(contact!!.middleName)
         contact_surname.setText(contact!!.surname)
-        //contact_number.setText(contact!!.number)
-        //contact_email.setText(contact!!.email)
         contact_source.text = contact!!.source
+
+        contact!!.phoneNumbers.forEachIndexed { index, number ->
+            if (index == 0) {
+                contact_number.setText(number.value)
+                contact_number_type.setText(number.getTextId())
+            } else {
+
+            }
+        }
+
+        contact!!.emails.forEachIndexed { index, email ->
+            if (index == 0) {
+                contact_email.setText(email.value)
+                contact_email_type.setText(email.getTextId())
+            } else {
+
+            }
+        }
     }
 
     private fun setupNewContact() {
