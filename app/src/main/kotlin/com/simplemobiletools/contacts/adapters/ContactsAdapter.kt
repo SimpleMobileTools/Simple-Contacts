@@ -113,7 +113,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
         view.apply {
             contact_first_name.text = contact.getFullName(startNameWithSurname)
             contact_first_name.setTextColor(textColor)
-            contact_number.text = contact.phoneNumbers.phoneNumbers.firstOrNull()?.value ?: ""
+            contact_number.text = contact.phoneNumbers.firstOrNull()?.value ?: ""
             contact_number.setTextColor(textColor)
 
             if (contact.photoUri.isNotEmpty()) {

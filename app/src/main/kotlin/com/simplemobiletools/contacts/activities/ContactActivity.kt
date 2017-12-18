@@ -23,8 +23,6 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
-import com.simplemobiletools.contacts.models.Emails
-import com.simplemobiletools.contacts.models.PhoneNumbers
 import kotlinx.android.synthetic.main.activity_contact.*
 
 class ContactActivity : SimpleActivity() {
@@ -150,7 +148,7 @@ class ContactActivity : SimpleActivity() {
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        contact = Contact(0, "", "", "", "", PhoneNumbers(), Emails(), "")
+        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), "")
     }
 
     private fun applyPhotoPlaceholder() {
