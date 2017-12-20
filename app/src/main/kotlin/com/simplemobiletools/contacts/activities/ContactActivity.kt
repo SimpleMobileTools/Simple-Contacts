@@ -30,6 +30,8 @@ import com.simplemobiletools.contacts.extensions.tryStartCall
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
+import com.simplemobiletools.contacts.models.Email
+import com.simplemobiletools.contacts.models.PhoneNumber
 import kotlinx.android.synthetic.main.activity_contact.*
 import kotlinx.android.synthetic.main.item_email.view.*
 import kotlinx.android.synthetic.main.item_phone_number.view.*
@@ -203,11 +205,43 @@ class ContactActivity : SimpleActivity() {
             firstName = contact_first_name.value
             middleName = contact_middle_name.value
             surname = contact_surname.value
+            phoneNumbers = getFilledPhoneNumbers()
+            emails = getFilledEmails()
 
-            if (ContactsHelper(this@ContactActivity).updateContact(this)) {
+            /*if (ContactsHelper(this@ContactActivity).updateContact(this)) {
                 finish()
+            }*/
+        }
+    }
+
+    private fun getFilledPhoneNumbers(): ArrayList<PhoneNumber> {
+        val phoneNumbers = ArrayList<PhoneNumber>()
+        val numbersCount = contact_numbers_holder.childCount
+        for (i in 0 until numbersCount) {
+            val numberHolder = contact_numbers_holder.getChildAt(i)
+            val number = numberHolder.contact_number.value
+            val numberType = getPhoneNumberTypeId(numberHolder.contact_number_type.value)
+
+            if (number.isNotEmpty()) {
+                phoneNumbers.add(PhoneNumber(number, numberType))
             }
         }
+        return phoneNumbers
+    }
+
+    private fun getFilledEmails(): ArrayList<Email> {
+        val emails = ArrayList<Email>()
+        val emailsCount = contact_emails_holder.childCount
+        for (i in 0 until emailsCount) {
+            val emailHolder = contact_emails_holder.getChildAt(i)
+            val email = emailHolder.contact_email.value
+            val emailType = getEmailTypeId(emailHolder.contact_email_type.value)
+
+            if (email.isNotEmpty()) {
+                emails.add(Email(email, emailType))
+            }
+        }
+        return emails
     }
 
     private fun addNewPhoneNumberField() {
@@ -274,6 +308,13 @@ class ContactActivity : SimpleActivity() {
         else -> R.string.other
     }
 
+    private fun getEmailTypeId(value: String) = when (value) {
+        getString(R.string.home) -> ContactsContract.CommonDataKinds.Email.TYPE_HOME
+        getString(R.string.work) -> ContactsContract.CommonDataKinds.Email.TYPE_WORK
+        getString(R.string.mobile) -> ContactsContract.CommonDataKinds.Email.TYPE_MOBILE
+        else -> ContactsContract.CommonDataKinds.Email.TYPE_OTHER
+    }
+
     private fun getPhoneNumberTextId(type: Int) = when (type) {
         ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE -> R.string.mobile
         ContactsContract.CommonDataKinds.Phone.TYPE_HOME -> R.string.home
@@ -283,5 +324,16 @@ class ContactActivity : SimpleActivity() {
         ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME -> R.string.home_fax
         ContactsContract.CommonDataKinds.Phone.TYPE_PAGER -> R.string.pager
         else -> R.string.other
+    }
+
+    private fun getPhoneNumberTypeId(value: String) = when (value) {
+        getString(R.string.mobile) -> ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
+        getString(R.string.home) -> ContactsContract.CommonDataKinds.Phone.TYPE_HOME
+        getString(R.string.work) -> ContactsContract.CommonDataKinds.Phone.TYPE_WORK
+        getString(R.string.main_number) -> ContactsContract.CommonDataKinds.Phone.TYPE_MAIN
+        getString(R.string.work_fax) -> ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK
+        getString(R.string.home_fax) -> ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME
+        getString(R.string.pager) -> ContactsContract.CommonDataKinds.Phone.TYPE_PAGER
+        else -> ContactsContract.CommonDataKinds.Phone.TYPE_OTHER
     }
 }
