@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -82,6 +83,7 @@ class ContactActivity : SimpleActivity() {
             setupEditContact()
         }
 
+        setupTypePickers()
         contact_send_sms.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
         contact_start_call.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
         contact_send_email.beVisibleIf(contact!!.emails.isNotEmpty())
@@ -169,7 +171,7 @@ class ContactActivity : SimpleActivity() {
 
             (numberHolder as? ViewGroup)?.apply {
                 contact_number.setText(number.value)
-                contact_number_type.setText(getPhoneNumberTextId(number.type))
+                setupPhoneNumberTypePicker(contact_number_type, number.type)
             }
         }
 
@@ -182,7 +184,7 @@ class ContactActivity : SimpleActivity() {
 
             (emailHolder as? ViewGroup)?.apply {
                 contact_email.setText(email.value)
-                contact_email_type.setText(getEmailTextId(email.type))
+                setupEmailTypePicker(contact_email_type, email.type)
             }
         }
     }
@@ -198,6 +200,70 @@ class ContactActivity : SimpleActivity() {
         val padding = resources.getDimension(R.dimen.activity_margin).toInt()
         contact_photo.setPadding(padding, padding, padding, padding)
         contact_photo.setImageBitmap(placeholder)
+    }
+
+    private fun setupTypePickers() {
+        if (contact!!.phoneNumbers.isEmpty()) {
+            val numberHolder = contact_numbers_holder.getChildAt(0)
+            (numberHolder as? ViewGroup)?.contact_number_type?.apply {
+                setupPhoneNumberTypePicker(this)
+            }
+        }
+
+        if (contact!!.emails.isEmpty()) {
+            val emailHolder = contact_emails_holder.getChildAt(0)
+            (emailHolder as? ViewGroup)?.contact_email_type?.apply {
+                setupEmailTypePicker(this)
+            }
+        }
+    }
+
+    private fun setupPhoneNumberTypePicker(numberField: TextView, type: Int = DEFAULT_PHONE_NUMBER_TYPE) {
+        numberField.apply {
+            setText(getPhoneNumberTextId(type))
+            setOnClickListener {
+                showNumberTypePicker(it as TextView)
+            }
+        }
+    }
+
+    private fun setupEmailTypePicker(emailField: TextView, type: Int = DEFAULT_EMAIL_TYPE) {
+        emailField.apply {
+            setText(getEmailTextId(type))
+            setOnClickListener {
+                showEmailTypePicker(it as TextView)
+            }
+        }
+    }
+
+    private fun showNumberTypePicker(numberTypeField: TextView) {
+        val items = arrayListOf(
+                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE, getString(R.string.mobile)),
+                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_HOME, getString(R.string.home)),
+                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_WORK, getString(R.string.work)),
+                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_MAIN, getString(R.string.main_number)),
+                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK, getString(R.string.work_fax)),
+                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME, getString(R.string.home_fax)),
+                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_PAGER, getString(R.string.pager)),
+                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_OTHER, getString(R.string.other)))
+
+        val currentNumberTypeId = getPhoneNumberTypeId(numberTypeField.value)
+        RadioGroupDialog(this, items, currentNumberTypeId) {
+            numberTypeField.setText(getPhoneNumberTextId(it as Int))
+        }
+    }
+
+    private fun showEmailTypePicker(emailTypeField: TextView) {
+        val items = arrayListOf(
+                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_HOME, getString(R.string.home)),
+                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_WORK, getString(R.string.work)),
+                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_MOBILE, getString(R.string.mobile)),
+                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_OTHER, getString(R.string.other)))
+
+        val currentEmailTypeId = getEmailTypeId(emailTypeField.value)
+        RadioGroupDialog(this, items, currentEmailTypeId) {
+            emailTypeField.setText(getEmailTextId(it as Int))
+        }
     }
 
     private fun saveContact() {
@@ -247,14 +313,14 @@ class ContactActivity : SimpleActivity() {
     private fun addNewPhoneNumberField() {
         val view = layoutInflater.inflate(R.layout.item_phone_number, contact_numbers_holder, false)
         updateTextColors(view as ViewGroup)
-        view.contact_number_type.setText(getPhoneNumberTextId(DEFAULT_PHONE_NUMBER_TYPE))
+        setupPhoneNumberTypePicker(view.contact_number_type)
         contact_numbers_holder.addView(view)
     }
 
     private fun addNewEmailField() {
         val view = layoutInflater.inflate(R.layout.item_email, contact_emails_holder, false)
         updateTextColors(view as ViewGroup)
-        view.contact_email_type.setText(getEmailTextId(DEFAULT_EMAIL_TYPE))
+        setupEmailTypePicker(view.contact_email_type)
         contact_emails_holder.addView(view)
     }
 
