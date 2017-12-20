@@ -115,9 +115,9 @@ class ContactActivity : SimpleActivity() {
         contact_number_image.applyColorFilter(textColor)
         contact_email_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
-        contact_number_add_new.applyColorFilter(config.primaryColor)
+        contact_number_add_new.applyColorFilter(getAdjustedPrimaryColor())
         contact_number_add_new.background.applyColorFilter(textColor)
-        contact_email_add_new.applyColorFilter(config.primaryColor)
+        contact_email_add_new.applyColorFilter(getAdjustedPrimaryColor())
         contact_email_add_new.background.applyColorFilter(textColor)
 
         contact_photo.setOnClickListener { }

@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
+import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.interfaces.MyAdapterListener
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
@@ -68,7 +69,7 @@ class FilterContactSourcesAdapter(val activity: SimpleActivity, val contactSourc
     class ViewHolder(view: View, val adapterListener: MyAdapterListener, val activity: SimpleActivity) : RecyclerView.ViewHolder(view) {
         fun bindView(contactSource: String): View {
             itemView.apply {
-                filter_contact_source_checkbox.setColors(activity.config.textColor, activity.config.primaryColor, activity.config.backgroundColor)
+                filter_contact_source_checkbox.setColors(activity.config.textColor, activity.getAdjustedPrimaryColor(), activity.config.backgroundColor)
                 filter_contact_source_checkbox.text = contactSource
                 filter_contact_source_holder.setOnClickListener { viewClicked(!filter_contact_source_checkbox.isChecked) }
             }
