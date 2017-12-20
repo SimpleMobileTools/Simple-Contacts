@@ -18,6 +18,7 @@
         android:lines="1"
         android:maxLines="1"
         android:singleLine="true"
+        android:textCursorDrawable="@null"
         android:textSize="@dimen/bigger_text_size"/>
 
     <com.simplemobiletools.commons.views.MyTextView
