@@ -273,6 +273,7 @@ class ContactActivity : SimpleActivity() {
             surname = contact_surname.value
             phoneNumbers = getFilledPhoneNumbers()
             emails = getFilledEmails()
+            source = contact_source.value
 
             /*if (ContactsHelper(this@ContactActivity).updateContact(this)) {
                 finish()
@@ -332,7 +333,24 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun showAccountSourcePicker() {
+        ContactsHelper(this).getContactSources {
+            val items = ArrayList<RadioItem>()
+            val sources = it
+            val currentSource = contact_source.value
+            var currentSourceIndex = -1
+            sources.forEachIndexed { index, account ->
+                items.add(RadioItem(index, account))
+                if (account == currentSource) {
+                    currentSourceIndex = index
+                }
+            }
 
+            runOnUiThread {
+                RadioGroupDialog(this, items, currentSourceIndex) {
+                    contact_source.text = sources[it as Int]
+                }
+            }
+        }
     }
 
     private fun trySendSMS() {

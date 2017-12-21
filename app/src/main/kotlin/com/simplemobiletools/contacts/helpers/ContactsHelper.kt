@@ -24,21 +24,26 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         val accounts = HashSet<String>()
         Thread {
             val uri = ContactsContract.RawContacts.CONTENT_URI
-            val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_NAME)
+            val projection = arrayOf(
+                    ContactsContract.RawContacts.ACCOUNT_NAME
+            )
+
+            val selection = "${ContactsContract.RawContacts.DIRTY} = ?"
+            val selectionArgs = arrayOf("0")
             var cursor: Cursor? = null
             try {
-                cursor = activity.contentResolver.query(uri, projection, null, null, null)
+                cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
                 if (cursor?.moveToFirst() == true) {
                     do {
-                        accounts.add(cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME))
+                        val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
+                        accounts.add(name)
                     } while (cursor.moveToNext())
                 }
             } finally {
                 cursor?.close()
             }
 
-            val sourcesWithContacts = ArrayList(accounts).filter { doesSourceContainContacts(it) } as ArrayList
-            callback(sourcesWithContacts)
+            callback(ArrayList(accounts))
         }.start()
     }
 
