@@ -2,5 +2,5 @@
 <paths>
     <external-path name="external_files" path="."/>
     <root-path name="external_files" path="/storage/" />
-    <files-path name="external_files" path="images/" />
+    <cache-path name="cache_files" path="my_cache/" />
 </paths>

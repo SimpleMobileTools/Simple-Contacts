@@ -55,7 +55,7 @@ class ContactActivity : SimpleActivity() {
 
     private var wasActivityInitialized = false
     private var currentContactPhotoPath = ""
-    private var takePhotoPath = ""
+    private var getPhotoPath = ""
     private var contact: Contact? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -157,8 +157,11 @@ class ContactActivity : SimpleActivity() {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (resultCode == RESULT_OK) {
             if (requestCode == INTENT_TAKE_PHOTO) {
-                currentContactPhotoPath = takePhotoPath
-                updateContactPhoto(currentContactPhotoPath)
+                updateContactPhoto(getPhotoPath)
+            } else if (requestCode == INTENT_CHOOSE_PHOTO) {
+                val selectedUri = resultData?.data ?: return
+                val pathToUse = getRealPathFromURI(selectedUri) ?: selectedUri.toString()
+                updateContactPhoto(pathToUse)
             }
         }
     }
@@ -439,13 +442,8 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun startTakePhotoIntent() {
-        val imagesFolder = File(filesDir, "images")
-        if (!imagesFolder.exists()) {
-            imagesFolder.mkdirs()
-        }
-
-        val file = File(imagesFolder, "Photo_${System.currentTimeMillis()}.jpg")
-        takePhotoPath = file.absolutePath
+        val file = getCachePhotoFile()
+        getPhotoPath = file.absolutePath
         val uri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
             putExtra(MediaStore.EXTRA_OUTPUT, uri)
@@ -458,7 +456,27 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun startChoosePhotoIntent() {
+        val file = getCachePhotoFile()
+        val uri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
+        Intent(Intent.ACTION_PICK).apply {
+            type = "image/*"
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            putExtra(MediaStore.EXTRA_OUTPUT, uri)
+            if (resolveActivity(packageManager) != null) {
+                startActivityForResult(this, INTENT_CHOOSE_PHOTO)
+            } else {
+                toast(R.string.no_app_found)
+            }
+        }
+    }
 
+    private fun getCachePhotoFile(): File {
+        val imagesFolder = File(cacheDir, "my_cache")
+        if (!imagesFolder.exists()) {
+            imagesFolder.mkdirs()
+        }
+
+        return File(imagesFolder, "Photo_${System.currentTimeMillis()}.jpg")
     }
 
     private fun getEmailTextId(type: Int) = when (type) {
