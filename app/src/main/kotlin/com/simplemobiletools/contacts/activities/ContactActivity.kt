@@ -41,7 +41,12 @@ class ContactActivity : SimpleActivity() {
     private val DEFAULT_EMAIL_TYPE = ContactsContract.CommonDataKinds.Email.TYPE_HOME
     private val DEFAULT_PHONE_NUMBER_TYPE = ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
 
+    private val TAKE_PHOTO = 1
+    private val CHOOSE_PHOTO = 2
+    private val REMOVE_PHOTO = 3
+
     private var wasActivityInitialized = false
+    private var currentContactPhotoPath = ""
     private var contact: Contact? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,24 +96,9 @@ class ContactActivity : SimpleActivity() {
         contact_photo.background = ColorDrawable(config.primaryColor)
 
         if (contact!!.photoUri.isEmpty()) {
-            applyPhotoPlaceholder()
+            showPhotoPlaceholder()
         } else {
-            val options = RequestOptions()
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                    .centerCrop()
-
-            Glide.with(this)
-                    .load(contact!!.photoUri)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .apply(options)
-                    .listener(object : RequestListener<Drawable> {
-                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean) = false
-
-                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                            applyPhotoPlaceholder()
-                            return true
-                        }
-                    }).into(contact_photo)
+            updateContactPhoto(contact!!.photoUri)
         }
 
         val textColor = config.textColor
@@ -124,7 +114,7 @@ class ContactActivity : SimpleActivity() {
         contact_email_add_new.applyColorFilter(getAdjustedPrimaryColor())
         contact_email_add_new.background.applyColorFilter(textColor)
 
-        contact_photo.setOnClickListener { }
+        contact_photo.setOnClickListener { trySetPhoto() }
         contact_send_sms.setOnClickListener { trySendSMS() }
         contact_start_call.setOnClickListener { tryStartCall(contact!!) }
         contact_send_email.setOnClickListener { trySendEmail() }
@@ -195,11 +185,32 @@ class ContactActivity : SimpleActivity() {
         contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), "")
     }
 
-    private fun applyPhotoPlaceholder() {
+    private fun showPhotoPlaceholder() {
         val placeholder = resources.getColoredBitmap(R.drawable.ic_person, config.primaryColor.getContrastColor())
         val padding = resources.getDimension(R.dimen.activity_margin).toInt()
         contact_photo.setPadding(padding, padding, padding, padding)
         contact_photo.setImageBitmap(placeholder)
+        currentContactPhotoPath = ""
+    }
+
+    private fun updateContactPhoto(path: String) {
+        currentContactPhotoPath = path
+        val options = RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .centerCrop()
+
+        Glide.with(this)
+                .load(path)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .apply(options)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean) = false
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        showPhotoPlaceholder()
+                        return true
+                    }
+                }).into(contact_photo)
     }
 
     private fun setupTypePickers() {
@@ -271,6 +282,7 @@ class ContactActivity : SimpleActivity() {
             firstName = contact_first_name.value
             middleName = contact_middle_name.value
             surname = contact_surname.value
+            photoUri = currentContactPhotoPath
             phoneNumbers = getFilledPhoneNumbers()
             emails = getFilledEmails()
             source = contact_source.value
@@ -353,6 +365,25 @@ class ContactActivity : SimpleActivity() {
         }
     }
 
+    private fun trySetPhoto() {
+        val items = arrayListOf(
+                RadioItem(TAKE_PHOTO, getString(R.string.take_photo)),
+                RadioItem(CHOOSE_PHOTO, getString(R.string.choose_photo))
+        )
+
+        if (currentContactPhotoPath.isNotEmpty()) {
+            items.add(RadioItem(REMOVE_PHOTO, getString(R.string.remove_photo)))
+        }
+
+        RadioGroupDialog(this, items) {
+            when (it as Int) {
+                TAKE_PHOTO -> startTakePhotoIntent()
+                CHOOSE_PHOTO -> startChoosePhotoIntent()
+                else -> showPhotoPlaceholder()
+            }
+        }
+    }
+
     private fun trySendSMS() {
         val numbers = contact!!.phoneNumbers
         if (numbers.size == 1) {
@@ -383,6 +414,14 @@ class ContactActivity : SimpleActivity() {
                 sendEmailIntent(it as String)
             }
         }
+    }
+
+    private fun startTakePhotoIntent() {
+
+    }
+
+    private fun startChoosePhotoIntent() {
+
     }
 
     private fun getEmailTextId(type: Int) = when (type) {
