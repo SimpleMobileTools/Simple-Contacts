@@ -1,9 +1,12 @@
 package com.simplemobiletools.contacts.activities
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.provider.MediaStore
+import android.support.v4.content.FileProvider
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -23,6 +26,7 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.commons.models.RadioItem
+import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.sendEmailIntent
@@ -36,10 +40,14 @@ import com.simplemobiletools.contacts.models.PhoneNumber
 import kotlinx.android.synthetic.main.activity_contact.*
 import kotlinx.android.synthetic.main.item_email.view.*
 import kotlinx.android.synthetic.main.item_phone_number.view.*
+import java.io.File
 
 class ContactActivity : SimpleActivity() {
     private val DEFAULT_EMAIL_TYPE = ContactsContract.CommonDataKinds.Email.TYPE_HOME
     private val DEFAULT_PHONE_NUMBER_TYPE = ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
+
+    private val INTENT_TAKE_PHOTO = 1
+    private val INTENT_CHOOSE_PHOTO = 2
 
     private val TAKE_PHOTO = 1
     private val CHOOSE_PHOTO = 2
@@ -47,6 +55,7 @@ class ContactActivity : SimpleActivity() {
 
     private var wasActivityInitialized = false
     private var currentContactPhotoPath = ""
+    private var takePhotoPath = ""
     private var contact: Contact? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -144,6 +153,16 @@ class ContactActivity : SimpleActivity() {
         return true
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == INTENT_TAKE_PHOTO) {
+                currentContactPhotoPath = takePhotoPath
+                updateContactPhoto(currentContactPhotoPath)
+            }
+        }
+    }
+
     private fun setupEditContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         supportActionBar?.title = resources.getString(R.string.edit_contact)
@@ -204,7 +223,10 @@ class ContactActivity : SimpleActivity() {
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .apply(options)
                 .listener(object : RequestListener<Drawable> {
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean) = false
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        contact_photo.setPadding(0, 0, 0, 0)
+                        return false
+                    }
 
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         showPhotoPlaceholder()
@@ -417,7 +439,22 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun startTakePhotoIntent() {
+        val imagesFolder = File(filesDir, "images")
+        if (!imagesFolder.exists()) {
+            imagesFolder.mkdirs()
+        }
 
+        val file = File(imagesFolder, "Photo_${System.currentTimeMillis()}.jpg")
+        takePhotoPath = file.absolutePath
+        val uri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+            putExtra(MediaStore.EXTRA_OUTPUT, uri)
+            if (resolveActivity(packageManager) != null) {
+                startActivityForResult(this, INTENT_TAKE_PHOTO)
+            } else {
+                toast(R.string.no_app_found)
+            }
+        }
     }
 
     private fun startChoosePhotoIntent() {
