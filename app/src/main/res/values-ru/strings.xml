@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Simple Contacts</string>
+    <string name="app_launcher_name">Контакты</string>
+    <string name="address">Адрес</string>
+
+    <string name="new_contact">Новый контакт</string>
+    <string name="edit_contact">Редактировать контакт</string>
+    <string name="first_name">Имя</string>
+    <string name="middle_name">Отчество</string>
+    <string name="surname">Фамилия</string>
+
+    <!-- Photo -->
+    <string name="take_photo">Снять фото</string>
+    <string name="choose_photo">Выбрать фото</string>
+    <string name="remove_photo">Удалить фото</string>
+
+    <!-- Settings -->
+    <string name="call_contact_on_click">Вызывать контакт при нажатии</string>
+    <string name="start_name_with_surname">Отображать сначала фамилии</string>
+
+    <!-- Emails -->
+    <string name="email">Email</string>
+    <string name="home">Домашний</string>
+    <string name="work">Рабочий</string>
+    <string name="other">Другой</string>
+
+    <!-- Phone numbers -->
+    <string name="number">Номер</string>
+    <string name="mobile">Мобильный</string>
+    <string name="main_number">Основной</string>
+    <string name="work_fax">Рабочий факс</string>
+    <string name="home_fax">Домашний факс</string>
+    <string name="pager">Пейджер</string>
+    <string name="no_phone_number_found">Номер не найден</string>
+
+    <!-- Events -->
+    <string name="birthday">День рождения</string>
+    <string name="anniversary">Годовщина</string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
