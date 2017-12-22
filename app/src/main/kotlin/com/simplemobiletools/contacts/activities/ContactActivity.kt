@@ -495,7 +495,7 @@ class ContactActivity : SimpleActivity() {
         }
 
         val file = File(imagesFolder, "Photo_${System.currentTimeMillis()}.jpg")
-        val createNewFile = file.createNewFile()
+        file.createNewFile()
         return FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
     }
 
