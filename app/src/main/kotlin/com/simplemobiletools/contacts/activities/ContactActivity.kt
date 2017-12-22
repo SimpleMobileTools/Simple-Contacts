@@ -1,8 +1,10 @@
 package com.simplemobiletools.contacts.activities
 
+import android.content.ClipData
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.MediaStore
@@ -48,6 +50,7 @@ class ContactActivity : SimpleActivity() {
 
     private val INTENT_TAKE_PHOTO = 1
     private val INTENT_CHOOSE_PHOTO = 2
+    private val INTENT_CROP_PHOTO = 3
 
     private val TAKE_PHOTO = 1
     private val CHOOSE_PHOTO = 2
@@ -55,7 +58,7 @@ class ContactActivity : SimpleActivity() {
 
     private var wasActivityInitialized = false
     private var currentContactPhotoPath = ""
-    private var getPhotoPath = ""
+    private var lastPhotoIntentUri: Uri? = null
     private var contact: Contact? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -156,13 +159,28 @@ class ContactActivity : SimpleActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (resultCode == RESULT_OK) {
-            if (requestCode == INTENT_TAKE_PHOTO) {
-                updateContactPhoto(getPhotoPath)
-            } else if (requestCode == INTENT_CHOOSE_PHOTO) {
-                val selectedUri = resultData?.data ?: return
-                val pathToUse = getRealPathFromURI(selectedUri) ?: selectedUri.toString()
-                updateContactPhoto(pathToUse)
+            when (requestCode) {
+                INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri!!)
+                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString())
             }
+        }
+    }
+
+    private fun startCropPhotoIntent(uri: Uri) {
+        lastPhotoIntentUri = getCachePhotoUri()
+        Intent("com.android.camera.action.CROP").apply {
+            setDataAndType(uri, "image/*")
+            putExtra(MediaStore.EXTRA_OUTPUT, lastPhotoIntentUri)
+            putExtra("outputX", 720)
+            putExtra("outputY", 720)
+            putExtra("aspectX", 1)
+            putExtra("aspectY", 1)
+            putExtra("crop", "true")
+            putExtra("scale", "true")
+            putExtra("scaleUpIfNeeded", "true")
+            clipData = ClipData("Attachment", arrayOf("text/uri-list"), ClipData.Item(lastPhotoIntentUri))
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            startActivityForResult(this, INTENT_CROP_PHOTO)
         }
     }
 
@@ -442,9 +460,8 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun startTakePhotoIntent() {
-        val file = getCachePhotoFile()
-        getPhotoPath = file.absolutePath
-        val uri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
+        val uri = getCachePhotoUri()
+        lastPhotoIntentUri = uri
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
             putExtra(MediaStore.EXTRA_OUTPUT, uri)
             if (resolveActivity(packageManager) != null) {
@@ -456,11 +473,12 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun startChoosePhotoIntent() {
-        val file = getCachePhotoFile()
-        val uri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
+        val uri = getCachePhotoUri()
+        lastPhotoIntentUri = uri
         Intent(Intent.ACTION_PICK).apply {
             type = "image/*"
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            clipData = ClipData("Attachment", arrayOf("text/uri-list"), ClipData.Item(uri))
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             putExtra(MediaStore.EXTRA_OUTPUT, uri)
             if (resolveActivity(packageManager) != null) {
                 startActivityForResult(this, INTENT_CHOOSE_PHOTO)
@@ -470,13 +488,15 @@ class ContactActivity : SimpleActivity() {
         }
     }
 
-    private fun getCachePhotoFile(): File {
+    private fun getCachePhotoUri(): Uri {
         val imagesFolder = File(cacheDir, "my_cache")
         if (!imagesFolder.exists()) {
             imagesFolder.mkdirs()
         }
 
-        return File(imagesFolder, "Photo_${System.currentTimeMillis()}.jpg")
+        val file = File(imagesFolder, "Photo_${System.currentTimeMillis()}.jpg")
+        val createNewFile = file.createNewFile()
+        return FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
     }
 
     private fun getEmailTextId(type: Int) = when (type) {
