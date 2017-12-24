@@ -385,17 +385,27 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun addNewPhoneNumberField() {
-        val view = layoutInflater.inflate(R.layout.item_phone_number, contact_numbers_holder, false)
-        updateTextColors(view as ViewGroup)
-        setupPhoneNumberTypePicker(view.contact_number_type)
-        contact_numbers_holder.addView(view)
+        layoutInflater.inflate(R.layout.item_phone_number, contact_numbers_holder, false).apply {
+            updateTextColors(this as ViewGroup)
+            setupPhoneNumberTypePicker(contact_number_type)
+            contact_numbers_holder.addView(this)
+            contact_numbers_holder.onGlobalLayout {
+                contact_number.requestFocus()
+                showKeyboard(contact_number)
+            }
+        }
     }
 
     private fun addNewEmailField() {
-        val view = layoutInflater.inflate(R.layout.item_email, contact_emails_holder, false)
-        updateTextColors(view as ViewGroup)
-        setupEmailTypePicker(view.contact_email_type)
-        contact_emails_holder.addView(view)
+        layoutInflater.inflate(R.layout.item_email, contact_emails_holder, false).apply {
+            updateTextColors(this as ViewGroup)
+            setupEmailTypePicker(contact_email_type)
+            contact_emails_holder.addView(this)
+            contact_emails_holder.onGlobalLayout {
+                contact_email.requestFocus()
+                showKeyboard(contact_email)
+            }
+        }
     }
 
     private fun deleteContact() {
