@@ -330,9 +330,11 @@ class ContactActivity : SimpleActivity() {
             emails = getFilledEmails()
             source = contact_source.value
 
-            /*if (ContactsHelper(this@ContactActivity).updateContact(this)) {
-                finish()
-            }*/
+            if (id == 0) {
+                insertNewContact()
+            } else {
+                updateContact()
+            }
         }
     }
 
@@ -364,6 +366,22 @@ class ContactActivity : SimpleActivity() {
             }
         }
         return emails
+    }
+
+    private fun insertNewContact() {
+        if (ContactsHelper(this@ContactActivity).insertContact(contact!!)) {
+            finish()
+        } else {
+            toast(R.string.unknown_error_occurred)
+        }
+    }
+
+    private fun updateContact() {
+        if (ContactsHelper(this@ContactActivity).updateContact(contact!!)) {
+            finish()
+        } else {
+            toast(R.string.unknown_error_occurred)
+        }
     }
 
     private fun addNewPhoneNumberField() {
