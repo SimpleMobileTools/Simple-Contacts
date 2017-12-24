@@ -258,6 +258,44 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 operations.add(this.build())
             }
 
+            // delete phone numbers
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                withSelection(selection, selectionArgs)
+                operations.add(this.build())
+            }
+
+            // add phone numbers
+            contact.phoneNumbers.forEach {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
+                    withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                    withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, it.value)
+                    withValue(ContactsContract.CommonDataKinds.Phone.TYPE, it.type)
+                    operations.add(this.build())
+                }
+            }
+
+            // delete emails
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                withSelection(selection, selectionArgs)
+                operations.add(this.build())
+            }
+
+            // add emails
+            contact.emails.forEach {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
+                    withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                    withValue(ContactsContract.CommonDataKinds.Email.DATA, it.value)
+                    withValue(ContactsContract.CommonDataKinds.Email.TYPE, it.type)
+                    operations.add(this.build())
+                }
+            }
+
             activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
             true
         } catch (e: Exception) {
