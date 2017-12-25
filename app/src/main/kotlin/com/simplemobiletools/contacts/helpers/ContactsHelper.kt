@@ -1,23 +1,32 @@
 package com.simplemobiletools.contacts.helpers
 
 import android.content.ContentProviderOperation
+import android.content.ContentProviderResult
+import android.content.ContentUris
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.net.Uri
 import android.provider.ContactsContract
+import android.provider.MediaStore
 import android.util.SparseArray
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.getStringValue
 import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
+import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Email
 import com.simplemobiletools.contacts.models.PhoneNumber
 import com.simplemobiletools.contacts.overloads.times
+import java.io.ByteArrayOutputStream
 import java.util.*
+
 
 class ContactsHelper(val activity: BaseSimpleActivity) {
     fun getContactSources(callback: (ArrayList<String>) -> Unit) {
@@ -105,20 +114,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             (0 until contactsSize).mapTo(resultContacts) { contacts.valueAt(it) }
             callback(resultContacts)
         }.start()
-    }
-
-    fun doesSourceContainContacts(source: String): Boolean {
-        val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
-        val projection = arrayOf(ContactsContract.CommonDataKinds.Email.CONTACT_ID)
-        val selection = "${ContactsContract.RawContacts.ACCOUNT_NAME} = ?"
-        val selectionArgs = arrayOf(source)
-        var cursor: Cursor? = null
-        try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            return (cursor?.moveToFirst() == true)
-        } finally {
-            cursor?.close()
-        }
     }
 
     private fun getEmails(contactId: Int? = null): SparseArray<ArrayList<Email>> {
@@ -304,6 +299,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
     fun insertContact(contact: Contact): Boolean {
         return try {
+            activity.toast(R.string.inserting)
             val operations = ArrayList<ContentProviderOperation>()
             ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI).apply {
                 withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
@@ -343,11 +339,67 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 }
             }
 
-            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            // photo (inspired by https://gist.github.com/slightfoot/5985900)
+            var fullSizePhotoData: ByteArray? = null
+            var scaledSizePhotoData: ByteArray?
+            if (contact.photoUri.isNotEmpty()) {
+                val photoUri = Uri.parse(contact.photoUri)
+                val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, photoUri)
+
+                val thumbnailSize = getThumbnailSize()
+                val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize, thumbnailSize, false)
+                scaledSizePhotoData = bitmapToByteArray(scaledPhoto)
+                scaledPhoto.recycle()
+
+                fullSizePhotoData = bitmapToByteArray(bitmap)
+                bitmap.recycle()
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE)
+                    withValue(ContactsContract.CommonDataKinds.Photo.PHOTO, scaledSizePhotoData)
+                    operations.add(this.build())
+                }
+            }
+
+            val results: Array<ContentProviderResult>
+            try {
+                results = activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            } finally {
+                scaledSizePhotoData = null
+            }
+
+            // fullsize photo
+            if (contact.photoUri.isNotEmpty() && fullSizePhotoData != null) {
+                val rawContactId = ContentUris.parseId(results[0].uri)
+                val baseUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, rawContactId)
+                val displayPhotoUri = Uri.withAppendedPath(baseUri, ContactsContract.RawContacts.DisplayPhoto.CONTENT_DIRECTORY)
+                val photoStream = activity.contentResolver.openAssetFileDescriptor(displayPhotoUri, "rw").createOutputStream()
+                photoStream.use {
+                    var bufferSize = 16 * 1024
+                    var offset = 0
+                    while (offset < fullSizePhotoData.size) {
+                        bufferSize = Math.min(bufferSize, fullSizePhotoData.size - offset)
+                        photoStream.write(fullSizePhotoData, offset, bufferSize)
+                        offset += bufferSize
+                    }
+                }
+            }
+
             true
         } catch (e: Exception) {
             activity.showErrorToast(e)
             false
+        }
+    }
+
+    private fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
+        var baos: ByteArrayOutputStream? = null
+        try {
+            baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
+            return baos.toByteArray()
+        } finally {
+            baos?.close()
         }
     }
 
@@ -365,5 +417,34 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         } catch (e: Exception) {
             activity.showErrorToast(e)
         }
+    }
+
+    fun doesSourceContainContacts(source: String): Boolean {
+        val uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+        val projection = arrayOf(ContactsContract.CommonDataKinds.Email.CONTACT_ID)
+        val selection = "${ContactsContract.RawContacts.ACCOUNT_NAME} = ?"
+        val selectionArgs = arrayOf(source)
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            return (cursor?.moveToFirst() == true)
+        } finally {
+            cursor?.close()
+        }
+    }
+
+    private fun getThumbnailSize(): Int {
+        var cursor: Cursor? = null
+        try {
+            val uri = ContactsContract.DisplayPhoto.CONTENT_MAX_DIMENSIONS_URI
+            val projection = arrayOf(ContactsContract.DisplayPhoto.THUMBNAIL_MAX_DIM)
+            cursor = activity.contentResolver.query(uri, projection, null, null, null)
+            if (cursor?.moveToFirst() == true) {
+                return cursor.getIntValue(ContactsContract.DisplayPhoto.THUMBNAIL_MAX_DIM)
+            }
+        } finally {
+            cursor?.close()
+        }
+        return 0
     }
 }

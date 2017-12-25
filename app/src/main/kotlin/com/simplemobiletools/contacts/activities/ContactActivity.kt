@@ -60,6 +60,7 @@ class ContactActivity : SimpleActivity() {
     private var currentContactPhotoPath = ""
     private var lastPhotoIntentUri: Uri? = null
     private var contact: Contact? = null
+    private var isSaving = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -321,6 +322,10 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun saveContact() {
+        if (isSaving) {
+            return
+        }
+
         contact!!.apply {
             firstName = contact_first_name.value
             middleName = contact_middle_name.value
@@ -330,11 +335,13 @@ class ContactActivity : SimpleActivity() {
             emails = getFilledEmails()
             source = contact_source.value
 
-            if (id == 0) {
-                insertNewContact()
-            } else {
-                updateContact()
-            }
+            Thread {
+                if (id == 0) {
+                    insertNewContact()
+                } else {
+                    updateContact()
+                }
+            }.start()
         }
     }
 
@@ -369,6 +376,7 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun insertNewContact() {
+        isSaving = true
         if (ContactsHelper(this@ContactActivity).insertContact(contact!!)) {
             finish()
         } else {
@@ -377,6 +385,7 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun updateContact() {
+        isSaving = true
         if (ContactsHelper(this@ContactActivity).updateContact(contact!!)) {
             finish()
         } else {

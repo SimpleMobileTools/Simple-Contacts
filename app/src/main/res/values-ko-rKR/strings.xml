@@ -2,6 +2,8 @@
     <string name="app_name">심플 연락처</string>
     <string name="app_launcher_name">연락처</string>
     <string name="address">주소</string>
+    <string name="inserting">Inserting…</string>
+    <string name="updating">Updating…</string>
 
     <string name="new_contact">새로운 연락처</string>
     <string name="edit_contact">연락처 수정</string>

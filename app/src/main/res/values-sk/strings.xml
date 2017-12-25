@@ -2,6 +2,8 @@
     <string name="app_name">Jednoduché kontakty</string>
     <string name="app_launcher_name">Kontakty</string>
     <string name="address">Adresa</string>
+    <string name="inserting">Vytvára sa…</string>
+    <string name="updating">Upravuje sa…</string>
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
