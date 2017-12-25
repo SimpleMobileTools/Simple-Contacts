@@ -2,8 +2,8 @@
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Контакты</string>
     <string name="address">Адрес</string>
-    <string name="inserting">Inserting…</string>
-    <string name="updating">Updating…</string>
+    <string name="inserting">Добавление…</string>
+    <string name="updating">Обновление…</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
