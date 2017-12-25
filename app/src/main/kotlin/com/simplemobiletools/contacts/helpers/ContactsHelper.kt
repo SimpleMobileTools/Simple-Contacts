@@ -28,11 +28,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     ContactsContract.RawContacts.ACCOUNT_NAME
             )
 
-            val selection = "${ContactsContract.RawContacts.DIRTY} = ?"
-            val selectionArgs = arrayOf("0")
             var cursor: Cursor? = null
             try {
-                cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+                cursor = activity.contentResolver.query(uri, projection, null, null, null)
                 if (cursor?.moveToFirst() == true) {
                     do {
                         val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
