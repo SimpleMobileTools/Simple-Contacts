@@ -10,22 +10,22 @@ import com.simplemobiletools.contacts.helpers.ContactsHelper
 import kotlinx.android.synthetic.main.dialog_filter_contact_sources.view.*
 
 class FilterContactSourcesDialog(val activity: SimpleActivity, val callback: () -> Unit) {
-    var dialog: AlertDialog
-    val view = activity.layoutInflater.inflate(R.layout.dialog_filter_contact_sources, null)
+    private var dialog: AlertDialog? = null
+    private val view = activity.layoutInflater.inflate(R.layout.dialog_filter_contact_sources, null)
 
     init {
         ContactsHelper(activity).getContactSources {
             val selectedSources = activity.config.displayContactSources
             activity.runOnUiThread {
                 view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, it, selectedSources)
-            }
-        }
 
-        dialog = AlertDialog.Builder(activity)
-                .setPositiveButton(R.string.ok, { dialogInterface, i -> confirmEventTypes() })
-                .setNegativeButton(R.string.cancel, null)
-                .create().apply {
-            activity.setupDialogStuff(view, this)
+                dialog = AlertDialog.Builder(activity)
+                        .setPositiveButton(R.string.ok, { dialogInterface, i -> confirmEventTypes() })
+                        .setNegativeButton(R.string.cancel, null)
+                        .create().apply {
+                    activity.setupDialogStuff(view, this)
+                }
+            }
         }
     }
 
@@ -35,6 +35,6 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, val callback: () 
             activity.config.displayContactSources = selectedItems
             callback()
         }
-        dialog.dismiss()
+        dialog?.dismiss()
     }
 }
