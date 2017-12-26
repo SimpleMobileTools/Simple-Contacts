@@ -89,6 +89,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         contacts_placeholder_2.setOnClickListener {
             showFilterDialog()
         }
+
         if (!isFirstResume) {
             initContacts()
         }
@@ -144,6 +145,11 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
 
     private fun initContacts() {
         ContactsHelper(this).getContacts {
+            if (config.lastUsedContactSource.isEmpty()) {
+                val grouped = it.groupBy { it.source }.maxWith(compareBy { it.value.size })
+                config.lastUsedContactSource = grouped?.key ?: ""
+            }
+
             Contact.sorting = config.sorting
             it.sort()
 
