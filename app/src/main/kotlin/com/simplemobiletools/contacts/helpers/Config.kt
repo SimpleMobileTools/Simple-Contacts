@@ -2,6 +2,7 @@ package com.simplemobiletools.contacts.helpers
 
 import android.content.Context
 import com.simplemobiletools.commons.helpers.BaseConfig
+import com.simplemobiletools.commons.helpers.SORTING
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 
 class Config(context: Context) : BaseConfig(context) {

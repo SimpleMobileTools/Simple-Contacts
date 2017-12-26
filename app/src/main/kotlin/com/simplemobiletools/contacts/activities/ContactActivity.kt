@@ -34,8 +34,7 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.sendEmailIntent
 import com.simplemobiletools.contacts.extensions.sendSMSIntent
 import com.simplemobiletools.contacts.extensions.tryStartCall
-import com.simplemobiletools.contacts.helpers.CONTACT_ID
-import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Email
 import com.simplemobiletools.contacts.models.PhoneNumber
@@ -327,6 +326,8 @@ class ContactActivity : SimpleActivity() {
         }
 
         contact!!.apply {
+            val oldPhotoUri = photoUri
+
             firstName = contact_first_name.value
             middleName = contact_middle_name.value
             surname = contact_surname.value
@@ -339,7 +340,8 @@ class ContactActivity : SimpleActivity() {
                 if (id == 0) {
                     insertNewContact()
                 } else {
-                    updateContact()
+                    val photoUpdateStatus = getPhotoUpdateStatus(oldPhotoUri, photoUri)
+                    updateContact(photoUpdateStatus)
                 }
             }.start()
         }
@@ -384,12 +386,24 @@ class ContactActivity : SimpleActivity() {
         }
     }
 
-    private fun updateContact() {
+    private fun updateContact(photoUpdateStatus: Int) {
         isSaving = true
-        if (ContactsHelper(this@ContactActivity).updateContact(contact!!)) {
+        if (ContactsHelper(this@ContactActivity).updateContact(contact!!, photoUpdateStatus)) {
             finish()
         } else {
             toast(R.string.unknown_error_occurred)
+        }
+    }
+
+    private fun getPhotoUpdateStatus(oldUri: String, newUri: String): Int {
+        return if (oldUri.isEmpty() && newUri.isNotEmpty()) {
+            PHOTO_ADDED
+        } else if (oldUri.isNotEmpty() && newUri.isEmpty()) {
+            PHOTO_REMOVED
+        } else if (oldUri != newUri) {
+            PHOTO_CHANGED
+        } else {
+            PHOTO_UNCHANGED
         }
     }
 

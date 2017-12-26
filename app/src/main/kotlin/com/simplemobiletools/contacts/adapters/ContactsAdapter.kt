@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
@@ -118,6 +119,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
 
             if (contact.photoUri.isNotEmpty()) {
                 val options = RequestOptions()
+                        .signature(ObjectKey(contact.photoUri))
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .error(contactDrawable)
                         .centerCrop()
