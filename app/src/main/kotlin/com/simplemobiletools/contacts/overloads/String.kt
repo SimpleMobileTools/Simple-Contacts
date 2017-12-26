@@ -1,9 +1,9 @@
 package com.simplemobiletools.contacts.overloads
 
 operator fun String.times(x: Int): String {
-    val sb = StringBuilder()
+    val stringBuilder = StringBuilder()
     for (i in 1..x) {
-        sb.append(this)
+        stringBuilder.append(this)
     }
-    return sb.toString()
+    return stringBuilder.toString()
 }
