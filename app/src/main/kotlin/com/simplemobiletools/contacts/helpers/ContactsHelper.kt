@@ -453,9 +453,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             val operations = ArrayList<ContentProviderOperation>()
             val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
             contacts.forEach {
-                val selectionArgs = arrayOf(it.id.toString())
-                operations.add(ContentProviderOperation.newDelete(ContactsContract.RawContacts.CONTENT_URI).withSelection(selection, selectionArgs).build())
+                ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                    val selectionArgs = arrayOf(it.id.toString())
+                    withSelection(selection, selectionArgs)
+                    operations.add(this.build())
+                }
             }
+
             activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
         } catch (e: Exception) {
             activity.showErrorToast(e)
