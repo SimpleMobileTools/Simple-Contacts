@@ -291,9 +291,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
             // photo
             when (photoUpdateStatus) {
-                PHOTO_ADDED -> addPhoto(contact, operations)
+                PHOTO_ADDED, PHOTO_CHANGED -> addPhoto(contact, operations)
                 PHOTO_REMOVED -> removePhoto(contact, operations)
-                PHOTO_CHANGED -> {}
             }
             activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
             true
