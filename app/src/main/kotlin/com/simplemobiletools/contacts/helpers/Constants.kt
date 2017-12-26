@@ -4,6 +4,7 @@ package com.simplemobiletools.contacts.helpers
 val CALL_CONTACT_ON_CLICK = "call_contact_on_click"
 val DISPLAY_CONTACT_SOURCES = "display_contact_sources"
 val START_NAME_WITH_SURNAME = "start_name_with_surname"
+val LAST_USED_CONTACT_SOURCE = "last_used_contact_source"
 
 val CONTACT_ID = "contact_id"
 

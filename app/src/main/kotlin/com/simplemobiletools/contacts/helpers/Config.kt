@@ -27,4 +27,8 @@ class Config(context: Context) : BaseConfig(context) {
     var startNameWithSurname: Boolean
         get() = prefs.getBoolean(START_NAME_WITH_SURNAME, false)
         set(startNameWithSurname) = prefs.edit().putBoolean(START_NAME_WITH_SURNAME, startNameWithSurname).apply()
+
+    var lastUsedContactSource: String
+        get() = prefs.getString(LAST_USED_CONTACT_SOURCE, "")
+        set(lastUsedContactSource) = prefs.edit().putString(LAST_USED_CONTACT_SOURCE, lastUsedContactSource).apply()
 }
