@@ -130,7 +130,6 @@ class ContactActivity : SimpleActivity() {
         contact_send_sms.setOnClickListener { trySendSMS() }
         contact_start_call.setOnClickListener { tryStartCall(contact!!) }
         contact_send_email.setOnClickListener { trySendEmail() }
-        contact_source.setOnClickListener { showAccountSourcePicker() }
         contact_number_add_new.setOnClickListener { addNewPhoneNumberField() }
         contact_email_add_new.setOnClickListener { addNewEmailField() }
 
@@ -223,6 +222,7 @@ class ContactActivity : SimpleActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
         contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), "")
+        contact_source.setOnClickListener { showAccountSourcePicker() }
     }
 
     private fun showPhotoPlaceholder() {
