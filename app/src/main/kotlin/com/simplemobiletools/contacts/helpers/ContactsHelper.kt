@@ -28,31 +28,6 @@ import java.io.ByteArrayOutputStream
 import java.util.*
 
 class ContactsHelper(val activity: BaseSimpleActivity) {
-    fun getContactSources(callback: (ArrayList<String>) -> Unit) {
-        val accounts = HashSet<String>()
-        Thread {
-            val uri = ContactsContract.RawContacts.CONTENT_URI
-            val projection = arrayOf(
-                    ContactsContract.RawContacts.ACCOUNT_NAME
-            )
-
-            var cursor: Cursor? = null
-            try {
-                cursor = activity.contentResolver.query(uri, projection, null, null, null)
-                if (cursor?.moveToFirst() == true) {
-                    do {
-                        val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
-                        accounts.add(name)
-                    } while (cursor.moveToNext())
-                }
-            } finally {
-                cursor?.close()
-            }
-
-            callback(ArrayList(accounts))
-        }.start()
-    }
-
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
         val contacts = SparseArray<Contact>()
         Thread {
@@ -66,8 +41,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 selection += " AND ${ContactsContract.RawContacts.ACCOUNT_NAME} IN ($questionMarks)"
                 selectionArgs += sources.toTypedArray()
             }
-
             val sortOrder = getSortString()
+
             var cursor: Cursor? = null
             try {
                 cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, sortOrder)
@@ -213,6 +188,47 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return null
     }
 
+    fun getContactSources(callback: (ArrayList<String>) -> Unit) {
+        val accounts = HashSet<String>()
+        Thread {
+            val uri = ContactsContract.RawContacts.CONTENT_URI
+            val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_NAME)
+
+            var cursor: Cursor? = null
+            try {
+                cursor = activity.contentResolver.query(uri, projection, null, null, null)
+                if (cursor?.moveToFirst() == true) {
+                    do {
+                        val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
+                        accounts.add(name)
+                    } while (cursor.moveToNext())
+                }
+            } finally {
+                cursor?.close()
+            }
+
+            callback(ArrayList(accounts))
+        }.start()
+    }
+
+    fun getContactSourceType(accountName: String): String {
+        val uri = ContactsContract.RawContacts.CONTENT_URI
+        val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_TYPE)
+        val selection = "${ContactsContract.RawContacts.ACCOUNT_NAME} = ?"
+        val selectionArgs = arrayOf(accountName)
+
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                return cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE)
+            }
+        } finally {
+            cursor?.close()
+        }
+        return ""
+    }
+
     private fun getContactProjection() = arrayOf(
             ContactsContract.Data.RAW_CONTACT_ID,
             ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME,
@@ -345,8 +361,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             activity.toast(R.string.inserting)
             val operations = ArrayList<ContentProviderOperation>()
             ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI).apply {
-                withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
-                withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
+                withValue(ContactsContract.RawContacts.ACCOUNT_NAME, contact.source)
+                withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, getContactSourceType(contact.source))
                 operations.add(this.build())
             }
 
