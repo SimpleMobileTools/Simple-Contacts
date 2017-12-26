@@ -294,6 +294,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 PHOTO_ADDED, PHOTO_CHANGED -> addPhoto(contact, operations)
                 PHOTO_REMOVED -> removePhoto(contact, operations)
             }
+
             activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
             true
         } catch (e: Exception) {
@@ -315,7 +316,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             val fullSizePhotoData = bitmapToByteArray(bitmap)
             bitmap.recycle()
 
-            bitmap.recycle()
             ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
                 withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
                 withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE)
@@ -323,13 +323,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 operations.add(this.build())
             }
 
-            val baseUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, contact.id.toLong())
-            val displayPhotoUri = Uri.withAppendedPath(baseUri, ContactsContract.RawContacts.DisplayPhoto.CONTENT_DIRECTORY)
-            val fileDescriptor = activity.contentResolver.openAssetFileDescriptor(displayPhotoUri, "rw")
-            val photoStream = fileDescriptor.createOutputStream()
-            photoStream.write(fullSizePhotoData)
-            photoStream.close()
-            fileDescriptor.close()
+            addFullSizePhoto(contact.id.toLong(), fullSizePhotoData)
         }
         return operations
     }
@@ -341,6 +335,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             withSelection(selection, selectionArgs)
             operations.add(this.build())
         }
+
         return operations
     }
 
@@ -400,6 +395,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
                 fullSizePhotoData = bitmapToByteArray(bitmap)
                 bitmap.recycle()
+
                 ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
                     withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                     withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE)
@@ -418,13 +414,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             // fullsize photo
             if (contact.photoUri.isNotEmpty() && fullSizePhotoData != null) {
                 val rawContactId = ContentUris.parseId(results[0].uri)
-                val baseUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, rawContactId)
-                val displayPhotoUri = Uri.withAppendedPath(baseUri, ContactsContract.RawContacts.DisplayPhoto.CONTENT_DIRECTORY)
-                val fileDescriptor = activity.contentResolver.openAssetFileDescriptor(displayPhotoUri, "rw")
-                val photoStream = fileDescriptor.createOutputStream()
-                photoStream.write(fullSizePhotoData)
-                photoStream.close()
-                fileDescriptor.close()
+                addFullSizePhoto(rawContactId, fullSizePhotoData)
             }
 
             true
@@ -432,6 +422,16 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             activity.showErrorToast(e)
             false
         }
+    }
+
+    private fun addFullSizePhoto(contactId: Long, fullSizePhotoData: ByteArray) {
+        val baseUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, contactId)
+        val displayPhotoUri = Uri.withAppendedPath(baseUri, ContactsContract.RawContacts.DisplayPhoto.CONTENT_DIRECTORY)
+        val fileDescriptor = activity.contentResolver.openAssetFileDescriptor(displayPhotoUri, "rw")
+        val photoStream = fileDescriptor.createOutputStream()
+        photoStream.write(fullSizePhotoData)
+        photoStream.close()
+        fileDescriptor.close()
     }
 
     private fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
