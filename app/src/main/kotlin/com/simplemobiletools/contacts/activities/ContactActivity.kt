@@ -429,6 +429,7 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun getFilledEvents(): ArrayList<Event> {
+        val unknown = getString(R.string.unknown)
         val events = ArrayList<Event>()
         val eventsCount = contact_events_holder.childCount
         for (i in 0 until eventsCount) {
@@ -436,7 +437,7 @@ class ContactActivity : SimpleActivity() {
             val event = eventHolder.contact_event.value
             val eventType = getEventTypeId(eventHolder.contact_event_type.value)
 
-            if (event.isNotEmpty()) {
+            if (event.isNotEmpty() && event != unknown) {
                 events.add(Event(event, eventType))
             }
         }
