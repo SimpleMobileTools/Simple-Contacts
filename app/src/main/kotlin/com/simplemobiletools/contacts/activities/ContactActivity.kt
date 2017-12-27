@@ -28,6 +28,7 @@ import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
+import com.simplemobiletools.commons.helpers.getDateFormats
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
@@ -47,7 +48,8 @@ import kotlinx.android.synthetic.main.item_phone_number.view.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.io.File
-import java.lang.IllegalArgumentException
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class ContactActivity : SimpleActivity() {
@@ -237,9 +239,8 @@ class ContactActivity : SimpleActivity() {
             }
 
             (eventHolder as? ViewGroup)?.apply {
-                val date = getDateTime(event.value)
-                contact_event.text = date.toString(DateTimeFormat.mediumDate())
-                contact_event.tag = date.toString()
+                getDateTime(event.value, contact_event)
+                contact_event.tag = event.value
                 contact_event.alpha = 1f
                 setupEventTypePicker(contact_event_type, contact_event, event.type)
             }
@@ -339,7 +340,7 @@ class ContactActivity : SimpleActivity() {
                 val date = DateTime().withDate(year, monthOfYear + 1, dayOfMonth).withTimeAtStartOfDay()
                 val formatted = date.toString(DateTimeFormat.mediumDate())
                 eventField.text = formatted
-                eventField.tag = date.toString()
+                eventField.tag = date.toString("yyyy-MM-dd")
                 eventField.alpha = 1f
             }
 
@@ -348,11 +349,27 @@ class ContactActivity : SimpleActivity() {
         }
     }
 
-    private fun getDateTime(dateString: String): DateTime {
+    private fun getDateTime(dateString: String, viewToUpdate: TextView? = null): DateTime {
+        val dateFormats = getDateFormats()
         var date = DateTime()
-        try {
-            date = DateTime.parse(dateString)
-        } catch (ignored: IllegalArgumentException) {
+        for (format in dateFormats) {
+            try {
+                date = DateTime.parse(dateString, DateTimeFormat.forPattern(format))
+
+                val formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+                var localPattern = (formatter as SimpleDateFormat).toLocalizedPattern()
+
+                val hasYear = format.contains("y")
+                if (!hasYear) {
+                    localPattern = localPattern.replace("y", "").trim()
+                    date = date.withYear(DateTime().year)
+                }
+
+                val formattedString = date.toString(localPattern)
+                viewToUpdate?.text = formattedString
+                break
+            } catch (ignored: Exception) {
+            }
         }
         return date
     }
@@ -471,9 +488,7 @@ class ContactActivity : SimpleActivity() {
             val eventType = getEventTypeId(eventHolder.contact_event_type.value)
 
             if (event.isNotEmpty() && event != unknown) {
-                val date = getDateTime(eventHolder.contact_event.tag.toString())
-                val formattedEventDate = date.toString(DateTimeFormat.shortDate())
-                events.add(Event(formattedEventDate, eventType))
+                events.add(Event(eventHolder.contact_event.tag.toString(), eventType))
             }
         }
         return events
