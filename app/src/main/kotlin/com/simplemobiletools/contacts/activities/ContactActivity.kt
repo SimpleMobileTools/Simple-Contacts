@@ -221,7 +221,7 @@ class ContactActivity : SimpleActivity() {
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), "")
+        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), "")
         contact_source.text = config.lastUsedContactSource
         contact_source.setOnClickListener { showAccountSourcePicker() }
     }
