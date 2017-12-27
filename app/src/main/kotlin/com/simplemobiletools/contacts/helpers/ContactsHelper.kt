@@ -58,8 +58,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
                         val photoUri = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
                         val number = ArrayList<PhoneNumber>()       // proper value is obtained below
-                        val emails = ArrayList<Email>()             // proper value is obtained below
-                        val events = ArrayList<Event>()             // proper value is obtained below
+                        val emails = ArrayList<Email>()
+                        val events = ArrayList<Event>()
                         val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
                         val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName)
                         contacts.put(id, contact)
@@ -71,15 +71,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 cursor?.close()
             }
 
-            val emails = getEmails()
-            var size = emails.size()
-            for (i in 0 until size) {
-                val key = emails.keyAt(i)
-                contacts[key]?.emails = emails.valueAt(i)
-            }
-
             val phoneNumbers = getPhoneNumbers()
-            size = phoneNumbers.size()
+            val size = phoneNumbers.size()
             for (i in 0 until size) {
                 val key = phoneNumbers.keyAt(i)
                 contacts[key]?.phoneNumbers = phoneNumbers.valueAt(i)
@@ -126,32 +119,30 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return phoneNumbers
     }
 
-    private fun getEmails(contactId: Int? = null): SparseArray<ArrayList<Email>> {
+    private fun getEmails(contactId: Int): SparseArray<ArrayList<Email>> {
         val emails = SparseArray<ArrayList<Email>>()
         val uri = ContactsContract.CommonDataKinds.Email.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Data.RAW_CONTACT_ID,
                 ContactsContract.CommonDataKinds.Email.DATA,
                 ContactsContract.CommonDataKinds.Email.TYPE
         )
 
-        val selection = if (contactId == null) null else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = if (contactId == null) null else arrayOf(contactId.toString())
+        val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(contactId.toString())
 
         var cursor: Cursor? = null
         try {
             cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
                     val email = cursor.getStringValue(ContactsContract.CommonDataKinds.Email.DATA)
                     val type = cursor.getIntValue(ContactsContract.CommonDataKinds.Email.TYPE)
 
-                    if (emails[id] == null) {
-                        emails.put(id, ArrayList())
+                    if (emails[contactId] == null) {
+                        emails.put(contactId, ArrayList())
                     }
 
-                    emails[id]!!.add(Email(email, type))
+                    emails[contactId]!!.add(Email(email, type))
                 } while (cursor.moveToNext())
             }
         } finally {
