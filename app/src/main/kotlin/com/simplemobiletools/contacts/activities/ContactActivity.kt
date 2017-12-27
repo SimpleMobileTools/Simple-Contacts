@@ -37,15 +37,18 @@ import com.simplemobiletools.contacts.extensions.tryStartCall
 import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Email
+import com.simplemobiletools.contacts.models.Event
 import com.simplemobiletools.contacts.models.PhoneNumber
 import kotlinx.android.synthetic.main.activity_contact.*
 import kotlinx.android.synthetic.main.item_email.view.*
+import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_phone_number.view.*
 import java.io.File
 
 class ContactActivity : SimpleActivity() {
     private val DEFAULT_EMAIL_TYPE = ContactsContract.CommonDataKinds.Email.TYPE_HOME
     private val DEFAULT_PHONE_NUMBER_TYPE = ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
+    private val DEFAULT_EVENT_TYPE = ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY
 
     private val INTENT_TAKE_PHOTO = 1
     private val INTENT_CHOOSE_PHOTO = 2
@@ -120,11 +123,14 @@ class ContactActivity : SimpleActivity() {
         contact_name_image.applyColorFilter(textColor)
         contact_number_image.applyColorFilter(textColor)
         contact_email_image.applyColorFilter(textColor)
+        contact_event_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
         contact_number_add_new.applyColorFilter(getAdjustedPrimaryColor())
         contact_number_add_new.background.applyColorFilter(textColor)
         contact_email_add_new.applyColorFilter(getAdjustedPrimaryColor())
         contact_email_add_new.background.applyColorFilter(textColor)
+        contact_event_add_new.applyColorFilter(getAdjustedPrimaryColor())
+        contact_event_add_new.background.applyColorFilter(textColor)
 
         contact_photo.setOnClickListener { trySetPhoto() }
         contact_send_sms.setOnClickListener { trySendSMS() }
@@ -132,6 +138,7 @@ class ContactActivity : SimpleActivity() {
         contact_send_email.setOnClickListener { trySendEmail() }
         contact_number_add_new.setOnClickListener { addNewPhoneNumberField() }
         contact_email_add_new.setOnClickListener { addNewEmailField() }
+        contact_event_add_new.setOnClickListener { addNewEventField() }
 
         updateTextColors(contact_scrollview)
         wasActivityInitialized = true
@@ -216,6 +223,19 @@ class ContactActivity : SimpleActivity() {
                 setupEmailTypePicker(contact_email_type, email.type)
             }
         }
+
+        contact!!.events.forEachIndexed { index, event ->
+            var eventHolder = contact_events_holder.getChildAt(index)
+            if (eventHolder == null) {
+                eventHolder = layoutInflater.inflate(R.layout.item_event, contact_events_holder, false)
+                contact_events_holder.addView(eventHolder)
+            }
+
+            (eventHolder as? ViewGroup)?.apply {
+                contact_event.text = event.value
+                setupEventTypePicker(contact_event_type, event.type)
+            }
+        }
     }
 
     private fun setupNewContact() {
@@ -271,6 +291,13 @@ class ContactActivity : SimpleActivity() {
                 setupEmailTypePicker(this)
             }
         }
+
+        if (contact!!.events.isEmpty()) {
+            val eventHolder = contact_events_holder.getChildAt(0)
+            (eventHolder as? ViewGroup)?.contact_event_type?.apply {
+                setupEventTypePicker(this)
+            }
+        }
     }
 
     private fun setupPhoneNumberTypePicker(numberField: TextView, type: Int = DEFAULT_PHONE_NUMBER_TYPE) {
@@ -287,6 +314,15 @@ class ContactActivity : SimpleActivity() {
             setText(getEmailTextId(type))
             setOnClickListener {
                 showEmailTypePicker(it as TextView)
+            }
+        }
+    }
+
+    private fun setupEventTypePicker(eventField: TextView, type: Int = DEFAULT_EVENT_TYPE) {
+        eventField.apply {
+            setText(getEventTextId(type))
+            setOnClickListener {
+                showEventTypePicker(it as TextView)
             }
         }
     }
@@ -321,6 +357,18 @@ class ContactActivity : SimpleActivity() {
         }
     }
 
+    private fun showEventTypePicker(eventTypeField: TextView) {
+        val items = arrayListOf(
+                RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
+                RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(R.string.anniversary)),
+                RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other)))
+
+        val currentEventTypeId = getEventTypeId(eventTypeField.value)
+        RadioGroupDialog(this, items, currentEventTypeId) {
+            eventTypeField.setText(getEventTextId(it as Int))
+        }
+    }
+
     private fun saveContact() {
         if (isSaving) {
             return
@@ -335,6 +383,7 @@ class ContactActivity : SimpleActivity() {
             photoUri = currentContactPhotoPath
             phoneNumbers = getFilledPhoneNumbers()
             emails = getFilledEmails()
+            events = getFilledEvents()
             source = contact_source.value
 
             Thread {
@@ -377,6 +426,21 @@ class ContactActivity : SimpleActivity() {
             }
         }
         return emails
+    }
+
+    private fun getFilledEvents(): ArrayList<Event> {
+        val events = ArrayList<Event>()
+        val eventsCount = contact_events_holder.childCount
+        for (i in 0 until eventsCount) {
+            val eventHolder = contact_events_holder.getChildAt(i)
+            val event = eventHolder.contact_event.value
+            val eventType = getEventTypeId(eventHolder.contact_event_type.value)
+
+            if (event.isNotEmpty()) {
+                events.add(Event(event, eventType))
+            }
+        }
+        return events
     }
 
     private fun insertNewContact() {
@@ -430,6 +494,14 @@ class ContactActivity : SimpleActivity() {
                 contact_email.requestFocus()
                 showKeyboard(contact_email)
             }
+        }
+    }
+
+    private fun addNewEventField() {
+        layoutInflater.inflate(R.layout.item_event, contact_events_holder, false).apply {
+            updateTextColors(this as ViewGroup)
+            setupEventTypePicker(contact_event_type)
+            contact_events_holder.addView(this)
         }
     }
 
@@ -552,20 +624,6 @@ class ContactActivity : SimpleActivity() {
         return FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
     }
 
-    private fun getEmailTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Email.TYPE_HOME -> R.string.home
-        ContactsContract.CommonDataKinds.Email.TYPE_WORK -> R.string.work
-        ContactsContract.CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
-        else -> R.string.other
-    }
-
-    private fun getEmailTypeId(value: String) = when (value) {
-        getString(R.string.home) -> ContactsContract.CommonDataKinds.Email.TYPE_HOME
-        getString(R.string.work) -> ContactsContract.CommonDataKinds.Email.TYPE_WORK
-        getString(R.string.mobile) -> ContactsContract.CommonDataKinds.Email.TYPE_MOBILE
-        else -> ContactsContract.CommonDataKinds.Email.TYPE_OTHER
-    }
-
     private fun getPhoneNumberTextId(type: Int) = when (type) {
         ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE -> R.string.mobile
         ContactsContract.CommonDataKinds.Phone.TYPE_HOME -> R.string.home
@@ -586,5 +644,31 @@ class ContactActivity : SimpleActivity() {
         getString(R.string.home_fax) -> ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME
         getString(R.string.pager) -> ContactsContract.CommonDataKinds.Phone.TYPE_PAGER
         else -> ContactsContract.CommonDataKinds.Phone.TYPE_OTHER
+    }
+
+    private fun getEmailTextId(type: Int) = when (type) {
+        ContactsContract.CommonDataKinds.Email.TYPE_HOME -> R.string.home
+        ContactsContract.CommonDataKinds.Email.TYPE_WORK -> R.string.work
+        ContactsContract.CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
+        else -> R.string.other
+    }
+
+    private fun getEmailTypeId(value: String) = when (value) {
+        getString(R.string.home) -> ContactsContract.CommonDataKinds.Email.TYPE_HOME
+        getString(R.string.work) -> ContactsContract.CommonDataKinds.Email.TYPE_WORK
+        getString(R.string.mobile) -> ContactsContract.CommonDataKinds.Email.TYPE_MOBILE
+        else -> ContactsContract.CommonDataKinds.Email.TYPE_OTHER
+    }
+
+    private fun getEventTextId(type: Int) = when (type) {
+        ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
+        ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
+        else -> R.string.other
+    }
+
+    private fun getEventTypeId(value: String) = when (value) {
+        getString(R.string.birthday) -> ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY
+        getString(R.string.anniversary) -> ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY
+        else -> ContactsContract.CommonDataKinds.Event.TYPE_OTHER
     }
 }

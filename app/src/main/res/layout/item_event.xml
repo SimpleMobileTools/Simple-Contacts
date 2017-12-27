@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contact_event_holder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/contact_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/contact_event_type"
+        android:layout_toStartOf="@+id/contact_event_type"
+        android:background="?attr/selectableItemBackground"
+        android:paddingBottom="@dimen/normal_margin"
+        android:paddingLeft="@dimen/medium_margin"
+        android:paddingRight="@dimen/medium_margin"
+        android:paddingTop="@dimen/normal_margin"
+        android:text="1/1/1990"
+        android:textSize="@dimen/bigger_text_size"/>
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/contact_event_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/contact_event"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/contact_event"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:paddingLeft="@dimen/medium_margin"
+        android:paddingRight="@dimen/medium_margin"
+        android:text="@string/birthday"
+        android:textSize="@dimen/bigger_text_size"/>
+
+</RelativeLayout>
