@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.activities
 
+import android.app.DatePickerDialog
 import android.content.ClipData
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
@@ -43,7 +44,11 @@ import kotlinx.android.synthetic.main.activity_contact.*
 import kotlinx.android.synthetic.main.item_email.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_phone_number.view.*
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import java.io.File
+import java.lang.IllegalArgumentException
+import java.util.*
 
 class ContactActivity : SimpleActivity() {
     private val DEFAULT_EMAIL_TYPE = ContactsContract.CommonDataKinds.Email.TYPE_HOME
@@ -232,8 +237,11 @@ class ContactActivity : SimpleActivity() {
             }
 
             (eventHolder as? ViewGroup)?.apply {
-                contact_event.text = event.value
-                setupEventTypePicker(contact_event_type, event.type)
+                val date = getDateTime(event.value)
+                contact_event.text = date.toString(DateTimeFormat.mediumDate())
+                contact_event.tag = date.toString()
+                contact_event.alpha = 1f
+                setupEventTypePicker(contact_event_type, contact_event, event.type)
             }
         }
     }
@@ -294,14 +302,14 @@ class ContactActivity : SimpleActivity() {
 
         if (contact!!.events.isEmpty()) {
             val eventHolder = contact_events_holder.getChildAt(0)
-            (eventHolder as? ViewGroup)?.contact_event_type?.apply {
-                setupEventTypePicker(this)
+            (eventHolder as? ViewGroup)?.apply {
+                setupEventTypePicker(contact_event_type, contact_event)
             }
         }
     }
 
-    private fun setupPhoneNumberTypePicker(numberField: TextView, type: Int = DEFAULT_PHONE_NUMBER_TYPE) {
-        numberField.apply {
+    private fun setupPhoneNumberTypePicker(numberTypeField: TextView, type: Int = DEFAULT_PHONE_NUMBER_TYPE) {
+        numberTypeField.apply {
             setText(getPhoneNumberTextId(type))
             setOnClickListener {
                 showNumberTypePicker(it as TextView)
@@ -309,8 +317,8 @@ class ContactActivity : SimpleActivity() {
         }
     }
 
-    private fun setupEmailTypePicker(emailField: TextView, type: Int = DEFAULT_EMAIL_TYPE) {
-        emailField.apply {
+    private fun setupEmailTypePicker(emailTypeField: TextView, type: Int = DEFAULT_EMAIL_TYPE) {
+        emailTypeField.apply {
             setText(getEmailTextId(type))
             setOnClickListener {
                 showEmailTypePicker(it as TextView)
@@ -318,13 +326,35 @@ class ContactActivity : SimpleActivity() {
         }
     }
 
-    private fun setupEventTypePicker(eventField: TextView, type: Int = DEFAULT_EVENT_TYPE) {
-        eventField.apply {
+    private fun setupEventTypePicker(eventTypeField: TextView, eventField: TextView, type: Int = DEFAULT_EVENT_TYPE) {
+        eventTypeField.apply {
             setText(getEventTextId(type))
             setOnClickListener {
                 showEventTypePicker(it as TextView)
             }
         }
+
+        eventField.setOnClickListener {
+            val setDateListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                val date = DateTime().withDate(year, monthOfYear + 1, dayOfMonth).withTimeAtStartOfDay()
+                val formatted = date.toString(DateTimeFormat.mediumDate())
+                eventField.text = formatted
+                eventField.tag = date.toString()
+                eventField.alpha = 1f
+            }
+
+            val date = getDateTime(eventField.tag?.toString() ?: "")
+            DatePickerDialog(this, getDialogTheme(), setDateListener, date.year, date.monthOfYear - 1, date.dayOfMonth).show()
+        }
+    }
+
+    private fun getDateTime(dateString: String): DateTime {
+        var date = DateTime()
+        try {
+            date = DateTime.parse(dateString)
+        } catch (ignored: IllegalArgumentException) {
+        }
+        return date
     }
 
     private fun showNumberTypePicker(numberTypeField: TextView) {
@@ -336,7 +366,8 @@ class ContactActivity : SimpleActivity() {
                 RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK, getString(R.string.work_fax)),
                 RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME, getString(R.string.home_fax)),
                 RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_PAGER, getString(R.string.pager)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_OTHER, getString(R.string.other)))
+                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_OTHER, getString(R.string.other))
+        )
 
         val currentNumberTypeId = getPhoneNumberTypeId(numberTypeField.value)
         RadioGroupDialog(this, items, currentNumberTypeId) {
@@ -349,7 +380,8 @@ class ContactActivity : SimpleActivity() {
                 RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_HOME, getString(R.string.home)),
                 RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_WORK, getString(R.string.work)),
                 RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_MOBILE, getString(R.string.mobile)),
-                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_OTHER, getString(R.string.other)))
+                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_OTHER, getString(R.string.other))
+        )
 
         val currentEmailTypeId = getEmailTypeId(emailTypeField.value)
         RadioGroupDialog(this, items, currentEmailTypeId) {
@@ -361,7 +393,8 @@ class ContactActivity : SimpleActivity() {
         val items = arrayListOf(
                 RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
                 RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(R.string.anniversary)),
-                RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other)))
+                RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other))
+        )
 
         val currentEventTypeId = getEventTypeId(eventTypeField.value)
         RadioGroupDialog(this, items, currentEventTypeId) {
@@ -438,7 +471,9 @@ class ContactActivity : SimpleActivity() {
             val eventType = getEventTypeId(eventHolder.contact_event_type.value)
 
             if (event.isNotEmpty() && event != unknown) {
-                events.add(Event(event, eventType))
+                val date = getDateTime(eventHolder.contact_event.tag.toString())
+                val formattedEventDate = date.toString(DateTimeFormat.shortDate())
+                events.add(Event(formattedEventDate, eventType))
             }
         }
         return events
@@ -501,7 +536,7 @@ class ContactActivity : SimpleActivity() {
     private fun addNewEventField() {
         layoutInflater.inflate(R.layout.item_event, contact_events_holder, false).apply {
             updateTextColors(this as ViewGroup)
-            setupEventTypePicker(contact_event_type)
+            setupEventTypePicker(contact_event_type, contact_event)
             contact_events_holder.addView(this)
         }
     }
