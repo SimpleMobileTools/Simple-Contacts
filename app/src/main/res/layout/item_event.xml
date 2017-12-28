@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/contact_event_type"
-        android:layout_toStartOf="@+id/contact_event_type"
+        android:layout_toLeftOf="@+id/contact_event_remove"
+        android:layout_toStartOf="@+id/contact_event_remove"
         android:alpha="0.5"
         android:background="?attr/selectableItemBackground"
         android:paddingBottom="@dimen/normal_margin"
@@ -20,6 +20,23 @@
         android:paddingTop="@dimen/normal_margin"
         android:text="@string/unknown"
         android:textSize="@dimen/bigger_text_size"/>
+
+    <ImageView
+        android:id="@+id/contact_event_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/contact_event"
+        android:layout_alignTop="@+id/contact_event"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_marginRight="@dimen/small_margin"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_toLeftOf="@+id/contact_event_type"
+        android:background="@drawable/button_background"
+        android:padding="@dimen/medium_margin"
+        android:src="@drawable/ic_minus"
+        android:visibility="gone"/>
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/contact_event_type"

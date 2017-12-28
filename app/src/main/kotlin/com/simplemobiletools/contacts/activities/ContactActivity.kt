@@ -14,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -132,11 +133,13 @@ class ContactActivity : SimpleActivity() {
         contact_email_image.applyColorFilter(textColor)
         contact_event_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
-        contact_number_add_new.applyColorFilter(getAdjustedPrimaryColor())
+
+        val adjustedPrimaryColor = getAdjustedPrimaryColor()
+        contact_number_add_new.applyColorFilter(adjustedPrimaryColor)
         contact_number_add_new.background.applyColorFilter(textColor)
-        contact_email_add_new.applyColorFilter(getAdjustedPrimaryColor())
+        contact_email_add_new.applyColorFilter(adjustedPrimaryColor)
         contact_email_add_new.background.applyColorFilter(textColor)
-        contact_event_add_new.applyColorFilter(getAdjustedPrimaryColor())
+        contact_event_add_new.applyColorFilter(adjustedPrimaryColor)
         contact_event_add_new.background.applyColorFilter(textColor)
 
         contact_photo.setOnClickListener { trySetPhoto() }
@@ -239,10 +242,22 @@ class ContactActivity : SimpleActivity() {
             }
 
             (eventHolder as? ViewGroup)?.apply {
-                getDateTime(event.value, contact_event)
-                contact_event.tag = event.value
-                contact_event.alpha = 1f
-                setupEventTypePicker(contact_event_type, contact_event, event.type)
+                val contactEvent = contact_event.apply {
+                    getDateTime(event.value, this)
+                    tag = event.value
+                    alpha = 1f
+                }
+
+                setupEventTypePicker(this, event.type)
+
+                contact_event_remove.apply {
+                    beVisible()
+                    applyColorFilter(getAdjustedPrimaryColor())
+                    background.applyColorFilter(config.textColor)
+                    setOnClickListener {
+                        resetContactEvent(contactEvent, this)
+                    }
+                }
             }
         }
     }
@@ -304,7 +319,7 @@ class ContactActivity : SimpleActivity() {
         if (contact!!.events.isEmpty()) {
             val eventHolder = contact_events_holder.getChildAt(0)
             (eventHolder as? ViewGroup)?.apply {
-                setupEventTypePicker(contact_event_type, contact_event)
+                setupEventTypePicker(this)
             }
         }
     }
@@ -327,26 +342,47 @@ class ContactActivity : SimpleActivity() {
         }
     }
 
-    private fun setupEventTypePicker(eventTypeField: TextView, eventField: TextView, type: Int = DEFAULT_EVENT_TYPE) {
-        eventTypeField.apply {
+    private fun setupEventTypePicker(eventHolder: ViewGroup, type: Int = DEFAULT_EVENT_TYPE) {
+        eventHolder.contact_event_type.apply {
             setText(getEventTextId(type))
             setOnClickListener {
                 showEventTypePicker(it as TextView)
             }
         }
 
+        val eventField = eventHolder.contact_event
         eventField.setOnClickListener {
             val setDateListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                eventHolder.contact_event_remove.beVisible()
                 val date = DateTime().withDate(year, monthOfYear + 1, dayOfMonth).withTimeAtStartOfDay()
                 val formatted = date.toString(DateTimeFormat.mediumDate())
-                eventField.text = formatted
-                eventField.tag = date.toString("yyyy-MM-dd")
-                eventField.alpha = 1f
+                eventField.apply {
+                    text = formatted
+                    tag = date.toString("yyyy-MM-dd")
+                    alpha = 1f
+                }
             }
 
             val date = getDateTime(eventField.tag?.toString() ?: "")
             DatePickerDialog(this, getDialogTheme(), setDateListener, date.year, date.monthOfYear - 1, date.dayOfMonth).show()
         }
+
+        eventHolder.contact_event_remove.apply {
+            applyColorFilter(getAdjustedPrimaryColor())
+            background.applyColorFilter(config.textColor)
+            setOnClickListener {
+                resetContactEvent(eventField, this@apply)
+            }
+        }
+    }
+
+    private fun resetContactEvent(contactEvent: TextView, removeContactEventButton: ImageView) {
+        contactEvent.apply {
+            text = getString(R.string.unknown)
+            tag = ""
+            alpha = 0.5f
+        }
+        removeContactEventButton.beGone()
     }
 
     private fun getDateTime(dateString: String, viewToUpdate: TextView? = null): DateTime {
@@ -551,7 +587,7 @@ class ContactActivity : SimpleActivity() {
     private fun addNewEventField() {
         layoutInflater.inflate(R.layout.item_event, contact_events_holder, false).apply {
             updateTextColors(this as ViewGroup)
-            setupEventTypePicker(contact_event_type, contact_event)
+            setupEventTypePicker(this)
             contact_events_holder.addView(this)
         }
     }
