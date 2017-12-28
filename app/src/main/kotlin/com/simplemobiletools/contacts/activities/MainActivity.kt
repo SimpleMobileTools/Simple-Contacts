@@ -1,45 +1,43 @@
 package com.simplemobiletools.contacts.activities
 
 import android.content.Intent
-import android.graphics.Paint
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
-import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
-import com.simplemobiletools.contacts.adapters.ContactsAdapter
+import com.simplemobiletools.contacts.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.openContact
-import com.simplemobiletools.contacts.extensions.tryStartCall
-import com.simplemobiletools.contacts.helpers.ContactsHelper
-import com.simplemobiletools.contacts.models.Contact
+import com.simplemobiletools.contacts.extensions.onPageChanged
+import com.simplemobiletools.contacts.extensions.onTabSelectionChanged
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_contacts.*
+import kotlinx.android.synthetic.main.fragment_favorites.*
 
-class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
+class MainActivity : SimpleActivity() {
+    private var isFirstResume = true
+
     private var storedUseEnglish = false
     private var storedTextColor = 0
     private var storedBackgroundColor = 0
     private var storedPrimaryColor = 0
     private var storedStartNameWithSurname = false
 
-    private var isFirstResume = true
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched()
-        contacts_fab.setOnClickListener { addNewContact() }
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
                     if (it) {
-                        initContacts()
+                        initFragments()
                     } else {
                         toast(R.string.no_contacts_permission)
                         finish()
@@ -50,7 +48,6 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
                 finish()
             }
         }
-
         storeStateVariables()
     }
 
@@ -61,37 +58,37 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
             return
         }
 
-        if (storedTextColor != config.textColor) {
-            (contacts_list.adapter as ContactsAdapter).apply {
-                updateTextColor(config.textColor)
-                initDrawables()
-            }
+        val configTextColor = config.textColor
+        if (storedTextColor != configTextColor) {
+            val inactiveTabIndex = if (viewpager.currentItem == 0) 1 else 0
+            main_tabs_holder.getTabAt(inactiveTabIndex)?.icon?.applyColorFilter(configTextColor)
+            contacts_fragment.textColorChanged(configTextColor)
+            favorites_fragment.textColorChanged(configTextColor)
         }
 
-        if (storedPrimaryColor != config.primaryColor) {
-            contacts_fastscroller.updatePrimaryColor()
+        val configBackgroundColor = config.backgroundColor
+        if (storedBackgroundColor != configBackgroundColor) {
+            main_tabs_holder.background = ColorDrawable(configBackgroundColor)
         }
 
-        if (storedStartNameWithSurname != config.startNameWithSurname) {
-            (contacts_list.adapter as ContactsAdapter).apply {
-                startNameWithSurname = config.startNameWithSurname
-                config.sorting = if (config.startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
-                initContacts()
-            }
+        val configPrimaryColor = config.primaryColor
+        if (storedPrimaryColor != configPrimaryColor) {
+            main_tabs_holder.setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
+            main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            contacts_fragment.primaryColorChanged(configPrimaryColor)
+            favorites_fragment.primaryColorChanged(configPrimaryColor)
         }
 
-        contacts_fastscroller.updateBubbleColors()
-        contacts_fastscroller.allowBubbleDisplay = config.showInfoBubble
-        updateTextColors(contacts_holder)
-
-        contacts_placeholder_2.paintFlags = contacts_placeholder_2.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        contacts_placeholder_2.setTextColor(config.primaryColor)
-        contacts_placeholder_2.setOnClickListener {
-            showFilterDialog()
+        val configStartNameWithSurname = config.startNameWithSurname
+        if (storedStartNameWithSurname != configStartNameWithSurname) {
+            contacts_fragment.startNameWithSurnameChanged(configStartNameWithSurname)
+            favorites_fragment.startNameWithSurnameChanged(configStartNameWithSurname)
         }
 
         if (!isFirstResume) {
-            initContacts()
+            contacts_fragment.initContacts()
+            contacts_fragment.onActivityResume()
+            favorites_fragment.onActivityResume()
         }
         isFirstResume = false
     }
@@ -117,22 +114,6 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         return true
     }
 
-    private fun showSortingDialog() {
-        ChangeSortingDialog(this) {
-            initContacts()
-        }
-    }
-
-    private fun showFilterDialog() {
-        FilterContactSourcesDialog(this) {
-            initContacts()
-        }
-    }
-
-    private fun launchAbout() {
-        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE, BuildConfig.VERSION_NAME)
-    }
-
     private fun storeStateVariables() {
         config.apply {
             storedUseEnglish = useEnglish
@@ -143,63 +124,44 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         }
     }
 
-    private fun initContacts() {
-        ContactsHelper(this).getContacts {
-            if (config.lastUsedContactSource.isEmpty()) {
-                val grouped = it.groupBy { it.source }.maxWith(compareBy { it.value.size })
-                config.lastUsedContactSource = grouped?.key ?: ""
-            }
+    private fun initFragments() {
+        viewpager.adapter = ViewPagerAdapter(this)
+        viewpager.onPageChanged {
+            main_tabs_holder.getTabAt(it)?.select()
+            invalidateOptionsMenu()
+        }
 
-            Contact.sorting = config.sorting
-            it.sort()
+        main_tabs_holder.apply {
+            background = ColorDrawable(config.backgroundColor)
+            setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
+            getTabAt(0)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            getTabAt(1)?.icon?.applyColorFilter(config.textColor)
+        }
 
-            if (it.hashCode() != (contacts_list.adapter as? ContactsAdapter)?.contactItems?.hashCode()) {
-                runOnUiThread {
-                    setupContacts(it)
+        main_tabs_holder.onTabSelectionChanged(
+                tabUnselectedAction = {
+                    it.icon?.applyColorFilter(config.textColor)
+                },
+                tabSelectedAction = {
+                    viewpager.currentItem = it.position
+                    it.icon?.applyColorFilter(getAdjustedPrimaryColor())
                 }
-            }
+        )
+    }
+
+    private fun showSortingDialog() {
+        ChangeSortingDialog(this) {
+            contacts_fragment.initContacts()
         }
     }
 
-    private fun setupContacts(contacts: ArrayList<Contact>) {
-        contacts_placeholder_2.beVisibleIf(contacts.isEmpty())
-        contacts_placeholder.beVisibleIf(contacts.isEmpty())
-
-        val currAdapter = contacts_list.adapter
-        if (currAdapter == null) {
-            ContactsAdapter(this, contacts, this, contacts_list) {
-                if (config.callContact) {
-                    val contact = it as Contact
-                    if (contact.phoneNumbers.isNotEmpty()) {
-                        tryStartCall(it)
-                    } else {
-                        toast(R.string.no_phone_number_found)
-                    }
-                } else {
-                    openContact(it as Contact)
-                }
-            }.apply {
-                setupDragListener(true)
-                addVerticalDividers(true)
-                contacts_list.adapter = this
-            }
-
-            contacts_fastscroller.setViews(contacts_list) {
-                val item = (contacts_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
-                contacts_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
-            }
-        } else {
-            (currAdapter as ContactsAdapter).updateItems(contacts)
+    fun showFilterDialog() {
+        FilterContactSourcesDialog(this) {
+            contacts_fragment.initContacts()
         }
     }
 
-    private fun addNewContact() {
-        Intent(applicationContext, ContactActivity::class.java).apply {
-            startActivity(this)
-        }
-    }
-
-    override fun refreshItems() {
-        initContacts()
+    private fun launchAbout() {
+        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE, BuildConfig.VERSION_NAME)
     }
 }
