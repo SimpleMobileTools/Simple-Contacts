@@ -292,7 +292,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 withValue(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, contact.firstName)
                 withValue(ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME, contact.middleName)
                 withValue(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME, contact.surname)
-                operations.add(this.build())
+                operations.add(build())
             }
 
             // delete phone numbers
@@ -300,7 +300,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
                 val selectionArgs = arrayOf(contact.id.toString(), ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
-                operations.add(this.build())
+                operations.add(build())
             }
 
             // add phone numbers
@@ -310,7 +310,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
                     withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, it.value)
                     withValue(ContactsContract.CommonDataKinds.Phone.TYPE, it.type)
-                    operations.add(this.build())
+                    operations.add(build())
                 }
             }
 
@@ -319,7 +319,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
                 val selectionArgs = arrayOf(contact.id.toString(), ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
-                operations.add(this.build())
+                operations.add(build())
             }
 
             // add emails
@@ -329,7 +329,26 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
                     withValue(ContactsContract.CommonDataKinds.Email.DATA, it.value)
                     withValue(ContactsContract.CommonDataKinds.Email.TYPE, it.type)
-                    operations.add(this.build())
+                    operations.add(build())
+                }
+            }
+
+            // delete events
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE)
+                withSelection(selection, selectionArgs)
+                operations.add(build())
+            }
+
+            // add events
+            contact.events.forEach {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
+                    withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE)
+                    withValue(ContactsContract.CommonDataKinds.Event.START_DATE, it.value)
+                    withValue(ContactsContract.CommonDataKinds.Event.TYPE, it.type)
+                    operations.add(build())
                 }
             }
 
@@ -364,7 +383,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
                 withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE)
                 withValue(ContactsContract.CommonDataKinds.Photo.PHOTO, scaledSizePhotoData)
-                operations.add(this.build())
+                operations.add(build())
             }
 
             addFullSizePhoto(contact.id.toLong(), fullSizePhotoData)
@@ -377,7 +396,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
             val selectionArgs = arrayOf(contact.id.toString(), ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE)
             withSelection(selection, selectionArgs)
-            operations.add(this.build())
+            operations.add(build())
         }
 
         return operations
@@ -390,7 +409,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI).apply {
                 withValue(ContactsContract.RawContacts.ACCOUNT_NAME, contact.source)
                 withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, getContactSourceType(contact.source))
-                operations.add(this.build())
+                operations.add(build())
             }
 
             // names
@@ -400,7 +419,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 withValue(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME, contact.firstName)
                 withValue(ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME, contact.middleName)
                 withValue(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME, contact.surname)
-                operations.add(this.build())
+                operations.add(build())
             }
 
             // phone numbers
@@ -410,7 +429,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
                     withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, it.value)
                     withValue(ContactsContract.CommonDataKinds.Phone.TYPE, it.type)
-                    operations.add(this.build())
+                    operations.add(build())
                 }
             }
 
@@ -421,7 +440,18 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
                     withValue(ContactsContract.CommonDataKinds.Email.DATA, it.value)
                     withValue(ContactsContract.CommonDataKinds.Email.TYPE, it.type)
-                    operations.add(this.build())
+                    operations.add(build())
+                }
+            }
+
+            // events
+            contact.events.forEach {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE)
+                    withValue(ContactsContract.CommonDataKinds.Event.START_DATE, it.value)
+                    withValue(ContactsContract.CommonDataKinds.Event.TYPE, it.type)
+                    operations.add(build())
                 }
             }
 
@@ -444,7 +474,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                     withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE)
                     withValue(ContactsContract.CommonDataKinds.Photo.PHOTO, scaledSizePhotoData)
-                    operations.add(this.build())
+                    operations.add(build())
                 }
             }
 
