@@ -31,4 +31,8 @@ class Config(context: Context) : BaseConfig(context) {
     var lastUsedContactSource: String
         get() = prefs.getString(LAST_USED_CONTACT_SOURCE, "")
         set(lastUsedContactSource) = prefs.edit().putString(LAST_USED_CONTACT_SOURCE, lastUsedContactSource).apply()
+
+    var lastUsedViewPagerPage: Int
+        get() = prefs.getInt(LAST_USED_VIEW_PAGER_PAGE, 0)
+        set(lastUsedViewPagerPage) = prefs.edit().putInt(LAST_USED_VIEW_PAGER_PAGE, lastUsedViewPagerPage).apply()
 }

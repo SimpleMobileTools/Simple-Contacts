@@ -60,8 +60,7 @@ class MainActivity : SimpleActivity() {
 
         val configTextColor = config.textColor
         if (storedTextColor != configTextColor) {
-            val inactiveTabIndex = if (viewpager.currentItem == 0) 1 else 0
-            main_tabs_holder.getTabAt(inactiveTabIndex)?.icon?.applyColorFilter(configTextColor)
+            main_tabs_holder.getTabAt(getOtherViewPagerItem(viewpager.currentItem))?.icon?.applyColorFilter(configTextColor)
             contacts_fragment.textColorChanged(configTextColor)
             favorites_fragment.textColorChanged(configTextColor)
         }
@@ -98,6 +97,11 @@ class MainActivity : SimpleActivity() {
         storeStateVariables()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        config.lastUsedViewPagerPage = viewpager.currentItem
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return true
@@ -124,6 +128,8 @@ class MainActivity : SimpleActivity() {
         }
     }
 
+    private fun getOtherViewPagerItem(used: Int) = if (used == 1) 0 else 1
+
     private fun initFragments() {
         viewpager.adapter = ViewPagerAdapter(this)
         viewpager.onPageChanged {
@@ -131,11 +137,14 @@ class MainActivity : SimpleActivity() {
             invalidateOptionsMenu()
         }
 
+        val lastUsedPage = config.lastUsedViewPagerPage
+        viewpager.currentItem = lastUsedPage
         main_tabs_holder.apply {
             background = ColorDrawable(config.backgroundColor)
             setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
-            getTabAt(0)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
-            getTabAt(1)?.icon?.applyColorFilter(config.textColor)
+            getTabAt(lastUsedPage)?.select()
+            getTabAt(lastUsedPage)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            getTabAt(getOtherViewPagerItem(lastUsedPage))?.icon?.applyColorFilter(config.textColor)
         }
 
         main_tabs_holder.onTabSelectionChanged(
