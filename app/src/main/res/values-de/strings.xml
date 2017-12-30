@@ -46,6 +46,10 @@
     <string name="add_to_favorites">Zu Favoriten hinzufügen</string>
     <string name="remove_from_favorites">Aus Favoriten entfernen</string>
 
+    <!-- Search -->
+    <string name="search_contacts">Search contacts</string>
+    <string name="search_favorites">Search favorites</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Eine App zum Verwalten von Kontakten, ganz ohne Werbung.</string>

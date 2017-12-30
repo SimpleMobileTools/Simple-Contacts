@@ -46,6 +46,10 @@
     <string name="add_to_favorites">Pridať medzi obľúbené</string>
     <string name="remove_from_favorites">Odstrániť z obľúbených</string>
 
+    <!-- Search -->
+    <string name="search_contacts">Hľadať v kontaktoch</string>
+    <string name="search_favorites">Hľadať medzi obľúbenými</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Aplikácia pre správu vašich kontaktov bez reklám.</string>
