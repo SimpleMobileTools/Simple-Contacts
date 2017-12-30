@@ -42,8 +42,8 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Sieht so aus, als ob du keine Kontakte zu den Favoriten hinzugefügt hast.</string>
-    <string name="add_favorites">Zu Favoriten hinzufügen</string>
-    <string name="add_to_favorites">Add to favorites</string>
+    <string name="add_favorites">Favoriten hinzufügen</string>
+    <string name="add_to_favorites">Zu Favoriten hinzufügen</string>
     <string name="remove_from_favorites">Aus Favoriten entfernen</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
