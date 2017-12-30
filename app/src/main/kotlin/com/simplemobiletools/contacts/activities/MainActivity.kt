@@ -34,6 +34,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched()
+        setupTabColors()
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {
@@ -137,6 +138,18 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
+    private fun setupTabColors() {
+        val lastUsedPage = config.lastUsedViewPagerPage
+        viewpager.currentItem = lastUsedPage
+        main_tabs_holder.apply {
+            background = ColorDrawable(config.backgroundColor)
+            setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
+            getTabAt(lastUsedPage)?.select()
+            getTabAt(lastUsedPage)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            getTabAt(getOtherViewPagerItem(lastUsedPage))?.icon?.applyColorFilter(config.textColor)
+        }
+    }
+
     private fun getOtherViewPagerItem(used: Int) = if (used == 1) 0 else 1
 
     private fun initFragments() {
@@ -146,16 +159,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             contacts_fragment?.finishActMode()
             favorites_fragment?.finishActMode()
             invalidateOptionsMenu()
-        }
-
-        val lastUsedPage = config.lastUsedViewPagerPage
-        viewpager.currentItem = lastUsedPage
-        main_tabs_holder.apply {
-            background = ColorDrawable(config.backgroundColor)
-            setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
-            getTabAt(lastUsedPage)?.select()
-            getTabAt(lastUsedPage)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
-            getTabAt(getOtherViewPagerItem(lastUsedPage))?.icon?.applyColorFilter(config.textColor)
         }
 
         main_tabs_holder.onTabSelectionChanged(
