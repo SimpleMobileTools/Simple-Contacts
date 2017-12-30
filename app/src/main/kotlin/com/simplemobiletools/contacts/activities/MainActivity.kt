@@ -140,7 +140,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun setupTabColors() {
         val lastUsedPage = config.lastUsedViewPagerPage
-        viewpager.currentItem = lastUsedPage
         main_tabs_holder.apply {
             background = ColorDrawable(config.backgroundColor)
             setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
@@ -160,6 +159,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             favorites_fragment?.finishActMode()
             invalidateOptionsMenu()
         }
+        viewpager.currentItem = config.lastUsedViewPagerPage
 
         main_tabs_holder.onTabSelectionChanged(
                 tabUnselectedAction = {

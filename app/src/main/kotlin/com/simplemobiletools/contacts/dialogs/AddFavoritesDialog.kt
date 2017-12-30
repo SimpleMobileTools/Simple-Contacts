@@ -25,7 +25,9 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
             allContacts.sort()
 
             val contactSources = config.displayContactSources
-            allContacts = allContacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
+            if (!activity.config.showAllContacts()) {
+                allContacts = allContacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
+            }
             view.add_favorites_list.adapter = AddFavoritesAdapter(activity, allContacts, config.favorites)
 
             activity.runOnUiThread {
