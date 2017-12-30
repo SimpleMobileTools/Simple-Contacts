@@ -44,4 +44,20 @@ class Config(context: Context) : BaseConfig(context) {
     var favorites: Set<String>
         get() = prefs.getStringSet(FAVORITES, HashSet<String>())
         set(favorites) = prefs.edit().remove(FAVORITES).putStringSet(FAVORITES, favorites).apply()
+
+    fun addFavorite(id: String) {
+        addFavorites(HashSet<String>(Arrays.asList(id)))
+    }
+
+    private fun addFavorites(favs: Set<String>) {
+        val currFavorites = HashSet<String>(favs)
+        currFavorites.addAll(favs)
+        favorites = currFavorites
+    }
+
+    fun removeFavorites(favs: Set<String>) {
+        val currFavorites = HashSet<String>(favorites)
+        currFavorites.removeAll(favs)
+        favorites = currFavorites
+    }
 }

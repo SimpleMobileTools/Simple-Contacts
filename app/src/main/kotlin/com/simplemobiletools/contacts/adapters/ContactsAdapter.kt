@@ -22,6 +22,7 @@ import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.interfaces.RefreshContactsListener
 import kotlinx.android.synthetic.main.item_contact_with_number.view.*
+import java.util.*
 
 class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Contact>, val listener: RefreshContactsListener?,
                       val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) :
@@ -119,7 +120,20 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     }
 
     private fun removeFavorites() {
+        if (selectedPositions.isEmpty()) {
+            return
+        }
 
+        val favoritesToRemove = ArrayList<Contact>()
+        selectedPositions.sortedDescending().forEach {
+            favoritesToRemove.add(contactItems[it])
+        }
+        contactItems.removeAll(favoritesToRemove)
+
+        val favoriteIDsToRemove = HashSet<String>()
+        favoritesToRemove.map { favoriteIDsToRemove.add(it.id.toString()) }
+        activity.config.removeFavorites(favoriteIDsToRemove)
+        removeSelectedItems()
     }
 
     private fun addToFavorites() {
