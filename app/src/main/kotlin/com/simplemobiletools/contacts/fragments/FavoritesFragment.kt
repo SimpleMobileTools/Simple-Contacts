@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.fragments
 import android.content.Context
 import android.util.AttributeSet
 import com.simplemobiletools.contacts.activities.MainActivity
+import com.simplemobiletools.contacts.dialogs.AddFavoritesDialog
 import kotlinx.android.synthetic.main.fragment_favorites.view.*
 
 class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
@@ -29,6 +30,8 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
     }
 
     private fun addNewFavorites() {
+        AddFavoritesDialog(activity!!) {
 
+        }
     }
 }
