@@ -94,6 +94,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (!isFirstResume) {
             contacts_fragment.initContacts()
             contacts_fragment.onActivityResume()
+            favorites_fragment.initContacts()
             favorites_fragment.onActivityResume()
         }
         isFirstResume = false
