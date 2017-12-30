@@ -36,11 +36,16 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
 
             fragment_placeholder_2.setOnClickListener {
-                activity.showFilterDialog()
+                placeholderClicked()
             }
 
             fragment_placeholder_2.paintFlags = fragment_placeholder_2.paintFlags or Paint.UNDERLINE_TEXT_FLAG
             updateViewStuff()
+
+            if (this is FavoritesFragment) {
+                fragment_placeholder.text = activity.getString(R.string.no_favorites)
+                fragment_placeholder_2.text = activity.getString(R.string.add_favorites)
+            }
         }
 
         initContacts()
@@ -153,4 +158,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     abstract fun fabClicked()
+
+    abstract fun placeholderClicked()
 }

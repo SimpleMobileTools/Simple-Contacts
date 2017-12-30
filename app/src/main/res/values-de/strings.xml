@@ -40,6 +40,11 @@
     <string name="birthday">Geburtstag</string>
     <string name="anniversary">Jahrestag</string>
 
+    <!-- Favorites -->
+    <string name="no_favorites">Seems like you haven\'t added any favorite contacts yet.</string>
+    <string name="add_favorites">Add favorites</string>
+    <string name="remove_from_favorites">Remove from favorites</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Eine App zum Verwalten von Kontakten, ganz ohne Werbung.</string>

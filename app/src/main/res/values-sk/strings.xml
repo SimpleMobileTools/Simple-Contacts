@@ -40,6 +40,11 @@
     <string name="birthday">Narodeniny</string>
     <string name="anniversary">Výročie</string>
 
+    <!-- Favorites -->
+    <string name="no_favorites">Zdá sa, že ste ešte nepridali žiadne obľúbené kontakty.</string>
+    <string name="add_favorites">Pridať obľúbené</string>
+    <string name="remove_from_favorites">Odstrániť z obľúbených</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Aplikácia pre správu vašich kontaktov bez reklám.</string>
