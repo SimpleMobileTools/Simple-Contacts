@@ -19,8 +19,8 @@ import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.openContact
 import com.simplemobiletools.contacts.helpers.ContactsHelper
-import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
+import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.item_contact_with_number.view.*
 import java.util.*
 

@@ -1,8 +1,11 @@
 package com.simplemobiletools.contacts.activities
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.*
@@ -113,6 +116,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
+        setupSearch(menu)
         return true
     }
 
@@ -135,6 +139,24 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             storedPrimaryColor = primaryColor
             storedShowPhoneNumbers = showPhoneNumbers
             storedStartNameWithSurname = startNameWithSurname
+        }
+    }
+
+    private fun setupSearch(menu: Menu) {
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu.findItem(R.id.search).actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            isSubmitButtonEnabled = false
+            queryHint = getString(if (viewpager.currentItem == 0) R.string.search_contacts else R.string.search_favorites)
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return true
+                }
+            })
         }
     }
 
