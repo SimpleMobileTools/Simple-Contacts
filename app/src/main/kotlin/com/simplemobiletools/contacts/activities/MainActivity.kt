@@ -15,7 +15,7 @@ import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.onPageChanged
 import com.simplemobiletools.contacts.extensions.onTabSelectionChanged
-import com.simplemobiletools.interfaces.RefreshContactsListener
+import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
