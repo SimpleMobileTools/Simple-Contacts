@@ -18,8 +18,8 @@
 
     <!-- Settings -->
     <string name="call_contact_on_click">클릭으로 전화걸기</string>
-    <string name="start_name_with_surname">성을 먼저 표시하기</string>
-    <string name="show_phone_numbers">Show phone numbers on the main screen</string>
+    <string name="start_name_with_surname">성을 먼저 표시</string>
+    <string name="show_phone_numbers">메인 스크린에 전화번호 표시</string>
 
     <!-- Emails -->
     <string name="email">이메일</string>
@@ -42,15 +42,15 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A contacts app for managing your contacts without ads.</string>
+    <string name="app_short_description">광고가 없는 연락처 관리 애플리케이션입니다.</string>
     <string name="app_long_description">
-        A simple app for creating or managing your contacts from any source. The contacts can be stored on your device only, but also synchronized via Google, or other accounts. You can display your favorite contacts on a separate list.
+        연락처를 생성하고 관리하는 간단한 앱입니다. 연락처는 기본적으로 기기에만 저장되며 Google 또는 다른 계정을 통해 동기화 할 수도 있습니다. 즐겨 찾는 연락처는 별도의 목록에 표시 할 수 있습니다.
 
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+        다양한 조건으로 정렬 및 필터링이 가능하며 성과 이름을 표시하는 옵션도 제공합니다. 또한 애플리케이션을 이용해 사용자 이메일 및 이벤트 관리를 할 수도 있습니다.
+        
+        광고가 포함되어 있거나, 불필요한 권한을 요청하지 않습니다. 이 앱의 모든 소스는 오픈소스이며, 사용자가 직접 애플리케이션의 컬러를 설정 할 수 있습니다.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
-
-        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+        이 앱은 다양한 시리즈의 모바일앱 중 하나입니다. 나머지는 http://www.simplemobiletools.com 에서 찾아 보실 수 있습니다.
     </string>
 
     <!--
