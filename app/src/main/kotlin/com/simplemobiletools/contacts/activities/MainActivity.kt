@@ -26,6 +26,7 @@ class MainActivity : SimpleActivity() {
     private var storedTextColor = 0
     private var storedBackgroundColor = 0
     private var storedPrimaryColor = 0
+    private var storedShowPhoneNumbers = false
     private var storedStartNameWithSurname = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +55,11 @@ class MainActivity : SimpleActivity() {
     override fun onResume() {
         super.onResume()
         if (storedUseEnglish != config.useEnglish) {
+            restartActivity()
+            return
+        }
+
+        if (storedShowPhoneNumbers != config.showPhoneNumbers) {
             restartActivity()
             return
         }
@@ -124,6 +130,7 @@ class MainActivity : SimpleActivity() {
             storedTextColor = textColor
             storedBackgroundColor = backgroundColor
             storedPrimaryColor = primaryColor
+            storedShowPhoneNumbers = showPhoneNumbers
             storedStartNameWithSurname = startNameWithSurname
         }
     }

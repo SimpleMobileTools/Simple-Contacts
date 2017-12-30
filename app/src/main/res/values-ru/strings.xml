@@ -19,6 +19,7 @@
     <!-- Settings -->
     <string name="call_contact_on_click">Вызывать контакт при нажатии</string>
     <string name="start_name_with_surname">Отображать сначала фамилии</string>
+    <string name="show_phone_numbers">Show phone numbers on the main screen</string>
 
     <!-- Emails -->
     <string name="email">Email</string>

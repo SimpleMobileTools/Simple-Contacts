@@ -130,6 +130,7 @@ class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPag
         } else {
             (currAdapter as ContactsAdapter).apply {
                 startNameWithSurname = config.startNameWithSurname
+                showPhoneNumbers = config.showPhoneNumbers
                 updateItems(contacts)
             }
         }

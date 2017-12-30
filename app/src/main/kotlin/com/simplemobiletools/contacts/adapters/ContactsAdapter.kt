@@ -21,7 +21,7 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.openContact
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
-import kotlinx.android.synthetic.main.item_contact.view.*
+import kotlinx.android.synthetic.main.item_contact_with_number.view.*
 
 class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Contact>, val listener: RefreshRecyclerViewListener?,
                       recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, itemClick) {
@@ -29,9 +29,11 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     var config = activity.config
     lateinit private var contactDrawable: Drawable
     var startNameWithSurname: Boolean
+    var showPhoneNumbers: Boolean
 
     init {
         initDrawables()
+        showPhoneNumbers = config.showPhoneNumbers
         startNameWithSurname = config.startNameWithSurname
     }
 
@@ -59,7 +61,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
 
     override fun getSelectableItemCount() = contactItems.size
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int) = createViewHolder(R.layout.item_contact, parent)
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+        val layout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
+        return createViewHolder(layout, parent)
+    }
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val contact = contactItems[position]
@@ -112,10 +117,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
 
     private fun setupView(view: View, contact: Contact) {
         view.apply {
-            contact_first_name.text = contact.getFullName(startNameWithSurname)
-            contact_first_name.setTextColor(textColor)
-            contact_number.text = contact.phoneNumbers.firstOrNull()?.value ?: ""
-            contact_number.setTextColor(textColor)
+            contact_name.text = contact.getFullName(startNameWithSurname)
+            contact_name.setTextColor(textColor)
+            contact_number?.text = contact.phoneNumbers.firstOrNull()?.value ?: ""
+            contact_number?.setTextColor(textColor)
 
             if (contact.photoUri.isNotEmpty()) {
                 val options = RequestOptions()

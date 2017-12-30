@@ -24,6 +24,10 @@ class Config(context: Context) : BaseConfig(context) {
 
     fun showAllContacts() = displayContactSources.size == 1 && displayContactSources.first() == "-1"
 
+    var showPhoneNumbers: Boolean
+        get() = prefs.getBoolean(SHOW_PHONE_NUMBERS, false)
+        set(showPhoneNumbers) = prefs.edit().putBoolean(SHOW_PHONE_NUMBERS, showPhoneNumbers).apply()
+
     var startNameWithSurname: Boolean
         get() = prefs.getBoolean(START_NAME_WITH_SURNAME, false)
         set(startNameWithSurname) = prefs.edit().putBoolean(START_NAME_WITH_SURNAME, startNameWithSurname).apply()
