@@ -18,7 +18,7 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
         ContactsHelper(activity).getContacts {
             Contact.sorting = activity.config.sorting
             it.sort()
-            view.add_favorites_list.adapter = AddFavoritesAdapter(activity, it)
+            view.add_favorites_list.adapter = AddFavoritesAdapter(activity, it, activity.config.favorites)
 
             activity.runOnUiThread {
                 dialog = AlertDialog.Builder(activity)
@@ -33,6 +33,10 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
 
     private fun dialogConfirmed() {
         val selectedItems = (view.add_favorites_list.adapter as AddFavoritesAdapter).getSelectedItemsSet()
+        if (activity.config.favorites != selectedItems) {
+            activity.config.favorites = selectedItems
+            callback()
+        }
         dialog?.dismiss()
     }
 }

@@ -15,6 +15,8 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
                 addNewFavorites()
             }
         }
+
+        initFavorites()
     }
 
     override fun textColorChanged(color: Int) {
@@ -29,9 +31,13 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
     override fun onActivityResume() {
     }
 
+    private fun initFavorites() {
+
+    }
+
     private fun addNewFavorites() {
         AddFavoritesDialog(activity!!) {
-
+            initFavorites()
         }
     }
 }

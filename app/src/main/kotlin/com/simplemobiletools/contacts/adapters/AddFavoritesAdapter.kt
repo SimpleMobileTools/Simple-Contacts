@@ -20,7 +20,8 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.item_add_favorite_with_number.view.*
 import java.util.*
 
-class AddFavoritesAdapter(val activity: SimpleActivity, val contacts: List<Contact>) : RecyclerView.Adapter<AddFavoritesAdapter.ViewHolder>() {
+class AddFavoritesAdapter(val activity: SimpleActivity, val contacts: List<Contact>, val selectedContacts: Set<String>)
+    : RecyclerView.Adapter<AddFavoritesAdapter.ViewHolder>() {
     private val itemViews = SparseArray<View>()
     private val selectedPositions = HashSet<Int>()
     private val config = activity.config
@@ -28,6 +29,14 @@ class AddFavoritesAdapter(val activity: SimpleActivity, val contacts: List<Conta
     private val contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person, textColor)
     private val startNameWithSurname = config.startNameWithSurname
     private val itemLayout = if (config.showPhoneNumbers) R.layout.item_add_favorite_with_number else R.layout.item_add_favorite_without_number
+
+    init {
+        contacts.forEachIndexed { index, contact ->
+            if (selectedContacts.contains(contact.id.toString())) {
+                selectedPositions.add(index)
+            }
+        }
+    }
 
     private fun toggleItemSelection(select: Boolean, pos: Int) {
         if (select) {
