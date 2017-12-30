@@ -44,6 +44,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
         menu.apply {
             findItem(R.id.cab_edit).isVisible = activity.config.callContact && isOneItemSelected()
             findItem(R.id.cab_remove).isVisible = isFavoritesFragment
+            findItem(R.id.cab_select_all).isVisible = isFavoritesFragment
             findItem(R.id.cab_delete).isVisible = !isFavoritesFragment
         }
     }
