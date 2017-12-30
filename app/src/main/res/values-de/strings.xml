@@ -42,15 +42,15 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A contacts app for managing your contacts without ads.</string>
+    <string name="app_short_description">Eine App zum Verwalten von Kontakten, ganz ohne Werbung.</string>
     <string name="app_long_description">
-        A simple app for creating or managing your contacts from any source. The contacts can be stored on your device only, but also synchronized via Google, or other accounts. You can display your favorite contacts on a separate list.
+        Eine schlichte App um Kontakte aus allen Quellen zu verwalten und neue zu erstellen. Die Kontakte können nur auf deinem Gerät gespeichert werden, aber auch über Google oder andere Dienste synchronisiert werden. Deine wichtigsten Kontakte werden in einer separaten Liste angezeigt.
 
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+        Du kannst diese App auch dazu nutzen, um die Email-Adressen und Termine von Kontakten zu verwalten. Sie hat die Möglichkeit mithilfe von mehreren Parametern zu sortieren/filtern, optional auch den Familiennamen als Vornamen anzuzeigen.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+        Beinhaltet keine Werbung oder unnötige Berechtigungen. Sie ist komplett Open Source, alle verwendeten Farben sind anpassbar.
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+        Diese App ist nur eine aus einer größeren Serie von schlichten Apps. Der Rest davon findet sich auf http://www.simplemobiletools.com
     </string>
 
     <!--
