@@ -14,16 +14,17 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
     private var dialog: AlertDialog? = null
     private var view = activity.layoutInflater.inflate(R.layout.dialog_add_favorites, null)
     private val config = activity.config
+    private var allContacts = ArrayList<Contact>()
 
     init {
         ContactsHelper(activity).getContacts {
-            var contacts = it
+            allContacts = it
             Contact.sorting = config.sorting
-            contacts.sort()
+            allContacts.sort()
 
             val contactSources = config.displayContactSources
-            contacts = contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
-            view.add_favorites_list.adapter = AddFavoritesAdapter(activity, contacts, config.favorites)
+            allContacts = allContacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
+            view.add_favorites_list.adapter = AddFavoritesAdapter(activity, allContacts, config.favorites)
 
             activity.runOnUiThread {
                 dialog = AlertDialog.Builder(activity)

@@ -13,7 +13,6 @@ import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
-import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
@@ -21,9 +20,10 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.openContact
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
+import com.simplemobiletools.interfaces.RefreshContactsListener
 import kotlinx.android.synthetic.main.item_contact_with_number.view.*
 
-class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Contact>, val listener: RefreshRecyclerViewListener?,
+class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Contact>, val listener: RefreshContactsListener?,
                       val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, itemClick) {
 
@@ -45,6 +45,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
             findItem(R.id.cab_edit).isVisible = activity.config.callContact && isOneItemSelected()
             findItem(R.id.cab_remove).isVisible = isFavoritesFragment
             findItem(R.id.cab_select_all).isVisible = isFavoritesFragment
+            findItem(R.id.cab_add_to_favorites).isVisible = !isFavoritesFragment
             findItem(R.id.cab_delete).isVisible = !isFavoritesFragment
         }
     }
@@ -60,6 +61,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
             R.id.cab_edit -> editContact()
             R.id.cab_select_all -> selectAll()
             R.id.cab_delete -> askConfirmDelete()
+            R.id.cab_add_to_favorites -> addToFavorites()
             R.id.cab_remove -> removeFavorites()
         }
     }
@@ -107,14 +109,30 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
             return
         }
 
-        val contacts = ArrayList<Contact>()
-        selectedPositions.forEach { contacts.add(contactItems[it]) }
-        ContactsHelper(activity).deleteContacts(contacts)
+        val contactsToRemove = ArrayList<Contact>()
+        selectedPositions.sortedDescending().forEach {
+            contactsToRemove.add(contactItems[it])
+        }
+        contactItems.removeAll(contactsToRemove)
+        ContactsHelper(activity).deleteContacts(contactsToRemove)
         removeSelectedItems()
     }
 
     private fun removeFavorites() {
 
+    }
+
+    private fun addToFavorites() {
+        if (selectedPositions.isEmpty()) {
+            return
+        }
+
+        val newFavorites = HashSet<String>()
+        selectedPositions.forEach { newFavorites.add(contactItems[it].id.toString()) }
+        newFavorites.addAll(activity.config.favorites)
+        activity.config.favorites = newFavorites
+        listener?.refreshFavorites()
+        finishActMode()
     }
 
     override fun onViewRecycled(holder: ViewHolder?) {

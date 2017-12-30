@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.activities
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.*
@@ -15,11 +16,12 @@ import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.onPageChanged
 import com.simplemobiletools.contacts.extensions.onTabSelectionChanged
+import com.simplemobiletools.interfaces.RefreshContactsListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 
-class MainActivity : SimpleActivity() {
+class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isFirstResume = true
 
     private var storedUseEnglish = false
@@ -182,5 +184,12 @@ class MainActivity : SimpleActivity() {
 
     private fun launchAbout() {
         startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE, BuildConfig.VERSION_NAME)
+    }
+
+    override fun refreshItems() {
+    }
+
+    override fun refreshFavorites() {
+        favorites_fragment?.initContacts()
     }
 }

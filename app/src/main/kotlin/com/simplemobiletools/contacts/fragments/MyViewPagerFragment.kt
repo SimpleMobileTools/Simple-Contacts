@@ -10,7 +10,6 @@ import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
-import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.MainActivity
 import com.simplemobiletools.contacts.activities.SimpleActivity
@@ -23,7 +22,7 @@ import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.fragment_layout.view.*
 
-abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet), RefreshRecyclerViewListener {
+abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
     var activity: MainActivity? = null
     lateinit var config: Config
 
@@ -116,7 +115,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
         val currAdapter = fragment_list.adapter
         if (currAdapter == null) {
-            ContactsAdapter(activity as SimpleActivity, contacts, this, this is FavoritesFragment, fragment_list) {
+            ContactsAdapter(activity as SimpleActivity, contacts, activity, this is FavoritesFragment, fragment_list) {
                 if (config.callContact) {
                     val contact = it as Contact
                     if (contact.phoneNumbers.isNotEmpty()) {

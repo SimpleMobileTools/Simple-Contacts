@@ -43,6 +43,7 @@
     <!-- Favorites -->
     <string name="no_favorites">Zdá sa, že ste ešte nepridali žiadne obľúbené kontakty.</string>
     <string name="add_favorites">Pridať obľúbené</string>
+    <string name="add_to_favorites">Pridať medzi obľúbené</string>
     <string name="remove_from_favorites">Odstrániť z obľúbených</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->

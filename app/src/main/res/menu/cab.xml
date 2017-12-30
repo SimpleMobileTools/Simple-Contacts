@@ -12,6 +12,11 @@
         android:title="@string/select_all"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/cab_add_to_favorites"
+        android:icon="@drawable/ic_star_on"
+        android:title="@string/add_to_favorites"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/cab_delete"
         android:icon="@drawable/ic_delete"
         android:title="@string/delete"

@@ -15,8 +15,4 @@ class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPag
     override fun placeholderClicked() {
         activity!!.showFilterDialog()
     }
-
-    override fun refreshItems() {
-        initContacts()
-    }
 }
