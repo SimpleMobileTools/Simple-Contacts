@@ -39,6 +39,19 @@
     <string name="birthday">Narodeniny</string>
     <string name="anniversary">Výročie</string>
 
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Aplikácia pre správu vašich kontaktov bez reklám.</string>
+    <string name="app_long_description">
+        Jednoduchá aplikácia na vytváranie, alebo správu vašich kontaktov z rôznych zdrojov. Môžu byť uložené buď iba vo vašom zariadení, alebo ich môžete aj synchronizovať cez Google, alebo iný účet. Vaše obľúbené položky viete zobraziť vo vlastnom zozname.
+
+        Viete ju používať aj na správu emailov a udalostí kontaktov. Ponúka možnosť zoradenia/filtrovania pomocou rôznych parametrov, voliteľné je zobrazovanie priezviska ako prvého mena.
+
+        Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje možnosť zmeny farieb.
+
+        Táto aplikácia je iba jednou zo skupiny aplikácií. Ostatné viete nájsť na http://www.simplemobiletools.com
+    </string>
+
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
