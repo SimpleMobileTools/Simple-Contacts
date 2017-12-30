@@ -23,7 +23,7 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/cab_remove"
-        android:icon="@drawable/ic_minus"
+        android:icon="@drawable/ic_minus_circle"
         android:title="@string/remove_from_favorites"
         app:showAsAction="ifRoom"/>
 </menu>
