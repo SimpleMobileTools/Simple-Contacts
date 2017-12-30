@@ -9,6 +9,8 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.dialog_add_favorites.view.*
+import java.util.HashSet
+import kotlin.collections.ArrayList
 
 class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit) {
     private var dialog: AlertDialog? = null
@@ -38,11 +40,16 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
     }
 
     private fun dialogConfirmed() {
+        val allDisplayedIDs = ArrayList<String>()
+        allContacts.mapTo(allDisplayedIDs, { it.id.toString() })
         val selectedItems = (view.add_favorites_list.adapter as AddFavoritesAdapter).getSelectedItemsSet()
-        if (config.favorites != selectedItems) {
-            config.favorites = selectedItems
-            callback()
-        }
+        config.addFavorites(selectedItems)
+        allDisplayedIDs.removeAll(selectedItems)
+
+        val favoriteIDsToRemove = HashSet<String>()
+        allDisplayedIDs.mapTo(favoriteIDsToRemove, { it })
+        config.removeFavorites(favoriteIDsToRemove)
+        callback()
         dialog?.dismiss()
     }
 }

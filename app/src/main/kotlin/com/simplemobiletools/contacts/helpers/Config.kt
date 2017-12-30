@@ -49,8 +49,8 @@ class Config(context: Context) : BaseConfig(context) {
         addFavorites(HashSet<String>(Arrays.asList(id)))
     }
 
-    private fun addFavorites(favs: Set<String>) {
-        val currFavorites = HashSet<String>(favs)
+    fun addFavorites(favs: Set<String>) {
+        val currFavorites = HashSet<String>(favorites)
         currFavorites.addAll(favs)
         favorites = currFavorites
     }

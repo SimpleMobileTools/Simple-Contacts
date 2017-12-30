@@ -131,7 +131,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
         contactItems.removeAll(favoritesToRemove)
 
         val favoriteIDsToRemove = HashSet<String>()
-        favoritesToRemove.map { favoriteIDsToRemove.add(it.id.toString()) }
+        favoritesToRemove.mapTo(favoriteIDsToRemove, { it.id.toString() })
         activity.config.removeFavorites(favoriteIDsToRemove)
         removeSelectedItems()
     }
