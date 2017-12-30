@@ -24,7 +24,6 @@ import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Email
 import com.simplemobiletools.contacts.models.Event
 import com.simplemobiletools.contacts.models.PhoneNumber
-import com.simplemobiletools.contacts.overloads.times
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -32,16 +31,10 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
         val contacts = SparseArray<Contact>()
         Thread {
-            val sources = activity.config.displayContactSources
-            val questionMarks = ("?," * sources.size).trimEnd(',')
             val uri = ContactsContract.Data.CONTENT_URI
             val projection = getContactProjection()
-            var selection = "${ContactsContract.Data.MIMETYPE} = ?"
-            var selectionArgs = arrayOf(ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-            if (!activity.config.showAllContacts()) {
-                selection += " AND ${ContactsContract.RawContacts.ACCOUNT_NAME} IN ($questionMarks)"
-                selectionArgs += sources.toTypedArray()
-            }
+            val selection = "${ContactsContract.Data.MIMETYPE} = ?"
+            val selectionArgs = arrayOf(ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
             val sortOrder = getSortString()
 
             var cursor: Cursor? = null

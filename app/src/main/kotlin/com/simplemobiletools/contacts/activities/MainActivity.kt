@@ -168,6 +168,7 @@ class MainActivity : SimpleActivity() {
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
             contacts_fragment.initContacts()
+            favorites_fragment.initContacts()
         }
     }
 
