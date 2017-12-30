@@ -11,14 +11,19 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.dialog_add_favorites.view.*
 
 class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit) {
-    var dialog: AlertDialog? = null
+    private var dialog: AlertDialog? = null
     private var view = activity.layoutInflater.inflate(R.layout.dialog_add_favorites, null)
+    private val config = activity.config
 
     init {
         ContactsHelper(activity).getContacts {
-            Contact.sorting = activity.config.sorting
-            it.sort()
-            view.add_favorites_list.adapter = AddFavoritesAdapter(activity, it, activity.config.favorites)
+            var contacts = it
+            Contact.sorting = config.sorting
+            contacts.sort()
+
+            val contactSources = config.displayContactSources
+            contacts = contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
+            view.add_favorites_list.adapter = AddFavoritesAdapter(activity, contacts, config.favorites)
 
             activity.runOnUiThread {
                 dialog = AlertDialog.Builder(activity)
@@ -33,8 +38,8 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
 
     private fun dialogConfirmed() {
         val selectedItems = (view.add_favorites_list.adapter as AddFavoritesAdapter).getSelectedItemsSet()
-        if (activity.config.favorites != selectedItems) {
-            activity.config.favorites = selectedItems
+        if (config.favorites != selectedItems) {
+            config.favorites = selectedItems
             callback()
         }
         dialog?.dismiss()

@@ -6,6 +6,7 @@ import com.simplemobiletools.contacts.dialogs.AddFavoritesDialog
 
 class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun fabClicked() {
+        finishActMode()
         showAddFavoritesDialog()
     }
 

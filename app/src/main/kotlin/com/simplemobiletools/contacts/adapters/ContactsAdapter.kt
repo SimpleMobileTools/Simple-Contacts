@@ -27,8 +27,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
                       val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, itemClick) {
 
-    var config = activity.config
     lateinit private var contactDrawable: Drawable
+    var config = activity.config
     var startNameWithSurname: Boolean
     var showPhoneNumbers: Boolean
 
