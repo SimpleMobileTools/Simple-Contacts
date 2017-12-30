@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_delete"
         android:title="@string/delete"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/cab_remove"
+        android:icon="@drawable/ic_minus"
+        android:title="@string/remove_from_favorites"
+        app:showAsAction="ifRoom"/>
 </menu>
