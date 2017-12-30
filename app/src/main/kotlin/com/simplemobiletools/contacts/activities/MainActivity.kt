@@ -3,7 +3,6 @@ package com.simplemobiletools.contacts.activities
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.*
@@ -188,6 +187,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     override fun refreshContacts() {
         contacts_fragment.initContacts()
+        favorites_fragment.initContacts()
     }
 
     override fun refreshFavorites() {

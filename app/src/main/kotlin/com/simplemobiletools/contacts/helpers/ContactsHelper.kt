@@ -518,6 +518,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
     fun deleteContacts(contacts: ArrayList<Contact>) {
         try {
+            val contactIDs = HashSet<String>()
             val operations = ArrayList<ContentProviderOperation>()
             val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
             contacts.forEach {
@@ -526,9 +527,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     withSelection(selection, selectionArgs)
                     operations.add(this.build())
                 }
+                contactIDs.add(it.id.toString())
             }
 
             activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            activity.config.removeFavorites(contactIDs)
         } catch (e: Exception) {
             activity.showErrorToast(e)
         }

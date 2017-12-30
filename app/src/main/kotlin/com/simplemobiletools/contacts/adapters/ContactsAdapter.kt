@@ -122,6 +122,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
             finishActMode()
         } else {
             removeSelectedItems()
+            listener?.refreshFavorites()
         }
     }
 
