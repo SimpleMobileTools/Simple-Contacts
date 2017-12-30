@@ -47,8 +47,8 @@
     <string name="remove_from_favorites">Aus Favoriten entfernen</string>
 
     <!-- Search -->
-    <string name="search_contacts">Search contacts</string>
-    <string name="search_favorites">Search favorites</string>
+    <string name="search_contacts">Kontakte durchsuchen</string>
+    <string name="search_favorites">Favoriten durchsuchen</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
