@@ -141,6 +141,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         updateViewStuff()
     }
 
+    fun finishActMode() {
+        (fragment_list.adapter as? ContactsAdapter)?.finishActMode()
+    }
+
     private fun updateViewStuff() {
         context.updateTextColors(fragment_wrapper)
         fragment_fastscroller.updateBubbleColors()

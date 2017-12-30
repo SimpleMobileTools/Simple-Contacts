@@ -141,6 +141,8 @@ class MainActivity : SimpleActivity() {
         viewpager.adapter = ViewPagerAdapter(this)
         viewpager.onPageChanged {
             main_tabs_holder.getTabAt(it)?.select()
+            contacts_fragment?.finishActMode()
+            favorites_fragment?.finishActMode()
             invalidateOptionsMenu()
         }
 
