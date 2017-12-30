@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.support.v4.view.MenuItemCompat
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
@@ -16,7 +18,6 @@ import com.simplemobiletools.contacts.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.onPageChanged
 import com.simplemobiletools.contacts.extensions.onTabSelectionChanged
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,6 +26,8 @@ import kotlinx.android.synthetic.main.fragment_favorites.*
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isFirstResume = true
+    private var isSearchOpen = false
+    private var searchMenuItem: MenuItem? = null
 
     private var storedUseEnglish = false
     private var storedTextColor = 0
@@ -144,21 +147,40 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun setupSearch(menu: Menu) {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        (menu.findItem(R.id.search).actionView as SearchView).apply {
+        searchMenuItem = menu.findItem(R.id.search)
+        (searchMenuItem!!.actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isSubmitButtonEnabled = false
             queryHint = getString(if (viewpager.currentItem == 0) R.string.search_contacts else R.string.search_favorites)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
+                override fun onQueryTextSubmit(query: String): Boolean {
                     return false
                 }
 
-                override fun onQueryTextChange(newText: String?): Boolean {
+                override fun onQueryTextChange(newText: String): Boolean {
+                    if (isSearchOpen) {
+                        getCurrentFragment().onSearchQueryChanged(newText)
+                    }
                     return true
                 }
             })
         }
+
+        MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                getCurrentFragment().onSearchOpened()
+                isSearchOpen = true
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                isSearchOpen = false
+                return true
+            }
+        })
     }
+
+    private fun getCurrentFragment() = if (viewpager.currentItem == 0) contacts_fragment else favorites_fragment
 
     private fun setupTabColors() {
         val lastUsedPage = config.lastUsedViewPagerPage
@@ -175,12 +197,24 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun initFragments() {
         viewpager.adapter = ViewPagerAdapter(this)
-        viewpager.onPageChanged {
-            main_tabs_holder.getTabAt(it)?.select()
-            contacts_fragment?.finishActMode()
-            favorites_fragment?.finishActMode()
-            invalidateOptionsMenu()
-        }
+        viewpager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+                if (isSearchOpen) {
+                    getCurrentFragment().onSearchQueryChanged("")
+                    MenuItemCompat.collapseActionView(searchMenuItem)
+                }
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                main_tabs_holder.getTabAt(position)?.select()
+                contacts_fragment?.finishActMode()
+                favorites_fragment?.finishActMode()
+                invalidateOptionsMenu()
+            }
+        })
         viewpager.currentItem = config.lastUsedViewPagerPage
 
         main_tabs_holder.onTabSelectionChanged(

@@ -23,9 +23,10 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.fragment_layout.view.*
 
 abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
-    var activity: MainActivity? = null
-    var lastHashCode = 0
-    lateinit var config: Config
+    protected var activity: MainActivity? = null
+    private var lastHashCode = 0
+    private var contactsIgnoringSearch = ArrayList<Contact>()
+    lateinit private var config: Config
 
     fun setupFragment(activity: MainActivity) {
         config = activity.config
@@ -153,6 +154,17 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun finishActMode() {
         (fragment_list.adapter as? ContactsAdapter)?.finishActMode()
+    }
+
+    fun onSearchQueryChanged(text: String) {
+        (fragment_list.adapter as ContactsAdapter).apply {
+            val filtered = contactsIgnoringSearch.filter { it.getFullName(startNameWithSurname).contains(text, true) } as ArrayList
+            updateItems(filtered)
+        }
+    }
+
+    fun onSearchOpened() {
+        contactsIgnoringSearch = (fragment_list.adapter as ContactsAdapter).contactItems as ArrayList
     }
 
     private fun updateViewStuff() {
