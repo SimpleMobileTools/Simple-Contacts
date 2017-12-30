@@ -5,19 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/favorites_wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </RelativeLayout>
-
-    <com.simplemobiletools.commons.views.MyFloatingActionButton
-        android:id="@+id/favorites_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/activity_margin"
-        android:src="@drawable/ic_plus"/>
+    <include layout="@layout/fragment_layout"/>
 
 </com.simplemobiletools.contacts.fragments.FavoritesFragment>
