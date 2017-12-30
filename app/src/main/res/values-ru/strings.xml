@@ -41,14 +41,14 @@
     <string name="anniversary">Годовщина</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Seems like you haven\'t added any favorite contacts yet.</string>
-    <string name="add_favorites">Add favorites</string>
-    <string name="add_to_favorites">Add to favorites</string>
-    <string name="remove_from_favorites">Remove from favorites</string>
+    <string name="no_favorites">Похоже, вы ещё не добавили избранные контакты.</string>
+    <string name="add_favorites">Добавить избранные</string>
+    <string name="add_to_favorites">Добавить в избранные</string>
+    <string name="remove_from_favorites">Удалить из избранных</string>
 
     <!-- Search -->
-    <string name="search_contacts">Search contacts</string>
-    <string name="search_favorites">Search favorites</string>
+    <string name="search_contacts">Поиск контактов</string>
+    <string name="search_favorites">Поиск избранных</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
