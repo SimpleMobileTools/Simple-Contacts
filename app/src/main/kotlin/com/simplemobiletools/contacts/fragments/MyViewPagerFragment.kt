@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_layout.view.*
 
 abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
     var activity: MainActivity? = null
+    var lastHashCode = 0
     lateinit var config: Config
 
     fun setupFragment(activity: MainActivity) {
@@ -101,7 +102,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 }
             }
 
-            if (contacts.hashCode() != (fragment_list.adapter as? ContactsAdapter)?.contactItems?.hashCode()) {
+            if (contacts.hashCode() != lastHashCode) {
+                lastHashCode = contacts.hashCode()
                 activity!!.runOnUiThread {
                     setupContacts(contacts)
                 }

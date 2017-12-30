@@ -186,7 +186,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE, BuildConfig.VERSION_NAME)
     }
 
-    override fun refreshItems() {
+    override fun refreshContacts() {
+        contacts_fragment.initContacts()
     }
 
     override fun refreshFavorites() {

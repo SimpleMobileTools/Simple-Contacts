@@ -1,7 +1,7 @@
 package com.simplemobiletools.interfaces
 
 interface RefreshContactsListener {
-    fun refreshItems()
+    fun refreshContacts()
 
     fun refreshFavorites()
 }
