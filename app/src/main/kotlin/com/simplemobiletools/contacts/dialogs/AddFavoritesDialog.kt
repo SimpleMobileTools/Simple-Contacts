@@ -30,22 +30,22 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
                 allContacts = allContacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
             }
 
-            view.apply {
-                add_favorites_list.adapter = AddFavoritesAdapter(activity, allContacts, config.favorites)
-                add_favorites_fastscroller.allowBubbleDisplay = activity.baseConfig.showInfoBubble
-                add_favorites_fastscroller.setViews(add_favorites_list) {
-                    add_favorites_fastscroller.updateBubbleText(allContacts[it].getBubbleText())
-                }
-            }
-
             activity.runOnUiThread {
-                dialog = AlertDialog.Builder(activity)
-                        .setPositiveButton(R.string.ok, { dialog, which -> dialogConfirmed() })
-                        .setNegativeButton(R.string.cancel, null)
-                        .create().apply {
-                    activity.setupDialogStuff(view, this)
+                view.apply {
+                    add_favorites_list.adapter = AddFavoritesAdapter(activity, allContacts, config.favorites)
+                    add_favorites_fastscroller.allowBubbleDisplay = activity.baseConfig.showInfoBubble
+                    add_favorites_fastscroller.setViews(add_favorites_list) {
+                        add_favorites_fastscroller.updateBubbleText(allContacts[it].getBubbleText())
+                    }
                 }
             }
+        }
+
+        dialog = AlertDialog.Builder(activity)
+                .setPositiveButton(R.string.ok, { dialog, which -> dialogConfirmed() })
+                .setNegativeButton(R.string.cancel, null)
+                .create().apply {
+            activity.setupDialogStuff(view, this)
         }
     }
 
