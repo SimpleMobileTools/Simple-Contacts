@@ -158,13 +158,19 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun onSearchQueryChanged(text: String) {
         (fragment_list.adapter as ContactsAdapter).apply {
-            val filtered = contactsIgnoringSearch.filter { it.getFullName(startNameWithSurname).contains(text, true) } as ArrayList
+            val filtered = contactsIgnoringSearch.filter {
+                it.getFullName(startNameWithSurname).contains(text, true) || it.phoneNumbers.any { it.value.contains(text, true) }
+            } as ArrayList
             updateItems(filtered)
         }
     }
 
     fun onSearchOpened() {
         contactsIgnoringSearch = (fragment_list.adapter as ContactsAdapter).contactItems as ArrayList
+    }
+
+    fun onSearchClosed() {
+        (fragment_list.adapter as ContactsAdapter).updateItems(contactsIgnoringSearch)
     }
 
     private fun updateViewStuff() {

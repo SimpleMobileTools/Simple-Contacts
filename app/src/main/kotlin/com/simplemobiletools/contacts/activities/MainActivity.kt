@@ -174,6 +174,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                getCurrentFragment().onSearchClosed()
                 isSearchOpen = false
                 return true
             }
