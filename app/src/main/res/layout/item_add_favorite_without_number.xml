@@ -13,7 +13,7 @@
         android:id="@+id/contact_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="@dimen/medium_margin">
+        android:paddingRight="@dimen/normal_margin">
 
         <ImageView
             android:id="@+id/contact_tmb"

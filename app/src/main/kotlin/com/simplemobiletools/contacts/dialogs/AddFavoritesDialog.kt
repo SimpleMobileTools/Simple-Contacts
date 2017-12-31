@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.dialogs
 
 import android.support.v7.app.AlertDialog
+import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
@@ -28,7 +29,14 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
             if (!activity.config.showAllContacts()) {
                 allContacts = allContacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
             }
-            view.add_favorites_list.adapter = AddFavoritesAdapter(activity, allContacts, config.favorites)
+
+            view.apply {
+                add_favorites_list.adapter = AddFavoritesAdapter(activity, allContacts, config.favorites)
+                add_favorites_fastscroller.allowBubbleDisplay = activity.baseConfig.showInfoBubble
+                add_favorites_fastscroller.setViews(add_favorites_list) {
+                    add_favorites_fastscroller.updateBubbleText(allContacts[it].getBubbleText())
+                }
+            }
 
             activity.runOnUiThread {
                 dialog = AlertDialog.Builder(activity)
