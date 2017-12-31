@@ -64,13 +64,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 cursor?.close()
             }
 
-            if (activity.config.showPhoneNumbers) {
-                val phoneNumbers = getPhoneNumbers()
-                val size = phoneNumbers.size()
-                for (i in 0 until size) {
-                    val key = phoneNumbers.keyAt(i)
-                    contacts[key]?.phoneNumbers = phoneNumbers.valueAt(i)
-                }
+            val phoneNumbers = getPhoneNumbers()
+            val size = phoneNumbers.size()
+            for (i in 0 until size) {
+                val key = phoneNumbers.keyAt(i)
+                contacts[key]?.phoneNumbers = phoneNumbers.valueAt(i)
             }
 
             val contactsSize = contacts.size()
