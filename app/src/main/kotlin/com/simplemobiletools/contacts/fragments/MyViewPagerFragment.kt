@@ -115,6 +115,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     private fun setupContacts(contacts: ArrayList<Contact>) {
         fragment_placeholder_2.beVisibleIf(contacts.isEmpty())
         fragment_placeholder.beVisibleIf(contacts.isEmpty())
+        fragment_list.beVisibleIf(contacts.isNotEmpty())
 
         val currAdapter = fragment_list.adapter
         if (currAdapter == null) {
