@@ -129,7 +129,7 @@ class ContactActivity : SimpleActivity() {
             setupEditContact()
         }
 
-        if (contact!!.id == 0 && intent.action == Intent.ACTION_INSERT_OR_EDIT && intent.extras?.containsKey(KEY_PHONE) == true) {
+        if (contact!!.id == 0 && intent.extras?.containsKey(KEY_PHONE) == true && (intent.action == Intent.ACTION_INSERT_OR_EDIT || intent.action == Intent.ACTION_INSERT)) {
             val phoneNumber = intent.getStringExtra(KEY_PHONE)
             contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE))
             setupPhoneNumbers()
