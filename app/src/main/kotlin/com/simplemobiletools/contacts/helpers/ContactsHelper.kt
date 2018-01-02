@@ -521,6 +521,25 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         }
     }
 
+    fun getContactLookupKey(contactId: String): String {
+        val uri = ContactsContract.Data.CONTENT_URI
+        val projection = arrayOf(ContactsContract.Data.CONTACT_ID, ContactsContract.Data.LOOKUP_KEY)
+        val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, contactId)
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                val id = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
+                val lookupKey = cursor.getStringValue(ContactsContract.Data.LOOKUP_KEY)
+                return "$lookupKey/$id"
+            }
+        } finally {
+            cursor?.close()
+        }
+        return ""
+    }
+
     fun deleteContact(contact: Contact) = deleteContacts(arrayListOf(contact))
 
     fun deleteContacts(contacts: ArrayList<Contact>) {

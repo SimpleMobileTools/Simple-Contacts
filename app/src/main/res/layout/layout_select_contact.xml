@@ -2,25 +2,26 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/add_favorites_holder"
+    android:id="@+id/select_contact_holder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <com.simplemobiletools.commons.views.MyRecyclerView
-        android:id="@+id/add_favorites_list"
+        android:id="@+id/select_contact_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
+        android:scrollbars="none"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
     <com.simplemobiletools.commons.views.FastScroller
-        android:id="@+id/add_favorites_fastscroller"
+        android:id="@+id/select_contact_fastscroller"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/add_favorites_list"
+        android:layout_alignBottom="@+id/select_contact_list"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/add_favorites_list"
+        android:layout_alignTop="@+id/select_contact_list"
         android:paddingLeft="@dimen/normal_margin"
         android:paddingStart="@dimen/normal_margin">
 

@@ -20,8 +20,8 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.item_add_favorite_with_number.view.*
 import java.util.*
 
-class AddFavoritesAdapter(val activity: SimpleActivity, val contacts: List<Contact>, val selectedContacts: Set<String>)
-    : RecyclerView.Adapter<AddFavoritesAdapter.ViewHolder>() {
+class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Contact>, val selectedContacts: Set<String>)
+    : RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
     private val itemViews = SparseArray<View>()
     private val selectedPositions = HashSet<Int>()
     private val config = activity.config

@@ -5,37 +5,38 @@ import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
-import com.simplemobiletools.contacts.adapters.AddFavoritesAdapter
+import com.simplemobiletools.contacts.adapters.SelectContactsAdapter
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
-import kotlinx.android.synthetic.main.dialog_add_favorites.view.*
+import kotlinx.android.synthetic.main.layout_select_contact.view.*
 import java.util.HashSet
 import kotlin.collections.ArrayList
 
 class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit) {
     private var dialog: AlertDialog? = null
-    private var view = activity.layoutInflater.inflate(R.layout.dialog_add_favorites, null)
+    private var view = activity.layoutInflater.inflate(R.layout.layout_select_contact, null)
     private val config = activity.config
     private var allContacts = ArrayList<Contact>()
 
     init {
         ContactsHelper(activity).getContacts {
             allContacts = it
-            Contact.sorting = config.sorting
-            allContacts.sort()
 
             val contactSources = config.displayContactSources
             if (!activity.config.showAllContacts()) {
                 allContacts = allContacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
             }
 
+            Contact.sorting = config.sorting
+            allContacts.sort()
+
             activity.runOnUiThread {
                 view.apply {
-                    add_favorites_list.adapter = AddFavoritesAdapter(activity, allContacts, config.favorites)
-                    add_favorites_fastscroller.allowBubbleDisplay = activity.baseConfig.showInfoBubble
-                    add_favorites_fastscroller.setViews(add_favorites_list) {
-                        add_favorites_fastscroller.updateBubbleText(allContacts[it].getBubbleText())
+                    select_contact_list.adapter = SelectContactsAdapter(activity, allContacts, config.favorites)
+                    select_contact_fastscroller.allowBubbleDisplay = activity.baseConfig.showInfoBubble
+                    select_contact_fastscroller.setViews(select_contact_list) {
+                        select_contact_fastscroller.updateBubbleText(allContacts[it].getBubbleText())
                     }
                 }
             }
@@ -52,7 +53,7 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
     private fun dialogConfirmed() {
         val allDisplayedIDs = ArrayList<String>()
         allContacts.mapTo(allDisplayedIDs, { it.id.toString() })
-        val selectedItems = (view.add_favorites_list.adapter as AddFavoritesAdapter).getSelectedItemsSet()
+        val selectedItems = (view.select_contact_list.adapter as SelectContactsAdapter).getSelectedItemsSet()
         config.addFavorites(selectedItems)
         allDisplayedIDs.removeAll(selectedItems)
 
