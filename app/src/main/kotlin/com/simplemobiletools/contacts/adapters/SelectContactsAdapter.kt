@@ -10,6 +10,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
+import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.interfaces.MyAdapterListener
 import com.simplemobiletools.contacts.R
@@ -20,8 +21,8 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.item_add_favorite_with_number.view.*
 import java.util.*
 
-class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Contact>, val selectedContacts: Set<String>)
-    : RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
+class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Contact>, val selectedContacts: Set<String>, val allowPickMultiple: Boolean,
+                            val itemClick: ((Contact) -> Unit)? = null) : RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
     private val itemViews = SparseArray<View>()
     private val selectedPositions = HashSet<Int>()
     private val config = activity.config
@@ -68,7 +69,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = activity.layoutInflater.inflate(itemLayout, parent, false)
-        return ViewHolder(view, adapterListener, activity)
+        return ViewHolder(view, adapterListener, activity, allowPickMultiple, itemClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -79,9 +80,11 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
     override fun getItemCount() = contacts.size
 
-    class ViewHolder(view: View, val adapterListener: MyAdapterListener, val activity: SimpleActivity) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, val adapterListener: MyAdapterListener, val activity: SimpleActivity, val showCheckbox: Boolean,
+                     val itemClick: ((Contact) -> Unit)?) : RecyclerView.ViewHolder(view) {
         fun bindView(contact: Contact, startNameWithSurname: Boolean, contactDrawable: Drawable, config: Config): View {
             itemView.apply {
+                contact_checkbox.beVisibleIf(showCheckbox)
                 contact_checkbox.setColors(config.textColor, config.primaryColor, config.backgroundColor)
                 val textColor = config.textColor
 
@@ -89,7 +92,13 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
                 contact_name.setTextColor(textColor)
                 contact_number?.text = contact.phoneNumbers.firstOrNull()?.value ?: ""
                 contact_number?.setTextColor(textColor)
-                contact_frame.setOnClickListener { viewClicked(!contact_checkbox.isChecked) }
+                contact_frame.setOnClickListener {
+                    if (itemClick != null) {
+                        itemClick.invoke(contact)
+                    } else {
+                        viewClicked(!contact_checkbox.isChecked)
+                    }
+                }
 
                 if (contact.photoUri.isNotEmpty()) {
                     val options = RequestOptions()

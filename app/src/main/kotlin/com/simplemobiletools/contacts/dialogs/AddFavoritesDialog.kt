@@ -33,7 +33,7 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
 
             activity.runOnUiThread {
                 view.apply {
-                    select_contact_list.adapter = SelectContactsAdapter(activity, allContacts, config.favorites)
+                    select_contact_list.adapter = SelectContactsAdapter(activity, allContacts, config.favorites, true)
                     select_contact_fastscroller.allowBubbleDisplay = activity.baseConfig.showInfoBubble
                     select_contact_fastscroller.setViews(select_contact_list) {
                         select_contact_fastscroller.updateBubbleText(allContacts[it].getBubbleText())
