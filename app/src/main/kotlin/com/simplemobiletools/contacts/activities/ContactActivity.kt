@@ -96,7 +96,9 @@ class ContactActivity : SimpleActivity() {
     private fun initContact() {
         var contactId = intent.getIntExtra(CONTACT_ID, 0)
         val action = intent.action
-        if (contactId == 0 && (action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT || action == Intent.ACTION_VIEW)) {
+        if (contactId == 0 && (action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT ||
+                action == Intent.ACTION_VIEW ||
+                action == Intent.ACTION_EDIT)) {
             val data = intent.data
             if (data != null) {
                 val rawId = if (data.path.contains("lookup")) {
