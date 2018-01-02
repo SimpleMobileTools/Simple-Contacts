@@ -63,6 +63,8 @@ class ContactActivity : SimpleActivity() {
     private val CHOOSE_PHOTO = 2
     private val REMOVE_PHOTO = 3
 
+    private val KEY_PHONE = "phone"
+
     private var wasActivityInitialized = false
     private var currentContactPhotoPath = ""
     private var lastPhotoIntentUri: Uri? = null
@@ -93,7 +95,7 @@ class ContactActivity : SimpleActivity() {
 
     private fun initContact() {
         var contactId = intent.getIntExtra(CONTACT_ID, 0)
-        if (contactId == 0 && intent.action == "android.provider.action.QUICK_CONTACT") {
+        if (contactId == 0 && intent.action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT) {
             val data = intent.data
             if (data != null) {
                 val rawId = getContactRawId(data) ?: -1
@@ -116,6 +118,12 @@ class ContactActivity : SimpleActivity() {
             setupNewContact()
         } else {
             setupEditContact()
+        }
+
+        if (contact!!.id == 0 && intent.action == Intent.ACTION_INSERT_OR_EDIT && intent.extras?.containsKey(KEY_PHONE) == true) {
+            val phoneNumber = intent.getStringExtra(KEY_PHONE)
+            contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE))
+            setupPhoneNumbers()
         }
 
         setupTypePickers()
@@ -215,6 +223,12 @@ class ContactActivity : SimpleActivity() {
         contact_surname.setText(contact!!.surname)
         contact_source.text = contact!!.source
 
+        setupPhoneNumbers()
+        setupEmails()
+        setupEvents()
+    }
+
+    private fun setupPhoneNumbers() {
         contact!!.phoneNumbers.forEachIndexed { index, number ->
             var numberHolder = contact_numbers_holder.getChildAt(index)
             if (numberHolder == null) {
@@ -227,7 +241,9 @@ class ContactActivity : SimpleActivity() {
                 setupPhoneNumberTypePicker(contact_number_type, number.type)
             }
         }
+    }
 
+    private fun setupEmails() {
         contact!!.emails.forEachIndexed { index, email ->
             var emailHolder = contact_emails_holder.getChildAt(index)
             if (emailHolder == null) {
@@ -240,7 +256,9 @@ class ContactActivity : SimpleActivity() {
                 setupEmailTypePicker(contact_email_type, email.type)
             }
         }
+    }
 
+    private fun setupEvents() {
         contact!!.events.forEachIndexed { index, event ->
             var eventHolder = contact_events_holder.getChildAt(index)
             if (eventHolder == null) {
