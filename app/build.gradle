@@ -41,7 +41,7 @@ ext {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:3.5.4'
+    implementation 'com.simplemobiletools:commons:3.5.5'
     implementation 'joda-time:joda-time:2.9.9'
 
     //debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"

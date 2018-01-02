@@ -40,6 +40,7 @@ import com.simplemobiletools.contacts.models.Email
 import com.simplemobiletools.contacts.models.Event
 import com.simplemobiletools.contacts.models.PhoneNumber
 import kotlinx.android.synthetic.main.activity_contact.*
+import kotlinx.android.synthetic.main.activity_contact.view.*
 import kotlinx.android.synthetic.main.item_email.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_phone_number.view.*
@@ -165,6 +166,7 @@ class ContactActivity : SimpleActivity() {
         contact_event_add_new.applyColorFilter(adjustedPrimaryColor)
         contact_event_add_new.background.applyColorFilter(textColor)
 
+        contact_toggle_favorite.setOnClickListener { toggleFavorite() }
         contact_photo.setOnClickListener { trySetPhoto() }
         contact_send_sms.setOnClickListener { trySendSMS() }
         contact_start_call.setOnClickListener { tryStartCall(contact!!) }
@@ -230,6 +232,12 @@ class ContactActivity : SimpleActivity() {
         contact_middle_name.setText(contact!!.middleName)
         contact_surname.setText(contact!!.surname)
         contact_source.text = contact!!.source
+
+        contact_toggle_favorite.apply {
+            setImageDrawable(getStarDrawable(contact!!.starred == 1))
+            tag = contact!!.starred
+            applyColorFilter(config.textColor)
+        }
 
         setupPhoneNumbers()
         setupEmails()
@@ -301,6 +309,11 @@ class ContactActivity : SimpleActivity() {
         contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), "", 0)
         contact_source.text = config.lastUsedContactSource
         contact_source.setOnClickListener { showAccountSourcePicker() }
+
+        contact_toggle_favorite.apply {
+            tag = 0
+            applyColorFilter(config.textColor)
+        }
     }
 
     private fun showPhotoPlaceholder() {
@@ -504,6 +517,7 @@ class ContactActivity : SimpleActivity() {
             emails = getFilledEmails()
             events = getFilledEvents()
             source = contact_source.value
+            starred = if (isContactStarred()) 1 else 0
 
             Thread {
                 config.lastUsedContactSource = source
@@ -651,6 +665,22 @@ class ContactActivity : SimpleActivity() {
                 }
             }
         }
+    }
+
+    private fun toggleFavorite() {
+        val isStarred = isContactStarred()
+        contact_toggle_favorite.apply {
+            setImageDrawable(getStarDrawable(!isStarred))
+            tag = if (isStarred) 0 else 1
+            applyColorFilter(config.textColor)
+        }
+    }
+
+    private fun isContactStarred() = contact_toggle_favorite.tag == 1
+
+    private fun getStarDrawable(on: Boolean): Drawable {
+        val newDrawable = resources.getDrawable(if (on) R.drawable.ic_star_on else R.drawable.ic_star_off)
+        return newDrawable
     }
 
     private fun trySetPhoto() {

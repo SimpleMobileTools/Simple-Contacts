@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="contact_photo_size">80dp</dimen>
-    <dimen name="contact_actions_size">50dp</dimen>
+    <dimen name="contact_actions_size">45dp</dimen>
     <dimen name="contact_icons_size">40dp</dimen>
 </resources>
