@@ -33,10 +33,7 @@ import com.simplemobiletools.commons.helpers.getDateFormats
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
-import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.sendEmailIntent
-import com.simplemobiletools.contacts.extensions.sendSMSIntent
-import com.simplemobiletools.contacts.extensions.tryStartCall
+import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Email
@@ -95,7 +92,17 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun initContact() {
-        val contactId = intent.getIntExtra(CONTACT_ID, 0)
+        var contactId = intent.getIntExtra(CONTACT_ID, 0)
+        if (contactId == 0 && intent.action == "android.provider.action.QUICK_CONTACT") {
+            val data = intent.data
+            if (data != null) {
+                val rawId = getContactRawId(data) ?: -1
+                if (rawId != -1) {
+                    contactId = rawId
+                }
+            }
+        }
+
         if (contactId != 0) {
             contact = ContactsHelper(this).getContactWithId(contactId)
             if (contact == null) {
