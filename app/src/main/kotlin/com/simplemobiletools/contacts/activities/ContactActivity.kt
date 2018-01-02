@@ -95,10 +95,16 @@ class ContactActivity : SimpleActivity() {
 
     private fun initContact() {
         var contactId = intent.getIntExtra(CONTACT_ID, 0)
-        if (contactId == 0 && intent.action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT) {
+        val action = intent.action
+        if (contactId == 0 && (action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT || action == Intent.ACTION_VIEW)) {
             val data = intent.data
             if (data != null) {
-                val rawId = getContactRawId(data) ?: -1
+                val rawId = if (data.path.contains("lookup")) {
+                    getLookupUriRawId(data)
+                } else {
+                    getContactUriRawId(data)
+                }
+
                 if (rawId != -1) {
                     contactId = rawId
                 }

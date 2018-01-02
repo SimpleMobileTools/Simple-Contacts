@@ -48,20 +48,26 @@ fun Context.sendSMSIntent(recipient: String) {
 }
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-fun Context.getContactRawId(dataUri: Uri): Int? {
+fun Context.getLookupUriRawId(dataUri: Uri): Int {
     val lookupKey = getLookupKeyFromUri(dataUri)
     if (lookupKey != null && isLollipopPlus()) {
         val uri = lookupContactUri(lookupKey, this)
-        val projection = arrayOf(ContactsContract.Contacts.NAME_RAW_CONTACT_ID)
-        var cursor: Cursor? = null
-        try {
-            cursor = contentResolver.query(uri, projection, null, null, null)
-            if (cursor.moveToFirst()) {
-                return cursor.getIntValue(ContactsContract.Contacts.NAME_RAW_CONTACT_ID)
-            }
-        } finally {
-            cursor?.close()
+        return getContactUriRawId(uri)
+    }
+    return -1
+}
+
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+fun Context.getContactUriRawId(uri: Uri): Int {
+    val projection = arrayOf(ContactsContract.Contacts.NAME_RAW_CONTACT_ID)
+    var cursor: Cursor? = null
+    try {
+        cursor = contentResolver.query(uri, projection, null, null, null)
+        if (cursor.moveToFirst()) {
+            return cursor.getIntValue(ContactsContract.Contacts.NAME_RAW_CONTACT_ID)
         }
+    } finally {
+        cursor?.close()
     }
     return -1
 }
