@@ -7,6 +7,8 @@
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
+    <string name="select_contact">Select contact</string>
+    <string name="select_contacts">Select contacts</string>
     <string name="first_name">First name</string>
     <string name="middle_name">Middle name</string>
     <string name="surname">Surname</string>

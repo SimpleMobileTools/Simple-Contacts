@@ -7,6 +7,8 @@
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
+    <string name="select_contact">Zvoľte kontakt</string>
+    <string name="select_contacts">Zvoľte kontakty</string>
     <string name="first_name">Krstné meno</string>
     <string name="middle_name">Stredné meno</string>
     <string name="surname">Priezvisko</string>
