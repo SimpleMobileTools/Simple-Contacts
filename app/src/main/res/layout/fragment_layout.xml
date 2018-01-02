@@ -15,6 +15,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/activity_margin"
             android:gravity="center"
+            android:paddingLeft="@dimen/activity_margin"
+            android:paddingRight="@dimen/activity_margin"
             android:text="@string/no_items_found"
             android:textSize="@dimen/bigger_text_size"
             android:visibility="gone"/>
