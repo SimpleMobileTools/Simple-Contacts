@@ -88,9 +88,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 config.lastUsedContactSource = grouped?.key ?: ""
             }
 
-            Contact.sorting = config.sorting
-            contacts.sort()
-
             contacts = if (this is FavoritesFragment) {
                 val favorites = config.favorites
                 contacts.filter { favorites.contains(it.id.toString()) } as ArrayList<Contact>
@@ -102,6 +99,9 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
                 }
             }
+
+            Contact.sorting = config.sorting
+            contacts.sort()
 
             if (contacts.hashCode() != lastHashCode) {
                 lastHashCode = contacts.hashCode()
