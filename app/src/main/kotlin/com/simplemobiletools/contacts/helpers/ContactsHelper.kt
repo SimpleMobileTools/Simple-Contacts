@@ -46,9 +46,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         val firstName = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
                         val middleName = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
                         val surname = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
-                        if (firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty())
-                            continue
-
                         val photoUri = cursor.getStringValue(ContactsContract.CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
                         val number = ArrayList<PhoneNumber>()       // proper value is obtained below
                         val emails = ArrayList<Email>()
