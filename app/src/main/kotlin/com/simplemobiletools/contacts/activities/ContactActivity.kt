@@ -234,6 +234,7 @@ class ContactActivity : SimpleActivity() {
         contact_source.text = contact!!.source
 
         contact_toggle_favorite.apply {
+            beVisible()
             setImageDrawable(getStarDrawable(contact!!.starred == 1))
             tag = contact!!.starred
             applyColorFilter(config.textColor)
@@ -306,14 +307,9 @@ class ContactActivity : SimpleActivity() {
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), "", 0)
+        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), "", 0, 0)
         contact_source.text = config.lastUsedContactSource
         contact_source.setOnClickListener { showAccountSourcePicker() }
-
-        contact_toggle_favorite.apply {
-            tag = 0
-            applyColorFilter(config.textColor)
-        }
     }
 
     private fun showPhotoPlaceholder() {
@@ -678,10 +674,7 @@ class ContactActivity : SimpleActivity() {
 
     private fun isContactStarred() = contact_toggle_favorite.tag == 1
 
-    private fun getStarDrawable(on: Boolean): Drawable {
-        val newDrawable = resources.getDrawable(if (on) R.drawable.ic_star_on else R.drawable.ic_star_off)
-        return newDrawable
-    }
+    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_big else R.drawable.ic_star_off_big)
 
     private fun trySetPhoto() {
         val items = arrayListOf(

@@ -10,8 +10,6 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.layout_select_contact.view.*
-import java.util.HashSet
-import kotlin.collections.ArrayList
 
 class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit) {
     private var dialog: AlertDialog? = null
@@ -45,22 +43,31 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
         }
 
         dialog = AlertDialog.Builder(activity)
-                .setPositiveButton(R.string.ok, { dialog, which -> dialogConfirmed() })
+                .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
             activity.setupDialogStuff(view, this)
+            getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                dialogConfirmed()
+            }
         }
     }
 
     private fun dialogConfirmed() {
-        val allDisplayedIDs = ArrayList<String>()
-        allContacts.mapTo(allDisplayedIDs, { it.id.toString() })
-        val selectedItems = (view.select_contact_list.adapter as SelectContactsAdapter).getSelectedItemsSet()
-        allDisplayedIDs.removeAll(selectedItems)
+        Thread {
+            val contactsHelper = ContactsHelper(activity)
+            val allDisplayedContacts = ArrayList<Contact>()
+            allContacts.mapTo(allDisplayedContacts, { it })
+            val selectedContacts = (view.select_contact_list.adapter as SelectContactsAdapter).getSelectedItemsSet()
+            val contactIDsToAdd = selectedContacts.map { it.contactId.toString() } as ArrayList<String>
+            contactsHelper.addFavorites(contactIDsToAdd)
 
-        val favoriteIDsToRemove = HashSet<String>()
-        allDisplayedIDs.mapTo(favoriteIDsToRemove, { it })
-        callback()
-        dialog?.dismiss()
+            allDisplayedContacts.removeAll(selectedContacts)
+            val contactIDsToRemove = allDisplayedContacts.map { it.contactId.toString() } as ArrayList<String>
+            contactsHelper.removeFavorites(contactIDsToRemove)
+
+            callback()
+            dialog?.dismiss()
+        }.start()
     }
 }

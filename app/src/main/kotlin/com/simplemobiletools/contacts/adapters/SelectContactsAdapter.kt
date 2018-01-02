@@ -61,9 +61,9 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
         override fun itemLongClicked(position: Int) {}
     }
 
-    fun getSelectedItemsSet(): HashSet<String> {
-        val selectedItemsSet = HashSet<String>(selectedPositions.size)
-        selectedPositions.forEach { selectedItemsSet.add(contacts[it].id.toString()) }
+    fun getSelectedItemsSet(): HashSet<Contact> {
+        val selectedItemsSet = HashSet<Contact>(selectedPositions.size)
+        selectedPositions.forEach { selectedItemsSet.add(contacts[it]) }
         return selectedItemsSet
     }
 

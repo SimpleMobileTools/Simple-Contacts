@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.helpers
 import android.content.ContentProviderOperation
 import android.content.ContentProviderResult
 import android.content.ContentUris
+import android.content.ContentValues
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
@@ -52,7 +53,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         val events = ArrayList<Event>()
                         val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
                         val starred = cursor.getIntValue(ContactsContract.CommonDataKinds.StructuredName.STARRED)
-                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred)
+                        val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
+                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred, contactId)
                         contacts.put(id, contact)
                     } while (cursor.moveToNext())
                 }
@@ -77,8 +79,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             }
 
             val contactsSize = contacts.size()
-            val resultContacts = ArrayList<Contact>(contactsSize)
+            var resultContacts = ArrayList<Contact>(contactsSize)
             (0 until contactsSize).mapTo(resultContacts) { contacts.valueAt(it) }
+            resultContacts = resultContacts.distinctBy { it.contactId } as ArrayList<Contact>
             callback(resultContacts)
         }.start()
     }
@@ -207,7 +210,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val events = getEvents(id)[id] ?: ArrayList()
                 val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
                 val starred = cursor.getIntValue(ContactsContract.CommonDataKinds.StructuredName.STARRED)
-                return Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred)
+                val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
+                return Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred, contactId)
             }
         } finally {
             cursor?.close()
@@ -239,7 +243,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         }.start()
     }
 
-    fun getContactSourceType(accountName: String): String {
+    private fun getContactSourceType(accountName: String): String {
         val uri = ContactsContract.RawContacts.CONTENT_URI
         val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_TYPE)
         val selection = "${ContactsContract.RawContacts.ACCOUNT_NAME} = ?"
@@ -258,6 +262,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     }
 
     private fun getContactProjection() = arrayOf(
+            ContactsContract.Data.CONTACT_ID,
             ContactsContract.Data.RAW_CONTACT_ID,
             ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME,
             ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME,
@@ -352,6 +357,16 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     withValue(ContactsContract.CommonDataKinds.Event.TYPE, it.type)
                     operations.add(build())
                 }
+            }
+
+            // favorite
+            try {
+                val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contact.contactId.toString())
+                val contentValues = ContentValues(1)
+                contentValues.put(ContactsContract.Contacts.STARRED, contact.starred)
+                activity.contentResolver.update(uri, contentValues, null, null)
+            } catch (e: Exception) {
+                activity.showErrorToast(e)
             }
 
             // photo
@@ -538,6 +553,30 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             cursor?.close()
         }
         return ""
+    }
+
+    fun addFavorites(ids: ArrayList<String>) {
+        toggleFavorites(ids, true)
+    }
+
+    fun removeFavorites(ids: ArrayList<String>) {
+        toggleFavorites(ids, false)
+    }
+
+    private fun toggleFavorites(ids: ArrayList<String>, areFavorites: Boolean) {
+        try {
+            val operations = ArrayList<ContentProviderOperation>()
+            ids.forEach {
+                val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, it)
+                ContentProviderOperation.newUpdate(uri).apply {
+                    withValue(ContactsContract.Contacts.STARRED, if (areFavorites) 1 else 0)
+                    operations.add(build())
+                }
+            }
+            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        }
     }
 
     fun deleteContact(contact: Contact) = deleteContacts(arrayListOf(contact))
