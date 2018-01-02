@@ -502,6 +502,11 @@ class ContactActivity : SimpleActivity() {
             return
         }
 
+        if (contact_source.value.isEmpty()) {
+            toast(R.string.missing_contact_account)
+            return
+        }
+
         contact!!.apply {
             val oldPhotoUri = photoUri
 

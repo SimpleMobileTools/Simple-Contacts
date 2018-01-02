@@ -4,6 +4,7 @@
     <string name="address">Address</string>
     <string name="inserting">Inserting…</string>
     <string name="updating">Updating…</string>
+    <string name="missing_contact_account">Please select an account to which the contact belongs</string>
 
     <string name="new_contact">New contact</string>
     <string name="edit_contact">Edit contact</string>

@@ -4,6 +4,7 @@
     <string name="address">주소</string>
     <string name="inserting">Inserting…</string>
     <string name="updating">Updating…</string>
+    <string name="missing_contact_source">Please select an account to which the contact belongs</string>
 
     <string name="new_contact">새로운 연락처</string>
     <string name="edit_contact">연락처 수정</string>

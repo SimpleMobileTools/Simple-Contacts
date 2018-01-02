@@ -4,6 +4,7 @@
     <string name="address">Adresa</string>
     <string name="inserting">Vytvára sa…</string>
     <string name="updating">Upravuje sa…</string>
+    <string name="missing_contact_source">Prosím zvoľte účet, ktorému patrí daný kontakt</string>
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
