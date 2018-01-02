@@ -231,7 +231,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 cursor = activity.contentResolver.query(uri, projection, null, null, null)
                 if (cursor?.moveToFirst() == true) {
                     do {
-                        val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
+                        val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: continue
                         accounts.add(name)
                     } while (cursor.moveToNext())
                 }

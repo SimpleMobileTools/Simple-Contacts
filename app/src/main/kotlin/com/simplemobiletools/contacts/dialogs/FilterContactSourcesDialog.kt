@@ -15,6 +15,10 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, val callback: () 
 
     init {
         ContactsHelper(activity).getContactSources {
+            if (it.isEmpty()) {
+                return@getContactSources
+            }
+
             val selectedSources = activity.config.displayContactSources
             activity.runOnUiThread {
                 view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, it, selectedSources)
