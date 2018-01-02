@@ -89,8 +89,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
 
             contacts = if (this is FavoritesFragment) {
-                val favorites = config.favorites
-                contacts.filter { favorites.contains(it.id.toString()) } as ArrayList<Contact>
+                contacts.filter { it.starred == 1 } as ArrayList<Contact>
             } else {
                 val contactSources = config.displayContactSources
                 if (config.showAllContacts()) {

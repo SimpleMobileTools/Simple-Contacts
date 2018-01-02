@@ -54,7 +54,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         val emails = ArrayList<Email>()
                         val events = ArrayList<Event>()
                         val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
-                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName)
+                        val starred = cursor.getIntValue(ContactsContract.CommonDataKinds.StructuredName.STARRED)
+                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred)
                         contacts.put(id, contact)
                     } while (cursor.moveToNext())
                 }
@@ -208,7 +209,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val emails = getEmails(id)[id] ?: ArrayList()
                 val events = getEvents(id)[id] ?: ArrayList()
                 val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
-                return Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName)
+                val starred = cursor.getIntValue(ContactsContract.CommonDataKinds.StructuredName.STARRED)
+                return Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred)
             }
         } finally {
             cursor?.close()
@@ -264,6 +266,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             ContactsContract.CommonDataKinds.StructuredName.MIDDLE_NAME,
             ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME,
             ContactsContract.CommonDataKinds.StructuredName.PHOTO_URI,
+            ContactsContract.CommonDataKinds.StructuredName.STARRED,
             ContactsContract.RawContacts.ACCOUNT_NAME
     )
 
@@ -557,7 +560,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             }
 
             activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
-            activity.config.removeFavorites(contactIDs)
         } catch (e: Exception) {
             activity.showErrorToast(e)
         }

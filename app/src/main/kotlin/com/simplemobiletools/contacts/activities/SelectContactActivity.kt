@@ -56,7 +56,7 @@ class SelectContactActivity : SimpleActivity() {
             contacts.sort()
 
             runOnUiThread {
-                select_contact_list.adapter = SelectContactsAdapter(this, contacts, HashSet(), false) {
+                select_contact_list.adapter = SelectContactsAdapter(this, contacts, ArrayList(), false) {
                     confirmSelection(it)
                 }
                 select_contact_fastscroller.allowBubbleDisplay = baseConfig.showInfoBubble

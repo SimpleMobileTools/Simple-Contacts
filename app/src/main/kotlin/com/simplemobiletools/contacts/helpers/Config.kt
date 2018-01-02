@@ -4,7 +4,6 @@ import android.content.Context
 import com.simplemobiletools.commons.helpers.BaseConfig
 import com.simplemobiletools.commons.helpers.SORTING
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
-import java.util.*
 
 class Config(context: Context) : BaseConfig(context) {
     companion object {
@@ -40,24 +39,4 @@ class Config(context: Context) : BaseConfig(context) {
     var lastUsedViewPagerPage: Int
         get() = prefs.getInt(LAST_USED_VIEW_PAGER_PAGE, 0)
         set(lastUsedViewPagerPage) = prefs.edit().putInt(LAST_USED_VIEW_PAGER_PAGE, lastUsedViewPagerPage).apply()
-
-    var favorites: Set<String>
-        get() = prefs.getStringSet(FAVORITES, HashSet<String>())
-        set(favorites) = prefs.edit().remove(FAVORITES).putStringSet(FAVORITES, favorites).apply()
-
-    fun addFavorite(id: String) {
-        addFavorites(HashSet<String>(Arrays.asList(id)))
-    }
-
-    fun addFavorites(favs: Set<String>) {
-        val currFavorites = HashSet<String>(favorites)
-        currFavorites.addAll(favs)
-        favorites = currFavorites
-    }
-
-    fun removeFavorites(favs: Set<String>) {
-        val currFavorites = HashSet<String>(favorites)
-        currFavorites.removeAll(favs)
-        favorites = currFavorites
-    }
 }

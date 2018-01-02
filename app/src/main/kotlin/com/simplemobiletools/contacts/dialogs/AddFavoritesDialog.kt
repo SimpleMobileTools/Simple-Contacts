@@ -28,12 +28,14 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
                 allContacts = allContacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
             }
 
+            val favorites = allContacts.filter { it.starred == 1 }.map { it.id.toString() } as ArrayList<String>
+
             Contact.sorting = config.sorting
             allContacts.sort()
 
             activity.runOnUiThread {
                 view.apply {
-                    select_contact_list.adapter = SelectContactsAdapter(activity, allContacts, config.favorites, true)
+                    select_contact_list.adapter = SelectContactsAdapter(activity, allContacts, favorites, true)
                     select_contact_fastscroller.allowBubbleDisplay = activity.baseConfig.showInfoBubble
                     select_contact_fastscroller.setViews(select_contact_list) {
                         select_contact_fastscroller.updateBubbleText(allContacts[it].getBubbleText())
@@ -54,12 +56,10 @@ class AddFavoritesDialog(val activity: SimpleActivity, val callback: () -> Unit)
         val allDisplayedIDs = ArrayList<String>()
         allContacts.mapTo(allDisplayedIDs, { it.id.toString() })
         val selectedItems = (view.select_contact_list.adapter as SelectContactsAdapter).getSelectedItemsSet()
-        config.addFavorites(selectedItems)
         allDisplayedIDs.removeAll(selectedItems)
 
         val favoriteIDsToRemove = HashSet<String>()
         allDisplayedIDs.mapTo(favoriteIDsToRemove, { it })
-        config.removeFavorites(favoriteIDsToRemove)
         callback()
         dialog?.dismiss()
     }
