@@ -99,6 +99,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         if (!isFirstResume) {
+            if (viewpager.adapter == null) {
+                initFragments()
+            }
             contacts_fragment.initContacts()
             contacts_fragment.onActivityResume()
             favorites_fragment.initContacts()
