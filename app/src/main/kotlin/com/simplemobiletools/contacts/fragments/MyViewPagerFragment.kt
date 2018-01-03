@@ -163,6 +163,11 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                         it.phoneNumbers.any { it.value.contains(text, true) } ||
                         it.emails.any { it.value.contains(text, true) }
             } as ArrayList
+
+            Contact.sorting = config.sorting
+            filtered.sort()
+            filtered.sortBy { !it.getFullName(startNameWithSurname).startsWith(text, true) }
+
             updateItems(filtered)
         }
     }
