@@ -40,7 +40,6 @@ import com.simplemobiletools.contacts.models.Email
 import com.simplemobiletools.contacts.models.Event
 import com.simplemobiletools.contacts.models.PhoneNumber
 import kotlinx.android.synthetic.main.activity_contact.*
-import kotlinx.android.synthetic.main.activity_contact.view.*
 import kotlinx.android.synthetic.main.item_email.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_phone_number.view.*
@@ -609,35 +608,32 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun addNewPhoneNumberField() {
-        layoutInflater.inflate(R.layout.item_phone_number, contact_numbers_holder, false).apply {
-            updateTextColors(this as ViewGroup)
-            setupPhoneNumberTypePicker(contact_number_type)
-            contact_numbers_holder.addView(this)
-            contact_numbers_holder.onGlobalLayout {
-                contact_number.requestFocus()
-                showKeyboard(contact_number)
-            }
+        val numberHolder = layoutInflater.inflate(R.layout.item_phone_number, contact_numbers_holder, false) as ViewGroup
+        updateTextColors(numberHolder)
+        setupPhoneNumberTypePicker(numberHolder.contact_number_type)
+        contact_numbers_holder.addView(numberHolder)
+        contact_numbers_holder.onGlobalLayout {
+            numberHolder.contact_number.requestFocus()
+            showKeyboard(numberHolder.contact_number)
         }
     }
 
     private fun addNewEmailField() {
-        layoutInflater.inflate(R.layout.item_email, contact_emails_holder, false).apply {
-            updateTextColors(this as ViewGroup)
-            setupEmailTypePicker(contact_email_type)
-            contact_emails_holder.addView(this)
-            contact_emails_holder.onGlobalLayout {
-                contact_email.requestFocus()
-                showKeyboard(contact_email)
-            }
+        val emailHolder = layoutInflater.inflate(R.layout.item_email, contact_emails_holder, false) as ViewGroup
+        updateTextColors(emailHolder)
+        setupEmailTypePicker(emailHolder.contact_email_type)
+        contact_emails_holder.addView(emailHolder)
+        contact_emails_holder.onGlobalLayout {
+            emailHolder.contact_email.requestFocus()
+            showKeyboard(emailHolder.contact_email)
         }
     }
 
     private fun addNewEventField() {
-        layoutInflater.inflate(R.layout.item_event, contact_events_holder, false).apply {
-            updateTextColors(this as ViewGroup)
-            setupEventTypePicker(this)
-            contact_events_holder.addView(this)
-        }
+        val eventHolder = layoutInflater.inflate(R.layout.item_event, contact_events_holder, false) as ViewGroup
+        updateTextColors(eventHolder)
+        setupEventTypePicker(eventHolder)
+        contact_events_holder.addView(eventHolder)
     }
 
     private fun deleteContact() {
