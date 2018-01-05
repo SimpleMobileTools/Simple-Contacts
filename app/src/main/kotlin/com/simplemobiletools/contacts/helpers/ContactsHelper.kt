@@ -564,6 +564,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     }
 
     private fun toggleFavorites(ids: ArrayList<String>, areFavorites: Boolean) {
+        val applyBatchSize = 100
         try {
             val operations = ArrayList<ContentProviderOperation>()
             ids.forEach {
@@ -571,6 +572,10 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 ContentProviderOperation.newUpdate(uri).apply {
                     withValue(ContactsContract.Contacts.STARRED, if (areFavorites) 1 else 0)
                     operations.add(build())
+                }
+                if (operations.size % applyBatchSize == 0) {
+                    activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                    operations.clear()
                 }
             }
             activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
