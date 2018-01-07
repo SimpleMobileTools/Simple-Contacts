@@ -11,6 +11,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.interfaces.MyAdapterListener
 import com.simplemobiletools.contacts.R
@@ -85,7 +86,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
         fun bindView(contact: Contact, startNameWithSurname: Boolean, contactDrawable: Drawable, config: Config): View {
             itemView.apply {
                 contact_checkbox.beVisibleIf(showCheckbox)
-                contact_checkbox.setColors(config.textColor, config.primaryColor, config.backgroundColor)
+                contact_checkbox.setColors(config.textColor, context.getAdjustedPrimaryColor(), config.backgroundColor)
                 val textColor = config.textColor
 
                 contact_name.text = contact.getFullName(startNameWithSurname)

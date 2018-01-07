@@ -4,10 +4,8 @@ import android.content.Context
 import android.graphics.Paint
 import android.support.design.widget.CoordinatorLayout
 import android.util.AttributeSet
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.isActivityDestroyed
-import com.simplemobiletools.commons.extensions.toast
-import com.simplemobiletools.commons.extensions.updateTextColors
+import android.view.ViewGroup
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.contacts.R
@@ -61,7 +59,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun primaryColorChanged(color: Int) {
         fragment_fastscroller.updatePrimaryColor()
-        fragment_fab.setColors(config.textColor, color, config.backgroundColor)
         fragment_fastscroller.updateBubblePrimaryColor()
     }
 
@@ -181,10 +178,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     private fun updateViewStuff() {
-        context.updateTextColors(fragment_wrapper)
+        context.updateTextColors(fragment_wrapper.parent as ViewGroup)
         fragment_fastscroller.updateBubbleColors()
         fragment_fastscroller.allowBubbleDisplay = config.showInfoBubble
-        fragment_placeholder_2.setTextColor(config.primaryColor)
+        fragment_placeholder_2.setTextColor(context.getAdjustedPrimaryColor())
     }
 
     abstract fun fabClicked()
