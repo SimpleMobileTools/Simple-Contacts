@@ -205,7 +205,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
                     getCurrentFragment().onSearchQueryChanged("")
-                    MenuItemCompat.collapseActionView(searchMenuItem)
+                    if (searchMenuItem != null) {
+                        MenuItemCompat.collapseActionView(searchMenuItem)
+                    }
                 }
             }
 
