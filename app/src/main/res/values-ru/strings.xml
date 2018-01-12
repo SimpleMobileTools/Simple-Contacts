@@ -25,7 +25,7 @@
     <string name="show_phone_numbers">Отображать номера телефонов на главном экране</string>
 
     <!-- Emails -->
-    <string name="email">Эл.почта</string>
+    <string name="email">Эл. почта</string>
     <string name="home">Домашний</string>
     <string name="work">Рабочий</string>
     <string name="other">Другой</string>
