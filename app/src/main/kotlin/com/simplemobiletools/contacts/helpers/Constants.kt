@@ -1,5 +1,7 @@
 package com.simplemobiletools.contacts.helpers
 
+import android.provider.ContactsContract
+
 // shared prefs
 val CALL_CONTACT_ON_CLICK = "call_contact_on_click"
 val SHOW_PHONE_NUMBERS = "show_phone_numbers"
@@ -15,3 +17,8 @@ val PHOTO_ADDED = 1
 val PHOTO_REMOVED = 2
 val PHOTO_CHANGED = 3
 val PHOTO_UNCHANGED = 4
+
+// default contact values
+val DEFAULT_EMAIL_TYPE = ContactsContract.CommonDataKinds.Email.TYPE_HOME
+val DEFAULT_PHONE_NUMBER_TYPE = ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
+val DEFAULT_EVENT_TYPE = ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY

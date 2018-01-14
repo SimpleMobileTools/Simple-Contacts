@@ -138,7 +138,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val email = cursor.getStringValue(ContactsContract.CommonDataKinds.Email.DATA)
+                    val email = cursor.getStringValue(ContactsContract.CommonDataKinds.Email.DATA) ?: continue
                     val type = cursor.getIntValue(ContactsContract.CommonDataKinds.Email.TYPE)
 
                     if (emails[id] == null) {

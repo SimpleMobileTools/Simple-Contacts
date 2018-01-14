@@ -156,9 +156,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             isSubmitButtonEnabled = false
             queryHint = getString(if (viewpager.currentItem == 0) R.string.search_contacts else R.string.search_favorites)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    return false
-                }
+                override fun onQueryTextSubmit(query: String) = false
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
