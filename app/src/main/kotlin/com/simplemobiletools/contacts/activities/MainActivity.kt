@@ -18,6 +18,7 @@ import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
+import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.onTabSelectionChanged
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
@@ -258,7 +259,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun importContacts() {
         FilePickerDialog(this) {
-
+            ImportContactsDialog(this, it) {
+                if (it) {
+                    runOnUiThread {
+                        refreshContacts()
+                    }
+                }
+            }
         }
     }
 

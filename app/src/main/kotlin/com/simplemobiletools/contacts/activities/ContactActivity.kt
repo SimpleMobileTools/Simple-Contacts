@@ -304,7 +304,11 @@ class ContactActivity : SimpleActivity() {
         supportActionBar?.title = resources.getString(R.string.new_contact)
         contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), "", 0, 0)
         contact_source.text = config.lastUsedContactSource
-        contact_source.setOnClickListener { showAccountSourcePicker() }
+        contact_source.setOnClickListener {
+            showContactSourcePicker(contact_source.value) {
+                contact_source.text = it
+            }
+        }
     }
 
     private fun showPhotoPlaceholder() {
@@ -636,27 +640,6 @@ class ContactActivity : SimpleActivity() {
         ConfirmationDialog(this) {
             ContactsHelper(this).deleteContact(contact!!)
             finish()
-        }
-    }
-
-    private fun showAccountSourcePicker() {
-        ContactsHelper(this).getContactSources {
-            val items = ArrayList<RadioItem>()
-            val sources = it
-            val currentSource = contact_source.value
-            var currentSourceIndex = -1
-            sources.forEachIndexed { index, account ->
-                items.add(RadioItem(index, account))
-                if (account == currentSource) {
-                    currentSourceIndex = index
-                }
-            }
-
-            runOnUiThread {
-                RadioGroupDialog(this, items, currentSourceIndex) {
-                    contact_source.text = sources[it as Int]
-                }
-            }
         }
     }
 

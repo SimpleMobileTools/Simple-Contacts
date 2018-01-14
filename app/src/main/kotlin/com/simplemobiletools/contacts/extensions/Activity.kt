@@ -8,6 +8,7 @@ import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.activities.SimpleActivity
+import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
 
 fun SimpleActivity.startCallIntent(recipient: String) {
@@ -37,6 +38,26 @@ fun SimpleActivity.tryStartCall(contact: Contact) {
 
         RadioGroupDialog(this, items) {
             startCallIntent(it as String)
+        }
+    }
+}
+
+fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (newSource: String) -> Unit) {
+    ContactsHelper(this).getContactSources {
+        val items = ArrayList<RadioItem>()
+        val sources = it
+        var currentSourceIndex = -1
+        sources.forEachIndexed { index, account ->
+            items.add(RadioItem(index, account))
+            if (account == currentSource) {
+                currentSourceIndex = index
+            }
+        }
+
+        runOnUiThread {
+            RadioGroupDialog(this, items, currentSourceIndex) {
+                callback(sources[it as Int])
+            }
         }
     }
 }

@@ -22,3 +22,14 @@ val PHOTO_UNCHANGED = 4
 val DEFAULT_EMAIL_TYPE = ContactsContract.CommonDataKinds.Email.TYPE_HOME
 val DEFAULT_PHONE_NUMBER_TYPE = ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
 val DEFAULT_EVENT_TYPE = ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY
+
+// export/import
+val BEGIN_VCARD = "BEGIN:VCARD"
+val END_VCARD = "END:VCARD"
+val N = "N"
+val FN = "FN"
+val TEL = "TEL"
+val VERSION = "VERSION"
+val BDAY = "BDAY"
+val PHOTO = "PHOTO"
+val EMAIL = "EMAIL"
