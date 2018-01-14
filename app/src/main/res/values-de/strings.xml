@@ -56,8 +56,8 @@
     <!-- Export / Import -->
     <string name="import_contacts">Kontakte importieren</string>
     <string name="export_contacts">Kontakte exportieren</string>
-    <string name="import_contacts_from_ics">Kontakte aus .vcf Datei importieren</string>
-    <string name="export_contacts_to_ics">Kontakte in .vcf Datei exportieren</string>
+    <string name="import_contacts_from_vcf">Kontakte aus .vcf Datei importieren</string>
+    <string name="export_contacts_to_vcf">Kontakte in .vcf Datei exportieren</string>
     <string name="target_contact_source">Zielkontaktquelle</string>
     <string name="include_contact_sources">Kontaktquellen einschließen</string>
     <string name="filename_without_vcf">Dateiname (ohne .vcf)</string>

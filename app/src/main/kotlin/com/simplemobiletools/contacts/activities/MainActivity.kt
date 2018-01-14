@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.BuildConfig
@@ -130,6 +131,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         when (item.itemId) {
             R.id.sort -> showSortingDialog()
             R.id.filter -> showFilterDialog()
+            R.id.import_contacts -> tryImportContacts()
+            R.id.export_contacts -> tryExportContacts()
             R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
             R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
@@ -242,6 +245,34 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
             contacts_fragment.initContacts()
+        }
+    }
+
+    private fun tryImportContacts() {
+        handlePermission(PERMISSION_READ_STORAGE) {
+            if (it) {
+                importContacts()
+            }
+        }
+    }
+
+    private fun importContacts() {
+        FilePickerDialog(this) {
+
+        }
+    }
+
+    private fun tryExportContacts() {
+        handlePermission(PERMISSION_WRITE_STORAGE) {
+            if (it) {
+                exportContacts()
+            }
+        }
+    }
+
+    private fun exportContacts() {
+        FilePickerDialog(this, pickFile = false, showFAB = true) {
+
         }
     }
 

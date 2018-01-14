@@ -18,6 +18,14 @@
         android:title="@string/filter"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/import_contacts"
+        android:title="@string/import_contacts_from_vcf"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/export_contacts"
+        android:title="@string/export_contacts_to_vcf"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/settings"
         android:title="@string/settings"
         app:showAsAction="never"/>
