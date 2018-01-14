@@ -54,13 +54,13 @@
     <string name="search_favorites">Favoriten durchsuchen</string>
 
     <!-- Export / Import -->
-    <string name="import_contacts">Import contacts</string>
-    <string name="export_contacts">Export contacts</string>
-    <string name="import_contacts_from_ics">Import contacts from a .vcf file</string>
-    <string name="export_contacts_to_ics">Export contacts to a .vcf file</string>
-    <string name="target_contact_source">Target contact source</string>
-    <string name="include_contact_sources">Include contact sources</string>
-    <string name="filename_without_vcf">Filename (without .vcf)</string>
+    <string name="import_contacts">Kontakte importieren</string>
+    <string name="export_contacts">Kontakte exportieren</string>
+    <string name="import_contacts_from_ics">Kontakte aus .vcf Datei importieren</string>
+    <string name="export_contacts_to_ics">Kontakte in .vcf Datei exportieren</string>
+    <string name="target_contact_source">Zielkontaktquelle</string>
+    <string name="include_contact_sources">Kontaktquellen einschließen</string>
+    <string name="filename_without_vcf">Dateiname (ohne .vcf)</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
