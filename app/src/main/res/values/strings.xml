@@ -53,6 +53,15 @@
     <string name="search_contacts">Search contacts</string>
     <string name="search_favorites">Search favorites</string>
 
+    <!-- Export / Import -->
+    <string name="import_contacts">Import contacts</string>
+    <string name="export_contacts">Export contacts</string>
+    <string name="import_contacts_from_ics">Import contacts from a .vcf file</string>
+    <string name="export_contacts_to_ics">Export contacts to a .vcf file</string>
+    <string name="target_contact_source">Target contact source</string>
+    <string name="include_contact_sources">Include contact sources</string>
+    <string name="filename_without_vcf">Filename (without .vcf)</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">A contacts app for managing your contacts without ads.</string>
