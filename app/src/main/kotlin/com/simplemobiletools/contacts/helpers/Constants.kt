@@ -27,13 +27,13 @@ val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
 val BEGIN_VCARD = "BEGIN:VCARD"
 val END_VCARD = "END:VCARD"
 val N = "N:"
-val FN = "FN:"
 val TEL = "TEL"
 val BDAY = "BDAY:"
+val ANNIVERSARY = "ANNIVERSARY:"
 val PHOTO = "PHOTO"
-val EMAIL = "EMAIL;"
+val EMAIL = "EMAIL"
 
-// phone number types
+// phone number/email types
 val CELL = "CELL"
 val WORK = "WORK"
 val HOME = "HOME"
@@ -41,5 +41,4 @@ val PREF = "PREF"
 val WORK_FAX = "WORK;FAX"
 val HOME_FAX = "HOME;FAX"
 val PAGER = "PAGER"
-val VOICE = "VOICE"
-val EMPTY = ""
+val MOBILE = "MOBILE"
