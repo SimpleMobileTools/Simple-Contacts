@@ -73,25 +73,40 @@ class VcfImporter(val activity: SimpleActivity) {
 
     private fun addPhoneNumber(phoneNumber: String) {
         val phoneParts = phoneNumber.trimStart(';').split(":")
-        val type = getPhoneNumberTypeId(phoneParts[0])
+        var rawType = phoneParts[0]
+        var subType = ""
+        if (rawType.contains('=')) {
+            val types = rawType.split('=')
+            if (types.any { it.contains(';') }) {
+                subType = types[1].split(';').first()
+            }
+            rawType = types.last()
+        }
+
+        val type = getPhoneNumberTypeId(rawType, subType)
         val value = phoneParts[1]
         curPhoneNumbers.add(PhoneNumber(value, type))
     }
 
-    private fun getPhoneNumberTypeId(type: String) = when (type) {
+    private fun getPhoneNumberTypeId(type: String, subType: String) = when (type) {
         CELL -> CommonDataKinds.Phone.TYPE_MOBILE
         WORK -> CommonDataKinds.Phone.TYPE_WORK
         HOME -> CommonDataKinds.Phone.TYPE_HOME
-        PREF -> CommonDataKinds.Phone.TYPE_MAIN
+        PREF, MAIN -> CommonDataKinds.Phone.TYPE_MAIN
         WORK_FAX -> CommonDataKinds.Phone.TYPE_FAX_WORK
         HOME_FAX -> CommonDataKinds.Phone.TYPE_FAX_HOME
+        FAX -> if (subType == WORK) CommonDataKinds.Phone.TYPE_FAX_WORK else CommonDataKinds.Phone.TYPE_FAX_HOME
         PAGER -> CommonDataKinds.Phone.TYPE_PAGER
         else -> CommonDataKinds.Phone.TYPE_OTHER
     }
 
     private fun addEmail(email: String) {
         val emailParts = email.trimStart(';').split(":")
-        val type = getEmailTypeId(emailParts[0])
+        var rawType = emailParts[0]
+        if (rawType.contains('=')) {
+            rawType = rawType.split('=').last()
+        }
+        val type = getEmailTypeId(rawType)
         val value = emailParts[1]
         curEmails.add(Email(value, type))
     }
