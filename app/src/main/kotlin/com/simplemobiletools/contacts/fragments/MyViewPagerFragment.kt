@@ -115,7 +115,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
         val currAdapter = fragment_list.adapter
         if (currAdapter == null) {
-            ContactsAdapter(activity as SimpleActivity, contacts, activity, this is FavoritesFragment, fragment_list) {
+            ContactsAdapter(activity as SimpleActivity, contacts, activity, this is FavoritesFragment, fragment_list, fragment_fastscroller) {
                 if (config.callContact) {
                     val contact = it as Contact
                     if (contact.phoneNumbers.isNotEmpty()) {

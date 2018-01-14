@@ -13,6 +13,7 @@ import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
+import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
@@ -25,8 +26,8 @@ import kotlinx.android.synthetic.main.item_contact_with_number.view.*
 import java.util.*
 
 class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Contact>, val listener: RefreshContactsListener?,
-                      val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) :
-        MyRecyclerViewAdapter(activity, recyclerView, itemClick) {
+                      val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
+        MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     lateinit private var contactDrawable: Drawable
     var config = activity.config
@@ -163,7 +164,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     override fun onViewRecycled(holder: ViewHolder?) {
         super.onViewRecycled(holder)
         if (!activity.isActivityDestroyed()) {
-            Glide.with(activity).clear(holder?.itemView?.contact_tmb)
+            Glide.with(activity).clear(holder?.itemView?.contact_tmb!!)
         }
     }
 
