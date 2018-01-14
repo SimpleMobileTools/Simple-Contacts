@@ -1,6 +1,6 @@
 package com.simplemobiletools.contacts.helpers
 
-import android.provider.ContactsContract
+import android.provider.ContactsContract.CommonDataKinds
 
 // shared prefs
 val CALL_CONTACT_ON_CLICK = "call_contact_on_click"
@@ -19,17 +19,27 @@ val PHOTO_CHANGED = 3
 val PHOTO_UNCHANGED = 4
 
 // default contact values
-val DEFAULT_EMAIL_TYPE = ContactsContract.CommonDataKinds.Email.TYPE_HOME
-val DEFAULT_PHONE_NUMBER_TYPE = ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
-val DEFAULT_EVENT_TYPE = ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY
+val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
+val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
+val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
 
 // export/import
 val BEGIN_VCARD = "BEGIN:VCARD"
 val END_VCARD = "END:VCARD"
-val N = "N"
-val FN = "FN"
+val N = "N:"
+val FN = "FN:"
 val TEL = "TEL"
-val VERSION = "VERSION"
-val BDAY = "BDAY"
+val BDAY = "BDAY:"
 val PHOTO = "PHOTO"
-val EMAIL = "EMAIL"
+val EMAIL = "EMAIL;"
+
+// phone number types
+val CELL = "CELL"
+val WORK = "WORK"
+val HOME = "HOME"
+val PREF = "PREF"
+val WORK_FAX = "WORK;FAX"
+val HOME_FAX = "HOME;FAX"
+val PAGER = "PAGER"
+val VOICE = "VOICE"
+val EMPTY = ""

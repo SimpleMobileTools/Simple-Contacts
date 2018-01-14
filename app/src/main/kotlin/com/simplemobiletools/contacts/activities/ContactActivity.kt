@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.activities
 
+import android.provider.ContactsContract.CommonDataKinds
 import android.app.DatePickerDialog
 import android.content.ClipData
 import android.content.Intent
@@ -453,14 +454,14 @@ class ContactActivity : SimpleActivity() {
 
     private fun showNumberTypePicker(numberTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE, getString(R.string.mobile)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_HOME, getString(R.string.home)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_WORK, getString(R.string.work)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_MAIN, getString(R.string.main_number)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK, getString(R.string.work_fax)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME, getString(R.string.home_fax)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_PAGER, getString(R.string.pager)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_OTHER, getString(R.string.other))
+                RadioItem(CommonDataKinds.Phone.TYPE_MOBILE, getString(R.string.mobile)),
+                RadioItem(CommonDataKinds.Phone.TYPE_HOME, getString(R.string.home)),
+                RadioItem(CommonDataKinds.Phone.TYPE_WORK, getString(R.string.work)),
+                RadioItem(CommonDataKinds.Phone.TYPE_MAIN, getString(R.string.main_number)),
+                RadioItem(CommonDataKinds.Phone.TYPE_FAX_WORK, getString(R.string.work_fax)),
+                RadioItem(CommonDataKinds.Phone.TYPE_FAX_HOME, getString(R.string.home_fax)),
+                RadioItem(CommonDataKinds.Phone.TYPE_PAGER, getString(R.string.pager)),
+                RadioItem(CommonDataKinds.Phone.TYPE_OTHER, getString(R.string.other))
         )
 
         val currentNumberTypeId = getPhoneNumberTypeId(numberTypeField.value)
@@ -471,10 +472,10 @@ class ContactActivity : SimpleActivity() {
 
     private fun showEmailTypePicker(emailTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_HOME, getString(R.string.home)),
-                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_WORK, getString(R.string.work)),
-                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_MOBILE, getString(R.string.mobile)),
-                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_OTHER, getString(R.string.other))
+                RadioItem(CommonDataKinds.Email.TYPE_HOME, getString(R.string.home)),
+                RadioItem(CommonDataKinds.Email.TYPE_WORK, getString(R.string.work)),
+                RadioItem(CommonDataKinds.Email.TYPE_MOBILE, getString(R.string.mobile)),
+                RadioItem(CommonDataKinds.Email.TYPE_OTHER, getString(R.string.other))
         )
 
         val currentEmailTypeId = getEmailTypeId(emailTypeField.value)
@@ -485,9 +486,9 @@ class ContactActivity : SimpleActivity() {
 
     private fun showEventTypePicker(eventTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
-                RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(R.string.anniversary)),
-                RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other))
+                RadioItem(CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
+                RadioItem(CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(R.string.anniversary)),
+                RadioItem(CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other))
         )
 
         val currentEventTypeId = getEventTypeId(eventTypeField.value)
@@ -748,50 +749,50 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun getPhoneNumberTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE -> R.string.mobile
-        ContactsContract.CommonDataKinds.Phone.TYPE_HOME -> R.string.home
-        ContactsContract.CommonDataKinds.Phone.TYPE_WORK -> R.string.work
-        ContactsContract.CommonDataKinds.Phone.TYPE_MAIN -> R.string.main_number
-        ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK -> R.string.work_fax
-        ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME -> R.string.home_fax
-        ContactsContract.CommonDataKinds.Phone.TYPE_PAGER -> R.string.pager
+        CommonDataKinds.Phone.TYPE_MOBILE -> R.string.mobile
+        CommonDataKinds.Phone.TYPE_HOME -> R.string.home
+        CommonDataKinds.Phone.TYPE_WORK -> R.string.work
+        CommonDataKinds.Phone.TYPE_MAIN -> R.string.main_number
+        CommonDataKinds.Phone.TYPE_FAX_WORK -> R.string.work_fax
+        CommonDataKinds.Phone.TYPE_FAX_HOME -> R.string.home_fax
+        CommonDataKinds.Phone.TYPE_PAGER -> R.string.pager
         else -> R.string.other
     }
 
     private fun getPhoneNumberTypeId(value: String) = when (value) {
-        getString(R.string.mobile) -> ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
-        getString(R.string.home) -> ContactsContract.CommonDataKinds.Phone.TYPE_HOME
-        getString(R.string.work) -> ContactsContract.CommonDataKinds.Phone.TYPE_WORK
-        getString(R.string.main_number) -> ContactsContract.CommonDataKinds.Phone.TYPE_MAIN
-        getString(R.string.work_fax) -> ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK
-        getString(R.string.home_fax) -> ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME
-        getString(R.string.pager) -> ContactsContract.CommonDataKinds.Phone.TYPE_PAGER
-        else -> ContactsContract.CommonDataKinds.Phone.TYPE_OTHER
+        getString(R.string.mobile) -> CommonDataKinds.Phone.TYPE_MOBILE
+        getString(R.string.home) -> CommonDataKinds.Phone.TYPE_HOME
+        getString(R.string.work) -> CommonDataKinds.Phone.TYPE_WORK
+        getString(R.string.main_number) -> CommonDataKinds.Phone.TYPE_MAIN
+        getString(R.string.work_fax) -> CommonDataKinds.Phone.TYPE_FAX_WORK
+        getString(R.string.home_fax) -> CommonDataKinds.Phone.TYPE_FAX_HOME
+        getString(R.string.pager) -> CommonDataKinds.Phone.TYPE_PAGER
+        else -> CommonDataKinds.Phone.TYPE_OTHER
     }
 
     private fun getEmailTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Email.TYPE_HOME -> R.string.home
-        ContactsContract.CommonDataKinds.Email.TYPE_WORK -> R.string.work
-        ContactsContract.CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
+        CommonDataKinds.Email.TYPE_HOME -> R.string.home
+        CommonDataKinds.Email.TYPE_WORK -> R.string.work
+        CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
         else -> R.string.other
     }
 
     private fun getEmailTypeId(value: String) = when (value) {
-        getString(R.string.home) -> ContactsContract.CommonDataKinds.Email.TYPE_HOME
-        getString(R.string.work) -> ContactsContract.CommonDataKinds.Email.TYPE_WORK
-        getString(R.string.mobile) -> ContactsContract.CommonDataKinds.Email.TYPE_MOBILE
-        else -> ContactsContract.CommonDataKinds.Email.TYPE_OTHER
+        getString(R.string.home) -> CommonDataKinds.Email.TYPE_HOME
+        getString(R.string.work) -> CommonDataKinds.Email.TYPE_WORK
+        getString(R.string.mobile) -> CommonDataKinds.Email.TYPE_MOBILE
+        else -> CommonDataKinds.Email.TYPE_OTHER
     }
 
     private fun getEventTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
-        ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
+        CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
+        CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
         else -> R.string.other
     }
 
     private fun getEventTypeId(value: String) = when (value) {
-        getString(R.string.birthday) -> ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY
-        getString(R.string.anniversary) -> ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY
-        else -> ContactsContract.CommonDataKinds.Event.TYPE_OTHER
+        getString(R.string.birthday) -> CommonDataKinds.Event.TYPE_BIRTHDAY
+        getString(R.string.anniversary) -> CommonDataKinds.Event.TYPE_ANNIVERSARY
+        else -> CommonDataKinds.Event.TYPE_OTHER
     }
 }
