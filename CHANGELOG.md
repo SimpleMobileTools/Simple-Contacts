@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 3.1.0 *(2018-01-16)*
+----------------------------
+
+ * Added contact import/export functions
+ * Allow sharing contacts
+
 Version 3.0.3 *(2018-01-03)*
 ----------------------------
 
