@@ -3,7 +3,7 @@
     <string name="app_launcher_name">연락처</string>
     <string name="address">주소</string>
     <string name="inserting">등록중…</string>
-    <string name="updating">갱신중…</string>
+    <string name="updating">수정중…</string>
     <string name="missing_contact_source">연락처가 포함된 계정을 선택하세요.</string>
 
     <string name="new_contact">새로운 연락처</string>
@@ -54,13 +54,13 @@
     <string name="search_favorites">자주쓰는 연락처 검색</string>
 
     <!-- Export / Import -->
-    <string name="import_contacts">Import contacts</string>
-    <string name="export_contacts">Export contacts</string>
-    <string name="import_contacts_from_vcf">Import contacts from a .vcf file</string>
-    <string name="export_contacts_to_vcf">Export contacts to a .vcf file</string>
-    <string name="target_contact_source">Target contact source</string>
-    <string name="include_contact_sources">Include contact sources</string>
-    <string name="filename_without_vcf">Filename (without .vcf)</string>
+    <string name="import_contacts">연락처 가져오기</string>
+    <string name="export_contacts">연락처 내보내기</string>
+    <string name="import_contacts_from_vcf">.vcf file에서 가져오기</string>
+    <string name="export_contacts_to_vcf">.vcf file로 내보내기</string>
+    <string name="target_contact_source">내보내기 대상</string>
+    <string name="include_contact_sources">가져오기 대상</string>
+    <string name="filename_without_vcf">파일이름 (.vcf 확장자 생략)</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
@@ -69,7 +69,7 @@
         연락처를 생성하고 관리하는 간단한 앱입니다. 연락처는 기본적으로 기기에만 저장되며 Google 또는 다른 계정을 통해 동기화 할 수도 있습니다. 즐겨 찾는 연락처는 별도의 목록에 표시 할 수 있습니다.
 
         다양한 조건으로 정렬 및 필터링이 가능하며 성과 이름을 표시하는 옵션도 제공합니다. 또한 애플리케이션을 이용해 사용자 이메일 및 이벤트 관리를 할 수도 있습니다.
-        
+
         광고가 포함되어 있거나, 불필요한 권한을 요청하지 않습니다. 이 앱의 모든 소스는 오픈소스이며, 사용자가 직접 애플리케이션의 컬러를 설정 할 수 있습니다.
 
         이 앱은 다양한 시리즈의 모바일앱 중 하나입니다. 나머지는 http://www.simplemobiletools.com 에서 찾아 보실 수 있습니다.
