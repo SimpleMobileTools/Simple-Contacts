@@ -26,6 +26,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     private var contactsIgnoringSearch = ArrayList<Contact>()
     lateinit private var config: Config
 
+    var forceListRedraw = false
+
     fun setupFragment(activity: MainActivity) {
         config = activity.config
         if (this.activity == null) {
@@ -114,7 +116,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         fragment_list.beVisibleIf(contacts.isNotEmpty())
 
         val currAdapter = fragment_list.adapter
-        if (currAdapter == null) {
+        if (currAdapter == null || forceListRedraw) {
+            forceListRedraw = false
             ContactsAdapter(activity as SimpleActivity, contacts, activity, this is FavoritesFragment, fragment_list, fragment_fastscroller) {
                 if (config.callContact) {
                     val contact = it as Contact
@@ -132,6 +135,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 fragment_list.adapter = this
             }
 
+            fragment_fastscroller.setScrollTo(0)
             fragment_fastscroller.setViews(fragment_list) {
                 val item = (fragment_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
                 fragment_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")

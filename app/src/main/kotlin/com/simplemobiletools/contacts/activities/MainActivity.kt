@@ -249,6 +249,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
+            contacts_fragment.forceListRedraw = true
             contacts_fragment.initContacts()
         }
     }
