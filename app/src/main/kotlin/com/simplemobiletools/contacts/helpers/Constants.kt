@@ -32,6 +32,7 @@ val BDAY = "BDAY:"
 val ANNIVERSARY = "ANNIVERSARY:"
 val PHOTO = "PHOTO"
 val EMAIL = "EMAIL"
+val BASE64 = "BASE64"
 
 // phone number/email types
 val CELL = "CELL"

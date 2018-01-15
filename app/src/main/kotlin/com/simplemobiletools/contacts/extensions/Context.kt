@@ -7,14 +7,17 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.provider.ContactsContract
+import android.support.v4.content.FileProvider
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.isLollipopPlus
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.activities.ContactActivity
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.Config
 import com.simplemobiletools.contacts.models.Contact
+import java.io.File
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
 
@@ -94,3 +97,16 @@ fun lookupContactUri(lookup: String, context: Context): Uri {
     val lookupUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookup)
     return ContactsContract.Contacts.lookupContact(context.contentResolver, lookupUri)
 }
+
+fun Context.getCachePhoto(): File {
+    val imagesFolder = File(cacheDir, "my_cache")
+    if (!imagesFolder.exists()) {
+        imagesFolder.mkdirs()
+    }
+
+    val file = File(imagesFolder, "Photo_${System.currentTimeMillis()}.jpg")
+    file.createNewFile()
+    return file
+}
+
+fun Context.getCachePhotoUri(file: File = getCachePhoto()) = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)

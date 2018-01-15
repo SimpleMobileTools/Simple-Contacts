@@ -737,17 +737,6 @@ class ContactActivity : SimpleActivity() {
         }
     }
 
-    private fun getCachePhotoUri(): Uri {
-        val imagesFolder = File(cacheDir, "my_cache")
-        if (!imagesFolder.exists()) {
-            imagesFolder.mkdirs()
-        }
-
-        val file = File(imagesFolder, "Photo_${System.currentTimeMillis()}.jpg")
-        file.createNewFile()
-        return FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
-    }
-
     private fun getPhoneNumberTextId(type: Int) = when (type) {
         CommonDataKinds.Phone.TYPE_MOBILE -> R.string.mobile
         CommonDataKinds.Phone.TYPE_HOME -> R.string.home

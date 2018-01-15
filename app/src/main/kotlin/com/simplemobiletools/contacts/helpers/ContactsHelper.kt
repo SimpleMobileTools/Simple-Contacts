@@ -483,9 +483,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val thumbnailSize = getThumbnailSize()
                 val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize, thumbnailSize, false)
                 scaledSizePhotoData = bitmapToByteArray(scaledPhoto)
-                scaledPhoto.recycle()
 
                 fullSizePhotoData = bitmapToByteArray(bitmap)
+                scaledPhoto.recycle()
                 bitmap.recycle()
 
                 ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {

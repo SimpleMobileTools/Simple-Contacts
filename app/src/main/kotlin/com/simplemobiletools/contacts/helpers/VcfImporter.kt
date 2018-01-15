@@ -1,15 +1,22 @@
 package com.simplemobiletools.contacts.helpers
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.provider.ContactsContract.CommonDataKinds
+import android.util.Base64
 import android.widget.Toast
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.contacts.activities.SimpleActivity
+import com.simplemobiletools.contacts.extensions.getCachePhoto
+import com.simplemobiletools.contacts.extensions.getCachePhotoUri
 import com.simplemobiletools.contacts.helpers.VcfImporter.ImportResult.*
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Email
 import com.simplemobiletools.contacts.models.Event
 import com.simplemobiletools.contacts.models.PhoneNumber
 import java.io.File
+import java.io.FileOutputStream
+
 
 class VcfImporter(val activity: SimpleActivity) {
     enum class ImportResult {
@@ -19,9 +26,14 @@ class VcfImporter(val activity: SimpleActivity) {
     private var curFirstName = ""
     private var curMiddleName = ""
     private var curSurname = ""
+    private var curPhotoUri = ""
     private var curPhoneNumbers = ArrayList<PhoneNumber>()
     private var curEmails = ArrayList<Email>()
     private var curEvents = ArrayList<Event>()
+
+    private var isGettingPhoto = false
+    private var currentPhotoString = StringBuilder()
+    private var currentPhotoCompressionFormat = Bitmap.CompressFormat.JPEG
 
     private var contactsImported = 0
     private var contactsFailed = 0
@@ -38,6 +50,10 @@ class VcfImporter(val activity: SimpleActivity) {
                 while (true) {
                     val line = it.readLine() ?: break
                     if (line.trim().isEmpty()) {
+                        if (isGettingPhoto) {
+                            savePhoto()
+                            isGettingPhoto = false
+                        }
                         continue
                     }
 
@@ -48,7 +64,9 @@ class VcfImporter(val activity: SimpleActivity) {
                         line.startsWith(EMAIL) -> addEmail(line.substring(EMAIL.length))
                         line.startsWith(BDAY) -> addBirthday(line.substring(BDAY.length))
                         line.startsWith(ANNIVERSARY) -> addAnniversary(line.substring(ANNIVERSARY.length))
+                        line.startsWith(PHOTO) -> addPhoto(line.substring(PHOTO.length))
                         line == END_VCARD -> saveContact(targetContactSource)
+                        isGettingPhoto -> currentPhotoString.append(line.trim())
                     }
                 }
             }
@@ -78,7 +96,7 @@ class VcfImporter(val activity: SimpleActivity) {
         if (rawType.contains('=')) {
             val types = rawType.split('=')
             if (types.any { it.contains(';') }) {
-                subType = types[1].split(';').first()
+                subType = types[1].split(';')[0]
             }
             rawType = types.last()
         }
@@ -126,8 +144,42 @@ class VcfImporter(val activity: SimpleActivity) {
         curEvents.add(Event(anniversary, CommonDataKinds.Event.TYPE_ANNIVERSARY))
     }
 
+    private fun addPhoto(photo: String) {
+        val photoParts = photo.trimStart(';').split(';')
+        if (photoParts.size == 2) {
+            val typeParts = photoParts[1].split(':')
+            currentPhotoCompressionFormat = getPhotoCompressionFormat(typeParts[0])
+            val encoding = photoParts[0].split('=').last()
+            if (encoding == BASE64) {
+                isGettingPhoto = true
+                currentPhotoString.append(typeParts[1].trim())
+            }
+        }
+    }
+
+    private fun getPhotoCompressionFormat(type: String) = when (type.toLowerCase()) {
+        "png" -> Bitmap.CompressFormat.PNG
+        "webp" -> Bitmap.CompressFormat.WEBP
+        else -> Bitmap.CompressFormat.JPEG
+    }
+
+    private fun savePhoto() {
+        val file = activity.getCachePhoto()
+        val imageAsBytes = Base64.decode(currentPhotoString.toString().toByteArray(), Base64.DEFAULT)
+        val bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.size)
+        var fileOutputStream: FileOutputStream? = null
+        try {
+            fileOutputStream = FileOutputStream(file)
+            bitmap.compress(currentPhotoCompressionFormat, 100, fileOutputStream)
+        } finally {
+            fileOutputStream?.close()
+        }
+
+        curPhotoUri = activity.getCachePhotoUri(file).toString()
+    }
+
     private fun saveContact(source: String) {
-        val contact = Contact(0, curFirstName, curMiddleName, curSurname, "", curPhoneNumbers, curEmails, curEvents, source, 0, 0)
+        val contact = Contact(0, curFirstName, curMiddleName, curSurname, curPhotoUri, curPhoneNumbers, curEmails, curEvents, source, 0, 0)
         if (ContactsHelper(activity).insertContact(contact)) {
             contactsImported++
         }
@@ -137,8 +189,13 @@ class VcfImporter(val activity: SimpleActivity) {
         curFirstName = ""
         curMiddleName = ""
         curSurname = ""
+        curPhotoUri = ""
         curPhoneNumbers = ArrayList()
         curEmails = ArrayList()
         curEvents = ArrayList()
+
+        isGettingPhoto = false
+        currentPhotoString = StringBuilder()
+        currentPhotoCompressionFormat = Bitmap.CompressFormat.JPEG
     }
 }
