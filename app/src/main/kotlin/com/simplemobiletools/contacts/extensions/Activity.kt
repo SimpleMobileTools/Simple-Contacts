@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.extensions
 import android.content.Intent
 import android.net.Uri
 import com.simplemobiletools.commons.R
+import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
@@ -10,6 +11,7 @@ import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
+import java.io.File
 
 fun SimpleActivity.startCallIntent(recipient: String) {
     handlePermission(PERMISSION_CALL_PHONE) {
@@ -60,4 +62,16 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
             }
         }
     }
+}
+
+fun BaseSimpleActivity.getTempFile(): File? {
+    val folder = File(cacheDir, "contacts")
+    if (!folder.exists()) {
+        if (!folder.mkdir()) {
+            toast(R.string.unknown_error_occurred)
+            return null
+        }
+    }
+
+    return File(folder, "contacts.vcf")
 }

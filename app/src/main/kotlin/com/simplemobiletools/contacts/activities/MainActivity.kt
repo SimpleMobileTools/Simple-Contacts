@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v4.view.ViewPager
@@ -21,6 +22,7 @@ import com.simplemobiletools.contacts.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.getTempFile
 import com.simplemobiletools.contacts.extensions.onTabSelectionChanged
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.VcfExporter
@@ -29,6 +31,7 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
+import java.io.FileOutputStream
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isFirstResume = true
@@ -238,6 +241,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                     it.icon?.applyColorFilter(getAdjustedPrimaryColor())
                 }
         )
+
+        if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
+            tryImportContactsFromFile(intent.data)
+        }
     }
 
     private fun showSortingDialog() {
@@ -264,13 +271,36 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun importContacts() {
         FilePickerDialog(this) {
-            ImportContactsDialog(this, it) {
-                if (it) {
-                    runOnUiThread {
-                        refreshContacts()
-                    }
+            showImportContactsDialog(it)
+        }
+    }
+
+    private fun showImportContactsDialog(path: String) {
+        ImportContactsDialog(this, path) {
+            if (it) {
+                runOnUiThread {
+                    refreshContacts()
                 }
             }
+        }
+    }
+
+    private fun tryImportContactsFromFile(uri: Uri) {
+        when {
+            uri.scheme == "file" -> showImportContactsDialog(uri.path)
+            uri.scheme == "content" -> {
+                val tempFile = getTempFile()
+                if (tempFile == null) {
+                    toast(R.string.unknown_error_occurred)
+                    return
+                }
+
+                val inputStream = contentResolver.openInputStream(uri)
+                val out = FileOutputStream(tempFile)
+                inputStream.copyTo(out)
+                showImportContactsDialog(tempFile.absolutePath)
+            }
+            else -> toast(R.string.invalid_file_format)
         }
     }
 
