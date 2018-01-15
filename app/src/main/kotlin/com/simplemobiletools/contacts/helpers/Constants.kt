@@ -32,7 +32,9 @@ val BDAY = "BDAY:"
 val ANNIVERSARY = "ANNIVERSARY:"
 val PHOTO = "PHOTO"
 val EMAIL = "EMAIL"
+val ENCODING = "ENCODING"
 val BASE64 = "BASE64"
+val JPEG = "JPEG"
 val VERSION_2_1 = "VERSION:2.1"
 
 // phone number/email types

@@ -1,14 +1,21 @@
 package com.simplemobiletools.contacts.helpers
 
+import android.graphics.Bitmap
+import android.net.Uri
 import android.provider.ContactsContract.CommonDataKinds
+import android.provider.MediaStore
+import android.util.Base64
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.getFileOutputStream
 import com.simplemobiletools.commons.extensions.writeLn
 import com.simplemobiletools.contacts.helpers.VcfExporter.ExportResult.*
 import com.simplemobiletools.contacts.models.Contact
+import java.io.ByteArrayOutputStream
 import java.io.File
 
-class VcfExporter() {
+class VcfExporter {
+    private val ENCODED_PHOTO_LINE_LENGTH = 74
+
     enum class ExportResult {
         EXPORT_FAIL, EXPORT_OK, EXPORT_PARTIAL
     }
@@ -43,6 +50,27 @@ class VcfExporter() {
                         if (it.type == CommonDataKinds.Event.TYPE_BIRTHDAY) {
                             out.writeLn("$BDAY:${it.value}")
                         }
+                    }
+
+                    if (contact.thumbnailUri.isNotEmpty()) {
+                        val firstLine = "$PHOTO;$ENCODING=$BASE64;$JPEG:"
+                        val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, Uri.parse(contact.thumbnailUri))
+                        val byteArrayOutputStream = ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, byteArrayOutputStream)
+                        bitmap.recycle()
+                        val byteArray = byteArrayOutputStream.toByteArray()
+                        val encoded = Base64.encodeToString(byteArray, Base64.NO_WRAP)
+
+                        val encodedFirstLineSection = encoded.substring(0, ENCODED_PHOTO_LINE_LENGTH - firstLine.length)
+                        out.writeLn(firstLine + encodedFirstLineSection)
+                        var curStartIndex = encodedFirstLineSection.length
+                        do {
+                            val part = encoded.substring(curStartIndex, Math.min(curStartIndex + ENCODED_PHOTO_LINE_LENGTH - 1, encoded.length))
+                            out.writeLn(" $part")
+                            curStartIndex += ENCODED_PHOTO_LINE_LENGTH - 1
+                        } while (curStartIndex < encoded.length)
+
+                        out.writeLn("")
                     }
 
                     out.writeLn(END_VCARD)
