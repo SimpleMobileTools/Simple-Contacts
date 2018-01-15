@@ -178,7 +178,7 @@ class VcfImporter(val activity: SimpleActivity) {
     }
 
     private fun saveContact(source: String) {
-        val contact = Contact(0, curFirstName, curMiddleName, curSurname, curPhotoUri, curPhoneNumbers, curEmails, curEvents, source, 0, 0)
+        val contact = Contact(0, curFirstName, curMiddleName, curSurname, curPhotoUri, curPhoneNumbers, curEmails, curEvents, source, 0, 0, "")
         if (ContactsHelper(activity).insertContact(contact)) {
             contactsImported++
         }

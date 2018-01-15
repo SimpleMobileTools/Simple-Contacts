@@ -55,7 +55,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
                         val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                         val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
-                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred, contactId)
+                        val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
+                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred, contactId, thumbnailUri)
                         contacts.put(id, contact)
                     } while (cursor.moveToNext())
                 }
@@ -212,7 +213,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
                 val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                 val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
-                return Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred, contactId)
+                val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
+                return Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred, contactId, thumbnailUri)
             }
         } finally {
             cursor?.close()
@@ -269,6 +271,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             CommonDataKinds.StructuredName.MIDDLE_NAME,
             CommonDataKinds.StructuredName.FAMILY_NAME,
             CommonDataKinds.StructuredName.PHOTO_URI,
+            CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI,
             CommonDataKinds.StructuredName.STARRED,
             ContactsContract.RawContacts.ACCOUNT_NAME
     )
