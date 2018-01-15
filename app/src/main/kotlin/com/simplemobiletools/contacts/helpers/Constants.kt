@@ -33,6 +33,7 @@ val ANNIVERSARY = "ANNIVERSARY:"
 val PHOTO = "PHOTO"
 val EMAIL = "EMAIL"
 val BASE64 = "BASE64"
+val VERSION_2_1 = "VERSION:2.1"
 
 // phone number/email types
 val CELL = "CELL"
@@ -45,3 +46,4 @@ val WORK_FAX = "WORK;FAX"
 val HOME_FAX = "HOME;FAX"
 val PAGER = "PAGER"
 val MOBILE = "MOBILE"
+val VOICE = "VOICE"

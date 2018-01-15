@@ -17,7 +17,6 @@ import com.simplemobiletools.contacts.models.PhoneNumber
 import java.io.File
 import java.io.FileOutputStream
 
-
 class VcfImporter(val activity: SimpleActivity) {
     enum class ImportResult {
         IMPORT_FAIL, IMPORT_OK, IMPORT_PARTIAL
@@ -108,8 +107,8 @@ class VcfImporter(val activity: SimpleActivity) {
 
     private fun getPhoneNumberTypeId(type: String, subType: String) = when (type) {
         CELL -> CommonDataKinds.Phone.TYPE_MOBILE
-        WORK -> CommonDataKinds.Phone.TYPE_WORK
         HOME -> CommonDataKinds.Phone.TYPE_HOME
+        WORK -> CommonDataKinds.Phone.TYPE_WORK
         PREF, MAIN -> CommonDataKinds.Phone.TYPE_MAIN
         WORK_FAX -> CommonDataKinds.Phone.TYPE_FAX_WORK
         HOME_FAX -> CommonDataKinds.Phone.TYPE_FAX_HOME
