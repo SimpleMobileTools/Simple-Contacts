@@ -19,6 +19,7 @@ import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.openContact
+import com.simplemobiletools.contacts.extensions.shareContacts
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.models.Contact
@@ -62,9 +63,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
         when (id) {
             R.id.cab_edit -> editContact()
             R.id.cab_select_all -> selectAll()
-            R.id.cab_delete -> askConfirmDelete()
             R.id.cab_add_to_favorites -> addToFavorites()
+            R.id.cab_share -> shareContacts()
             R.id.cab_remove -> removeFavorites()
+            R.id.cab_delete -> askConfirmDelete()
         }
     }
 
@@ -159,6 +161,19 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
         ContactsHelper(activity).addFavorites(newFavorites)
         listener?.refreshFavorites()
         finishActMode()
+    }
+
+    private fun shareContacts() {
+        if (selectedPositions.isEmpty()) {
+            return
+        }
+
+        val contacts = ArrayList<Contact>()
+        selectedPositions.forEach {
+            contacts.add(contactItems[it])
+        }
+
+        activity.shareContacts(contacts)
     }
 
     override fun onViewRecycled(holder: ViewHolder?) {

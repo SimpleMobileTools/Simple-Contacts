@@ -68,14 +68,14 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
     }
 }
 
-fun BaseSimpleActivity.shareContact(contact: Contact) {
+fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
     val file = getTempFile()
     if (file == null) {
         toast(R.string.unknown_error_occurred)
         return
     }
 
-    VcfExporter().exportContacts(this, file, arrayListOf(contact)) {
+    VcfExporter().exportContacts(this, file, contacts) {
         if (it == VcfExporter.ExportResult.EXPORT_OK) {
             val uri = getFilePublicUri(file, BuildConfig.APPLICATION_ID)
             shareUri(uri, BuildConfig.APPLICATION_ID)

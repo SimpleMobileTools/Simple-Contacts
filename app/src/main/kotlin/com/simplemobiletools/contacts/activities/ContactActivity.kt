@@ -312,7 +312,7 @@ class ContactActivity : SimpleActivity() {
     }
 
     private fun shareContact() {
-        shareContact(contact!!)
+        shareContacts(arrayListOf(contact!!))
     }
 
     private fun showPhotoPlaceholder() {
