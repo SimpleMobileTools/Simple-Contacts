@@ -48,7 +48,7 @@ class VcfExporter {
 
                     contact.events.forEach {
                         if (it.type == CommonDataKinds.Event.TYPE_BIRTHDAY) {
-                            out.writeLn("$BDAY:${it.value}")
+                            out.writeLn("$BDAY${it.value}")
                         }
                     }
 

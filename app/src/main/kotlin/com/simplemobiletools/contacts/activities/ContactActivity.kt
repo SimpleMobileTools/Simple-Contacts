@@ -87,6 +87,35 @@ class ContactActivity : SimpleActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_contact, menu)
+        if (wasActivityInitialized) {
+            menu.findItem(R.id.delete).isVisible = contact?.id != 0
+            menu.findItem(R.id.share).isVisible = contact?.id != 0
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.save -> saveContact()
+            R.id.delete -> deleteContact()
+            R.id.share -> shareContact()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri!!)
+                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString())
+            }
+        }
+    }
+
     private fun initContact() {
         var contactId = intent.getIntExtra(CONTACT_ID, 0)
         val action = intent.action
@@ -171,33 +200,6 @@ class ContactActivity : SimpleActivity() {
         updateTextColors(contact_scrollview)
         wasActivityInitialized = true
         invalidateOptionsMenu()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_contact, menu)
-        if (wasActivityInitialized) {
-            menu.findItem(R.id.delete).isVisible = contact?.id != 0
-        }
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.save -> saveContact()
-            R.id.delete -> deleteContact()
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, resultData)
-        if (resultCode == RESULT_OK) {
-            when (requestCode) {
-                INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri!!)
-                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString())
-            }
-        }
     }
 
     private fun startCropPhotoIntent(uri: Uri) {
@@ -307,6 +309,10 @@ class ContactActivity : SimpleActivity() {
                 contact_source.text = it
             }
         }
+    }
+
+    private fun shareContact() {
+        shareContact(contact!!)
     }
 
     private fun showPhotoPlaceholder() {

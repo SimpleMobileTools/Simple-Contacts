@@ -5,11 +5,15 @@ import android.net.Uri
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
+import com.simplemobiletools.commons.extensions.getFilePublicUri
+import com.simplemobiletools.commons.extensions.shareUri
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
 import com.simplemobiletools.commons.models.RadioItem
+import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.VcfExporter
 import com.simplemobiletools.contacts.models.Contact
 import java.io.File
 
@@ -60,6 +64,21 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
             RadioGroupDialog(this, items, currentSourceIndex) {
                 callback(sources[it as Int])
             }
+        }
+    }
+}
+
+fun BaseSimpleActivity.shareContact(contact: Contact) {
+    val file = getTempFile()
+    if (file == null) {
+        toast(R.string.unknown_error_occurred)
+        return
+    }
+
+    VcfExporter().exportContacts(this, file, arrayListOf(contact)) {
+        if (it == VcfExporter.ExportResult.EXPORT_OK) {
+            val uri = getFilePublicUri(file, BuildConfig.APPLICATION_ID)
+            shareUri(uri, BuildConfig.APPLICATION_ID)
         }
     }
 }
