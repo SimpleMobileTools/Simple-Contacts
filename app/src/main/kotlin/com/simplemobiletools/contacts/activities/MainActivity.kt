@@ -22,7 +22,10 @@ import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.onTabSelectionChanged
+import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.VcfExporter
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
+import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
@@ -281,7 +284,23 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun exportContacts() {
         FilePickerDialog(this, pickFile = false, showFAB = true) {
             ExportContactsDialog(this, it) { file, contactSources ->
-
+                Thread {
+                    ContactsHelper(this).getContacts {
+                        val contacts = it.filter { contactSources.contains(it.source) }
+                        if (contacts.isEmpty()) {
+                            toast(R.string.no_entries_for_exporting)
+                        } else {
+                            toast(R.string.exporting)
+                            VcfExporter().exportContacts(this, file, contacts as ArrayList<Contact>) {
+                                toast(when (it) {
+                                    VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
+                                    VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
+                                    else -> R.string.exporting_failed
+                                })
+                            }
+                        }
+                    }
+                }.start()
             }
         }
     }
