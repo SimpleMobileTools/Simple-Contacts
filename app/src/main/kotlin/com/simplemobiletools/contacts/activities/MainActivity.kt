@@ -17,6 +17,7 @@ import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.dialogs.ChangeSortingDialog
+import com.simplemobiletools.contacts.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
@@ -279,7 +280,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun exportContacts() {
         FilePickerDialog(this, pickFile = false, showFAB = true) {
+            ExportContactsDialog(this, it) { file, contactSources ->
 
+            }
         }
     }
 
