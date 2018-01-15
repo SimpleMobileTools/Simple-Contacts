@@ -1,6 +1,5 @@
 package com.simplemobiletools.contacts.activities
 
-import android.provider.ContactsContract.CommonDataKinds
 import android.app.DatePickerDialog
 import android.content.ClipData
 import android.content.Intent
@@ -9,8 +8,8 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.provider.ContactsContract.CommonDataKinds
 import android.provider.MediaStore
-import android.support.v4.content.FileProvider
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -32,7 +31,6 @@ import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.commons.helpers.getDateFormats
 import com.simplemobiletools.commons.models.RadioItem
-import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
@@ -46,7 +44,6 @@ import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_phone_number.view.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import java.io.File
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -580,6 +577,7 @@ class ContactActivity : SimpleActivity() {
 
     private fun insertNewContact() {
         isSaving = true
+        toast(R.string.inserting)
         if (ContactsHelper(this@ContactActivity).insertContact(contact!!)) {
             finish()
         } else {

@@ -425,7 +425,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
     fun insertContact(contact: Contact): Boolean {
         return try {
-            activity.toast(R.string.inserting)
             val operations = ArrayList<ContentProviderOperation>()
             ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI).apply {
                 withValue(ContactsContract.RawContacts.ACCOUNT_NAME, contact.source)
