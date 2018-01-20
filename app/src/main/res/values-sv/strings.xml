@@ -1,0 +1,82 @@
+<resources>
+    <string name="app_name">Simple Contacts</string>
+    <string name="app_launcher_name">Kontakter</string>
+    <string name="address">Adress</string>
+    <string name="inserting">Lägger till…</string>
+    <string name="updating">Uppdaterar…</string>
+    <string name="missing_contact_account">Du måste välja vilket konto kontakten ska tillhöra</string>
+
+    <string name="new_contact">Ny kontakt</string>
+    <string name="edit_contact">Redigera kontakt</string>
+    <string name="select_contact">Välj kontakt</string>
+    <string name="select_contacts">Välj kontakter</string>
+    <string name="first_name">Förnamn</string>
+    <string name="middle_name">Mellannamn</string>
+    <string name="surname">Efternamn</string>
+
+    <!-- Photo -->
+    <string name="take_photo">Ta foto</string>
+    <string name="choose_photo">Välj foto</string>
+    <string name="remove_photo">Ta bort foto</string>
+
+    <!-- Settings -->
+    <string name="call_contact_on_click">Ring kontakter när jag trycker på dem</string>
+    <string name="start_name_with_surname">Visa efternamn först</string>
+    <string name="show_phone_numbers">Visa telefonnummer i huvudvyn</string>
+
+    <!-- Emails -->
+    <string name="email">E-post</string>
+    <string name="home">Hem</string>
+    <string name="work">Arbete</string>
+    <string name="other">Annat</string>
+
+    <!-- Phone numbers -->
+    <string name="number">Nummer</string>
+    <string name="mobile">Mobil</string>
+    <string name="main_number">Primärt nummer</string>
+    <string name="work_fax">Arbetsfax</string>
+    <string name="home_fax">Hemfax</string>
+    <string name="pager">Personsökare</string>
+    <string name="no_phone_number_found">Inget telefonnummer hittades</string>
+
+    <!-- Events -->
+    <string name="birthday">Födelsedag</string>
+    <string name="anniversary">Årsdag</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">Det verkar som att du inte har lagt till några favoritkontakter ännu.</string>
+    <string name="add_favorites">Lägg till favoriter</string>
+    <string name="add_to_favorites">Lägg till i favoriter</string>
+    <string name="remove_from_favorites">Ta bort från favoriter</string>
+
+    <!-- Search -->
+    <string name="search_contacts">Sök efter kontakter</string>
+    <string name="search_favorites">Sök efter favoriter</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">Importera kontakter</string>
+    <string name="export_contacts">Exportera kontakter</string>
+    <string name="import_contacts_from_vcf">Importera kontakter från en .vcf-fil</string>
+    <string name="export_contacts_to_vcf">Exportera kontakter till en .vcf-fil</string>
+    <string name="target_contact_source">Målkontaktkälla</string>
+    <string name="include_contact_sources">Inkludera kontaktkällor</string>
+    <string name="filename_without_vcf">Filnamn (utan .vcf)</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">En app för att hantera dina kontakter utan reklam.</string>
+    <string name="app_long_description">
+        En enkel app för att skapa och hantera kontakter från olika källor. Kontakterna kan lagras bara på din enhet, men kan också synkroniseras med ditt Google-konto eller andra konton. Du kan visa dina favoritkontakter i en separat lista.
+
+        Du kan också använda den för att hantera dina kontakters e-postadresser och händelser. Den kan sortera och filtrera efter flera parametrar. Den kan också visa efternamn först.
+
+        Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och anpassningsbara färger.
+
+        Denna app är bara en del av en större serie appar. Du hittar resten av dem på http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
