@@ -111,10 +111,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             if (viewpager.adapter == null) {
                 initFragments()
             }
-            contacts_fragment.initContacts()
-            contacts_fragment.onActivityResume()
-            favorites_fragment.initContacts()
-            favorites_fragment.onActivityResume()
+            contacts_fragment?.initContacts()
+            contacts_fragment?.onActivityResume()
+            favorites_fragment?.initContacts()
+            favorites_fragment?.onActivityResume()
         }
         isFirstResume = false
     }
