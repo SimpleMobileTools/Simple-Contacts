@@ -169,6 +169,11 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             filtered.sort()
             filtered.sortBy { !it.getFullName(startNameWithSurname).startsWith(text, true) }
 
+            if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
+                fragment_placeholder.text = activity.getString(R.string.no_items_found)
+            }
+
+            fragment_placeholder.beVisibleIf(filtered.isEmpty())
             updateItems(filtered)
         }
     }
@@ -179,6 +184,9 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun onSearchClosed() {
         (fragment_list.adapter as ContactsAdapter).updateItems(contactsIgnoringSearch)
+        if (this is FavoritesFragment) {
+            fragment_placeholder.text = activity?.getString(R.string.no_favorites)
+        }
     }
 
     private fun updateViewStuff() {
