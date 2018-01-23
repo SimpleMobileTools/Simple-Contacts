@@ -117,6 +117,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     phoneNumbers[id].add(phoneNumber)
                 } while (cursor.moveToNext())
             }
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
         } finally {
             cursor?.close()
         }
@@ -151,6 +153,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     emails[id]!!.add(Email(email, type))
                 } while (cursor.moveToNext())
             }
+
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
         } finally {
             cursor?.close()
         }
