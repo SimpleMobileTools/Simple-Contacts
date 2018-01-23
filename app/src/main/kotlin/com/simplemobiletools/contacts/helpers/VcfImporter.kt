@@ -57,14 +57,14 @@ class VcfImporter(val activity: SimpleActivity) {
                     }
 
                     when {
-                        line == BEGIN_VCARD -> resetValues()
-                        line.startsWith(N) -> parseNames(line.substring(N.length))
-                        line.startsWith(TEL) -> addPhoneNumber(line.substring(TEL.length))
-                        line.startsWith(EMAIL) -> addEmail(line.substring(EMAIL.length))
-                        line.startsWith(BDAY) -> addBirthday(line.substring(BDAY.length))
-                        line.startsWith(ANNIVERSARY) -> addAnniversary(line.substring(ANNIVERSARY.length))
-                        line.startsWith(PHOTO) -> addPhoto(line.substring(PHOTO.length))
-                        line == END_VCARD -> saveContact(targetContactSource)
+                        line.toUpperCase() == BEGIN_VCARD -> resetValues()
+                        line.toUpperCase().startsWith(N) -> parseNames(line.substring(N.length))
+                        line.toUpperCase().startsWith(TEL) -> addPhoneNumber(line.substring(TEL.length))
+                        line.toUpperCase().startsWith(EMAIL) -> addEmail(line.substring(EMAIL.length))
+                        line.toUpperCase().startsWith(BDAY) -> addBirthday(line.substring(BDAY.length))
+                        line.toUpperCase().startsWith(ANNIVERSARY) -> addAnniversary(line.substring(ANNIVERSARY.length))
+                        line.toUpperCase().startsWith(PHOTO) -> addPhoto(line.substring(PHOTO.length))
+                        line.toUpperCase() == END_VCARD -> saveContact(targetContactSource)
                         isGettingPhoto -> currentPhotoString.append(line.trim())
                     }
                 }
@@ -83,9 +83,11 @@ class VcfImporter(val activity: SimpleActivity) {
 
     private fun parseNames(names: String) {
         val nameParts = names.split(";")
-        curFirstName = nameParts[1]
-        curMiddleName = nameParts[2]
         curSurname = nameParts[0]
+        curFirstName = nameParts[1]
+        if (nameParts.size > 2) {
+            curMiddleName = nameParts[2]
+        }
     }
 
     private fun addPhoneNumber(phoneNumber: String) {
@@ -100,7 +102,7 @@ class VcfImporter(val activity: SimpleActivity) {
             rawType = types.last()
         }
 
-        val type = getPhoneNumberTypeId(rawType, subType)
+        val type = getPhoneNumberTypeId(rawType.toUpperCase(), subType)
         val value = phoneParts[1]
         curPhoneNumbers.add(PhoneNumber(value, type))
     }
@@ -123,7 +125,7 @@ class VcfImporter(val activity: SimpleActivity) {
         if (rawType.contains('=')) {
             rawType = rawType.split('=').last()
         }
-        val type = getEmailTypeId(rawType)
+        val type = getEmailTypeId(rawType.toUpperCase())
         val value = emailParts[1]
         curEmails.add(Email(value, type))
     }
