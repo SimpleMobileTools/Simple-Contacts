@@ -216,7 +216,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val number = getPhoneNumbers(id)[id] ?: ArrayList()
                 val emails = getEmails(id)[id] ?: ArrayList()
                 val events = getEvents(id)[id] ?: ArrayList()
-                val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
+                val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
                 val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                 val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
