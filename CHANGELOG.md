@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 3.1.2 *(2018-01-23)*
+----------------------------
+
+ * Properly handle vcf files exported from Thunderbird
+ * Misc smaller improvements
+
 Version 3.1.1 *(2018-01-22)*
 ----------------------------
 
