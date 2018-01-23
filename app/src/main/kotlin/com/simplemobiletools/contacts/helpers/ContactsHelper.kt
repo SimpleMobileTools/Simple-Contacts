@@ -106,14 +106,15 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val number = cursor.getStringValue(CommonDataKinds.Phone.NUMBER)
+                    val number = cursor.getStringValue(CommonDataKinds.Phone.NUMBER) ?: continue
                     val type = cursor.getIntValue(CommonDataKinds.Phone.TYPE)
 
                     if (phoneNumbers[id] == null) {
                         phoneNumbers.put(id, ArrayList())
                     }
 
-                    phoneNumbers[id].add(PhoneNumber(number, type))
+                    val phoneNumber = PhoneNumber(number, type)
+                    phoneNumbers[id].add(phoneNumber)
                 } while (cursor.moveToNext())
             }
         } finally {
