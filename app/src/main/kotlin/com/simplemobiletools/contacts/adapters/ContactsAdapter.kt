@@ -33,10 +33,12 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     lateinit private var contactDrawable: Drawable
     var config = activity.config
     var startNameWithSurname: Boolean
+    var showContactThumbnails: Boolean
     var showPhoneNumbers: Boolean
 
     init {
         initDrawables()
+        showContactThumbnails = config.showContactThumbnails
         showPhoneNumbers = config.showPhoneNumbers
         startNameWithSurname = config.startNameWithSurname
     }
@@ -190,16 +192,20 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
             contact_number?.text = contact.phoneNumbers.firstOrNull()?.value ?: ""
             contact_number?.setTextColor(textColor)
 
-            if (contact.photoUri.isNotEmpty()) {
-                val options = RequestOptions()
-                        .signature(ObjectKey(contact.photoUri))
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                        .error(contactDrawable)
-                        .centerCrop()
+            if (showContactThumbnails) {
+                if (contact.photoUri.isNotEmpty()) {
+                    val options = RequestOptions()
+                            .signature(ObjectKey(contact.photoUri))
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .error(contactDrawable)
+                            .centerCrop()
 
-                Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                    Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                } else {
+                    contact_tmb.setImageDrawable(contactDrawable)
+                }
             } else {
-                contact_tmb.setImageDrawable(contactDrawable)
+                contact_tmb.visibility = View.GONE
             }
         }
     }
