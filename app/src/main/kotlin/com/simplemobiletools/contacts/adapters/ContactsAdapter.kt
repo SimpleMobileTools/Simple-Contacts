@@ -11,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
+import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
 import com.simplemobiletools.commons.views.FastScroller
@@ -191,6 +192,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
             contact_name.setTextColor(textColor)
             contact_number?.text = contact.phoneNumbers.firstOrNull()?.value ?: ""
             contact_number?.setTextColor(textColor)
+            contact_tmb.beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {
                 if (contact.photoUri.isNotEmpty()) {
@@ -204,8 +206,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
                 } else {
                     contact_tmb.setImageDrawable(contactDrawable)
                 }
-            } else {
-                contact_tmb.visibility = View.GONE
             }
         }
     }
