@@ -86,7 +86,7 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/show_contact_avatars"/>
+                android:text="@string/show_contact_thumbnails"/>
 
         </RelativeLayout>
 

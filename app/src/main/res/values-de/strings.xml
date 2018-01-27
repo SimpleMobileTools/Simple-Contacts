@@ -23,7 +23,7 @@
     <string name="call_contact_on_click">Kontakt bei Klick anrufen</string>
     <string name="start_name_with_surname">Namen mit Nachnamen beginnen</string>
     <string name="show_phone_numbers">Zeige Telefonnummern im Hauptmenü</string>
-    <string name="show_contact_avatars">Show contact avatars</string>
+    <string name="show_contact_thumbnails">Show contact thumbnails</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
