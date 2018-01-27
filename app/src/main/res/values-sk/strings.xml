@@ -23,6 +23,7 @@
     <string name="call_contact_on_click">Zavolať kontakt po kliknutí</string>
     <string name="start_name_with_surname">Začať meno priezviskom</string>
     <string name="show_phone_numbers">Zobraziť telefónne čísla na hlavnej obrazovke</string>
+    <string name="show_contact_avatars">Zobraziť obrázky kontaktov</string>
 
     <!-- Emails -->
     <string name="email">Email</string>

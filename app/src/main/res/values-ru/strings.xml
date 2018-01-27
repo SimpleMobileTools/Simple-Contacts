@@ -23,6 +23,7 @@
     <string name="call_contact_on_click">Вызывать контакт при нажатии</string>
     <string name="start_name_with_surname">Отображать сначала фамилии</string>
     <string name="show_phone_numbers">Отображать номера телефонов на главном экране</string>
+    <string name="show_contact_avatars">Show contact avatars</string>
 
     <!-- Emails -->
     <string name="email">Эл. почта</string>

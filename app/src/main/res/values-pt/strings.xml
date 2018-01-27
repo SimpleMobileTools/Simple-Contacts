@@ -23,6 +23,7 @@
     <string name="call_contact_on_click">Call contact on click</string>
     <string name="start_name_with_surname">Start name with surname</string>
     <string name="show_phone_numbers">Show phone numbers on the main screen</string>
+    <string name="show_contact_avatars">Show contact avatars</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>
