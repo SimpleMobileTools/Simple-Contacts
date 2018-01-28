@@ -11,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
+import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
 import com.simplemobiletools.commons.views.FastScroller
@@ -33,10 +34,12 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     lateinit private var contactDrawable: Drawable
     var config = activity.config
     var startNameWithSurname: Boolean
+    var showContactThumbnails: Boolean
     var showPhoneNumbers: Boolean
 
     init {
         initDrawables()
+        showContactThumbnails = config.showContactThumbnails
         showPhoneNumbers = config.showPhoneNumbers
         startNameWithSurname = config.startNameWithSurname
     }
@@ -189,17 +192,20 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
             contact_name.setTextColor(textColor)
             contact_number?.text = contact.phoneNumbers.firstOrNull()?.value ?: ""
             contact_number?.setTextColor(textColor)
+            contact_tmb.beVisibleIf(showContactThumbnails)
 
-            if (contact.photoUri.isNotEmpty()) {
-                val options = RequestOptions()
-                        .signature(ObjectKey(contact.photoUri))
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                        .error(contactDrawable)
-                        .centerCrop()
+            if (showContactThumbnails) {
+                if (contact.photoUri.isNotEmpty()) {
+                    val options = RequestOptions()
+                            .signature(ObjectKey(contact.photoUri))
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .error(contactDrawable)
+                            .centerCrop()
 
-                Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
-            } else {
-                contact_tmb.setImageDrawable(contactDrawable)
+                    Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                } else {
+                    contact_tmb.setImageDrawable(contactDrawable)
+                }
             }
         }
     }

@@ -24,6 +24,10 @@ class Config(context: Context) : BaseConfig(context) {
 
     fun showAllContacts() = displayContactSources.size == 1 && displayContactSources.first() == "-1"
 
+    var showContactThumbnails : Boolean
+        get() = prefs.getBoolean(SHOW_CONTACT_THUMBNAILS, true)
+        set(showContactThumbnails) = prefs.edit().putBoolean(SHOW_CONTACT_THUMBNAILS, showContactThumbnails).apply()
+
     var showPhoneNumbers: Boolean
         get() = prefs.getBoolean(SHOW_PHONE_NUMBERS, false)
         set(showPhoneNumbers) = prefs.edit().putBoolean(SHOW_PHONE_NUMBERS, showPhoneNumbers).apply()
