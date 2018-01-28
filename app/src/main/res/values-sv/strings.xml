@@ -23,7 +23,7 @@
     <string name="call_contact_on_click">Ring kontakter när jag trycker på dem</string>
     <string name="start_name_with_surname">Visa efternamn först</string>
     <string name="show_phone_numbers">Visa telefonnummer i huvudvyn</string>
-    <string name="show_contact_avatars">Show contact avatars</string>
+    <string name="show_contact_thumbnails">Show contact thumbnails</string>
 
     <!-- Emails -->
     <string name="email">E-post</string>

@@ -4,6 +4,7 @@ import android.provider.ContactsContract.CommonDataKinds
 
 // shared prefs
 val CALL_CONTACT_ON_CLICK = "call_contact_on_click"
+val SHOW_CONTACT_THUMBNAILS = "show_contact_thumbnails"
 val SHOW_PHONE_NUMBERS = "show_phone_numbers"
 val DISPLAY_CONTACT_SOURCES = "display_contact_sources"
 val START_NAME_WITH_SURNAME = "start_name_with_surname"

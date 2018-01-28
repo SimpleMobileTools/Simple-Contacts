@@ -42,6 +42,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var storedTextColor = 0
     private var storedBackgroundColor = 0
     private var storedPrimaryColor = 0
+    private var storedShowContactThumbnails = false
     private var storedShowPhoneNumbers = false
     private var storedStartNameWithSurname = false
 
@@ -72,6 +73,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     override fun onResume() {
         super.onResume()
         if (storedUseEnglish != config.useEnglish) {
+            restartActivity()
+            return
+        }
+
+        if (storedShowContactThumbnails != config.showContactThumbnails) {
             restartActivity()
             return
         }
@@ -154,6 +160,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             storedTextColor = textColor
             storedBackgroundColor = backgroundColor
             storedPrimaryColor = primaryColor
+            storedShowContactThumbnails = showContactThumbnails
             storedShowPhoneNumbers = showPhoneNumbers
             storedStartNameWithSurname = startNameWithSurname
         }
