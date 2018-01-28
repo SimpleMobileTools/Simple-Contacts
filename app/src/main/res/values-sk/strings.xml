@@ -23,6 +23,7 @@
     <string name="call_contact_on_click">Zavolať kontakt po kliknutí</string>
     <string name="start_name_with_surname">Začať meno priezviskom</string>
     <string name="show_phone_numbers">Zobraziť telefónne čísla na hlavnej obrazovke</string>
+    <string name="show_contact_avatars">Zobraziť obrázky kontaktov</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
@@ -52,6 +53,15 @@
     <!-- Search -->
     <string name="search_contacts">Hľadať v kontaktoch</string>
     <string name="search_favorites">Hľadať medzi obľúbenými</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">Importovať kontakty</string>
+    <string name="export_contacts">Exportovať kontakty</string>
+    <string name="import_contacts_from_vcf">Importovať kontakty z .vcf súboru</string>
+    <string name="export_contacts_to_vcf">Exportovať kontakty do .vcf súboru</string>
+    <string name="target_contact_source">Cieľový zdroj kontaktov</string>
+    <string name="include_contact_sources">Zahrnúť zdroje kontaktov</string>
+    <string name="filename_without_vcf">Názov súboru (bez .vcf)</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

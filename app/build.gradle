@@ -4,13 +4,14 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "com.simplemobiletools.contacts"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 4
-        versionName "3.0.3"
+        versionCode 7
+        versionName "3.1.2"
         setProperty("archivesBaseName", "contacts")
     }
 
@@ -41,11 +42,11 @@ ext {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:3.5.7'
+    implementation 'com.simplemobiletools:commons:3.8.2'
     implementation 'joda-time:joda-time:2.9.9'
 
-    //debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    //releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }
 
 Properties props = new Properties()

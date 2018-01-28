@@ -8,8 +8,8 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.provider.ContactsContract.CommonDataKinds
 import android.provider.MediaStore
-import android.support.v4.content.FileProvider
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -31,7 +31,6 @@ import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.commons.helpers.getDateFormats
 import com.simplemobiletools.commons.models.RadioItem
-import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
@@ -45,16 +44,11 @@ import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_phone_number.view.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import java.io.File
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ContactActivity : SimpleActivity() {
-    private val DEFAULT_EMAIL_TYPE = ContactsContract.CommonDataKinds.Email.TYPE_HOME
-    private val DEFAULT_PHONE_NUMBER_TYPE = ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
-    private val DEFAULT_EVENT_TYPE = ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY
-
     private val INTENT_TAKE_PHOTO = 1
     private val INTENT_CHOOSE_PHOTO = 2
     private val INTENT_CROP_PHOTO = 3
@@ -89,6 +83,35 @@ class ContactActivity : SimpleActivity() {
             } else {
                 toast(R.string.no_contacts_permission)
                 finish()
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_contact, menu)
+        if (wasActivityInitialized) {
+            menu.findItem(R.id.delete).isVisible = contact?.id != 0
+            menu.findItem(R.id.share).isVisible = contact?.id != 0
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.save -> saveContact()
+            R.id.delete -> deleteContact()
+            R.id.share -> shareContact()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri!!)
+                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString())
             }
         }
     }
@@ -177,33 +200,6 @@ class ContactActivity : SimpleActivity() {
         updateTextColors(contact_scrollview)
         wasActivityInitialized = true
         invalidateOptionsMenu()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_contact, menu)
-        if (wasActivityInitialized) {
-            menu.findItem(R.id.delete).isVisible = contact?.id != 0
-        }
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.save -> saveContact()
-            R.id.delete -> deleteContact()
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, resultData)
-        if (resultCode == RESULT_OK) {
-            when (requestCode) {
-                INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri!!)
-                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString())
-            }
-        }
     }
 
     private fun startCropPhotoIntent(uri: Uri) {
@@ -306,9 +302,17 @@ class ContactActivity : SimpleActivity() {
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), "", 0, 0)
+        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), "", 0, 0, "")
         contact_source.text = config.lastUsedContactSource
-        contact_source.setOnClickListener { showAccountSourcePicker() }
+        contact_source.setOnClickListener {
+            showContactSourcePicker(contact_source.value) {
+                contact_source.text = it
+            }
+        }
+    }
+
+    private fun shareContact() {
+        shareContacts(arrayListOf(contact!!))
     }
 
     private fun showPhotoPlaceholder() {
@@ -453,14 +457,14 @@ class ContactActivity : SimpleActivity() {
 
     private fun showNumberTypePicker(numberTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE, getString(R.string.mobile)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_HOME, getString(R.string.home)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_WORK, getString(R.string.work)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_MAIN, getString(R.string.main_number)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK, getString(R.string.work_fax)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME, getString(R.string.home_fax)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_PAGER, getString(R.string.pager)),
-                RadioItem(ContactsContract.CommonDataKinds.Phone.TYPE_OTHER, getString(R.string.other))
+                RadioItem(CommonDataKinds.Phone.TYPE_MOBILE, getString(R.string.mobile)),
+                RadioItem(CommonDataKinds.Phone.TYPE_HOME, getString(R.string.home)),
+                RadioItem(CommonDataKinds.Phone.TYPE_WORK, getString(R.string.work)),
+                RadioItem(CommonDataKinds.Phone.TYPE_MAIN, getString(R.string.main_number)),
+                RadioItem(CommonDataKinds.Phone.TYPE_FAX_WORK, getString(R.string.work_fax)),
+                RadioItem(CommonDataKinds.Phone.TYPE_FAX_HOME, getString(R.string.home_fax)),
+                RadioItem(CommonDataKinds.Phone.TYPE_PAGER, getString(R.string.pager)),
+                RadioItem(CommonDataKinds.Phone.TYPE_OTHER, getString(R.string.other))
         )
 
         val currentNumberTypeId = getPhoneNumberTypeId(numberTypeField.value)
@@ -471,10 +475,10 @@ class ContactActivity : SimpleActivity() {
 
     private fun showEmailTypePicker(emailTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_HOME, getString(R.string.home)),
-                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_WORK, getString(R.string.work)),
-                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_MOBILE, getString(R.string.mobile)),
-                RadioItem(ContactsContract.CommonDataKinds.Email.TYPE_OTHER, getString(R.string.other))
+                RadioItem(CommonDataKinds.Email.TYPE_HOME, getString(R.string.home)),
+                RadioItem(CommonDataKinds.Email.TYPE_WORK, getString(R.string.work)),
+                RadioItem(CommonDataKinds.Email.TYPE_MOBILE, getString(R.string.mobile)),
+                RadioItem(CommonDataKinds.Email.TYPE_OTHER, getString(R.string.other))
         )
 
         val currentEmailTypeId = getEmailTypeId(emailTypeField.value)
@@ -485,9 +489,9 @@ class ContactActivity : SimpleActivity() {
 
     private fun showEventTypePicker(eventTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
-                RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(R.string.anniversary)),
-                RadioItem(ContactsContract.CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other))
+                RadioItem(CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
+                RadioItem(CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(R.string.anniversary)),
+                RadioItem(CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other))
         )
 
         val currentEventTypeId = getEventTypeId(eventTypeField.value)
@@ -579,6 +583,7 @@ class ContactActivity : SimpleActivity() {
 
     private fun insertNewContact() {
         isSaving = true
+        toast(R.string.inserting)
         if (ContactsHelper(this@ContactActivity).insertContact(contact!!)) {
             finish()
         } else {
@@ -640,27 +645,6 @@ class ContactActivity : SimpleActivity() {
         ConfirmationDialog(this) {
             ContactsHelper(this).deleteContact(contact!!)
             finish()
-        }
-    }
-
-    private fun showAccountSourcePicker() {
-        ContactsHelper(this).getContactSources {
-            val items = ArrayList<RadioItem>()
-            val sources = it
-            val currentSource = contact_source.value
-            var currentSourceIndex = -1
-            sources.forEachIndexed { index, account ->
-                items.add(RadioItem(index, account))
-                if (account == currentSource) {
-                    currentSourceIndex = index
-                }
-            }
-
-            runOnUiThread {
-                RadioGroupDialog(this, items, currentSourceIndex) {
-                    contact_source.text = sources[it as Int]
-                }
-            }
         }
     }
 
@@ -757,62 +741,51 @@ class ContactActivity : SimpleActivity() {
         }
     }
 
-    private fun getCachePhotoUri(): Uri {
-        val imagesFolder = File(cacheDir, "my_cache")
-        if (!imagesFolder.exists()) {
-            imagesFolder.mkdirs()
-        }
-
-        val file = File(imagesFolder, "Photo_${System.currentTimeMillis()}.jpg")
-        file.createNewFile()
-        return FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
-    }
-
     private fun getPhoneNumberTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE -> R.string.mobile
-        ContactsContract.CommonDataKinds.Phone.TYPE_HOME -> R.string.home
-        ContactsContract.CommonDataKinds.Phone.TYPE_WORK -> R.string.work
-        ContactsContract.CommonDataKinds.Phone.TYPE_MAIN -> R.string.main_number
-        ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK -> R.string.work_fax
-        ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME -> R.string.home_fax
-        ContactsContract.CommonDataKinds.Phone.TYPE_PAGER -> R.string.pager
+        CommonDataKinds.Phone.TYPE_MOBILE -> R.string.mobile
+        CommonDataKinds.Phone.TYPE_HOME -> R.string.home
+        CommonDataKinds.Phone.TYPE_WORK -> R.string.work
+        CommonDataKinds.Phone.TYPE_MAIN -> R.string.main_number
+        CommonDataKinds.Phone.TYPE_FAX_WORK -> R.string.work_fax
+        CommonDataKinds.Phone.TYPE_FAX_HOME -> R.string.home_fax
+        CommonDataKinds.Phone.TYPE_PAGER -> R.string.pager
         else -> R.string.other
     }
 
     private fun getPhoneNumberTypeId(value: String) = when (value) {
-        getString(R.string.mobile) -> ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
-        getString(R.string.home) -> ContactsContract.CommonDataKinds.Phone.TYPE_HOME
-        getString(R.string.work) -> ContactsContract.CommonDataKinds.Phone.TYPE_WORK
-        getString(R.string.main_number) -> ContactsContract.CommonDataKinds.Phone.TYPE_MAIN
-        getString(R.string.work_fax) -> ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK
-        getString(R.string.home_fax) -> ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME
-        getString(R.string.pager) -> ContactsContract.CommonDataKinds.Phone.TYPE_PAGER
-        else -> ContactsContract.CommonDataKinds.Phone.TYPE_OTHER
+        getString(R.string.mobile) -> CommonDataKinds.Phone.TYPE_MOBILE
+        getString(R.string.home) -> CommonDataKinds.Phone.TYPE_HOME
+        getString(R.string.work) -> CommonDataKinds.Phone.TYPE_WORK
+        getString(R.string.main_number) -> CommonDataKinds.Phone.TYPE_MAIN
+        getString(R.string.work_fax) -> CommonDataKinds.Phone.TYPE_FAX_WORK
+        getString(R.string.home_fax) -> CommonDataKinds.Phone.TYPE_FAX_HOME
+        getString(R.string.pager) -> CommonDataKinds.Phone.TYPE_PAGER
+        else -> CommonDataKinds.Phone.TYPE_OTHER
     }
 
     private fun getEmailTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Email.TYPE_HOME -> R.string.home
-        ContactsContract.CommonDataKinds.Email.TYPE_WORK -> R.string.work
-        ContactsContract.CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
+        CommonDataKinds.Email.TYPE_HOME -> R.string.home
+        CommonDataKinds.Email.TYPE_WORK -> R.string.work
+        CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
         else -> R.string.other
     }
 
     private fun getEmailTypeId(value: String) = when (value) {
-        getString(R.string.home) -> ContactsContract.CommonDataKinds.Email.TYPE_HOME
-        getString(R.string.work) -> ContactsContract.CommonDataKinds.Email.TYPE_WORK
-        getString(R.string.mobile) -> ContactsContract.CommonDataKinds.Email.TYPE_MOBILE
-        else -> ContactsContract.CommonDataKinds.Email.TYPE_OTHER
+        getString(R.string.home) -> CommonDataKinds.Email.TYPE_HOME
+        getString(R.string.work) -> CommonDataKinds.Email.TYPE_WORK
+        getString(R.string.mobile) -> CommonDataKinds.Email.TYPE_MOBILE
+        else -> CommonDataKinds.Email.TYPE_OTHER
     }
 
     private fun getEventTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
-        ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
+        CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
+        CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
         else -> R.string.other
     }
 
     private fun getEventTypeId(value: String) = when (value) {
-        getString(R.string.birthday) -> ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY
-        getString(R.string.anniversary) -> ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY
-        else -> ContactsContract.CommonDataKinds.Event.TYPE_OTHER
+        getString(R.string.birthday) -> CommonDataKinds.Event.TYPE_BIRTHDAY
+        getString(R.string.anniversary) -> CommonDataKinds.Event.TYPE_ANNIVERSARY
+        else -> CommonDataKinds.Event.TYPE_OTHER
     }
 }

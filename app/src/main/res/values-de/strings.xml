@@ -21,8 +21,9 @@
 
     <!-- Settings -->
     <string name="call_contact_on_click">Kontakt bei Klick anrufen</string>
-    <string name="start_name_with_surname">Namen mit Vornamen beginnen</string>
+    <string name="start_name_with_surname">Namen mit Nachnamen beginnen</string>
     <string name="show_phone_numbers">Zeige Telefonnummern im Hauptmenü</string>
+    <string name="show_contact_avatars">Show contact avatars</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
@@ -52,6 +53,15 @@
     <!-- Search -->
     <string name="search_contacts">Kontakte durchsuchen</string>
     <string name="search_favorites">Favoriten durchsuchen</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">Kontakte importieren</string>
+    <string name="export_contacts">Kontakte exportieren</string>
+    <string name="import_contacts_from_vcf">Kontakte aus .vcf Datei importieren</string>
+    <string name="export_contacts_to_vcf">Kontakte in .vcf Datei exportieren</string>
+    <string name="target_contact_source">Zielkontaktquelle</string>
+    <string name="include_contact_sources">Kontaktquellen einschließen</string>
+    <string name="filename_without_vcf">Dateiname (ohne .vcf)</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

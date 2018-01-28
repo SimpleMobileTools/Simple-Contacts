@@ -4,25 +4,34 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.dialogs.ChangeSortingDialog
+import com.simplemobiletools.contacts.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
+import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.getTempFile
 import com.simplemobiletools.contacts.extensions.onTabSelectionChanged
+import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.VcfExporter
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
+import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
+import java.io.FileOutputStream
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isFirstResume = true
@@ -102,10 +111,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             if (viewpager.adapter == null) {
                 initFragments()
             }
-            contacts_fragment.initContacts()
-            contacts_fragment.onActivityResume()
-            favorites_fragment.initContacts()
-            favorites_fragment.onActivityResume()
+            contacts_fragment?.initContacts()
+            contacts_fragment?.onActivityResume()
+            favorites_fragment?.initContacts()
+            favorites_fragment?.onActivityResume()
         }
         isFirstResume = false
     }
@@ -130,6 +139,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         when (item.itemId) {
             R.id.sort -> showSortingDialog()
             R.id.filter -> showFilterDialog()
+            R.id.import_contacts -> tryImportContacts()
+            R.id.export_contacts -> tryExportContacts()
             R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
             R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
@@ -156,9 +167,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             isSubmitButtonEnabled = false
             queryHint = getString(if (viewpager.currentItem == 0) R.string.search_contacts else R.string.search_favorites)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    return false
-                }
+                override fun onQueryTextSubmit(query: String) = false
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
@@ -232,6 +241,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                     it.icon?.applyColorFilter(getAdjustedPrimaryColor())
                 }
         )
+
+        if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
+            tryImportContactsFromFile(intent.data)
+        }
     }
 
     private fun showSortingDialog() {
@@ -243,7 +256,83 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
+            contacts_fragment.forceListRedraw = true
             contacts_fragment.initContacts()
+        }
+    }
+
+    private fun tryImportContacts() {
+        handlePermission(PERMISSION_READ_STORAGE) {
+            if (it) {
+                importContacts()
+            }
+        }
+    }
+
+    private fun importContacts() {
+        FilePickerDialog(this) {
+            showImportContactsDialog(it)
+        }
+    }
+
+    private fun showImportContactsDialog(path: String) {
+        ImportContactsDialog(this, path) {
+            if (it) {
+                runOnUiThread {
+                    refreshContacts()
+                }
+            }
+        }
+    }
+
+    private fun tryImportContactsFromFile(uri: Uri) {
+        when {
+            uri.scheme == "file" -> showImportContactsDialog(uri.path)
+            uri.scheme == "content" -> {
+                val tempFile = getTempFile()
+                if (tempFile == null) {
+                    toast(R.string.unknown_error_occurred)
+                    return
+                }
+
+                val inputStream = contentResolver.openInputStream(uri)
+                val out = FileOutputStream(tempFile)
+                inputStream.copyTo(out)
+                showImportContactsDialog(tempFile.absolutePath)
+            }
+            else -> toast(R.string.invalid_file_format)
+        }
+    }
+
+    private fun tryExportContacts() {
+        handlePermission(PERMISSION_WRITE_STORAGE) {
+            if (it) {
+                exportContacts()
+            }
+        }
+    }
+
+    private fun exportContacts() {
+        FilePickerDialog(this, pickFile = false, showFAB = true) {
+            ExportContactsDialog(this, it) { file, contactSources ->
+                Thread {
+                    ContactsHelper(this).getContacts {
+                        val contacts = it.filter { contactSources.contains(it.source) }
+                        if (contacts.isEmpty()) {
+                            toast(R.string.no_entries_for_exporting)
+                        } else {
+                            toast(R.string.exporting)
+                            VcfExporter().exportContacts(this, file, contacts as ArrayList<Contact>) {
+                                toast(when (it) {
+                                    VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
+                                    VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
+                                    else -> R.string.exporting_failed
+                                })
+                            }
+                        }
+                    }
+                }.start()
+            }
         }
     }
 

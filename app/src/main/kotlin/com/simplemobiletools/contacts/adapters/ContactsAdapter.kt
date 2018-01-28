@@ -13,11 +13,13 @@ import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
+import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.openContact
+import com.simplemobiletools.contacts.extensions.shareContacts
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.models.Contact
@@ -25,8 +27,8 @@ import kotlinx.android.synthetic.main.item_contact_with_number.view.*
 import java.util.*
 
 class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Contact>, val listener: RefreshContactsListener?,
-                      val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) :
-        MyRecyclerViewAdapter(activity, recyclerView, itemClick) {
+                      val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
+        MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     lateinit private var contactDrawable: Drawable
     var config = activity.config
@@ -61,9 +63,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
         when (id) {
             R.id.cab_edit -> editContact()
             R.id.cab_select_all -> selectAll()
-            R.id.cab_delete -> askConfirmDelete()
             R.id.cab_add_to_favorites -> addToFavorites()
+            R.id.cab_share -> shareContacts()
             R.id.cab_remove -> removeFavorites()
+            R.id.cab_delete -> askConfirmDelete()
         }
     }
 
@@ -160,10 +163,23 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
         finishActMode()
     }
 
+    private fun shareContacts() {
+        if (selectedPositions.isEmpty()) {
+            return
+        }
+
+        val contacts = ArrayList<Contact>()
+        selectedPositions.forEach {
+            contacts.add(contactItems[it])
+        }
+
+        activity.shareContacts(contacts)
+    }
+
     override fun onViewRecycled(holder: ViewHolder?) {
         super.onViewRecycled(holder)
         if (!activity.isActivityDestroyed()) {
-            Glide.with(activity).clear(holder?.itemView?.contact_tmb)
+            Glide.with(activity).clear(holder?.itemView?.contact_tmb!!)
         }
     }
 

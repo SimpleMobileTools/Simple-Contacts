@@ -124,6 +124,6 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
     override fun onViewRecycled(holder: ViewHolder?) {
         super.onViewRecycled(holder)
-        Glide.with(activity).clear(holder?.itemView?.contact_tmb)
+        Glide.with(activity).clear(holder?.itemView?.contact_tmb!!)
     }
 }

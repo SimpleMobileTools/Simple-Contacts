@@ -23,6 +23,7 @@
     <string name="call_contact_on_click">Call contact on click</string>
     <string name="start_name_with_surname">Start name with surname</string>
     <string name="show_phone_numbers">Show phone numbers on the main screen</string>
+    <string name="show_contact_avatars">Show contact avatars</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>
@@ -52,6 +53,15 @@
     <!-- Search -->
     <string name="search_contacts">Search contacts</string>
     <string name="search_favorites">Search favorites</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">Import contacts</string>
+    <string name="export_contacts">Export contacts</string>
+    <string name="import_contacts_from_vcf">Import contacts from a .vcf file</string>
+    <string name="export_contacts_to_vcf">Export contacts to a .vcf file</string>
+    <string name="target_contact_source">Target contact source</string>
+    <string name="include_contact_sources">Include contact sources</string>
+    <string name="filename_without_vcf">Filename (without .vcf)</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

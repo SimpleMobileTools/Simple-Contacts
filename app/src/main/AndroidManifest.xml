@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <uses-permission
         android:name="android.permission.USE_FINGERPRINT"
@@ -39,6 +40,16 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <data android:mimeType="text/directory"/>
+                <data android:mimeType="text/vcard"/>
+                <data android:mimeType="text/x-vcard"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 

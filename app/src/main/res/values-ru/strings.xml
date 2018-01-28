@@ -23,9 +23,10 @@
     <string name="call_contact_on_click">Вызывать контакт при нажатии</string>
     <string name="start_name_with_surname">Отображать сначала фамилии</string>
     <string name="show_phone_numbers">Отображать номера телефонов на главном экране</string>
+    <string name="show_contact_avatars">Show contact avatars</string>
 
     <!-- Emails -->
-    <string name="email">Эл.почта</string>
+    <string name="email">Эл. почта</string>
     <string name="home">Домашний</string>
     <string name="work">Рабочий</string>
     <string name="other">Другой</string>
@@ -52,6 +53,15 @@
     <!-- Search -->
     <string name="search_contacts">Поиск контактов</string>
     <string name="search_favorites">Поиск избранных</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">Импортировать контакты</string>
+    <string name="export_contacts">Экспортировать контакты</string>
+    <string name="import_contacts_from_vcf">Импортировать контакты из .vcf файла</string>
+    <string name="export_contacts_to_vcf">Экспортировать контакты в .vcf файл</string>
+    <string name="target_contact_source">Назначенный к обновлению источник контактов</string>
+    <string name="include_contact_sources">Включить источники контактов</string>
+    <string name="filename_without_vcf">Имя файла (без .vcf)</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

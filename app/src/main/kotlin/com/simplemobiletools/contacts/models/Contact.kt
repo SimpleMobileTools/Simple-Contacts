@@ -6,7 +6,7 @@ import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 
 data class Contact(val id: Int, var firstName: String, var middleName: String, var surname: String, var photoUri: String,
                    var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var events: ArrayList<Event>, var source: String,
-                   var starred: Int, val contactId: Int) : Comparable<Contact> {
+                   var starred: Int, val contactId: Int, val thumbnailUri: String) : Comparable<Contact> {
     companion object {
         var sorting: Int = 0
     }

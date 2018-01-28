@@ -17,6 +17,11 @@
         android:title="@string/add_to_favorites"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/cab_share"
+        android:icon="@drawable/ic_share"
+        android:title="@string/share"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/cab_delete"
         android:icon="@drawable/ic_delete"
         android:title="@string/delete"
