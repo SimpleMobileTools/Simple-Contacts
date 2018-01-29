@@ -77,14 +77,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             return
         }
 
-        if (storedShowContactThumbnails != config.showContactThumbnails) {
+        if (storedShowPhoneNumbers != config.showPhoneNumbers) {
             restartActivity()
             return
         }
 
-        if (storedShowPhoneNumbers != config.showPhoneNumbers) {
-            restartActivity()
-            return
+        val configShowContactThumbnails = config.showContactThumbnails
+        if (storedShowContactThumbnails != configShowContactThumbnails) {
+            contacts_fragment.showContactThumbnailsChanged(configShowContactThumbnails)
+            favorites_fragment.showContactThumbnailsChanged(configShowContactThumbnails)
         }
 
         val configTextColor = config.textColor
