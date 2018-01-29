@@ -69,6 +69,7 @@ fun Context.getContactUriRawId(uri: Uri): Int {
         if (cursor.moveToFirst()) {
             return cursor.getIntValue(ContactsContract.Contacts.NAME_RAW_CONTACT_ID)
         }
+    } catch (ignored: Exception) {
     } finally {
         cursor?.close()
     }
