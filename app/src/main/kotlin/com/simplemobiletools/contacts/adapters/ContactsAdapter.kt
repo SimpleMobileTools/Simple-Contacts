@@ -31,13 +31,14 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
                       val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
-    lateinit private var contactDrawable: Drawable
+    private lateinit var contactDrawable: Drawable
     var config = activity.config
     var startNameWithSurname: Boolean
     var showContactThumbnails: Boolean
     var showPhoneNumbers: Boolean
-    var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
-    var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
+
+    private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
+    private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
 
     init {
         initDrawables()
@@ -192,10 +193,12 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
         view.apply {
             contact_name.text = contact.getFullName(startNameWithSurname)
             contact_name.setTextColor(textColor)
-            contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, 0, 0)
+            contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
+
             contact_number?.text = contact.phoneNumbers.firstOrNull()?.value ?: ""
             contact_number?.setTextColor(textColor)
-            contact_number?.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, 0, 0)
+            contact_number?.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
+
             contact_tmb.beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {

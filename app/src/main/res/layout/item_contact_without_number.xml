@@ -31,8 +31,6 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:paddingLeft="@dimen/small_margin"
-            android:paddingTop="@dimen/small_margin"
             android:textSize="@dimen/bigger_text_size"
             tools:text="John Doe"/>
 
