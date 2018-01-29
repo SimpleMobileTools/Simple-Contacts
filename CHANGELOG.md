@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 3.1.3 *(2018-01-29)*
+----------------------------
+
+ * Allow hiding contact thumbnails
+ * Fix displaying and adding contacts on some devices
+
 Version 3.1.2 *(2018-01-23)*
 ----------------------------
 
