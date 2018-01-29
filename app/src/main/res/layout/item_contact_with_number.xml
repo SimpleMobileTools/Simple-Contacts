@@ -13,7 +13,7 @@
     <RelativeLayout
         android:id="@+id/contact_holder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/contact_item_height"
         android:paddingRight="@dimen/activity_margin">
 
         <ImageView
@@ -40,6 +40,7 @@
             android:id="@+id/contact_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/contact_name"
             android:layout_below="@+id/contact_name"
             android:layout_toRightOf="@+id/contact_tmb"
             android:maxLines="1"
