@@ -120,8 +120,8 @@ class EditContactActivity : SimpleActivity() {
         var contactId = intent.getIntExtra(CONTACT_ID, 0)
         val action = intent.action
         if (contactId == 0 && (action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT ||
-                action == Intent.ACTION_VIEW ||
-                action == Intent.ACTION_EDIT)) {
+                        action == Intent.ACTION_VIEW ||
+                        action == Intent.ACTION_EDIT)) {
             val data = intent.data
             if (data != null) {
                 val rawId = if (data.path.contains("lookup")) {
@@ -502,11 +502,6 @@ class EditContactActivity : SimpleActivity() {
 
     private fun saveContact() {
         if (isSaving) {
-            return
-        }
-
-        if (contact_source.value.isEmpty()) {
-            toast(R.string.missing_contact_account)
             return
         }
 

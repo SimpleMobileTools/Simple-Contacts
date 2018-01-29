@@ -4,7 +4,6 @@
     <string name="address">Адрес</string>
     <string name="inserting">Добавление…</string>
     <string name="updating">Обновление…</string>
-    <string name="missing_contact_source">Пожалуйста, выберите учётную запись, к которой относится контакт</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
