@@ -24,6 +24,10 @@
     <string name="start_name_with_surname">Показывать сначала фамилию</string>
     <string name="show_phone_numbers">Показывать номера телефонов на главном экране</string>
     <string name="show_contact_thumbnails">Показывать фото контакта</string>
+    <string name="on_contact_click">On contact click</string>
+    <string name="call_contact">Call contact</string>
+    <string name="open_contact">Open contact editor</string>
+    <string name="view_contact">View contact details</string>
 
     <!-- Emails -->
     <string name="email">Эл. почта</string>
