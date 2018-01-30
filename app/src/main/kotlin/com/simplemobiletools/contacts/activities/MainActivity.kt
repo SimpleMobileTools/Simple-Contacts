@@ -218,7 +218,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun initFragments() {
         viewpager.adapter = ViewPagerAdapter(this)
-        viewpager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
                     getCurrentFragment().onSearchQueryChanged("")
