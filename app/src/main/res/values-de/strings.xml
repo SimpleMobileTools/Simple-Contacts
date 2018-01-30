@@ -23,10 +23,10 @@
     <string name="start_name_with_surname">Namen mit Nachnamen beginnen</string>
     <string name="show_phone_numbers">Zeige Telefonnummern im Hauptmenü</string>
     <string name="show_contact_thumbnails">Zeige Vorschaubilder für Kontakte</string>
-    <string name="on_contact_click">On contact click</string>
-    <string name="call_contact">Call contact</string>
-    <string name="open_contact">Open contact editor</string>
-    <string name="view_contact">View contact details</string>
+    <string name="on_contact_click">Beim Klicken auf den Kontakt</string>
+    <string name="call_contact">Kontakt anrufen</string>
+    <string name="open_contact">Kontakt bearbeiten</string>
+    <string name="view_contact">Kontaktdetails ansehen</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
