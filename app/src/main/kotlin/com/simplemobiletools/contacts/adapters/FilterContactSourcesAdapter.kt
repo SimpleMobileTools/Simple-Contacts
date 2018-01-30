@@ -12,7 +12,7 @@ import com.simplemobiletools.contacts.extensions.config
 import kotlinx.android.synthetic.main.item_filter_contact_source.view.*
 import java.util.*
 
-class FilterContactSourcesAdapter(val activity: SimpleActivity, val contactSources: List<String>, val displayContactSources: Set<String>) :
+class FilterContactSourcesAdapter(val activity: SimpleActivity, private val contactSources: List<String>, private val displayContactSources: Set<String>) :
         RecyclerView.Adapter<FilterContactSourcesAdapter.ViewHolder>() {
     private val itemViews = SparseArray<View>()
     private val selectedPositions = HashSet<Int>()
@@ -66,7 +66,7 @@ class FilterContactSourcesAdapter(val activity: SimpleActivity, val contactSourc
 
     override fun getItemCount() = contactSources.size
 
-    class ViewHolder(view: View, val adapterListener: MyAdapterListener, val activity: SimpleActivity) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, private val adapterListener: MyAdapterListener, val activity: SimpleActivity) : RecyclerView.ViewHolder(view) {
         fun bindView(contactSource: String): View {
             itemView.apply {
                 filter_contact_source_checkbox.setColors(activity.config.textColor, activity.getAdjustedPrimaryColor(), activity.config.backgroundColor)

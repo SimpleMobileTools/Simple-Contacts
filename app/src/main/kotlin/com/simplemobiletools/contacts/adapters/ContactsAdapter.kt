@@ -27,8 +27,8 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.item_contact_with_number.view.*
 import java.util.*
 
-class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Contact>, val listener: RefreshContactsListener?,
-                      val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
+class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Contact>, private val listener: RefreshContactsListener?,
+                      private val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private lateinit var contactDrawable: Drawable
