@@ -187,7 +187,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun onSearchOpened() {
-        contactsIgnoringSearch = (fragment_list.adapter as? ContactsAdapter)?.contactItems as ArrayList
+        contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems as? ArrayList ?: ArrayList()
     }
 
     fun onSearchClosed() {
