@@ -3,50 +3,50 @@ package com.simplemobiletools.contacts.helpers
 import android.provider.ContactsContract.CommonDataKinds
 
 // shared prefs
-val CALL_CONTACT_ON_CLICK = "call_contact_on_click"
-val SHOW_CONTACT_THUMBNAILS = "show_contact_thumbnails"
-val SHOW_PHONE_NUMBERS = "show_phone_numbers"
-val DISPLAY_CONTACT_SOURCES = "display_contact_sources"
-val START_NAME_WITH_SURNAME = "start_name_with_surname"
-val LAST_USED_CONTACT_SOURCE = "last_used_contact_source"
-val LAST_USED_VIEW_PAGER_PAGE = "last_used_view_pager_page"
+const val CALL_CONTACT_ON_CLICK = "call_contact_on_click"
+const val SHOW_CONTACT_THUMBNAILS = "show_contact_thumbnails"
+const val SHOW_PHONE_NUMBERS = "show_phone_numbers"
+const val DISPLAY_CONTACT_SOURCES = "display_contact_sources"
+const val START_NAME_WITH_SURNAME = "start_name_with_surname"
+const val LAST_USED_CONTACT_SOURCE = "last_used_contact_source"
+const val LAST_USED_VIEW_PAGER_PAGE = "last_used_view_pager_page"
 
-val CONTACT_ID = "contact_id"
+const val CONTACT_ID = "contact_id"
 
 // contact photo changes
-val PHOTO_ADDED = 1
-val PHOTO_REMOVED = 2
-val PHOTO_CHANGED = 3
-val PHOTO_UNCHANGED = 4
+const val PHOTO_ADDED = 1
+const val PHOTO_REMOVED = 2
+const val PHOTO_CHANGED = 3
+const val PHOTO_UNCHANGED = 4
 
 // default contact values
-val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
-val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
-val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
+const val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
+const val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
+const val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
 
 // export/import
-val BEGIN_VCARD = "BEGIN:VCARD"
-val END_VCARD = "END:VCARD"
-val N = "N:"
-val TEL = "TEL"
-val BDAY = "BDAY:"
-val ANNIVERSARY = "ANNIVERSARY:"
-val PHOTO = "PHOTO"
-val EMAIL = "EMAIL"
-val ENCODING = "ENCODING"
-val BASE64 = "BASE64"
-val JPEG = "JPEG"
-val VERSION_2_1 = "VERSION:2.1"
+const val BEGIN_VCARD = "BEGIN:VCARD"
+const val END_VCARD = "END:VCARD"
+const val N = "N:"
+const val TEL = "TEL"
+const val BDAY = "BDAY:"
+const val ANNIVERSARY = "ANNIVERSARY:"
+const val PHOTO = "PHOTO"
+const val EMAIL = "EMAIL"
+const val ENCODING = "ENCODING"
+const val BASE64 = "BASE64"
+const val JPEG = "JPEG"
+const val VERSION_2_1 = "VERSION:2.1"
 
 // phone number/email types
-val CELL = "CELL"
-val WORK = "WORK"
-val HOME = "HOME"
-val PREF = "PREF"
-val MAIN = "MAIN"
-val FAX = "FAX"
-val WORK_FAX = "WORK;FAX"
-val HOME_FAX = "HOME;FAX"
-val PAGER = "PAGER"
-val MOBILE = "MOBILE"
-val VOICE = "VOICE"
+const val CELL = "CELL"
+const val WORK = "WORK"
+const val HOME = "HOME"
+const val PREF = "PREF"
+const val MAIN = "MAIN"
+const val FAX = "FAX"
+const val WORK_FAX = "WORK;FAX"
+const val HOME_FAX = "HOME;FAX"
+const val PAGER = "PAGER"
+const val MOBILE = "MOBILE"
+const val VOICE = "VOICE"

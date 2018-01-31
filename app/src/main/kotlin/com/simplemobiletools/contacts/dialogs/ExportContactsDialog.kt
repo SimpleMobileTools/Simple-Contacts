@@ -11,7 +11,7 @@ import com.simplemobiletools.contacts.helpers.ContactsHelper
 import kotlinx.android.synthetic.main.dialog_export_contacts.view.*
 import java.io.File
 
-class ExportContactsDialog(val activity: SimpleActivity, val path: String, val callback: (file: File, contactSources: HashSet<String>) -> Unit) {
+class ExportContactsDialog(val activity: SimpleActivity, val path: String, private val callback: (file: File, contactSources: HashSet<String>) -> Unit) {
 
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_export_contacts, null) as ViewGroup).apply {

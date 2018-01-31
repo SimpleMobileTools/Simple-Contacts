@@ -13,7 +13,7 @@ import com.simplemobiletools.contacts.helpers.VcfImporter
 import com.simplemobiletools.contacts.helpers.VcfImporter.ImportResult.IMPORT_FAIL
 import kotlinx.android.synthetic.main.dialog_import_contacts.view.*
 
-class ImportContactsDialog(val activity: SimpleActivity, val path: String, val callback: (refreshView: Boolean) -> Unit) {
+class ImportContactsDialog(val activity: SimpleActivity, val path: String, private val callback: (refreshView: Boolean) -> Unit) {
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_import_contacts, null) as ViewGroup).apply {
             import_contacts_title.text = activity.config.lastUsedContactSource
