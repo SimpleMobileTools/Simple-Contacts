@@ -51,6 +51,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         setContentView(R.layout.activity_main)
         appLaunched()
         setupTabColors()
+        storeLocalAccountType()
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {
@@ -211,6 +212,30 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             getTabAt(lastUsedPage)?.select()
             getTabAt(lastUsedPage)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
             getTabAt(getOtherViewPagerItem(lastUsedPage))?.icon?.applyColorFilter(config.textColor)
+        }
+    }
+
+    private fun storeLocalAccountType() {
+        if (config.localAccountType == "-1") {
+            // some manufacturer contact account types from https://stackoverflow.com/a/44802016/1967672
+            val localAccountTypes = arrayListOf("vnd.sec.contact.phone",
+                    "com.htc.android.pcsc",
+                    "com.sonyericsson.localcontacts",
+                    "com.lge.sync",
+                    "com.lge.phone",
+                    "vnd.tmobileus.contact.phone",
+                    "com.android.huawei.phone",
+                    "Local Phone Account")
+
+            ContactsHelper(this).getContactTypes {
+                var localAccountType = ""
+                it.forEach {
+                    if (localAccountTypes.contains(it)) {
+                        localAccountType = it
+                    }
+                }
+                config.localAccountType = localAccountType
+            }
         }
     }
 

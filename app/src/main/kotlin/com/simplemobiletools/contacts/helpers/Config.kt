@@ -43,4 +43,8 @@ class Config(context: Context) : BaseConfig(context) {
     var lastUsedViewPagerPage: Int
         get() = prefs.getInt(LAST_USED_VIEW_PAGER_PAGE, 0)
         set(lastUsedViewPagerPage) = prefs.edit().putInt(LAST_USED_VIEW_PAGER_PAGE, lastUsedViewPagerPage).apply()
+
+    var localAccountType: String
+        get() = prefs.getString(LOCAL_ACCOUNT_TYPE, "-1")
+        set(localAccountType) = prefs.edit().putString(LOCAL_ACCOUNT_TYPE, localAccountType).apply()
 }

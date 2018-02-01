@@ -252,6 +252,29 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         }.start()
     }
 
+    fun getContactTypes(callback: (ArrayList<String>) -> Unit) {
+        val accounts = HashSet<String>()
+        Thread {
+            val uri = ContactsContract.RawContacts.CONTENT_URI
+            val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_TYPE)
+
+            var cursor: Cursor? = null
+            try {
+                cursor = activity.contentResolver.query(uri, projection, null, null, null)
+                if (cursor?.moveToFirst() == true) {
+                    do {
+                        val type = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: continue
+                        accounts.add(type)
+                    } while (cursor.moveToNext())
+                }
+            } finally {
+                cursor?.close()
+            }
+
+            callback(ArrayList(accounts))
+        }.start()
+    }
+
     private fun getContactSourceType(accountName: String): String {
         if (accountName.isEmpty()) {
             return ""
