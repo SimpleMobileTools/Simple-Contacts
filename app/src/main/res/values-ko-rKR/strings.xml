@@ -4,6 +4,7 @@
     <string name="address">주소</string>
     <string name="inserting">등록중…</string>
     <string name="updating">수정중…</string>
+    <string name="phone_storage">Phone storage</string>
 
     <string name="new_contact">새로운 연락처</string>
     <string name="edit_contact">연락처 수정</string>

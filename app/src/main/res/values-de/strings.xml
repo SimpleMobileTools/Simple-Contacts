@@ -4,6 +4,7 @@
     <string name="address">Adresse</string>
     <string name="inserting">Einfügen…</string>
     <string name="updating">Aktualisiere…</string>
+    <string name="phone_storage">Phone storage</string>
 
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
