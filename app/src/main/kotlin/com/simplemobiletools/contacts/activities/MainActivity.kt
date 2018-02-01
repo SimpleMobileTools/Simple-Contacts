@@ -77,14 +77,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             return
         }
 
-        if (storedShowContactThumbnails != config.showContactThumbnails) {
+        if (storedShowPhoneNumbers != config.showPhoneNumbers) {
             restartActivity()
             return
         }
 
-        if (storedShowPhoneNumbers != config.showPhoneNumbers) {
-            restartActivity()
-            return
+        val configShowContactThumbnails = config.showContactThumbnails
+        if (storedShowContactThumbnails != configShowContactThumbnails) {
+            contacts_fragment.showContactThumbnailsChanged(configShowContactThumbnails)
+            favorites_fragment.showContactThumbnailsChanged(configShowContactThumbnails)
         }
 
         val configTextColor = config.textColor
@@ -217,13 +218,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun initFragments() {
         viewpager.adapter = ViewPagerAdapter(this)
-        viewpager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
                     getCurrentFragment().onSearchQueryChanged("")
-                    if (searchMenuItem != null) {
-                        MenuItemCompat.collapseActionView(searchMenuItem)
-                    }
+                    searchMenuItem?.collapseActionView()
                 }
             }
 

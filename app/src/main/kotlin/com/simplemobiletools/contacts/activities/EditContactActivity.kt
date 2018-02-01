@@ -38,7 +38,7 @@ import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Email
 import com.simplemobiletools.contacts.models.Event
 import com.simplemobiletools.contacts.models.PhoneNumber
-import kotlinx.android.synthetic.main.activity_contact.*
+import kotlinx.android.synthetic.main.activity_edit_contact.*
 import kotlinx.android.synthetic.main.item_email.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_phone_number.view.*
@@ -48,7 +48,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ContactActivity : SimpleActivity() {
+class EditContactActivity : SimpleActivity() {
     private val INTENT_TAKE_PHOTO = 1
     private val INTENT_CHOOSE_PHOTO = 2
     private val INTENT_CROP_PHOTO = 3
@@ -67,7 +67,7 @@ class ContactActivity : SimpleActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_contact)
+        setContentView(R.layout.activity_edit_contact)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross)
 
         handlePermission(PERMISSION_READ_CONTACTS) {
@@ -120,8 +120,8 @@ class ContactActivity : SimpleActivity() {
         var contactId = intent.getIntExtra(CONTACT_ID, 0)
         val action = intent.action
         if (contactId == 0 && (action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT ||
-                action == Intent.ACTION_VIEW ||
-                action == Intent.ACTION_EDIT)) {
+                        action == Intent.ACTION_VIEW ||
+                        action == Intent.ACTION_EDIT)) {
             val data = intent.data
             if (data != null) {
                 val rawId = if (data.path.contains("lookup")) {
@@ -505,11 +505,6 @@ class ContactActivity : SimpleActivity() {
             return
         }
 
-        if (contact_source.value.isEmpty()) {
-            toast(R.string.missing_contact_account)
-            return
-        }
-
         contact!!.apply {
             val oldPhotoUri = photoUri
 
@@ -584,7 +579,7 @@ class ContactActivity : SimpleActivity() {
     private fun insertNewContact() {
         isSaving = true
         toast(R.string.inserting)
-        if (ContactsHelper(this@ContactActivity).insertContact(contact!!)) {
+        if (ContactsHelper(this@EditContactActivity).insertContact(contact!!)) {
             finish()
         } else {
             toast(R.string.unknown_error_occurred)
@@ -593,7 +588,7 @@ class ContactActivity : SimpleActivity() {
 
     private fun updateContact(photoUpdateStatus: Int) {
         isSaving = true
-        if (ContactsHelper(this@ContactActivity).updateContact(contact!!, photoUpdateStatus)) {
+        if (ContactsHelper(this@EditContactActivity).updateContact(contact!!, photoUpdateStatus)) {
             finish()
         } else {
             toast(R.string.unknown_error_occurred)

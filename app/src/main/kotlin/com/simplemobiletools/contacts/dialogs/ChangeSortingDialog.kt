@@ -11,7 +11,7 @@ import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
 import kotlinx.android.synthetic.main.dialog_change_sorting.view.*
 
-class ChangeSortingDialog(val activity: BaseSimpleActivity, val callback: () -> Unit) {
+class ChangeSortingDialog(val activity: BaseSimpleActivity, private val callback: () -> Unit) {
     private var currSorting = 0
     private var config = activity.config
     private var view = activity.layoutInflater.inflate(R.layout.dialog_change_sorting, null)

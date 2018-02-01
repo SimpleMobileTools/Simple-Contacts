@@ -4,7 +4,7 @@
     <string name="address">주소</string>
     <string name="inserting">등록중…</string>
     <string name="updating">수정중…</string>
-    <string name="missing_contact_source">연락처가 포함된 계정을 선택하세요.</string>
+    <string name="phone_storage">Phone storage</string>
 
     <string name="new_contact">새로운 연락처</string>
     <string name="edit_contact">연락처 수정</string>
@@ -24,6 +24,10 @@
     <string name="start_name_with_surname">성을 먼저 표시</string>
     <string name="show_phone_numbers">메인 스크린에 전화번호 표시</string>
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
+    <string name="on_contact_click">On contact click</string>
+    <string name="call_contact">Call contact</string>
+    <string name="open_contact">Open contact editor</string>
+    <string name="view_contact">View contact details</string>
 
     <!-- Emails -->
     <string name="email">이메일</string>

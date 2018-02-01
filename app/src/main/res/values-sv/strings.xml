@@ -4,7 +4,7 @@
     <string name="address">Adress</string>
     <string name="inserting">Lägger till…</string>
     <string name="updating">Uppdaterar…</string>
-    <string name="missing_contact_account">Du måste välja vilket konto kontakten ska tillhöra</string>
+    <string name="phone_storage">Phone storage</string>
 
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>
@@ -24,6 +24,10 @@
     <string name="start_name_with_surname">Visa efternamn först</string>
     <string name="show_phone_numbers">Visa telefonnummer i huvudvyn</string>
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
+    <string name="on_contact_click">On contact click</string>
+    <string name="call_contact">Call contact</string>
+    <string name="open_contact">Open contact editor</string>
+    <string name="view_contact">View contact details</string>
 
     <!-- Emails -->
     <string name="email">E-post</string>

@@ -75,7 +75,7 @@
             android:parentActivityName=".activities.MainActivity"/>
 
         <activity
-            android:name=".activities.ContactActivity"
+            android:name=".activities.EditContactActivity"
             android:parentActivityName=".activities.MainActivity">
 
             <intent-filter>

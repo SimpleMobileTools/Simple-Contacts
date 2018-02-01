@@ -253,6 +253,10 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     }
 
     private fun getContactSourceType(accountName: String): String {
+        if (accountName.isEmpty()) {
+            return ""
+        }
+
         val uri = ContactsContract.RawContacts.CONTENT_URI
         val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_TYPE)
         val selection = "${ContactsContract.RawContacts.ACCOUNT_NAME} = ?"

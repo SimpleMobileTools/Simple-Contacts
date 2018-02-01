@@ -24,7 +24,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     protected var activity: MainActivity? = null
     private var lastHashCode = 0
     private var contactsIgnoringSearch = ArrayList<Contact>()
-    lateinit private var config: Config
+    private lateinit var config: Config
 
     var forceListRedraw = false
 
@@ -144,8 +144,16 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             (currAdapter as ContactsAdapter).apply {
                 startNameWithSurname = config.startNameWithSurname
                 showPhoneNumbers = config.showPhoneNumbers
+                showContactThumbnails = config.showContactThumbnails
                 updateItems(contacts)
             }
+        }
+    }
+
+    fun showContactThumbnailsChanged(showThumbnails: Boolean) {
+        (fragment_list.adapter as? ContactsAdapter)?.apply {
+            showContactThumbnails = showThumbnails
+            notifyDataSetChanged()
         }
     }
 
@@ -179,7 +187,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun onSearchOpened() {
-        contactsIgnoringSearch = (fragment_list.adapter as? ContactsAdapter)?.contactItems as ArrayList
+        contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems as? ArrayList ?: ArrayList()
     }
 
     fun onSearchClosed() {

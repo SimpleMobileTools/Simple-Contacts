@@ -9,7 +9,7 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import kotlinx.android.synthetic.main.dialog_filter_contact_sources.view.*
 
-class FilterContactSourcesDialog(val activity: SimpleActivity, val callback: () -> Unit) {
+class FilterContactSourcesDialog(val activity: SimpleActivity, private val callback: () -> Unit) {
     private var dialog: AlertDialog? = null
     private val view = activity.layoutInflater.inflate(R.layout.dialog_filter_contact_sources, null)
 
