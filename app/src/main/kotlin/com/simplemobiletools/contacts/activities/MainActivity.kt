@@ -51,12 +51,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         setContentView(R.layout.activity_main)
         appLaunched()
         setupTabColors()
-        storeLocalAccountType()
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
                     if (it) {
+                        storeLocalAccountData()
                         initFragments()
                     } else {
                         toast(R.string.no_contacts_permission)
@@ -215,7 +215,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    private fun storeLocalAccountType() {
+    private fun storeLocalAccountData() {
         if (config.localAccountType == "-1") {
             // some manufacturer contact account types from https://stackoverflow.com/a/44802016/1967672
             val localAccountTypes = arrayListOf("vnd.sec.contact.phone",
@@ -229,12 +229,16 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
             ContactsHelper(this).getContactSources {
                 var localAccountType = ""
-                it.map { it.type }.forEach {
-                    if (localAccountTypes.contains(it)) {
-                        localAccountType = it
+                var localAccountName = ""
+                it.forEach {
+                    if (localAccountTypes.contains(it.type)) {
+                        localAccountType = it.type
+                        localAccountName = it.name
                     }
                 }
+
                 config.localAccountType = localAccountType
+                config.localAccountName = localAccountName
             }
         }
     }

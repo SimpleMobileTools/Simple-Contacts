@@ -10,6 +10,7 @@ const val DISPLAY_CONTACT_SOURCES = "display_contact_sources"
 const val START_NAME_WITH_SURNAME = "start_name_with_surname"
 const val LAST_USED_CONTACT_SOURCE = "last_used_contact_source"
 const val LAST_USED_VIEW_PAGER_PAGE = "last_used_view_pager_page"
+const val LOCAL_ACCOUNT_NAME = "local_account_name"
 const val LOCAL_ACCOUNT_TYPE = "local_account_type"
 
 const val CONTACT_ID = "contact_id"

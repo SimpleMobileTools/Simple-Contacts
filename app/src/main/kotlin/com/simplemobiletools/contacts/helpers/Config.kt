@@ -24,7 +24,7 @@ class Config(context: Context) : BaseConfig(context) {
 
     fun showAllContacts() = displayContactSources.size == 1 && displayContactSources.first() == "-1"
 
-    var showContactThumbnails : Boolean
+    var showContactThumbnails: Boolean
         get() = prefs.getBoolean(SHOW_CONTACT_THUMBNAILS, true)
         set(showContactThumbnails) = prefs.edit().putBoolean(SHOW_CONTACT_THUMBNAILS, showContactThumbnails).apply()
 
@@ -43,6 +43,10 @@ class Config(context: Context) : BaseConfig(context) {
     var lastUsedViewPagerPage: Int
         get() = prefs.getInt(LAST_USED_VIEW_PAGER_PAGE, 0)
         set(lastUsedViewPagerPage) = prefs.edit().putInt(LAST_USED_VIEW_PAGER_PAGE, lastUsedViewPagerPage).apply()
+
+    var localAccountName: String
+        get() = prefs.getString(LOCAL_ACCOUNT_NAME, "-1")
+        set(localAccountName) = prefs.edit().putString(LOCAL_ACCOUNT_NAME, localAccountName).apply()
 
     var localAccountType: String
         get() = prefs.getString(LOCAL_ACCOUNT_TYPE, "-1")
