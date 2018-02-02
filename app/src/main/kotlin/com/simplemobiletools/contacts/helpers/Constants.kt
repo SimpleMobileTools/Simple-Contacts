@@ -29,7 +29,7 @@ const val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
 // export/import
 const val BEGIN_VCARD = "BEGIN:VCARD"
 const val END_VCARD = "END:VCARD"
-const val N = "N:"
+const val N = "N"
 const val TEL = "TEL"
 const val BDAY = "BDAY:"
 const val ANNIVERSARY = "ANNIVERSARY:"

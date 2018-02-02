@@ -82,11 +82,13 @@ class VcfImporter(val activity: SimpleActivity) {
     }
 
     private fun parseNames(names: String) {
-        val nameParts = names.split(";")
-        curSurname = nameParts[0]
-        curFirstName = nameParts[1]
+        val parts = names.split(":")
+        val isANSI = parts.first().toUpperCase().contains("QUOTED-PRINTABLE")
+        val nameParts = parts[1].split(";")
+        curSurname = if (isANSI) QuotedPrintable.decode(nameParts[0]) else nameParts[0]
+        curFirstName = if (isANSI) QuotedPrintable.decode(nameParts[1]) else nameParts[1]
         if (nameParts.size > 2) {
-            curMiddleName = nameParts[2]
+            curMiddleName = if (isANSI) QuotedPrintable.decode(nameParts[2]) else nameParts[2]
         }
     }
 

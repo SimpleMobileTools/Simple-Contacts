@@ -36,7 +36,7 @@ class VcfExporter {
                     for (contact in contacts) {
                         out.writeLn(BEGIN_VCARD)
                         out.writeLn(VERSION_2_1)
-                        out.writeLn("$N${contact.surname};${contact.firstName};${contact.middleName};;")
+                        out.writeLn("$N:${contact.surname};${contact.firstName};${contact.middleName};;")
 
                         contact.phoneNumbers.forEach {
                             out.writeLn("$TEL;${getPhoneNumberLabel(it.type)}:${it.value}")
