@@ -7,11 +7,14 @@ import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.adapters.FilterContactSourcesAdapter
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.models.ContactSource
 import kotlinx.android.synthetic.main.dialog_filter_contact_sources.view.*
+import java.util.*
 
 class FilterContactSourcesDialog(val activity: SimpleActivity, private val callback: () -> Unit) {
     private var dialog: AlertDialog? = null
     private val view = activity.layoutInflater.inflate(R.layout.dialog_filter_contact_sources, null)
+    private var contactSources = ArrayList<ContactSource>()
 
     init {
         ContactsHelper(activity).getContactSources {
@@ -19,9 +22,10 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
                 return@getContactSources
             }
 
+            it.mapTo(contactSources, { it.copy() })
             val selectedSources = activity.config.displayContactSources
             activity.runOnUiThread {
-                view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, it.map { it.name }, selectedSources)
+                view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, it, selectedSources)
 
                 dialog = AlertDialog.Builder(activity)
                         .setPositiveButton(R.string.ok, { dialogInterface, i -> confirmEventTypes() })
@@ -34,9 +38,14 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
     }
 
     private fun confirmEventTypes() {
-        val selectedItems = (view.filter_contact_sources_list.adapter as FilterContactSourcesAdapter).getSelectedItemsSet()
-        if (activity.config.displayContactSources != selectedItems) {
-            activity.config.displayContactSources = selectedItems
+        val selectedIndexes = (view.filter_contact_sources_list.adapter as FilterContactSourcesAdapter).getSelectedItemsSet()
+        val selectedContactSources = HashSet<String>()
+        selectedIndexes.forEach {
+            selectedContactSources.add(contactSources[it].name)
+        }
+
+        if (activity.config.displayContactSources != selectedContactSources) {
+            activity.config.displayContactSources = selectedContactSources
             callback()
         }
         dialog?.dismiss()
