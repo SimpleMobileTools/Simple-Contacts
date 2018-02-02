@@ -4,22 +4,26 @@ import android.support.v7.app.AlertDialog
 import android.view.ViewGroup
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.extensions.toast
-import com.simplemobiletools.commons.extensions.value
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.getPublicContactSource
 import com.simplemobiletools.contacts.extensions.showContactSourcePicker
 import com.simplemobiletools.contacts.helpers.VcfImporter
 import com.simplemobiletools.contacts.helpers.VcfImporter.ImportResult.IMPORT_FAIL
 import kotlinx.android.synthetic.main.dialog_import_contacts.view.*
 
 class ImportContactsDialog(val activity: SimpleActivity, val path: String, private val callback: (refreshView: Boolean) -> Unit) {
+    private var targetContactSource = ""
+
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_import_contacts, null) as ViewGroup).apply {
-            import_contacts_title.text = activity.config.lastUsedContactSource
+            targetContactSource = activity.config.lastUsedContactSource
+            import_contacts_title.text = activity.getPublicContactSource(targetContactSource)
             import_contacts_title.setOnClickListener {
-                activity.showContactSourcePicker(import_contacts_title.value) {
-                    import_contacts_title.text = it
+                activity.showContactSourcePicker(targetContactSource) {
+                    targetContactSource = it
+                    import_contacts_title.text = activity.getPublicContactSource(it)
                 }
             }
         }
@@ -32,7 +36,7 @@ class ImportContactsDialog(val activity: SimpleActivity, val path: String, priva
                 getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                     activity.toast(R.string.importing)
                     Thread {
-                        val result = VcfImporter(activity).importContacts(path, view.import_contacts_title.value)
+                        val result = VcfImporter(activity).importContacts(path, targetContactSource)
                         handleParseResult(result)
                         dismiss()
                     }.start()

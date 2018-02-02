@@ -54,7 +54,12 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
         val sources = it.map { it.name }
         var currentSourceIndex = -1
         sources.forEachIndexed { index, account ->
-            items.add(RadioItem(index, account))
+            var publicAccount = account
+            if (account == config.localAccountName) {
+                publicAccount = getString(com.simplemobiletools.contacts.R.string.phone_storage)
+            }
+
+            items.add(RadioItem(index, publicAccount))
             if (account == currentSource) {
                 currentSourceIndex = index
             }
@@ -67,6 +72,8 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
         }
     }
 }
+
+fun SimpleActivity.getPublicContactSource(source: String) = if (source == config.localAccountName) getString(com.simplemobiletools.contacts.R.string.phone_storage) else source
 
 fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
     val file = getTempFile()

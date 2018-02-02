@@ -226,7 +226,7 @@ class EditContactActivity : SimpleActivity() {
         contact_first_name.setText(contact!!.firstName)
         contact_middle_name.setText(contact!!.middleName)
         contact_surname.setText(contact!!.surname)
-        contact_source.text = contact!!.source
+        contact_source.text = getPublicContactSource(contact!!.source)
 
         contact_toggle_favorite.apply {
             beVisible()
@@ -302,11 +302,12 @@ class EditContactActivity : SimpleActivity() {
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), "", 0, 0, "")
-        contact_source.text = config.lastUsedContactSource
+        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), config.lastUsedContactSource, 0, 0, "")
+        contact_source.text = getPublicContactSource(contact!!.source)
         contact_source.setOnClickListener {
-            showContactSourcePicker(contact_source.value) {
-                contact_source.text = it
+            showContactSourcePicker(contact!!.source) {
+                contact!!.source = it
+                contact_source.text = getPublicContactSource(it)
             }
         }
     }
@@ -515,7 +516,7 @@ class EditContactActivity : SimpleActivity() {
             phoneNumbers = getFilledPhoneNumbers()
             emails = getFilledEmails()
             events = getFilledEvents()
-            source = contact_source.value
+            source = contact!!.source
             starred = if (isContactStarred()) 1 else 0
 
             Thread {
