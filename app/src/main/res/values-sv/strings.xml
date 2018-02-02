@@ -5,6 +5,7 @@
     <string name="inserting">Lägger till…</string>
     <string name="updating">Uppdaterar…</string>
     <string name="phone_storage">Phone storage</string>
+    <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
 
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>
