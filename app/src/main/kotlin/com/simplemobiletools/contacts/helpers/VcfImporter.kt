@@ -34,6 +34,10 @@ class VcfImporter(val activity: SimpleActivity) {
     private var currentPhotoString = StringBuilder()
     private var currentPhotoCompressionFormat = Bitmap.CompressFormat.JPEG
 
+    private var isGettingName = false
+    private var currentNameIsANSI = false
+    private var currentNameString = StringBuilder()
+
     private var contactsImported = 0
     private var contactsFailed = 0
 
@@ -54,11 +58,15 @@ class VcfImporter(val activity: SimpleActivity) {
                             isGettingPhoto = false
                         }
                         continue
+                    } else if (line.startsWith('\t') && isGettingName) {
+                        currentNameString.append(line.trimStart('\t'))
+                        isGettingName = false
+                        parseNames()
                     }
 
                     when {
                         line.toUpperCase() == BEGIN_VCARD -> resetValues()
-                        line.toUpperCase().startsWith(N) -> parseNames(line.substring(N.length))
+                        line.toUpperCase().startsWith(N) -> addNames(line.substring(N.length))
                         line.toUpperCase().startsWith(TEL) -> addPhoneNumber(line.substring(TEL.length))
                         line.toUpperCase().startsWith(EMAIL) -> addEmail(line.substring(EMAIL.length))
                         line.toUpperCase().startsWith(BDAY) -> addBirthday(line.substring(BDAY.length))
@@ -81,14 +89,23 @@ class VcfImporter(val activity: SimpleActivity) {
         }
     }
 
-    private fun parseNames(names: String) {
+    private fun addNames(names: String) {
         val parts = names.split(":")
-        val isANSI = parts.first().toUpperCase().contains("QUOTED-PRINTABLE")
-        val nameParts = parts[1].split(";")
-        curSurname = if (isANSI) QuotedPrintable.decode(nameParts[0]) else nameParts[0]
-        curFirstName = if (isANSI) QuotedPrintable.decode(nameParts[1]) else nameParts[1]
+        currentNameIsANSI = parts.first().toUpperCase().contains("QUOTED-PRINTABLE")
+        currentNameString.append(parts[1].trimEnd('='))
+        if (!isGettingName && currentNameIsANSI && names.endsWith('=')) {
+            isGettingName = true
+        } else {
+            parseNames()
+        }
+    }
+
+    private fun parseNames() {
+        val nameParts = currentNameString.split(";")
+        curSurname = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[0]) else nameParts[0]
+        curFirstName = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[1]) else nameParts[1]
         if (nameParts.size > 2) {
-            curMiddleName = if (isANSI) QuotedPrintable.decode(nameParts[2]) else nameParts[2]
+            curMiddleName = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[2]) else nameParts[2]
         }
     }
 
@@ -200,5 +217,9 @@ class VcfImporter(val activity: SimpleActivity) {
         isGettingPhoto = false
         currentPhotoString = StringBuilder()
         currentPhotoCompressionFormat = Bitmap.CompressFormat.JPEG
+
+        isGettingName = false
+        currentNameIsANSI = false
+        currentNameString = StringBuilder()
     }
 }
