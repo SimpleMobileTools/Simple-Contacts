@@ -227,9 +227,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                     "com.android.huawei.phone",
                     "Local Phone Account")
 
-            ContactsHelper(this).getContactTypes {
+            ContactsHelper(this).getContactSources {
                 var localAccountType = ""
-                it.forEach {
+                it.map { it.type }.forEach {
                     if (localAccountTypes.contains(it)) {
                         localAccountType = it
                     }

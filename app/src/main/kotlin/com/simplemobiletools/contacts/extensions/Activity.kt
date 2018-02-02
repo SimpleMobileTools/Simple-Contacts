@@ -51,7 +51,7 @@ fun SimpleActivity.tryStartCall(contact: Contact) {
 fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (newSource: String) -> Unit) {
     ContactsHelper(this).getContactSources {
         val items = ArrayList<RadioItem>()
-        val sources = it
+        val sources = it.map { it.name }
         var currentSourceIndex = -1
         sources.forEachIndexed { index, account ->
             items.add(RadioItem(index, account))

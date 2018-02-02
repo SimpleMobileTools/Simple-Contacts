@@ -21,7 +21,7 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
 
             val selectedSources = activity.config.displayContactSources
             activity.runOnUiThread {
-                view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, it, selectedSources)
+                view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, it.map { it.name }, selectedSources)
 
                 dialog = AlertDialog.Builder(activity)
                         .setPositiveButton(R.string.ok, { dialogInterface, i -> confirmEventTypes() })

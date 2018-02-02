@@ -22,10 +22,7 @@ import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.models.Contact
-import com.simplemobiletools.contacts.models.Email
-import com.simplemobiletools.contacts.models.Event
-import com.simplemobiletools.contacts.models.PhoneNumber
+import com.simplemobiletools.contacts.models.*
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -229,11 +226,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return null
     }
 
-    fun getContactSources(callback: (ArrayList<String>) -> Unit) {
-        val accounts = HashSet<String>()
+    fun getContactSources(callback: (ArrayList<ContactSource>) -> Unit) {
+        val sources = HashSet<ContactSource>()
         Thread {
             val uri = ContactsContract.RawContacts.CONTENT_URI
-            val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_NAME)
+            val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_NAME, ContactsContract.RawContacts.ACCOUNT_TYPE)
 
             var cursor: Cursor? = null
             try {
@@ -241,37 +238,16 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 if (cursor?.moveToFirst() == true) {
                     do {
                         val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: continue
-                        accounts.add(name)
-                    } while (cursor.moveToNext())
-                }
-            } finally {
-                cursor?.close()
-            }
-
-            callback(ArrayList(accounts))
-        }.start()
-    }
-
-    fun getContactTypes(callback: (ArrayList<String>) -> Unit) {
-        val accounts = HashSet<String>()
-        Thread {
-            val uri = ContactsContract.RawContacts.CONTENT_URI
-            val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_TYPE)
-
-            var cursor: Cursor? = null
-            try {
-                cursor = activity.contentResolver.query(uri, projection, null, null, null)
-                if (cursor?.moveToFirst() == true) {
-                    do {
                         val type = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: continue
-                        accounts.add(type)
+                        val contactSource = ContactSource(name, type)
+                        sources.add(contactSource)
                     } while (cursor.moveToNext())
                 }
             } finally {
                 cursor?.close()
             }
 
-            callback(ArrayList(accounts))
+            callback(ArrayList(sources))
         }.start()
     }
 

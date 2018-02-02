@@ -8,7 +8,7 @@ data class Contact(val id: Int, var firstName: String, var middleName: String, v
                    var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var events: ArrayList<Event>, var source: String,
                    var starred: Int, val contactId: Int, val thumbnailUri: String) : Comparable<Contact> {
     companion object {
-        var sorting: Int = 0
+        var sorting = 0
     }
 
     override fun compareTo(other: Contact): Int {

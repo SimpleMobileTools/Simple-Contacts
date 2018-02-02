@@ -20,7 +20,7 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, priva
 
             ContactsHelper(activity).getContactSources {
                 activity.runOnUiThread {
-                    export_contacts_list.adapter = FilterContactSourcesAdapter(activity, it, activity.config.displayContactSources)
+                    export_contacts_list.adapter = FilterContactSourcesAdapter(activity, it.map { it.name }, activity.config.displayContactSources)
                 }
             }
         }
