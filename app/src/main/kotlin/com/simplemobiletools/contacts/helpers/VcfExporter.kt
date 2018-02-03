@@ -36,7 +36,7 @@ class VcfExporter {
                     for (contact in contacts) {
                         out.writeLn(BEGIN_VCARD)
                         out.writeLn(VERSION_2_1)
-                        out.writeLn("$N:${getNames(contact)}")
+                        out.writeLn("$N${getNames(contact)}")
 
                         contact.phoneNumbers.forEach {
                             out.writeLn("$TEL;${getPhoneNumberLabel(it.type)}:${it.value}")
@@ -92,6 +92,7 @@ class VcfExporter {
     }
 
     private fun getNames(contact: Contact): String {
+        var result = ""
         var firstName = contact.firstName
         var surName = contact.surname
         var middleName = contact.middleName
@@ -102,9 +103,10 @@ class VcfExporter {
             firstName = QuotedPrintable.encode(firstName)
             surName = QuotedPrintable.encode(surName)
             middleName = QuotedPrintable.encode(middleName)
+            result += ";CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE"
         }
 
-        return "$surName;$firstName;$middleName;;"
+        return "$result:$surName;$firstName;$middleName;;"
     }
 
     private fun getPhoneNumberLabel(type: Int) = when (type) {
