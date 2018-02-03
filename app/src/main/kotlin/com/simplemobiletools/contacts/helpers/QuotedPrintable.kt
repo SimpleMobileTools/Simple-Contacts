@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.helpers
 
 import java.io.ByteArrayOutputStream
+import java.net.URLEncoder
 
 // https://alvinalexander.com/java/jwarehouse/android/core/java/com/google/android/mms/pdu/QuotedPrintable.java.shtml
 object QuotedPrintable {
@@ -18,7 +19,7 @@ object QuotedPrintable {
             if (b == ESCAPE_CHAR.toInt()) {
                 try {
                     if ('\r' == bytes[i + 1].toChar() && '\n' == bytes[i + 2].toChar()) {
-                        i += 2
+                        i += 3
                         continue
                     }
 
@@ -40,4 +41,24 @@ object QuotedPrintable {
         }
         return String(buffer.toByteArray())
     }
+
+    fun encode(value: String): String {
+        val result = StringBuilder()
+        value.forEach {
+            if (it == ' ') {
+                result.append(' ')
+            } else {
+                val urlEncoded = urlEncode(it.toString())
+                if (urlEncoded == it.toString()) {
+                    val hex = String.format("%04x", it.toInt()).trimStart('0').toUpperCase()
+                    result.append("=$hex")
+                } else {
+                    result.append(urlEncoded)
+                }
+            }
+        }
+        return result.toString()
+    }
+
+    fun urlEncode(value: String) = URLEncoder.encode(value, "UTF-8").replace("+", " ").replace('%', '=')
 }
