@@ -58,7 +58,7 @@ class AddFavoritesDialog(val activity: SimpleActivity, private val callback: () 
             val contactsHelper = ContactsHelper(activity)
             val allDisplayedContacts = ArrayList<Contact>()
             allContacts.mapTo(allDisplayedContacts, { it })
-            val selectedContacts = (view.select_contact_list.adapter as SelectContactsAdapter).getSelectedItemsSet()
+            val selectedContacts = (view?.select_contact_list?.adapter as? SelectContactsAdapter)?.getSelectedItemsSet() ?: LinkedHashSet()
             val contactIDsToAdd = selectedContacts.map { it.contactId.toString() } as ArrayList<String>
             contactsHelper.addFavorites(contactIDsToAdd)
 
