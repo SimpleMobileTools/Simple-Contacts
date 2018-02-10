@@ -9,7 +9,6 @@
 
     <string name="new_contact">새로운 연락처</string>
     <string name="edit_contact">연락처 수정</string>
-    <string name="contact_details">Contact details</string>
     <string name="select_contact">단건 연락처 선택</string>
     <string name="select_contacts">다건 연락처 선택</string>
     <string name="first_name">이름</string>
