@@ -75,6 +75,11 @@
             android:parentActivityName=".activities.MainActivity"/>
 
         <activity
+            android:name=".activities.ViewContactActivity"
+            android:label="@string/details"
+            android:parentActivityName=".activities.MainActivity"/>
+
+        <activity
             android:name=".activities.EditContactActivity"
             android:parentActivityName=".activities.MainActivity">
 

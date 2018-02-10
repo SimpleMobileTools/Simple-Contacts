@@ -13,7 +13,7 @@ import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.isLollipopPlus
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.BuildConfig
-import com.simplemobiletools.contacts.activities.EditContactActivity
+import com.simplemobiletools.contacts.activities.ViewContactActivity
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.Config
 import com.simplemobiletools.contacts.models.Contact
@@ -22,7 +22,7 @@ import java.io.File
 val Context.config: Config get() = Config.newInstance(applicationContext)
 
 fun Context.openContact(contact: Contact) {
-    Intent(applicationContext, EditContactActivity::class.java).apply {
+    Intent(applicationContext, ViewContactActivity::class.java).apply {
         putExtra(CONTACT_ID, contact.id)
         startActivity(this)
     }

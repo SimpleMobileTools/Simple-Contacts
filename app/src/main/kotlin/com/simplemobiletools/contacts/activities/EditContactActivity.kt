@@ -39,9 +39,9 @@ import com.simplemobiletools.contacts.models.Email
 import com.simplemobiletools.contacts.models.Event
 import com.simplemobiletools.contacts.models.PhoneNumber
 import kotlinx.android.synthetic.main.activity_edit_contact.*
-import kotlinx.android.synthetic.main.item_email.view.*
+import kotlinx.android.synthetic.main.item_edit_email.view.*
+import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
-import kotlinx.android.synthetic.main.item_phone_number.view.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.text.DateFormat
@@ -88,7 +88,7 @@ class EditContactActivity : SimpleActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_contact, menu)
+        menuInflater.inflate(R.menu.menu_edit_contact, menu)
         if (wasActivityInitialized) {
             menu.findItem(R.id.delete).isVisible = contact?.id != 0
             menu.findItem(R.id.share).isVisible = contact?.id != 0
@@ -244,11 +244,11 @@ class EditContactActivity : SimpleActivity() {
         contact!!.phoneNumbers.forEachIndexed { index, number ->
             var numberHolder = contact_numbers_holder.getChildAt(index)
             if (numberHolder == null) {
-                numberHolder = layoutInflater.inflate(R.layout.item_phone_number, contact_numbers_holder, false)
+                numberHolder = layoutInflater.inflate(R.layout.item_edit_phone_number, contact_numbers_holder, false)
                 contact_numbers_holder.addView(numberHolder)
             }
 
-            (numberHolder as? ViewGroup)?.apply {
+            numberHolder!!.apply {
                 contact_number.setText(number.value)
                 setupPhoneNumberTypePicker(contact_number_type, number.type)
             }
@@ -259,11 +259,11 @@ class EditContactActivity : SimpleActivity() {
         contact!!.emails.forEachIndexed { index, email ->
             var emailHolder = contact_emails_holder.getChildAt(index)
             if (emailHolder == null) {
-                emailHolder = layoutInflater.inflate(R.layout.item_email, contact_emails_holder, false)
+                emailHolder = layoutInflater.inflate(R.layout.item_edit_email, contact_emails_holder, false)
                 contact_emails_holder.addView(emailHolder)
             }
 
-            (emailHolder as? ViewGroup)?.apply {
+            emailHolder!!.apply {
                 contact_email.setText(email.value)
                 setupEmailTypePicker(contact_email_type, email.type)
             }
@@ -278,7 +278,7 @@ class EditContactActivity : SimpleActivity() {
                 contact_events_holder.addView(eventHolder)
             }
 
-            (eventHolder as? ViewGroup)?.apply {
+            (eventHolder as ViewGroup).apply {
                 val contactEvent = contact_event.apply {
                     getDateTime(event.value, this)
                     tag = event.value
@@ -609,7 +609,7 @@ class EditContactActivity : SimpleActivity() {
     }
 
     private fun addNewPhoneNumberField() {
-        val numberHolder = layoutInflater.inflate(R.layout.item_phone_number, contact_numbers_holder, false) as ViewGroup
+        val numberHolder = layoutInflater.inflate(R.layout.item_edit_phone_number, contact_numbers_holder, false) as ViewGroup
         updateTextColors(numberHolder)
         setupPhoneNumberTypePicker(numberHolder.contact_number_type)
         contact_numbers_holder.addView(numberHolder)
@@ -620,7 +620,7 @@ class EditContactActivity : SimpleActivity() {
     }
 
     private fun addNewEmailField() {
-        val emailHolder = layoutInflater.inflate(R.layout.item_email, contact_emails_holder, false) as ViewGroup
+        val emailHolder = layoutInflater.inflate(R.layout.item_edit_email, contact_emails_holder, false) as ViewGroup
         updateTextColors(emailHolder)
         setupEmailTypePicker(emailHolder.contact_email_type)
         contact_emails_holder.addView(emailHolder)
