@@ -3,7 +3,6 @@ package com.simplemobiletools.contacts.helpers
 import android.provider.ContactsContract.CommonDataKinds
 
 // shared prefs
-const val CALL_CONTACT_ON_CLICK = "call_contact_on_click"
 const val SHOW_CONTACT_THUMBNAILS = "show_contact_thumbnails"
 const val SHOW_PHONE_NUMBERS = "show_phone_numbers"
 const val DISPLAY_CONTACT_SOURCES = "display_contact_sources"

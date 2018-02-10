@@ -21,7 +21,6 @@
     <string name="remove_photo">Supprimer la photo</string>
 
     <!-- Settings -->
-    <string name="call_contact_on_click">Appuyer pour appeler le contact</string>
     <string name="start_name_with_surname">Commencer le nom par le surnom</string>
     <string name="show_phone_numbers">Afficher les numéros de téléphone sur l\'écran principal</string>
     <string name="show_contact_thumbnails">Afficher les vignettes des contacts</string>

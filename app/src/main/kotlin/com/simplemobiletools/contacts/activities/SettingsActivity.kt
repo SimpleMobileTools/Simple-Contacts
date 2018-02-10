@@ -24,7 +24,6 @@ class SettingsActivity : SimpleActivity() {
         setupShowInfoBubble()
         setupShowContactThumbnails()
         setupShowPhoneNumbers()
-        setupCallContactOnClick()
         setupStartNameWithSurname()
         updateTextColors(settings_holder)
     }
@@ -74,14 +73,6 @@ class SettingsActivity : SimpleActivity() {
         settings_show_phone_numbers_holder.setOnClickListener {
             settings_show_phone_numbers.toggle()
             config.showPhoneNumbers = settings_show_phone_numbers.isChecked
-        }
-    }
-
-    private fun setupCallContactOnClick() {
-        settings_call_contact_on_click.isChecked = config.callContact
-        settings_call_contact_on_click_holder.setOnClickListener {
-            settings_call_contact_on_click.toggle()
-            config.callContact = settings_call_contact_on_click.isChecked
         }
     }
 

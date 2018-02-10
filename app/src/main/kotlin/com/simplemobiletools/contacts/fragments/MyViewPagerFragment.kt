@@ -119,7 +119,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         if (currAdapter == null || forceListRedraw) {
             forceListRedraw = false
             ContactsAdapter(activity as SimpleActivity, contacts, activity, this is FavoritesFragment, fragment_list, fragment_fastscroller) {
-                if (config.callContact) {
+                if (false) {
                     val contact = it as Contact
                     if (contact.phoneNumbers.isNotEmpty()) {
                         (activity as SimpleActivity).tryStartCall(it)
