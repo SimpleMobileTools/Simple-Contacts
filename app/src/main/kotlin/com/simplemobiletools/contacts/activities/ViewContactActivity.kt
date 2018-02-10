@@ -24,16 +24,11 @@ class ViewContactActivity : ContactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_contact)
-        isEditActivity = false
+    }
 
-        handlePermission(PERMISSION_READ_CONTACTS) {
-            if (it) {
-                initContact()
-            } else {
-                toast(R.string.no_contacts_permission)
-                finish()
-            }
-        }
+    override fun onResume() {
+        super.onResume()
+        tryInitContact()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -49,6 +44,17 @@ class ViewContactActivity : ContactActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun tryInitContact() {
+        handlePermission(PERMISSION_READ_CONTACTS) {
+            if (it) {
+                initContact()
+            } else {
+                toast(R.string.no_contacts_permission)
+                finish()
+            }
+        }
     }
 
     private fun initContact() {

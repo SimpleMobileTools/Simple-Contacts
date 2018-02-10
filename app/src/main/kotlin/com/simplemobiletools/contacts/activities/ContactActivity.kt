@@ -32,7 +32,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 abstract class ContactActivity : SimpleActivity() {
-    var isEditActivity = false
     var contact: Contact? = null
     var currentContactPhotoPath = ""
 
