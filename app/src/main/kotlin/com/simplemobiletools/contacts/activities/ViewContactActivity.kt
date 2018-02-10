@@ -2,51 +2,29 @@ package com.simplemobiletools.contacts.activities
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.provider.ContactsContract.CommonDataKinds
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
-import com.simplemobiletools.commons.dialogs.ConfirmationDialog
-import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.getDateFormats
-import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
-import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_view_contact.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_view_email.view.*
 import kotlinx.android.synthetic.main.item_view_phone_number.view.*
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
-class ViewContactActivity : SimpleActivity() {
-    private var currentContactPhotoPath = ""
-    private var contact: Contact? = null
-
+class ViewContactActivity : ContactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_contact)
+        isEditActivity = false
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {
@@ -115,9 +93,9 @@ class ViewContactActivity : SimpleActivity() {
         contact_photo.background = ColorDrawable(config.primaryColor)
 
         if (contact!!.photoUri.isEmpty()) {
-            showPhotoPlaceholder()
+            showPhotoPlaceholder(contact_photo)
         } else {
-            updateContactPhoto(contact!!.photoUri)
+            updateContactPhoto(contact!!.photoUri, contact_photo)
         }
 
         val textColor = config.textColor
@@ -178,7 +156,7 @@ class ViewContactActivity : SimpleActivity() {
                 contact_numbers_holder.addView(numberHolder)
             }
 
-            numberHolder?.apply {
+            numberHolder!!.apply {
                 contact_number.text = number.value
                 setupPhoneNumberTypePicker(contact_number_type, number.type)
             }
@@ -197,7 +175,7 @@ class ViewContactActivity : SimpleActivity() {
                 contact_emails_holder.addView(emailHolder)
             }
 
-            emailHolder?.apply {
+            emailHolder!!.apply {
                 contact_email.text = email.value
                 setupEmailTypePicker(contact_email_type, email.type)
             }
@@ -216,7 +194,7 @@ class ViewContactActivity : SimpleActivity() {
                 contact_events_holder.addView(eventHolder)
             }
 
-            (eventHolder as? ViewGroup)?.apply {
+            (eventHolder as ViewGroup).apply {
                 contact_event.apply {
                     getDateTime(event.value, this)
                     tag = event.value
@@ -237,41 +215,6 @@ class ViewContactActivity : SimpleActivity() {
             putExtra(CONTACT_ID, contact!!.id)
             startActivity(this)
         }
-    }
-
-    private fun shareContact() {
-        shareContacts(arrayListOf(contact!!))
-    }
-
-    private fun showPhotoPlaceholder() {
-        val placeholder = resources.getColoredBitmap(R.drawable.ic_person, config.primaryColor.getContrastColor())
-        val padding = resources.getDimension(R.dimen.activity_margin).toInt()
-        contact_photo.setPadding(padding, padding, padding, padding)
-        contact_photo.setImageBitmap(placeholder)
-        currentContactPhotoPath = ""
-    }
-
-    private fun updateContactPhoto(path: String) {
-        currentContactPhotoPath = path
-        val options = RequestOptions()
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .centerCrop()
-
-        Glide.with(this)
-                .load(path)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .apply(options)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        contact_photo.setPadding(0, 0, 0, 0)
-                        return false
-                    }
-
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        showPhotoPlaceholder()
-                        return true
-                    }
-                }).into(contact_photo)
     }
 
     private fun setupTypePickers() {
@@ -309,93 +252,5 @@ class ViewContactActivity : SimpleActivity() {
         eventHolder.contact_event_type.setText(getEventTextId(type))
     }
 
-    private fun getDateTime(dateString: String, viewToUpdate: TextView? = null): DateTime {
-        val dateFormats = getDateFormats()
-        var date = DateTime()
-        for (format in dateFormats) {
-            try {
-                date = DateTime.parse(dateString, DateTimeFormat.forPattern(format))
-
-                val formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-                var localPattern = (formatter as SimpleDateFormat).toLocalizedPattern()
-
-                val hasYear = format.contains("y")
-                if (!hasYear) {
-                    localPattern = localPattern.replace("y", "").trim()
-                    date = date.withYear(DateTime().year)
-                }
-
-                val formattedString = date.toString(localPattern)
-                viewToUpdate?.text = formattedString
-                break
-            } catch (ignored: Exception) {
-            }
-        }
-        return date
-    }
-
-    private fun deleteContact() {
-        ConfirmationDialog(this) {
-            ContactsHelper(this).deleteContact(contact!!)
-            finish()
-        }
-    }
-
     private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_big else R.drawable.ic_star_off_big)
-
-    private fun trySendSMS() {
-        val numbers = contact!!.phoneNumbers
-        if (numbers.size == 1) {
-            sendSMSIntent(numbers.first().value)
-        } else if (numbers.size > 1) {
-            val items = ArrayList<RadioItem>()
-            numbers.forEachIndexed { index, phoneNumber ->
-                items.add(RadioItem(index, phoneNumber.value, phoneNumber.value))
-            }
-
-            RadioGroupDialog(this, items) {
-                sendSMSIntent(it as String)
-            }
-        }
-    }
-
-    private fun trySendEmail() {
-        val emails = contact!!.emails
-        if (emails.size == 1) {
-            sendEmailIntent(emails.first().value)
-        } else if (emails.size > 1) {
-            val items = ArrayList<RadioItem>()
-            emails.forEachIndexed { index, email ->
-                items.add(RadioItem(index, email.value, email.value))
-            }
-
-            RadioGroupDialog(this, items) {
-                sendEmailIntent(it as String)
-            }
-        }
-    }
-
-    private fun getPhoneNumberTextId(type: Int) = when (type) {
-        CommonDataKinds.Phone.TYPE_MOBILE -> R.string.mobile
-        CommonDataKinds.Phone.TYPE_HOME -> R.string.home
-        CommonDataKinds.Phone.TYPE_WORK -> R.string.work
-        CommonDataKinds.Phone.TYPE_MAIN -> R.string.main_number
-        CommonDataKinds.Phone.TYPE_FAX_WORK -> R.string.work_fax
-        CommonDataKinds.Phone.TYPE_FAX_HOME -> R.string.home_fax
-        CommonDataKinds.Phone.TYPE_PAGER -> R.string.pager
-        else -> R.string.other
-    }
-
-    private fun getEmailTextId(type: Int) = when (type) {
-        CommonDataKinds.Email.TYPE_HOME -> R.string.home
-        CommonDataKinds.Email.TYPE_WORK -> R.string.work
-        CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
-        else -> R.string.other
-    }
-
-    private fun getEventTextId(type: Int) = when (type) {
-        CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
-        CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
-        else -> R.string.other
-    }
 }

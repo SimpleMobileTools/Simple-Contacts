@@ -8,11 +8,11 @@ import android.net.Uri
 import android.os.Build
 import android.provider.ContactsContract
 import android.support.v4.content.FileProvider
-import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.isLollipopPlus
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.BuildConfig
+import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.ViewContactActivity
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.Config
