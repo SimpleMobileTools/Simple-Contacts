@@ -301,6 +301,24 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return sort
     }
 
+    private fun getRealContactId(id: Long): Int {
+        val uri = ContactsContract.Data.CONTENT_URI
+        val projection = getContactProjection()
+        val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, id.toString())
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                return cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
+            }
+        } finally {
+            cursor?.close()
+        }
+
+        return 0
+    }
+
     fun updateContact(contact: Contact, photoUpdateStatus: Int): Boolean {
         return try {
             activity.toast(R.string.updating)
@@ -515,9 +533,18 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             }
 
             // fullsize photo
+            val rawId = ContentUris.parseId(results[0].uri)
             if (contact.photoUri.isNotEmpty() && fullSizePhotoData != null) {
-                val rawContactId = ContentUris.parseId(results[0].uri)
-                addFullSizePhoto(rawContactId, fullSizePhotoData)
+                addFullSizePhoto(rawId, fullSizePhotoData)
+            }
+
+            // favorite
+            val userId = getRealContactId(rawId)
+            if (userId != 0 && contact.starred == 1) {
+                val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, userId.toString())
+                val contentValues = ContentValues(1)
+                contentValues.put(ContactsContract.Contacts.STARRED, contact.starred)
+                activity.contentResolver.update(uri, contentValues, null, null)
             }
 
             true

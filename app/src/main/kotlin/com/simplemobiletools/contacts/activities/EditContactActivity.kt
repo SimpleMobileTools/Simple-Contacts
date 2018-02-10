@@ -182,6 +182,12 @@ class EditContactActivity : ContactActivity() {
         contact_email_add_new.setOnClickListener { addNewEmailField() }
         contact_event_add_new.setOnClickListener { addNewEventField() }
 
+        contact_toggle_favorite.apply {
+            setImageDrawable(getStarDrawable(contact!!.starred == 1))
+            tag = contact!!.starred
+            applyColorFilter(textColor)
+        }
+
         updateTextColors(contact_scrollview)
         wasActivityInitialized = true
         invalidateOptionsMenu()
@@ -212,13 +218,6 @@ class EditContactActivity : ContactActivity() {
         contact_middle_name.setText(contact!!.middleName)
         contact_surname.setText(contact!!.surname)
         contact_source.text = getPublicContactSource(contact!!.source)
-
-        contact_toggle_favorite.apply {
-            beVisible()
-            setImageDrawable(getStarDrawable(contact!!.starred == 1))
-            tag = contact!!.starred
-            applyColorFilter(config.textColor)
-        }
 
         setupPhoneNumbers()
         setupEmails()

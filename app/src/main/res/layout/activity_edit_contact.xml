@@ -31,8 +31,7 @@
             android:layout_toRightOf="@+id/contact_photo"
             android:adjustViewBounds="true"
             android:padding="@dimen/tiny_margin"
-            android:src="@drawable/ic_star_off_big"
-            android:visibility="gone"/>
+            android:src="@drawable/ic_star_off_big"/>
 
         <LinearLayout
             android:id="@+id/contact_actions_holder"
