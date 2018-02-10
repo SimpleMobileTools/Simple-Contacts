@@ -55,7 +55,9 @@ fun Context.getLookupUriRawId(dataUri: Uri): Int {
     val lookupKey = getLookupKeyFromUri(dataUri)
     if (lookupKey != null && isLollipopPlus()) {
         val uri = lookupContactUri(lookupKey, this)
-        return getContactUriRawId(uri)
+        if (uri != null) {
+            getContactUriRawId(uri)
+        }
     }
     return -1
 }
@@ -94,9 +96,13 @@ fun isEncodedContactUri(uri: Uri?): Boolean {
     return lastPathSegment == "encoded"
 }
 
-fun lookupContactUri(lookup: String, context: Context): Uri {
+fun lookupContactUri(lookup: String, context: Context): Uri? {
     val lookupUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookup)
-    return ContactsContract.Contacts.lookupContact(context.contentResolver, lookupUri)
+    return try {
+        ContactsContract.Contacts.lookupContact(context.contentResolver, lookupUri)
+    } catch (e: Exception) {
+        null
+    }
 }
 
 fun Context.getCachePhoto(): File {
