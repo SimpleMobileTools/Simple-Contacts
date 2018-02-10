@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.MediaStore
 import android.view.Menu
@@ -104,9 +103,7 @@ class EditContactActivity : ContactActivity() {
     private fun initContact() {
         var contactId = intent.getIntExtra(CONTACT_ID, 0)
         val action = intent.action
-        if (contactId == 0 && (action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT ||
-                        action == Intent.ACTION_VIEW ||
-                        action == Intent.ACTION_EDIT)) {
+        if (contactId == 0 && action == Intent.ACTION_EDIT) {
             val data = intent.data
             if (data != null) {
                 val rawId = if (data.path.contains("lookup")) {
