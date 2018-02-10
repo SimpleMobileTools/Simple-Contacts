@@ -26,7 +26,6 @@
     <string name="show_contact_thumbnails">Zeige Vorschaubilder für Kontakte</string>
     <string name="on_contact_click">Beim Klicken auf den Kontakt</string>
     <string name="call_contact">Kontakt anrufen</string>
-    <string name="open_contact">Kontakt bearbeiten</string>
     <string name="view_contact">Kontaktdetails ansehen</string>
 
     <!-- Emails -->

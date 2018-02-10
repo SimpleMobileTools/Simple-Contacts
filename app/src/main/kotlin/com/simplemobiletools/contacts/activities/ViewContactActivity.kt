@@ -43,7 +43,7 @@ class ViewContactActivity : ContactActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.edit -> editContact()
+            R.id.edit -> editContact(contact!!)
             R.id.share -> shareContact()
             R.id.delete -> deleteContact()
             else -> return super.onOptionsItemSelected(item)
@@ -208,13 +208,6 @@ class ViewContactActivity : ContactActivity() {
 
         contact_event_image.beVisibleIf(events.isNotEmpty())
         contact_events_holder.beVisibleIf(events.isNotEmpty())
-    }
-
-    private fun editContact() {
-        Intent(applicationContext, EditContactActivity::class.java).apply {
-            putExtra(CONTACT_ID, contact!!.id)
-            startActivity(this)
-        }
     }
 
     private fun setupTypePickers() {

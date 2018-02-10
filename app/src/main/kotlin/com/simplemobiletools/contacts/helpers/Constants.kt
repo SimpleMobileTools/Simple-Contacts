@@ -11,6 +11,7 @@ const val LAST_USED_CONTACT_SOURCE = "last_used_contact_source"
 const val LAST_USED_VIEW_PAGER_PAGE = "last_used_view_pager_page"
 const val LOCAL_ACCOUNT_NAME = "local_account_name"
 const val LOCAL_ACCOUNT_TYPE = "local_account_type"
+const val ON_CONTACT_CLICK = "on_contact_click"
 
 const val CONTACT_ID = "contact_id"
 
@@ -51,3 +52,7 @@ const val HOME_FAX = "HOME;FAX"
 const val PAGER = "PAGER"
 const val MOBILE = "MOBILE"
 const val VOICE = "VOICE"
+
+const val ON_CLICK_CALL_CONTACT = 1
+const val ON_CLICK_VIEW_CONTACT = 2
+const val ON_CLICK_EDIT_CONTACT = 3

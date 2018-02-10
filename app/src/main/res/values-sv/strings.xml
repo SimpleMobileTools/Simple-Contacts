@@ -26,7 +26,6 @@
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
     <string name="on_contact_click">On contact click</string>
     <string name="call_contact">Call contact</string>
-    <string name="open_contact">Open contact editor</string>
     <string name="view_contact">View contact details</string>
 
     <!-- Emails -->

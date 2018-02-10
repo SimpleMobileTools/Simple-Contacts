@@ -1,11 +1,16 @@
 package com.simplemobiletools.contacts.activities
 
 import android.os.Bundle
+import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.extensions.useEnglishToggled
+import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.helpers.ON_CLICK_CALL_CONTACT
+import com.simplemobiletools.contacts.helpers.ON_CLICK_EDIT_CONTACT
+import com.simplemobiletools.contacts.helpers.ON_CLICK_VIEW_CONTACT
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 
@@ -25,6 +30,7 @@ class SettingsActivity : SimpleActivity() {
         setupShowContactThumbnails()
         setupShowPhoneNumbers()
         setupStartNameWithSurname()
+        setupOnContactClick()
         updateTextColors(settings_holder)
     }
 
@@ -83,4 +89,25 @@ class SettingsActivity : SimpleActivity() {
             config.startNameWithSurname = settings_start_with_surname.isChecked
         }
     }
+
+    private fun setupOnContactClick() {
+        settings_on_contact_click.text = getOnContactClickText()
+        settings_on_contact_click_holder.setOnClickListener {
+            val items = arrayListOf(
+                    RadioItem(ON_CLICK_CALL_CONTACT, getString(R.string.call_contact)),
+                    RadioItem(ON_CLICK_VIEW_CONTACT, getString(R.string.view_contact)),
+                    RadioItem(ON_CLICK_EDIT_CONTACT, getString(R.string.edit_contact)))
+
+            RadioGroupDialog(this@SettingsActivity, items, config.onContactClick) {
+                config.onContactClick = it as Int
+                settings_on_contact_click.text = getOnContactClickText()
+            }
+        }
+    }
+
+    private fun getOnContactClickText() = getString(when (config.onContactClick) {
+        ON_CLICK_CALL_CONTACT -> R.string.call_contact
+        ON_CLICK_VIEW_CONTACT -> R.string.view_contact
+        else -> R.string.edit_contact
+    })
 }
