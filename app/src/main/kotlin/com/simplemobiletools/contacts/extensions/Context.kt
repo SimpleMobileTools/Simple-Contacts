@@ -64,7 +64,7 @@ fun Context.getLookupUriRawId(dataUri: Uri): Int {
     if (lookupKey != null && isLollipopPlus()) {
         val uri = lookupContactUri(lookupKey, this)
         if (uri != null) {
-            getContactUriRawId(uri)
+            return getContactUriRawId(uri)
         }
     }
     return -1
