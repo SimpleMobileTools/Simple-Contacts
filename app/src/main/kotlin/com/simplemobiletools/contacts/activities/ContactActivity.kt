@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.activities
 
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.provider.ContactsContract
 import android.widget.ImageView
@@ -41,16 +42,17 @@ abstract class ContactActivity : SimpleActivity() {
         photoView.setPadding(padding, padding, padding, padding)
         photoView.setImageBitmap(placeholder)
         currentContactPhotoPath = ""
+        contact!!.photo = null
     }
 
-    fun updateContactPhoto(path: String, photoView: ImageView) {
+    fun updateContactPhoto(path: String, photoView: ImageView, bitmap: Bitmap? = null) {
         currentContactPhotoPath = path
         val options = RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .centerCrop()
 
         Glide.with(this)
-                .load(path)
+                .load(bitmap ?: path)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .apply(options)
                 .listener(object : RequestListener<Drawable> {

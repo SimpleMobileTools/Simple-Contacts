@@ -199,16 +199,26 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
             contact_tmb.beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {
-                if (contact.photoUri.isNotEmpty()) {
-                    val options = RequestOptions()
-                            .signature(ObjectKey(contact.photoUri))
-                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                            .error(contactDrawable)
-                            .centerCrop()
+                when {
+                    contact.photoUri.isNotEmpty() -> {
+                        val options = RequestOptions()
+                                .signature(ObjectKey(contact.photoUri))
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                .error(contactDrawable)
+                                .centerCrop()
 
-                    Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
-                } else {
-                    contact_tmb.setImageDrawable(contactDrawable)
+                        Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                    }
+                    contact.photo != null -> {
+                        val options = RequestOptions()
+                                .signature(ObjectKey(contact.photo!!))
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                .error(contactDrawable)
+                                .centerCrop()
+
+                        Glide.with(activity).load(contact.photo).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                    }
+                    else -> contact_tmb.setImageDrawable(contactDrawable)
                 }
             }
         }

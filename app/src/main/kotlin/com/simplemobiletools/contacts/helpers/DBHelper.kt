@@ -4,16 +4,22 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.provider.MediaStore
 import android.text.TextUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.simplemobiletools.commons.extensions.getBlobValue
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.getStringValue
+import com.simplemobiletools.contacts.extensions.getByteArray
+import com.simplemobiletools.contacts.extensions.getPhotoThumbnailSize
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Email
 import com.simplemobiletools.contacts.models.Event
 import com.simplemobiletools.contacts.models.PhoneNumber
-
 
 class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
     private val CONTACTS_TABLE_NAME = "contacts"
@@ -86,7 +92,24 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
             put(COL_EMAILS, Gson().toJson(contact.emails))
             put(COL_EVENTS, Gson().toJson(contact.events))
             put(COL_STARRED, contact.starred)
+
+            if (contact.photoUri.isNotEmpty()) {
+                put(COL_PHOTO, getPhotoByteArray(contact.photoUri))
+            } else if (contact.photo == null) {
+                putNull(COL_PHOTO)
+            }
         }
+    }
+
+    private fun getPhotoByteArray(uri: String): ByteArray {
+        val photoUri = Uri.parse(uri)
+        val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, photoUri)
+
+        val thumbnailSize = context.getPhotoThumbnailSize()
+        val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize, thumbnailSize, false)
+        val scaledSizePhotoData = scaledPhoto.getByteArray()
+        scaledPhoto.recycle()
+        return scaledSizePhotoData
     }
 
     fun toggleFavorites(ids: Array<String>, addToFavorites: Boolean) {
@@ -100,7 +123,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
     fun getContacts(selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
         val contacts = ArrayList<Contact>()
-        val projection = arrayOf(COL_ID, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_PHONE_NUMBERS, COL_EMAILS, COL_EVENTS, COL_STARRED)
+        val projection = arrayOf(COL_ID, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_PHONE_NUMBERS, COL_EMAILS, COL_EVENTS, COL_STARRED, COL_PHOTO)
         val cursor = mDb.query(CONTACTS_TABLE_NAME, projection, selection, selectionArgs, null, null, null)
         cursor.use {
             while (cursor.moveToNext()) {
@@ -121,8 +144,15 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val eventsToken = object : TypeToken<List<Event>>() {}.type
                 val events = Gson().fromJson<ArrayList<Event>>(eventsJson, eventsToken) ?: ArrayList(1)
 
+                val photoByteArray = cursor.getBlobValue(COL_PHOTO) ?: null
+                val photo = if (photoByteArray?.isNotEmpty() == true) {
+                    BitmapFactory.decodeByteArray(photoByteArray, 0, photoByteArray.size)
+                } else {
+                    null
+                }
+
                 val starred = cursor.getIntValue(COL_STARRED)
-                val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, events, SMT_PRIVATE, starred, id, "")
+                val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, events, SMT_PRIVATE, starred, id, "", photo)
                 contacts.add(contact)
             }
         }

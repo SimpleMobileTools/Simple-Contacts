@@ -128,3 +128,18 @@ fun Context.getCachePhoto(): File {
 }
 
 fun Context.getCachePhotoUri(file: File = getCachePhoto()) = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
+
+fun Context.getPhotoThumbnailSize(): Int {
+    val uri = ContactsContract.DisplayPhoto.CONTENT_MAX_DIMENSIONS_URI
+    val projection = arrayOf(ContactsContract.DisplayPhoto.THUMBNAIL_MAX_DIM)
+    var cursor: Cursor? = null
+    try {
+        cursor = contentResolver.query(uri, projection, null, null, null)
+        if (cursor?.moveToFirst() == true) {
+            return cursor.getIntValue(ContactsContract.DisplayPhoto.THUMBNAIL_MAX_DIM)
+        }
+    } finally {
+        cursor?.close()
+    }
+    return 0
+}

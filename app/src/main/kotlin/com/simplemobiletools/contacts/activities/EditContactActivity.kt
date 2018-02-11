@@ -146,10 +146,10 @@ class EditContactActivity : ContactActivity() {
 
         contact_photo.background = ColorDrawable(config.primaryColor)
 
-        if (contact!!.photoUri.isEmpty()) {
+        if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
             showPhotoPlaceholder(contact_photo)
         } else {
-            updateContactPhoto(contact!!.photoUri, contact_photo)
+            updateContactPhoto(contact!!.photoUri, contact_photo, contact!!.photo)
         }
 
         val textColor = config.textColor
@@ -283,7 +283,7 @@ class EditContactActivity : ContactActivity() {
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), config.lastUsedContactSource, 0, 0, "")
+        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), config.lastUsedContactSource, 0, 0, "", null)
         contact_source.text = getPublicContactSource(contact!!.source)
         contact_source.setOnClickListener {
             showContactSourcePicker(contact!!.source) {
@@ -577,7 +577,7 @@ class EditContactActivity : ContactActivity() {
                 RadioItem(CHOOSE_PHOTO, getString(R.string.choose_photo))
         )
 
-        if (currentContactPhotoPath.isNotEmpty()) {
+        if (currentContactPhotoPath.isNotEmpty() || contact!!.photo != null) {
             items.add(RadioItem(REMOVE_PHOTO, getString(R.string.remove_photo)))
         }
 

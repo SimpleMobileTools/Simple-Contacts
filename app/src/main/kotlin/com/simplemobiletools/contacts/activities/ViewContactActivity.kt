@@ -98,10 +98,10 @@ class ViewContactActivity : ContactActivity() {
 
         contact_photo.background = ColorDrawable(config.primaryColor)
 
-        if (contact!!.photoUri.isEmpty()) {
+        if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
             showPhotoPlaceholder(contact_photo)
         } else {
-            updateContactPhoto(contact!!.photoUri, contact_photo)
+            updateContactPhoto(contact!!.photoUri, contact_photo, contact!!.photo)
         }
 
         val textColor = config.textColor

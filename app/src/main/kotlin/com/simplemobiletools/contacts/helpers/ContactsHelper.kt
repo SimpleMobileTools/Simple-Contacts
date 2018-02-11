@@ -23,6 +23,8 @@ import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.dbHelper
+import com.simplemobiletools.contacts.extensions.getByteArray
+import com.simplemobiletools.contacts.extensions.getPhotoThumbnailSize
 import com.simplemobiletools.contacts.models.*
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -54,7 +56,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                         val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                         val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred, contactId, thumbnailUri)
+                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred, contactId, thumbnailUri, null)
                         contacts.put(id, contact)
                     } while (cursor.moveToNext())
                 }
@@ -224,7 +226,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                 val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                return Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred, contactId, thumbnailUri)
+                return Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred, contactId, thumbnailUri, null)
             }
         } finally {
             cursor?.close()
@@ -429,12 +431,12 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             val photoUri = Uri.parse(contact.photoUri)
             val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, photoUri)
 
-            val thumbnailSize = getThumbnailSize()
+            val thumbnailSize = activity.getPhotoThumbnailSize()
             val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize, thumbnailSize, false)
-            val scaledSizePhotoData = bitmapToByteArray(scaledPhoto)
+            val scaledSizePhotoData = scaledPhoto.getByteArray()
             scaledPhoto.recycle()
 
-            val fullSizePhotoData = bitmapToByteArray(bitmap)
+            val fullSizePhotoData = bitmap.getByteArray()
             bitmap.recycle()
 
             ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
@@ -522,11 +524,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     val photoUri = Uri.parse(contact.photoUri)
                     val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, photoUri)
 
-                    val thumbnailSize = getThumbnailSize()
+                    val thumbnailSize = activity.getPhotoThumbnailSize()
                     val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize, thumbnailSize, false)
-                    scaledSizePhotoData = bitmapToByteArray(scaledPhoto)
+                    scaledSizePhotoData = scaledPhoto.getByteArray()
 
-                    fullSizePhotoData = bitmapToByteArray(bitmap)
+                    fullSizePhotoData = bitmap.getByteArray()
                     scaledPhoto.recycle()
                     bitmap.recycle()
 
@@ -676,20 +678,5 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         } catch (e: Exception) {
             activity.showErrorToast(e)
         }
-    }
-
-    private fun getThumbnailSize(): Int {
-        val uri = ContactsContract.DisplayPhoto.CONTENT_MAX_DIMENSIONS_URI
-        val projection = arrayOf(ContactsContract.DisplayPhoto.THUMBNAIL_MAX_DIM)
-        var cursor: Cursor? = null
-        try {
-            cursor = activity.contentResolver.query(uri, projection, null, null, null)
-            if (cursor?.moveToFirst() == true) {
-                return cursor.getIntValue(ContactsContract.DisplayPhoto.THUMBNAIL_MAX_DIM)
-            }
-        } finally {
-            cursor?.close()
-        }
-        return 0
     }
 }
