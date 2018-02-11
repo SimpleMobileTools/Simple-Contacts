@@ -9,6 +9,7 @@ import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.getPublicContactSource
 import com.simplemobiletools.contacts.extensions.showContactSourcePicker
+import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.helpers.VcfImporter
 import com.simplemobiletools.contacts.helpers.VcfImporter.ImportResult.IMPORT_FAIL
 import kotlinx.android.synthetic.main.dialog_import_contacts.view.*
@@ -22,7 +23,7 @@ class ImportContactsDialog(val activity: SimpleActivity, val path: String, priva
             import_contacts_title.text = activity.getPublicContactSource(targetContactSource)
             import_contacts_title.setOnClickListener {
                 activity.showContactSourcePicker(targetContactSource) {
-                    targetContactSource = it
+                    targetContactSource = if (it == activity.getString(R.string.phone_storage_hidden)) SMT_PRIVATE else it
                     import_contacts_title.text = activity.getPublicContactSource(it)
                 }
             }

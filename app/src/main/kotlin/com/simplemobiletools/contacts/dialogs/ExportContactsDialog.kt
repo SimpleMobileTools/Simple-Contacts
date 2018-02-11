@@ -8,6 +8,7 @@ import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.adapters.FilterContactSourcesAdapter
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.models.ContactSource
 import kotlinx.android.synthetic.main.dialog_export_contacts.view.*
 import java.io.File
@@ -48,7 +49,7 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, priva
                             val selectedIndexes = (view.export_contacts_list.adapter as FilterContactSourcesAdapter).getSelectedItemsSet()
                             val selectedContactSources = HashSet<String>()
                             selectedIndexes.forEach {
-                                selectedContactSources.add(contactSources[it].name)
+                                selectedContactSources.add(if (contactSources[it].type == SMT_PRIVATE) SMT_PRIVATE else contactSources[it].name)
                             }
                             callback(file, selectedContactSources)
                             dismiss()
