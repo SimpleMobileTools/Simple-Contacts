@@ -14,6 +14,7 @@ import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ViewPagerAdapter
@@ -69,6 +70,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         }
         storeStateVariables()
+        checkWhatsNewDialog()
     }
 
     override fun onResume() {
@@ -383,5 +385,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     override fun refreshFavorites() {
         favorites_fragment?.initContacts()
+    }
+
+    private fun checkWhatsNewDialog() {
+        arrayListOf<Release>().apply {
+            add(Release(10, R.string.release_10))
+            checkWhatsNew(this, BuildConfig.VERSION_CODE)
+        }
     }
 }
