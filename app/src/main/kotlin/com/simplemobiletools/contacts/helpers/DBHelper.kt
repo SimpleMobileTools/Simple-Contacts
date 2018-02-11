@@ -61,6 +61,13 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         return id != -1
     }
 
+    fun update(contact: Contact): Boolean {
+        val contactValues = fillContactValues(contact)
+        val selection = "$COL_ID = ?"
+        val selectionArgs = arrayOf(contact.id.toString())
+        return mDb.update(CONTACTS_TABLE_NAME, contactValues, selection, selectionArgs) == 1
+    }
+
     private fun fillContactValues(contact: Contact): ContentValues {
         return ContentValues().apply {
             put(COL_FIRST_NAME, contact.firstName)

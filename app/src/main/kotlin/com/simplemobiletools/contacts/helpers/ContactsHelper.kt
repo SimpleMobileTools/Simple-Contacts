@@ -328,7 +328,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     }
 
     fun updateContact(contact: Contact, photoUpdateStatus: Int): Boolean {
-        return try {
+        return if (contact.source == SMT_PRIVATE) {
+            activity.dbHelper.update(contact)
+        } else try {
             activity.toast(R.string.updating)
             val operations = ArrayList<ContentProviderOperation>()
             ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI).apply {
