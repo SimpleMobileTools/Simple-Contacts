@@ -154,17 +154,13 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupPhoneNumbers() {
+        contact_numbers_holder.removeAllViews()
         val phoneNumbers = contact!!.phoneNumbers
-        phoneNumbers.forEachIndexed { index, number ->
-            var numberHolder = contact_numbers_holder.getChildAt(index)
-            if (numberHolder == null) {
-                numberHolder = layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false)
-                contact_numbers_holder.addView(numberHolder)
-            }
-
-            numberHolder!!.apply {
-                contact_number.text = number.value
-                setupPhoneNumberTypePicker(contact_number_type, number.type)
+        phoneNumbers.forEach {
+            layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
+                contact_numbers_holder.addView(this)
+                contact_number.text = it.value
+                setupPhoneNumberTypePicker(contact_number_type, it.type)
             }
         }
 
@@ -173,17 +169,13 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupEmails() {
+        contact_emails_holder.removeAllViews()
         val emails = contact!!.emails
-        emails.forEachIndexed { index, email ->
-            var emailHolder = contact_emails_holder.getChildAt(index)
-            if (emailHolder == null) {
-                emailHolder = layoutInflater.inflate(R.layout.item_view_email, contact_emails_holder, false)
-                contact_emails_holder.addView(emailHolder)
-            }
-
-            emailHolder!!.apply {
-                contact_email.text = email.value
-                setupEmailTypePicker(contact_email_type, email.type)
+        emails.forEach {
+            layoutInflater.inflate(R.layout.item_view_email, contact_emails_holder, false).apply {
+                contact_emails_holder.addView(this)
+                contact_email.text = it.value
+                setupEmailTypePicker(contact_email_type, it.type)
             }
         }
 
@@ -192,22 +184,14 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupEvents() {
+        contact_events_holder.removeAllViews()
         val events = contact!!.events
-        events.forEachIndexed { index, event ->
-            var eventHolder = contact_events_holder.getChildAt(index)
-            if (eventHolder == null) {
-                eventHolder = layoutInflater.inflate(R.layout.item_event, contact_events_holder, false)
-                contact_events_holder.addView(eventHolder)
-            }
-
-            (eventHolder as ViewGroup).apply {
-                contact_event.apply {
-                    getDateTime(event.value, this)
-                    tag = event.value
-                    alpha = 1f
-                }
-
-                setupEventTypePicker(this, event.type)
+        events.forEach {
+            layoutInflater.inflate(R.layout.item_event, contact_events_holder, false).apply {
+                contact_events_holder.addView(this)
+                contact_event.alpha = 1f
+                getDateTime(it.value, contact_event)
+                setupEventTypePicker(this as ViewGroup, it.type)
                 contact_event_remove.beGone()
             }
         }
