@@ -145,9 +145,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
         }
         contactItems.removeAll(favoritesToRemove)
 
-        val favoriteIDsToRemove = ArrayList<String>()
-        favoritesToRemove.mapTo(favoriteIDsToRemove, { it.contactId.toString() })
-        ContactsHelper(activity).removeFavorites(favoriteIDsToRemove)
+        ContactsHelper(activity).removeFavorites(favoritesToRemove)
         if (contactItems.isEmpty()) {
             listener?.refreshFavorites()
             finishActMode()
@@ -161,8 +159,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
             return
         }
 
-        val newFavorites = ArrayList<String>()
-        selectedPositions.forEach { newFavorites.add(contactItems[it].contactId.toString()) }
+        val newFavorites = ArrayList<Contact>()
+        selectedPositions.forEach { newFavorites.add(contactItems[it]) }
         ContactsHelper(activity).addFavorites(newFavorites)
         listener?.refreshFavorites()
         finishActMode()

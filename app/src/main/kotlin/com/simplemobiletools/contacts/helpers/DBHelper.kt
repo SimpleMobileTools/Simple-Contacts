@@ -89,6 +89,15 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         }
     }
 
+    fun toggleFavorites(ids: Array<String>, addToFavorites: Boolean) {
+        val contactValues = ContentValues()
+        contactValues.put(COL_STARRED, if (addToFavorites) 1 else 0)
+
+        val args = TextUtils.join(", ", ids)
+        val selection = "$COL_ID IN ($args)"
+        mDb.update(CONTACTS_TABLE_NAME, contactValues, selection, null)
+    }
+
     fun getContacts(selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
         val contacts = ArrayList<Contact>()
         val projection = arrayOf(COL_ID, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_PHONE_NUMBERS, COL_EMAILS, COL_EVENTS, COL_STARRED)

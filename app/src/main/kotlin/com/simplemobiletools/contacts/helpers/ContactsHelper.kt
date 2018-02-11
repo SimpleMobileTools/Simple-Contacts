@@ -610,24 +610,27 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return ""
     }
 
-    fun addFavorites(ids: ArrayList<String>) {
-        toggleFavorites(ids, true)
+    fun addFavorites(contacts: ArrayList<Contact>) {
+        toggleLocalFavorites(contacts, true)
+        toggleFavorites(contacts, true)
     }
 
-    fun removeFavorites(ids: ArrayList<String>) {
-        toggleFavorites(ids, false)
+    fun removeFavorites(contacts: ArrayList<Contact>) {
+        toggleLocalFavorites(contacts, false)
+        toggleFavorites(contacts, false)
     }
 
-    private fun toggleFavorites(ids: ArrayList<String>, areFavorites: Boolean) {
+    private fun toggleFavorites(contacts: ArrayList<Contact>, addToFavorites: Boolean) {
         val applyBatchSize = 100
         try {
             val operations = ArrayList<ContentProviderOperation>()
-            ids.forEach {
+            contacts.filter { it.source != SMT_PRIVATE }.map { it.contactId.toString() }.forEach {
                 val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, it)
                 ContentProviderOperation.newUpdate(uri).apply {
-                    withValue(ContactsContract.Contacts.STARRED, if (areFavorites) 1 else 0)
+                    withValue(ContactsContract.Contacts.STARRED, if (addToFavorites) 1 else 0)
                     operations.add(build())
                 }
+
                 if (operations.size % applyBatchSize == 0) {
                     activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
                     operations.clear()
@@ -637,6 +640,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         } catch (e: Exception) {
             activity.showErrorToast(e)
         }
+    }
+
+    private fun toggleLocalFavorites(contacts: ArrayList<Contact>, addToFavorites: Boolean) {
+        val localContacts = contacts.filter { it.source == SMT_PRIVATE }.map { it.id.toString() }.toTypedArray()
+        activity.dbHelper.toggleFavorites(localContacts, addToFavorites)
     }
 
     fun deleteContact(contact: Contact) {
