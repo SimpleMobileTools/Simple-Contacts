@@ -11,6 +11,7 @@ import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.writeLn
 import com.simplemobiletools.contacts.helpers.VcfExporter.ExportResult.*
 import com.simplemobiletools.contacts.models.Contact
+import java.io.BufferedWriter
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -55,24 +56,12 @@ class VcfExporter {
                         }
 
                         if (contact.thumbnailUri.isNotEmpty()) {
-                            val firstLine = "$PHOTO;$ENCODING=$BASE64;$JPEG:"
                             val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, Uri.parse(contact.thumbnailUri))
-                            val byteArrayOutputStream = ByteArrayOutputStream()
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 85, byteArrayOutputStream)
-                            bitmap.recycle()
-                            val byteArray = byteArrayOutputStream.toByteArray()
-                            val encoded = Base64.encodeToString(byteArray, Base64.NO_WRAP)
+                            addBitmap(bitmap, out)
+                        }
 
-                            val encodedFirstLineSection = encoded.substring(0, ENCODED_PHOTO_LINE_LENGTH - firstLine.length)
-                            out.writeLn(firstLine + encodedFirstLineSection)
-                            var curStartIndex = encodedFirstLineSection.length
-                            do {
-                                val part = encoded.substring(curStartIndex, Math.min(curStartIndex + ENCODED_PHOTO_LINE_LENGTH - 1, encoded.length))
-                                out.writeLn(" $part")
-                                curStartIndex += ENCODED_PHOTO_LINE_LENGTH - 1
-                            } while (curStartIndex < encoded.length)
-
-                            out.writeLn("")
+                        if (contact.photo != null) {
+                            addBitmap(contact.photo!!, out)
                         }
 
                         out.writeLn(END_VCARD)
@@ -89,6 +78,26 @@ class VcfExporter {
             contactsFailed > 0 -> EXPORT_PARTIAL
             else -> EXPORT_OK
         })
+    }
+
+    private fun addBitmap(bitmap: Bitmap, out: BufferedWriter) {
+        val firstLine = "$PHOTO;$ENCODING=$BASE64;$JPEG:"
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, byteArrayOutputStream)
+        bitmap.recycle()
+        val byteArray = byteArrayOutputStream.toByteArray()
+        val encoded = Base64.encodeToString(byteArray, Base64.NO_WRAP)
+
+        val encodedFirstLineSection = encoded.substring(0, ENCODED_PHOTO_LINE_LENGTH - firstLine.length)
+        out.writeLn(firstLine + encodedFirstLineSection)
+        var curStartIndex = encodedFirstLineSection.length
+        do {
+            val part = encoded.substring(curStartIndex, Math.min(curStartIndex + ENCODED_PHOTO_LINE_LENGTH - 1, encoded.length))
+            out.writeLn(" $part")
+            curStartIndex += ENCODED_PHOTO_LINE_LENGTH - 1
+        } while (curStartIndex < encoded.length)
+
+        out.writeLn("")
     }
 
     private fun getNames(contact: Contact): String {
