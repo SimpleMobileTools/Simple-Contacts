@@ -2,7 +2,6 @@ package com.simplemobiletools.contacts.extensions
 
 import android.content.Intent
 import android.net.Uri
-import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.getFilePublicUri
@@ -11,6 +10,7 @@ import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.BuildConfig
+import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.VcfExporter
@@ -56,7 +56,7 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
         sources.forEachIndexed { index, account ->
             var publicAccount = account
             if (account == config.localAccountName) {
-                publicAccount = getString(com.simplemobiletools.contacts.R.string.phone_storage)
+                publicAccount = getString(R.string.phone_storage)
             }
 
             items.add(RadioItem(index, publicAccount))
@@ -73,7 +73,7 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
     }
 }
 
-fun SimpleActivity.getPublicContactSource(source: String) = if (source == config.localAccountName) getString(com.simplemobiletools.contacts.R.string.phone_storage) else source
+fun SimpleActivity.getPublicContactSource(source: String) = if (source == config.localAccountName) getString(R.string.phone_storage) else source
 
 fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
     val file = getTempFile()

@@ -287,7 +287,7 @@ class EditContactActivity : ContactActivity() {
         contact_source.text = getPublicContactSource(contact!!.source)
         contact_source.setOnClickListener {
             showContactSourcePicker(contact!!.source) {
-                contact!!.source = it
+                contact!!.source = if (it == getString(R.string.phone_storage_hidden)) SMT_PRIVATE else it
                 contact_source.text = getPublicContactSource(it)
             }
         }

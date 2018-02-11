@@ -14,6 +14,7 @@ const val LOCAL_ACCOUNT_TYPE = "local_account_type"
 const val ON_CONTACT_CLICK = "on_contact_click"
 
 const val CONTACT_ID = "contact_id"
+const val SMT_PRIVATE = "smt_private"
 
 // contact photo changes
 const val PHOTO_ADDED = 1
