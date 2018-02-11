@@ -22,6 +22,7 @@ import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.models.*
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -559,9 +560,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         }
     }
 
-    private fun insertLocalContact(contact: Contact): Boolean {
-        return true
-    }
+    private fun insertLocalContact(contact: Contact) = activity.dbHelper.insert(contact)
 
     private fun addFullSizePhoto(contactId: Long, fullSizePhotoData: ByteArray) {
         val baseUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, contactId)

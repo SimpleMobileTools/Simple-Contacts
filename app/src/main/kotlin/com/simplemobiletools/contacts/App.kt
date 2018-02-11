@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts
 
 import android.app.Application
+import com.facebook.stetho.Stetho
 import com.simplemobiletools.commons.extensions.checkUseEnglish
 import com.squareup.leakcanary.LeakCanary
 
