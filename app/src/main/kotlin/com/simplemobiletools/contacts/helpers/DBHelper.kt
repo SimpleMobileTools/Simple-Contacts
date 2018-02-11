@@ -5,7 +5,13 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.simplemobiletools.commons.extensions.getIntValue
+import com.simplemobiletools.commons.extensions.getStringValue
 import com.simplemobiletools.contacts.models.Contact
+import com.simplemobiletools.contacts.models.Email
+import com.simplemobiletools.contacts.models.Event
+import com.simplemobiletools.contacts.models.PhoneNumber
 
 
 class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
@@ -60,5 +66,36 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
             put(COL_EVENTS, Gson().toJson(contact.events))
             put(COL_STARRED, contact.starred)
         }
+    }
+
+    fun getContacts(): ArrayList<Contact> {
+        val contacts = ArrayList<Contact>()
+        val projection = arrayOf(COL_ID, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_PHONE_NUMBERS, COL_EMAILS, COL_EVENTS, COL_STARRED)
+        val cursor = mDb.query(CONTACTS_TABLE_NAME, projection, null, null, null, null, null)
+        cursor.use {
+            while (cursor.moveToNext()) {
+                val id = cursor.getIntValue(COL_ID)
+                val firstName = cursor.getStringValue(COL_FIRST_NAME)
+                val middleName = cursor.getStringValue(COL_MIDDLE_NAME)
+                val surname = cursor.getStringValue(COL_SURNAME)
+
+                val phoneNumbersJson = cursor.getStringValue(COL_PHONE_NUMBERS)
+                val phoneNumbersToken = object : TypeToken<List<PhoneNumber>>() {}.type
+                val phoneNumbers = Gson().fromJson<ArrayList<PhoneNumber>>(phoneNumbersJson, phoneNumbersToken) ?: ArrayList(1)
+
+                val emailsJson = cursor.getStringValue(COL_EMAILS)
+                val emailsToken = object : TypeToken<List<Email>>() {}.type
+                val emails = Gson().fromJson<ArrayList<Email>>(emailsJson, emailsToken) ?: ArrayList(1)
+
+                val eventsJson = cursor.getStringValue(COL_EVENTS)
+                val eventsToken = object : TypeToken<List<Event>>() {}.type
+                val events = Gson().fromJson<ArrayList<Event>>(eventsJson, eventsToken) ?: ArrayList(1)
+
+                val starred = cursor.getIntValue(COL_STARRED)
+                val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, events, SMT_PRIVATE, starred, id, "")
+                contacts.add(contact)
+            }
+        }
+        return contacts
     }
 }
