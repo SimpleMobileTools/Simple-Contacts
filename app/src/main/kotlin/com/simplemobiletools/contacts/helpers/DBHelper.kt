@@ -106,7 +106,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, photoUri)
 
         val thumbnailSize = context.getPhotoThumbnailSize()
-        val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize, thumbnailSize, false)
+        val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize * 2, thumbnailSize * 2, false)
         val scaledSizePhotoData = scaledPhoto.getByteArray()
         scaledPhoto.recycle()
         return scaledSizePhotoData
