@@ -639,14 +639,23 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         }
     }
 
-    fun deleteContact(contact: Contact) = deleteContacts(arrayListOf(contact))
+    fun deleteContact(contact: Contact) {
+        if (contact.source == SMT_PRIVATE) {
+            activity.dbHelper.deleteContact(contact.id)
+        } else {
+            deleteContacts(arrayListOf(contact))
+        }
+    }
 
     fun deleteContacts(contacts: ArrayList<Contact>) {
+        val localContacts = contacts.filter { it.source == SMT_PRIVATE }.map { it.id.toString() }.toTypedArray()
+        activity.dbHelper.deleteContacts(localContacts)
+
         try {
             val contactIDs = HashSet<String>()
             val operations = ArrayList<ContentProviderOperation>()
             val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-            contacts.forEach {
+            contacts.filter { it.source != SMT_PRIVATE }.forEach {
                 ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
                     val selectionArgs = arrayOf(it.id.toString())
                     withSelection(selection, selectionArgs)

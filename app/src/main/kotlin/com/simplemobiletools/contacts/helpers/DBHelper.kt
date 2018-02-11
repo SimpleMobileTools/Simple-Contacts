@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.text.TextUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.simplemobiletools.commons.extensions.getIntValue
@@ -66,6 +67,14 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         val selection = "$COL_ID = ?"
         val selectionArgs = arrayOf(contact.id.toString())
         return mDb.update(CONTACTS_TABLE_NAME, contactValues, selection, selectionArgs) == 1
+    }
+
+    fun deleteContact(id: Int) = deleteContacts(arrayOf(id.toString()))
+
+    fun deleteContacts(ids: Array<String>) {
+        val args = TextUtils.join(", ", ids)
+        val selection = "$CONTACTS_TABLE_NAME.$COL_ID IN ($args)"
+        mDb.delete(CONTACTS_TABLE_NAME, selection, null)
     }
 
     private fun fillContactValues(contact: Contact): ContentValues {
