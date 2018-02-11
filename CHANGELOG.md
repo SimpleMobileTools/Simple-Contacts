@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 3.1.4 *(2018-02-03)*
+----------------------------
+
+ * Add a unified "Phone storage" label to local phone storage
+ * Properly handle special characters at contact ex/importing
+
 Version 3.1.3 *(2018-01-29)*
 ----------------------------
 

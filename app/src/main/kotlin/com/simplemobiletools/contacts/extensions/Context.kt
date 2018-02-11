@@ -8,12 +8,13 @@ import android.net.Uri
 import android.os.Build
 import android.provider.ContactsContract
 import android.support.v4.content.FileProvider
-import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.isLollipopPlus
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.BuildConfig
+import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.EditContactActivity
+import com.simplemobiletools.contacts.activities.ViewContactActivity
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.Config
 import com.simplemobiletools.contacts.models.Contact
@@ -21,7 +22,14 @@ import java.io.File
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
 
-fun Context.openContact(contact: Contact) {
+fun Context.viewContact(contact: Contact) {
+    Intent(applicationContext, ViewContactActivity::class.java).apply {
+        putExtra(CONTACT_ID, contact.id)
+        startActivity(this)
+    }
+}
+
+fun Context.editContact(contact: Contact) {
     Intent(applicationContext, EditContactActivity::class.java).apply {
         putExtra(CONTACT_ID, contact.id)
         startActivity(this)
@@ -55,7 +63,9 @@ fun Context.getLookupUriRawId(dataUri: Uri): Int {
     val lookupKey = getLookupKeyFromUri(dataUri)
     if (lookupKey != null && isLollipopPlus()) {
         val uri = lookupContactUri(lookupKey, this)
-        return getContactUriRawId(uri)
+        if (uri != null) {
+            return getContactUriRawId(uri)
+        }
     }
     return -1
 }
@@ -94,9 +104,13 @@ fun isEncodedContactUri(uri: Uri?): Boolean {
     return lastPathSegment == "encoded"
 }
 
-fun lookupContactUri(lookup: String, context: Context): Uri {
+fun lookupContactUri(lookup: String, context: Context): Uri? {
     val lookupUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookup)
-    return ContactsContract.Contacts.lookupContact(context.contentResolver, lookupUri)
+    return try {
+        ContactsContract.Contacts.lookupContact(context.contentResolver, lookupUri)
+    } catch (e: Exception) {
+        null
+    }
 }
 
 fun Context.getCachePhoto(): File {

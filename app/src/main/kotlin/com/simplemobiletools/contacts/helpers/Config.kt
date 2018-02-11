@@ -14,17 +14,13 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getInt(SORTING, SORT_BY_FIRST_NAME)
         set(sorting) = prefs.edit().putInt(SORTING, sorting).apply()
 
-    var callContact: Boolean
-        get() = prefs.getBoolean(CALL_CONTACT_ON_CLICK, false)
-        set(callContact) = prefs.edit().putBoolean(CALL_CONTACT_ON_CLICK, callContact).apply()
-
     var displayContactSources: Set<String>
         get() = prefs.getStringSet(DISPLAY_CONTACT_SOURCES, hashSetOf("-1"))
         set(displayContactSources) = prefs.edit().remove(DISPLAY_CONTACT_SOURCES).putStringSet(DISPLAY_CONTACT_SOURCES, displayContactSources).apply()
 
     fun showAllContacts() = displayContactSources.size == 1 && displayContactSources.first() == "-1"
 
-    var showContactThumbnails : Boolean
+    var showContactThumbnails: Boolean
         get() = prefs.getBoolean(SHOW_CONTACT_THUMBNAILS, true)
         set(showContactThumbnails) = prefs.edit().putBoolean(SHOW_CONTACT_THUMBNAILS, showContactThumbnails).apply()
 
@@ -43,4 +39,16 @@ class Config(context: Context) : BaseConfig(context) {
     var lastUsedViewPagerPage: Int
         get() = prefs.getInt(LAST_USED_VIEW_PAGER_PAGE, 0)
         set(lastUsedViewPagerPage) = prefs.edit().putInt(LAST_USED_VIEW_PAGER_PAGE, lastUsedViewPagerPage).apply()
+
+    var localAccountName: String
+        get() = prefs.getString(LOCAL_ACCOUNT_NAME, "-1")
+        set(localAccountName) = prefs.edit().putString(LOCAL_ACCOUNT_NAME, localAccountName).apply()
+
+    var localAccountType: String
+        get() = prefs.getString(LOCAL_ACCOUNT_TYPE, "-1")
+        set(localAccountType) = prefs.edit().putString(LOCAL_ACCOUNT_TYPE, localAccountType).apply()
+
+    var onContactClick: Int
+        get() = prefs.getInt(ON_CONTACT_CLICK, ON_CLICK_VIEW_CONTACT)
+        set(onContactClick) = prefs.edit().putInt(ON_CONTACT_CLICK, onContactClick).apply()
 }

@@ -19,7 +19,7 @@ import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.openContact
+import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.shareContacts
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
@@ -51,7 +51,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
 
     override fun prepareActionMode(menu: Menu) {
         menu.apply {
-            findItem(R.id.cab_edit).isVisible = activity.config.callContact && isOneItemSelected()
+            findItem(R.id.cab_edit).isVisible = isOneItemSelected()
             findItem(R.id.cab_remove).isVisible = isFavoritesFragment
             findItem(R.id.cab_select_all).isVisible = isFavoritesFragment
             findItem(R.id.cab_add_to_favorites).isVisible = !isFavoritesFragment
@@ -104,8 +104,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     }
 
     private fun editContact() {
-        activity.openContact(contactItems[selectedPositions.first()])
-        finishActMode()
+        activity.editContact(contactItems[selectedPositions.first()])
     }
 
     private fun askConfirmDelete() {

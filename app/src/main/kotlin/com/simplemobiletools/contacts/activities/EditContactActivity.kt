@@ -4,10 +4,8 @@ import android.app.DatePickerDialog
 import android.content.ClipData
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.MediaStore
 import android.view.Menu
@@ -16,20 +14,10 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
-import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
-import com.simplemobiletools.commons.helpers.getDateFormats
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.*
@@ -39,16 +27,14 @@ import com.simplemobiletools.contacts.models.Email
 import com.simplemobiletools.contacts.models.Event
 import com.simplemobiletools.contacts.models.PhoneNumber
 import kotlinx.android.synthetic.main.activity_edit_contact.*
-import kotlinx.android.synthetic.main.item_email.view.*
+import kotlinx.android.synthetic.main.item_edit_email.view.*
+import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
-import kotlinx.android.synthetic.main.item_phone_number.view.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
-class EditContactActivity : SimpleActivity() {
+class EditContactActivity : ContactActivity() {
     private val INTENT_TAKE_PHOTO = 1
     private val INTENT_CHOOSE_PHOTO = 2
     private val INTENT_CROP_PHOTO = 3
@@ -60,9 +46,7 @@ class EditContactActivity : SimpleActivity() {
     private val KEY_PHONE = "phone"
 
     private var wasActivityInitialized = false
-    private var currentContactPhotoPath = ""
     private var lastPhotoIntentUri: Uri? = null
-    private var contact: Contact? = null
     private var isSaving = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +72,7 @@ class EditContactActivity : SimpleActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_contact, menu)
+        menuInflater.inflate(R.menu.menu_edit_contact, menu)
         if (wasActivityInitialized) {
             menu.findItem(R.id.delete).isVisible = contact?.id != 0
             menu.findItem(R.id.share).isVisible = contact?.id != 0
@@ -111,7 +95,7 @@ class EditContactActivity : SimpleActivity() {
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri!!)
-                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString())
+                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString(), contact_photo)
             }
         }
     }
@@ -119,9 +103,7 @@ class EditContactActivity : SimpleActivity() {
     private fun initContact() {
         var contactId = intent.getIntExtra(CONTACT_ID, 0)
         val action = intent.action
-        if (contactId == 0 && (action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT ||
-                        action == Intent.ACTION_VIEW ||
-                        action == Intent.ACTION_EDIT)) {
+        if (contactId == 0 && action == Intent.ACTION_EDIT) {
             val data = intent.data
             if (data != null) {
                 val rawId = if (data.path.contains("lookup")) {
@@ -165,9 +147,9 @@ class EditContactActivity : SimpleActivity() {
         contact_photo.background = ColorDrawable(config.primaryColor)
 
         if (contact!!.photoUri.isEmpty()) {
-            showPhotoPlaceholder()
+            showPhotoPlaceholder(contact_photo)
         } else {
-            updateContactPhoto(contact!!.photoUri)
+            updateContactPhoto(contact!!.photoUri, contact_photo)
         }
 
         val textColor = config.textColor
@@ -196,6 +178,12 @@ class EditContactActivity : SimpleActivity() {
         contact_number_add_new.setOnClickListener { addNewPhoneNumberField() }
         contact_email_add_new.setOnClickListener { addNewEmailField() }
         contact_event_add_new.setOnClickListener { addNewEventField() }
+
+        contact_toggle_favorite.apply {
+            setImageDrawable(getStarDrawable(contact!!.starred == 1))
+            tag = contact!!.starred
+            applyColorFilter(textColor)
+        }
 
         updateTextColors(contact_scrollview)
         wasActivityInitialized = true
@@ -226,14 +214,7 @@ class EditContactActivity : SimpleActivity() {
         contact_first_name.setText(contact!!.firstName)
         contact_middle_name.setText(contact!!.middleName)
         contact_surname.setText(contact!!.surname)
-        contact_source.text = contact!!.source
-
-        contact_toggle_favorite.apply {
-            beVisible()
-            setImageDrawable(getStarDrawable(contact!!.starred == 1))
-            tag = contact!!.starred
-            applyColorFilter(config.textColor)
-        }
+        contact_source.text = getPublicContactSource(contact!!.source)
 
         setupPhoneNumbers()
         setupEmails()
@@ -244,11 +225,11 @@ class EditContactActivity : SimpleActivity() {
         contact!!.phoneNumbers.forEachIndexed { index, number ->
             var numberHolder = contact_numbers_holder.getChildAt(index)
             if (numberHolder == null) {
-                numberHolder = layoutInflater.inflate(R.layout.item_phone_number, contact_numbers_holder, false)
+                numberHolder = layoutInflater.inflate(R.layout.item_edit_phone_number, contact_numbers_holder, false)
                 contact_numbers_holder.addView(numberHolder)
             }
 
-            (numberHolder as? ViewGroup)?.apply {
+            numberHolder!!.apply {
                 contact_number.setText(number.value)
                 setupPhoneNumberTypePicker(contact_number_type, number.type)
             }
@@ -259,11 +240,11 @@ class EditContactActivity : SimpleActivity() {
         contact!!.emails.forEachIndexed { index, email ->
             var emailHolder = contact_emails_holder.getChildAt(index)
             if (emailHolder == null) {
-                emailHolder = layoutInflater.inflate(R.layout.item_email, contact_emails_holder, false)
+                emailHolder = layoutInflater.inflate(R.layout.item_edit_email, contact_emails_holder, false)
                 contact_emails_holder.addView(emailHolder)
             }
 
-            (emailHolder as? ViewGroup)?.apply {
+            emailHolder!!.apply {
                 contact_email.setText(email.value)
                 setupEmailTypePicker(contact_email_type, email.type)
             }
@@ -278,7 +259,7 @@ class EditContactActivity : SimpleActivity() {
                 contact_events_holder.addView(eventHolder)
             }
 
-            (eventHolder as? ViewGroup)?.apply {
+            (eventHolder as ViewGroup).apply {
                 val contactEvent = contact_event.apply {
                     getDateTime(event.value, this)
                     tag = event.value
@@ -302,48 +283,14 @@ class EditContactActivity : SimpleActivity() {
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), "", 0, 0, "")
-        contact_source.text = config.lastUsedContactSource
+        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), config.lastUsedContactSource, 0, 0, "")
+        contact_source.text = getPublicContactSource(contact!!.source)
         contact_source.setOnClickListener {
-            showContactSourcePicker(contact_source.value) {
-                contact_source.text = it
+            showContactSourcePicker(contact!!.source) {
+                contact!!.source = if (it == getString(R.string.phone_storage_hidden)) SMT_PRIVATE else it
+                contact_source.text = getPublicContactSource(it)
             }
         }
-    }
-
-    private fun shareContact() {
-        shareContacts(arrayListOf(contact!!))
-    }
-
-    private fun showPhotoPlaceholder() {
-        val placeholder = resources.getColoredBitmap(R.drawable.ic_person, config.primaryColor.getContrastColor())
-        val padding = resources.getDimension(R.dimen.activity_margin).toInt()
-        contact_photo.setPadding(padding, padding, padding, padding)
-        contact_photo.setImageBitmap(placeholder)
-        currentContactPhotoPath = ""
-    }
-
-    private fun updateContactPhoto(path: String) {
-        currentContactPhotoPath = path
-        val options = RequestOptions()
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .centerCrop()
-
-        Glide.with(this)
-                .load(path)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .apply(options)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        contact_photo.setPadding(0, 0, 0, 0)
-                        return false
-                    }
-
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        showPhotoPlaceholder()
-                        return true
-                    }
-                }).into(contact_photo)
     }
 
     private fun setupTypePickers() {
@@ -430,31 +377,6 @@ class EditContactActivity : SimpleActivity() {
         removeContactEventButton.beGone()
     }
 
-    private fun getDateTime(dateString: String, viewToUpdate: TextView? = null): DateTime {
-        val dateFormats = getDateFormats()
-        var date = DateTime()
-        for (format in dateFormats) {
-            try {
-                date = DateTime.parse(dateString, DateTimeFormat.forPattern(format))
-
-                val formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-                var localPattern = (formatter as SimpleDateFormat).toLocalizedPattern()
-
-                val hasYear = format.contains("y")
-                if (!hasYear) {
-                    localPattern = localPattern.replace("y", "").trim()
-                    date = date.withYear(DateTime().year)
-                }
-
-                val formattedString = date.toString(localPattern)
-                viewToUpdate?.text = formattedString
-                break
-            } catch (ignored: Exception) {
-            }
-        }
-        return date
-    }
-
     private fun showNumberTypePicker(numberTypeField: TextView) {
         val items = arrayListOf(
                 RadioItem(CommonDataKinds.Phone.TYPE_MOBILE, getString(R.string.mobile)),
@@ -515,7 +437,7 @@ class EditContactActivity : SimpleActivity() {
             phoneNumbers = getFilledPhoneNumbers()
             emails = getFilledEmails()
             events = getFilledEvents()
-            source = contact_source.value
+            source = contact!!.source
             starred = if (isContactStarred()) 1 else 0
 
             Thread {
@@ -608,7 +530,7 @@ class EditContactActivity : SimpleActivity() {
     }
 
     private fun addNewPhoneNumberField() {
-        val numberHolder = layoutInflater.inflate(R.layout.item_phone_number, contact_numbers_holder, false) as ViewGroup
+        val numberHolder = layoutInflater.inflate(R.layout.item_edit_phone_number, contact_numbers_holder, false) as ViewGroup
         updateTextColors(numberHolder)
         setupPhoneNumberTypePicker(numberHolder.contact_number_type)
         contact_numbers_holder.addView(numberHolder)
@@ -619,7 +541,7 @@ class EditContactActivity : SimpleActivity() {
     }
 
     private fun addNewEmailField() {
-        val emailHolder = layoutInflater.inflate(R.layout.item_email, contact_emails_holder, false) as ViewGroup
+        val emailHolder = layoutInflater.inflate(R.layout.item_edit_email, contact_emails_holder, false) as ViewGroup
         updateTextColors(emailHolder)
         setupEmailTypePicker(emailHolder.contact_email_type)
         contact_emails_holder.addView(emailHolder)
@@ -634,13 +556,6 @@ class EditContactActivity : SimpleActivity() {
         updateTextColors(eventHolder)
         setupEventTypePicker(eventHolder)
         contact_events_holder.addView(eventHolder)
-    }
-
-    private fun deleteContact() {
-        ConfirmationDialog(this) {
-            ContactsHelper(this).deleteContact(contact!!)
-            finish()
-        }
     }
 
     private fun toggleFavorite() {
@@ -670,39 +585,7 @@ class EditContactActivity : SimpleActivity() {
             when (it as Int) {
                 TAKE_PHOTO -> startTakePhotoIntent()
                 CHOOSE_PHOTO -> startChoosePhotoIntent()
-                else -> showPhotoPlaceholder()
-            }
-        }
-    }
-
-    private fun trySendSMS() {
-        val numbers = contact!!.phoneNumbers
-        if (numbers.size == 1) {
-            sendSMSIntent(numbers.first().value)
-        } else if (numbers.size > 1) {
-            val items = ArrayList<RadioItem>()
-            numbers.forEachIndexed { index, phoneNumber ->
-                items.add(RadioItem(index, phoneNumber.value, phoneNumber.value))
-            }
-
-            RadioGroupDialog(this, items) {
-                sendSMSIntent(it as String)
-            }
-        }
-    }
-
-    private fun trySendEmail() {
-        val emails = contact!!.emails
-        if (emails.size == 1) {
-            sendEmailIntent(emails.first().value)
-        } else if (emails.size > 1) {
-            val items = ArrayList<RadioItem>()
-            emails.forEachIndexed { index, email ->
-                items.add(RadioItem(index, email.value, email.value))
-            }
-
-            RadioGroupDialog(this, items) {
-                sendEmailIntent(it as String)
+                else -> showPhotoPlaceholder(contact_photo)
             }
         }
     }
@@ -736,17 +619,6 @@ class EditContactActivity : SimpleActivity() {
         }
     }
 
-    private fun getPhoneNumberTextId(type: Int) = when (type) {
-        CommonDataKinds.Phone.TYPE_MOBILE -> R.string.mobile
-        CommonDataKinds.Phone.TYPE_HOME -> R.string.home
-        CommonDataKinds.Phone.TYPE_WORK -> R.string.work
-        CommonDataKinds.Phone.TYPE_MAIN -> R.string.main_number
-        CommonDataKinds.Phone.TYPE_FAX_WORK -> R.string.work_fax
-        CommonDataKinds.Phone.TYPE_FAX_HOME -> R.string.home_fax
-        CommonDataKinds.Phone.TYPE_PAGER -> R.string.pager
-        else -> R.string.other
-    }
-
     private fun getPhoneNumberTypeId(value: String) = when (value) {
         getString(R.string.mobile) -> CommonDataKinds.Phone.TYPE_MOBILE
         getString(R.string.home) -> CommonDataKinds.Phone.TYPE_HOME
@@ -758,24 +630,11 @@ class EditContactActivity : SimpleActivity() {
         else -> CommonDataKinds.Phone.TYPE_OTHER
     }
 
-    private fun getEmailTextId(type: Int) = when (type) {
-        CommonDataKinds.Email.TYPE_HOME -> R.string.home
-        CommonDataKinds.Email.TYPE_WORK -> R.string.work
-        CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
-        else -> R.string.other
-    }
-
     private fun getEmailTypeId(value: String) = when (value) {
         getString(R.string.home) -> CommonDataKinds.Email.TYPE_HOME
         getString(R.string.work) -> CommonDataKinds.Email.TYPE_WORK
         getString(R.string.mobile) -> CommonDataKinds.Email.TYPE_MOBILE
         else -> CommonDataKinds.Email.TYPE_OTHER
-    }
-
-    private fun getEventTextId(type: Int) = when (type) {
-        CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
-        CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
-        else -> R.string.other
     }
 
     private fun getEventTypeId(value: String) = when (value) {

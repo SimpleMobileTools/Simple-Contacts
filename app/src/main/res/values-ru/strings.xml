@@ -5,6 +5,7 @@
     <string name="inserting">Добавление…</string>
     <string name="updating">Обновление…</string>
     <string name="phone_storage">Память устройства</string>
+    <string name="phone_storage_hidden">Память устройства (не видна другим приложениям)</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
@@ -20,13 +21,11 @@
     <string name="remove_photo">Удалить фото</string>
 
     <!-- Settings -->
-    <string name="call_contact_on_click">Вызывать контакт при нажатии</string>
     <string name="start_name_with_surname">Показывать сначала фамилию</string>
     <string name="show_phone_numbers">Показывать номера телефонов на главном экране</string>
     <string name="show_contact_thumbnails">Показывать фото контакта</string>
     <string name="on_contact_click">При нажатии на контакт</string>
     <string name="call_contact">Позвонить контакту</string>
-    <string name="open_contact">Открыть редактор контактов</string>
     <string name="view_contact">Просмотреть подробности о контакте</string>
 
     <!-- Emails -->

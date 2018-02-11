@@ -13,10 +13,10 @@ import com.simplemobiletools.contacts.activities.MainActivity
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.openContact
+import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.tryStartCall
-import com.simplemobiletools.contacts.helpers.Config
-import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.extensions.viewContact
+import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.fragment_layout.view.*
 
@@ -119,15 +119,17 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         if (currAdapter == null || forceListRedraw) {
             forceListRedraw = false
             ContactsAdapter(activity as SimpleActivity, contacts, activity, this is FavoritesFragment, fragment_list, fragment_fastscroller) {
-                if (config.callContact) {
-                    val contact = it as Contact
-                    if (contact.phoneNumbers.isNotEmpty()) {
-                        (activity as SimpleActivity).tryStartCall(it)
-                    } else {
-                        activity!!.toast(R.string.no_phone_number_found)
+                when (config.onContactClick) {
+                    ON_CLICK_CALL_CONTACT -> {
+                        val contact = it as Contact
+                        if (contact.phoneNumbers.isNotEmpty()) {
+                            (activity as SimpleActivity).tryStartCall(it)
+                        } else {
+                            activity!!.toast(R.string.no_phone_number_found)
+                        }
                     }
-                } else {
-                    context!!.openContact(it as Contact)
+                    ON_CLICK_VIEW_CONTACT -> context!!.viewContact(it as Contact)
+                    ON_CLICK_EDIT_CONTACT -> context!!.editContact(it as Contact)
                 }
             }.apply {
                 setupDragListener(true)
@@ -166,7 +168,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun onSearchQueryChanged(text: String) {
-        (fragment_list.adapter as ContactsAdapter).apply {
+        (fragment_list.adapter as? ContactsAdapter)?.apply {
             val filtered = contactsIgnoringSearch.filter {
                 it.getFullName(startNameWithSurname).contains(text, true) ||
                         it.phoneNumbers.any { it.value.contains(text, true) } ||

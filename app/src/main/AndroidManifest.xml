@@ -75,6 +75,40 @@
             android:parentActivityName=".activities.MainActivity"/>
 
         <activity
+            android:name=".activities.ViewContactActivity"
+            android:label="@string/details"
+            android:parentActivityName=".activities.MainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:mimeType="vnd.android.cursor.dir/person"/>
+                <data android:mimeType="vnd.android.cursor.dir/contact"/>
+                <data android:mimeType="vnd.android.cursor.item/group"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:mimeType="vnd.android.cursor.item/person"/>
+                <data android:mimeType="vnd.android.cursor.item/contact"/>
+                <data android:mimeType="vnd.android.cursor.item/raw_contact"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="com.android.contacts.action.QUICK_CONTACT"/>
+                <action android:name="android.provider.action.QUICK_CONTACT"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:mimeType="vnd.android.cursor.item/contact"/>
+                <data android:mimeType="vnd.android.cursor.item/person"/>
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".activities.EditContactActivity"
             android:parentActivityName=".activities.MainActivity">
 
@@ -112,24 +146,6 @@
             </intent-filter>
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="vnd.android.cursor.dir/person"/>
-                <data android:mimeType="vnd.android.cursor.dir/contact"/>
-                <data android:mimeType="vnd.android.cursor.item/group"/>
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="vnd.android.cursor.item/person"/>
-                <data android:mimeType="vnd.android.cursor.item/contact"/>
-                <data android:mimeType="vnd.android.cursor.item/raw_contact"/>
-            </intent-filter>
-
-            <intent-filter>
                 <action android:name="android.intent.action.EDIT"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:mimeType="vnd.android.cursor.item/group"/>
@@ -138,16 +154,6 @@
                 <action android:name="android.intent.action.INSERT"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:mimeType="vnd.android.cursor.dir/group"/>
-            </intent-filter>
-
-            <intent-filter android:label="@string/edit_contact">
-                <action android:name="com.android.contacts.action.QUICK_CONTACT"/>
-                <action android:name="android.provider.action.QUICK_CONTACT"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="vnd.android.cursor.item/contact"/>
-                <data android:mimeType="vnd.android.cursor.item/person"/>
             </intent-filter>
         </activity>
 

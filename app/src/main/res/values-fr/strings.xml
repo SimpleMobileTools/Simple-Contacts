@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">Simple Contacts</string>
+    <string name="app_launcher_name">Contacts</string>
+    <string name="address">Adresse</string>
+    <string name="inserting">Ajout…</string>
+    <string name="updating">Mise à jour…</string>
+    <string name="phone_storage">Stockage du téléphone</string>
+    <string name="phone_storage_hidden">Stockage du téléphone (non visible par d\'autres applis)</string>
+
+    <string name="new_contact">Nouveau contact</string>
+    <string name="edit_contact">Modifier contact</string>
+    <string name="select_contact">Sélectionner un contact</string>
+    <string name="select_contacts">Sélectionner des contacts</string>
+    <string name="first_name">Prénom</string>
+    <string name="middle_name">Nom</string>
+    <string name="surname">Surnom</string>
+
+    <!-- Photo -->
+    <string name="take_photo">Prendre une photo</string>
+    <string name="choose_photo">Choisir une photo</string>
+    <string name="remove_photo">Supprimer la photo</string>
+
+    <!-- Settings -->
+    <string name="start_name_with_surname">Commencer le nom par le surnom</string>
+    <string name="show_phone_numbers">Afficher les numéros de téléphone sur l\'écran principal</string>
+    <string name="show_contact_thumbnails">Afficher les vignettes des contacts</string>
+    <string name="on_contact_click">Sur appui du contact</string>
+    <string name="call_contact">Appeler le contact</string>
+    <string name="view_contact">Voir les détails du contact</string>
+
+    <!-- Emails -->
+    <string name="email">E-mail</string>
+    <string name="home">Maison</string>
+    <string name="work">Travail</string>
+    <string name="other">Autre</string>
+
+    <!-- Phone numbers -->
+    <string name="number">Numéro</string>
+    <string name="mobile">Mobile</string>
+    <string name="main_number">Principal</string>
+    <string name="work_fax">Fax travail</string>
+    <string name="home_fax">Fax maison</string>
+    <string name="pager">Bipeur</string>
+    <string name="no_phone_number_found">Aucun numéro de téléphone n\'a été trouvé</string>
+
+    <!-- Events -->
+    <string name="birthday">Naissance</string>
+    <string name="anniversary">Anniversaire</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">Il semble que vous n\'ayez pas encore ajouté de contact favori.</string>
+    <string name="add_favorites">Ajouter des favoris</string>
+    <string name="add_to_favorites">Ajouter aux favoris</string>
+    <string name="remove_from_favorites">Retirer des favoris</string>
+
+    <!-- Search -->
+    <string name="search_contacts">Rechercher des contacts</string>
+    <string name="search_favorites">Rechercher des favoris</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">Importer des contacts</string>
+    <string name="export_contacts">Exporter des contacts</string>
+    <string name="import_contacts_from_vcf">Importer des contacts depuis un fichier .vcf</string>
+    <string name="export_contacts_to_vcf">Exporter des contacts vers un fichier .vcf</string>
+    <string name="target_contact_source">Source du contact cible</string>
+    <string name="include_contact_sources">Inclure les sources du contact</string>
+    <string name="filename_without_vcf">Nom du fichier (sans .vcf)</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Une appli de contacts pour gérer vos contacts sans pubs.</string>
+    <string name="app_long_description">
+        Une appli simple pour créer et gérer vos contacts depuis n\'importe quelle source. Les contacts peuvent être stockés sur votre appareil mais aussi synchronisés via Google ou d\'autres comptes. Vous pouvez afficher vos contacts favoris dans une liste séparée.
+
+        Vous pouvez l\'utiliser pour gérer les e-mail et événements de vos contacts. Elle permet de trier/filter via de multiples paramètres, et même afficher le surnom en premier.
+
+        Aucune publicité ni de permission inutile. Elle est entièrement open source et vous permet de personnaliser les couleurs.
+
+        Cette application fait parti d\'un groupe d\'applications. Vous pouvez trouver le reste des applis sur http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>

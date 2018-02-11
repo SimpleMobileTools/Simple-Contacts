@@ -5,6 +5,7 @@
     <string name="inserting">Vytvára sa…</string>
     <string name="updating">Upravuje sa…</string>
     <string name="phone_storage">Úložisko mobilu</string>
+    <string name="phone_storage_hidden">Úložisko mobilu (neviditeľné pre ostatné apky)</string>
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
@@ -20,13 +21,11 @@
     <string name="remove_photo">Odstrániť foto</string>
 
     <!-- Settings -->
-    <string name="call_contact_on_click">Zavolať kontakt po kliknutí</string>
     <string name="start_name_with_surname">Začať meno priezviskom</string>
     <string name="show_phone_numbers">Zobraziť telefónne čísla na hlavnej obrazovke</string>
     <string name="show_contact_thumbnails">Zobraziť obrázky kontaktov</string>
     <string name="on_contact_click">Po kliknutí na kontakt</string>
     <string name="call_contact">Zavolať kontakt</string>
-    <string name="open_contact">Otvoriť editor kontaktov</string>
     <string name="view_contact">Zobraziť údaje kontaktu</string>
 
     <!-- Emails -->

@@ -9,18 +9,23 @@ import com.simplemobiletools.commons.interfaces.MyAdapterListener
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.models.ContactSource
 import kotlinx.android.synthetic.main.item_filter_contact_source.view.*
 import java.util.*
 
-class FilterContactSourcesAdapter(val activity: SimpleActivity, private val contactSources: List<String>, private val displayContactSources: Set<String>) :
+class FilterContactSourcesAdapter(val activity: SimpleActivity, private val contactSources: List<ContactSource>, private val displayContactSources: Set<String>) :
         RecyclerView.Adapter<FilterContactSourcesAdapter.ViewHolder>() {
     private val itemViews = SparseArray<View>()
     private val selectedPositions = HashSet<Int>()
 
     init {
-        contactSources.forEachIndexed { index, value ->
-            if (activity.config.showAllContacts() || displayContactSources.contains(value)) {
+        contactSources.forEachIndexed { index, contactSource ->
+            if (activity.config.showAllContacts() || displayContactSources.contains(contactSource.name)) {
                 selectedPositions.add(index)
+            }
+
+            if (contactSource.name == activity.config.localAccountName && contactSource.type == activity.config.localAccountType) {
+                contactSource.name = activity.getString(R.string.phone_storage)
             }
         }
     }
@@ -47,11 +52,7 @@ class FilterContactSourcesAdapter(val activity: SimpleActivity, private val cont
         override fun itemLongClicked(position: Int) {}
     }
 
-    fun getSelectedItemsSet(): HashSet<String> {
-        val selectedItemsSet = HashSet<String>(selectedPositions.size)
-        selectedPositions.forEach { selectedItemsSet.add(contactSources[it]) }
-        return selectedItemsSet
-    }
+    fun getSelectedItemsSet() = selectedPositions
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = activity.layoutInflater.inflate(R.layout.item_filter_contact_source, parent, false)
@@ -60,7 +61,7 @@ class FilterContactSourcesAdapter(val activity: SimpleActivity, private val cont
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val contactSource = contactSources[position]
-        itemViews.put(position, holder.bindView(contactSource))
+        itemViews.put(position, holder.bindView(contactSource.name))
         toggleItemSelection(selectedPositions.contains(position), position)
     }
 

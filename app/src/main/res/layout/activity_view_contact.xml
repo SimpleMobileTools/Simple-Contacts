@@ -31,7 +31,8 @@
             android:layout_toRightOf="@+id/contact_photo"
             android:adjustViewBounds="true"
             android:padding="@dimen/tiny_margin"
-            android:src="@drawable/ic_star_off_big"/>
+            android:src="@drawable/ic_star_off_big"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/contact_actions_holder"
@@ -89,7 +90,7 @@
             android:paddingTop="@dimen/medium_margin"
             android:src="@drawable/ic_person"/>
 
-        <com.simplemobiletools.commons.views.MyEditText
+        <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/contact_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,44 +98,42 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="@dimen/normal_margin"
             android:layout_toRightOf="@+id/contact_name_image"
-            android:hint="@string/first_name"
-            android:inputType="textCapWords"
             android:lines="1"
             android:maxLines="1"
+            android:paddingBottom="@dimen/normal_margin"
+            android:paddingLeft="@dimen/small_margin"
+            android:paddingTop="@dimen/normal_margin"
             android:singleLine="true"
-            android:textCursorDrawable="@null"
             android:textSize="@dimen/bigger_text_size"/>
 
-        <com.simplemobiletools.commons.views.MyEditText
+        <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/contact_middle_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_first_name"
             android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/normal_margin"
             android:layout_toRightOf="@+id/contact_name_image"
-            android:hint="@string/middle_name"
-            android:inputType="textCapWords"
             android:lines="1"
             android:maxLines="1"
+            android:paddingBottom="@dimen/normal_margin"
+            android:paddingLeft="@dimen/small_margin"
+            android:paddingTop="@dimen/normal_margin"
             android:singleLine="true"
-            android:textCursorDrawable="@null"
             android:textSize="@dimen/bigger_text_size"/>
 
-        <com.simplemobiletools.commons.views.MyEditText
+        <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/contact_surname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_middle_name"
             android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/normal_margin"
             android:layout_toRightOf="@+id/contact_name_image"
-            android:hint="@string/surname"
-            android:inputType="textCapWords"
             android:lines="1"
             android:maxLines="1"
+            android:paddingBottom="@dimen/normal_margin"
+            android:paddingLeft="@dimen/small_margin"
+            android:paddingTop="@dimen/normal_margin"
             android:singleLine="true"
-            android:textCursorDrawable="@null"
             android:textSize="@dimen/bigger_text_size"/>
 
         <ImageView
@@ -153,27 +152,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_surname"
-            android:layout_marginTop="@dimen/medium_margin"
             android:layout_toRightOf="@+id/contact_number_image"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/small_margin">
 
-            <include layout="@layout/item_edit_phone_number"/>
+            <include layout="@layout/item_view_phone_number"/>
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/contact_number_add_new"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_numbers_holder"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/small_margin"
-            android:background="@drawable/button_background"
-            android:paddingBottom="@dimen/medium_margin"
-            android:paddingLeft="@dimen/activity_margin"
-            android:paddingRight="@dimen/activity_margin"
-            android:paddingTop="@dimen/medium_margin"
-            android:src="@drawable/ic_plus"/>
 
         <ImageView
             android:id="@+id/contact_email_image"
@@ -190,28 +175,14 @@
             android:id="@+id/contact_emails_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_number_add_new"
-            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_below="@+id/contact_numbers_holder"
             android:layout_toRightOf="@+id/contact_name_image"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/small_margin">
 
-            <include layout="@layout/item_edit_email"/>
+            <include layout="@layout/item_view_email"/>
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/contact_email_add_new"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_emails_holder"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/small_margin"
-            android:background="@drawable/button_background"
-            android:paddingBottom="@dimen/medium_margin"
-            android:paddingLeft="@dimen/activity_margin"
-            android:paddingRight="@dimen/activity_margin"
-            android:paddingTop="@dimen/medium_margin"
-            android:src="@drawable/ic_plus"/>
 
         <ImageView
             android:id="@+id/contact_event_image"
@@ -228,28 +199,13 @@
             android:id="@+id/contact_events_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_email_add_new"
-            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_below="@+id/contact_emails_holder"
             android:layout_toRightOf="@+id/contact_name_image"
             android:orientation="vertical">
 
             <include layout="@layout/item_event"/>
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/contact_event_add_new"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_events_holder"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/small_margin"
-            android:background="@drawable/button_background"
-            android:paddingBottom="@dimen/medium_margin"
-            android:paddingLeft="@dimen/activity_margin"
-            android:paddingRight="@dimen/activity_margin"
-            android:paddingTop="@dimen/medium_margin"
-            android:src="@drawable/ic_plus"/>
 
         <ImageView
             android:id="@+id/contact_source_image"
@@ -266,9 +222,8 @@
             android:id="@+id/contact_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_event_add_new"
+            android:layout_below="@+id/contact_events_holder"
             android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/medium_margin"
             android:layout_toRightOf="@+id/contact_name_image"
             android:background="?attr/selectableItemBackground"
             android:lines="1"

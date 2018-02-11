@@ -22,10 +22,7 @@ import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.models.Contact
-import com.simplemobiletools.contacts.models.Email
-import com.simplemobiletools.contacts.models.Event
-import com.simplemobiletools.contacts.models.PhoneNumber
+import com.simplemobiletools.contacts.models.*
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -229,11 +226,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return null
     }
 
-    fun getContactSources(callback: (ArrayList<String>) -> Unit) {
-        val accounts = HashSet<String>()
+    fun getContactSources(callback: (ArrayList<ContactSource>) -> Unit) {
+        val sources = LinkedHashSet<ContactSource>()
         Thread {
             val uri = ContactsContract.RawContacts.CONTENT_URI
-            val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_NAME)
+            val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_NAME, ContactsContract.RawContacts.ACCOUNT_TYPE)
 
             var cursor: Cursor? = null
             try {
@@ -241,14 +238,17 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 if (cursor?.moveToFirst() == true) {
                     do {
                         val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: continue
-                        accounts.add(name)
+                        val type = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: continue
+                        val contactSource = ContactSource(name, type)
+                        sources.add(contactSource)
                     } while (cursor.moveToNext())
                 }
             } finally {
                 cursor?.close()
             }
 
-            callback(ArrayList(accounts))
+            sources.add(ContactSource(activity.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
+            callback(ArrayList(sources))
         }.start()
     }
 
@@ -300,6 +300,24 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         }
 
         return sort
+    }
+
+    private fun getRealContactId(id: Long): Int {
+        val uri = ContactsContract.Data.CONTENT_URI
+        val projection = getContactProjection()
+        val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, id.toString())
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                return cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
+            }
+        } finally {
+            cursor?.close()
+        }
+
+        return 0
     }
 
     fun updateContact(contact: Contact, photoUpdateStatus: Int): Boolean {
@@ -434,98 +452,115 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     }
 
     fun insertContact(contact: Contact): Boolean {
-        return try {
-            val operations = ArrayList<ContentProviderOperation>()
-            ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI).apply {
-                withValue(ContactsContract.RawContacts.ACCOUNT_NAME, contact.source)
-                withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, getContactSourceType(contact.source))
-                operations.add(build())
-            }
-
-            // names
-            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                withValue(CommonDataKinds.StructuredName.GIVEN_NAME, contact.firstName)
-                withValue(CommonDataKinds.StructuredName.MIDDLE_NAME, contact.middleName)
-                withValue(CommonDataKinds.StructuredName.FAMILY_NAME, contact.surname)
-                operations.add(build())
-            }
-
-            // phone numbers
-            contact.phoneNumbers.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.Phone.NUMBER, it.value)
-                    withValue(CommonDataKinds.Phone.TYPE, it.type)
-                    operations.add(build())
-                }
-            }
-
-            // emails
-            contact.emails.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Email.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.Email.DATA, it.value)
-                    withValue(CommonDataKinds.Email.TYPE, it.type)
-                    operations.add(build())
-                }
-            }
-
-            // events
-            contact.events.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Event.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.Event.START_DATE, it.value)
-                    withValue(CommonDataKinds.Event.TYPE, it.type)
-                    operations.add(build())
-                }
-            }
-
-            // photo (inspired by https://gist.github.com/slightfoot/5985900)
-            var fullSizePhotoData: ByteArray? = null
-            var scaledSizePhotoData: ByteArray?
-            if (contact.photoUri.isNotEmpty()) {
-                val photoUri = Uri.parse(contact.photoUri)
-                val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, photoUri)
-
-                val thumbnailSize = getThumbnailSize()
-                val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize, thumbnailSize, false)
-                scaledSizePhotoData = bitmapToByteArray(scaledPhoto)
-
-                fullSizePhotoData = bitmapToByteArray(bitmap)
-                scaledPhoto.recycle()
-                bitmap.recycle()
-
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Photo.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.Photo.PHOTO, scaledSizePhotoData)
-                    operations.add(build())
-                }
-            }
-
-            val results: Array<ContentProviderResult>
+        return if (contact.source == SMT_PRIVATE) {
+            insertLocalContact(contact)
+        } else {
             try {
-                results = activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
-            } finally {
-                scaledSizePhotoData = null
-            }
+                val operations = ArrayList<ContentProviderOperation>()
+                ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI).apply {
+                    withValue(ContactsContract.RawContacts.ACCOUNT_NAME, contact.source)
+                    withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, getContactSourceType(contact.source))
+                    operations.add(build())
+                }
 
-            // fullsize photo
-            if (contact.photoUri.isNotEmpty() && fullSizePhotoData != null) {
-                val rawContactId = ContentUris.parseId(results[0].uri)
-                addFullSizePhoto(rawContactId, fullSizePhotoData)
-            }
+                // names
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.StructuredName.GIVEN_NAME, contact.firstName)
+                    withValue(CommonDataKinds.StructuredName.MIDDLE_NAME, contact.middleName)
+                    withValue(CommonDataKinds.StructuredName.FAMILY_NAME, contact.surname)
+                    operations.add(build())
+                }
 
-            true
-        } catch (e: Exception) {
-            activity.showErrorToast(e)
-            false
+                // phone numbers
+                contact.phoneNumbers.forEach {
+                    ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                        withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                        withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                        withValue(CommonDataKinds.Phone.NUMBER, it.value)
+                        withValue(CommonDataKinds.Phone.TYPE, it.type)
+                        operations.add(build())
+                    }
+                }
+
+                // emails
+                contact.emails.forEach {
+                    ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                        withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                        withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                        withValue(CommonDataKinds.Email.DATA, it.value)
+                        withValue(CommonDataKinds.Email.TYPE, it.type)
+                        operations.add(build())
+                    }
+                }
+
+                // events
+                contact.events.forEach {
+                    ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                        withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                        withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Event.CONTENT_ITEM_TYPE)
+                        withValue(CommonDataKinds.Event.START_DATE, it.value)
+                        withValue(CommonDataKinds.Event.TYPE, it.type)
+                        operations.add(build())
+                    }
+                }
+
+                // photo (inspired by https://gist.github.com/slightfoot/5985900)
+                var fullSizePhotoData: ByteArray? = null
+                var scaledSizePhotoData: ByteArray?
+                if (contact.photoUri.isNotEmpty()) {
+                    val photoUri = Uri.parse(contact.photoUri)
+                    val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, photoUri)
+
+                    val thumbnailSize = getThumbnailSize()
+                    val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize, thumbnailSize, false)
+                    scaledSizePhotoData = bitmapToByteArray(scaledPhoto)
+
+                    fullSizePhotoData = bitmapToByteArray(bitmap)
+                    scaledPhoto.recycle()
+                    bitmap.recycle()
+
+                    ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                        withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                        withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Photo.CONTENT_ITEM_TYPE)
+                        withValue(CommonDataKinds.Photo.PHOTO, scaledSizePhotoData)
+                        operations.add(build())
+                    }
+                }
+
+                val results: Array<ContentProviderResult>
+                try {
+                    results = activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                } finally {
+                    scaledSizePhotoData = null
+                }
+
+                // fullsize photo
+                val rawId = ContentUris.parseId(results[0].uri)
+                if (contact.photoUri.isNotEmpty() && fullSizePhotoData != null) {
+                    addFullSizePhoto(rawId, fullSizePhotoData)
+                }
+
+                // favorite
+                val userId = getRealContactId(rawId)
+                if (userId != 0 && contact.starred == 1) {
+                    val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, userId.toString())
+                    val contentValues = ContentValues(1)
+                    contentValues.put(ContactsContract.Contacts.STARRED, contact.starred)
+                    activity.contentResolver.update(uri, contentValues, null, null)
+                }
+
+                true
+            } catch (e: Exception) {
+                activity.showErrorToast(e)
+                false
+            }
         }
+    }
+
+    private fun insertLocalContact(contact: Contact): Boolean {
+        return true
     }
 
     private fun addFullSizePhoto(contactId: Long, fullSizePhotoData: ByteArray) {

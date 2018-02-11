@@ -8,17 +8,21 @@ import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.adapters.FilterContactSourcesAdapter
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.models.ContactSource
 import kotlinx.android.synthetic.main.dialog_export_contacts.view.*
 import java.io.File
+import java.util.*
 
 class ExportContactsDialog(val activity: SimpleActivity, val path: String, private val callback: (file: File, contactSources: HashSet<String>) -> Unit) {
+    private var contactSources = ArrayList<ContactSource>()
 
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_export_contacts, null) as ViewGroup).apply {
             export_contacts_folder.text = activity.humanizePath(path)
-            export_contacts_filename.setText("contacts_${System.currentTimeMillis() / 1000}")
+            export_contacts_filename.setText("contacts_${activity.getCurrentFormattedDateTime()}")
 
             ContactsHelper(activity).getContactSources {
+                it.mapTo(contactSources, { it.copy() })
                 activity.runOnUiThread {
                     export_contacts_list.adapter = FilterContactSourcesAdapter(activity, it, activity.config.displayContactSources)
                 }
@@ -41,8 +45,12 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, priva
                                 return@setOnClickListener
                             }
 
-                            val contactSources = (view.export_contacts_list.adapter as FilterContactSourcesAdapter).getSelectedItemsSet()
-                            callback(file, contactSources)
+                            val selectedIndexes = (view.export_contacts_list.adapter as FilterContactSourcesAdapter).getSelectedItemsSet()
+                            val selectedContactSources = HashSet<String>()
+                            selectedIndexes.forEach {
+                                selectedContactSources.add(contactSources[it].name)
+                            }
+                            callback(file, selectedContactSources)
                             dismiss()
                         }
                         else -> activity.toast(R.string.invalid_name)

@@ -5,6 +5,7 @@
     <string name="inserting">Inserting…</string>
     <string name="updating">Updating…</string>
     <string name="phone_storage">Phone storage</string>
+    <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
@@ -20,13 +21,11 @@
     <string name="remove_photo">Remove photo</string>
 
     <!-- Settings -->
-    <string name="call_contact_on_click">Call contact on click</string>
     <string name="start_name_with_surname">Start name with surname</string>
     <string name="show_phone_numbers">Show phone numbers on the main screen</string>
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
     <string name="on_contact_click">On contact click</string>
     <string name="call_contact">Call contact</string>
-    <string name="open_contact">Open contact editor</string>
     <string name="view_contact">View contact details</string>
 
     <!-- Emails -->
