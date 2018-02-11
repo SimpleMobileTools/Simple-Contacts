@@ -198,9 +198,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return events
     }
 
-    fun getContactWithId(id: Int): Contact? {
+    fun getContactWithId(id: Int, isLocalPrivate: Boolean): Contact? {
         if (id == 0) {
             return null
+        } else if (isLocalPrivate) {
+            return activity.dbHelper.getContactWithId(id)
         }
 
         val uri = ContactsContract.Data.CONTENT_URI

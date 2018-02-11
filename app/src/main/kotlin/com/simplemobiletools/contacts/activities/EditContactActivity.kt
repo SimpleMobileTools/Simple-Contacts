@@ -119,7 +119,7 @@ class EditContactActivity : ContactActivity() {
         }
 
         if (contactId != 0) {
-            contact = ContactsHelper(this).getContactWithId(contactId)
+            contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
             if (contact == null) {
                 toast(R.string.unknown_error_occurred)
                 finish()

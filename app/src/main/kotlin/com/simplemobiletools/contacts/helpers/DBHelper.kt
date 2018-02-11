@@ -73,10 +73,10 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         }
     }
 
-    fun getContacts(): ArrayList<Contact> {
+    fun getContacts(selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
         val contacts = ArrayList<Contact>()
         val projection = arrayOf(COL_ID, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_PHONE_NUMBERS, COL_EMAILS, COL_EVENTS, COL_STARRED)
-        val cursor = mDb.query(CONTACTS_TABLE_NAME, projection, null, null, null, null, null)
+        val cursor = mDb.query(CONTACTS_TABLE_NAME, projection, selection, selectionArgs, null, null, null)
         cursor.use {
             while (cursor.moveToNext()) {
                 val id = cursor.getIntValue(COL_ID)
@@ -102,5 +102,11 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
             }
         }
         return contacts
+    }
+
+    fun getContactWithId(id: Int): Contact? {
+        val selection = "$COL_ID = ?"
+        val selectionArgs = arrayOf(id.toString())
+        return getContacts(selection, selectionArgs).firstOrNull()
     }
 }
