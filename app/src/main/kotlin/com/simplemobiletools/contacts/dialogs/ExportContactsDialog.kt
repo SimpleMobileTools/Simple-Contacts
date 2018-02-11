@@ -19,7 +19,7 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, priva
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_export_contacts, null) as ViewGroup).apply {
             export_contacts_folder.text = activity.humanizePath(path)
-            export_contacts_filename.setText("contacts_${System.currentTimeMillis() / 1000}")
+            export_contacts_filename.setText("contacts_${activity.getCurrentFormattedDateTime()}")
 
             ContactsHelper(activity).getContactSources {
                 it.mapTo(contactSources, { it.copy() })
