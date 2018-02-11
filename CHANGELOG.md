@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 3.2.0 *(2018-02-11)*
+----------------------------
+
+ * Allow storing contacts in a local database, hidden from other apps
+ * Added a new screen for viewing contact details
+ * Increased font size
+
 Version 3.1.4 *(2018-02-03)*
 ----------------------------
 
