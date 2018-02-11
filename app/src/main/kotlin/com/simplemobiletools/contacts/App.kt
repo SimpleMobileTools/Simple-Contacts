@@ -12,6 +12,7 @@ class App : Application() {
                 return
             }
             LeakCanary.install(this)
+            Stetho.initializeWithDefaults(this)
         }
 
         checkUseEnglish()

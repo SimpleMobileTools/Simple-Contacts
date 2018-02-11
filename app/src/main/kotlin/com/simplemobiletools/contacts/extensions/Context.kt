@@ -17,10 +17,13 @@ import com.simplemobiletools.contacts.activities.EditContactActivity
 import com.simplemobiletools.contacts.activities.ViewContactActivity
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
 import com.simplemobiletools.contacts.helpers.Config
+import com.simplemobiletools.contacts.helpers.DBHelper
 import com.simplemobiletools.contacts.models.Contact
 import java.io.File
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
+
+val Context.dbHelper: DBHelper get() = DBHelper.newInstance(applicationContext)
 
 fun Context.viewContact(contact: Contact) {
     Intent(applicationContext, ViewContactActivity::class.java).apply {

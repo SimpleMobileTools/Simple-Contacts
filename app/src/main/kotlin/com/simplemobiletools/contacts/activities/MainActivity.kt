@@ -372,7 +372,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchAbout() {
-        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE, BuildConfig.VERSION_NAME)
+        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_STETHO,
+                BuildConfig.VERSION_NAME)
     }
 
     override fun refreshContacts() {
