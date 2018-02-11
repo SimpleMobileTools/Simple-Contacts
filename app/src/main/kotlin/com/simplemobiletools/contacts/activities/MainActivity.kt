@@ -105,8 +105,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (storedPrimaryColor != configPrimaryColor) {
             main_tabs_holder.setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
             main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
-            contacts_fragment.primaryColorChanged(configPrimaryColor)
-            favorites_fragment.primaryColorChanged(configPrimaryColor)
+            contacts_fragment.primaryColorChanged()
+            favorites_fragment.primaryColorChanged()
         }
 
         val configStartNameWithSurname = config.startNameWithSurname

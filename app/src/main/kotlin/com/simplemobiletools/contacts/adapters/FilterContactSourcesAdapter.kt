@@ -9,6 +9,7 @@ import com.simplemobiletools.commons.interfaces.MyAdapterListener
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.models.ContactSource
 import kotlinx.android.synthetic.main.item_filter_contact_source.view.*
 import java.util.*
@@ -26,6 +27,10 @@ class FilterContactSourcesAdapter(val activity: SimpleActivity, private val cont
 
             if (contactSource.name == activity.config.localAccountName && contactSource.type == activity.config.localAccountType) {
                 contactSource.name = activity.getString(R.string.phone_storage)
+            }
+
+            if (contactSource.type == SMT_PRIVATE && displayContactSources.contains(SMT_PRIVATE)) {
+                selectedPositions.add(index)
             }
         }
     }

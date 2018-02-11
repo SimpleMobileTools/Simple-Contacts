@@ -78,6 +78,10 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 contacts[key]?.emails = emails.valueAt(i)
             }
 
+            activity.dbHelper.getContacts().forEach {
+                contacts.put(it.id, it)
+            }
+
             val contactsSize = contacts.size()
             var resultContacts = ArrayList<Contact>(contactsSize)
             (0 until contactsSize).mapTo(resultContacts) { contacts.valueAt(it) }

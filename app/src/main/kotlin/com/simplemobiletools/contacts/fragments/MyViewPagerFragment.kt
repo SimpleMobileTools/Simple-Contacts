@@ -59,7 +59,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
-    fun primaryColorChanged(color: Int) {
+    fun primaryColorChanged() {
         fragment_fastscroller.updatePrimaryColor()
         fragment_fastscroller.updateBubblePrimaryColor()
     }
