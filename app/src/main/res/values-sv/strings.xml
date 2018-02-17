@@ -4,8 +4,8 @@
     <string name="address">Adress</string>
     <string name="inserting">Lägger till…</string>
     <string name="updating">Uppdaterar…</string>
-    <string name="phone_storage">Phone storage</string>
-    <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
+    <string name="phone_storage">Telefonens lagringsutrymme</string>
+    <string name="phone_storage_hidden">Telefonens lagringsutrymme (inte synligt för andra appar)</string>
 
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>
@@ -23,10 +23,10 @@
     <!-- Settings -->
     <string name="start_name_with_surname">Visa efternamn först</string>
     <string name="show_phone_numbers">Visa telefonnummer i huvudvyn</string>
-    <string name="show_contact_thumbnails">Show contact thumbnails</string>
-    <string name="on_contact_click">On contact click</string>
-    <string name="call_contact">Call contact</string>
-    <string name="view_contact">View contact details</string>
+    <string name="show_contact_thumbnails">Visa kontaktminiatyrer</string>
+    <string name="on_contact_click">Vid kontakttryckning</string>
+    <string name="call_contact">Ring kontakt</string>
+    <string name="view_contact">Visa kontaktuppgifter</string>
 
     <!-- Emails -->
     <string name="email">E-post</string>
