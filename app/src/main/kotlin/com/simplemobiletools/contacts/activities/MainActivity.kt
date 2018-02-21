@@ -122,12 +122,16 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             if (viewpager.adapter == null) {
                 initFragments()
             }
+
             contacts_fragment?.initContacts()
             contacts_fragment?.onActivityResume()
             favorites_fragment?.initContacts()
             favorites_fragment?.onActivityResume()
         }
-        isFirstResume = false
+
+        if (hasPermission(PERMISSION_WRITE_CONTACTS)) {
+            isFirstResume = false
+        }
     }
 
     override fun onPause() {
