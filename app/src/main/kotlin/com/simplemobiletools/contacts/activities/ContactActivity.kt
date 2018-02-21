@@ -42,7 +42,7 @@ abstract class ContactActivity : SimpleActivity() {
         photoView.setPadding(padding, padding, padding, padding)
         photoView.setImageBitmap(placeholder)
         currentContactPhotoPath = ""
-        contact!!.photo = null
+        contact?.photo = null
     }
 
     fun updateContactPhoto(path: String, photoView: ImageView, bitmap: Bitmap? = null) {
