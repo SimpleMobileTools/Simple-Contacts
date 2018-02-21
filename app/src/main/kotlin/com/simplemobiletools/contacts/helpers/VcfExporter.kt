@@ -50,6 +50,12 @@ class VcfExporter {
                             out.writeLn("$EMAIL$delimiterType:${it.value}")
                         }
 
+                        contact.addresses.forEach {
+                            val type = getAddressTypeLabel(it.type)
+                            val delimiterType = if (type.isEmpty()) "" else ";$type"
+                            out.writeLn("$ADR$delimiterType:;;${it.value};;;;")
+                        }
+
                         contact.events.forEach {
                             if (it.type == CommonDataKinds.Event.TYPE_BIRTHDAY) {
                                 out.writeLn("$BDAY${it.value}")
@@ -134,6 +140,12 @@ class VcfExporter {
         CommonDataKinds.Email.TYPE_HOME -> HOME
         CommonDataKinds.Email.TYPE_WORK -> WORK
         CommonDataKinds.Email.TYPE_MOBILE -> MOBILE
+        else -> ""
+    }
+
+    private fun getAddressTypeLabel(type: Int) = when (type) {
+        CommonDataKinds.StructuredPostal.TYPE_HOME -> HOME
+        CommonDataKinds.StructuredPostal.TYPE_WORK -> WORK
         else -> ""
     }
 }

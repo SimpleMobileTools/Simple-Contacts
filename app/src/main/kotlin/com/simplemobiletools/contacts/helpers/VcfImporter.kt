@@ -67,6 +67,7 @@ class VcfImporter(val activity: SimpleActivity) {
                         line.toUpperCase().startsWith(N) -> addNames(line.substring(N.length))
                         line.toUpperCase().startsWith(TEL) -> addPhoneNumber(line.substring(TEL.length))
                         line.toUpperCase().startsWith(EMAIL) -> addEmail(line.substring(EMAIL.length))
+                        line.toUpperCase().startsWith(ADR) -> addAddress(line.substring(ADR.length))
                         line.toUpperCase().startsWith(BDAY) -> addBirthday(line.substring(BDAY.length))
                         line.toUpperCase().startsWith(ANNIVERSARY) -> addAnniversary(line.substring(ANNIVERSARY.length))
                         line.toUpperCase().startsWith(PHOTO) -> addPhoto(line.substring(PHOTO.length))
@@ -151,6 +152,25 @@ class VcfImporter(val activity: SimpleActivity) {
         HOME -> CommonDataKinds.Email.TYPE_HOME
         WORK -> CommonDataKinds.Email.TYPE_WORK
         MOBILE -> CommonDataKinds.Email.TYPE_MOBILE
+        else -> CommonDataKinds.Email.TYPE_OTHER
+    }
+
+    private fun addAddress(address: String) {
+        val addressParts = address.trimStart(';').split(":")
+        var rawType = addressParts[0]
+        if (rawType.contains('=')) {
+            rawType = rawType.split('=').last()
+        }
+        val type = getAddressTypeId(rawType.toUpperCase())
+        val addresses = addressParts[1].split(";")
+        if (addresses.size == 7) {
+            curAddresses.add(Address(addresses[2], type))
+        }
+    }
+
+    private fun getAddressTypeId(type: String) = when (type) {
+        HOME -> CommonDataKinds.Email.TYPE_HOME
+        WORK -> CommonDataKinds.Email.TYPE_WORK
         else -> CommonDataKinds.Email.TYPE_OTHER
     }
 
