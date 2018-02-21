@@ -35,6 +35,11 @@ import org.joda.time.format.DateTimeFormat
 import java.util.*
 
 class EditContactActivity : ContactActivity() {
+    val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
+    val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
+    val DEFAULT_ADDRESS_TYPE = CommonDataKinds.StructuredPostal.TYPE_HOME
+    val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
+
     private val INTENT_TAKE_PHOTO = 1
     private val INTENT_CHOOSE_PHOTO = 2
     private val INTENT_CROP_PHOTO = 3

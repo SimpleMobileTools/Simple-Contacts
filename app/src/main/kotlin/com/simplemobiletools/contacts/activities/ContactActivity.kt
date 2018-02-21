@@ -154,15 +154,15 @@ abstract class ContactActivity : SimpleActivity() {
         else -> R.string.other
     }
 
-    fun getEventTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
-        ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
-        else -> R.string.other
-    }
-
     fun getAddressTextId(type: Int) = when (type) {
         ContactsContract.CommonDataKinds.StructuredPostal.TYPE_HOME -> R.string.home
         ContactsContract.CommonDataKinds.StructuredPostal.TYPE_WORK -> R.string.work
+        else -> R.string.other
+    }
+
+    fun getEventTextId(type: Int) = when (type) {
+        ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
+        ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
         else -> R.string.other
     }
 }

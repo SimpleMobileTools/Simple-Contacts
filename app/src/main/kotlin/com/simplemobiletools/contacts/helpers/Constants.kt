@@ -1,7 +1,5 @@
 package com.simplemobiletools.contacts.helpers
 
-import android.provider.ContactsContract.CommonDataKinds
-
 // shared prefs
 const val SHOW_CONTACT_THUMBNAILS = "show_contact_thumbnails"
 const val SHOW_PHONE_NUMBERS = "show_phone_numbers"
@@ -22,11 +20,6 @@ const val PHOTO_ADDED = 1
 const val PHOTO_REMOVED = 2
 const val PHOTO_CHANGED = 3
 const val PHOTO_UNCHANGED = 4
-
-// default contact values
-const val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
-const val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
-const val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
 
 // export/import
 const val BEGIN_VCARD = "BEGIN:VCARD"

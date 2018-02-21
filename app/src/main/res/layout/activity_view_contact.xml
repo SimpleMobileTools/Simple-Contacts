@@ -177,6 +177,26 @@
             android:paddingLeft="@dimen/small_margin"/>
 
         <ImageView
+            android:id="@+id/contact_address_image"
+            android:layout_width="@dimen/contact_icons_size"
+            android:layout_height="@dimen/contact_icons_size"
+            android:layout_alignTop="@+id/contact_addresses_holder"
+            android:paddingBottom="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
+            android:paddingRight="@dimen/small_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@drawable/ic_place"/>
+
+        <LinearLayout
+            android:id="@+id/contact_addresses_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_emails_holder"
+            android:layout_toRightOf="@+id/contact_name_image"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/small_margin"/>
+
+        <ImageView
             android:id="@+id/contact_event_image"
             android:layout_width="@dimen/contact_icons_size"
             android:layout_height="@dimen/contact_icons_size"
@@ -191,7 +211,7 @@
             android:id="@+id/contact_events_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_emails_holder"
+            android:layout_below="@+id/contact_addresses_holder"
             android:layout_toRightOf="@+id/contact_name_image"
             android:orientation="vertical"/>
 

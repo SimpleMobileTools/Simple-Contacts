@@ -6,17 +6,18 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.RelativeLayout
-import android.widget.TextView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.*
-import com.simplemobiletools.contacts.helpers.*
+import com.simplemobiletools.contacts.helpers.CONTACT_ID
+import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.IS_PRIVATE
 import kotlinx.android.synthetic.main.activity_view_contact.*
 import kotlinx.android.synthetic.main.item_event.view.*
+import kotlinx.android.synthetic.main.item_view_address.view.*
 import kotlinx.android.synthetic.main.item_view_email.view.*
 import kotlinx.android.synthetic.main.item_view_phone_number.view.*
 
@@ -89,9 +90,8 @@ class ViewContactActivity : ContactActivity() {
             return
         }
 
-        setupEditContact()
+        setupViewContact()
 
-        setupTypePickers()
         contact_send_sms.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
         contact_start_call.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
         contact_send_email.beVisibleIf(contact!!.emails.isNotEmpty())
@@ -122,7 +122,7 @@ class ViewContactActivity : ContactActivity() {
         invalidateOptionsMenu()
     }
 
-    private fun setupEditContact() {
+    private fun setupViewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         contact!!.apply {
             contact_first_name.text = firstName
@@ -150,6 +150,7 @@ class ViewContactActivity : ContactActivity() {
 
         setupPhoneNumbers()
         setupEmails()
+        setupAddresses()
         setupEvents()
     }
 
@@ -160,7 +161,7 @@ class ViewContactActivity : ContactActivity() {
             layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
                 contact_numbers_holder.addView(this)
                 contact_number.text = it.value
-                setupPhoneNumberTypePicker(contact_number_type, it.type)
+                contact_number_type.setText(getPhoneNumberTextId(it.type))
             }
         }
 
@@ -175,12 +176,27 @@ class ViewContactActivity : ContactActivity() {
             layoutInflater.inflate(R.layout.item_view_email, contact_emails_holder, false).apply {
                 contact_emails_holder.addView(this)
                 contact_email.text = it.value
-                setupEmailTypePicker(contact_email_type, it.type)
+                contact_email_type.setText(getEmailTextId(it.type))
             }
         }
 
         contact_email_image.beVisibleIf(emails.isNotEmpty())
         contact_emails_holder.beVisibleIf(emails.isNotEmpty())
+    }
+
+    private fun setupAddresses() {
+        contact_addresses_holder.removeAllViews()
+        val addresses = contact!!.addresses
+        addresses.forEach {
+            layoutInflater.inflate(R.layout.item_view_address, contact_addresses_holder, false).apply {
+                contact_addresses_holder.addView(this)
+                contact_address.text = it.value
+                contact_address_type.setText(getAddressTextId(it.type))
+            }
+        }
+
+        contact_address_image.beVisibleIf(addresses.isNotEmpty())
+        contact_addresses_holder.beVisibleIf(addresses.isNotEmpty())
     }
 
     private fun setupEvents() {
@@ -191,48 +207,13 @@ class ViewContactActivity : ContactActivity() {
                 contact_events_holder.addView(this)
                 contact_event.alpha = 1f
                 getDateTime(it.value, contact_event)
-                setupEventTypePicker(this as ViewGroup, it.type)
+                contact_event_type.setText(getEventTextId(it.type))
                 contact_event_remove.beGone()
             }
         }
 
         contact_event_image.beVisibleIf(events.isNotEmpty())
         contact_events_holder.beVisibleIf(events.isNotEmpty())
-    }
-
-    private fun setupTypePickers() {
-        if (contact!!.phoneNumbers.isEmpty()) {
-            val numberHolder = contact_numbers_holder.getChildAt(0)
-            (numberHolder as? ViewGroup)?.contact_number_type?.apply {
-                setupPhoneNumberTypePicker(this)
-            }
-        }
-
-        if (contact!!.emails.isEmpty()) {
-            val emailHolder = contact_emails_holder.getChildAt(0)
-            (emailHolder as? ViewGroup)?.contact_email_type?.apply {
-                setupEmailTypePicker(this)
-            }
-        }
-
-        if (contact!!.events.isEmpty()) {
-            val eventHolder = contact_events_holder.getChildAt(0)
-            (eventHolder as? ViewGroup)?.apply {
-                setupEventTypePicker(this)
-            }
-        }
-    }
-
-    private fun setupPhoneNumberTypePicker(numberTypeField: TextView, type: Int = DEFAULT_PHONE_NUMBER_TYPE) {
-        numberTypeField.setText(getPhoneNumberTextId(type))
-    }
-
-    private fun setupEmailTypePicker(emailTypeField: TextView, type: Int = DEFAULT_EMAIL_TYPE) {
-        emailTypeField.setText(getEmailTextId(type))
-    }
-
-    private fun setupEventTypePicker(eventHolder: ViewGroup, type: Int = DEFAULT_EVENT_TYPE) {
-        eventHolder.contact_event_type.setText(getEventTextId(type))
     }
 
     private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_big else R.drawable.ic_star_off_big)
