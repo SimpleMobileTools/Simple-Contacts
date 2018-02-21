@@ -52,13 +52,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         val photoUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
                         val number = ArrayList<PhoneNumber>()       // proper value is obtained below
                         val emails = ArrayList<Email>()
-                        val events = ArrayList<Event>()
                         val addresses = ArrayList<Address>()
+                        val events = ArrayList<Event>()
                         val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
                         val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                         val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                         val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, events, addresses, accountName,
+                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName,
                                 starred, contactId, thumbnailUri, null)
                         contacts.put(id, contact)
                     } while (cursor.moveToNext())
@@ -269,13 +269,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val photoUri = cursor.getStringValue(CommonDataKinds.Phone.PHOTO_URI) ?: ""
                 val number = getPhoneNumbers(id)[id] ?: ArrayList()
                 val emails = getEmails(id)[id] ?: ArrayList()
-                val events = getEvents(id)[id] ?: ArrayList()
                 val addresses = getAddresses(id)[id] ?: ArrayList()
+                val events = getEvents(id)[id] ?: ArrayList()
                 val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
                 val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                 val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                return Contact(id, firstName, middleName, surname, photoUri, number, emails, events, addresses, accountName, starred, contactId, thumbnailUri, null)
+                return Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName, starred, contactId, thumbnailUri, null)
             }
         } finally {
             cursor?.close()

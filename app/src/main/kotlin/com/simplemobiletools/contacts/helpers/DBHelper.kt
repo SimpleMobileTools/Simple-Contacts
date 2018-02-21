@@ -137,11 +137,11 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val emailsToken = object : TypeToken<List<Email>>() {}.type
                 val emails = Gson().fromJson<ArrayList<Email>>(emailsJson, emailsToken) ?: ArrayList(1)
 
+                val addresses = ArrayList<Address>()
+
                 val eventsJson = cursor.getStringValue(COL_EVENTS)
                 val eventsToken = object : TypeToken<List<Event>>() {}.type
                 val events = Gson().fromJson<ArrayList<Event>>(eventsJson, eventsToken) ?: ArrayList(1)
-
-                val addresses = ArrayList<Address>()
 
                 val photoByteArray = cursor.getBlobValue(COL_PHOTO) ?: null
                 val photo = if (photoByteArray?.isNotEmpty() == true) {
@@ -151,7 +151,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 }
 
                 val starred = cursor.getIntValue(COL_STARRED)
-                val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, events, addresses, SMT_PRIVATE, starred, id, "", photo)
+                val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, addresses, events, SMT_PRIVATE, starred, id, "", photo)
                 contacts.add(contact)
             }
         }
