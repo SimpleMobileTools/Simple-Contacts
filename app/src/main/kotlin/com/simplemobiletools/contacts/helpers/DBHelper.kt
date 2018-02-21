@@ -16,10 +16,7 @@ import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.getStringValue
 import com.simplemobiletools.contacts.extensions.getByteArray
 import com.simplemobiletools.contacts.extensions.getPhotoThumbnailSize
-import com.simplemobiletools.contacts.models.Contact
-import com.simplemobiletools.contacts.models.Email
-import com.simplemobiletools.contacts.models.Event
-import com.simplemobiletools.contacts.models.PhoneNumber
+import com.simplemobiletools.contacts.models.*
 
 class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
     private val CONTACTS_TABLE_NAME = "contacts"
@@ -144,6 +141,8 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val eventsToken = object : TypeToken<List<Event>>() {}.type
                 val events = Gson().fromJson<ArrayList<Event>>(eventsJson, eventsToken) ?: ArrayList(1)
 
+                val addresses = ArrayList<Address>()
+
                 val photoByteArray = cursor.getBlobValue(COL_PHOTO) ?: null
                 val photo = if (photoByteArray?.isNotEmpty() == true) {
                     BitmapFactory.decodeByteArray(photoByteArray, 0, photoByteArray.size)
@@ -152,7 +151,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 }
 
                 val starred = cursor.getIntValue(COL_STARRED)
-                val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, events, SMT_PRIVATE, starred, id, "", photo)
+                val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, events, addresses, SMT_PRIVATE, starred, id, "", photo)
                 contacts.add(contact)
             }
         }

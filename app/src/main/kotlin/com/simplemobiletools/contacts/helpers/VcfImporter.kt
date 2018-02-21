@@ -10,10 +10,7 @@ import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.getCachePhoto
 import com.simplemobiletools.contacts.extensions.getCachePhotoUri
 import com.simplemobiletools.contacts.helpers.VcfImporter.ImportResult.*
-import com.simplemobiletools.contacts.models.Contact
-import com.simplemobiletools.contacts.models.Email
-import com.simplemobiletools.contacts.models.Event
-import com.simplemobiletools.contacts.models.PhoneNumber
+import com.simplemobiletools.contacts.models.*
 import java.io.File
 import java.io.FileOutputStream
 
@@ -29,6 +26,7 @@ class VcfImporter(val activity: SimpleActivity) {
     private var curPhoneNumbers = ArrayList<PhoneNumber>()
     private var curEmails = ArrayList<Email>()
     private var curEvents = ArrayList<Event>()
+    private var curAddresses = ArrayList<Address>()
 
     private var isGettingPhoto = false
     private var currentPhotoString = StringBuilder()
@@ -199,7 +197,7 @@ class VcfImporter(val activity: SimpleActivity) {
     }
 
     private fun saveContact(source: String) {
-        val contact = Contact(0, curFirstName, curMiddleName, curSurname, curPhotoUri, curPhoneNumbers, curEmails, curEvents, source, 0, 0, "", null)
+        val contact = Contact(0, curFirstName, curMiddleName, curSurname, curPhotoUri, curPhoneNumbers, curEmails, curEvents, curAddresses, source, 0, 0, "", null)
         if (ContactsHelper(activity).insertContact(contact)) {
             contactsImported++
         }
@@ -213,6 +211,7 @@ class VcfImporter(val activity: SimpleActivity) {
         curPhoneNumbers = ArrayList()
         curEmails = ArrayList()
         curEvents = ArrayList()
+        curAddresses = ArrayList()
 
         isGettingPhoto = false
         currentPhotoString = StringBuilder()

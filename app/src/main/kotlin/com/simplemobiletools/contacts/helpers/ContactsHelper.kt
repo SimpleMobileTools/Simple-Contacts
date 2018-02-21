@@ -28,6 +28,7 @@ import com.simplemobiletools.contacts.extensions.getPhotoThumbnailSize
 import com.simplemobiletools.contacts.models.*
 import java.io.ByteArrayOutputStream
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ContactsHelper(val activity: BaseSimpleActivity) {
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
@@ -52,11 +53,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         val number = ArrayList<PhoneNumber>()       // proper value is obtained below
                         val emails = ArrayList<Email>()
                         val events = ArrayList<Event>()
+                        val addresses = ArrayList<Address>()
                         val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
                         val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                         val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                         val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred, contactId, thumbnailUri, null)
+                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, events, addresses, accountName,
+                                starred, contactId, thumbnailUri, null)
                         contacts.put(id, contact)
                     } while (cursor.moveToNext())
                 }
@@ -78,6 +81,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             for (i in 0 until size) {
                 val key = emails.keyAt(i)
                 contacts[key]?.emails = emails.valueAt(i)
+            }
+
+            val addresses = getAddresses()
+            size = addresses.size()
+            for (i in 0 until size) {
+                val key = addresses.keyAt(i)
+                contacts[key]?.addresses = addresses.valueAt(i)
             }
 
             activity.dbHelper.getContacts().forEach {
@@ -200,6 +210,44 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return events
     }
 
+    private fun getAddresses(contactId: Int? = null): SparseArray<ArrayList<Address>> {
+        val addresses = SparseArray<ArrayList<Address>>()
+        val uri = CommonDataKinds.StructuredPostal.CONTENT_URI
+        val projection = arrayOf(
+                ContactsContract.Data.RAW_CONTACT_ID,
+                CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS,
+                CommonDataKinds.StructuredPostal.TYPE
+        )
+
+        val selection = if (contactId == null) null else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = if (contactId == null) null else arrayOf(contactId.toString())
+
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                do {
+                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
+                    val address = cursor.getStringValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS)
+                    val type = cursor.getIntValue(CommonDataKinds.StructuredPostal.TYPE)
+
+                    if (addresses[id] == null) {
+                        addresses.put(id, ArrayList())
+                    }
+
+                    addresses[id]!!.add(Address(address, type))
+                } while (cursor.moveToNext())
+            }
+
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        } finally {
+            cursor?.close()
+        }
+
+        return addresses
+    }
+
     fun getContactWithId(id: Int, isLocalPrivate: Boolean): Contact? {
         if (id == 0) {
             return null
@@ -222,11 +270,12 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val number = getPhoneNumbers(id)[id] ?: ArrayList()
                 val emails = getEmails(id)[id] ?: ArrayList()
                 val events = getEvents(id)[id] ?: ArrayList()
+                val addresses = getAddresses(id)[id] ?: ArrayList()
                 val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
                 val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                 val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                return Contact(id, firstName, middleName, surname, photoUri, number, emails, events, accountName, starred, contactId, thumbnailUri, null)
+                return Contact(id, firstName, middleName, surname, photoUri, number, emails, events, addresses, accountName, starred, contactId, thumbnailUri, null)
             }
         } finally {
             cursor?.close()

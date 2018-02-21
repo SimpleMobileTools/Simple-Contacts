@@ -159,4 +159,10 @@ abstract class ContactActivity : SimpleActivity() {
         ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
         else -> R.string.other
     }
+
+    fun getAddressTextId(type: Int) = when (type) {
+        ContactsContract.CommonDataKinds.StructuredPostal.TYPE_HOME -> R.string.home
+        ContactsContract.CommonDataKinds.StructuredPostal.TYPE_WORK -> R.string.work
+        else -> R.string.other
+    }
 }

@@ -292,7 +292,7 @@ class EditContactActivity : ContactActivity() {
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), config.lastUsedContactSource, 0, 0, "", null)
+        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), config.lastUsedContactSource, 0, 0, "", null)
         contact_source.text = getPublicContactSource(contact!!.source)
         contact_source.setOnClickListener {
             showContactSourcePicker(contact!!.source) {
@@ -650,5 +650,11 @@ class EditContactActivity : ContactActivity() {
         getString(R.string.birthday) -> CommonDataKinds.Event.TYPE_BIRTHDAY
         getString(R.string.anniversary) -> CommonDataKinds.Event.TYPE_ANNIVERSARY
         else -> CommonDataKinds.Event.TYPE_OTHER
+    }
+
+    private fun getAddressTypeId(value: String) = when (value) {
+        getString(R.string.home) -> CommonDataKinds.StructuredPostal.TYPE_HOME
+        getString(R.string.work) -> CommonDataKinds.StructuredPostal.TYPE_WORK
+        else -> CommonDataKinds.StructuredPostal.TYPE_OTHER
     }
 }
