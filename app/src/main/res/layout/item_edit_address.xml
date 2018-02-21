@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contact_address_holder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.simplemobiletools.commons.views.MyEditText
+        android:id="@+id/contact_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/contact_address_type"
+        android:layout_toStartOf="@+id/contact_address_type"
+        android:hint="@string/address"
+        android:inputType="textCapWords"
+        android:lines="1"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/bigger_text_size"/>
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/contact_address_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/contact_address"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/contact_address"
+        android:layout_centerVertical="true"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:paddingLeft="@dimen/medium_margin"
+        android:paddingRight="@dimen/medium_margin"
+        android:text="@string/address"
+        android:textSize="@dimen/bigger_text_size"/>
+
+</RelativeLayout>
