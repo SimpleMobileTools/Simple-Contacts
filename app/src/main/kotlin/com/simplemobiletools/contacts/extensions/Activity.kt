@@ -4,8 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.getFilePublicUri
-import com.simplemobiletools.commons.extensions.shareUri
+import com.simplemobiletools.commons.extensions.sharePathIntent
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
 import com.simplemobiletools.commons.models.RadioItem
@@ -93,8 +92,7 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
 
     VcfExporter().exportContacts(this, file, contacts) {
         if (it == VcfExporter.ExportResult.EXPORT_OK) {
-            val uri = getFilePublicUri(file, BuildConfig.APPLICATION_ID)
-            shareUri(uri, BuildConfig.APPLICATION_ID)
+            sharePathIntent(file.absolutePath, BuildConfig.APPLICATION_ID)
         }
     }
 }

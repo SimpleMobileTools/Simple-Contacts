@@ -2,17 +2,11 @@ package com.simplemobiletools.contacts.helpers
 
 import android.content.Context
 import com.simplemobiletools.commons.helpers.BaseConfig
-import com.simplemobiletools.commons.helpers.SORTING
-import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 
 class Config(context: Context) : BaseConfig(context) {
     companion object {
         fun newInstance(context: Context) = Config(context)
     }
-
-    var sorting: Int
-        get() = prefs.getInt(SORTING, SORT_BY_FIRST_NAME)
-        set(sorting) = prefs.edit().putInt(SORTING, sorting).apply()
 
     var displayContactSources: Set<String>
         get() = prefs.getStringSet(DISPLAY_CONTACT_SOURCES, hashSetOf("-1"))

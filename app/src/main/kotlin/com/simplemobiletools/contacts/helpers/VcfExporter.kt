@@ -8,6 +8,7 @@ import android.util.Base64
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.getFileOutputStream
 import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.commons.extensions.toFileDirItem
 import com.simplemobiletools.commons.extensions.writeLn
 import com.simplemobiletools.contacts.helpers.VcfExporter.ExportResult.*
 import com.simplemobiletools.contacts.models.Contact
@@ -27,7 +28,7 @@ class VcfExporter {
 
     fun exportContacts(activity: BaseSimpleActivity, file: File, contacts: ArrayList<Contact>, callback: (result: ExportResult) -> Unit) {
         try {
-            activity.getFileOutputStream(file) {
+            activity.getFileOutputStream(file.toFileDirItem(activity)) {
                 if (it == null) {
                     callback(EXPORT_FAIL)
                     return@getFileOutputStream
