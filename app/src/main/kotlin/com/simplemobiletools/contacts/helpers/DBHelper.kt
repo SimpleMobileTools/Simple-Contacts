@@ -35,7 +35,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
     private val FIRST_CONTACT_ID = 1000000
 
-    private val mDb: SQLiteDatabase = writableDatabase
+    private val mDb = writableDatabase
 
     companion object {
         private const val DB_VERSION = 1

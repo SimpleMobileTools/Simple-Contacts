@@ -94,7 +94,7 @@ class EditContactActivity : ContactActivity() {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (resultCode == RESULT_OK) {
             when (requestCode) {
-                INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri!!)
+                INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri)
                 INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString(), contact_photo)
             }
         }
@@ -190,7 +190,12 @@ class EditContactActivity : ContactActivity() {
         invalidateOptionsMenu()
     }
 
-    private fun startCropPhotoIntent(uri: Uri) {
+    private fun startCropPhotoIntent(uri: Uri?) {
+        if (uri == null) {
+            toast(R.string.unknown_error_occurred)
+            return
+        }
+
         lastPhotoIntentUri = getCachePhotoUri()
         Intent("com.android.camera.action.CROP").apply {
             setDataAndType(uri, "image/*")
