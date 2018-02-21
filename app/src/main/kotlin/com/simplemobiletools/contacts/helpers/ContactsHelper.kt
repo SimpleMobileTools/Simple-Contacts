@@ -177,39 +177,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return emails
     }
 
-    private fun getEvents(contactId: Int): SparseArray<ArrayList<Event>> {
-        val events = SparseArray<ArrayList<Event>>()
-        val uri = ContactsContract.Data.CONTENT_URI
-        val projection = arrayOf(
-                CommonDataKinds.Event.START_DATE,
-                CommonDataKinds.Event.TYPE
-        )
-        val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
-        val selectionArgs = arrayOf(contactId.toString(), CommonDataKinds.Event.CONTENT_ITEM_TYPE)
-        var cursor: Cursor? = null
-        try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val startDate = cursor.getStringValue(CommonDataKinds.Event.START_DATE)
-                    val type = cursor.getIntValue(CommonDataKinds.Event.TYPE)
-
-                    if (events[contactId] == null) {
-                        events.put(contactId, ArrayList())
-                    }
-
-                    events[contactId]!!.add(Event(startDate, type))
-                } while (cursor.moveToNext())
-            }
-        } catch (e: Exception) {
-            activity.showErrorToast(e)
-        } finally {
-            cursor?.close()
-        }
-
-        return events
-    }
-
     private fun getAddresses(contactId: Int? = null): SparseArray<ArrayList<Address>> {
         val addresses = SparseArray<ArrayList<Address>>()
         val uri = CommonDataKinds.StructuredPostal.CONTENT_URI
@@ -246,6 +213,39 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         }
 
         return addresses
+    }
+
+    private fun getEvents(contactId: Int): SparseArray<ArrayList<Event>> {
+        val events = SparseArray<ArrayList<Event>>()
+        val uri = ContactsContract.Data.CONTENT_URI
+        val projection = arrayOf(
+                CommonDataKinds.Event.START_DATE,
+                CommonDataKinds.Event.TYPE
+        )
+        val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
+        val selectionArgs = arrayOf(contactId.toString(), CommonDataKinds.Event.CONTENT_ITEM_TYPE)
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                do {
+                    val startDate = cursor.getStringValue(CommonDataKinds.Event.START_DATE)
+                    val type = cursor.getIntValue(CommonDataKinds.Event.TYPE)
+
+                    if (events[contactId] == null) {
+                        events.put(contactId, ArrayList())
+                    }
+
+                    events[contactId]!!.add(Event(startDate, type))
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        } finally {
+            cursor?.close()
+        }
+
+        return events
     }
 
     fun getContactWithId(id: Int, isLocalPrivate: Boolean): Contact? {
@@ -432,6 +432,25 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 }
             }
 
+            // delete addresses
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
+                withSelection(selection, selectionArgs)
+                operations.add(build())
+            }
+
+            // add addresses
+            contact.addresses.forEach {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
+                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, it.value)
+                    withValue(CommonDataKinds.StructuredPostal.TYPE, it.type)
+                    operations.add(build())
+                }
+            }
+
             // delete events
             ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
                 val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
@@ -551,6 +570,17 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Email.CONTENT_ITEM_TYPE)
                         withValue(CommonDataKinds.Email.DATA, it.value)
                         withValue(CommonDataKinds.Email.TYPE, it.type)
+                        operations.add(build())
+                    }
+                }
+
+                // addresses
+                contact.addresses.forEach {
+                    ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                        withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                        withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
+                        withValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, it.value)
+                        withValue(CommonDataKinds.StructuredPostal.TYPE, it.type)
                         operations.add(build())
                     }
                 }
