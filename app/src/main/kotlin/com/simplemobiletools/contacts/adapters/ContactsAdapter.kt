@@ -27,7 +27,7 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.item_contact_with_number.view.*
 import java.util.*
 
-class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Contact>, private val listener: RefreshContactsListener?,
+class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val listener: RefreshContactsListener?,
                       private val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
@@ -66,6 +66,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     }
 
     override fun actionItemPressed(id: Int) {
+        if (selectedPositions.isEmpty()) {
+            return
+        }
+
         when (id) {
             R.id.cab_edit -> editContact()
             R.id.cab_select_all -> selectAll()
@@ -97,7 +101,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
         contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person, textColor)
     }
 
-    fun updateItems(newItems: MutableList<Contact>) {
+    fun updateItems(newItems: ArrayList<Contact>) {
         contactItems = newItems
         notifyDataSetChanged()
         finishActMode()
@@ -135,10 +139,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     }
 
     private fun removeFavorites() {
-        if (selectedPositions.isEmpty()) {
-            return
-        }
-
         val favoritesToRemove = ArrayList<Contact>()
         selectedPositions.sortedDescending().forEach {
             favoritesToRemove.add(contactItems[it])
@@ -155,10 +155,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     }
 
     private fun addToFavorites() {
-        if (selectedPositions.isEmpty()) {
-            return
-        }
-
         val newFavorites = ArrayList<Contact>()
         selectedPositions.forEach { newFavorites.add(contactItems[it]) }
         ContactsHelper(activity).addFavorites(newFavorites)
@@ -167,10 +163,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     }
 
     private fun shareContacts() {
-        if (selectedPositions.isEmpty()) {
-            return
-        }
-
         val contacts = ArrayList<Contact>()
         selectedPositions.forEach {
             contacts.add(contactItems[it])
