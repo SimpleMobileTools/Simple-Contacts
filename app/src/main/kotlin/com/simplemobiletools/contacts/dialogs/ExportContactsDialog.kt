@@ -36,6 +36,10 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, priva
                 .create().apply {
             activity.setupDialogStuff(view, this, R.string.export_contacts) {
                 getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                    if (view.export_contacts_list.adapter == null) {
+                        return@setOnClickListener
+                    }
+
                     val filename = view.export_contacts_filename.value
                     when {
                         filename.isEmpty() -> activity.toast(R.string.empty_name)

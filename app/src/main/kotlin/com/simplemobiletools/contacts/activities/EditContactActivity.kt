@@ -204,7 +204,11 @@ class EditContactActivity : ContactActivity() {
             putExtra("scaleUpIfNeeded", "true")
             clipData = ClipData("Attachment", arrayOf("text/uri-list"), ClipData.Item(lastPhotoIntentUri))
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-            startActivityForResult(this, INTENT_CROP_PHOTO)
+            if (resolveActivity(packageManager) != null) {
+                startActivityForResult(this, INTENT_CROP_PHOTO)
+            } else {
+                toast(R.string.no_app_found)
+            }
         }
     }
 
