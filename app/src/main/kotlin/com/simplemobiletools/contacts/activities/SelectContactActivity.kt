@@ -14,10 +14,13 @@ import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.SelectContactsAdapter
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.layout_select_contact.*
 
 class SelectContactActivity : SimpleActivity() {
+    private var isGetEmailIntent = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_select_contact)
@@ -41,11 +44,19 @@ class SelectContactActivity : SimpleActivity() {
     }
 
     private fun initContacts() {
-        ContactsHelper(this).getContacts {
-            var contacts = it
+        isGetEmailIntent = intent.data == ContactsContract.CommonDataKinds.Email.CONTENT_URI
+        ContactsHelper(this).getContacts(true) {
             if (isActivityDestroyed()) {
                 return@getContacts
             }
+
+            var contacts = it.filter {
+                if (isGetEmailIntent) {
+                    (it.source != SMT_PRIVATE && it.emails.isNotEmpty())
+                } else {
+                    true
+                }
+            } as ArrayList<Contact>
 
             val contactSources = config.displayContactSources
             if (!config.showAllContacts()) {
@@ -68,14 +79,21 @@ class SelectContactActivity : SimpleActivity() {
     }
 
     private fun confirmSelection(contact: Contact) {
-        val lookupKey = ContactsHelper(this).getContactLookupKey(contact.id.toString())
-        val lookupUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey)
-
         Intent().apply {
-            data = lookupUri
+            data = getResultUri(contact)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             setResult(RESULT_OK, this)
         }
         finish()
+    }
+
+    private fun getResultUri(contact: Contact): Uri {
+        return if (isGetEmailIntent) {
+            val emailID = ContactsHelper(this).getContactDataId(contact.id.toString())
+            Uri.withAppendedPath(ContactsContract.Data.CONTENT_URI, emailID)
+        } else {
+            val lookupKey = ContactsHelper(this).getContactLookupKey(contact.id.toString())
+            Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey)
+        }
     }
 }
