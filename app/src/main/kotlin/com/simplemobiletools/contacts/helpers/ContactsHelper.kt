@@ -89,6 +89,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     val key = addresses.keyAt(i)
                     contacts[key]?.addresses = addresses.valueAt(i)
                 }
+
+                val events = getEvents()
+                size = events.size()
+                for (i in 0 until size) {
+                    val key = events.keyAt(i)
+                    contacts[key]?.events = events.valueAt(i)
+                }
             }
 
             activity.dbHelper.getContacts().forEach {
@@ -216,28 +223,37 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return addresses
     }
 
-    private fun getEvents(contactId: Int): SparseArray<ArrayList<Event>> {
+    private fun getEvents(contactId: Int? = null): SparseArray<ArrayList<Event>> {
         val events = SparseArray<ArrayList<Event>>()
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = arrayOf(
+                ContactsContract.Data.RAW_CONTACT_ID,
                 CommonDataKinds.Event.START_DATE,
                 CommonDataKinds.Event.TYPE
         )
-        val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
-        val selectionArgs = arrayOf(contactId.toString(), CommonDataKinds.Event.CONTENT_ITEM_TYPE)
+
+        var selection = "${ContactsContract.Data.MIMETYPE} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.Event.CONTENT_ITEM_TYPE)
+
+        if (contactId != null) {
+            selection += " AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+            selectionArgs[1] = contactId.toString()
+        }
+
         var cursor: Cursor? = null
         try {
             cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
-                    val startDate = cursor.getStringValue(CommonDataKinds.Event.START_DATE)
+                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
+                    val startDate = cursor.getStringValue(CommonDataKinds.Event.START_DATE) ?: continue
                     val type = cursor.getIntValue(CommonDataKinds.Event.TYPE)
 
-                    if (events[contactId] == null) {
-                        events.put(contactId, ArrayList())
+                    if (events[id] == null) {
+                        events.put(id, ArrayList())
                     }
 
-                    events[contactId]!!.add(Event(startDate, type))
+                    events[id]!!.add(Event(startDate, type))
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
