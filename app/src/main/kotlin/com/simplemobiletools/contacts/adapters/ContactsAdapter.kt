@@ -163,12 +163,15 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     }
 
     private fun shareContacts() {
-        val contacts = ArrayList<Contact>()
+        val contactsIDs = ArrayList<Int>()
         selectedPositions.forEach {
-            contacts.add(contactItems[it])
+            contactsIDs.add(contactItems[it].id)
         }
 
-        activity.shareContacts(contacts)
+        ContactsHelper(activity).getContacts(true) {
+            val filtered = it.filter { contactsIDs.contains(it.id) } as ArrayList<Contact>
+            activity.shareContacts(filtered)
+        }
     }
 
     override fun onViewRecycled(holder: ViewHolder?) {
