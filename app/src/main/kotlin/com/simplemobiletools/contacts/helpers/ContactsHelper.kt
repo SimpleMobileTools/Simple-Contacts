@@ -29,7 +29,7 @@ import com.simplemobiletools.contacts.extensions.getPhotoThumbnailSize
 import com.simplemobiletools.contacts.models.*
 
 class ContactsHelper(val activity: BaseSimpleActivity) {
-    fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
+    fun getContacts(addOptionalFields: Boolean = false, callback: (ArrayList<Contact>) -> Unit) {
         val contacts = SparseArray<Contact>()
         Thread {
             val uri = ContactsContract.Data.CONTENT_URI
@@ -75,21 +75,21 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 contacts[key]?.phoneNumbers = phoneNumbers.valueAt(i)
             }
 
-            val emails = getEmails()
-            size = emails.size()
-            for (i in 0 until size) {
-                val key = emails.keyAt(i)
-                contacts[key]?.emails = emails.valueAt(i)
-            }
+            if (addOptionalFields) {
+                val emails = getEmails()
+                size = emails.size()
+                for (i in 0 until size) {
+                    val key = emails.keyAt(i)
+                    contacts[key]?.emails = emails.valueAt(i)
+                }
 
-            val addresses = getAddresses()
-            size = addresses.size()
-            for (i in 0 until size) {
-                val key = addresses.keyAt(i)
-                contacts[key]?.addresses = addresses.valueAt(i)
+                val addresses = getAddresses()
+                size = addresses.size()
+                for (i in 0 until size) {
+                    val key = addresses.keyAt(i)
+                    contacts[key]?.addresses = addresses.valueAt(i)
+                }
             }
-
-            //getNotes()
 
             activity.dbHelper.getContacts().forEach {
                 contacts.put(it.id, it)

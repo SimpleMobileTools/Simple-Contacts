@@ -358,7 +358,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         FilePickerDialog(this, pickFile = false, showFAB = true) {
             ExportContactsDialog(this, it) { file, contactSources ->
                 Thread {
-                    ContactsHelper(this).getContacts {
+                    ContactsHelper(this).getContacts(true) {
                         val contacts = it.filter { contactSources.contains(it.source) }
                         if (contacts.isEmpty()) {
                             toast(R.string.no_entries_for_exporting)
