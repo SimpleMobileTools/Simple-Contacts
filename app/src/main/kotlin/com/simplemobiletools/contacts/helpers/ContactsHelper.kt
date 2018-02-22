@@ -96,6 +96,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     val key = events.keyAt(i)
                     contacts[key]?.events = events.valueAt(i)
                 }
+
+                val notes = getNotes()
+                size = notes.size()
+                for (i in 0 until size) {
+                    val key = notes.keyAt(i)
+                    contacts[key]?.notes = notes.valueAt(i)
+                }
             }
 
             activity.dbHelper.getContacts().forEach {
@@ -265,17 +272,31 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return events
     }
 
-    private fun getNotes(contactId: Int): String {
+    private fun getNotes(contactId: Int? = null): SparseArray<String> {
+        val notes = SparseArray<String>()
         val uri = ContactsContract.Data.CONTENT_URI
-        val projection = arrayOf(Note.NOTE)
-        val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
-        val selectionArgs = arrayOf(contactId.toString(), Note.CONTENT_ITEM_TYPE)
+        val projection = arrayOf(
+                ContactsContract.Data.RAW_CONTACT_ID,
+                Note.NOTE
+        )
+
+        var selection = "${ContactsContract.Data.MIMETYPE} = ?"
+        var selectionArgs = arrayOf(Note.CONTENT_ITEM_TYPE)
+
+        if (contactId != null) {
+            selection += " AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+            selectionArgs = arrayOf(Note.CONTENT_ITEM_TYPE, contactId.toString())
+        }
 
         var cursor: Cursor? = null
         try {
             cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
-                return cursor.getStringValue(CommonDataKinds.Note.NOTE) ?: ""
+                do {
+                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
+                    val note = cursor.getStringValue(CommonDataKinds.Note.NOTE) ?: continue
+                    notes.put(id, note)
+                } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
             activity.showErrorToast(e)
@@ -283,7 +304,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             cursor?.close()
         }
 
-        return ""
+        return notes
     }
 
     fun getContactWithId(id: Int, isLocalPrivate: Boolean): Contact? {
@@ -309,11 +330,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val emails = getEmails(id)[id] ?: ArrayList()
                 val addresses = getAddresses(id)[id] ?: ArrayList()
                 val events = getEvents(id)[id] ?: ArrayList()
+                val notes = getNotes(id)[id] ?: ""
                 val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
                 val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                 val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                val notes = getNotes(id)
                 return Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName, starred, contactId, thumbnailUri, null, notes)
             }
         } finally {
