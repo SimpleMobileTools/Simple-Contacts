@@ -233,11 +233,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         )
 
         var selection = "${ContactsContract.Data.MIMETYPE} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.Event.CONTENT_ITEM_TYPE)
+        var selectionArgs = arrayOf(CommonDataKinds.Event.CONTENT_ITEM_TYPE)
 
         if (contactId != null) {
             selection += " AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-            selectionArgs[1] = contactId.toString()
+            selectionArgs = arrayOf(CommonDataKinds.Event.CONTENT_ITEM_TYPE, contactId.toString())
         }
 
         var cursor: Cursor? = null
