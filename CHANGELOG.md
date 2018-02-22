@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 3.3.0 *(2018-02-22)*
+----------------------------
+
+ * Added Address and Notes fields
+ * Properly handle Get Email intent
+ * Fixed some glitches at exporting contacts
+ * Added FAQ
+
 Version 3.2.0 *(2018-02-11)*
 ----------------------------
 
