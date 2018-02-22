@@ -29,13 +29,14 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     private val COL_EMAILS = "emails"
     private val COL_EVENTS = "events"
     private val COL_STARRED = "starred"
+    private val COL_ADDRESSES = "addresses"
 
     private val FIRST_CONTACT_ID = 1000000
 
     private val mDb = writableDatabase
 
     companion object {
-        private const val DB_VERSION = 1
+        private const val DB_VERSION = 2
         const val DB_NAME = "contacts.db"
         var dbInstance: DBHelper? = null
 
@@ -49,14 +50,16 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE $CONTACTS_TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_FIRST_NAME TEXT, $COL_MIDDLE_NAME TEXT, " +
-                "$COL_SURNAME TEXT, $COL_PHOTO BLOB, $COL_PHONE_NUMBERS TEXT, $COL_EMAILS TEXT, $COL_EVENTS TEXT, $COL_STARRED INTEGER)")
+                "$COL_SURNAME TEXT, $COL_PHOTO BLOB, $COL_PHONE_NUMBERS TEXT, $COL_EMAILS TEXT, $COL_EVENTS TEXT, $COL_STARRED INTEGER, $COL_ADDRESSES TEXT)")
 
         // start autoincrement ID from FIRST_CONTACT_ID to avoid conflicts
         db.execSQL("REPLACE INTO sqlite_sequence (name, seq) VALUES ('$CONTACTS_TABLE_NAME', $FIRST_CONTACT_ID)")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-
+        if (oldVersion == 1) {
+            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_ADDRESSES TEXT DEFAULT ''")
+        }
     }
 
     fun insert(contact: Contact): Boolean {
@@ -87,6 +90,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
             put(COL_SURNAME, contact.surname)
             put(COL_PHONE_NUMBERS, Gson().toJson(contact.phoneNumbers))
             put(COL_EMAILS, Gson().toJson(contact.emails))
+            put(COL_ADDRESSES, Gson().toJson(contact.addresses))
             put(COL_EVENTS, Gson().toJson(contact.events))
             put(COL_STARRED, contact.starred)
 
@@ -120,7 +124,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
     fun getContacts(selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
         val contacts = ArrayList<Contact>()
-        val projection = arrayOf(COL_ID, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_PHONE_NUMBERS, COL_EMAILS, COL_EVENTS, COL_STARRED, COL_PHOTO)
+        val projection = arrayOf(COL_ID, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_PHONE_NUMBERS, COL_EMAILS, COL_EVENTS, COL_STARRED, COL_PHOTO, COL_ADDRESSES)
         val cursor = mDb.query(CONTACTS_TABLE_NAME, projection, selection, selectionArgs, null, null, null)
         cursor.use {
             while (cursor.moveToNext()) {
@@ -137,7 +141,9 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val emailsToken = object : TypeToken<List<Email>>() {}.type
                 val emails = Gson().fromJson<ArrayList<Email>>(emailsJson, emailsToken) ?: ArrayList(1)
 
-                val addresses = ArrayList<Address>()
+                val addressesJson = cursor.getStringValue(COL_ADDRESSES)
+                val addressesToken = object : TypeToken<List<Address>>() {}.type
+                val addresses = Gson().fromJson<ArrayList<Address>>(addressesJson, addressesToken) ?: ArrayList(1)
 
                 val eventsJson = cursor.getStringValue(COL_EVENTS)
                 val eventsToken = object : TypeToken<List<Event>>() {}.type
