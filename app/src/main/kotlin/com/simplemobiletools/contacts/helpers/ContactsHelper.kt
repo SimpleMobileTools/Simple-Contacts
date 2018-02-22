@@ -216,8 +216,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     private fun getNotes(contactId: Int): String {
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = arrayOf(Note.NOTE)
-        val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = '${Note.CONTENT_ITEM_TYPE}'"
-        val selectionArgs = arrayOf(contactId.toString())
+        val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
+        val selectionArgs = arrayOf(contactId.toString(), Note.CONTENT_ITEM_TYPE)
 
         var cursor: Cursor? = null
         try {
@@ -457,6 +457,15 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 }
             }
 
+            // notes
+            ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
+                val selectionArgs = arrayOf(contact.id.toString(), Note.CONTENT_ITEM_TYPE)
+                withSelection(selection, selectionArgs)
+                withValue(Note.NOTE, contact.notes)
+                operations.add(build())
+            }
+
             // favorite
             try {
                 val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contact.contactId.toString())
@@ -581,6 +590,14 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         withValue(CommonDataKinds.Event.TYPE, it.type)
                         operations.add(build())
                     }
+                }
+
+                // notes
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    withValue(ContactsContract.Data.MIMETYPE, Note.CONTENT_ITEM_TYPE)
+                    withValue(Note.NOTE, contact.notes)
+                    operations.add(build())
                 }
 
                 // photo (inspired by https://gist.github.com/slightfoot/5985900)

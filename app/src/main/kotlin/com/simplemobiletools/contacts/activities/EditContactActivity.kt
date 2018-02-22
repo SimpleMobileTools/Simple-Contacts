@@ -164,6 +164,7 @@ class EditContactActivity : ContactActivity() {
         contact_email_image.applyColorFilter(textColor)
         contact_address_image.applyColorFilter(textColor)
         contact_event_image.applyColorFilter(textColor)
+        contact_notes_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
 
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
@@ -235,6 +236,7 @@ class EditContactActivity : ContactActivity() {
         setupPhoneNumbers()
         setupEmails()
         setupAddresses()
+        setupNotes()
         setupEvents()
     }
 
@@ -281,6 +283,10 @@ class EditContactActivity : ContactActivity() {
                 setupAddressTypePicker(contact_address_type, address.type)
             }
         }
+    }
+
+    private fun setupNotes() {
+        contact_notes.setText(contact!!.notes)
     }
 
     private fun setupEvents() {
@@ -501,6 +507,7 @@ class EditContactActivity : ContactActivity() {
             events = getFilledEvents()
             source = contact!!.source
             starred = if (isContactStarred()) 1 else 0
+            notes = contact_notes.value.replace("\n", "\\n")
 
             Thread {
                 config.lastUsedContactSource = source
