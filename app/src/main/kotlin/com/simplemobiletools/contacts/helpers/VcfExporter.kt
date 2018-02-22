@@ -62,6 +62,10 @@ class VcfExporter {
                             }
                         }
 
+                        if (contact.notes.isNotEmpty()) {
+                            out.writeLn("$NOTE${contact.notes.replace("\n", "\\n")}")
+                        }
+
                         if (contact.thumbnailUri.isNotEmpty()) {
                             val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, Uri.parse(contact.thumbnailUri))
                             addBitmap(bitmap, out)
