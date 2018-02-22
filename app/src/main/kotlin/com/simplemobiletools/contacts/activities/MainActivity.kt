@@ -396,6 +396,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {
             add(Release(10, R.string.release_10))
+            add(Release(11, R.string.release_11))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }
