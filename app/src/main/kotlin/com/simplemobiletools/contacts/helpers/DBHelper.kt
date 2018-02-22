@@ -30,6 +30,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     private val COL_EVENTS = "events"
     private val COL_STARRED = "starred"
     private val COL_ADDRESSES = "addresses"
+    private val COL_NOTES = "notes"
 
     private val FIRST_CONTACT_ID = 1000000
 
@@ -50,7 +51,8 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE $CONTACTS_TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_FIRST_NAME TEXT, $COL_MIDDLE_NAME TEXT, " +
-                "$COL_SURNAME TEXT, $COL_PHOTO BLOB, $COL_PHONE_NUMBERS TEXT, $COL_EMAILS TEXT, $COL_EVENTS TEXT, $COL_STARRED INTEGER, $COL_ADDRESSES TEXT)")
+                "$COL_SURNAME TEXT, $COL_PHOTO BLOB, $COL_PHONE_NUMBERS TEXT, $COL_EMAILS TEXT, $COL_EVENTS TEXT, $COL_STARRED INTEGER, " +
+                "$COL_ADDRESSES TEXT, $COL_NOTES TEXT)")
 
         // start autoincrement ID from FIRST_CONTACT_ID to avoid conflicts
         db.execSQL("REPLACE INTO sqlite_sequence (name, seq) VALUES ('$CONTACTS_TABLE_NAME', $FIRST_CONTACT_ID)")
@@ -59,6 +61,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         if (oldVersion == 1) {
             db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_ADDRESSES TEXT DEFAULT ''")
+            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_NOTES TEXT DEFAULT ''")
         }
     }
 
@@ -93,6 +96,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
             put(COL_ADDRESSES, Gson().toJson(contact.addresses))
             put(COL_EVENTS, Gson().toJson(contact.events))
             put(COL_STARRED, contact.starred)
+            put(COL_NOTES, contact.notes)
 
             if (contact.photoUri.isNotEmpty()) {
                 put(COL_PHOTO, getPhotoByteArray(contact.photoUri))
@@ -124,7 +128,8 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
     fun getContacts(selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
         val contacts = ArrayList<Contact>()
-        val projection = arrayOf(COL_ID, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_PHONE_NUMBERS, COL_EMAILS, COL_EVENTS, COL_STARRED, COL_PHOTO, COL_ADDRESSES)
+        val projection = arrayOf(COL_ID, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_PHONE_NUMBERS, COL_EMAILS, COL_EVENTS, COL_STARRED,
+                COL_PHOTO, COL_ADDRESSES, COL_NOTES)
         val cursor = mDb.query(CONTACTS_TABLE_NAME, projection, selection, selectionArgs, null, null, null)
         cursor.use {
             while (cursor.moveToNext()) {
@@ -156,9 +161,9 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                     null
                 }
 
-                val notes = ""
-
+                val notes = cursor.getStringValue(COL_NOTES)
                 val starred = cursor.getIntValue(COL_STARRED)
+
                 val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, addresses, events, SMT_PRIVATE, starred, id, "", photo, notes)
                 contacts.add(contact)
             }

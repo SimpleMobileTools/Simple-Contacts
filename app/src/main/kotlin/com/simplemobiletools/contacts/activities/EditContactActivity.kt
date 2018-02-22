@@ -507,7 +507,7 @@ class EditContactActivity : ContactActivity() {
             events = getFilledEvents()
             source = contact!!.source
             starred = if (isContactStarred()) 1 else 0
-            notes = contact_notes.value.replace("\n", "\\n")
+            notes = contact_notes.value
 
             Thread {
                 config.lastUsedContactSource = source
