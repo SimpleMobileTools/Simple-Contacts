@@ -37,6 +37,9 @@ class VcfImporter(val activity: SimpleActivity) {
     private var currentNameIsANSI = false
     private var currentNameString = StringBuilder()
 
+    private var isGettingNotes = false
+    private var currentNotesSB = StringBuilder()
+
     private var contactsImported = 0
     private var contactsFailed = 0
 
@@ -61,10 +64,18 @@ class VcfImporter(val activity: SimpleActivity) {
                         currentNameString.append(line.trimStart('\t'))
                         isGettingName = false
                         parseNames()
+                    } else if (isGettingNotes) {
+                        if (line.startsWith(' ')) {
+                            currentNotesSB.append(line.substring(1))
+                        } else {
+                            curNotes = currentNotesSB.toString().replace("\\n", "\n").replace("\\,", ",")
+                            isGettingNotes = false
+                        }
                     }
 
                     when {
                         line.toUpperCase() == BEGIN_VCARD -> resetValues()
+                        line.toUpperCase().startsWith(NOTE) -> addNotes(line.substring(NOTE.length))
                         line.toUpperCase().startsWith(N) -> addNames(line.substring(N.length))
                         line.toUpperCase().startsWith(TEL) -> addPhoneNumber(line.substring(TEL.length))
                         line.toUpperCase().startsWith(EMAIL) -> addEmail(line.substring(EMAIL.length))
@@ -217,6 +228,11 @@ class VcfImporter(val activity: SimpleActivity) {
         curPhotoUri = activity.getCachePhotoUri(file).toString()
     }
 
+    private fun addNotes(notes: String) {
+        currentNotesSB.append(notes)
+        isGettingNotes = true
+    }
+
     private fun saveContact(source: String) {
         val contact = Contact(0, curFirstName, curMiddleName, curSurname, curPhotoUri, curPhoneNumbers, curEmails, curAddresses, curEvents, source, 0, 0, "", null, curNotes)
         if (ContactsHelper(activity).insertContact(contact)) {
@@ -242,5 +258,8 @@ class VcfImporter(val activity: SimpleActivity) {
         isGettingName = false
         currentNameIsANSI = false
         currentNameString = StringBuilder()
+
+        isGettingNotes = false
+        currentNotesSB = StringBuilder()
     }
 }
