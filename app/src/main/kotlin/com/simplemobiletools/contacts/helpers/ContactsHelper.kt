@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
+import android.provider.ContactsContract.CommonDataKinds.Note
 import android.provider.MediaStore
 import android.util.SparseArray
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
@@ -26,9 +27,7 @@ import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.extensions.getByteArray
 import com.simplemobiletools.contacts.extensions.getPhotoThumbnailSize
 import com.simplemobiletools.contacts.models.*
-import java.io.ByteArrayOutputStream
-import java.util.*
-import kotlin.collections.ArrayList
+
 
 class ContactsHelper(val activity: BaseSimpleActivity) {
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
@@ -58,8 +57,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                         val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                         val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
+                        val notes = ""
                         val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName,
-                                starred, contactId, thumbnailUri, null)
+                                starred, contactId, thumbnailUri, null, notes)
                         contacts.put(id, contact)
                     } while (cursor.moveToNext())
                 }
@@ -89,6 +89,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val key = addresses.keyAt(i)
                 contacts[key]?.addresses = addresses.valueAt(i)
             }
+
+            //getNotes()
 
             activity.dbHelper.getContacts().forEach {
                 contacts.put(it.id, it)
@@ -248,6 +250,27 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return events
     }
 
+    private fun getNotes(contactId: Int): String {
+        val uri = ContactsContract.Data.CONTENT_URI
+        val projection = arrayOf(Note.NOTE)
+        val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = '${Note.CONTENT_ITEM_TYPE}'"
+        val selectionArgs = arrayOf(contactId.toString())
+
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                return cursor.getStringValue(CommonDataKinds.Note.NOTE) ?: ""
+            }
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        } finally {
+            cursor?.close()
+        }
+
+        return ""
+    }
+
     fun getContactWithId(id: Int, isLocalPrivate: Boolean): Contact? {
         if (id == 0) {
             return null
@@ -275,7 +298,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                 val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                return Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName, starred, contactId, thumbnailUri, null)
+                val notes = getNotes(id)
+                return Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName, starred, contactId, thumbnailUri, null, notes)
             }
         } finally {
             cursor?.close()
@@ -659,17 +683,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         photoStream.write(fullSizePhotoData)
         photoStream.close()
         fileDescriptor.close()
-    }
-
-    private fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
-        var baos: ByteArrayOutputStream? = null
-        try {
-            baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
-            return baos.toByteArray()
-        } finally {
-            baos?.close()
-        }
     }
 
     fun getContactLookupKey(contactId: String): String {

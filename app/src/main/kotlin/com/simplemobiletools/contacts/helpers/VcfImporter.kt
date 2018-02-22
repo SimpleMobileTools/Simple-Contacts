@@ -23,6 +23,7 @@ class VcfImporter(val activity: SimpleActivity) {
     private var curMiddleName = ""
     private var curSurname = ""
     private var curPhotoUri = ""
+    private var curNotes = ""
     private var curPhoneNumbers = ArrayList<PhoneNumber>()
     private var curEmails = ArrayList<Email>()
     private var curEvents = ArrayList<Event>()
@@ -217,7 +218,7 @@ class VcfImporter(val activity: SimpleActivity) {
     }
 
     private fun saveContact(source: String) {
-        val contact = Contact(0, curFirstName, curMiddleName, curSurname, curPhotoUri, curPhoneNumbers, curEmails, curAddresses, curEvents, source, 0, 0, "", null)
+        val contact = Contact(0, curFirstName, curMiddleName, curSurname, curPhotoUri, curPhoneNumbers, curEmails, curAddresses, curEvents, source, 0, 0, "", null, curNotes)
         if (ContactsHelper(activity).insertContact(contact)) {
             contactsImported++
         }
@@ -228,6 +229,7 @@ class VcfImporter(val activity: SimpleActivity) {
         curMiddleName = ""
         curSurname = ""
         curPhotoUri = ""
+        curNotes = ""
         curPhoneNumbers = ArrayList()
         curEmails = ArrayList()
         curEvents = ArrayList()
