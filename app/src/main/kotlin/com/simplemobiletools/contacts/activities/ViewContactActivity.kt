@@ -113,6 +113,7 @@ class ViewContactActivity : ContactActivity() {
         contact_email_image.applyColorFilter(textColor)
         contact_event_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
+        contact_notes_image.applyColorFilter(textColor)
 
         contact_send_sms.setOnClickListener { trySendSMS() }
         contact_start_call.setOnClickListener { tryStartCall(contact!!) }
@@ -152,6 +153,7 @@ class ViewContactActivity : ContactActivity() {
         setupEmails()
         setupAddresses()
         setupEvents()
+        setupNotes()
     }
 
     private fun setupPhoneNumbers() {
@@ -214,6 +216,13 @@ class ViewContactActivity : ContactActivity() {
 
         contact_event_image.beVisibleIf(events.isNotEmpty())
         contact_events_holder.beVisibleIf(events.isNotEmpty())
+    }
+
+    private fun setupNotes() {
+        val notes = contact!!.notes
+        contact_notes.text = notes
+        contact_notes_image.beVisibleIf(notes.isNotEmpty())
+        contact_notes.beVisibleIf(notes.isNotEmpty())
     }
 
     private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_big else R.drawable.ic_star_off_big)
