@@ -196,13 +196,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                getCurrentFragment().onSearchOpened()
+                getCurrentFragment()?.onSearchOpened()
                 isSearchOpen = true
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                getCurrentFragment().onSearchClosed()
+                getCurrentFragment()?.onSearchClosed()
                 isSearchOpen = false
                 return true
             }
@@ -291,15 +291,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
-            contacts_fragment.initContacts()
-            favorites_fragment.initContacts()
+            contacts_fragment?.initContacts()
+            favorites_fragment?.initContacts()
         }
     }
 
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
-            contacts_fragment.forceListRedraw = true
-            contacts_fragment.initContacts()
+            contacts_fragment?.forceListRedraw = true
+            contacts_fragment?.initContacts()
         }
     }
 
