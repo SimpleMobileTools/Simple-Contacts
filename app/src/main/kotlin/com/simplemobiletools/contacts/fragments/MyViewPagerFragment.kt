@@ -59,7 +59,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
-    fun primaryColorChanged(color: Int) {
+    fun primaryColorChanged() {
         fragment_fastscroller.updatePrimaryColor()
         fragment_fastscroller.updateBubblePrimaryColor()
     }
@@ -193,7 +193,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun onSearchClosed() {
-        (fragment_list.adapter as ContactsAdapter).updateItems(contactsIgnoringSearch)
+        (fragment_list.adapter as? ContactsAdapter)?.updateItems(contactsIgnoringSearch)
         if (this is FavoritesFragment) {
             fragment_placeholder.text = activity?.getString(R.string.no_favorites)
         }

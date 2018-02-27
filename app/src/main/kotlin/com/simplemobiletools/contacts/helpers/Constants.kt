@@ -1,7 +1,5 @@
 package com.simplemobiletools.contacts.helpers
 
-import android.provider.ContactsContract.CommonDataKinds
-
 // shared prefs
 const val SHOW_CONTACT_THUMBNAILS = "show_contact_thumbnails"
 const val SHOW_PHONE_NUMBERS = "show_phone_numbers"
@@ -14,18 +12,14 @@ const val LOCAL_ACCOUNT_TYPE = "local_account_type"
 const val ON_CONTACT_CLICK = "on_contact_click"
 
 const val CONTACT_ID = "contact_id"
-const val SMT_PRIVATE = "smt_private"
+const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
+const val IS_PRIVATE = "is_private"
 
 // contact photo changes
 const val PHOTO_ADDED = 1
 const val PHOTO_REMOVED = 2
 const val PHOTO_CHANGED = 3
 const val PHOTO_UNCHANGED = 4
-
-// default contact values
-const val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
-const val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
-const val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
 
 // export/import
 const val BEGIN_VCARD = "BEGIN:VCARD"
@@ -36,6 +30,8 @@ const val BDAY = "BDAY:"
 const val ANNIVERSARY = "ANNIVERSARY:"
 const val PHOTO = "PHOTO"
 const val EMAIL = "EMAIL"
+const val ADR = "ADR"
+const val NOTE = "NOTE:"
 const val ENCODING = "ENCODING"
 const val BASE64 = "BASE64"
 const val JPEG = "JPEG"

@@ -15,16 +15,18 @@ import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.EditContactActivity
 import com.simplemobiletools.contacts.activities.ViewContactActivity
-import com.simplemobiletools.contacts.helpers.CONTACT_ID
-import com.simplemobiletools.contacts.helpers.Config
+import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.Contact
 import java.io.File
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
 
+val Context.dbHelper: DBHelper get() = DBHelper.newInstance(applicationContext)
+
 fun Context.viewContact(contact: Contact) {
     Intent(applicationContext, ViewContactActivity::class.java).apply {
         putExtra(CONTACT_ID, contact.id)
+        putExtra(IS_PRIVATE, contact.source == SMT_PRIVATE)
         startActivity(this)
     }
 }
@@ -32,6 +34,7 @@ fun Context.viewContact(contact: Contact) {
 fun Context.editContact(contact: Contact) {
     Intent(applicationContext, EditContactActivity::class.java).apply {
         putExtra(CONTACT_ID, contact.id)
+        putExtra(IS_PRIVATE, contact.source == SMT_PRIVATE)
         startActivity(this)
     }
 }
@@ -125,3 +128,18 @@ fun Context.getCachePhoto(): File {
 }
 
 fun Context.getCachePhotoUri(file: File = getCachePhoto()) = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
+
+fun Context.getPhotoThumbnailSize(): Int {
+    val uri = ContactsContract.DisplayPhoto.CONTENT_MAX_DIMENSIONS_URI
+    val projection = arrayOf(ContactsContract.DisplayPhoto.THUMBNAIL_MAX_DIM)
+    var cursor: Cursor? = null
+    try {
+        cursor = contentResolver.query(uri, projection, null, null, null)
+        if (cursor?.moveToFirst() == true) {
+            return cursor.getIntValue(ContactsContract.DisplayPhoto.THUMBNAIL_MAX_DIM)
+        }
+    } finally {
+        cursor?.close()
+    }
+    return 0
+}

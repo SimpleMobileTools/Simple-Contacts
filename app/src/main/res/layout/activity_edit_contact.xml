@@ -214,6 +214,44 @@
             android:src="@drawable/ic_plus"/>
 
         <ImageView
+            android:id="@+id/contact_address_image"
+            android:layout_width="@dimen/contact_icons_size"
+            android:layout_height="@dimen/contact_icons_size"
+            android:layout_alignTop="@+id/contact_addresses_holder"
+            android:paddingBottom="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
+            android:paddingRight="@dimen/small_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@drawable/ic_place"/>
+
+        <LinearLayout
+            android:id="@+id/contact_addresses_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_email_add_new"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_toRightOf="@+id/contact_name_image"
+            android:orientation="vertical">
+
+            <include layout="@layout/item_edit_address"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/contact_address_add_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_addresses_holder"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/small_margin"
+            android:background="@drawable/button_background"
+            android:paddingBottom="@dimen/medium_margin"
+            android:paddingLeft="@dimen/activity_margin"
+            android:paddingRight="@dimen/activity_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@drawable/ic_plus"/>
+
+        <ImageView
             android:id="@+id/contact_event_image"
             android:layout_width="@dimen/contact_icons_size"
             android:layout_height="@dimen/contact_icons_size"
@@ -228,7 +266,7 @@
             android:id="@+id/contact_events_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_email_add_new"
+            android:layout_below="@+id/contact_address_add_new"
             android:layout_marginTop="@dimen/medium_margin"
             android:layout_toRightOf="@+id/contact_name_image"
             android:orientation="vertical">
@@ -252,6 +290,30 @@
             android:src="@drawable/ic_plus"/>
 
         <ImageView
+            android:id="@+id/contact_notes_image"
+            android:layout_width="@dimen/contact_icons_size"
+            android:layout_height="@dimen/contact_icons_size"
+            android:layout_alignTop="@+id/contact_notes"
+            android:paddingBottom="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
+            android:paddingRight="@dimen/small_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@drawable/ic_label"/>
+
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/contact_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_event_add_new"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_toRightOf="@+id/contact_notes_image"
+            android:hint="@string/notes"
+            android:inputType="textCapWords|textMultiLine"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/bigger_text_size"/>
+
+        <ImageView
             android:id="@+id/contact_source_image"
             android:layout_width="@dimen/contact_icons_size"
             android:layout_height="@dimen/contact_icons_size"
@@ -266,7 +328,7 @@
             android:id="@+id/contact_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_event_add_new"
+            android:layout_below="@+id/contact_notes"
             android:layout_centerVertical="true"
             android:layout_marginTop="@dimen/medium_margin"
             android:layout_toRightOf="@+id/contact_name_image"

@@ -14,6 +14,8 @@ import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.models.FAQItem
+import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ViewPagerAdapter
@@ -69,6 +71,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         }
         storeStateVariables()
+        checkWhatsNewDialog()
     }
 
     override fun onResume() {
@@ -105,8 +108,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (storedPrimaryColor != configPrimaryColor) {
             main_tabs_holder.setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
             main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
-            contacts_fragment.primaryColorChanged(configPrimaryColor)
-            favorites_fragment.primaryColorChanged(configPrimaryColor)
+            contacts_fragment.primaryColorChanged()
+            favorites_fragment.primaryColorChanged()
         }
 
         val configStartNameWithSurname = config.startNameWithSurname
@@ -119,12 +122,16 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             if (viewpager.adapter == null) {
                 initFragments()
             }
+
             contacts_fragment?.initContacts()
             contacts_fragment?.onActivityResume()
             favorites_fragment?.initContacts()
             favorites_fragment?.onActivityResume()
         }
-        isFirstResume = false
+
+        if (hasPermission(PERMISSION_WRITE_CONTACTS)) {
+            isFirstResume = false
+        }
     }
 
     override fun onPause() {
@@ -189,13 +196,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                getCurrentFragment().onSearchOpened()
+                getCurrentFragment()?.onSearchOpened()
                 isSearchOpen = true
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                getCurrentFragment().onSearchClosed()
+                getCurrentFragment()?.onSearchClosed()
                 isSearchOpen = false
                 return true
             }
@@ -284,15 +291,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
-            contacts_fragment.initContacts()
-            favorites_fragment.initContacts()
+            contacts_fragment?.initContacts()
+            favorites_fragment?.initContacts()
         }
     }
 
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
-            contacts_fragment.forceListRedraw = true
-            contacts_fragment.initContacts()
+            contacts_fragment?.forceListRedraw = true
+            contacts_fragment?.initContacts()
         }
     }
 
@@ -351,7 +358,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         FilePickerDialog(this, pickFile = false, showFAB = true) {
             ExportContactsDialog(this, it) { file, contactSources ->
                 Thread {
-                    ContactsHelper(this).getContacts {
+                    ContactsHelper(this).getContacts(true) {
                         val contacts = it.filter { contactSources.contains(it.source) }
                         if (contacts.isEmpty()) {
                             toast(R.string.no_entries_for_exporting)
@@ -372,7 +379,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchAbout() {
-        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE, BuildConfig.VERSION_NAME)
+        val faqItems = arrayListOf(FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons))
+        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_STETHO,
+                BuildConfig.VERSION_NAME, faqItems)
     }
 
     override fun refreshContacts() {
@@ -382,5 +391,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     override fun refreshFavorites() {
         favorites_fragment?.initContacts()
+    }
+
+    private fun checkWhatsNewDialog() {
+        arrayListOf<Release>().apply {
+            add(Release(10, R.string.release_10))
+            add(Release(11, R.string.release_11))
+            checkWhatsNew(this, BuildConfig.VERSION_CODE)
+        }
     }
 }

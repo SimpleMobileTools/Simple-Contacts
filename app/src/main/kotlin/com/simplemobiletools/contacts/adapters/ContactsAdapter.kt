@@ -27,7 +27,7 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.item_contact_with_number.view.*
 import java.util.*
 
-class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Contact>, private val listener: RefreshContactsListener?,
+class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val listener: RefreshContactsListener?,
                       private val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
@@ -66,6 +66,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     }
 
     override fun actionItemPressed(id: Int) {
+        if (selectedPositions.isEmpty()) {
+            return
+        }
+
         when (id) {
             R.id.cab_edit -> editContact()
             R.id.cab_select_all -> selectAll()
@@ -97,7 +101,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
         contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person, textColor)
     }
 
-    fun updateItems(newItems: MutableList<Contact>) {
+    fun updateItems(newItems: ArrayList<Contact>) {
         contactItems = newItems
         notifyDataSetChanged()
         finishActMode()
@@ -135,19 +139,13 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     }
 
     private fun removeFavorites() {
-        if (selectedPositions.isEmpty()) {
-            return
-        }
-
         val favoritesToRemove = ArrayList<Contact>()
         selectedPositions.sortedDescending().forEach {
             favoritesToRemove.add(contactItems[it])
         }
         contactItems.removeAll(favoritesToRemove)
 
-        val favoriteIDsToRemove = ArrayList<String>()
-        favoritesToRemove.mapTo(favoriteIDsToRemove, { it.contactId.toString() })
-        ContactsHelper(activity).removeFavorites(favoriteIDsToRemove)
+        ContactsHelper(activity).removeFavorites(favoritesToRemove)
         if (contactItems.isEmpty()) {
             listener?.refreshFavorites()
             finishActMode()
@@ -157,28 +155,23 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
     }
 
     private fun addToFavorites() {
-        if (selectedPositions.isEmpty()) {
-            return
-        }
-
-        val newFavorites = ArrayList<String>()
-        selectedPositions.forEach { newFavorites.add(contactItems[it].contactId.toString()) }
+        val newFavorites = ArrayList<Contact>()
+        selectedPositions.forEach { newFavorites.add(contactItems[it]) }
         ContactsHelper(activity).addFavorites(newFavorites)
         listener?.refreshFavorites()
         finishActMode()
     }
 
     private fun shareContacts() {
-        if (selectedPositions.isEmpty()) {
-            return
-        }
-
-        val contacts = ArrayList<Contact>()
+        val contactsIDs = ArrayList<Int>()
         selectedPositions.forEach {
-            contacts.add(contactItems[it])
+            contactsIDs.add(contactItems[it].id)
         }
 
-        activity.shareContacts(contacts)
+        ContactsHelper(activity).getContacts(true) {
+            val filtered = it.filter { contactsIDs.contains(it.id) } as ArrayList<Contact>
+            activity.shareContacts(filtered)
+        }
     }
 
     override fun onViewRecycled(holder: ViewHolder?) {
@@ -201,16 +194,26 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: MutableList<Co
             contact_tmb.beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {
-                if (contact.photoUri.isNotEmpty()) {
-                    val options = RequestOptions()
-                            .signature(ObjectKey(contact.photoUri))
-                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                            .error(contactDrawable)
-                            .centerCrop()
+                when {
+                    contact.photoUri.isNotEmpty() -> {
+                        val options = RequestOptions()
+                                .signature(ObjectKey(contact.photoUri))
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                .error(contactDrawable)
+                                .centerCrop()
 
-                    Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
-                } else {
-                    contact_tmb.setImageDrawable(contactDrawable)
+                        Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                    }
+                    contact.photo != null -> {
+                        val options = RequestOptions()
+                                .signature(ObjectKey(contact.photo!!))
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                .error(contactDrawable)
+                                .centerCrop()
+
+                        Glide.with(activity).load(contact.photo).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                    }
+                    else -> contact_tmb.setImageDrawable(contactDrawable)
                 }
             }
         }

@@ -10,10 +10,7 @@ import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.getCachePhoto
 import com.simplemobiletools.contacts.extensions.getCachePhotoUri
 import com.simplemobiletools.contacts.helpers.VcfImporter.ImportResult.*
-import com.simplemobiletools.contacts.models.Contact
-import com.simplemobiletools.contacts.models.Email
-import com.simplemobiletools.contacts.models.Event
-import com.simplemobiletools.contacts.models.PhoneNumber
+import com.simplemobiletools.contacts.models.*
 import java.io.File
 import java.io.FileOutputStream
 
@@ -26,9 +23,11 @@ class VcfImporter(val activity: SimpleActivity) {
     private var curMiddleName = ""
     private var curSurname = ""
     private var curPhotoUri = ""
+    private var curNotes = ""
     private var curPhoneNumbers = ArrayList<PhoneNumber>()
     private var curEmails = ArrayList<Email>()
     private var curEvents = ArrayList<Event>()
+    private var curAddresses = ArrayList<Address>()
 
     private var isGettingPhoto = false
     private var currentPhotoString = StringBuilder()
@@ -37,6 +36,9 @@ class VcfImporter(val activity: SimpleActivity) {
     private var isGettingName = false
     private var currentNameIsANSI = false
     private var currentNameString = StringBuilder()
+
+    private var isGettingNotes = false
+    private var currentNotesSB = StringBuilder()
 
     private var contactsImported = 0
     private var contactsFailed = 0
@@ -62,13 +64,22 @@ class VcfImporter(val activity: SimpleActivity) {
                         currentNameString.append(line.trimStart('\t'))
                         isGettingName = false
                         parseNames()
+                    } else if (isGettingNotes) {
+                        if (line.startsWith(' ')) {
+                            currentNotesSB.append(line.substring(1))
+                        } else {
+                            curNotes = currentNotesSB.toString().replace("\\n", "\n").replace("\\,", ",")
+                            isGettingNotes = false
+                        }
                     }
 
                     when {
                         line.toUpperCase() == BEGIN_VCARD -> resetValues()
+                        line.toUpperCase().startsWith(NOTE) -> addNotes(line.substring(NOTE.length))
                         line.toUpperCase().startsWith(N) -> addNames(line.substring(N.length))
                         line.toUpperCase().startsWith(TEL) -> addPhoneNumber(line.substring(TEL.length))
                         line.toUpperCase().startsWith(EMAIL) -> addEmail(line.substring(EMAIL.length))
+                        line.toUpperCase().startsWith(ADR) -> addAddress(line.substring(ADR.length))
                         line.toUpperCase().startsWith(BDAY) -> addBirthday(line.substring(BDAY.length))
                         line.toUpperCase().startsWith(ANNIVERSARY) -> addAnniversary(line.substring(ANNIVERSARY.length))
                         line.toUpperCase().startsWith(PHOTO) -> addPhoto(line.substring(PHOTO.length))
@@ -156,6 +167,25 @@ class VcfImporter(val activity: SimpleActivity) {
         else -> CommonDataKinds.Email.TYPE_OTHER
     }
 
+    private fun addAddress(address: String) {
+        val addressParts = address.trimStart(';').split(":")
+        var rawType = addressParts[0]
+        if (rawType.contains('=')) {
+            rawType = rawType.split('=').last()
+        }
+        val type = getAddressTypeId(rawType.toUpperCase())
+        val addresses = addressParts[1].split(";")
+        if (addresses.size == 7) {
+            curAddresses.add(Address(addresses[2], type))
+        }
+    }
+
+    private fun getAddressTypeId(type: String) = when (type) {
+        HOME -> CommonDataKinds.Email.TYPE_HOME
+        WORK -> CommonDataKinds.Email.TYPE_WORK
+        else -> CommonDataKinds.Email.TYPE_OTHER
+    }
+
     private fun addBirthday(birthday: String) {
         curEvents.add(Event(birthday, CommonDataKinds.Event.TYPE_BIRTHDAY))
     }
@@ -198,8 +228,13 @@ class VcfImporter(val activity: SimpleActivity) {
         curPhotoUri = activity.getCachePhotoUri(file).toString()
     }
 
+    private fun addNotes(notes: String) {
+        currentNotesSB.append(notes)
+        isGettingNotes = true
+    }
+
     private fun saveContact(source: String) {
-        val contact = Contact(0, curFirstName, curMiddleName, curSurname, curPhotoUri, curPhoneNumbers, curEmails, curEvents, source, 0, 0, "")
+        val contact = Contact(0, curFirstName, curMiddleName, curSurname, curPhotoUri, curPhoneNumbers, curEmails, curAddresses, curEvents, source, 0, 0, "", null, curNotes)
         if (ContactsHelper(activity).insertContact(contact)) {
             contactsImported++
         }
@@ -210,9 +245,11 @@ class VcfImporter(val activity: SimpleActivity) {
         curMiddleName = ""
         curSurname = ""
         curPhotoUri = ""
+        curNotes = ""
         curPhoneNumbers = ArrayList()
         curEmails = ArrayList()
         curEvents = ArrayList()
+        curAddresses = ArrayList()
 
         isGettingPhoto = false
         currentPhotoString = StringBuilder()
@@ -221,5 +258,8 @@ class VcfImporter(val activity: SimpleActivity) {
         isGettingName = false
         currentNameIsANSI = false
         currentNameString = StringBuilder()
+
+        isGettingNotes = false
+        currentNotesSB = StringBuilder()
     }
 }

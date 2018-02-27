@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Release notes -->
+    <string name="release_11">Added Address and Notes fields</string>
+    <string name="release_10">Allow storing contacts in a local database, hidden from other apps</string>
+
+</resources>

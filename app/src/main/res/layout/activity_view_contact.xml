@@ -154,11 +154,7 @@
             android:layout_below="@+id/contact_surname"
             android:layout_toRightOf="@+id/contact_number_image"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/small_margin">
-
-            <include layout="@layout/item_view_phone_number"/>
-
-        </LinearLayout>
+            android:paddingLeft="@dimen/small_margin"/>
 
         <ImageView
             android:id="@+id/contact_email_image"
@@ -178,11 +174,27 @@
             android:layout_below="@+id/contact_numbers_holder"
             android:layout_toRightOf="@+id/contact_name_image"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/small_margin">
+            android:paddingLeft="@dimen/small_margin"/>
 
-            <include layout="@layout/item_view_email"/>
+        <ImageView
+            android:id="@+id/contact_address_image"
+            android:layout_width="@dimen/contact_icons_size"
+            android:layout_height="@dimen/contact_icons_size"
+            android:layout_alignTop="@+id/contact_addresses_holder"
+            android:paddingBottom="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
+            android:paddingRight="@dimen/small_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@drawable/ic_place"/>
 
-        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/contact_addresses_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_emails_holder"
+            android:layout_toRightOf="@+id/contact_name_image"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/small_margin"/>
 
         <ImageView
             android:id="@+id/contact_event_image"
@@ -199,13 +211,33 @@
             android:id="@+id/contact_events_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_emails_holder"
+            android:layout_below="@+id/contact_addresses_holder"
             android:layout_toRightOf="@+id/contact_name_image"
-            android:orientation="vertical">
+            android:orientation="vertical"/>
 
-            <include layout="@layout/item_event"/>
+        <ImageView
+            android:id="@+id/contact_notes_image"
+            android:layout_width="@dimen/contact_icons_size"
+            android:layout_height="@dimen/contact_icons_size"
+            android:layout_alignTop="@+id/contact_notes"
+            android:paddingBottom="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
+            android:paddingRight="@dimen/small_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@drawable/ic_label"/>
 
-        </LinearLayout>
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/contact_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_events_holder"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/contact_notes_image"
+            android:lineSpacingExtra="@dimen/medium_margin"
+            android:paddingBottom="@dimen/normal_margin"
+            android:paddingLeft="@dimen/small_margin"
+            android:paddingTop="@dimen/normal_margin"
+            android:textSize="@dimen/bigger_text_size"/>
 
         <ImageView
             android:id="@+id/contact_source_image"
@@ -222,10 +254,9 @@
             android:id="@+id/contact_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_events_holder"
+            android:layout_below="@+id/contact_notes"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/contact_name_image"
-            android:background="?attr/selectableItemBackground"
             android:lines="1"
             android:maxLines="1"
             android:paddingBottom="@dimen/normal_margin"

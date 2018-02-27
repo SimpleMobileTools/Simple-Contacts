@@ -1,12 +1,13 @@
 package com.simplemobiletools.contacts.models
 
+import android.graphics.Bitmap
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 
 data class Contact(val id: Int, var firstName: String, var middleName: String, var surname: String, var photoUri: String,
-                   var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var events: ArrayList<Event>, var source: String,
-                   var starred: Int, val contactId: Int, val thumbnailUri: String) : Comparable<Contact> {
+                   var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>, var events: ArrayList<Event>,
+                   var source: String, var starred: Int, val contactId: Int, val thumbnailUri: String, var photo: Bitmap?, var notes: String) : Comparable<Contact> {
     companion object {
         var sorting = 0
     }

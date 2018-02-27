@@ -4,8 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.getFilePublicUri
-import com.simplemobiletools.commons.extensions.shareUri
+import com.simplemobiletools.commons.extensions.sharePathIntent
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
 import com.simplemobiletools.commons.models.RadioItem
@@ -13,6 +12,7 @@ import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.helpers.VcfExporter
 import com.simplemobiletools.contacts.models.Contact
 import java.io.File
@@ -62,6 +62,8 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
             items.add(RadioItem(index, publicAccount))
             if (account == currentSource) {
                 currentSourceIndex = index
+            } else if (currentSource == SMT_PRIVATE && account == getString(R.string.phone_storage_hidden)) {
+                currentSourceIndex = index
             }
         }
 
@@ -73,7 +75,13 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
     }
 }
 
-fun SimpleActivity.getPublicContactSource(source: String) = if (source == config.localAccountName) getString(R.string.phone_storage) else source
+fun SimpleActivity.getPublicContactSource(source: String): String {
+    return when (source) {
+        config.localAccountName -> getString(R.string.phone_storage)
+        SMT_PRIVATE -> getString(R.string.phone_storage_hidden)
+        else -> source
+    }
+}
 
 fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
     val file = getTempFile()
@@ -84,8 +92,7 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
 
     VcfExporter().exportContacts(this, file, contacts) {
         if (it == VcfExporter.ExportResult.EXPORT_OK) {
-            val uri = getFilePublicUri(file, BuildConfig.APPLICATION_ID)
-            shareUri(uri, BuildConfig.APPLICATION_ID)
+            sharePathIntent(file.absolutePath, BuildConfig.APPLICATION_ID)
         }
     }
 }
