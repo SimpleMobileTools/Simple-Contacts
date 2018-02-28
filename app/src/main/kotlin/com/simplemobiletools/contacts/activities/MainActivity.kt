@@ -25,7 +25,6 @@ import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.getTempFile
-import com.simplemobiletools.contacts.extensions.onTabSelectionChanged
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.VcfExporter
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener

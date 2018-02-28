@@ -1,7 +1,6 @@
 package com.simplemobiletools.contacts.fragments
 
 import android.content.Context
-import android.graphics.Paint
 import android.support.design.widget.CoordinatorLayout
 import android.util.AttributeSet
 import android.view.ViewGroup
@@ -40,7 +39,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 placeholderClicked()
             }
 
-            fragment_placeholder_2.paintFlags = fragment_placeholder_2.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+            fragment_placeholder_2.underlineText()
             updateViewStuff()
 
             if (this is FavoritesFragment) {
