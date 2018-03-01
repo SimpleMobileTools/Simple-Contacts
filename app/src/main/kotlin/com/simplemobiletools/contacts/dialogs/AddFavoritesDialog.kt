@@ -43,13 +43,10 @@ class AddFavoritesDialog(val activity: SimpleActivity, private val callback: () 
         }
 
         dialog = AlertDialog.Builder(activity)
-                .setPositiveButton(R.string.ok, null)
+                .setPositiveButton(R.string.ok, { dialog, which -> dialogConfirmed() })
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
             activity.setupDialogStuff(view, this)
-            getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                dialogConfirmed()
-            }
         }
     }
 
@@ -66,7 +63,6 @@ class AddFavoritesDialog(val activity: SimpleActivity, private val callback: () 
             contactsHelper.removeFavorites(allDisplayedContacts)
 
             callback()
-            dialog?.dismiss()
         }.start()
     }
 }
