@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 3.3.1 *(2018-03-02)*
+----------------------------
+
+ * Couple stability and translation improvements
+
 Version 3.3.0 *(2018-02-22)*
 ----------------------------
 
