@@ -361,6 +361,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         sources.add(contactSource)
                     } while (cursor.moveToNext())
                 }
+            } catch (e: Exception) {
+                activity.showErrorToast(e)
             } finally {
                 cursor?.close()
             }
