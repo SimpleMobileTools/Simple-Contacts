@@ -12,7 +12,6 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.layout_select_contact.view.*
 
 class AddFavoritesDialog(val activity: SimpleActivity, private val callback: () -> Unit) {
-    private var dialog: AlertDialog? = null
     private var view = activity.layoutInflater.inflate(R.layout.layout_select_contact, null)
     private val config = activity.config
     private var allContacts = ArrayList<Contact>()
@@ -42,7 +41,7 @@ class AddFavoritesDialog(val activity: SimpleActivity, private val callback: () 
             }
         }
 
-        dialog = AlertDialog.Builder(activity)
+        AlertDialog.Builder(activity)
                 .setPositiveButton(R.string.ok, { dialog, which -> dialogConfirmed() })
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
