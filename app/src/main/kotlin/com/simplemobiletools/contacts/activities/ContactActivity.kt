@@ -95,13 +95,17 @@ abstract class ContactActivity : SimpleActivity() {
 
     fun deleteContact() {
         ConfirmationDialog(this) {
-            ContactsHelper(this).deleteContact(contact!!)
-            finish()
+            if (contact != null) {
+                ContactsHelper(this).deleteContact(contact!!)
+                finish()
+            }
         }
     }
 
     fun shareContact() {
-        shareContacts(arrayListOf(contact!!))
+        if (contact != null) {
+            shareContacts(arrayListOf(contact!!))
+        }
     }
 
     fun trySendSMS() {
