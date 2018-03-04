@@ -73,7 +73,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
         return selectedItemsSet
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = activity.layoutInflater.inflate(itemLayout, parent, false)
         return ViewHolder(view, adapterListener, activity, allowPickMultiple, itemClick)
     }
@@ -135,10 +135,10 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
         }
     }
 
-    override fun onViewRecycled(holder: ViewHolder?) {
+    override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isActivityDestroyed()) {
-            Glide.with(activity).clear(holder?.itemView?.contact_tmb!!)
+            Glide.with(activity).clear(holder.itemView?.contact_tmb!!)
         }
     }
 }

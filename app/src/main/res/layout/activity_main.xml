@@ -2,11 +2,9 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tooLs="http://schemas.android.com/tools"
     android:id="@+id/main_holder"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tooLs:ignore="MissingPrefix">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/main_tabs_holder"

@@ -24,8 +24,8 @@ import com.simplemobiletools.contacts.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.extensions.getTempFile
-import com.simplemobiletools.contacts.extensions.onTabSelectionChanged
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.VcfExporter
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
@@ -53,6 +53,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         setContentView(R.layout.activity_main)
         appLaunched()
         setupTabColors()
+
+        // just get a reference to the database to make sure it is created properly
+        dbHelper
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {
@@ -187,7 +190,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
-                        getCurrentFragment().onSearchQueryChanged(newText)
+                        getCurrentFragment()?.onSearchQueryChanged(newText)
                     }
                     return true
                 }
