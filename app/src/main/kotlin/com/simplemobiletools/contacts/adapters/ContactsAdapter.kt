@@ -82,7 +82,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun getSelectableItemCount() = contactItems.size
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
         return createViewHolder(layout, parent)
     }
@@ -174,10 +174,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         }
     }
 
-    override fun onViewRecycled(holder: ViewHolder?) {
+    override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isActivityDestroyed()) {
-            Glide.with(activity).clear(holder?.itemView?.contact_tmb!!)
+            Glide.with(activity).clear(holder.itemView?.contact_tmb!!)
         }
     }
 

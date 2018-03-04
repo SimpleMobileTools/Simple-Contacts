@@ -59,7 +59,7 @@ class FilterContactSourcesAdapter(val activity: SimpleActivity, private val cont
 
     fun getSelectedItemsSet() = selectedPositions
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = activity.layoutInflater.inflate(R.layout.item_filter_contact_source, parent, false)
         return ViewHolder(view, adapterListener, activity)
     }
