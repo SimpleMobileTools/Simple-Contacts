@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">簡易通訊錄</string>
+    <string name="app_launcher_name">簡易通訊錄</string>
+    <string name="address">地址</string>
+    <string name="inserting">添加中…</string>
+    <string name="updating">更新中…</string>
+    <string name="phone_storage">手機空間</string>
+    <string name="phone_storage_hidden">手機空間 (其他程式不可見)</string>
+
+    <string name="new_contact">新聯絡人</string>
+    <string name="edit_contact">編輯聯絡人</string>
+    <string name="select_contact">選擇聯絡人</string>
+    <string name="select_contacts">選擇聯絡人</string>
+    <string name="first_name">名字</string>
+    <string name="middle_name">中間名</string>
+    <string name="surname">姓氏</string>
+
+    <!-- Photo -->
+    <string name="take_photo">拍照</string>
+    <string name="choose_photo">選擇相片</string>
+    <string name="remove_photo">移除相片</string>
+
+    <!-- Settings -->
+    <string name="start_name_with_surname">姓氏在前</string>
+    <string name="show_phone_numbers">主畫面顯示電話號碼</string>
+    <string name="show_contact_thumbnails">顯示聯絡人縮圖</string>
+    <string name="on_contact_click">點擊聯絡人</string>
+    <string name="call_contact">打電話給聯絡人</string>
+    <string name="view_contact">顯示聯絡人資料</string>
+
+    <!-- Emails -->
+    <string name="email">信箱</string>
+    <string name="home">住家</string>
+    <string name="work">工作</string>
+    <string name="other">其它</string>
+
+    <!-- Phone numbers -->
+    <string name="number">號碼</string>
+    <string name="mobile">手機</string>
+    <string name="main_number">主用</string>
+    <string name="work_fax">工作傳真</string>
+    <string name="home_fax">住家傳真</string>
+    <string name="pager">呼叫器</string>
+    <string name="no_phone_number_found">未發現電話號碼</string>
+
+    <!-- Events -->
+    <string name="birthday">生日</string>
+    <string name="anniversary">紀念日</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">你似乎還沒加入任何我的最愛聯絡人。</string>
+    <string name="add_favorites">添加我的最愛</string>
+    <string name="add_to_favorites">加入我的最愛</string>
+    <string name="remove_from_favorites">從我的最愛移除</string>
+
+    <!-- Search -->
+    <string name="search_contacts">搜尋聯絡人</string>
+    <string name="search_favorites">搜尋我的最愛</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">匯入聯絡人</string>
+    <string name="export_contacts">匯出聯絡人</string>
+    <string name="import_contacts_from_vcf">從.vcf檔案匯入聯絡人</string>
+    <string name="export_contacts_to_vcf">匯出聯絡人成.vcf檔案</string>
+    <string name="target_contact_source">聯絡人來源</string>
+    <string name="include_contact_sources">包含聯絡人來源</string>
+    <string name="filename_without_vcf">檔案名稱 (不含.vcf)</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">一個用來管理聯絡人，且沒有廣告的通訊錄應用程式。</string>
+    <string name="app_long_description">
+        一個用來從任何來源建立或管理聯絡人的簡易應用程式。聯絡人只能儲存於你的裝置上，不過也能透過Google或其他帳號來同步。你能將我的最愛聯絡人顯示在獨立名單上。
+
+        你也能用來管理使用者信箱和活動。它能夠以多項參數來排序/篩選，以及選擇將姓氏顯示在名字前面。
+
+        不包含廣告及非必要的權限，而且完全開放原始碼，並提供自訂顏色。
+
+        這程式只是一系列眾多應用程式的其中一項，你可以在這發現更多 http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
