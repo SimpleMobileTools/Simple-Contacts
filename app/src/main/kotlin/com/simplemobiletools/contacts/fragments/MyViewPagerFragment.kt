@@ -171,7 +171,9 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             val filtered = contactsIgnoringSearch.filter {
                 it.getFullName(startNameWithSurname).contains(text, true) ||
                         it.phoneNumbers.any { it.value.contains(text, true) } ||
-                        it.emails.any { it.value.contains(text, true) }
+                        it.emails.any { it.value.contains(text, true) } ||
+                        it.addresses.any { it.value.contains(text, true) } ||
+                        it.notes.contains(text, true)
             } as ArrayList
 
             Contact.sorting = config.sorting
@@ -188,7 +190,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun onSearchOpened() {
-        contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems as? ArrayList ?: ArrayList()
+        contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
     }
 
     fun onSearchClosed() {

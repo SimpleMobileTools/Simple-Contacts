@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 3.3.3 *(2018-03-04)*
+----------------------------
+
+ * Make sure Search searches address and Notes too
+
 Version 3.3.2 *(2018-03-04)*
 ----------------------------
 

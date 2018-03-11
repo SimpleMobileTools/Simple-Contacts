@@ -1,70 +1,70 @@
 <resources>
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Contactos</string>
-    <string name="address">Address</string>
-    <string name="inserting">Inserting…</string>
-    <string name="updating">Updating…</string>
-    <string name="phone_storage">Phone storage</string>
-    <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
+    <string name="address">Enederço</string>
+    <string name="inserting">A inserir…</string>
+    <string name="updating">A atualizar…</string>
+    <string name="phone_storage">Armazenamento do telefone</string>
+    <string name="phone_storage_hidden">Armazenamento do telefone (não visível por outras alicações)</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
-    <string name="select_contact">Select contact</string>
-    <string name="select_contacts">Select contacts</string>
-    <string name="first_name">First name</string>
-    <string name="middle_name">Middle name</string>
-    <string name="surname">Surname</string>
+    <string name="select_contact">Selecionar contacto</string>
+    <string name="select_contacts">Selecionar contactos</string>
+    <string name="first_name">Primeiro nome</string>
+    <string name="middle_name">Segundo nome</string>
+    <string name="surname">Apelido</string>
 
     <!-- Photo -->
-    <string name="take_photo">Take photo</string>
-    <string name="choose_photo">Choose photo</string>
-    <string name="remove_photo">Remove photo</string>
+    <string name="take_photo">Tirar foto</string>
+    <string name="choose_photo">Escolher foto</string>
+    <string name="remove_photo">Remover foto</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Start name with surname</string>
-    <string name="show_phone_numbers">Show phone numbers on the main screen</string>
-    <string name="show_contact_thumbnails">Show contact thumbnails</string>
-    <string name="on_contact_click">On contact click</string>
-    <string name="call_contact">Call contact</string>
-    <string name="view_contact">View contact details</string>
+    <string name="start_name_with_surname">Ordenar por apelido</string>
+    <string name="show_phone_numbers">Mostrar número de telefone no ecrã principal</string>
+    <string name="show_contact_thumbnails">Mostrar miniatura do contacto</string>
+    <string name="on_contact_click">Ao clicar no contacto</string>
+    <string name="call_contact">Ligar</string>
+    <string name="view_contact">Ver detalhes</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>
-    <string name="home">Home</string>
-    <string name="work">Work</string>
-    <string name="other">Other</string>
+    <string name="home">Pessoal</string>
+    <string name="work">Profissional</string>
+    <string name="other">Outro</string>
 
     <!-- Phone numbers -->
     <string name="number">Número</string>
-    <string name="mobile">Mobile</string>
-    <string name="main_number">Main</string>
-    <string name="work_fax">Work Fax</string>
-    <string name="home_fax">Home Fax</string>
+    <string name="mobile">Telemóvel</string>
+    <string name="main_number">Principal</string>
+    <string name="work_fax">Fax profissional</string>
+    <string name="home_fax">Fax pessoal</string>
     <string name="pager">Pager</string>
-    <string name="no_phone_number_found">No phone number has been found</string>
+    <string name="no_phone_number_found">Número de telefone não encontrado</string>
 
     <!-- Events -->
-    <string name="birthday">Birthday</string>
-    <string name="anniversary">Anniversary</string>
+    <string name="birthday">Data de nascimento</string>
+    <string name="anniversary">Aniversário</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Seems like you haven\'t added any favorite contacts yet.</string>
-    <string name="add_favorites">Add favorites</string>
-    <string name="add_to_favorites">Add to favorites</string>
-    <string name="remove_from_favorites">Remove from favorites</string>
+    <string name="no_favorites">Parece que ainda não adicionou contactos como favoritos.</string>
+    <string name="add_favorites">Adicionar favoritos</string>
+    <string name="add_to_favorites">Adicionar aos favoritos</string>
+    <string name="remove_from_favorites">Remover dos favoritos</string>
 
     <!-- Search -->
-    <string name="search_contacts">Search contacts</string>
-    <string name="search_favorites">Search favorites</string>
+    <string name="search_contacts">Pesquisar contactos</string>
+    <string name="search_favorites">Pesquisar favoritos</string>
 
     <!-- Export / Import -->
-    <string name="import_contacts">Import contacts</string>
-    <string name="export_contacts">Export contacts</string>
-    <string name="import_contacts_from_vcf">Import contacts from a .vcf file</string>
-    <string name="export_contacts_to_vcf">Export contacts to a .vcf file</string>
-    <string name="target_contact_source">Target contact source</string>
-    <string name="include_contact_sources">Include contact sources</string>
-    <string name="filename_without_vcf">Filename (without .vcf)</string>
+    <string name="import_contacts">Importar contactos</string>
+    <string name="export_contacts">Exportar contactos</string>
+    <string name="import_contacts_from_vcf">Importar contactos de um ficheiro .vcf</string>
+    <string name="export_contacts_to_vcf">Exportar contactos para um ficheiro .vcf</string>
+    <string name="target_contact_source">Destino da fonte do contacto</string>
+    <string name="include_contact_sources">Incluir fontes dos contactos</string>
+    <string name="filename_without_vcf">Nome do ficheiro (sem .vcf)</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

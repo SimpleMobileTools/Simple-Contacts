@@ -75,7 +75,7 @@ class SelectContactActivity : SimpleActivity() {
     }
 
     private fun initContacts() {
-        ContactsHelper(this).getContacts(true) {
+        ContactsHelper(this).getContacts {
             if (isActivityDestroyed()) {
                 return@getContacts
             }
