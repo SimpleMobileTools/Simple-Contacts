@@ -91,15 +91,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         val configShowContactThumbnails = config.showContactThumbnails
         if (storedShowContactThumbnails != configShowContactThumbnails) {
-            contacts_fragment.showContactThumbnailsChanged(configShowContactThumbnails)
-            favorites_fragment.showContactThumbnailsChanged(configShowContactThumbnails)
+            contacts_fragment?.showContactThumbnailsChanged(configShowContactThumbnails)
+            favorites_fragment?.showContactThumbnailsChanged(configShowContactThumbnails)
         }
 
         val configTextColor = config.textColor
         if (storedTextColor != configTextColor) {
             main_tabs_holder.getTabAt(getOtherViewPagerItem(viewpager.currentItem))?.icon?.applyColorFilter(configTextColor)
-            contacts_fragment.textColorChanged(configTextColor)
-            favorites_fragment.textColorChanged(configTextColor)
+            contacts_fragment?.textColorChanged(configTextColor)
+            favorites_fragment?.textColorChanged(configTextColor)
         }
 
         val configBackgroundColor = config.backgroundColor
@@ -111,14 +111,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (storedPrimaryColor != configPrimaryColor) {
             main_tabs_holder.setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
             main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
-            contacts_fragment.primaryColorChanged()
-            favorites_fragment.primaryColorChanged()
+            contacts_fragment?.primaryColorChanged()
+            favorites_fragment?.primaryColorChanged()
         }
 
         val configStartNameWithSurname = config.startNameWithSurname
         if (storedStartNameWithSurname != configStartNameWithSurname) {
-            contacts_fragment.startNameWithSurnameChanged(configStartNameWithSurname)
-            favorites_fragment.startNameWithSurnameChanged(configStartNameWithSurname)
+            contacts_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
+            favorites_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
         }
 
         if (!isFirstResume) {
