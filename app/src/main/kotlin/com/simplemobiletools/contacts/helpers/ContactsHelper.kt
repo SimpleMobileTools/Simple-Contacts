@@ -57,8 +57,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                         val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
                         val notes = ""
+                        val groups = ArrayList<Group>()
                         val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName,
-                                starred, contactId, thumbnailUri, null, notes)
+                                starred, contactId, thumbnailUri, null, notes, groups)
                         contacts.put(id, contact)
                     } while (cursor.moveToNext())
                 }
@@ -101,6 +102,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             for (i in 0 until size) {
                 val key = notes.keyAt(i)
                 contacts[key]?.notes = notes.valueAt(i)
+            }
+
+            val groups = getContactGroups(getStoredGroups())
+            size = groups.size()
+            for (i in 0 until size) {
+                val key = groups.keyAt(i)
+                contacts[key]?.groups = groups.valueAt(i)
             }
 
             activity.dbHelper.getContacts().forEach {
@@ -305,19 +313,19 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return notes
     }
 
-    private fun getContactGroups(contactId: Int? = null): SparseArray<ArrayList<Group>> {
+    private fun getContactGroups(storedGroups: ArrayList<Group>, contactId: Int? = null): SparseArray<ArrayList<Group>> {
         val groups = SparseArray<ArrayList<Group>>()
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Data.RAW_CONTACT_ID,
-                CommonDataKinds.GroupMembership.GROUP_ROW_ID
+                ContactsContract.Data.CONTACT_ID,
+                ContactsContract.Data.DATA1
         )
 
         var selection = "${ContactsContract.Data.MIMETYPE} = ?"
         var selectionArgs = arrayOf(CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
 
         if (contactId != null) {
-            selection += " AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+            selection += " AND ${ContactsContract.Data.CONTACT_ID} = ?"
             selectionArgs = arrayOf(CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, contactId.toString())
         }
 
@@ -326,14 +334,16 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val rowId = cursor.getIntValue(CommonDataKinds.GroupMembership.GROUP_ROW_ID)
+                    val id = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
+                    val newRowId = cursor.getIntValue(ContactsContract.Data.DATA1)
 
                     if (groups[id] == null) {
                         groups.put(id, ArrayList())
                     }
 
-                    groups[id]!!.add(Group(rowId, ""))
+                    val groupTitle = storedGroups.firstOrNull { it.id == newRowId }?.title ?: ""
+                    val group = Group(newRowId, groupTitle)
+                    groups[id]!!.add(group)
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
@@ -345,7 +355,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return groups
     }
 
-    fun getGroups(): ArrayList<Group> {
+    fun getStoredGroups(): ArrayList<Group> {
         val groups = ArrayList<Group>()
         val uri = ContactsContract.Groups.CONTENT_URI
         val projection = arrayOf(
@@ -391,6 +401,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     }
 
     private fun parseContactCursor(selection: String, selectionArgs: Array<String>): Contact? {
+        val storedGroups = getStoredGroups()
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = getContactProjection()
         var cursor: Cursor? = null
@@ -410,8 +421,10 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
                 val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                 val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
+                val groups = getContactGroups(storedGroups, contactId)[contactId] ?: ArrayList()
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                return Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName, starred, contactId, thumbnailUri, null, notes)
+                return Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName, starred, contactId,
+                        thumbnailUri, null, notes, groups)
             }
         } finally {
             cursor?.close()
