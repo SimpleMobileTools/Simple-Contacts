@@ -26,6 +26,7 @@ import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.extensions.getTempFile
+import com.simplemobiletools.contacts.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.VcfExporter
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
@@ -33,6 +34,7 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
+import kotlinx.android.synthetic.main.fragment_groups.*
 import java.io.FileOutputStream
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
@@ -97,7 +99,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         val configTextColor = config.textColor
         if (storedTextColor != configTextColor) {
-            main_tabs_holder.getTabAt(getOtherViewPagerItem(viewpager.currentItem))?.icon?.applyColorFilter(configTextColor)
+            getInactiveTabIndexes(viewpager.currentItem).forEach {
+                main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(configTextColor)
+            }
             contacts_fragment?.textColorChanged(configTextColor)
             favorites_fragment?.textColorChanged(configTextColor)
         }
@@ -190,7 +194,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
-                        getCurrentFragment()?.onSearchQueryChanged(newText)
+                        (getCurrentFragment() as? MyViewPagerFragment)?.onSearchQueryChanged(newText)
                     }
                     return true
                 }
@@ -199,20 +203,24 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                getCurrentFragment()?.onSearchOpened()
+                (getCurrentFragment() as? MyViewPagerFragment)?.onSearchOpened()
                 isSearchOpen = true
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                getCurrentFragment()?.onSearchClosed()
+                (getCurrentFragment() as? MyViewPagerFragment)?.onSearchClosed()
                 isSearchOpen = false
                 return true
             }
         })
     }
 
-    private fun getCurrentFragment() = if (viewpager.currentItem == 0) contacts_fragment else favorites_fragment
+    private fun getCurrentFragment() = when (viewpager.currentItem) {
+        0 -> contacts_fragment
+        1 -> favorites_fragment
+        else -> groups_fragment
+    }
 
     private fun setupTabColors() {
         val lastUsedPage = config.lastUsedViewPagerPage
@@ -221,7 +229,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
             getTabAt(lastUsedPage)?.select()
             getTabAt(lastUsedPage)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
-            getTabAt(getOtherViewPagerItem(lastUsedPage))?.icon?.applyColorFilter(config.textColor)
+
+            getInactiveTabIndexes(lastUsedPage).forEach {
+                getTabAt(it)?.icon?.applyColorFilter(config.textColor)
+            }
         }
     }
 
@@ -253,14 +264,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    private fun getOtherViewPagerItem(used: Int) = if (used == 1) 0 else 1
+    private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(0, 1, 2).filter { it != activeIndex }
 
     private fun initFragments() {
         viewpager.adapter = ViewPagerAdapter(this)
+        viewpager.offscreenPageLimit = 2
         viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
-                    getCurrentFragment().onSearchQueryChanged("")
+                    (getCurrentFragment() as? MyViewPagerFragment)?.onSearchQueryChanged("")
                     searchMenuItem?.collapseActionView()
                 }
             }
