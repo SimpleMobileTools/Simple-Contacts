@@ -305,6 +305,73 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return notes
     }
 
+    private fun getContactGroups(contactId: Int? = null): SparseArray<ArrayList<Group>> {
+        val groups = SparseArray<ArrayList<Group>>()
+        val uri = ContactsContract.Data.CONTENT_URI
+        val projection = arrayOf(
+                ContactsContract.Data.RAW_CONTACT_ID,
+                CommonDataKinds.GroupMembership.GROUP_ROW_ID
+        )
+
+        var selection = "${ContactsContract.Data.MIMETYPE} = ?"
+        var selectionArgs = arrayOf(CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
+
+        if (contactId != null) {
+            selection += " AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+            selectionArgs = arrayOf(CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, contactId.toString())
+        }
+
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                do {
+                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
+                    val rowId = cursor.getIntValue(CommonDataKinds.GroupMembership.GROUP_ROW_ID)
+
+                    if (groups[id] == null) {
+                        groups.put(id, ArrayList())
+                    }
+
+                    groups[id]!!.add(Group(rowId, ""))
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        } finally {
+            cursor?.close()
+        }
+
+        return groups
+    }
+
+    fun getGroups(): ArrayList<Group> {
+        val groups = ArrayList<Group>()
+        val uri = ContactsContract.Groups.CONTENT_URI
+        val projection = arrayOf(
+                ContactsContract.Groups._ID,
+                ContactsContract.Groups.TITLE
+        )
+
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, null, null, null)
+            if (cursor?.moveToFirst() == true) {
+                do {
+                    val id = cursor.getIntValue(ContactsContract.Groups._ID)
+                    val title = cursor.getStringValue(ContactsContract.Groups.TITLE)
+                    groups.add(Group(id, title))
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        } finally {
+            cursor?.close()
+        }
+
+        return groups
+    }
+
     fun getContactWithId(id: Int, isLocalPrivate: Boolean): Contact? {
         if (id == 0) {
             return null
