@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_view_contact.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_view_address.view.*
 import kotlinx.android.synthetic.main.item_view_email.view.*
+import kotlinx.android.synthetic.main.item_view_group.view.*
 import kotlinx.android.synthetic.main.item_view_phone_number.view.*
 
 class ViewContactActivity : ContactActivity() {
@@ -119,6 +120,7 @@ class ViewContactActivity : ContactActivity() {
         contact_event_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
         contact_notes_image.applyColorFilter(textColor)
+        contact_groups_image.applyColorFilter(textColor)
 
         contact_send_sms.setOnClickListener { trySendSMS() }
         contact_start_call.setOnClickListener { tryStartCall(contact!!) }
@@ -159,6 +161,7 @@ class ViewContactActivity : ContactActivity() {
         setupAddresses()
         setupEvents()
         setupNotes()
+        setupGroups()
     }
 
     private fun setupPhoneNumbers() {
@@ -243,6 +246,21 @@ class ViewContactActivity : ContactActivity() {
         contact_notes.text = notes
         contact_notes_image.beVisibleIf(notes.isNotEmpty())
         contact_notes.beVisibleIf(notes.isNotEmpty())
+    }
+
+    private fun setupGroups() {
+        contact_groups_holder.removeAllViews()
+        val groups = contact!!.groups
+        groups.forEach {
+            layoutInflater.inflate(R.layout.item_view_group, contact_groups_holder, false).apply {
+                val group = it
+                contact_groups_holder.addView(this)
+                contact_group.text = group.title
+            }
+        }
+
+        contact_groups_image.beVisibleIf(groups.isNotEmpty())
+        contact_groups_holder.beVisibleIf(groups.isNotEmpty())
     }
 
     private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_big else R.drawable.ic_star_off_big)
