@@ -383,7 +383,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun launchAbout() {
         val faqItems = arrayListOf(FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons))
-        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_STETHO,
+        startAboutActivity(R.string.app_name, LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_STETHO,
                 BuildConfig.VERSION_NAME, faqItems)
     }
 

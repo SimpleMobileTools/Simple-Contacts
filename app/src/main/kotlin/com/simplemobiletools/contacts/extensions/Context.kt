@@ -9,8 +9,8 @@ import android.os.Build
 import android.provider.ContactsContract
 import android.support.v4.content.FileProvider
 import com.simplemobiletools.commons.extensions.getIntValue
-import com.simplemobiletools.commons.extensions.isLollipopPlus
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.EditContactActivity
