@@ -65,6 +65,11 @@ class ViewContactActivity : ContactActivity() {
             val data = intent.data
             if (data != null) {
                 val rawId = if (data.path.contains("lookup")) {
+                    val lookupKey = getLookupKeyFromUri(data)
+                    if (lookupKey != null) {
+                        contact = ContactsHelper(this).getContactWithLookupKey(lookupKey)
+                    }
+
                     getLookupUriRawId(data)
                 } else {
                     getContactUriRawId(data)
@@ -76,7 +81,7 @@ class ViewContactActivity : ContactActivity() {
             }
         }
 
-        if (contactId != 0) {
+        if (contactId != 0 && contact == null) {
             contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
             if (contact == null) {
                 toast(R.string.unknown_error_occurred)

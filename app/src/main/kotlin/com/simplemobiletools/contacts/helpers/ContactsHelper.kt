@@ -312,14 +312,25 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             return activity.dbHelper.getContactWithId(id)
         }
 
-        val uri = ContactsContract.Data.CONTENT_URI
-        val projection = getContactProjection()
         val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
         val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, id.toString())
+        return parseContactCursor(selection, selectionArgs)
+    }
+
+    fun getContactWithLookupKey(key: String): Contact? {
+        val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.LOOKUP_KEY} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, key)
+        return parseContactCursor(selection, selectionArgs)
+    }
+
+    private fun parseContactCursor(selection: String, selectionArgs: Array<String>): Contact? {
+        val uri = ContactsContract.Data.CONTENT_URI
+        val projection = getContactProjection()
         var cursor: Cursor? = null
         try {
             cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
+                val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
                 val firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
                 val middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
                 val surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
