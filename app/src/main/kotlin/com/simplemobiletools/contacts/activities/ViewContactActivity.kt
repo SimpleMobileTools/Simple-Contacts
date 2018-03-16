@@ -166,9 +166,14 @@ class ViewContactActivity : ContactActivity() {
         val phoneNumbers = contact!!.phoneNumbers
         phoneNumbers.forEach {
             layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
+                val phoneNumber = it
                 contact_numbers_holder.addView(this)
-                contact_number.text = it.value
-                contact_number_type.setText(getPhoneNumberTextId(it.type))
+                contact_number.text = phoneNumber.value
+                contact_number_type.setText(getPhoneNumberTextId(phoneNumber.type))
+
+                setOnClickListener {
+                    startCallIntent(phoneNumber.value)
+                }
             }
         }
 
@@ -181,9 +186,14 @@ class ViewContactActivity : ContactActivity() {
         val emails = contact!!.emails
         emails.forEach {
             layoutInflater.inflate(R.layout.item_view_email, contact_emails_holder, false).apply {
+                val email = it
                 contact_emails_holder.addView(this)
-                contact_email.text = it.value
-                contact_email_type.setText(getEmailTextId(it.type))
+                contact_email.text = email.value
+                contact_email_type.setText(getEmailTextId(email.type))
+
+                setOnClickListener {
+                    sendEmailIntent(email.value)
+                }
             }
         }
 
@@ -196,9 +206,14 @@ class ViewContactActivity : ContactActivity() {
         val addresses = contact!!.addresses
         addresses.forEach {
             layoutInflater.inflate(R.layout.item_view_address, contact_addresses_holder, false).apply {
+                val address = it
                 contact_addresses_holder.addView(this)
-                contact_address.text = it.value
-                contact_address_type.setText(getAddressTextId(it.type))
+                contact_address.text = address.value
+                contact_address_type.setText(getAddressTextId(address.type))
+
+                setOnClickListener {
+                    sendAddressIntent(address.value)
+                }
             }
         }
 

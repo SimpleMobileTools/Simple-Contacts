@@ -61,6 +61,18 @@ fun Context.sendSMSIntent(recipient: String) {
     }
 }
 
+fun Context.sendAddressIntent(address: String) {
+    val location = Uri.encode(address)
+    val uri = Uri.parse("geo:0,0?q=$location")
+
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+    if (intent.resolveActivity(packageManager) != null) {
+        startActivity(intent)
+    } else {
+        toast(R.string.no_app_found)
+    }
+}
+
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 fun Context.getLookupUriRawId(dataUri: Uri): Int {
     val lookupKey = getLookupKeyFromUri(dataUri)
