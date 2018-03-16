@@ -341,7 +341,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         groups.put(id, ArrayList())
                     }
 
-                    val groupTitle = storedGroups.firstOrNull { it.id == newRowId }?.title ?: ""
+                    val groupTitle = storedGroups.firstOrNull { it.id == newRowId }?.title ?: continue
                     val group = Group(newRowId, groupTitle)
                     groups[id]!!.add(group)
                 } while (cursor.moveToNext())
@@ -363,9 +363,12 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 ContactsContract.Groups.TITLE
         )
 
+        val selection = "${ContactsContract.Groups.AUTO_ADD} = ? AND ${ContactsContract.Groups.FAVORITES} = ?"
+        val selectionArgs = arrayOf("0", "0")
+
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, null, null, null)
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Groups._ID)
