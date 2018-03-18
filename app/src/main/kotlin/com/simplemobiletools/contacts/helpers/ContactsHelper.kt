@@ -399,6 +399,20 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return null
     }
 
+    fun deleteGroup(id: Long) {
+        try {
+            val operations = ArrayList<ContentProviderOperation>()
+            val uri = ContentUris.withAppendedId(ContactsContract.Groups.CONTENT_URI, id).buildUpon()
+                    .appendQueryParameter(ContactsContract.CALLER_IS_SYNCADAPTER, "true")
+                    .build()
+
+            operations.add(ContentProviderOperation.newDelete(uri).build())
+            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        }
+    }
+
     fun getContactWithId(id: Int, isLocalPrivate: Boolean): Contact? {
         if (id == 0) {
             return null
