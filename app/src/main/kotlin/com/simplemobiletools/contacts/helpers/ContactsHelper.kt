@@ -363,7 +363,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 ContactsContract.Groups.TITLE
         )
 
-        val selection = "${ContactsContract.Groups.AUTO_ADD} = ? AND ${ContactsContract.Groups.FAVORITES} = ?"
+        val selection = "${ContactsContract.Groups.AUTO_ADD} = ? AND ${ContactsContract.Groups.FAVORITES} = ? AND ${ContactsContract.Groups.SYSTEM_ID} IS NULL"
         val selectionArgs = arrayOf("0", "0")
 
         var cursor: Cursor? = null
