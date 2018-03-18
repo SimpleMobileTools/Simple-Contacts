@@ -13,10 +13,7 @@ import android.provider.ContactsContract.CommonDataKinds.Note
 import android.provider.MediaStore
 import android.util.SparseArray
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.commons.extensions.getIntValue
-import com.simplemobiletools.commons.extensions.getStringValue
-import com.simplemobiletools.commons.extensions.showErrorToast
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
@@ -335,7 +332,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
-                    val newRowId = cursor.getIntValue(ContactsContract.Data.DATA1)
+                    val newRowId = cursor.getLongValue(ContactsContract.Data.DATA1)
 
                     if (groups[id] == null) {
                         groups.put(id, ArrayList())
@@ -371,7 +368,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
-                    val id = cursor.getIntValue(ContactsContract.Groups._ID)
+                    val id = cursor.getLongValue(ContactsContract.Groups._ID)
                     val title = cursor.getStringValue(ContactsContract.Groups.TITLE)
                     groups.add(Group(id, title))
                 } while (cursor.moveToNext())
@@ -383,6 +380,23 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         }
 
         return groups
+    }
+
+    fun createNewGroup(title: String): Group? {
+        try {
+            val operations = ArrayList<ContentProviderOperation>()
+            ContentProviderOperation.newInsert(ContactsContract.Groups.CONTENT_URI).apply {
+                withValue(ContactsContract.Groups.TITLE, title)
+                operations.add(build())
+            }
+
+            val results = activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            val rawId = ContentUris.parseId(results[0].uri)
+            return Group(rawId, title)
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        }
+        return null
     }
 
     fun getContactWithId(id: Int, isLocalPrivate: Boolean): Contact? {

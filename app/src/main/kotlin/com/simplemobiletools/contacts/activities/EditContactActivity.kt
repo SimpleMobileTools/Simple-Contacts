@@ -505,7 +505,7 @@ class EditContactActivity : ContactActivity() {
         removeContactEventButton.beGone()
     }
 
-    private fun removeGroup(id: Int) {
+    private fun removeGroup(id: Long) {
         contact!!.groups = contact!!.groups.filter { it.id != id } as ArrayList<Group>
         setupGroups()
     }
