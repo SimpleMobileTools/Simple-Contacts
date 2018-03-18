@@ -7,6 +7,7 @@
     <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
     <string name="no_groups">No groups</string>
+    <string name="create_new_group">Create a new group</string>
 
     <string name="new_contact">새로운 연락처</string>
     <string name="edit_contact">연락처 수정</string>

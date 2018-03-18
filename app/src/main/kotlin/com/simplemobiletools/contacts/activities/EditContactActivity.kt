@@ -20,6 +20,7 @@ import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.dialogs.SelectGroupsDialog
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.*
@@ -28,6 +29,7 @@ import kotlinx.android.synthetic.main.item_edit_address.view.*
 import kotlinx.android.synthetic.main.item_edit_email.view.*
 import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
+import kotlinx.android.synthetic.main.item_group.view.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.util.*
@@ -189,7 +191,7 @@ class EditContactActivity : ContactActivity() {
         contact_email_add_new.setOnClickListener { addNewEmailField() }
         contact_address_add_new.setOnClickListener { addNewAddressField() }
         contact_event_add_new.setOnClickListener { addNewEventField() }
-        contact_groups_add_new.setOnClickListener { addNewGroupField() }
+        contact_groups_add_new.setOnClickListener { showSelectGroupsDialog() }
 
         contact_toggle_favorite.apply {
             setImageDrawable(getStarDrawable(contact!!.starred == 1))
@@ -363,6 +365,13 @@ class EditContactActivity : ContactActivity() {
                 setupEventTypePicker(this)
             }
         }
+
+        if (contact!!.groups.isEmpty()) {
+            val groupsHolder = contact_groups_holder.getChildAt(0)
+            (groupsHolder as? ViewGroup)?.contact_group?.apply {
+                setupGroupsPicker(this)
+            }
+        }
     }
 
     private fun setupPhoneNumberTypePicker(numberTypeField: TextView, type: Int = DEFAULT_PHONE_NUMBER_TYPE) {
@@ -422,6 +431,16 @@ class EditContactActivity : ContactActivity() {
             background.applyColorFilter(config.textColor)
             setOnClickListener {
                 resetContactEvent(eventField, this@apply)
+            }
+        }
+    }
+
+    private fun setupGroupsPicker(groupTitleField: TextView, group: Group? = null) {
+        groupTitleField.apply {
+            text = group?.title ?: getString(R.string.no_groups)
+            alpha = if (group == null) 0.5f else 1f
+            setOnClickListener {
+                showSelectGroupsDialog()
             }
         }
     }
@@ -490,6 +509,12 @@ class EditContactActivity : ContactActivity() {
         val currentEventTypeId = getEventTypeId(eventTypeField.value)
         RadioGroupDialog(this, items, currentEventTypeId) {
             eventTypeField.setText(getEventTextId(it as Int))
+        }
+    }
+
+    private fun showSelectGroupsDialog() {
+        SelectGroupsDialog(this@EditContactActivity, contact!!.groups) {
+
         }
     }
 
@@ -655,10 +680,6 @@ class EditContactActivity : ContactActivity() {
         updateTextColors(eventHolder)
         setupEventTypePicker(eventHolder)
         contact_events_holder.addView(eventHolder)
-    }
-
-    private fun addNewGroupField() {
-
     }
 
     private fun toggleFavorite() {

@@ -7,6 +7,7 @@
     <string name="phone_storage">手機空間</string>
     <string name="phone_storage_hidden">手機空間 (其他程式不可見)</string>
     <string name="no_groups">No groups</string>
+    <string name="create_new_group">Create a new group</string>
 
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>
