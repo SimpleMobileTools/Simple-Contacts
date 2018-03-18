@@ -244,6 +244,7 @@ class EditContactActivity : ContactActivity() {
         setupAddresses()
         setupNotes()
         setupEvents()
+        setupGroups()
     }
 
     private fun setupPhoneNumbers() {
@@ -319,6 +320,56 @@ class EditContactActivity : ContactActivity() {
                     setOnClickListener {
                         resetContactEvent(contactEvent, this)
                     }
+                }
+            }
+        }
+    }
+
+    private fun setupGroups() {
+        contact_groups_holder.removeAllViews()
+        val groups = contact!!.groups
+        groups.forEachIndexed { index, group ->
+            var groupHolder = contact_groups_holder.getChildAt(index)
+            if (groupHolder == null) {
+                groupHolder = layoutInflater.inflate(R.layout.item_group, contact_groups_holder, false)
+                contact_groups_holder.addView(groupHolder)
+            }
+
+            (groupHolder as ViewGroup).apply {
+                contact_group.apply {
+                    text = group.title
+                    setTextColor(config.textColor)
+                    tag = group.id
+                    alpha = 1f
+                }
+
+                setOnClickListener {
+                    showSelectGroupsDialog()
+                }
+
+                contact_group_remove.apply {
+                    beVisible()
+                    applyColorFilter(getAdjustedPrimaryColor())
+                    background.applyColorFilter(config.textColor)
+                    setOnClickListener {
+                        removeGroup(group.id)
+                    }
+                }
+            }
+        }
+
+        if (groups.isEmpty()) {
+            layoutInflater.inflate(R.layout.item_group, contact_groups_holder, false).apply {
+                contact_group.apply {
+                    alpha = 0.5f
+                    text = getString(R.string.no_groups)
+                    setTextColor(config.textColor)
+                }
+
+                contact_groups_holder.addView(this)
+                contact_group_remove.beGone()
+                setOnClickListener {
+                    showSelectGroupsDialog()
                 }
             }
         }
@@ -454,6 +505,11 @@ class EditContactActivity : ContactActivity() {
         removeContactEventButton.beGone()
     }
 
+    private fun removeGroup(id: Int) {
+        contact!!.groups = contact!!.groups.filter { it.id != id } as ArrayList<Group>
+        setupGroups()
+    }
+
     private fun showNumberTypePicker(numberTypeField: TextView) {
         val items = arrayListOf(
                 RadioItem(CommonDataKinds.Phone.TYPE_MOBILE, getString(R.string.mobile)),
@@ -514,7 +570,8 @@ class EditContactActivity : ContactActivity() {
 
     private fun showSelectGroupsDialog() {
         SelectGroupsDialog(this@EditContactActivity, contact!!.groups) {
-
+            contact!!.groups = it
+            setupGroups()
         }
     }
 

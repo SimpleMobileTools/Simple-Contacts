@@ -26,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/contact_group"
+        android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/contact_group"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/medium_margin"
