@@ -166,6 +166,7 @@ class EditContactActivity : ContactActivity() {
         contact_event_image.applyColorFilter(textColor)
         contact_notes_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
+        contact_groups_image.applyColorFilter(textColor)
 
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
         contact_number_add_new.applyColorFilter(adjustedPrimaryColor)
@@ -176,6 +177,8 @@ class EditContactActivity : ContactActivity() {
         contact_address_add_new.background.applyColorFilter(textColor)
         contact_event_add_new.applyColorFilter(adjustedPrimaryColor)
         contact_event_add_new.background.applyColorFilter(textColor)
+        contact_groups_add_new.applyColorFilter(adjustedPrimaryColor)
+        contact_groups_add_new.background.applyColorFilter(textColor)
 
         contact_toggle_favorite.setOnClickListener { toggleFavorite() }
         contact_photo.setOnClickListener { trySetPhoto() }
@@ -186,6 +189,7 @@ class EditContactActivity : ContactActivity() {
         contact_email_add_new.setOnClickListener { addNewEmailField() }
         contact_address_add_new.setOnClickListener { addNewAddressField() }
         contact_event_add_new.setOnClickListener { addNewEventField() }
+        contact_groups_add_new.setOnClickListener { addNewGroupField() }
 
         contact_toggle_favorite.apply {
             setImageDrawable(getStarDrawable(contact!!.starred == 1))
@@ -651,6 +655,10 @@ class EditContactActivity : ContactActivity() {
         updateTextColors(eventHolder)
         setupEventTypePicker(eventHolder)
         contact_events_holder.addView(eventHolder)
+    }
+
+    private fun addNewGroupField() {
+
     }
 
     private fun toggleFavorite() {

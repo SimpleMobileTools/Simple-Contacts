@@ -6,6 +6,7 @@
     <string name="updating">Upravuje sa…</string>
     <string name="phone_storage">Úložisko mobilu</string>
     <string name="phone_storage_hidden">Úložisko mobilu (neviditeľné pre ostatné apky)</string>
+    <string name="no_groups">Žiadne skupiny</string>
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
@@ -27,6 +28,8 @@
     <string name="on_contact_click">Po kliknutí na kontakt</string>
     <string name="call_contact">Zavolať kontakt</string>
     <string name="view_contact">Zobraziť údaje kontaktu</string>
+    <string name="show_favorites_tab">Zobraziť okno s obľúbenými</string>
+    <string name="show_groups_tab">Zobraziť okno so skupinami</string>
 
     <!-- Emails -->
     <string name="email">Email</string>

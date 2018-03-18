@@ -6,6 +6,7 @@
     <string name="updating">更新中…</string>
     <string name="phone_storage">手機空間</string>
     <string name="phone_storage_hidden">手機空間 (其他程式不可見)</string>
+    <string name="no_groups">No groups</string>
 
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>
@@ -27,6 +28,8 @@
     <string name="on_contact_click">點擊聯絡人</string>
     <string name="call_contact">打電話給聯絡人</string>
     <string name="view_contact">顯示聯絡人資料</string>
+    <string name="show_favorites_tab">Show favorites tab</string>
+    <string name="show_groups_tab">Show groups tab</string>
 
     <!-- Emails -->
     <string name="email">信箱</string>

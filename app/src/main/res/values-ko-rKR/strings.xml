@@ -6,6 +6,7 @@
     <string name="updating">수정중…</string>
     <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
+    <string name="no_groups">No groups</string>
 
     <string name="new_contact">새로운 연락처</string>
     <string name="edit_contact">연락처 수정</string>
@@ -27,6 +28,8 @@
     <string name="on_contact_click">On contact click</string>
     <string name="call_contact">Call contact</string>
     <string name="view_contact">View contact details</string>
+    <string name="show_favorites_tab">Show favorites tab</string>
+    <string name="show_groups_tab">Show groups tab</string>
 
     <!-- Emails -->
     <string name="email">이메일</string>

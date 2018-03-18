@@ -6,6 +6,7 @@
     <string name="updating">Обновление…</string>
     <string name="phone_storage">Память устройства</string>
     <string name="phone_storage_hidden">Память устройства (не видна другим приложениям)</string>
+    <string name="no_groups">No groups</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
@@ -27,6 +28,8 @@
     <string name="on_contact_click">При нажатии на контакт</string>
     <string name="call_contact">Позвонить контакту</string>
     <string name="view_contact">Просмотреть подробности о контакте</string>
+    <string name="show_favorites_tab">Show favorites tab</string>
+    <string name="show_groups_tab">Show groups tab</string>
 
     <!-- Emails -->
     <string name="email">Эл. почта</string>
