@@ -633,6 +633,24 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 operations.add(build())
             }
 
+            // delete groups
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
+                withSelection(selection, selectionArgs)
+                operations.add(build())
+            }
+
+            // add groups
+            contact.groups.forEach {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
+                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.GroupMembership.GROUP_ROW_ID, it.id)
+                    operations.add(build())
+                }
+            }
+
             // favorite
             try {
                 val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contact.contactId.toString())
@@ -765,6 +783,16 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     withValue(ContactsContract.Data.MIMETYPE, Note.CONTENT_ITEM_TYPE)
                     withValue(Note.NOTE, contact.notes)
                     operations.add(build())
+                }
+
+                // groups
+                contact.groups.forEach {
+                    ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                        withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                        withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
+                        withValue(CommonDataKinds.GroupMembership.GROUP_ROW_ID, it.id)
+                        operations.add(build())
+                    }
                 }
 
                 // photo (inspired by https://gist.github.com/slightfoot/5985900)
