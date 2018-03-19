@@ -115,8 +115,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (storedPrimaryColor != configPrimaryColor) {
             main_tabs_holder.setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
             main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
-            contacts_fragment?.primaryColorChanged()
-            favorites_fragment?.primaryColorChanged()
+            contacts_fragment?.primaryColorChanged(configPrimaryColor)
+            favorites_fragment?.primaryColorChanged(configPrimaryColor)
         }
 
         val configStartNameWithSurname = config.startNameWithSurname
@@ -130,9 +130,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 initFragments()
             }
 
-            contacts_fragment?.initContacts()
+            contacts_fragment?.refreshContacts()
             contacts_fragment?.onActivityResume()
-            favorites_fragment?.initContacts()
+            favorites_fragment?.refreshContacts()
             favorites_fragment?.onActivityResume()
         }
 
@@ -306,15 +306,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
-            contacts_fragment?.initContacts()
-            favorites_fragment?.initContacts()
+            contacts_fragment?.refreshContacts()
+            favorites_fragment?.refreshContacts()
         }
     }
 
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
             contacts_fragment?.forceListRedraw = true
-            contacts_fragment?.initContacts()
+            contacts_fragment?.refreshContacts()
         }
     }
 
@@ -400,12 +400,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     override fun refreshContacts() {
-        contacts_fragment.initContacts()
-        favorites_fragment.initContacts()
+        contacts_fragment.refreshContacts()
+        favorites_fragment.refreshContacts()
     }
 
     override fun refreshFavorites() {
-        favorites_fragment?.initContacts()
+        favorites_fragment?.refreshContacts()
     }
 
     private fun checkWhatsNewDialog() {

@@ -16,10 +16,11 @@ import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.tryStartCall
 import com.simplemobiletools.contacts.extensions.viewContact
 import com.simplemobiletools.contacts.helpers.*
+import com.simplemobiletools.contacts.interfaces.FragmentInterface
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.fragment_layout.view.*
 
-abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
+abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet), FragmentInterface {
     protected var activity: MainActivity? = null
     private var lastHashCode = 0
     private var contactsIgnoringSearch = ArrayList<Contact>()
@@ -27,7 +28,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     var forceListRedraw = false
 
-    fun setupFragment(activity: MainActivity) {
+    override fun setupFragment(activity: MainActivity) {
         config = activity.config
         if (this.activity == null) {
             this.activity = activity
@@ -48,17 +49,17 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
         }
 
-        initContacts()
+        refreshContacts()
     }
 
-    fun textColorChanged(color: Int) {
+    override fun textColorChanged(color: Int) {
         (fragment_list.adapter as ContactsAdapter).apply {
             updateTextColor(color)
             initDrawables()
         }
     }
 
-    fun primaryColorChanged() {
+    override fun primaryColorChanged(color: Int) {
         fragment_fastscroller.updatePrimaryColor()
         fragment_fastscroller.updateBubblePrimaryColor()
     }
@@ -66,11 +67,11 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
         (fragment_list.adapter as ContactsAdapter).apply {
             config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
-            initContacts()
+            refreshContacts()
         }
     }
 
-    fun initContacts() {
+    override fun refreshContacts() {
         if (activity == null || activity!!.isActivityDestroyed()) {
             return
         }
