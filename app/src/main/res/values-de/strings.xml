@@ -6,6 +6,8 @@
     <string name="updating">Aktualisiere…</string>
     <string name="phone_storage">Gerätespeicher</string>
     <string name="phone_storage_hidden">Gerätespeicher (nicht sichtbar für andere Apps)</string>
+    <string name="no_groups">No groups</string>
+    <string name="create_new_group">Create a new group</string>
 
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
@@ -27,6 +29,8 @@
     <string name="on_contact_click">Beim Klicken auf den Kontakt</string>
     <string name="call_contact">Kontakt anrufen</string>
     <string name="view_contact">Kontaktdetails ansehen</string>
+    <string name="show_favorites_tab">Show favorites tab</string>
+    <string name="show_groups_tab">Show groups tab</string>
 
     <!-- Emails -->
     <string name="email">Email</string>

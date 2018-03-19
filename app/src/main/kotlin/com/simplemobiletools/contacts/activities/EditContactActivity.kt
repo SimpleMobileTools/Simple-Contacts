@@ -20,6 +20,7 @@ import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.dialogs.SelectGroupsDialog
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.*
@@ -28,15 +29,16 @@ import kotlinx.android.synthetic.main.item_edit_address.view.*
 import kotlinx.android.synthetic.main.item_edit_email.view.*
 import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
+import kotlinx.android.synthetic.main.item_group.view.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.util.*
 
 class EditContactActivity : ContactActivity() {
-    val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
-    val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
-    val DEFAULT_ADDRESS_TYPE = CommonDataKinds.StructuredPostal.TYPE_HOME
-    val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
+    private val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
+    private val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
+    private val DEFAULT_ADDRESS_TYPE = CommonDataKinds.StructuredPostal.TYPE_HOME
+    private val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
 
     private val INTENT_TAKE_PHOTO = 1
     private val INTENT_CHOOSE_PHOTO = 2
@@ -166,6 +168,7 @@ class EditContactActivity : ContactActivity() {
         contact_event_image.applyColorFilter(textColor)
         contact_notes_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
+        contact_groups_image.applyColorFilter(textColor)
 
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
         contact_number_add_new.applyColorFilter(adjustedPrimaryColor)
@@ -176,6 +179,8 @@ class EditContactActivity : ContactActivity() {
         contact_address_add_new.background.applyColorFilter(textColor)
         contact_event_add_new.applyColorFilter(adjustedPrimaryColor)
         contact_event_add_new.background.applyColorFilter(textColor)
+        contact_groups_add_new.applyColorFilter(adjustedPrimaryColor)
+        contact_groups_add_new.background.applyColorFilter(textColor)
 
         contact_toggle_favorite.setOnClickListener { toggleFavorite() }
         contact_photo.setOnClickListener { trySetPhoto() }
@@ -186,6 +191,7 @@ class EditContactActivity : ContactActivity() {
         contact_email_add_new.setOnClickListener { addNewEmailField() }
         contact_address_add_new.setOnClickListener { addNewAddressField() }
         contact_event_add_new.setOnClickListener { addNewEventField() }
+        contact_groups_add_new.setOnClickListener { showSelectGroupsDialog() }
 
         contact_toggle_favorite.apply {
             setImageDrawable(getStarDrawable(contact!!.starred == 1))
@@ -238,6 +244,7 @@ class EditContactActivity : ContactActivity() {
         setupAddresses()
         setupNotes()
         setupEvents()
+        setupGroups()
     }
 
     private fun setupPhoneNumbers() {
@@ -318,10 +325,60 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
+    private fun setupGroups() {
+        contact_groups_holder.removeAllViews()
+        val groups = contact!!.groups
+        groups.forEachIndexed { index, group ->
+            var groupHolder = contact_groups_holder.getChildAt(index)
+            if (groupHolder == null) {
+                groupHolder = layoutInflater.inflate(R.layout.item_group, contact_groups_holder, false)
+                contact_groups_holder.addView(groupHolder)
+            }
+
+            (groupHolder as ViewGroup).apply {
+                contact_group.apply {
+                    text = group.title
+                    setTextColor(config.textColor)
+                    tag = group.id
+                    alpha = 1f
+                }
+
+                setOnClickListener {
+                    showSelectGroupsDialog()
+                }
+
+                contact_group_remove.apply {
+                    beVisible()
+                    applyColorFilter(getAdjustedPrimaryColor())
+                    background.applyColorFilter(config.textColor)
+                    setOnClickListener {
+                        removeGroup(group.id)
+                    }
+                }
+            }
+        }
+
+        if (groups.isEmpty()) {
+            layoutInflater.inflate(R.layout.item_group, contact_groups_holder, false).apply {
+                contact_group.apply {
+                    alpha = 0.5f
+                    text = getString(R.string.no_groups)
+                    setTextColor(config.textColor)
+                }
+
+                contact_groups_holder.addView(this)
+                contact_group_remove.beGone()
+                setOnClickListener {
+                    showSelectGroupsDialog()
+                }
+            }
+        }
+    }
+
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), config.lastUsedContactSource, 0, 0, "", null, "")
+        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), config.lastUsedContactSource, 0, 0, "", null, "", ArrayList())
         contact_source.text = getPublicContactSource(contact!!.source)
         contact_source.setOnClickListener {
             showContactSourcePicker(contact!!.source) {
@@ -357,6 +414,13 @@ class EditContactActivity : ContactActivity() {
             val eventHolder = contact_events_holder.getChildAt(0)
             (eventHolder as? ViewGroup)?.apply {
                 setupEventTypePicker(this)
+            }
+        }
+
+        if (contact!!.groups.isEmpty()) {
+            val groupsHolder = contact_groups_holder.getChildAt(0)
+            (groupsHolder as? ViewGroup)?.contact_group?.apply {
+                setupGroupsPicker(this)
             }
         }
     }
@@ -422,6 +486,16 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
+    private fun setupGroupsPicker(groupTitleField: TextView, group: Group? = null) {
+        groupTitleField.apply {
+            text = group?.title ?: getString(R.string.no_groups)
+            alpha = if (group == null) 0.5f else 1f
+            setOnClickListener {
+                showSelectGroupsDialog()
+            }
+        }
+    }
+
     private fun resetContactEvent(contactEvent: TextView, removeContactEventButton: ImageView) {
         contactEvent.apply {
             text = getString(R.string.unknown)
@@ -429,6 +503,11 @@ class EditContactActivity : ContactActivity() {
             alpha = 0.5f
         }
         removeContactEventButton.beGone()
+    }
+
+    private fun removeGroup(id: Long) {
+        contact!!.groups = contact!!.groups.filter { it.id != id } as ArrayList<Group>
+        setupGroups()
     }
 
     private fun showNumberTypePicker(numberTypeField: TextView) {
@@ -489,8 +568,15 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
+    private fun showSelectGroupsDialog() {
+        SelectGroupsDialog(this@EditContactActivity, contact!!.groups) {
+            contact!!.groups = it
+            setupGroups()
+        }
+    }
+
     private fun saveContact() {
-        if (isSaving) {
+        if (isSaving || contact == null) {
             return
         }
 

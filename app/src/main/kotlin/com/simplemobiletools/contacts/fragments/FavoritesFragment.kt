@@ -16,7 +16,7 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
 
     private fun showAddFavoritesDialog() {
         AddFavoritesDialog(activity!!) {
-            initContacts()
+            activity!!.refreshContacts(false, true)
         }
     }
 }

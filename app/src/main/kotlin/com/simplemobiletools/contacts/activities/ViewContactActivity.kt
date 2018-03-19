@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_view_contact.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_view_address.view.*
 import kotlinx.android.synthetic.main.item_view_email.view.*
+import kotlinx.android.synthetic.main.item_view_group.view.*
 import kotlinx.android.synthetic.main.item_view_phone_number.view.*
 
 class ViewContactActivity : ContactActivity() {
@@ -65,6 +66,11 @@ class ViewContactActivity : ContactActivity() {
             val data = intent.data
             if (data != null) {
                 val rawId = if (data.path.contains("lookup")) {
+                    val lookupKey = getLookupKeyFromUri(data)
+                    if (lookupKey != null) {
+                        contact = ContactsHelper(this).getContactWithLookupKey(lookupKey)
+                    }
+
                     getLookupUriRawId(data)
                 } else {
                     getContactUriRawId(data)
@@ -76,7 +82,7 @@ class ViewContactActivity : ContactActivity() {
             }
         }
 
-        if (contactId != 0) {
+        if (contactId != 0 && contact == null) {
             contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
             if (contact == null) {
                 toast(R.string.unknown_error_occurred)
@@ -114,6 +120,7 @@ class ViewContactActivity : ContactActivity() {
         contact_event_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
         contact_notes_image.applyColorFilter(textColor)
+        contact_groups_image.applyColorFilter(textColor)
 
         contact_send_sms.setOnClickListener { trySendSMS() }
         contact_start_call.setOnClickListener { tryStartCall(contact!!) }
@@ -154,6 +161,7 @@ class ViewContactActivity : ContactActivity() {
         setupAddresses()
         setupEvents()
         setupNotes()
+        setupGroups()
     }
 
     private fun setupPhoneNumbers() {
@@ -161,9 +169,14 @@ class ViewContactActivity : ContactActivity() {
         val phoneNumbers = contact!!.phoneNumbers
         phoneNumbers.forEach {
             layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
+                val phoneNumber = it
                 contact_numbers_holder.addView(this)
-                contact_number.text = it.value
-                contact_number_type.setText(getPhoneNumberTextId(it.type))
+                contact_number.text = phoneNumber.value
+                contact_number_type.setText(getPhoneNumberTextId(phoneNumber.type))
+
+                setOnClickListener {
+                    startCallIntent(phoneNumber.value)
+                }
             }
         }
 
@@ -176,9 +189,14 @@ class ViewContactActivity : ContactActivity() {
         val emails = contact!!.emails
         emails.forEach {
             layoutInflater.inflate(R.layout.item_view_email, contact_emails_holder, false).apply {
+                val email = it
                 contact_emails_holder.addView(this)
-                contact_email.text = it.value
-                contact_email_type.setText(getEmailTextId(it.type))
+                contact_email.text = email.value
+                contact_email_type.setText(getEmailTextId(email.type))
+
+                setOnClickListener {
+                    sendEmailIntent(email.value)
+                }
             }
         }
 
@@ -191,9 +209,14 @@ class ViewContactActivity : ContactActivity() {
         val addresses = contact!!.addresses
         addresses.forEach {
             layoutInflater.inflate(R.layout.item_view_address, contact_addresses_holder, false).apply {
+                val address = it
                 contact_addresses_holder.addView(this)
-                contact_address.text = it.value
-                contact_address_type.setText(getAddressTextId(it.type))
+                contact_address.text = address.value
+                contact_address_type.setText(getAddressTextId(address.type))
+
+                setOnClickListener {
+                    sendAddressIntent(address.value)
+                }
             }
         }
 
@@ -223,6 +246,21 @@ class ViewContactActivity : ContactActivity() {
         contact_notes.text = notes
         contact_notes_image.beVisibleIf(notes.isNotEmpty())
         contact_notes.beVisibleIf(notes.isNotEmpty())
+    }
+
+    private fun setupGroups() {
+        contact_groups_holder.removeAllViews()
+        val groups = contact!!.groups
+        groups.forEach {
+            layoutInflater.inflate(R.layout.item_view_group, contact_groups_holder, false).apply {
+                val group = it
+                contact_groups_holder.addView(this)
+                contact_group.text = group.title
+            }
+        }
+
+        contact_groups_image.beVisibleIf(groups.isNotEmpty())
+        contact_groups_holder.beVisibleIf(groups.isNotEmpty())
     }
 
     private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_big else R.drawable.ic_star_off_big)

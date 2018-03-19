@@ -163,8 +163,9 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
                 val notes = cursor.getStringValue(COL_NOTES)
                 val starred = cursor.getIntValue(COL_STARRED)
+                val groups = ArrayList<Group>()
 
-                val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, addresses, events, SMT_PRIVATE, starred, id, "", photo, notes)
+                val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, addresses, events, SMT_PRIVATE, starred, id, "", photo, notes, groups)
                 contacts.add(contact)
             }
         }

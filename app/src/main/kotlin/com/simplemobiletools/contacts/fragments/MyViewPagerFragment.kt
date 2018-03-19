@@ -15,11 +15,15 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.tryStartCall
 import com.simplemobiletools.contacts.extensions.viewContact
-import com.simplemobiletools.contacts.helpers.*
+import com.simplemobiletools.contacts.helpers.Config
+import com.simplemobiletools.contacts.helpers.ON_CLICK_CALL_CONTACT
+import com.simplemobiletools.contacts.helpers.ON_CLICK_EDIT_CONTACT
+import com.simplemobiletools.contacts.helpers.ON_CLICK_VIEW_CONTACT
+import com.simplemobiletools.contacts.interfaces.FragmentInterface
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.fragment_layout.view.*
 
-abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
+abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet), FragmentInterface {
     protected var activity: MainActivity? = null
     private var lastHashCode = 0
     private var contactsIgnoringSearch = ArrayList<Contact>()
@@ -27,7 +31,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     var forceListRedraw = false
 
-    fun setupFragment(activity: MainActivity) {
+    override fun setupFragment(activity: MainActivity) {
         config = activity.config
         if (this.activity == null) {
             this.activity = activity
@@ -47,18 +51,16 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 fragment_placeholder_2.text = activity.getString(R.string.add_favorites)
             }
         }
-
-        initContacts()
     }
 
-    fun textColorChanged(color: Int) {
+    override fun textColorChanged(color: Int) {
         (fragment_list.adapter as ContactsAdapter).apply {
             updateTextColor(color)
             initDrawables()
         }
     }
 
-    fun primaryColorChanged() {
+    override fun primaryColorChanged(color: Int) {
         fragment_fastscroller.updatePrimaryColor()
         fragment_fastscroller.updateBubblePrimaryColor()
     }
@@ -66,45 +68,34 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
         (fragment_list.adapter as ContactsAdapter).apply {
             config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
-            initContacts()
+            this@MyViewPagerFragment.activity!!.refreshContacts(true, true)
         }
     }
 
-    fun initContacts() {
-        if (activity == null || activity!!.isActivityDestroyed()) {
-            return
+    override fun refreshContacts(contacts: ArrayList<Contact>) {
+        if (config.lastUsedContactSource.isEmpty()) {
+            val grouped = contacts.groupBy { it.source }.maxWith(compareBy { it.value.size })
+            config.lastUsedContactSource = grouped?.key ?: ""
         }
 
-        ContactsHelper(activity!!).getContacts {
-            var contacts = it
-            if (activity == null || activity!!.isActivityDestroyed()) {
-                return@getContacts
-            }
-
-            if (config.lastUsedContactSource.isEmpty()) {
-                val grouped = contacts.groupBy { it.source }.maxWith(compareBy { it.value.size })
-                config.lastUsedContactSource = grouped?.key ?: ""
-            }
-
-            contacts = if (this is FavoritesFragment) {
-                contacts.filter { it.starred == 1 } as ArrayList<Contact>
+        val filtered = if (this is FavoritesFragment) {
+            contacts.filter { it.starred == 1 } as ArrayList<Contact>
+        } else {
+            val contactSources = config.displayContactSources
+            if (config.showAllContacts()) {
+                contacts
             } else {
-                val contactSources = config.displayContactSources
-                if (config.showAllContacts()) {
-                    contacts
-                } else {
-                    contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
-                }
+                contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
             }
+        }
 
-            Contact.sorting = config.sorting
-            contacts.sort()
+        Contact.sorting = config.sorting
+        filtered.sort()
 
-            if (contacts.hashCode() != lastHashCode) {
-                lastHashCode = contacts.hashCode()
-                activity!!.runOnUiThread {
-                    setupContacts(contacts)
-                }
+        if (filtered.hashCode() != lastHashCode) {
+            lastHashCode = filtered.hashCode()
+            activity?.runOnUiThread {
+                setupContacts(filtered)
             }
         }
     }

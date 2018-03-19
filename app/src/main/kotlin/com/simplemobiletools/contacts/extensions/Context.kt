@@ -9,8 +9,8 @@ import android.os.Build
 import android.provider.ContactsContract
 import android.support.v4.content.FileProvider
 import com.simplemobiletools.commons.extensions.getIntValue
-import com.simplemobiletools.commons.extensions.isLollipopPlus
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.EditContactActivity
@@ -58,6 +58,18 @@ fun Context.sendSMSIntent(recipient: String) {
         } else {
             toast(R.string.no_app_found)
         }
+    }
+}
+
+fun Context.sendAddressIntent(address: String) {
+    val location = Uri.encode(address)
+    val uri = Uri.parse("geo:0,0?q=$location")
+
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+    if (intent.resolveActivity(packageManager) != null) {
+        startActivity(intent)
+    } else {
+        toast(R.string.no_app_found)
     }
 }
 

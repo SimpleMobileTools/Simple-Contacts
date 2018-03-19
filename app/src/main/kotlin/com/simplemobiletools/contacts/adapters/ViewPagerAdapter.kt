@@ -5,15 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.MainActivity
-import com.simplemobiletools.contacts.fragments.MyViewPagerFragment
+import com.simplemobiletools.contacts.interfaces.FragmentInterface
+import com.simplemobiletools.contacts.models.Contact
 
-class ViewPagerAdapter(val activity: MainActivity) : PagerAdapter() {
+class ViewPagerAdapter(val activity: MainActivity, val contacts: ArrayList<Contact>) : PagerAdapter() {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val layout = if (position == 0) R.layout.fragment_contacts else R.layout.fragment_favorites
+        val layout = getFragment(position)
         val view = activity.layoutInflater.inflate(layout, container, false)
         container.addView(view)
-        (view as MyViewPagerFragment).setupFragment(activity)
+        (view as FragmentInterface).apply {
+            setupFragment(activity)
+            refreshContacts(contacts)
+        }
         return view
     }
 
@@ -21,6 +25,12 @@ class ViewPagerAdapter(val activity: MainActivity) : PagerAdapter() {
         container.removeView(item as View)
     }
 
-    override fun getCount() = 2
+    override fun getCount() = 3
     override fun isViewFromObject(view: View, item: Any) = view == item
+
+    private fun getFragment(position: Int) = when (position) {
+        0 -> R.layout.fragment_contacts
+        1 -> R.layout.fragment_favorites
+        else -> R.layout.fragment_groups
+    }
 }
