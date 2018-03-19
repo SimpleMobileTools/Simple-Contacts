@@ -12,10 +12,13 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.interfaces.FragmentInterface
 import com.simplemobiletools.contacts.models.Contact
+import com.simplemobiletools.contacts.models.Group
 import kotlinx.android.synthetic.main.fragment_groups.view.*
 
 class GroupsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet), FragmentInterface {
     var activity: MainActivity? = null
+    var lastContacts = ArrayList<Contact>()
+
     override fun setupFragment(activity: MainActivity) {
         if (this.activity == null) {
             this.activity = activity
@@ -41,7 +44,8 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : Coordinator
             return
         }
 
-        val storedGroups = ContactsHelper(activity!!).getStoredGroups()
+        lastContacts = contacts
+        var storedGroups = ContactsHelper(activity!!).getStoredGroups()
         contacts.forEach {
             it.groups.forEach {
                 val group = it
@@ -50,6 +54,7 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : Coordinator
             }
         }
 
+        storedGroups = storedGroups.sortedWith(compareBy { it.title }).toList() as ArrayList<Group>
         val currAdapter = groups_list.adapter
         if (currAdapter == null) {
             GroupsAdapter(activity as SimpleActivity, storedGroups, groups_list, groups_fastscroller) {
