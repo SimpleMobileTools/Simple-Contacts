@@ -11,6 +11,7 @@ import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.CommonDataKinds.Note
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.SparseArray
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
@@ -665,11 +666,15 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             }
 
             // delete groups
-            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
-                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
-                withSelection(selection, selectionArgs)
-                operations.add(build())
+            val relevantGroupIDs = getStoredGroups().map { it.id }
+            if (relevantGroupIDs.isNotEmpty()) {
+                val IDsString = TextUtils.join(",", relevantGroupIDs)
+                ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                    val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.DATA1} IN (?)"
+                    val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, IDsString)
+                    withSelection(selection, selectionArgs)
+                    operations.add(build())
+                }
             }
 
             // add groups
