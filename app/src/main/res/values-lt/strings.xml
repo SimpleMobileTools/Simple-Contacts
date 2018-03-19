@@ -1,0 +1,90 @@
+<resources>
+    <string name="app_name">Paprasti kontaktai</string>
+    <string name="app_launcher_name">Kontaktai</string>
+    <string name="address">Adresas</string>
+    <string name="inserting">Įterpiama…</string>
+    <string name="updating">Atnaujinama…</string>
+    <string name="phone_storage">Telefono atmintis</string>
+    <string name="phone_storage_hidden">Telefono atmintis (nematoma kitų programėlių)</string>
+    <string name="no_groups">Nėra grupių</string>
+    <string name="create_new_group">Sukurti naują grupę</string>
+
+    <string name="new_contact">Naujas kontaktas</string>
+    <string name="edit_contact">Redaguoti kontaktą</string>
+    <string name="select_contact">Pasirinkti kontaktą</string>
+    <string name="select_contacts">pasirinkti kontaktus</string>
+    <string name="first_name">Vardas</string>
+    <string name="middle_name">Antras vardas</string>
+    <string name="surname">Pavardė</string>
+
+    <!-- Photo -->
+    <string name="take_photo">Nufotografuoti</string>
+    <string name="choose_photo">Pasirinkti nuotrauką</string>
+    <string name="remove_photo">Pašalinti nuotrauką</string>
+
+    <!-- Settings -->
+    <string name="start_name_with_surname">Pavardė rodoma pirma</string>
+    <string name="show_phone_numbers">Rodyti telefono numerius pagrindiniame programos ekrane</string>
+    <string name="show_contact_thumbnails">Rodyti kontaktų miniatiūras</string>
+    <string name="on_contact_click">Ant kontakto paspaudimo</string>
+    <string name="call_contact">Skambinti kontaktui</string>
+    <string name="view_contact">Žiūrėti kontakto detales</string>
+    <string name="show_favorites_tab">Rodyti mėgiamiausiųjų skirtuką</string>
+    <string name="show_groups_tab">Rodyti grupių skirtuką</string>
+
+    <!-- Emails -->
+    <string name="email">Elektroninis paštas</string>
+    <string name="home">Namų</string>
+    <string name="work">Darbo</string>
+    <string name="other">Kitas</string>
+
+    <!-- Phone numbers -->
+    <string name="number">Numeris</string>
+    <string name="mobile">Mobilus</string>
+    <string name="main_number">Pagrindinis</string>
+    <string name="work_fax">Darbo faksas</string>
+    <string name="home_fax">Namų faksas</string>
+    <string name="pager">Pranešimų gaviklis</string>
+    <string name="no_phone_number_found">Nerasta telefono numerio</string>
+
+    <!-- Events -->
+    <string name="birthday">Gimtadienis</string>
+    <string name="anniversary">Sukaktis</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">Atrodo jog Jūs dar neįvedėte nė vieno mėgiamiausiojo kontakto.</string>
+    <string name="add_favorites">Pridėti mėgiamiausiuosius</string>
+    <string name="add_to_favorites">Pridėti į mėgiamiausiuosius</string>
+    <string name="remove_from_favorites">Pašalinti iš mėgiamiausiųjų</string>
+
+    <!-- Search -->
+    <string name="search_contacts">Ieškoti kontaktų</string>
+    <string name="search_favorites">Ieškoti mėgiamiausiųjų</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">Importuoti kontaktus</string>
+    <string name="export_contacts">Eksportuoti kontaktus</string>
+    <string name="import_contacts_from_vcf">Importuoti kontaktus iš .vcf bylos</string>
+    <string name="export_contacts_to_vcf">Eksportuoti kontaktus į .vcf bylą</string>
+    <string name="target_contact_source">Tikslinis kontakto šaltinis</string>
+    <string name="include_contact_sources">Įtraukti kontaktų šaltinius</string>
+    <string name="filename_without_vcf">Bylos vardas (be .vcf)</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Kontaktų programėlė įrenginio kontaktų tvarkymui, be reklamų.</string>
+    <string name="app_long_description">
+        Paprasta programėlė įrenginio kontaktų kūrimui ir tvarkymui iš įvairių šaltinių. Kontaktai gali būti saugomi Jūsų įrenginyje, taip pat sinchronizuojami per Google, ar kitas paskyras. Jūs galite matyti mėgiamiausiuosius kontaktus atskirame  sąraše.
+
+        Jūs taip pat galite naudoti programėlę elektroninių paštų adresų tvarkymui. Programėlė turi galimybę rikiuoti/filtruoti pagal įvairius parametrus, taip pat rodyti pavardę pirma vardo.
+
+        Neturi reklamų ar nereikalingų leidimų. Programėlė visiškai atviro kodo, yra galimybė keisti spalvas.
+
+        Ši programėle yra vienintelė iš keletos mūsų programėlių. Likusias Jūs galite rasti čia http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
