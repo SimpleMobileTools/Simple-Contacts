@@ -286,7 +286,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 invalidateOptionsMenu()
             }
         })
-        viewpager.currentItem = config.lastUsedViewPagerPage
 
         main_tabs_holder.onTabSelectionChanged(
                 tabUnselectedAction = {
@@ -409,6 +408,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
             if (viewpager.adapter == null) {
                 viewpager.adapter = ViewPagerAdapter(this, it)
+                viewpager.currentItem = config.lastUsedViewPagerPage
             }
 
             if (refreshContactsTab) {

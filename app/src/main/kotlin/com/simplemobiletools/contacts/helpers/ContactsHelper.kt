@@ -101,13 +101,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 contacts[key]?.notes = notes.valueAt(i)
             }
 
-            val groups = getContactGroups(getStoredGroups())
-            size = groups.size()
-            for (i in 0 until size) {
-                val key = groups.keyAt(i)
-                contacts[key]?.groups = groups.valueAt(i)
-            }
-
             activity.dbHelper.getContacts().forEach {
                 contacts.put(it.id, it)
             }
@@ -116,6 +109,15 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             var resultContacts = ArrayList<Contact>(contactsSize)
             (0 until contactsSize).mapTo(resultContacts) { contacts.valueAt(it) }
             resultContacts = resultContacts.distinctBy { it.contactId } as ArrayList<Contact>
+
+            // groups are obtained with contactID, not rawID, so assign them to proper contacts like this
+            val groups = getContactGroups(getStoredGroups())
+            size = groups.size()
+            for (i in 0 until size) {
+                val key = groups.keyAt(i)
+                resultContacts.firstOrNull { it.contactId == key }?.groups = groups.valueAt(i)
+            }
+
             activity.runOnUiThread {
                 callback(resultContacts)
             }
@@ -336,12 +338,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     val id = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                     val newRowId = cursor.getLongValue(ContactsContract.Data.DATA1)
 
+                    val groupTitle = storedGroups.firstOrNull { it.id == newRowId }?.title ?: continue
+                    val group = Group(newRowId, groupTitle)
                     if (groups[id] == null) {
                         groups.put(id, ArrayList())
                     }
-
-                    val groupTitle = storedGroups.firstOrNull { it.id == newRowId }?.title ?: continue
-                    val group = Group(newRowId, groupTitle)
                     groups[id]!!.add(group)
                 } while (cursor.moveToNext())
             }
