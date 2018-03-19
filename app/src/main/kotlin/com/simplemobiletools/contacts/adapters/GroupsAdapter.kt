@@ -12,6 +12,7 @@ import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Group
 import kotlinx.android.synthetic.main.item_group.view.*
 import java.util.*
@@ -85,6 +86,15 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, recy
         if (selectedPositions.isEmpty()) {
             return
         }
+
+        val groupsToRemove = ArrayList<Group>()
+        selectedPositions.sortedDescending().forEach {
+            val group = groups[it]
+            groupsToRemove.add(group)
+            ContactsHelper(activity).deleteGroup(group.id)
+        }
+        groups.removeAll(groupsToRemove)
+        removeSelectedItems()
     }
 
     private fun setupView(view: View, group: Group) {
