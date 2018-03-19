@@ -32,7 +32,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private lateinit var contactDrawable: Drawable
-    var config = activity.config
+    private var config = activity.config
     var startNameWithSurname: Boolean
     var showContactThumbnails: Boolean
     var showPhoneNumbers: Boolean

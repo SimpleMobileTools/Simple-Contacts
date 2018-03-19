@@ -95,6 +95,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (storedShowContactThumbnails != configShowContactThumbnails) {
             contacts_fragment?.showContactThumbnailsChanged(configShowContactThumbnails)
             favorites_fragment?.showContactThumbnailsChanged(configShowContactThumbnails)
+            groups_fragment?.showContactThumbnailsChanged(configShowContactThumbnails)
         }
 
         val configTextColor = config.textColor
@@ -104,6 +105,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
             contacts_fragment?.textColorChanged(configTextColor)
             favorites_fragment?.textColorChanged(configTextColor)
+            groups_fragment?.textColorChanged(configTextColor)
         }
 
         val configBackgroundColor = config.backgroundColor
@@ -117,6 +119,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
             contacts_fragment?.primaryColorChanged(configPrimaryColor)
             favorites_fragment?.primaryColorChanged(configPrimaryColor)
+            groups_fragment?.primaryColorChanged(configPrimaryColor)
         }
 
         val configStartNameWithSurname = config.startNameWithSurname
@@ -132,6 +135,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
             contacts_fragment?.onActivityResume()
             favorites_fragment?.onActivityResume()
+            groups_fragment?.onActivityResume()
             refreshContacts(true, true)
         }
 

@@ -142,7 +142,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
-    fun showContactThumbnailsChanged(showThumbnails: Boolean) {
+    override fun showContactThumbnailsChanged(showThumbnails: Boolean) {
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             showContactThumbnails = showThumbnails
             notifyDataSetChanged()

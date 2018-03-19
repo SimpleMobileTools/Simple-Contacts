@@ -5,4 +5,6 @@
     <string name="release_11">Added Address and Notes fields</string>
     <string name="release_10">Allow storing contacts in a local database, hidden from other apps</string>
 
+    <string name="groups_placeholder">%1$s (%2$s)</string>
+
 </resources>

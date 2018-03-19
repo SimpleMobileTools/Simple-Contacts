@@ -11,4 +11,6 @@ interface FragmentInterface {
     fun primaryColorChanged(color: Int)
 
     fun refreshContacts(contacts: ArrayList<Contact>)
+
+    fun showContactThumbnailsChanged(showThumbnails: Boolean)
 }
