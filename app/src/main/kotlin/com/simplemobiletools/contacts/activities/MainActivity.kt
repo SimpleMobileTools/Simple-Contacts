@@ -26,9 +26,9 @@ import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.extensions.getTempFile
-import com.simplemobiletools.contacts.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.VcfExporter
+import com.simplemobiletools.contacts.interfaces.FragmentInterface
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
@@ -93,9 +93,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         val configShowContactThumbnails = config.showContactThumbnails
         if (storedShowContactThumbnails != configShowContactThumbnails) {
-            contacts_fragment?.showContactThumbnailsChanged(configShowContactThumbnails)
-            favorites_fragment?.showContactThumbnailsChanged(configShowContactThumbnails)
-            groups_fragment?.showContactThumbnailsChanged(configShowContactThumbnails)
+            getAllFragments().forEach {
+                (it as? FragmentInterface)?.showContactThumbnailsChanged(configShowContactThumbnails)
+            }
         }
 
         val configTextColor = config.textColor
@@ -103,9 +103,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             getInactiveTabIndexes(viewpager.currentItem).forEach {
                 main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(configTextColor)
             }
-            contacts_fragment?.textColorChanged(configTextColor)
-            favorites_fragment?.textColorChanged(configTextColor)
-            groups_fragment?.textColorChanged(configTextColor)
+            getAllFragments().forEach {
+                (it as? FragmentInterface)?.textColorChanged(configTextColor)
+            }
         }
 
         val configBackgroundColor = config.backgroundColor
@@ -117,9 +117,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (storedPrimaryColor != configPrimaryColor) {
             main_tabs_holder.setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
             main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
-            contacts_fragment?.primaryColorChanged(configPrimaryColor)
-            favorites_fragment?.primaryColorChanged(configPrimaryColor)
-            groups_fragment?.primaryColorChanged(configPrimaryColor)
+            getAllFragments().forEach {
+                (it as? FragmentInterface)?.primaryColorChanged(configPrimaryColor)
+            }
         }
 
         val configStartNameWithSurname = config.startNameWithSurname
@@ -133,9 +133,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 initFragments()
             }
 
-            contacts_fragment?.onActivityResume()
-            favorites_fragment?.onActivityResume()
-            groups_fragment?.onActivityResume()
+            getAllFragments().forEach {
+                (it as? FragmentInterface)?.onActivityResume()
+            }
             refreshContacts(true, true)
         }
 
@@ -197,7 +197,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
-                        (getCurrentFragment() as? MyViewPagerFragment)?.onSearchQueryChanged(newText)
+                        getCurrentFragment()?.onSearchQueryChanged(newText)
                     }
                     return true
                 }
@@ -206,20 +206,20 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                (getCurrentFragment() as? MyViewPagerFragment)?.onSearchOpened()
+                getCurrentFragment()?.onSearchOpened()
                 isSearchOpen = true
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                (getCurrentFragment() as? MyViewPagerFragment)?.onSearchClosed()
+                getCurrentFragment()?.onSearchClosed()
                 isSearchOpen = false
                 return true
             }
         })
     }
 
-    private fun getCurrentFragment() = when (viewpager.currentItem) {
+    private fun getCurrentFragment(): FragmentInterface? = when (viewpager.currentItem) {
         0 -> contacts_fragment
         1 -> favorites_fragment
         else -> groups_fragment
@@ -275,7 +275,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
-                    (getCurrentFragment() as? MyViewPagerFragment)?.onSearchQueryChanged("")
+                    getCurrentFragment()?.onSearchQueryChanged("")
                     searchMenuItem?.collapseActionView()
                 }
             }
@@ -285,8 +285,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
             override fun onPageSelected(position: Int) {
                 main_tabs_holder.getTabAt(position)?.select()
-                contacts_fragment?.finishActMode()
-                favorites_fragment?.finishActMode()
+                getAllFragments().forEach {
+                    (it as? FragmentInterface)?.finishActMode()
+                }
                 invalidateOptionsMenu()
             }
         })
@@ -424,6 +425,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         }
     }
+
+    private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, groups_fragment)
 
     override fun refreshFavorites() {
         refreshContacts(false, true)

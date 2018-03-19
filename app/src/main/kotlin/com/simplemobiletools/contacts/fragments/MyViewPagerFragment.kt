@@ -149,15 +149,15 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
-    fun onActivityResume() {
+    override fun onActivityResume() {
         updateViewStuff()
     }
 
-    fun finishActMode() {
+    override fun finishActMode() {
         (fragment_list.adapter as? ContactsAdapter)?.finishActMode()
     }
 
-    fun onSearchQueryChanged(text: String) {
+    override fun onSearchQueryChanged(text: String) {
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             val filtered = contactsIgnoringSearch.filter {
                 it.getFullName(startNameWithSurname).contains(text, true) ||
@@ -180,11 +180,11 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
-    fun onSearchOpened() {
+    override fun onSearchOpened() {
         contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
     }
 
-    fun onSearchClosed() {
+    override fun onSearchClosed() {
         (fragment_list.adapter as? ContactsAdapter)?.updateItems(contactsIgnoringSearch)
         if (this is FavoritesFragment) {
             fragment_placeholder.text = activity?.getString(R.string.no_favorites)

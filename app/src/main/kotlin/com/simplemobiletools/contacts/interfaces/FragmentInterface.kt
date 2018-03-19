@@ -6,6 +6,8 @@ import com.simplemobiletools.contacts.models.Contact
 interface FragmentInterface {
     fun setupFragment(activity: MainActivity)
 
+    fun onActivityResume()
+
     fun textColorChanged(color: Int)
 
     fun primaryColorChanged(color: Int)
@@ -13,4 +15,12 @@ interface FragmentInterface {
     fun refreshContacts(contacts: ArrayList<Contact>)
 
     fun showContactThumbnailsChanged(showThumbnails: Boolean)
+
+    fun finishActMode()
+
+    fun onSearchQueryChanged(text: String)
+
+    fun onSearchOpened()
+
+    fun onSearchClosed()
 }

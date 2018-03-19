@@ -88,8 +88,21 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : Coordinator
         }
     }
 
-    fun onActivityResume() {
+    override fun onActivityResume() {
         updateViewStuff()
+    }
+
+    override fun finishActMode() {
+        (groups_list.adapter as? GroupsAdapter)?.finishActMode()
+    }
+
+    override fun onSearchQueryChanged(text: String) {
+    }
+
+    override fun onSearchOpened() {
+    }
+
+    override fun onSearchClosed() {
     }
 
     private fun updateViewStuff() {
