@@ -38,8 +38,10 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : Coordinator
     }
 
     override fun primaryColorChanged(color: Int) {
-        groups_fastscroller.updatePrimaryColor()
-        groups_fastscroller.updateBubblePrimaryColor()
+        groups_fastscroller.apply {
+            updatePrimaryColor()
+            updateBubblePrimaryColor()
+        }
     }
 
     override fun refreshContacts(contacts: ArrayList<Contact>) {
@@ -61,7 +63,8 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : Coordinator
         val currAdapter = groups_list.adapter
         if (currAdapter == null) {
             GroupsAdapter(activity as SimpleActivity, storedGroups, groups_list, groups_fastscroller) {
-
+                val group = it as Group
+                val groupContacts = contacts.filter { it.groups.map { it.id }.contains(group.id) }
             }.apply {
                 setupDragListener(true)
                 addVerticalDividers(true)
