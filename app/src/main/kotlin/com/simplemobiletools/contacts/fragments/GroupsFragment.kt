@@ -1,24 +1,27 @@
 package com.simplemobiletools.contacts.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.support.design.widget.CoordinatorLayout
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.contacts.activities.GroupContactsActivity
 import com.simplemobiletools.contacts.activities.MainActivity
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.adapters.GroupsAdapter
 import com.simplemobiletools.contacts.dialogs.CreateNewGroupDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.GROUP
 import com.simplemobiletools.contacts.interfaces.FragmentInterface
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Group
 import kotlinx.android.synthetic.main.fragment_groups.view.*
 
 class GroupsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet), FragmentInterface {
-    var activity: MainActivity? = null
-    var lastContacts = ArrayList<Contact>()
+    private var activity: MainActivity? = null
+    private var lastContacts = ArrayList<Contact>()
 
     override fun setupFragment(activity: MainActivity) {
         if (this.activity == null) {
@@ -63,8 +66,10 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : Coordinator
         val currAdapter = groups_list.adapter
         if (currAdapter == null) {
             GroupsAdapter(activity as SimpleActivity, storedGroups, groups_list, groups_fastscroller) {
-                val group = it as Group
-                val groupContacts = contacts.filter { it.groups.map { it.id }.contains(group.id) }
+                Intent(activity, GroupContactsActivity::class.java).apply {
+                    putExtra(GROUP, it as Group)
+                    activity!!.startActivity(this)
+                }
             }.apply {
                 setupDragListener(true)
                 addVerticalDividers(true)

@@ -75,6 +75,10 @@
             android:parentActivityName=".activities.MainActivity"/>
 
         <activity
+            android:name=".activities.GroupContactsActivity"
+            android:parentActivityName=".activities.MainActivity"/>
+
+        <activity
             android:name=".activities.ViewContactActivity"
             android:label="@string/details"
             android:parentActivityName=".activities.MainActivity">
