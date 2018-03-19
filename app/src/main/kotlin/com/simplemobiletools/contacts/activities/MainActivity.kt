@@ -266,6 +266,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(0, 1, 2).filter { it != activeIndex }
 
     private fun initFragments() {
+        refreshContacts(true, true)
         viewpager.offscreenPageLimit = 2
         viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
@@ -286,7 +287,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         })
         viewpager.currentItem = config.lastUsedViewPagerPage
-        refreshContacts(true, true)
 
         main_tabs_holder.onTabSelectionChanged(
                 tabUnselectedAction = {
