@@ -15,10 +15,7 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.tryStartCall
 import com.simplemobiletools.contacts.extensions.viewContact
-import com.simplemobiletools.contacts.helpers.Config
-import com.simplemobiletools.contacts.helpers.ON_CLICK_CALL_CONTACT
-import com.simplemobiletools.contacts.helpers.ON_CLICK_EDIT_CONTACT
-import com.simplemobiletools.contacts.helpers.ON_CLICK_VIEW_CONTACT
+import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.interfaces.FragmentInterface
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.fragment_layout.view.*
@@ -108,7 +105,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         val currAdapter = fragment_list.adapter
         if (currAdapter == null || forceListRedraw) {
             forceListRedraw = false
-            ContactsAdapter(activity as SimpleActivity, contacts, activity, this is FavoritesFragment, fragment_list, fragment_fastscroller) {
+            val location = if (this is FavoritesFragment) LOCATION_FAVORITES_TAB else LOCATION_CONTACTS_TAB
+            ContactsAdapter(activity as SimpleActivity, contacts, activity, location, fragment_list, fragment_fastscroller) {
                 when (config.onContactClick) {
                     ON_CLICK_CALL_CONTACT -> {
                         val contact = it as Contact

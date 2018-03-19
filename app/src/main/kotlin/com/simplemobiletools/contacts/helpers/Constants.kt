@@ -15,6 +15,10 @@ const val SMT_PRIVATE = "smt_private"   // used at the contact source of local c
 const val IS_PRIVATE = "is_private"
 const val GROUP = "group"
 
+const val LOCATION_CONTACTS_TAB = 1
+const val LOCATION_FAVORITES_TAB = 2
+const val LOCATION_GROUP_CONTACTS = 3
+
 // contact photo changes
 const val PHOTO_ADDED = 1
 const val PHOTO_REMOVED = 2

@@ -6,8 +6,6 @@
     <string name="updating">수정중…</string>
     <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
-    <string name="no_groups">No groups</string>
-    <string name="create_new_group">Create a new group</string>
 
     <string name="new_contact">새로운 연락처</string>
     <string name="edit_contact">연락처 수정</string>
@@ -16,6 +14,11 @@
     <string name="first_name">이름</string>
     <string name="middle_name">중간 이름</string>
     <string name="surname">성</string>
+
+    <!-- Groups -->
+    <string name="no_groups">No groups</string>
+    <string name="create_new_group">Create a new group</string>
+    <string name="remove_from_group">Remove from group</string>
 
     <!-- Photo -->
     <string name="take_photo">사진 촬영</string>

@@ -22,13 +22,16 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.shareContacts
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.LOCATION_CONTACTS_TAB
+import com.simplemobiletools.contacts.helpers.LOCATION_FAVORITES_TAB
+import com.simplemobiletools.contacts.helpers.LOCATION_GROUP_CONTACTS
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.item_contact_with_number.view.*
 import java.util.*
 
 class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val listener: RefreshContactsListener?,
-                      private val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
+                      private val location: Int, recyclerView: MyRecyclerView, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private lateinit var contactDrawable: Drawable
@@ -52,10 +55,13 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     override fun prepareActionMode(menu: Menu) {
         menu.apply {
             findItem(R.id.cab_edit).isVisible = isOneItemSelected()
-            findItem(R.id.cab_remove).isVisible = isFavoritesFragment
-            findItem(R.id.cab_select_all).isVisible = isFavoritesFragment
-            findItem(R.id.cab_add_to_favorites).isVisible = !isFavoritesFragment
-            findItem(R.id.cab_delete).isVisible = !isFavoritesFragment
+            findItem(R.id.cab_remove).isVisible = location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
+            findItem(R.id.cab_add_to_favorites).isVisible = location == LOCATION_CONTACTS_TAB
+            findItem(R.id.cab_delete).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_GROUP_CONTACTS
+
+            if (location == LOCATION_GROUP_CONTACTS) {
+                findItem(R.id.cab_remove).title = activity.getString(R.string.remove_from_group)
+            }
         }
     }
 
@@ -75,7 +81,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             R.id.cab_select_all -> selectAll()
             R.id.cab_add_to_favorites -> addToFavorites()
             R.id.cab_share -> shareContacts()
-            R.id.cab_remove -> removeFavorites()
+            R.id.cab_remove -> removeContacts()
             R.id.cab_delete -> askConfirmDelete()
         }
     }
@@ -138,19 +144,23 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         }
     }
 
-    private fun removeFavorites() {
-        val favoritesToRemove = ArrayList<Contact>()
+    private fun removeContacts() {
+        val contactsToRemove = ArrayList<Contact>()
         selectedPositions.sortedDescending().forEach {
-            favoritesToRemove.add(contactItems[it])
+            contactsToRemove.add(contactItems[it])
         }
-        contactItems.removeAll(favoritesToRemove)
+        contactItems.removeAll(contactsToRemove)
 
-        ContactsHelper(activity).removeFavorites(favoritesToRemove)
-        if (contactItems.isEmpty()) {
-            listener?.refreshFavorites()
-            finishActMode()
-        } else {
-            removeSelectedItems()
+        if (location == LOCATION_FAVORITES_TAB) {
+            ContactsHelper(activity).removeFavorites(contactsToRemove)
+            if (contactItems.isEmpty()) {
+                listener?.refreshFavorites()
+                finishActMode()
+            } else {
+                removeSelectedItems()
+            }
+        } else if (location == LOCATION_GROUP_CONTACTS) {
+
         }
     }
 

@@ -30,7 +30,10 @@ class GroupContactsActivity : SimpleActivity() {
     }
 
     private fun updateContacts(contacts: ArrayList<Contact>) {
-        ContactsAdapter(this, contacts, null, false, group_contacts_list, group_contacts_fastscroller) {
+        Contact.sorting = config.sorting
+        contacts.sort()
+
+        ContactsAdapter(this, contacts, null, LOCATION_GROUP_CONTACTS, group_contacts_list, group_contacts_fastscroller) {
             when (config.onContactClick) {
                 ON_CLICK_CALL_CONTACT -> {
                     val contact = it as Contact
