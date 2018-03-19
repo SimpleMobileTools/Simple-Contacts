@@ -8,6 +8,7 @@ import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.contacts.activities.MainActivity
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.adapters.GroupsAdapter
+import com.simplemobiletools.contacts.dialogs.CreateNewGroupDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.interfaces.FragmentInterface
@@ -23,7 +24,9 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : Coordinator
         if (this.activity == null) {
             this.activity = activity
             groups_fab.setOnClickListener {
-
+                CreateNewGroupDialog(activity) {
+                    refreshContacts(lastContacts)
+                }
             }
 
             updateViewStuff()
