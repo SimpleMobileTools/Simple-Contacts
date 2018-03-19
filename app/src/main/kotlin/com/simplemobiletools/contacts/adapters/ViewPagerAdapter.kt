@@ -5,15 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.MainActivity
-import com.simplemobiletools.contacts.fragments.MyViewPagerFragment
+import com.simplemobiletools.contacts.interfaces.FragmentInterface
+import com.simplemobiletools.contacts.models.Contact
 
-class ViewPagerAdapter(val activity: MainActivity) : PagerAdapter() {
+class ViewPagerAdapter(val activity: MainActivity, val contacts: ArrayList<Contact>) : PagerAdapter() {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val layout = getFragment(position)
         val view = activity.layoutInflater.inflate(layout, container, false)
         container.addView(view)
-        (view as? MyViewPagerFragment)?.setupFragment(activity)
+        (view as FragmentInterface).apply {
+            setupFragment(activity)
+            refreshContacts(contacts)
+        }
         return view
     }
 

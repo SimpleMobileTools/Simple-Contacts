@@ -15,7 +15,10 @@ import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.tryStartCall
 import com.simplemobiletools.contacts.extensions.viewContact
-import com.simplemobiletools.contacts.helpers.*
+import com.simplemobiletools.contacts.helpers.Config
+import com.simplemobiletools.contacts.helpers.ON_CLICK_CALL_CONTACT
+import com.simplemobiletools.contacts.helpers.ON_CLICK_EDIT_CONTACT
+import com.simplemobiletools.contacts.helpers.ON_CLICK_VIEW_CONTACT
 import com.simplemobiletools.contacts.interfaces.FragmentInterface
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.fragment_layout.view.*
@@ -48,8 +51,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 fragment_placeholder_2.text = activity.getString(R.string.add_favorites)
             }
         }
-
-        refreshContacts()
     }
 
     override fun textColorChanged(color: Int) {
@@ -67,45 +68,34 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
         (fragment_list.adapter as ContactsAdapter).apply {
             config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
-            refreshContacts()
+            this@MyViewPagerFragment.activity!!.refreshContacts(true, true)
         }
     }
 
-    override fun refreshContacts() {
-        if (activity == null || activity!!.isActivityDestroyed()) {
-            return
+    override fun refreshContacts(contacts: ArrayList<Contact>) {
+        if (config.lastUsedContactSource.isEmpty()) {
+            val grouped = contacts.groupBy { it.source }.maxWith(compareBy { it.value.size })
+            config.lastUsedContactSource = grouped?.key ?: ""
         }
 
-        ContactsHelper(activity!!).getContacts {
-            var contacts = it
-            if (activity == null || activity!!.isActivityDestroyed()) {
-                return@getContacts
-            }
-
-            if (config.lastUsedContactSource.isEmpty()) {
-                val grouped = contacts.groupBy { it.source }.maxWith(compareBy { it.value.size })
-                config.lastUsedContactSource = grouped?.key ?: ""
-            }
-
-            contacts = if (this is FavoritesFragment) {
-                contacts.filter { it.starred == 1 } as ArrayList<Contact>
+        val filtered = if (this is FavoritesFragment) {
+            contacts.filter { it.starred == 1 } as ArrayList<Contact>
+        } else {
+            val contactSources = config.displayContactSources
+            if (config.showAllContacts()) {
+                contacts
             } else {
-                val contactSources = config.displayContactSources
-                if (config.showAllContacts()) {
-                    contacts
-                } else {
-                    contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
-                }
+                contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
             }
+        }
 
-            Contact.sorting = config.sorting
-            contacts.sort()
+        Contact.sorting = config.sorting
+        filtered.sort()
 
-            if (contacts.hashCode() != lastHashCode) {
-                lastHashCode = contacts.hashCode()
-                activity!!.runOnUiThread {
-                    setupContacts(contacts)
-                }
+        if (filtered.hashCode() != lastHashCode) {
+            lastHashCode = filtered.hashCode()
+            activity?.runOnUiThread {
+                setupContacts(filtered)
             }
         }
     }

@@ -116,7 +116,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             var resultContacts = ArrayList<Contact>(contactsSize)
             (0 until contactsSize).mapTo(resultContacts) { contacts.valueAt(it) }
             resultContacts = resultContacts.distinctBy { it.contactId } as ArrayList<Contact>
-            callback(resultContacts)
+            activity.runOnUiThread {
+                callback(resultContacts)
+            }
         }.start()
     }
 

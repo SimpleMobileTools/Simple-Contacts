@@ -130,7 +130,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
         ContactsHelper(activity).deleteContacts(contactsToRemove)
         if (contactItems.isEmpty()) {
-            listener?.refreshContacts()
+            listener?.refreshContacts(true, true)
             finishActMode()
         } else {
             removeSelectedItems()

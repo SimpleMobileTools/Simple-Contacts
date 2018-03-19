@@ -130,10 +130,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 initFragments()
             }
 
-            contacts_fragment?.refreshContacts()
             contacts_fragment?.onActivityResume()
-            favorites_fragment?.refreshContacts()
             favorites_fragment?.onActivityResume()
+            refreshContacts(true, true)
         }
 
         if (hasPermission(PERMISSION_WRITE_CONTACTS)) {
@@ -267,7 +266,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(0, 1, 2).filter { it != activeIndex }
 
     private fun initFragments() {
-        viewpager.adapter = ViewPagerAdapter(this)
         viewpager.offscreenPageLimit = 2
         viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
@@ -288,6 +286,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         })
         viewpager.currentItem = config.lastUsedViewPagerPage
+        refreshContacts(true, true)
 
         main_tabs_holder.onTabSelectionChanged(
                 tabUnselectedAction = {
@@ -306,15 +305,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
-            contacts_fragment?.refreshContacts()
-            favorites_fragment?.refreshContacts()
+            refreshContacts(true, true)
         }
     }
 
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
             contacts_fragment?.forceListRedraw = true
-            contacts_fragment?.refreshContacts()
+            refreshContacts(true, false)
         }
     }
 
@@ -336,7 +334,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         ImportContactsDialog(this, path) {
             if (it) {
                 runOnUiThread {
-                    refreshContacts()
+                    refreshContacts(true, true)
                 }
             }
         }
@@ -399,13 +397,32 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 BuildConfig.VERSION_NAME, faqItems)
     }
 
-    override fun refreshContacts() {
-        contacts_fragment.refreshContacts()
-        favorites_fragment.refreshContacts()
+    override fun refreshContacts(refreshContactsTab: Boolean, refreshFavoritesTab: Boolean) {
+        if (isActivityDestroyed()) {
+            return
+        }
+
+        ContactsHelper(this).getContacts {
+            if (isActivityDestroyed()) {
+                return@getContacts
+            }
+
+            if (viewpager.adapter == null) {
+                viewpager.adapter = ViewPagerAdapter(this, it)
+            }
+
+            if (refreshContactsTab) {
+                contacts_fragment?.refreshContacts(it)
+            }
+
+            if (refreshFavoritesTab) {
+                favorites_fragment?.refreshContacts(it)
+            }
+        }
     }
 
     override fun refreshFavorites() {
-        favorites_fragment?.refreshContacts()
+        refreshContacts(false, true)
     }
 
     private fun checkWhatsNewDialog() {
