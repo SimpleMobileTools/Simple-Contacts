@@ -1,8 +1,7 @@
 package com.simplemobiletools.contacts.activities
 
 import android.os.Bundle
-import com.simplemobiletools.commons.extensions.toast
-import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.dialogs.SelectContactsDialog
@@ -11,12 +10,13 @@ import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.tryStartCall
 import com.simplemobiletools.contacts.extensions.viewContact
 import com.simplemobiletools.contacts.helpers.*
+import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.interfaces.RemoveFromGroupListener
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Group
 import kotlinx.android.synthetic.main.activity_group_contacts.*
 
-class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener {
+class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, RefreshContactsListener {
     private var allContacts = ArrayList<Contact>()
     private var groupContacts = ArrayList<Contact>()
     lateinit var group: Group
@@ -30,14 +30,15 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener {
         supportActionBar?.title = group.title
 
         group_contacts_fab.setOnClickListener {
-            SelectContactsDialog(this, allContacts, groupContacts) { addedContacts, removedContacts ->
-                ContactsHelper(this).apply {
-                    addContactsToGroup(addedContacts, group.id)
-                    removeContactsFromGroup(removedContacts, group.id)
-                }
-                refreshContacts()
-            }
+            fabClicked()
         }
+
+        group_contacts_placeholder_2.setOnClickListener {
+            fabClicked()
+        }
+
+        group_contacts_placeholder_2.underlineText()
+        group_contacts_placeholder_2.setTextColor(getAdjustedPrimaryColor())
     }
 
     override fun onResume() {
@@ -45,10 +46,24 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener {
         refreshContacts()
     }
 
+    private fun fabClicked() {
+        SelectContactsDialog(this, allContacts, groupContacts) { addedContacts, removedContacts ->
+            ContactsHelper(this).apply {
+                addContactsToGroup(addedContacts, group.id)
+                removeContactsFromGroup(removedContacts, group.id)
+            }
+            refreshContacts()
+        }
+    }
+
     private fun refreshContacts() {
         ContactsHelper(this).getContacts {
             allContacts = it
+
             groupContacts = it.filter { it.groups.map { it.id }.contains(group.id) } as ArrayList<Contact>
+            group_contacts_placeholder_2.beVisibleIf(groupContacts.isEmpty())
+            group_contacts_placeholder.beVisibleIf(groupContacts.isEmpty())
+            group_contacts_list.beVisibleIf(groupContacts.isNotEmpty())
 
             Contact.sorting = config.sorting
             groupContacts.sort()
@@ -60,7 +75,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener {
     private fun updateContacts(contacts: ArrayList<Contact>) {
         val currAdapter = group_contacts_list.adapter
         if (currAdapter == null) {
-            ContactsAdapter(this, contacts, null, LOCATION_GROUP_CONTACTS, this, group_contacts_list, group_contacts_fastscroller) {
+            ContactsAdapter(this, contacts, this, LOCATION_GROUP_CONTACTS, this, group_contacts_list, group_contacts_fastscroller) {
                 when (config.onContactClick) {
                     ON_CLICK_CALL_CONTACT -> {
                         val contact = it as Contact
@@ -89,7 +104,17 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener {
         }
     }
 
+    override fun refreshContacts(refreshContactsTab: Boolean, refreshFavoritesTab: Boolean) {
+        refreshContacts()
+    }
+
+    override fun refreshFavorites() {
+    }
+
     override fun removeFromGroup(contacts: ArrayList<Contact>) {
         ContactsHelper(this).removeContactsFromGroup(contacts, group.id)
+        if (groupContacts.size == 0) {
+            refreshContacts()
+        }
     }
 }

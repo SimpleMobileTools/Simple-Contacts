@@ -30,19 +30,21 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : Coordinator
         if (this.activity == null) {
             this.activity = activity
             groups_fab.setOnClickListener {
-                CreateNewGroupDialog(activity) {
-                    refreshContacts(lastContacts)
-                }
+                fabClicked()
             }
 
             groups_placeholder_2.setOnClickListener {
-                CreateNewGroupDialog(activity) {
-                    refreshContacts(lastContacts)
-                }
+                fabClicked()
             }
 
             groups_placeholder_2.underlineText()
             updateViewStuff()
+        }
+    }
+
+    private fun fabClicked() {
+        CreateNewGroupDialog(activity as SimpleActivity) {
+            refreshContacts(lastContacts)
         }
     }
 
@@ -72,11 +74,12 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : Coordinator
             }
         }
 
+        storedGroups = storedGroups.sortedWith(compareBy { it.title }).toList() as? ArrayList<Group> ?: ArrayList()
+
         groups_placeholder_2.beVisibleIf(storedGroups.isEmpty())
         groups_placeholder.beVisibleIf(storedGroups.isEmpty())
         groups_list.beVisibleIf(storedGroups.isNotEmpty())
 
-        storedGroups = storedGroups.sortedWith(compareBy { it.title }) as? ArrayList<Group> ?: ArrayList()
         val currAdapter = groups_list.adapter
         if (currAdapter == null) {
             GroupsAdapter(activity as SimpleActivity, storedGroups, groups_list, groups_fastscroller) {
