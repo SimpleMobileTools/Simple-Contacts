@@ -11,11 +11,12 @@ import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.tryStartCall
 import com.simplemobiletools.contacts.extensions.viewContact
 import com.simplemobiletools.contacts.helpers.*
+import com.simplemobiletools.contacts.interfaces.RemoveFromGroupListener
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Group
 import kotlinx.android.synthetic.main.activity_group_contacts.*
 
-class GroupContactsActivity : SimpleActivity() {
+class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener {
     private var allContacts = ArrayList<Contact>()
     private var groupContacts = ArrayList<Contact>()
     lateinit var group: Group
@@ -53,7 +54,7 @@ class GroupContactsActivity : SimpleActivity() {
     }
 
     private fun updateContacts(contacts: ArrayList<Contact>) {
-        ContactsAdapter(this, contacts, null, LOCATION_GROUP_CONTACTS, group_contacts_list, group_contacts_fastscroller) {
+        ContactsAdapter(this, contacts, null, LOCATION_GROUP_CONTACTS, this, group_contacts_list, group_contacts_fastscroller) {
             when (config.onContactClick) {
                 ON_CLICK_CALL_CONTACT -> {
                     val contact = it as Contact
@@ -77,5 +78,9 @@ class GroupContactsActivity : SimpleActivity() {
             val item = (group_contacts_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
             group_contacts_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
         }
+    }
+
+    override fun removeFromGroup(contacts: ArrayList<Contact>) {
+        ContactsHelper(this).removeContactsFromGroup(contacts, group.id)
     }
 }

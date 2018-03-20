@@ -26,12 +26,14 @@ import com.simplemobiletools.contacts.helpers.LOCATION_CONTACTS_TAB
 import com.simplemobiletools.contacts.helpers.LOCATION_FAVORITES_TAB
 import com.simplemobiletools.contacts.helpers.LOCATION_GROUP_CONTACTS
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
+import com.simplemobiletools.contacts.interfaces.RemoveFromGroupListener
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.item_contact_with_number.view.*
 import java.util.*
 
-class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val listener: RefreshContactsListener?,
-                      private val location: Int, recyclerView: MyRecyclerView, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
+class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val refreshListener: RefreshContactsListener?,
+                      private val location: Int, private val removeListener: RemoveFromGroupListener?, recyclerView: MyRecyclerView,
+                      fastScroller: FastScroller, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private lateinit var contactDrawable: Drawable
@@ -136,11 +138,11 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
         ContactsHelper(activity).deleteContacts(contactsToRemove)
         if (contactItems.isEmpty()) {
-            listener?.refreshContacts(true, true)
+            refreshListener?.refreshContacts(true, true)
             finishActMode()
         } else {
             removeSelectedItems()
-            listener?.refreshFavorites()
+            refreshListener?.refreshFavorites()
         }
     }
 
@@ -154,13 +156,14 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         if (location == LOCATION_FAVORITES_TAB) {
             ContactsHelper(activity).removeFavorites(contactsToRemove)
             if (contactItems.isEmpty()) {
-                listener?.refreshFavorites()
+                refreshListener?.refreshFavorites()
                 finishActMode()
             } else {
                 removeSelectedItems()
             }
         } else if (location == LOCATION_GROUP_CONTACTS) {
-
+            removeListener?.removeFromGroup(contactsToRemove)
+            removeSelectedItems()
         }
     }
 
@@ -168,7 +171,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         val newFavorites = ArrayList<Contact>()
         selectedPositions.forEach { newFavorites.add(contactItems[it]) }
         ContactsHelper(activity).addFavorites(newFavorites)
-        listener?.refreshFavorites()
+        refreshListener?.refreshFavorites()
         finishActMode()
     }
 
