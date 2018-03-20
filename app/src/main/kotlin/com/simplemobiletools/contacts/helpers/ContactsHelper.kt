@@ -397,6 +397,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         val operations = ArrayList<ContentProviderOperation>()
         ContentProviderOperation.newInsert(ContactsContract.Groups.CONTENT_URI).apply {
             withValue(ContactsContract.Groups.TITLE, title)
+            withValue(ContactsContract.Groups.GROUP_VISIBLE, 1)
             operations.add(build())
         }
 
