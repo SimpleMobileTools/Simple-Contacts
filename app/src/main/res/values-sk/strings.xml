@@ -23,6 +23,7 @@
     <string name="add_contacts">Pridať kontakty</string>
     <string name="no_group_created">Nemáte v zariadení vytvorené žiadne skupiny kontaktov</string>
     <string name="create_group">Vytvoriť skupinu</string>
+    <string name="add_to_group">Pridať do skupiny</string>
 
     <!-- Photo -->
     <string name="take_photo">Vytvoriť foto</string>

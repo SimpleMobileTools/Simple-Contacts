@@ -23,6 +23,7 @@
     <string name="add_contacts">Add contacts</string>
     <string name="no_group_created">There are no contact groups on the device</string>
     <string name="create_group">Create group</string>
+    <string name="add_to_group">Add to group</string>
 
     <!-- Photo -->
     <string name="take_photo">Снять фото</string>

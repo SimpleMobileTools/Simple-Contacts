@@ -56,6 +56,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             findItem(R.id.cab_edit).isVisible = isOneItemSelected()
             findItem(R.id.cab_remove).isVisible = location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
             findItem(R.id.cab_add_to_favorites).isVisible = location == LOCATION_CONTACTS_TAB
+            findItem(R.id.cab_add_to_group).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB
             findItem(R.id.cab_delete).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_GROUP_CONTACTS
 
             if (location == LOCATION_GROUP_CONTACTS) {
@@ -79,6 +80,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             R.id.cab_edit -> editContact()
             R.id.cab_select_all -> selectAll()
             R.id.cab_add_to_favorites -> addToFavorites()
+            R.id.cab_add_to_group -> addToGroup()
             R.id.cab_share -> shareContacts()
             R.id.cab_remove -> removeContacts()
             R.id.cab_delete -> askConfirmDelete()
@@ -168,10 +170,19 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     private fun addToFavorites() {
         val newFavorites = ArrayList<Contact>()
-        selectedPositions.forEach { newFavorites.add(contactItems[it]) }
+        selectedPositions.forEach {
+            newFavorites.add(contactItems[it])
+        }
         ContactsHelper(activity).addFavorites(newFavorites)
         refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
         finishActMode()
+    }
+
+    private fun addToGroup() {
+        val selectedContacts = ArrayList<Contact>()
+        selectedPositions.forEach {
+            selectedContacts.add(contactItems[it])
+        }
     }
 
     private fun shareContacts() {

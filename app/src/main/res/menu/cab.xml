@@ -17,6 +17,11 @@
         android:title="@string/add_to_favorites"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/cab_add_to_group"
+        android:icon="@drawable/ic_group"
+        android:title="@string/add_to_group"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/cab_share"
         android:icon="@drawable/ic_share"
         android:title="@string/share"
