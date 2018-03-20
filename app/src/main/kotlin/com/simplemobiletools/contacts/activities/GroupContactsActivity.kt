@@ -33,6 +33,7 @@ class GroupContactsActivity : SimpleActivity() {
             SelectContactsDialog(this, allContacts, groupContacts) { addedContacts, removedContacts ->
                 ContactsHelper(this).apply {
                     addContactsToGroup(addedContacts, group.id)
+                    removeContactsFromGroup(removedContacts, group.id)
                 }
                 refreshContacts()
             }

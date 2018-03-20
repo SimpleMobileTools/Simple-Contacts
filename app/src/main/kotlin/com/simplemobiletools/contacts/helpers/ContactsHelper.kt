@@ -760,6 +760,19 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
     }
 
+    fun removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
+        val operations = ArrayList<ContentProviderOperation>()
+        contacts.forEach {
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.DATA1} = ?"
+                val selectionArgs = arrayOf(it.id.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, groupId.toString())
+                withSelection(selection, selectionArgs)
+                operations.add(build())
+            }
+        }
+        activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+    }
+
     fun insertContact(contact: Contact): Boolean {
         return if (contact.source == SMT_PRIVATE) {
             insertLocalContact(contact)
