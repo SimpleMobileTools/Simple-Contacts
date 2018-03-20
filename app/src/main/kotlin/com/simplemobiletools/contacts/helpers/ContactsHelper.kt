@@ -670,8 +670,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             if (relevantGroupIDs.isNotEmpty()) {
                 val IDsString = TextUtils.join(",", relevantGroupIDs)
                 ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                    val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.DATA1} IN (?)"
-                    val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, IDsString)
+                    val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.DATA1} IN ($IDsString)"
+                    val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
                     withSelection(selection, selectionArgs)
                     operations.add(build())
                 }
