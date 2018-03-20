@@ -5,6 +5,7 @@ import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
+import com.simplemobiletools.contacts.dialogs.SelectContactsDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.tryStartCall
@@ -15,14 +16,25 @@ import com.simplemobiletools.contacts.models.Group
 import kotlinx.android.synthetic.main.activity_group_contacts.*
 
 class GroupContactsActivity : SimpleActivity() {
+    lateinit var group: Group
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_contacts)
         updateTextColors(group_contacts_coordinator)
 
-        val group = intent.extras.getSerializable(GROUP) as Group
+        group = intent.extras.getSerializable(GROUP) as Group
         supportActionBar?.title = group.title
 
+        refreshContacts()
+        group_contacts_fab.setOnClickListener {
+            SelectContactsDialog(this) { displayedContacts, selectedContacts ->
+                refreshContacts()
+            }
+        }
+    }
+
+    private fun refreshContacts() {
         ContactsHelper(this).getContacts {
             val contacts = it.filter { it.groups.map { it.id }.contains(group.id) } as ArrayList<Contact>
             updateContacts(contacts)

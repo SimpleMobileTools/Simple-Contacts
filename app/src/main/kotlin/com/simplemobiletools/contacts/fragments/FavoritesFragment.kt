@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.dialogs.SelectContactsDialog
 import com.simplemobiletools.contacts.helpers.ContactsHelper
-import com.simplemobiletools.contacts.models.Contact
 
 class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun fabClicked() {
@@ -18,13 +17,12 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
     }
 
     private fun showAddFavoritesDialog() {
-        SelectContactsDialog(activity!!) { displayedContacts, selectedContacts ->
-            val contactsHelper = ContactsHelper(activity as SimpleActivity)
-            val contactsToAdd = selectedContacts.map { it } as ArrayList<Contact>
-            contactsHelper.addFavorites(contactsToAdd)
+        SelectContactsDialog(activity!!) { addedContacts, removedContacts ->
+            ContactsHelper(activity as SimpleActivity).apply {
+                addFavorites(addedContacts)
+                removeFavorites(removedContacts)
+            }
 
-            displayedContacts.removeAll(selectedContacts)
-            contactsHelper.removeFavorites(displayedContacts)
             activity!!.refreshContacts(false, true)
         }
     }
