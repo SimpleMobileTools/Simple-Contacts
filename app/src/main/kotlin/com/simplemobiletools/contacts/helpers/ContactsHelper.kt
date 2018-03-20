@@ -361,10 +361,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         val uri = ContactsContract.Groups.CONTENT_URI
         val projection = arrayOf(
                 ContactsContract.Groups._ID,
-                ContactsContract.Groups.TITLE
+                ContactsContract.Groups.TITLE,
+                ContactsContract.Groups.SYSTEM_ID
         )
 
-        val selection = "${ContactsContract.Groups.AUTO_ADD} = ? AND ${ContactsContract.Groups.FAVORITES} = ? AND ${ContactsContract.Groups.SYSTEM_ID} IS NULL"
+        val selection = "${ContactsContract.Groups.AUTO_ADD} = ? AND ${ContactsContract.Groups.FAVORITES} = ?"
         val selectionArgs = arrayOf("0", "0")
 
         var cursor: Cursor? = null
@@ -374,6 +375,12 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 do {
                     val id = cursor.getLongValue(ContactsContract.Groups._ID)
                     val title = cursor.getStringValue(ContactsContract.Groups.TITLE)
+
+                    val systemId = cursor.getStringValue(ContactsContract.Groups.SYSTEM_ID)
+                    if (groups.map { it.title }.contains(title) && systemId != null) {
+                        continue
+                    }
+
                     groups.add(Group(id, title))
                 } while (cursor.moveToNext())
             }
