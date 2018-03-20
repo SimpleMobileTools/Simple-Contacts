@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.fragment_layout.view.*
 
 abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet), FragmentInterface {
     protected var activity: MainActivity? = null
+    protected var allContacts = ArrayList<Contact>()
+
     private var lastHashCode = 0
     private var contactsIgnoringSearch = ArrayList<Contact>()
     private lateinit var config: Config
@@ -75,6 +77,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             config.lastUsedContactSource = grouped?.key ?: ""
         }
 
+        Contact.sorting = config.sorting
+        contacts.sort()
+        allContacts = contacts
+
         val filtered = if (this is FavoritesFragment) {
             contacts.filter { it.starred == 1 } as ArrayList<Contact>
         } else {
@@ -85,9 +91,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
             }
         }
-
-        Contact.sorting = config.sorting
-        filtered.sort()
 
         if (filtered.hashCode() != lastHashCode) {
             lastHashCode = filtered.hashCode()

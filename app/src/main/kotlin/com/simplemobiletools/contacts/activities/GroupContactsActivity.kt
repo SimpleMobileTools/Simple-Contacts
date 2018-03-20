@@ -16,6 +16,8 @@ import com.simplemobiletools.contacts.models.Group
 import kotlinx.android.synthetic.main.activity_group_contacts.*
 
 class GroupContactsActivity : SimpleActivity() {
+    private var allContacts = ArrayList<Contact>()
+    private var groupContacts = ArrayList<Contact>()
     lateinit var group: Group
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +30,7 @@ class GroupContactsActivity : SimpleActivity() {
 
         refreshContacts()
         group_contacts_fab.setOnClickListener {
-            SelectContactsDialog(this) { displayedContacts, selectedContacts ->
+            SelectContactsDialog(this, allContacts, groupContacts) { addedContacts, removedContacts ->
                 refreshContacts()
             }
         }
@@ -36,15 +38,17 @@ class GroupContactsActivity : SimpleActivity() {
 
     private fun refreshContacts() {
         ContactsHelper(this).getContacts {
-            val contacts = it.filter { it.groups.map { it.id }.contains(group.id) } as ArrayList<Contact>
-            updateContacts(contacts)
+            allContacts = it
+            groupContacts = it.filter { it.groups.map { it.id }.contains(group.id) } as ArrayList<Contact>
+
+            Contact.sorting = config.sorting
+            groupContacts.sort()
+
+            updateContacts(groupContacts)
         }
     }
 
     private fun updateContacts(contacts: ArrayList<Contact>) {
-        Contact.sorting = config.sorting
-        contacts.sort()
-
         ContactsAdapter(this, contacts, null, LOCATION_GROUP_CONTACTS, group_contacts_list, group_contacts_fastscroller) {
             when (config.onContactClick) {
                 ON_CLICK_CALL_CONTACT -> {

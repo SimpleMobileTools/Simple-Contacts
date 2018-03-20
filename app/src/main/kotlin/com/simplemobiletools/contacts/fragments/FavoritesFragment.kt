@@ -17,7 +17,7 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
     }
 
     private fun showAddFavoritesDialog() {
-        SelectContactsDialog(activity!!) { addedContacts, removedContacts ->
+        SelectContactsDialog(activity!!, allContacts) { addedContacts, removedContacts ->
             ContactsHelper(activity as SimpleActivity).apply {
                 addFavorites(addedContacts)
                 removeFavorites(removedContacts)
