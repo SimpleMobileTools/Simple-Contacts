@@ -1011,10 +1011,10 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         try {
             val contactIDs = HashSet<String>()
             val operations = ArrayList<ContentProviderOperation>()
-            val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+            val selection = "${ContactsContract.Data.CONTACT_ID} = ?"
             contacts.filter { it.source != SMT_PRIVATE }.forEach {
                 ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                    val selectionArgs = arrayOf(it.id.toString())
+                    val selectionArgs = arrayOf(it.contactId.toString())
                     withSelection(selection, selectionArgs)
                     operations.add(this.build())
                 }
