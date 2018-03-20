@@ -11,6 +11,7 @@ import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
+import com.simplemobiletools.contacts.dialogs.RenameGroupDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.GROUPS_TAB_MASK
@@ -75,7 +76,10 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
     }
 
     private fun editGroup() {
-
+        RenameGroupDialog(activity, groups[selectedPositions.first()]) {
+            finishActMode()
+            refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+        }
     }
 
     private fun askConfirmDelete() {

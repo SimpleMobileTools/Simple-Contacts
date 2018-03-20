@@ -387,13 +387,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     }
 
     fun createNewGroup(title: String): Group? {
-        try {
-            val operations = ArrayList<ContentProviderOperation>()
-            ContentProviderOperation.newInsert(ContactsContract.Groups.CONTENT_URI).apply {
-                withValue(ContactsContract.Groups.TITLE, title)
-                operations.add(build())
-            }
+        val operations = ArrayList<ContentProviderOperation>()
+        ContentProviderOperation.newInsert(ContactsContract.Groups.CONTENT_URI).apply {
+            withValue(ContactsContract.Groups.TITLE, title)
+            operations.add(build())
+        }
 
+        try {
             val results = activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
             val rawId = ContentUris.parseId(results[0].uri)
             return Group(rawId, title)
@@ -403,14 +403,32 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return null
     }
 
-    fun deleteGroup(id: Long) {
-        try {
-            val operations = ArrayList<ContentProviderOperation>()
-            val uri = ContentUris.withAppendedId(ContactsContract.Groups.CONTENT_URI, id).buildUpon()
-                    .appendQueryParameter(ContactsContract.CALLER_IS_SYNCADAPTER, "true")
-                    .build()
+    fun renameGroup(group: Group, newTitle: String) {
+        val operations = ArrayList<ContentProviderOperation>()
+        ContentProviderOperation.newUpdate(ContactsContract.Groups.CONTENT_URI).apply {
+            val selection = "${ContactsContract.Groups._ID} = ?"
+            val selectionArgs = arrayOf(group.id.toString())
+            withSelection(selection, selectionArgs)
+            withValue(ContactsContract.Groups.TITLE, newTitle)
+            operations.add(build())
+        }
 
-            operations.add(ContentProviderOperation.newDelete(uri).build())
+        try {
+            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        }
+    }
+
+    fun deleteGroup(id: Long) {
+        val operations = ArrayList<ContentProviderOperation>()
+        val uri = ContentUris.withAppendedId(ContactsContract.Groups.CONTENT_URI, id).buildUpon()
+                .appendQueryParameter(ContactsContract.CALLER_IS_SYNCADAPTER, "true")
+                .build()
+
+        operations.add(ContentProviderOperation.newDelete(uri).build())
+
+        try {
             activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
         } catch (e: Exception) {
             activity.showErrorToast(e)
