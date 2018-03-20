@@ -11,7 +11,7 @@ import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.layout_select_contact.view.*
 
-class AddFavoritesDialog(val activity: SimpleActivity, private val callback: () -> Unit) {
+class SelectContactsDialog(val activity: SimpleActivity, private val callback: (displayedContacts: ArrayList<Contact>, selectedContacts: HashSet<Contact>) -> Unit) {
     private var view = activity.layoutInflater.inflate(R.layout.layout_select_contact, null)
     private val config = activity.config
     private var allContacts = ArrayList<Contact>()
@@ -45,23 +45,16 @@ class AddFavoritesDialog(val activity: SimpleActivity, private val callback: () 
                 .setPositiveButton(R.string.ok, { dialog, which -> dialogConfirmed() })
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
-            activity.setupDialogStuff(view, this)
-        }
+                    activity.setupDialogStuff(view, this)
+                }
     }
 
     private fun dialogConfirmed() {
         Thread {
-            val contactsHelper = ContactsHelper(activity)
             val allDisplayedContacts = ArrayList<Contact>()
             allContacts.mapTo(allDisplayedContacts, { it })
             val selectedContacts = (view?.select_contact_list?.adapter as? SelectContactsAdapter)?.getSelectedItemsSet() ?: LinkedHashSet()
-            val contactsToAdd = selectedContacts.map { it } as ArrayList<Contact>
-            contactsHelper.addFavorites(contactsToAdd)
-
-            allDisplayedContacts.removeAll(selectedContacts)
-            contactsHelper.removeFavorites(allDisplayedContacts)
-
-            callback()
+            callback(allDisplayedContacts, selectedContacts)
         }.start()
     }
 }
