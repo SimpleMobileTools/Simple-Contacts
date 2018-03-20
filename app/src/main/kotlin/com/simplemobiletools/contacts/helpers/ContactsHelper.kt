@@ -670,8 +670,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             if (relevantGroupIDs.isNotEmpty()) {
                 val IDsString = TextUtils.join(",", relevantGroupIDs)
                 ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                    val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.DATA1} IN ($IDsString)"
-                    val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
+                    val selection = "${ContactsContract.Data.CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.DATA1} IN ($IDsString)"
+                    val selectionArgs = arrayOf(contact.contactId.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
                     withSelection(selection, selectionArgs)
                     operations.add(build())
                 }
@@ -764,8 +764,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         val operations = ArrayList<ContentProviderOperation>()
         contacts.forEach {
             ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.DATA1} = ?"
-                val selectionArgs = arrayOf(it.id.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, groupId.toString())
+                val selection = "${ContactsContract.Data.CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.DATA1} = ?"
+                val selectionArgs = arrayOf(it.contactId.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, groupId.toString())
                 withSelection(selection, selectionArgs)
                 operations.add(build())
             }
