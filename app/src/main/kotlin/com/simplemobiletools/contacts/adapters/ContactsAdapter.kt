@@ -11,9 +11,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
+import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
+import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
@@ -182,6 +184,23 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         val selectedContacts = ArrayList<Contact>()
         selectedPositions.forEach {
             selectedContacts.add(contactItems[it])
+        }
+
+        val NEW_GROUP_ID = -1
+        val items = ArrayList<RadioItem>()
+        ContactsHelper(activity).getStoredGroups().forEach {
+            items.add(RadioItem(it.id.toInt(), it.title))
+        }
+        items.add(RadioItem(NEW_GROUP_ID, activity.getString(R.string.create_new_group)))
+
+        RadioGroupDialog(activity, items, 0) {
+            if (it as Int == NEW_GROUP_ID) {
+
+            } else {
+                ContactsHelper(activity).addContactsToGroup(selectedContacts, it.toLong())
+                refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+                finishActMode()
+            }
         }
     }
 
