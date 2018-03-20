@@ -747,6 +747,19 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return operations
     }
 
+    fun addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
+        val operations = ArrayList<ContentProviderOperation>()
+        contacts.forEach {
+            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                withValue(ContactsContract.Data.RAW_CONTACT_ID, it.id)
+                withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
+                withValue(CommonDataKinds.GroupMembership.GROUP_ROW_ID, groupId)
+                operations.add(build())
+            }
+        }
+        activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+    }
+
     fun insertContact(contact: Contact): Boolean {
         return if (contact.source == SMT_PRIVATE) {
             insertLocalContact(contact)

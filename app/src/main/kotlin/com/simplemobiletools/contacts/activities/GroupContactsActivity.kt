@@ -31,6 +31,9 @@ class GroupContactsActivity : SimpleActivity() {
         refreshContacts()
         group_contacts_fab.setOnClickListener {
             SelectContactsDialog(this, allContacts, groupContacts) { addedContacts, removedContacts ->
+                ContactsHelper(this).apply {
+                    addContactsToGroup(addedContacts, group.id)
+                }
                 refreshContacts()
             }
         }
