@@ -19,6 +19,10 @@
     <string name="no_groups">Žiadne skupiny</string>
     <string name="create_new_group">Vytvoriť novú skupinu</string>
     <string name="remove_from_group">Odstrániť zo skupiny</string>
+    <string name="no_group_participants">Skupina je prázdna</string>
+    <string name="add_contacts">Pridať kontakty</string>
+    <string name="no_group_created">Nemáte v zariadení vytvorené žiadne skupiny kontaktov</string>
+    <string name="create_group">Vytvoriť skupinu</string>
 
     <!-- Photo -->
     <string name="take_photo">Vytvoriť foto</string>

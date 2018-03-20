@@ -5,6 +5,9 @@ import android.content.Intent
 import android.support.design.widget.CoordinatorLayout
 import android.util.AttributeSet
 import android.view.ViewGroup
+import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
+import com.simplemobiletools.commons.extensions.underlineText
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.contacts.activities.GroupContactsActivity
 import com.simplemobiletools.contacts.activities.MainActivity
@@ -32,6 +35,13 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : Coordinator
                 }
             }
 
+            groups_placeholder_2.setOnClickListener {
+                CreateNewGroupDialog(activity) {
+                    refreshContacts(lastContacts)
+                }
+            }
+
+            groups_placeholder_2.underlineText()
             updateViewStuff()
         }
     }
@@ -62,7 +72,11 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : Coordinator
             }
         }
 
-        storedGroups = storedGroups.sortedWith(compareBy { it.title }).toList() as ArrayList<Group>
+        groups_placeholder_2.beVisibleIf(storedGroups.isEmpty())
+        groups_placeholder.beVisibleIf(storedGroups.isEmpty())
+        groups_list.beVisibleIf(storedGroups.isNotEmpty())
+
+        storedGroups = storedGroups.sortedWith(compareBy { it.title }) as? ArrayList<Group> ?: ArrayList()
         val currAdapter = groups_list.adapter
         if (currAdapter == null) {
             GroupsAdapter(activity as SimpleActivity, storedGroups, groups_list, groups_fastscroller) {
@@ -117,5 +131,6 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : Coordinator
         context.updateTextColors(groups_wrapper.parent as ViewGroup)
         groups_fastscroller.updateBubbleColors()
         groups_fastscroller.allowBubbleDisplay = context.config.showInfoBubble
+        groups_placeholder_2.setTextColor(context.getAdjustedPrimaryColor())
     }
 }

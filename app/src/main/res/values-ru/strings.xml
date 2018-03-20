@@ -19,6 +19,10 @@
     <string name="no_groups">Нет групп</string>
     <string name="create_new_group">Создать новую группу</string>
     <string name="remove_from_group">Remove from group</string>
+    <string name="no_group_participants">This group is empty</string>
+    <string name="add_contacts">Add contacts</string>
+    <string name="no_group_created">There are no contact groups on the device</string>
+    <string name="create_group">Create group</string>
 
     <!-- Photo -->
     <string name="take_photo">Снять фото</string>
