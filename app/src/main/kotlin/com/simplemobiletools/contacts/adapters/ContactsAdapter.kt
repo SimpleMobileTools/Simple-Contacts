@@ -110,9 +110,11 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     }
 
     fun updateItems(newItems: ArrayList<Contact>) {
-        contactItems = newItems
-        notifyDataSetChanged()
-        finishActMode()
+        if (newItems.hashCode() != contactItems.hashCode()) {
+            contactItems = newItems
+            notifyDataSetChanged()
+            finishActMode()
+        }
     }
 
     private fun editContact() {
