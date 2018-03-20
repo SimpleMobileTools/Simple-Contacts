@@ -28,7 +28,6 @@ import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.extensions.getTempFile
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.VcfExporter
-import com.simplemobiletools.contacts.interfaces.FragmentInterface
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
@@ -94,7 +93,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val configShowContactThumbnails = config.showContactThumbnails
         if (storedShowContactThumbnails != configShowContactThumbnails) {
             getAllFragments().forEach {
-                (it as? FragmentInterface)?.showContactThumbnailsChanged(configShowContactThumbnails)
+                it?.showContactThumbnailsChanged(configShowContactThumbnails)
             }
         }
 
@@ -104,7 +103,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(configTextColor)
             }
             getAllFragments().forEach {
-                (it as? FragmentInterface)?.textColorChanged(configTextColor)
+                it?.textColorChanged(configTextColor)
             }
         }
 
@@ -118,7 +117,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             main_tabs_holder.setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
             main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
             getAllFragments().forEach {
-                (it as? FragmentInterface)?.primaryColorChanged(configPrimaryColor)
+                it?.primaryColorChanged(configPrimaryColor)
             }
         }
 
@@ -134,7 +133,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
 
             getAllFragments().forEach {
-                (it as? FragmentInterface)?.onActivityResume()
+                it?.onActivityResume()
             }
             refreshContacts(true, true)
         }
@@ -219,7 +218,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         })
     }
 
-    private fun getCurrentFragment(): FragmentInterface? = when (viewpager.currentItem) {
+    private fun getCurrentFragment() = when (viewpager.currentItem) {
         0 -> contacts_fragment
         1 -> favorites_fragment
         else -> groups_fragment
@@ -286,7 +285,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             override fun onPageSelected(position: Int) {
                 main_tabs_holder.getTabAt(position)?.select()
                 getAllFragments().forEach {
-                    (it as? FragmentInterface)?.finishActMode()
+                    it?.finishActMode()
                 }
                 invalidateOptionsMenu()
             }
