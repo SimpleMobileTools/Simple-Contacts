@@ -21,10 +21,7 @@ import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.shareContacts
-import com.simplemobiletools.contacts.helpers.ContactsHelper
-import com.simplemobiletools.contacts.helpers.LOCATION_CONTACTS_TAB
-import com.simplemobiletools.contacts.helpers.LOCATION_FAVORITES_TAB
-import com.simplemobiletools.contacts.helpers.LOCATION_GROUP_CONTACTS
+import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.interfaces.RemoveFromGroupListener
 import com.simplemobiletools.contacts.models.Contact
@@ -140,11 +137,11 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
         ContactsHelper(activity).deleteContacts(contactsToRemove)
         if (contactItems.isEmpty()) {
-            refreshListener?.refreshContacts(true, true)
+            refreshListener?.refreshContacts(ALL_TABS_MASK)
             finishActMode()
         } else {
             removeSelectedItems()
-            refreshListener?.refreshFavorites()
+            refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
         }
     }
 
@@ -158,7 +155,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         if (location == LOCATION_FAVORITES_TAB) {
             ContactsHelper(activity).removeFavorites(contactsToRemove)
             if (contactItems.isEmpty()) {
-                refreshListener?.refreshFavorites()
+                refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
                 finishActMode()
             } else {
                 removeSelectedItems()
@@ -173,7 +170,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         val newFavorites = ArrayList<Contact>()
         selectedPositions.forEach { newFavorites.add(contactItems[it]) }
         ContactsHelper(activity).addFavorites(newFavorites)
-        refreshListener?.refreshFavorites()
+        refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
         finishActMode()
     }
 

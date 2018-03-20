@@ -19,6 +19,11 @@ const val LOCATION_CONTACTS_TAB = 1
 const val LOCATION_FAVORITES_TAB = 2
 const val LOCATION_GROUP_CONTACTS = 3
 
+const val CONTACTS_TAB_MASK = 1
+const val FAVORITES_TAB_MASK = 2
+const val GROUPS_TAB_MASK = 4
+const val ALL_TABS_MASK = 7
+
 // contact photo changes
 const val PHOTO_ADDED = 1
 const val PHOTO_REMOVED = 2

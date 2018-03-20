@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.dialogs.CreateNewGroupDialog
+import com.simplemobiletools.contacts.helpers.GROUPS_TAB_MASK
 
 class GroupsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun fabClicked() {
@@ -17,7 +18,7 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : MyViewPager
 
     private fun showNewGroupsDialog() {
         CreateNewGroupDialog(activity as SimpleActivity) {
-            refreshContacts(allContacts)
+            activity!!.refreshContacts(GROUPS_TAB_MASK)
         }
     }
 }

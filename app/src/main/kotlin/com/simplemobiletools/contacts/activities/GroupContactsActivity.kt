@@ -104,11 +104,8 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         }
     }
 
-    override fun refreshContacts(refreshContactsTab: Boolean, refreshFavoritesTab: Boolean) {
+    override fun refreshContacts(refreshTabsMask: Int) {
         refreshContacts()
-    }
-
-    override fun refreshFavorites() {
     }
 
     override fun removeFromGroup(contacts: ArrayList<Contact>) {

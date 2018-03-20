@@ -13,12 +13,14 @@ import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.GROUPS_TAB_MASK
+import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.models.Group
 import kotlinx.android.synthetic.main.item_group.view.*
 import java.util.*
 
-class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, recyclerView: MyRecyclerView, fastScroller: FastScroller,
-                    itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
+class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val refreshListener: RefreshContactsListener?, recyclerView: MyRecyclerView,
+                    fastScroller: FastScroller, itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private var config = activity.config
     private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
@@ -94,7 +96,13 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, recy
             ContactsHelper(activity).deleteGroup(group.id)
         }
         groups.removeAll(groupsToRemove)
-        removeSelectedItems()
+
+        if (groups.isEmpty()) {
+            refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+            finishActMode()
+        } else {
+            removeSelectedItems()
+        }
     }
 
     private fun setupView(view: View, group: Group) {

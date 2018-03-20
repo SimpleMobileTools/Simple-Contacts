@@ -26,8 +26,7 @@ import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.extensions.getTempFile
-import com.simplemobiletools.contacts.helpers.ContactsHelper
-import com.simplemobiletools.contacts.helpers.VcfExporter
+import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
@@ -117,7 +116,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             main_tabs_holder.setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
             main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
             getAllFragments().forEach {
-                it?.primaryColorChanged(configPrimaryColor)
+                it?.primaryColorChanged()
             }
         }
 
@@ -135,7 +134,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             getAllFragments().forEach {
                 it?.onActivityResume()
             }
-            refreshContacts(true, true)
+            refreshContacts(ALL_TABS_MASK)
         }
 
         if (hasPermission(PERMISSION_WRITE_CONTACTS)) {
@@ -269,7 +268,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(0, 1, 2).filter { it != activeIndex }
 
     private fun initFragments() {
-        refreshContacts(true, true)
+        refreshContacts(ALL_TABS_MASK)
         viewpager.offscreenPageLimit = 2
         viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
@@ -308,14 +307,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
-            refreshContacts(true, true)
+            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
         }
     }
 
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
             contacts_fragment?.forceListRedraw = true
-            refreshContacts(true, false)
+            refreshContacts(CONTACTS_TAB_MASK)
         }
     }
 
@@ -337,7 +336,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         ImportContactsDialog(this, path) {
             if (it) {
                 runOnUiThread {
-                    refreshContacts(true, true)
+                    refreshContacts(ALL_TABS_MASK)
                 }
             }
         }
@@ -400,7 +399,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 BuildConfig.VERSION_NAME, faqItems)
     }
 
-    override fun refreshContacts(refreshContactsTab: Boolean, refreshFavoritesTab: Boolean) {
+    override fun refreshContacts(refreshTabsMask: Int) {
         if (isActivityDestroyed()) {
             return
         }
@@ -415,21 +414,24 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 viewpager.currentItem = config.lastUsedViewPagerPage
             }
 
-            if (refreshContactsTab) {
+            if (refreshTabsMask and CONTACTS_TAB_MASK != 0) {
                 contacts_fragment?.refreshContacts(it)
             }
 
-            if (refreshFavoritesTab) {
+            if (refreshTabsMask and FAVORITES_TAB_MASK != 0) {
                 favorites_fragment?.refreshContacts(it)
+            }
+
+            if (refreshTabsMask and GROUPS_TAB_MASK != 0) {
+                if (refreshTabsMask == GROUPS_TAB_MASK) {
+                    groups_fragment.skipHashComparing = true
+                }
+                groups_fragment?.refreshContacts(it)
             }
         }
     }
 
     private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, groups_fragment)
-
-    override fun refreshFavorites() {
-        refreshContacts(false, true)
-    }
 
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {

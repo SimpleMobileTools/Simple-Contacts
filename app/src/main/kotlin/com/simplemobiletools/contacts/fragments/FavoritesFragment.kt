@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.dialogs.SelectContactsDialog
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.FAVORITES_TAB_MASK
 
 class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun fabClicked() {
@@ -23,7 +24,7 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
                 removeFavorites(removedContacts)
             }
 
-            activity!!.refreshContacts(false, true)
+            activity!!.refreshContacts(FAVORITES_TAB_MASK)
         }
     }
 }

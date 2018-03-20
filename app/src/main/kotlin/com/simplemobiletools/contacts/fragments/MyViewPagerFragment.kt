@@ -32,6 +32,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     private var contactsIgnoringSearch = ArrayList<Contact>()
     private lateinit var config: Config
 
+    var skipHashComparing = false
     var forceListRedraw = false
 
     fun setupFragment(activity: MainActivity) {
@@ -70,7 +71,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
-    fun primaryColorChanged(color: Int) {
+    fun primaryColorChanged() {
         fragment_fastscroller.updatePrimaryColor()
         fragment_fastscroller.updateBubblePrimaryColor()
     }
@@ -79,7 +80,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         if (this !is GroupsFragment) {
             (fragment_list.adapter as ContactsAdapter).apply {
                 config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
-                this@MyViewPagerFragment.activity!!.refreshContacts(true, true)
+                this@MyViewPagerFragment.activity!!.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
             }
         }
     }
@@ -105,7 +106,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
         }
 
-        if (filtered.hashCode() != lastHashCode) {
+        if (filtered.hashCode() != lastHashCode || skipHashComparing) {
+            skipHashComparing = false
             lastHashCode = filtered.hashCode()
             activity?.runOnUiThread {
                 setupContacts(filtered)
@@ -131,7 +133,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
         }
 
-        storedGroups = storedGroups.sortedWith(compareBy { it.title }).toList() as? ArrayList<Group> ?: ArrayList()
+        storedGroups = storedGroups.sortedWith(compareBy { it.title }).toMutableList() as ArrayList<Group>
 
         fragment_placeholder_2.beVisibleIf(storedGroups.isEmpty())
         fragment_placeholder.beVisibleIf(storedGroups.isEmpty())
@@ -139,7 +141,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
         val currAdapter = fragment_list.adapter
         if (currAdapter == null) {
-            GroupsAdapter(activity as SimpleActivity, storedGroups, fragment_list, fragment_fastscroller) {
+            GroupsAdapter(activity as SimpleActivity, storedGroups, activity, fragment_list, fragment_fastscroller) {
                 Intent(activity, GroupContactsActivity::class.java).apply {
                     putExtra(GROUP, it as Group)
                     activity!!.startActivity(this)
