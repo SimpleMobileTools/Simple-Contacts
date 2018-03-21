@@ -393,11 +393,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return groups
     }
 
-    fun createNewGroup(title: String): Group? {
+    fun createNewGroup(title: String, accountName: String, accountType: String): Group? {
         val operations = ArrayList<ContentProviderOperation>()
         ContentProviderOperation.newInsert(ContactsContract.Groups.CONTENT_URI).apply {
             withValue(ContactsContract.Groups.TITLE, title)
             withValue(ContactsContract.Groups.GROUP_VISIBLE, 1)
+            withValue(ContactsContract.Groups.ACCOUNT_NAME, accountName)
+            withValue(ContactsContract.Groups.ACCOUNT_TYPE, accountType)
             operations.add(build())
         }
 

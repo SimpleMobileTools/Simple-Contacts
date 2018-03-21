@@ -24,6 +24,7 @@
     <string name="no_group_created">Nemáte v zariadení vytvorené žiadne skupiny kontaktov</string>
     <string name="create_group">Vytvoriť skupinu</string>
     <string name="add_to_group">Pridať do skupiny</string>
+    <string name="create_group_under_account">Vytvoriť skupinu pod účet</string>
 
     <!-- Photo -->
     <string name="take_photo">Vytvoriť foto</string>
