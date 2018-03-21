@@ -17,13 +17,13 @@
 
     <!-- Groups -->
     <string name="no_groups">沒有群組</string>
-    <string name="create_new_group">Create a new group</string>
-    <string name="remove_from_group">Remove from group</string>
-    <string name="no_group_participants">This group is empty</string>
-    <string name="add_contacts">Add contacts</string>
-    <string name="no_group_created">There are no contact groups on the device</string>
-    <string name="create_group">Create group</string>
-    <string name="add_to_group">Add to group</string>
+    <string name="create_new_group">建立一個新群組</string>
+    <string name="remove_from_group">從群組內移除</string>
+    <string name="no_group_participants">這群組是空白的</string>
+    <string name="add_contacts">添加聯絡人</string>
+    <string name="no_group_created">裝置內沒有聯絡人群組</string>
+    <string name="create_group">建立群組</string>
+    <string name="add_to_group">添加到群組</string>
 
     <!-- Photo -->
     <string name="take_photo">拍照</string>
