@@ -31,13 +31,18 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     private val COL_STARRED = "starred"
     private val COL_ADDRESSES = "addresses"
     private val COL_NOTES = "notes"
+    private val COL_GROUPS = "groups"
+
+    private val GROUPS_TABLE_NAME = "groups"
+    private val COL_NAME = "name"
 
     private val FIRST_CONTACT_ID = 1000000
+    private val FIRST_GROUP_ID = 10000
 
     private val mDb = writableDatabase
 
     companion object {
-        private const val DB_VERSION = 2
+        private const val DB_VERSION = 3
         const val DB_NAME = "contacts.db"
         var dbInstance: DBHelper? = null
 
@@ -52,10 +57,12 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE $CONTACTS_TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_FIRST_NAME TEXT, $COL_MIDDLE_NAME TEXT, " +
                 "$COL_SURNAME TEXT, $COL_PHOTO BLOB, $COL_PHONE_NUMBERS TEXT, $COL_EMAILS TEXT, $COL_EVENTS TEXT, $COL_STARRED INTEGER, " +
-                "$COL_ADDRESSES TEXT, $COL_NOTES TEXT)")
+                "$COL_ADDRESSES TEXT, $COL_NOTES TEXT, $COL_GROUPS TEXT)")
 
         // start autoincrement ID from FIRST_CONTACT_ID to avoid conflicts
         db.execSQL("REPLACE INTO sqlite_sequence (name, seq) VALUES ('$CONTACTS_TABLE_NAME', $FIRST_CONTACT_ID)")
+
+        createGroupsTable(db)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -63,6 +70,18 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
             db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_ADDRESSES TEXT DEFAULT ''")
             db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_NOTES TEXT DEFAULT ''")
         }
+
+        if (oldVersion < 3) {
+            createGroupsTable(db)
+            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_GROUPS TEXT DEFAULT ''")
+        }
+    }
+
+    private fun createGroupsTable(db: SQLiteDatabase) {
+        db.execSQL("CREATE TABLE $GROUPS_TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_NAME TEXT)")
+
+        // start autoincrement ID from FIRST_GROUP_ID to avoid conflicts
+        db.execSQL("REPLACE INTO sqlite_sequence (name, seq) VALUES ('$GROUPS_TABLE_NAME', $FIRST_GROUP_ID)")
     }
 
     fun insert(contact: Contact): Boolean {
