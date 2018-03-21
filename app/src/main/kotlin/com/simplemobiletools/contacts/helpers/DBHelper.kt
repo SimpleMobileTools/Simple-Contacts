@@ -11,6 +11,7 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.getBlobValue
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.getLongValue
@@ -116,6 +117,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
             put(COL_EVENTS, Gson().toJson(contact.events))
             put(COL_STARRED, contact.starred)
             put(COL_NOTES, contact.notes)
+            put(COL_GROUPS, Gson().toJson(contact.groups.map { it.id }))
 
             if (contact.photoUri.isNotEmpty()) {
                 put(COL_PHOTO, getPhotoByteArray(contact.photoUri))
@@ -191,10 +193,11 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         }
     }
 
-    fun getContacts(selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
+    fun getContacts(activity: BaseSimpleActivity, selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
+        val storedGroups = ContactsHelper(activity).getStoredGroups()
         val contacts = ArrayList<Contact>()
         val projection = arrayOf(COL_ID, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_PHONE_NUMBERS, COL_EMAILS, COL_EVENTS, COL_STARRED,
-                COL_PHOTO, COL_ADDRESSES, COL_NOTES)
+                COL_PHOTO, COL_ADDRESSES, COL_NOTES, COL_GROUPS)
         val cursor = mDb.query(CONTACTS_TABLE_NAME, projection, selection, selectionArgs, null, null, null)
         cursor.use {
             while (cursor.moveToNext()) {
@@ -228,7 +231,11 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
                 val notes = cursor.getStringValue(COL_NOTES)
                 val starred = cursor.getIntValue(COL_STARRED)
-                val groups = ArrayList<Group>()
+
+                val groupIdsJson = cursor.getStringValue(COL_GROUPS)
+                val groupIdsToken = object : TypeToken<List<Long>>() {}.type
+                val groupIds = Gson().fromJson<ArrayList<Long>>(groupIdsJson, groupIdsToken) ?: ArrayList(1)
+                val groups = storedGroups.filter { groupIds.contains(it.id) } as ArrayList<Group>
 
                 val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, addresses, events, SMT_PRIVATE, starred, id, "", photo, notes, groups)
                 contacts.add(contact)
@@ -237,9 +244,9 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         return contacts
     }
 
-    fun getContactWithId(id: Int): Contact? {
+    fun getContactWithId(activity: BaseSimpleActivity, id: Int): Contact? {
         val selection = "$COL_ID = ?"
         val selectionArgs = arrayOf(id.toString())
-        return getContacts(selection, selectionArgs).firstOrNull()
+        return getContacts(activity, selection, selectionArgs).firstOrNull()
     }
 }

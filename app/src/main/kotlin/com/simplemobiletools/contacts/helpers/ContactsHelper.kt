@@ -102,7 +102,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 contacts[key]?.notes = notes.valueAt(i)
             }
 
-            activity.dbHelper.getContacts().forEach {
+            activity.dbHelper.getContacts(activity).forEach {
                 contacts.put(it.id, it)
             }
 
@@ -454,7 +454,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         if (id == 0) {
             return null
         } else if (isLocalPrivate) {
-            return activity.dbHelper.getContactWithId(id)
+            return activity.dbHelper.getContactWithId(activity, id)
         }
 
         val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
