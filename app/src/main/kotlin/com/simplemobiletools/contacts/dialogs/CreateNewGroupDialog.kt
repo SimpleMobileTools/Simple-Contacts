@@ -47,18 +47,26 @@ class CreateNewGroupDialog(val activity: BaseSimpleActivity, val callback: (newG
                                 }
 
                                 activity.runOnUiThread {
-                                    RadioGroupDialog(activity, items, titleId = R.string.create_group_under_account) {
-                                        val contactSource = contactSources[it as Int]
-                                        val newGroup = ContactsHelper(activity).createNewGroup(name, contactSource.name, contactSource.type)
-                                        if (newGroup != null) {
-                                            callback(newGroup)
+                                    if (items.size == 1) {
+                                        createGroupUnder(name, contactSources.first(), this)
+                                    } else {
+                                        RadioGroupDialog(activity, items, titleId = R.string.create_group_under_account) {
+                                            val contactSource = contactSources[it as Int]
+                                            createGroupUnder(name, contactSource, this)
                                         }
-                                        dismiss()
                                     }
                                 }
                             }
                         })
                     }
                 }
+    }
+
+    private fun createGroupUnder(name: String, contactSource: ContactSource, dialog: AlertDialog) {
+        val newGroup = ContactsHelper(activity).createNewGroup(name, contactSource.name, contactSource.type)
+        if (newGroup != null) {
+            callback(newGroup)
+        }
+        dialog.dismiss()
     }
 }
