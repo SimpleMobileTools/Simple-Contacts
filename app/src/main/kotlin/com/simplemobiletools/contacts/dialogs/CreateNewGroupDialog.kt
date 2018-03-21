@@ -12,6 +12,7 @@ import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.models.ContactSource
 import com.simplemobiletools.contacts.models.Group
 import kotlinx.android.synthetic.main.dialog_create_new_group.view.*
@@ -40,6 +41,7 @@ class CreateNewGroupDialog(val activity: BaseSimpleActivity, val callback: (newG
 
                             ContactsHelper(activity).getContactSources {
                                 it.filter { it.type.contains("google", true) }.mapTo(contactSources, { ContactSource(it.name, it.type) })
+                                contactSources.add(ContactSource(activity.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
 
                                 val items = ArrayList<RadioItem>()
                                 contactSources.forEachIndexed { index, contactSource ->

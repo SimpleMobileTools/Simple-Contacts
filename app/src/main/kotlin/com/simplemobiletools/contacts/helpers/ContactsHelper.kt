@@ -394,6 +394,10 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     }
 
     fun createNewGroup(title: String, accountName: String, accountType: String): Group? {
+        if (accountType == SMT_PRIVATE) {
+            return activity.dbHelper.createGroup(title)
+        }
+
         val operations = ArrayList<ContentProviderOperation>()
         ContentProviderOperation.newInsert(ContactsContract.Groups.CONTENT_URI).apply {
             withValue(ContactsContract.Groups.TITLE, title)

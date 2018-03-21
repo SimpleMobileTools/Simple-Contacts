@@ -126,6 +126,10 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         mDb.update(CONTACTS_TABLE_NAME, contactValues, selection, null)
     }
 
+    fun createGroup(name: String): Group? {
+        return null
+    }
+
     fun getContacts(selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
         val contacts = ArrayList<Contact>()
         val projection = arrayOf(COL_ID, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_PHONE_NUMBERS, COL_EMAILS, COL_EVENTS, COL_STARRED,
