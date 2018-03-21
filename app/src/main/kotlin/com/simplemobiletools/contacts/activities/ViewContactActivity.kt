@@ -60,6 +60,7 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun initContact() {
+        var wasLookupKeyUsed = false
         var contactId = intent.getIntExtra(CONTACT_ID, 0)
         val action = intent.action
         if (contactId == 0 && (action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT || action == Intent.ACTION_VIEW)) {
@@ -69,6 +70,7 @@ class ViewContactActivity : ContactActivity() {
                     val lookupKey = getLookupKeyFromUri(data)
                     if (lookupKey != null) {
                         contact = ContactsHelper(this).getContactWithLookupKey(lookupKey)
+                        wasLookupKeyUsed = true
                     }
 
                     getLookupUriRawId(data)
@@ -82,7 +84,7 @@ class ViewContactActivity : ContactActivity() {
             }
         }
 
-        if (contactId != 0 && contact == null) {
+        if (contactId != 0 && !wasLookupKeyUsed) {
             contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
             if (contact == null) {
                 toast(R.string.unknown_error_occurred)
