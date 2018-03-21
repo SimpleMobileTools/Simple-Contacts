@@ -524,6 +524,10 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 cursor?.close()
             }
 
+            if (sources.isEmpty() && activity.config.localAccountName.isEmpty() && activity.config.localAccountType.isEmpty()) {
+                sources.add(ContactSource("", ""))
+            }
+
             sources.add(ContactSource(activity.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
             callback(ArrayList(sources))
         }.start()
