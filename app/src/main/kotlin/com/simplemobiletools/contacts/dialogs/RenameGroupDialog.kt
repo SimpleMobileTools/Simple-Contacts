@@ -4,6 +4,7 @@ import android.support.v7.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Group
 import kotlinx.android.synthetic.main.dialog_rename_group.view.*
@@ -12,7 +13,7 @@ class RenameGroupDialog(val activity: BaseSimpleActivity, val group: Group, val 
     init {
 
         val view = activity.layoutInflater.inflate(R.layout.dialog_rename_group, null).apply {
-            rename_group_name.setText(group.title)
+            rename_group_title.setText(group.title)
         }
 
         AlertDialog.Builder(activity)
@@ -20,20 +21,25 @@ class RenameGroupDialog(val activity: BaseSimpleActivity, val group: Group, val 
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
                     activity.setupDialogStuff(view, this, R.string.rename) {
-                        showKeyboard(view.rename_group_name)
+                        showKeyboard(view.rename_group_title)
                         getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                            val newName = view.rename_group_name.value
-                            if (newName.isEmpty()) {
+                            val newTitle = view.rename_group_title.value
+                            if (newTitle.isEmpty()) {
                                 activity.toast(R.string.empty_name)
                                 return@setOnClickListener
                             }
 
-                            if (!newName.isAValidFilename()) {
+                            if (!newTitle.isAValidFilename()) {
                                 activity.toast(R.string.invalid_name)
                                 return@setOnClickListener
                             }
 
-                            ContactsHelper(activity).renameGroup(group, newName)
+                            group.title = newTitle
+                            if (group.isPrivateSecretGroup()) {
+                                activity.dbHelper.renameGroup(group)
+                            } else {
+                                ContactsHelper(activity).renameGroup(group)
+                            }
                             callback()
                             dismiss()
                         }

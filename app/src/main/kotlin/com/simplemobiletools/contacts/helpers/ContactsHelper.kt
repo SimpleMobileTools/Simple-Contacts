@@ -418,13 +418,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return null
     }
 
-    fun renameGroup(group: Group, newTitle: String) {
+    fun renameGroup(group: Group) {
         val operations = ArrayList<ContentProviderOperation>()
         ContentProviderOperation.newUpdate(ContactsContract.Groups.CONTENT_URI).apply {
             val selection = "${ContactsContract.Groups._ID} = ?"
             val selectionArgs = arrayOf(group.id.toString())
             withSelection(selection, selectionArgs)
-            withValue(ContactsContract.Groups.TITLE, newTitle)
+            withValue(ContactsContract.Groups.TITLE, group.title)
             operations.add(build())
         }
 

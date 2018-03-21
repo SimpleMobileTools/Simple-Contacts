@@ -155,7 +155,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         }
     }
 
-    fun updateGroup(group: Group): Boolean {
+    fun renameGroup(group: Group): Boolean {
         val contactValues = fillGroupValues(group)
         val selection = "$COL_ID = ?"
         val selectionArgs = arrayOf(group.id.toString())

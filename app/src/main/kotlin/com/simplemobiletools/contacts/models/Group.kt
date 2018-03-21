@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.models
 
+import com.simplemobiletools.contacts.helpers.FIRST_GROUP_ID
 import java.io.Serializable
 
 data class Group(var id: Long, var title: String, var contactsCount: Int = 0) : Serializable {
@@ -10,4 +11,6 @@ data class Group(var id: Long, var title: String, var contactsCount: Int = 0) : 
     fun addContact() = contactsCount++
 
     fun getBubbleText() = title
+
+    fun isPrivateSecretGroup() = id >= FIRST_GROUP_ID
 }
