@@ -390,6 +390,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             cursor?.close()
         }
 
+        groups.addAll(activity.dbHelper.getGroups())
         return groups
     }
 

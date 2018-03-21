@@ -14,6 +14,7 @@ const val CONTACT_ID = "contact_id"
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
 const val IS_PRIVATE = "is_private"
 const val GROUP = "group"
+const val FIRST_GROUP_ID = 10000
 
 const val LOCATION_CONTACTS_TAB = 1
 const val LOCATION_FAVORITES_TAB = 2

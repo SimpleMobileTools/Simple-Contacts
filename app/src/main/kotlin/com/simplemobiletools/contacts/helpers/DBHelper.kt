@@ -13,6 +13,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.simplemobiletools.commons.extensions.getBlobValue
 import com.simplemobiletools.commons.extensions.getIntValue
+import com.simplemobiletools.commons.extensions.getLongValue
 import com.simplemobiletools.commons.extensions.getStringValue
 import com.simplemobiletools.contacts.extensions.getByteArray
 import com.simplemobiletools.contacts.extensions.getPhotoThumbnailSize
@@ -37,7 +38,6 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     private val COL_TITLE = "title"
 
     private val FIRST_CONTACT_ID = 1000000
-    private val FIRST_GROUP_ID = 10000
 
     private val mDb = writableDatabase
 
@@ -162,10 +162,27 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         return mDb.update(GROUPS_TABLE_NAME, contactValues, selection, selectionArgs) == 1
     }
 
+    fun deleteGroup(id: Long) = deleteGroups(arrayOf(id.toString()))
+
     fun deleteGroups(ids: Array<String>) {
         val args = TextUtils.join(", ", ids)
         val selection = "$GROUPS_TABLE_NAME.$COL_ID IN ($args)"
         mDb.delete(GROUPS_TABLE_NAME, selection, null)
+    }
+
+    fun getGroups(): ArrayList<Group> {
+        val groups = ArrayList<Group>()
+        val projection = arrayOf(COL_ID, COL_TITLE)
+        val cursor = mDb.query(GROUPS_TABLE_NAME, projection, null, null, null, null, null)
+        cursor.use {
+            while (cursor.moveToNext()) {
+                val id = cursor.getLongValue(COL_ID)
+                val title = cursor.getStringValue(COL_TITLE)
+                val group = Group(id, title)
+                groups.add(group)
+            }
+        }
+        return groups
     }
 
     private fun fillGroupValues(group: Group): ContentValues {

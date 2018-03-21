@@ -13,7 +13,9 @@ import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.dialogs.RenameGroupDialog
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.FIRST_GROUP_ID
 import com.simplemobiletools.contacts.helpers.GROUPS_TAB_MASK
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.models.Group
@@ -97,7 +99,11 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
         selectedPositions.sortedDescending().forEach {
             val group = groups[it]
             groupsToRemove.add(group)
-            ContactsHelper(activity).deleteGroup(group.id)
+            if (group.id >= FIRST_GROUP_ID) {
+                activity.dbHelper.deleteGroup(group.id)
+            } else {
+                ContactsHelper(activity).deleteGroup(group.id)
+            }
         }
         groups.removeAll(groupsToRemove)
 
