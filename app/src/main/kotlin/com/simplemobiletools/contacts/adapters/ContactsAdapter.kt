@@ -21,6 +21,7 @@ import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.dialogs.CreateNewGroupDialog
+import com.simplemobiletools.contacts.extensions.addContactsToGroup
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.shareContacts
@@ -197,13 +198,17 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         RadioGroupDialog(activity, items, 0) {
             if (it as Int == NEW_GROUP_ID) {
                 CreateNewGroupDialog(activity) {
-                    ContactsHelper(activity).addContactsToGroup(selectedContacts, it.id)
-                    refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+                    Thread {
+                        activity.addContactsToGroup(selectedContacts, it.id)
+                        refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+                    }.start()
                     finishActMode()
                 }
             } else {
-                ContactsHelper(activity).addContactsToGroup(selectedContacts, it.toLong())
-                refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+                Thread {
+                    activity.addContactsToGroup(selectedContacts, it.toLong())
+                    refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+                }.start()
                 finishActMode()
             }
         }

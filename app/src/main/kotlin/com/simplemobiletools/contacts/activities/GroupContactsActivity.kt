@@ -5,10 +5,7 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.dialogs.SelectContactsDialog
-import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.editContact
-import com.simplemobiletools.contacts.extensions.tryStartCall
-import com.simplemobiletools.contacts.extensions.viewContact
+import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.interfaces.RemoveFromGroupListener
@@ -48,11 +45,11 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
 
     private fun fabClicked() {
         SelectContactsDialog(this, allContacts, groupContacts) { addedContacts, removedContacts ->
-            ContactsHelper(this).apply {
+            Thread {
                 addContactsToGroup(addedContacts, group.id)
                 removeContactsFromGroup(removedContacts, group.id)
-            }
-            refreshContacts()
+                refreshContacts()
+            }.start()
         }
     }
 

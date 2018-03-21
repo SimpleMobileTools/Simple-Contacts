@@ -193,6 +193,14 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         }
     }
 
+    fun addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
+
+    }
+
+    fun removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
+
+    }
+
     fun getContacts(activity: BaseSimpleActivity, selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
         val storedGroups = ContactsHelper(activity).getStoredGroups()
         val contacts = ArrayList<Contact>()

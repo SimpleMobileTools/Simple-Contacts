@@ -108,3 +108,27 @@ fun BaseSimpleActivity.getTempFile(): File? {
 
     return File(folder, "contacts.vcf")
 }
+
+fun BaseSimpleActivity.addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
+    val publicContacts = contacts.filter { it.source != SMT_PRIVATE }
+    val privateContacts = contacts.filter { it.source == SMT_PRIVATE }
+    if (publicContacts.isNotEmpty()) {
+        ContactsHelper(this).addContactsToGroup(contacts, groupId)
+    }
+
+    if (privateContacts.isNotEmpty()) {
+        dbHelper.addContactsToGroup(contacts, groupId)
+    }
+}
+
+fun BaseSimpleActivity.removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
+    val publicContacts = contacts.filter { it.source != SMT_PRIVATE }
+    val privateContacts = contacts.filter { it.source == SMT_PRIVATE }
+    if (publicContacts.isNotEmpty()) {
+        ContactsHelper(this).removeContactsFromGroup(contacts, groupId)
+    }
+
+    if (privateContacts.isNotEmpty()) {
+        dbHelper.removeContactsFromGroup(contacts, groupId)
+    }
+}
