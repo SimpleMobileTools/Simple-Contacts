@@ -194,12 +194,34 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     }
 
     fun addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
-
+        contacts.forEach {
+            val currentGroupIds = it.groups.map { it.id } as ArrayList<Long>
+            currentGroupIds.add(groupId)
+            updateContactGroups(it, currentGroupIds)
+        }
     }
 
     fun removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
-
+        contacts.forEach {
+            val currentGroupIds = it.groups.map { it.id } as ArrayList<Long>
+            currentGroupIds.remove(groupId)
+            updateContactGroups(it, currentGroupIds)
+        }
     }
+
+    fun updateContactGroups(contact: Contact, groupIds: ArrayList<Long>) {
+        val contactValues = fillContactGroupValues(groupIds)
+        val selection = "$COL_ID = ?"
+        val selectionArgs = arrayOf(contact.id.toString())
+        mDb.update(CONTACTS_TABLE_NAME, contactValues, selection, selectionArgs)
+    }
+
+    private fun fillContactGroupValues(groupIds: ArrayList<Long>): ContentValues {
+        return ContentValues().apply {
+            put(COL_GROUPS, Gson().toJson(groupIds))
+        }
+    }
+
 
     fun getContacts(activity: BaseSimpleActivity, selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
         val storedGroups = ContactsHelper(activity).getStoredGroups()
