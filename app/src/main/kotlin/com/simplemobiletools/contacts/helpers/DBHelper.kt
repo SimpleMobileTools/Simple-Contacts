@@ -34,7 +34,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     private val COL_GROUPS = "groups"
 
     private val GROUPS_TABLE_NAME = "groups"
-    private val COL_NAME = "name"
+    private val COL_TITLE = "title"
 
     private val FIRST_CONTACT_ID = 1000000
     private val FIRST_GROUP_ID = 10000
@@ -78,19 +78,19 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     }
 
     private fun createGroupsTable(db: SQLiteDatabase) {
-        db.execSQL("CREATE TABLE $GROUPS_TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_NAME TEXT)")
+        db.execSQL("CREATE TABLE $GROUPS_TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_TITLE TEXT)")
 
         // start autoincrement ID from FIRST_GROUP_ID to avoid conflicts
         db.execSQL("REPLACE INTO sqlite_sequence (name, seq) VALUES ('$GROUPS_TABLE_NAME', $FIRST_GROUP_ID)")
     }
 
-    fun insert(contact: Contact): Boolean {
+    fun insertContact(contact: Contact): Boolean {
         val contactValues = fillContactValues(contact)
         val id = mDb.insert(CONTACTS_TABLE_NAME, null, contactValues).toInt()
         return id != -1
     }
 
-    fun update(contact: Contact): Boolean {
+    fun updateContact(contact: Contact): Boolean {
         val contactValues = fillContactValues(contact)
         val selection = "$COL_ID = ?"
         val selectionArgs = arrayOf(contact.id.toString())
@@ -145,8 +145,29 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         mDb.update(CONTACTS_TABLE_NAME, contactValues, selection, null)
     }
 
-    fun createGroup(name: String): Group? {
-        return null
+    fun insertGroup(group: Group): Boolean {
+        val contactValues = fillGroupValues(group)
+        val id = mDb.insert(GROUPS_TABLE_NAME, null, contactValues).toInt()
+        return id != -1
+    }
+
+    fun updateGroup(group: Group): Boolean {
+        val contactValues = fillGroupValues(group)
+        val selection = "$COL_ID = ?"
+        val selectionArgs = arrayOf(group.id.toString())
+        return mDb.update(GROUPS_TABLE_NAME, contactValues, selection, selectionArgs) == 1
+    }
+
+    fun deleteGroups(ids: Array<String>) {
+        val args = TextUtils.join(", ", ids)
+        val selection = "$GROUPS_TABLE_NAME.$COL_ID IN ($args)"
+        mDb.delete(GROUPS_TABLE_NAME, selection, null)
+    }
+
+    private fun fillGroupValues(group: Group): ContentValues {
+        return ContentValues().apply {
+            put(COL_TITLE, group.title)
+        }
     }
 
     fun getContacts(selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {

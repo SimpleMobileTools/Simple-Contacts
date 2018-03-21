@@ -395,7 +395,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
     fun createNewGroup(title: String, accountName: String, accountType: String): Group? {
         if (accountType == SMT_PRIVATE) {
-            return activity.dbHelper.createGroup(title)
+            return activity.dbHelper.insertGroup(title)
         }
 
         val operations = ArrayList<ContentProviderOperation>()
@@ -598,7 +598,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
     fun updateContact(contact: Contact, photoUpdateStatus: Int): Boolean {
         return if (contact.source == SMT_PRIVATE) {
-            activity.dbHelper.update(contact)
+            activity.dbHelper.updateContact(contact)
         } else try {
             activity.toast(R.string.updating)
             val operations = ArrayList<ContentProviderOperation>()
@@ -942,7 +942,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         }
     }
 
-    private fun insertLocalContact(contact: Contact) = activity.dbHelper.insert(contact)
+    private fun insertLocalContact(contact: Contact) = activity.dbHelper.insertContact(contact)
 
     private fun addFullSizePhoto(contactId: Long, fullSizePhotoData: ByteArray) {
         val baseUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, contactId)
