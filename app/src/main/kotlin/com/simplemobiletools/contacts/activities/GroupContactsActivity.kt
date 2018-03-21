@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_group_contacts.*
 class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, RefreshContactsListener {
     private var allContacts = ArrayList<Contact>()
     private var groupContacts = ArrayList<Contact>()
+    private var wasInit = false
     lateinit var group: Group
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +28,9 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         supportActionBar?.title = group.title
 
         group_contacts_fab.setOnClickListener {
-            fabClicked()
+            if (wasInit) {
+                fabClicked()
+            }
         }
 
         group_contacts_placeholder_2.setOnClickListener {
@@ -55,6 +58,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
 
     private fun refreshContacts() {
         ContactsHelper(this).getContacts {
+            wasInit = true
             allContacts = it
 
             groupContacts = it.filter { it.groups.map { it.id }.contains(group.id) } as ArrayList<Contact>
