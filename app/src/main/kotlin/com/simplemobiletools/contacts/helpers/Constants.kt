@@ -16,8 +16,9 @@ const val IS_PRIVATE = "is_private"
 const val GROUP = "group"
 const val FIRST_GROUP_ID = 10000
 
-const val LOCATION_CONTACTS_TAB = 1
-const val LOCATION_FAVORITES_TAB = 2
+const val LOCATION_CONTACTS_TAB = 0
+const val LOCATION_FAVORITES_TAB = 1
+const val LOCATION_GROUPS_TAB = 2
 const val LOCATION_GROUP_CONTACTS = 3
 
 const val CONTACTS_TAB_MASK = 1

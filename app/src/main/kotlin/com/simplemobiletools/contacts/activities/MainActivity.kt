@@ -154,6 +154,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
+        val currentPage = viewpager?.currentItem
+        menu.apply {
+            findItem(R.id.search).isVisible = currentPage != LOCATION_GROUPS_TAB
+            findItem(R.id.sort).isVisible = currentPage != LOCATION_GROUPS_TAB
+            findItem(R.id.filter).isVisible = currentPage != LOCATION_GROUPS_TAB
+        }
         setupSearch(menu)
         return true
     }
