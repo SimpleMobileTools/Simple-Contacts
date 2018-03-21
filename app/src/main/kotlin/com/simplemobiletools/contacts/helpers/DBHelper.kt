@@ -145,10 +145,14 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         mDb.update(CONTACTS_TABLE_NAME, contactValues, selection, null)
     }
 
-    fun insertGroup(group: Group): Boolean {
+    fun insertGroup(group: Group): Group? {
         val contactValues = fillGroupValues(group)
-        val id = mDb.insert(GROUPS_TABLE_NAME, null, contactValues).toInt()
-        return id != -1
+        val id = mDb.insert(GROUPS_TABLE_NAME, null, contactValues)
+        return if (id == -1L) {
+            null
+        } else {
+            Group(id, group.title)
+        }
     }
 
     fun updateGroup(group: Group): Boolean {
