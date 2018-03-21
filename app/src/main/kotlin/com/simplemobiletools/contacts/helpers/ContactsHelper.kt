@@ -980,11 +980,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return ""
     }
 
-    fun getContactDataId(contactId: String): String {
+    fun getContactMimeTypeId(contactId: String, mimeType: String): String {
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = arrayOf(ContactsContract.Data._ID, ContactsContract.Data.RAW_CONTACT_ID, ContactsContract.Data.MIMETYPE)
         val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.Email.CONTENT_ITEM_TYPE, contactId)
+        val selectionArgs = arrayOf(mimeType, contactId)
 
         var cursor: Cursor? = null
         try {

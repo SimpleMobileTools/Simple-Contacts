@@ -23,7 +23,7 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.layout_select_contact.*
 
 class SelectContactActivity : SimpleActivity() {
-    private var isGetEmailIntent = false
+    private var specialMimeType: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,11 @@ class SelectContactActivity : SimpleActivity() {
             if (it) {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
                     if (it) {
-                        isGetEmailIntent = intent.data == ContactsContract.CommonDataKinds.Email.CONTENT_URI
+                        specialMimeType = when (intent.data) {
+                            ContactsContract.CommonDataKinds.Email.CONTENT_URI -> ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI -> ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
+                            else -> null
+                        }
                         initContacts()
                     } else {
                         toast(R.string.no_contacts_permission)
@@ -81,8 +85,13 @@ class SelectContactActivity : SimpleActivity() {
             }
 
             var contacts = it.filter {
-                if (isGetEmailIntent) {
-                    (it.source != SMT_PRIVATE && it.emails.isNotEmpty())
+                if (specialMimeType != null) {
+                    val hasRequiredValues = when (specialMimeType) {
+                        ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE -> it.emails.isNotEmpty()
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE -> it.phoneNumbers.isNotEmpty()
+                        else -> true
+                    }
+                    it.source != SMT_PRIVATE && hasRequiredValues
                 } else {
                     true
                 }
@@ -119,12 +128,15 @@ class SelectContactActivity : SimpleActivity() {
     }
 
     private fun getResultUri(contact: Contact): Uri {
-        return if (isGetEmailIntent) {
-            val emailID = ContactsHelper(this).getContactDataId(contact.id.toString())
-            Uri.withAppendedPath(ContactsContract.Data.CONTENT_URI, emailID)
-        } else {
-            val lookupKey = ContactsHelper(this).getContactLookupKey(contact.id.toString())
-            Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey)
+        return when {
+            specialMimeType != null -> {
+                val contactId = ContactsHelper(this).getContactMimeTypeId(contact.id.toString(), specialMimeType!!)
+                Uri.withAppendedPath(ContactsContract.Data.CONTENT_URI, contactId)
+            }
+            else -> {
+                val lookupKey = ContactsHelper(this).getContactLookupKey(contact.id.toString())
+                Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey)
+            }
         }
     }
 }
