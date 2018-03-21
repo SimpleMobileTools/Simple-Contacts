@@ -5,6 +5,7 @@ import android.net.Uri
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.sharePathIntent
+import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
 import com.simplemobiletools.commons.models.RadioItem
@@ -93,6 +94,8 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
     VcfExporter().exportContacts(this, file, contacts) {
         if (it == VcfExporter.ExportResult.EXPORT_OK) {
             sharePathIntent(file.absolutePath, BuildConfig.APPLICATION_ID)
+        } else {
+            showErrorToast("$it")
         }
     }
 }
