@@ -11,28 +11,34 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
+import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
+import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
+import com.simplemobiletools.contacts.dialogs.CreateNewGroupDialog
+import com.simplemobiletools.contacts.extensions.addContactsToGroup
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.shareContacts
-import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
+import com.simplemobiletools.contacts.interfaces.RemoveFromGroupListener
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.item_contact_with_number.view.*
 import java.util.*
 
-class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val listener: RefreshContactsListener?,
-                      private val isFavoritesFragment: Boolean, recyclerView: MyRecyclerView, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
+class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val refreshListener: RefreshContactsListener?,
+                      private val location: Int, private val removeListener: RemoveFromGroupListener?, recyclerView: MyRecyclerView,
+                      fastScroller: FastScroller, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private lateinit var contactDrawable: Drawable
-    var config = activity.config
+    private var config = activity.config
     var startNameWithSurname: Boolean
     var showContactThumbnails: Boolean
     var showPhoneNumbers: Boolean
@@ -52,10 +58,14 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     override fun prepareActionMode(menu: Menu) {
         menu.apply {
             findItem(R.id.cab_edit).isVisible = isOneItemSelected()
-            findItem(R.id.cab_remove).isVisible = isFavoritesFragment
-            findItem(R.id.cab_select_all).isVisible = isFavoritesFragment
-            findItem(R.id.cab_add_to_favorites).isVisible = !isFavoritesFragment
-            findItem(R.id.cab_delete).isVisible = !isFavoritesFragment
+            findItem(R.id.cab_remove).isVisible = location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
+            findItem(R.id.cab_add_to_favorites).isVisible = location == LOCATION_CONTACTS_TAB
+            findItem(R.id.cab_add_to_group).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB
+            findItem(R.id.cab_delete).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_GROUP_CONTACTS
+
+            if (location == LOCATION_GROUP_CONTACTS) {
+                findItem(R.id.cab_remove).title = activity.getString(R.string.remove_from_group)
+            }
         }
     }
 
@@ -74,8 +84,9 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             R.id.cab_edit -> editContact()
             R.id.cab_select_all -> selectAll()
             R.id.cab_add_to_favorites -> addToFavorites()
+            R.id.cab_add_to_group -> addToGroup()
             R.id.cab_share -> shareContacts()
-            R.id.cab_remove -> removeFavorites()
+            R.id.cab_remove -> removeContacts()
             R.id.cab_delete -> askConfirmDelete()
         }
     }
@@ -102,9 +113,11 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     }
 
     fun updateItems(newItems: ArrayList<Contact>) {
-        contactItems = newItems
-        notifyDataSetChanged()
-        finishActMode()
+        if (newItems.hashCode() != contactItems.hashCode()) {
+            contactItems = newItems
+            notifyDataSetChanged()
+            finishActMode()
+        }
     }
 
     private fun editContact() {
@@ -130,36 +143,75 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
         ContactsHelper(activity).deleteContacts(contactsToRemove)
         if (contactItems.isEmpty()) {
-            listener?.refreshContacts(true, true)
+            refreshListener?.refreshContacts(ALL_TABS_MASK)
             finishActMode()
         } else {
             removeSelectedItems()
-            listener?.refreshFavorites()
+            refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
         }
     }
 
-    private fun removeFavorites() {
-        val favoritesToRemove = ArrayList<Contact>()
+    private fun removeContacts() {
+        val contactsToRemove = ArrayList<Contact>()
         selectedPositions.sortedDescending().forEach {
-            favoritesToRemove.add(contactItems[it])
+            contactsToRemove.add(contactItems[it])
         }
-        contactItems.removeAll(favoritesToRemove)
+        contactItems.removeAll(contactsToRemove)
 
-        ContactsHelper(activity).removeFavorites(favoritesToRemove)
-        if (contactItems.isEmpty()) {
-            listener?.refreshFavorites()
-            finishActMode()
-        } else {
+        if (location == LOCATION_FAVORITES_TAB) {
+            ContactsHelper(activity).removeFavorites(contactsToRemove)
+            if (contactItems.isEmpty()) {
+                refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
+                finishActMode()
+            } else {
+                removeSelectedItems()
+            }
+        } else if (location == LOCATION_GROUP_CONTACTS) {
+            removeListener?.removeFromGroup(contactsToRemove)
             removeSelectedItems()
         }
     }
 
     private fun addToFavorites() {
         val newFavorites = ArrayList<Contact>()
-        selectedPositions.forEach { newFavorites.add(contactItems[it]) }
+        selectedPositions.forEach {
+            newFavorites.add(contactItems[it])
+        }
         ContactsHelper(activity).addFavorites(newFavorites)
-        listener?.refreshFavorites()
+        refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
         finishActMode()
+    }
+
+    private fun addToGroup() {
+        val selectedContacts = ArrayList<Contact>()
+        selectedPositions.forEach {
+            selectedContacts.add(contactItems[it])
+        }
+
+        val NEW_GROUP_ID = -1
+        val items = ArrayList<RadioItem>()
+        ContactsHelper(activity).getStoredGroups().forEach {
+            items.add(RadioItem(it.id.toInt(), it.title))
+        }
+        items.add(RadioItem(NEW_GROUP_ID, activity.getString(R.string.create_new_group)))
+
+        RadioGroupDialog(activity, items, 0) {
+            if (it as Int == NEW_GROUP_ID) {
+                CreateNewGroupDialog(activity) {
+                    Thread {
+                        activity.addContactsToGroup(selectedContacts, it.id)
+                        refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+                    }.start()
+                    finishActMode()
+                }
+            } else {
+                Thread {
+                    activity.addContactsToGroup(selectedContacts, it.toLong())
+                    refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+                }.start()
+                finishActMode()
+            }
+        }
     }
 
     private fun shareContacts() {

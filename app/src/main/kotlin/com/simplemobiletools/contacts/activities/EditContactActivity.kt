@@ -27,9 +27,9 @@ import com.simplemobiletools.contacts.models.*
 import kotlinx.android.synthetic.main.activity_edit_contact.*
 import kotlinx.android.synthetic.main.item_edit_address.view.*
 import kotlinx.android.synthetic.main.item_edit_email.view.*
+import kotlinx.android.synthetic.main.item_edit_group.view.*
 import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
-import kotlinx.android.synthetic.main.item_group.view.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.util.*
@@ -331,7 +331,7 @@ class EditContactActivity : ContactActivity() {
         groups.forEachIndexed { index, group ->
             var groupHolder = contact_groups_holder.getChildAt(index)
             if (groupHolder == null) {
-                groupHolder = layoutInflater.inflate(R.layout.item_group, contact_groups_holder, false)
+                groupHolder = layoutInflater.inflate(R.layout.item_edit_group, contact_groups_holder, false)
                 contact_groups_holder.addView(groupHolder)
             }
 
@@ -359,7 +359,7 @@ class EditContactActivity : ContactActivity() {
         }
 
         if (groups.isEmpty()) {
-            layoutInflater.inflate(R.layout.item_group, contact_groups_holder, false).apply {
+            layoutInflater.inflate(R.layout.item_edit_group, contact_groups_holder, false).apply {
                 contact_group.apply {
                     alpha = 0.5f
                     text = getString(R.string.no_groups)

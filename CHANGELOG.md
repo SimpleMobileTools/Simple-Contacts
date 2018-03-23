@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 3.4.0 *(2018-03-21)*
+----------------------------
+
+ * Added groups
+ * Make phone numbers, emails and addresses clickable on the view screen
+ * Many smaller improvements and bugfixes
+
 Version 3.3.3 *(2018-03-04)*
 ----------------------------
 

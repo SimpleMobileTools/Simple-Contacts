@@ -333,7 +333,7 @@
             android:layout_toRightOf="@+id/contact_name_image"
             android:orientation="vertical">
 
-            <include layout="@layout/item_group"/>
+            <include layout="@layout/item_edit_group"/>
 
         </LinearLayout>
 

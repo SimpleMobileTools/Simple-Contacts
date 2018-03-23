@@ -6,8 +6,6 @@
     <string name="updating">수정중…</string>
     <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
-    <string name="no_groups">No groups</string>
-    <string name="create_new_group">Create a new group</string>
 
     <string name="new_contact">새로운 연락처</string>
     <string name="edit_contact">연락처 수정</string>
@@ -16,6 +14,17 @@
     <string name="first_name">이름</string>
     <string name="middle_name">중간 이름</string>
     <string name="surname">성</string>
+
+    <!-- Groups -->
+    <string name="no_groups">No groups</string>
+    <string name="create_new_group">Create a new group</string>
+    <string name="remove_from_group">Remove from group</string>
+    <string name="no_group_participants">This group is empty</string>
+    <string name="add_contacts">Add contacts</string>
+    <string name="no_group_created">There are no contact groups on the device</string>
+    <string name="create_group">Create group</string>
+    <string name="add_to_group">Add to group</string>
+    <string name="create_group_under_account">Create group under account</string>
 
     <!-- Photo -->
     <string name="take_photo">사진 촬영</string>
@@ -80,7 +89,7 @@
 
         광고가 포함되어 있거나, 불필요한 권한을 요청하지 않습니다. 이 앱의 모든 소스는 오픈소스이며, 사용자가 직접 애플리케이션의 컬러를 설정 할 수 있습니다.
 
-        이 앱은 다양한 시리즈의 모바일앱 중 하나입니다. 나머지는 http://www.simplemobiletools.com 에서 찾아 보실 수 있습니다.
+        이 앱은 다양한 시리즈의 모바일앱 중 하나입니다. 나머지는 https://www.simplemobiletools.com 에서 찾아 보실 수 있습니다.
     </string>
 
     <!--

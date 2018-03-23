@@ -1,22 +1,24 @@
 package com.simplemobiletools.contacts.fragments
 
 import android.content.Context
-import android.support.design.widget.CoordinatorLayout
 import android.util.AttributeSet
-import com.simplemobiletools.contacts.activities.MainActivity
-import com.simplemobiletools.contacts.interfaces.FragmentInterface
-import com.simplemobiletools.contacts.models.Contact
+import com.simplemobiletools.contacts.activities.SimpleActivity
+import com.simplemobiletools.contacts.dialogs.CreateNewGroupDialog
+import com.simplemobiletools.contacts.helpers.GROUPS_TAB_MASK
 
-class GroupsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet), FragmentInterface {
-    override fun setupFragment(activity: MainActivity) {
+class GroupsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
+    override fun fabClicked() {
+        finishActMode()
+        showNewGroupsDialog()
     }
 
-    override fun textColorChanged(color: Int) {
+    override fun placeholderClicked() {
+        showNewGroupsDialog()
     }
 
-    override fun primaryColorChanged(color: Int) {
-    }
-
-    override fun refreshContacts(contacts: ArrayList<Contact>) {
+    private fun showNewGroupsDialog() {
+        CreateNewGroupDialog(activity as SimpleActivity) {
+            activity!!.refreshContacts(GROUPS_TAB_MASK)
+        }
     }
 }

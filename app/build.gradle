@@ -10,8 +10,8 @@ android {
         applicationId "com.simplemobiletools.contacts"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 14
-        versionName "3.3.3"
+        versionCode 15
+        versionName "3.4.0"
         setProperty("archivesBaseName", "contacts")
     }
 
@@ -45,7 +45,7 @@ ext {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:3.16.11'
+    implementation 'com.simplemobiletools:commons:3.16.12'
     implementation 'joda-time:joda-time:2.9.9'
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.google.code.gson:gson:2.8.2'

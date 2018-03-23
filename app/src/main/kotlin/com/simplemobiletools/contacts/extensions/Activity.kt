@@ -5,6 +5,7 @@ import android.net.Uri
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.sharePathIntent
+import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
 import com.simplemobiletools.commons.models.RadioItem
@@ -93,6 +94,8 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
     VcfExporter().exportContacts(this, file, contacts) {
         if (it == VcfExporter.ExportResult.EXPORT_OK) {
             sharePathIntent(file.absolutePath, BuildConfig.APPLICATION_ID)
+        } else {
+            showErrorToast("$it")
         }
     }
 }
@@ -107,4 +110,28 @@ fun BaseSimpleActivity.getTempFile(): File? {
     }
 
     return File(folder, "contacts.vcf")
+}
+
+fun BaseSimpleActivity.addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
+    val publicContacts = contacts.filter { it.source != SMT_PRIVATE }
+    val privateContacts = contacts.filter { it.source == SMT_PRIVATE }
+    if (publicContacts.isNotEmpty()) {
+        ContactsHelper(this).addContactsToGroup(contacts, groupId)
+    }
+
+    if (privateContacts.isNotEmpty()) {
+        dbHelper.addContactsToGroup(contacts, groupId)
+    }
+}
+
+fun BaseSimpleActivity.removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
+    val publicContacts = contacts.filter { it.source != SMT_PRIVATE }
+    val privateContacts = contacts.filter { it.source == SMT_PRIVATE }
+    if (publicContacts.isNotEmpty()) {
+        ContactsHelper(this).removeContactsFromGroup(contacts, groupId)
+    }
+
+    if (privateContacts.isNotEmpty()) {
+        dbHelper.removeContactsFromGroup(contacts, groupId)
+    }
 }

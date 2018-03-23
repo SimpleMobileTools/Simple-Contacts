@@ -1,37 +1,41 @@
 package com.simplemobiletools.contacts.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.support.design.widget.CoordinatorLayout
 import android.util.AttributeSet
 import android.view.ViewGroup
+import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.activities.GroupContactsActivity
 import com.simplemobiletools.contacts.activities.MainActivity
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
+import com.simplemobiletools.contacts.adapters.GroupsAdapter
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.editContact
 import com.simplemobiletools.contacts.extensions.tryStartCall
 import com.simplemobiletools.contacts.extensions.viewContact
-import com.simplemobiletools.contacts.helpers.Config
-import com.simplemobiletools.contacts.helpers.ON_CLICK_CALL_CONTACT
-import com.simplemobiletools.contacts.helpers.ON_CLICK_EDIT_CONTACT
-import com.simplemobiletools.contacts.helpers.ON_CLICK_VIEW_CONTACT
-import com.simplemobiletools.contacts.interfaces.FragmentInterface
+import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.Contact
+import com.simplemobiletools.contacts.models.Group
 import kotlinx.android.synthetic.main.fragment_layout.view.*
 
-abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet), FragmentInterface {
+abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
     protected var activity: MainActivity? = null
+    protected var allContacts = ArrayList<Contact>()
+
     private var lastHashCode = 0
     private var contactsIgnoringSearch = ArrayList<Contact>()
     private lateinit var config: Config
 
+    var skipHashComparing = false
     var forceListRedraw = false
 
-    override fun setupFragment(activity: MainActivity) {
+    fun setupFragment(activity: MainActivity) {
         config = activity.config
         if (this.activity == null) {
             this.activity = activity
@@ -49,36 +53,51 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             if (this is FavoritesFragment) {
                 fragment_placeholder.text = activity.getString(R.string.no_favorites)
                 fragment_placeholder_2.text = activity.getString(R.string.add_favorites)
+            } else if (this is GroupsFragment) {
+                fragment_placeholder.text = activity.getString(R.string.no_group_created)
+                fragment_placeholder_2.text = activity.getString(R.string.create_group)
             }
         }
     }
 
-    override fun textColorChanged(color: Int) {
-        (fragment_list.adapter as ContactsAdapter).apply {
-            updateTextColor(color)
-            initDrawables()
+    fun textColorChanged(color: Int) {
+        if (this is GroupsFragment) {
+            (fragment_list.adapter as GroupsAdapter).updateTextColor(color)
+        } else {
+            (fragment_list.adapter as ContactsAdapter).apply {
+                updateTextColor(color)
+                initDrawables()
+            }
         }
     }
 
-    override fun primaryColorChanged(color: Int) {
+    fun primaryColorChanged() {
         fragment_fastscroller.updatePrimaryColor()
         fragment_fastscroller.updateBubblePrimaryColor()
     }
 
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
-        (fragment_list.adapter as ContactsAdapter).apply {
-            config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
-            this@MyViewPagerFragment.activity!!.refreshContacts(true, true)
+        if (this !is GroupsFragment) {
+            (fragment_list.adapter as ContactsAdapter).apply {
+                config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
+                this@MyViewPagerFragment.activity!!.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+            }
         }
     }
 
-    override fun refreshContacts(contacts: ArrayList<Contact>) {
+    fun refreshContacts(contacts: ArrayList<Contact>) {
         if (config.lastUsedContactSource.isEmpty()) {
             val grouped = contacts.groupBy { it.source }.maxWith(compareBy { it.value.size })
             config.lastUsedContactSource = grouped?.key ?: ""
         }
 
-        val filtered = if (this is FavoritesFragment) {
+        Contact.sorting = config.sorting
+        contacts.sort()
+        allContacts = contacts
+
+        val filtered = if (this is GroupsFragment) {
+            contacts
+        } else if (this is FavoritesFragment) {
             contacts.filter { it.starred == 1 } as ArrayList<Contact>
         } else {
             val contactSources = config.displayContactSources
@@ -89,10 +108,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
         }
 
-        Contact.sorting = config.sorting
-        filtered.sort()
-
-        if (filtered.hashCode() != lastHashCode) {
+        if (filtered.hashCode() != lastHashCode || skipHashComparing) {
+            skipHashComparing = false
             lastHashCode = filtered.hashCode()
             activity?.runOnUiThread {
                 setupContacts(filtered)
@@ -101,6 +118,56 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     private fun setupContacts(contacts: ArrayList<Contact>) {
+        if (this is GroupsFragment) {
+            setupGroupsAdapter(contacts)
+        } else {
+            setupContactsFavoritesAdapter(contacts)
+        }
+    }
+
+    private fun setupGroupsAdapter(contacts: ArrayList<Contact>) {
+        var storedGroups = ContactsHelper(activity!!).getStoredGroups()
+        contacts.forEach {
+            it.groups.forEach {
+                val group = it
+                val storedGroup = storedGroups.firstOrNull { it.id == group.id }
+                storedGroup?.addContact()
+            }
+        }
+
+        storedGroups = storedGroups.sortedWith(compareBy { it.title }).toMutableList() as ArrayList<Group>
+
+        fragment_placeholder_2.beVisibleIf(storedGroups.isEmpty())
+        fragment_placeholder.beVisibleIf(storedGroups.isEmpty())
+        fragment_list.beVisibleIf(storedGroups.isNotEmpty())
+
+        val currAdapter = fragment_list.adapter
+        if (currAdapter == null) {
+            GroupsAdapter(activity as SimpleActivity, storedGroups, activity, fragment_list, fragment_fastscroller) {
+                Intent(activity, GroupContactsActivity::class.java).apply {
+                    putExtra(GROUP, it as Group)
+                    activity!!.startActivity(this)
+                }
+            }.apply {
+                setupDragListener(true)
+                addVerticalDividers(true)
+                fragment_list.adapter = this
+            }
+
+            fragment_fastscroller.setScrollTo(0)
+            fragment_fastscroller.setViews(fragment_list) {
+                val item = (fragment_list.adapter as GroupsAdapter).groups.getOrNull(it)
+                fragment_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
+            }
+        } else {
+            (currAdapter as GroupsAdapter).apply {
+                showContactThumbnails = activity.config.showContactThumbnails
+                updateItems(storedGroups)
+            }
+        }
+    }
+
+    private fun setupContactsFavoritesAdapter(contacts: ArrayList<Contact>) {
         fragment_placeholder_2.beVisibleIf(contacts.isEmpty())
         fragment_placeholder.beVisibleIf(contacts.isEmpty())
         fragment_list.beVisibleIf(contacts.isNotEmpty())
@@ -108,7 +175,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         val currAdapter = fragment_list.adapter
         if (currAdapter == null || forceListRedraw) {
             forceListRedraw = false
-            ContactsAdapter(activity as SimpleActivity, contacts, activity, this is FavoritesFragment, fragment_list, fragment_fastscroller) {
+            val location = if (this is FavoritesFragment) LOCATION_FAVORITES_TAB else LOCATION_CONTACTS_TAB
+            ContactsAdapter(activity as SimpleActivity, contacts, activity, location, null, fragment_list, fragment_fastscroller) {
                 when (config.onContactClick) {
                     ON_CLICK_CALL_CONTACT -> {
                         val contact = it as Contact
@@ -143,9 +211,16 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun showContactThumbnailsChanged(showThumbnails: Boolean) {
-        (fragment_list.adapter as? ContactsAdapter)?.apply {
-            showContactThumbnails = showThumbnails
-            notifyDataSetChanged()
+        if (this is GroupsFragment) {
+            (fragment_list.adapter as? GroupsAdapter)?.apply {
+                showContactThumbnails = showThumbnails
+                notifyDataSetChanged()
+            }
+        } else {
+            (fragment_list.adapter as? ContactsAdapter)?.apply {
+                showContactThumbnails = showThumbnails
+                notifyDataSetChanged()
+            }
         }
     }
 
@@ -154,7 +229,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun finishActMode() {
-        (fragment_list.adapter as? ContactsAdapter)?.finishActMode()
+        (fragment_list.adapter as? MyRecyclerViewAdapter)?.finishActMode()
     }
 
     fun onSearchQueryChanged(text: String) {
