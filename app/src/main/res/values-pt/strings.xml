@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Contactos</string>
-    <string name="address">Enederço</string>
+    <string name="address">Endereço</string>
     <string name="inserting">A inserir…</string>
     <string name="updating">A atualizar…</string>
     <string name="phone_storage">Armazenamento do telefone</string>
@@ -16,15 +16,15 @@
     <string name="surname">Apelido</string>
 
     <!-- Groups -->
-    <string name="no_groups">No groups</string>
-    <string name="create_new_group">Create a new group</string>
-    <string name="remove_from_group">Remove from group</string>
-    <string name="no_group_participants">This group is empty</string>
-    <string name="add_contacts">Add contacts</string>
-    <string name="no_group_created">There are no contact groups on the device</string>
-    <string name="create_group">Create group</string>
-    <string name="add_to_group">Add to group</string>
-    <string name="create_group_under_account">Create group under account</string>
+    <string name="no_groups">Não há grupos</string>
+    <string name="create_new_group">Criar um novo grupo</string>
+    <string name="remove_from_group">Remover do grupo</string>
+    <string name="no_group_participants">Este grupo está vazio</string>
+    <string name="add_contacts">Adicionar contactos</string>
+    <string name="no_group_created">Não existem grupos de contactos neste dispositivo/string>
+    <string name="create_group">Criar um grupo</string>
+    <string name="add_to_group">Adicionar ao grupo</string>
+    <string name="create_group_under_account">Criar grupo para a conta</string>
 
     <!-- Photo -->
     <string name="take_photo">Tirar foto</string>
@@ -38,8 +38,8 @@
     <string name="on_contact_click">Ao clicar no contacto</string>
     <string name="call_contact">Ligar</string>
     <string name="view_contact">Ver detalhes</string>
-    <string name="show_favorites_tab">Show favorites tab</string>
-    <string name="show_groups_tab">Show groups tab</string>
+    <string name="show_favorites_tab">Mostrar favoritos</string>
+    <string name="show_groups_tab">Mostrar grupos</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>
@@ -81,15 +81,15 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A contacts app for managing your contacts without ads.</string>
+    <string name="app_short_description">Uma aplicação para gerir os seus contactos.</string>
     <string name="app_long_description">
-        A simple app for creating or managing your contacts from any source. The contacts can be stored on your device only, but also synchronized via Google, or other accounts. You can display your favorite contacts on a separate list.
+        Uma aplicação básica para criar e gerir contactos. Pode utilizar a aplicação guardar os contactos localmente, na sua conta Google ou em outro tipo de contas. Pode mostrar os contactos favoritos numa lista distinta.
 
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+        Também pode utilizar a plicação para gerir endereços de e-mail e eventos. Tem a capacidade de ordenar/filtrar por diversos parâmetros e também a possibilidade de diversas formas de exibição dos contactos.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+        Não contém anúncios ou permissões desnecessárias. É totalmente open source e permite personalização de cores.
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at https://www.simplemobiletools.com
+        Esta aplicação é apenas parte de um conjunto mais vasto de aplicações. Saiba mais em http://www.simplemobiletools.com
     </string>
 
     <!--
