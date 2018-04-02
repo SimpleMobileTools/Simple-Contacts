@@ -16,15 +16,15 @@
     <string name="surname">Efternamn</string>
 
     <!-- Groups -->
-    <string name="no_groups">No groups</string>
-    <string name="create_new_group">Create a new group</string>
-    <string name="remove_from_group">Remove from group</string>
-    <string name="no_group_participants">This group is empty</string>
-    <string name="add_contacts">Add contacts</string>
-    <string name="no_group_created">There are no contact groups on the device</string>
-    <string name="create_group">Create group</string>
-    <string name="add_to_group">Add to group</string>
-    <string name="create_group_under_account">Create group under account</string>
+    <string name="no_groups">Inga grupper</string>
+    <string name="create_new_group">Skapa en ny grupp</string>
+    <string name="remove_from_group">Ta bort från grupp</string>
+    <string name="no_group_participants">Denna grupp är tom</string>
+    <string name="add_contacts">Lägg till kontakter</string>
+    <string name="no_group_created">Det finns inga kontaktgrupper på enheten</string>
+    <string name="create_group">Skapa grupp</string>
+    <string name="add_to_group">Lägg till i grupp</string>
+    <string name="create_group_under_account">Skapa gruppen i kontot</string>
 
     <!-- Photo -->
     <string name="take_photo">Ta foto</string>
@@ -38,8 +38,8 @@
     <string name="on_contact_click">Vid kontakttryckning</string>
     <string name="call_contact">Ring kontakt</string>
     <string name="view_contact">Visa kontaktuppgifter</string>
-    <string name="show_favorites_tab">Show favorites tab</string>
-    <string name="show_groups_tab">Show groups tab</string>
+    <string name="show_favorites_tab">Visa fliken Favoriter</string>
+    <string name="show_groups_tab">Visa fliken Grupper</string>
 
     <!-- Emails -->
     <string name="email">E-post</string>
