@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.item_view_group.view.*
 import kotlinx.android.synthetic.main.item_view_phone_number.view.*
 
 class ViewContactActivity : ContactActivity() {
+    private var isViewIntent = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_contact)
@@ -29,7 +31,19 @@ class ViewContactActivity : ContactActivity() {
 
     override fun onResume() {
         super.onResume()
-        initContact()
+        isViewIntent = intent.action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT || intent.action == Intent.ACTION_VIEW
+        if (isViewIntent) {
+            handlePermission(PERMISSION_READ_CONTACTS) {
+                if (it) {
+                    initContact()
+                } else {
+                    toast(R.string.no_contacts_permission)
+                    finish()
+                }
+            }
+        } else {
+            initContact()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -50,8 +64,7 @@ class ViewContactActivity : ContactActivity() {
     private fun initContact() {
         var wasLookupKeyUsed = false
         var contactId = intent.getIntExtra(CONTACT_ID, 0)
-        val action = intent.action
-        if (contactId == 0 && (action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT || action == Intent.ACTION_VIEW)) {
+        if (contactId == 0 && isViewIntent) {
             val data = intent.data
             if (data != null) {
                 val rawId = if (data.path.contains("lookup")) {

@@ -16,6 +16,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
+import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.dialogs.SelectGroupsDialog
@@ -51,12 +53,34 @@ class EditContactActivity : ContactActivity() {
     private var wasActivityInitialized = false
     private var lastPhotoIntentUri: Uri? = null
     private var isSaving = false
+    private var isThirdPartyIntent = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_contact)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross)
-        initContact()
+
+        val action = intent.action
+        isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT_OR_EDIT || action == Intent.ACTION_INSERT
+        if (isThirdPartyIntent) {
+            handlePermission(PERMISSION_READ_CONTACTS) {
+                if (it) {
+                    handlePermission(PERMISSION_WRITE_CONTACTS) {
+                        if (it) {
+                            initContact()
+                        } else {
+                            toast(R.string.no_contacts_permission)
+                            finish()
+                        }
+                    }
+                } else {
+                    toast(R.string.no_contacts_permission)
+                    finish()
+                }
+            }
+        } else {
+            initContact()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -121,7 +145,7 @@ class EditContactActivity : ContactActivity() {
             setupEditContact()
         }
 
-        if (contact!!.id == 0 && intent.extras?.containsKey(KEY_PHONE) == true && (intent.action == Intent.ACTION_INSERT_OR_EDIT || intent.action == Intent.ACTION_INSERT)) {
+        if (contact!!.id == 0 && intent.extras?.containsKey(KEY_PHONE) == true && (action == Intent.ACTION_INSERT_OR_EDIT || action == Intent.ACTION_INSERT)) {
             val phoneNumber = intent.extras.get(KEY_PHONE).toString()
             contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE))
             setupPhoneNumbers()
