@@ -149,7 +149,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     activity!!.startActivity(this)
                 }
             }.apply {
-                setupDragListener(true)
                 addVerticalDividers(true)
                 fragment_list.adapter = this
             }
@@ -190,7 +189,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     ON_CLICK_EDIT_CONTACT -> context!!.editContact(it as Contact)
                 }
             }.apply {
-                setupDragListener(true)
                 addVerticalDividers(true)
                 fragment_list.adapter = this
             }

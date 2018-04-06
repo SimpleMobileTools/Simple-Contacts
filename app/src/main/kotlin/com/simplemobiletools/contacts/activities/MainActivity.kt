@@ -40,7 +40,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
 
-    private var storedUseEnglish = false
     private var storedTextColor = 0
     private var storedBackgroundColor = 0
     private var storedPrimaryColor = 0
@@ -79,13 +78,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     override fun onResume() {
         super.onResume()
-        if (storedUseEnglish != config.useEnglish) {
-            restartActivity()
-            return
-        }
-
         if (storedShowPhoneNumbers != config.showPhoneNumbers) {
-            restartActivity()
+            System.exit(0)
             return
         }
 
@@ -179,7 +173,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun storeStateVariables() {
         config.apply {
-            storedUseEnglish = useEnglish
             storedTextColor = textColor
             storedBackgroundColor = backgroundColor
             storedPrimaryColor = primaryColor

@@ -90,7 +90,6 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
                     ON_CLICK_EDIT_CONTACT -> editContact(it as Contact)
                 }
             }.apply {
-                setupDragListener(true)
                 addVerticalDividers(true)
                 group_contacts_list.adapter = this
             }

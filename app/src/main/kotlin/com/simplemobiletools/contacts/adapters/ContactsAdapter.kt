@@ -47,6 +47,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
 
     init {
+        setupDragListener(true)
         initDrawables()
         showContactThumbnails = config.showContactThumbnails
         showPhoneNumbers = config.showPhoneNumbers
