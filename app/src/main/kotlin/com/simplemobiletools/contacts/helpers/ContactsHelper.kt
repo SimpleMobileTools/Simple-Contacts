@@ -83,8 +83,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
                     val notes = ""
                     val groups = ArrayList<Group>()
+                    val organization = ""
                     val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName,
-                            starred, contactId, thumbnailUri, null, notes, groups)
+                            starred, contactId, thumbnailUri, null, notes, groups, organization)
                     contacts.put(id, contact)
                 } while (cursor.moveToNext())
             }
@@ -127,6 +128,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         for (i in 0 until size) {
             val key = notes.keyAt(i)
             contacts[key]?.notes = notes.valueAt(i)
+        }
+
+        val organizations = getOrganizations()
+        size = organizations.size()
+        for (i in 0 until size) {
+            val key = organizations.keyAt(i)
+            contacts[key]?.organization = organizations.valueAt(i)
         }
     }
 
@@ -320,6 +328,41 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return notes
     }
 
+    private fun getOrganizations(contactId: Int? = null): SparseArray<String> {
+        val organizations = SparseArray<String>()
+        val uri = ContactsContract.Data.CONTENT_URI
+        val projection = arrayOf(
+                ContactsContract.Data.RAW_CONTACT_ID,
+                CommonDataKinds.Organization.COMPANY
+        )
+
+        var selection = "${ContactsContract.Data.MIMETYPE} = ?"
+        var selectionArgs = arrayOf(CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+
+        if (contactId != null) {
+            selection += " AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+            selectionArgs = arrayOf(CommonDataKinds.Organization.CONTENT_ITEM_TYPE, contactId.toString())
+        }
+
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                do {
+                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
+                    val organization = cursor.getStringValue(CommonDataKinds.Organization.COMPANY) ?: continue
+                    organizations.put(id, organization)
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        } finally {
+            cursor?.close()
+        }
+
+        return organizations
+    }
+
     private fun getContactGroups(storedGroups: ArrayList<Group>, contactId: Int? = null): SparseArray<ArrayList<Group>> {
         val groups = SparseArray<ArrayList<Group>>()
         if (!activity.hasContactPermissions()) {
@@ -508,8 +551,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                 val groups = getContactGroups(storedGroups, contactId)[contactId] ?: ArrayList()
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
+                val organization = getOrganizations(id)[id] ?: ""
                 return Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName, starred, contactId,
-                        thumbnailUri, null, notes, groups)
+                        thumbnailUri, null, notes, groups, organization)
             }
         } finally {
             cursor?.close()
