@@ -20,14 +20,13 @@ import java.io.File
 
 fun SimpleActivity.startCallIntent(recipient: String) {
     handlePermission(PERMISSION_CALL_PHONE) {
-        if (it) {
-            Intent(Intent.ACTION_CALL).apply {
-                data = Uri.fromParts("tel", recipient, null)
-                if (resolveActivity(packageManager) != null) {
-                    startActivity(this)
-                } else {
-                    toast(R.string.no_app_found)
-                }
+        val action = if (it) Intent.ACTION_CALL else Intent.ACTION_DIAL
+        Intent(action).apply {
+            data = Uri.fromParts("tel", recipient, null)
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
             }
         }
     }
