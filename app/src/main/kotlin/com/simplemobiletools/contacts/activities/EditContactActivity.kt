@@ -139,7 +139,7 @@ class EditContactActivity : ContactActivity() {
         }
 
         if (contact!!.id == 0 && intent.extras?.containsKey(KEY_PHONE) == true && (intent.action == Intent.ACTION_INSERT_OR_EDIT || intent.action == Intent.ACTION_INSERT)) {
-            val phoneNumber = intent.getStringExtra(KEY_PHONE)
+            val phoneNumber = intent.extras.get(KEY_PHONE).toString()
             contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE))
             setupPhoneNumbers()
         }
