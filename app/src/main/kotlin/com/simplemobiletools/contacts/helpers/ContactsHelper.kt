@@ -1044,25 +1044,27 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     }
 
     fun deleteContacts(contacts: ArrayList<Contact>) {
-        val localContacts = contacts.filter { it.source == SMT_PRIVATE }.map { it.id.toString() }.toTypedArray()
-        activity.dbHelper.deleteContacts(localContacts)
+        Thread {
+            val localContacts = contacts.filter { it.source == SMT_PRIVATE }.map { it.id.toString() }.toTypedArray()
+            activity.dbHelper.deleteContacts(localContacts)
 
-        try {
-            val contactIDs = HashSet<String>()
-            val operations = ArrayList<ContentProviderOperation>()
-            val selection = "${ContactsContract.Data.CONTACT_ID} = ?"
-            contacts.filter { it.source != SMT_PRIVATE }.forEach {
-                ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                    val selectionArgs = arrayOf(it.contactId.toString())
-                    withSelection(selection, selectionArgs)
-                    operations.add(this.build())
+            try {
+                val contactIDs = HashSet<String>()
+                val operations = ArrayList<ContentProviderOperation>()
+                val selection = "${ContactsContract.Data.CONTACT_ID} = ?"
+                contacts.filter { it.source != SMT_PRIVATE }.forEach {
+                    ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                        val selectionArgs = arrayOf(it.contactId.toString())
+                        withSelection(selection, selectionArgs)
+                        operations.add(this.build())
+                    }
+                    contactIDs.add(it.id.toString())
                 }
-                contactIDs.add(it.id.toString())
-            }
 
-            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
-        } catch (e: Exception) {
-            activity.showErrorToast(e)
-        }
+                activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            } catch (e: Exception) {
+                activity.showErrorToast(e)
+            }
+        }.start()
     }
 }
