@@ -9,7 +9,10 @@ import android.os.Build
 import android.provider.ContactsContract
 import android.support.v4.content.FileProvider
 import com.simplemobiletools.commons.extensions.getIntValue
+import com.simplemobiletools.commons.extensions.hasPermission
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
+import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
@@ -155,3 +158,5 @@ fun Context.getPhotoThumbnailSize(): Int {
     }
     return 0
 }
+
+fun Context.hasContactPermissions() = hasPermission(PERMISSION_READ_CONTACTS) && hasPermission(PERMISSION_WRITE_CONTACTS)

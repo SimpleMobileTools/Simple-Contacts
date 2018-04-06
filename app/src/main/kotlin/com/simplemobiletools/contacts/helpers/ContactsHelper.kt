@@ -20,87 +20,14 @@ import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.R
-import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.dbHelper
-import com.simplemobiletools.contacts.extensions.getByteArray
-import com.simplemobiletools.contacts.extensions.getPhotoThumbnailSize
+import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.models.*
 
 class ContactsHelper(val activity: BaseSimpleActivity) {
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
         val contacts = SparseArray<Contact>()
         Thread {
-            val uri = ContactsContract.Data.CONTENT_URI
-            val projection = getContactProjection()
-            val selection = "${ContactsContract.Data.MIMETYPE} = ?"
-            val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-            val sortOrder = getSortString()
-
-            var cursor: Cursor? = null
-            try {
-                cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, sortOrder)
-                if (cursor?.moveToFirst() == true) {
-                    do {
-                        val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                        val firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
-                        val middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
-                        val surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
-                        val photoUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
-                        val number = ArrayList<PhoneNumber>()       // proper value is obtained below
-                        val emails = ArrayList<Email>()
-                        val addresses = ArrayList<Address>()
-                        val events = ArrayList<Event>()
-                        val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
-                        val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
-                        val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
-                        val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                        val notes = ""
-                        val groups = ArrayList<Group>()
-                        val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName,
-                                starred, contactId, thumbnailUri, null, notes, groups)
-                        contacts.put(id, contact)
-                    } while (cursor.moveToNext())
-                }
-            } catch (e: Exception) {
-                activity.showErrorToast(e)
-            } finally {
-                cursor?.close()
-            }
-
-            val phoneNumbers = getPhoneNumbers()
-            var size = phoneNumbers.size()
-            for (i in 0 until size) {
-                val key = phoneNumbers.keyAt(i)
-                contacts[key]?.phoneNumbers = phoneNumbers.valueAt(i)
-            }
-
-            val emails = getEmails()
-            size = emails.size()
-            for (i in 0 until size) {
-                val key = emails.keyAt(i)
-                contacts[key]?.emails = emails.valueAt(i)
-            }
-
-            val addresses = getAddresses()
-            size = addresses.size()
-            for (i in 0 until size) {
-                val key = addresses.keyAt(i)
-                contacts[key]?.addresses = addresses.valueAt(i)
-            }
-
-            val events = getEvents()
-            size = events.size()
-            for (i in 0 until size) {
-                val key = events.keyAt(i)
-                contacts[key]?.events = events.valueAt(i)
-            }
-
-            val notes = getNotes()
-            size = notes.size()
-            for (i in 0 until size) {
-                val key = notes.keyAt(i)
-                contacts[key]?.notes = notes.valueAt(i)
-            }
+            getDeviceContacts(contacts)
 
             activity.dbHelper.getContacts(activity).forEach {
                 contacts.put(it.id, it)
@@ -113,7 +40,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
             // groups are obtained with contactID, not rawID, so assign them to proper contacts like this
             val groups = getContactGroups(getStoredGroups())
-            size = groups.size()
+            val size = groups.size()
             for (i in 0 until size) {
                 val key = groups.keyAt(i)
                 resultContacts.firstOrNull { it.contactId == key }?.groups = groups.valueAt(i)
@@ -123,6 +50,84 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 callback(resultContacts)
             }
         }.start()
+    }
+
+    private fun getDeviceContacts(contacts: SparseArray<Contact>) {
+        if (!activity.hasContactPermissions()) {
+            return
+        }
+
+        val uri = ContactsContract.Data.CONTENT_URI
+        val projection = getContactProjection()
+        val selection = "${ContactsContract.Data.MIMETYPE} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+        val sortOrder = getSortString()
+
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, sortOrder)
+            if (cursor?.moveToFirst() == true) {
+                do {
+                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
+                    val firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
+                    val middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
+                    val surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
+                    val photoUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
+                    val number = ArrayList<PhoneNumber>()       // proper value is obtained below
+                    val emails = ArrayList<Email>()
+                    val addresses = ArrayList<Address>()
+                    val events = ArrayList<Event>()
+                    val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
+                    val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
+                    val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
+                    val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
+                    val notes = ""
+                    val groups = ArrayList<Group>()
+                    val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName,
+                            starred, contactId, thumbnailUri, null, notes, groups)
+                    contacts.put(id, contact)
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        } finally {
+            cursor?.close()
+        }
+
+        val phoneNumbers = getPhoneNumbers()
+        var size = phoneNumbers.size()
+        for (i in 0 until size) {
+            val key = phoneNumbers.keyAt(i)
+            contacts[key]?.phoneNumbers = phoneNumbers.valueAt(i)
+        }
+
+        val emails = getEmails()
+        size = emails.size()
+        for (i in 0 until size) {
+            val key = emails.keyAt(i)
+            contacts[key]?.emails = emails.valueAt(i)
+        }
+
+        val addresses = getAddresses()
+        size = addresses.size()
+        for (i in 0 until size) {
+            val key = addresses.keyAt(i)
+            contacts[key]?.addresses = addresses.valueAt(i)
+        }
+
+        val events = getEvents()
+        size = events.size()
+        for (i in 0 until size) {
+            val key = events.keyAt(i)
+            contacts[key]?.events = events.valueAt(i)
+        }
+
+        val notes = getNotes()
+        size = notes.size()
+        for (i in 0 until size) {
+            val key = notes.keyAt(i)
+            contacts[key]?.notes = notes.valueAt(i)
+        }
     }
 
     private fun getPhoneNumbers(contactId: Int? = null): SparseArray<ArrayList<PhoneNumber>> {
@@ -317,6 +322,10 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
     private fun getContactGroups(storedGroups: ArrayList<Group>, contactId: Int? = null): SparseArray<ArrayList<Group>> {
         val groups = SparseArray<ArrayList<Group>>()
+        if (!activity.hasContactPermissions()) {
+            return groups
+        }
+
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = arrayOf(
                 ContactsContract.Data.CONTACT_ID,
@@ -357,7 +366,17 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     }
 
     fun getStoredGroups(): ArrayList<Group> {
+        val groups = getDeviceStoredGroups()
+        groups.addAll(activity.dbHelper.getGroups())
+        return groups
+    }
+
+    fun getDeviceStoredGroups(): ArrayList<Group> {
         val groups = ArrayList<Group>()
+        if (!activity.hasContactPermissions()) {
+            return groups
+        }
+
         val uri = ContactsContract.Groups.CONTENT_URI
         val projection = arrayOf(
                 ContactsContract.Groups._ID,
@@ -389,8 +408,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         } finally {
             cursor?.close()
         }
-
-        groups.addAll(activity.dbHelper.getGroups())
         return groups
     }
 

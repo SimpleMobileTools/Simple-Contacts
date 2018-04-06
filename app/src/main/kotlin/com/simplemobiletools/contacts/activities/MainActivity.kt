@@ -59,17 +59,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
-                    if (it) {
-                        storeLocalAccountData()
-                        initFragments()
-                    } else {
-                        toast(R.string.no_contacts_permission)
-                        finish()
-                    }
+                    storeLocalAccountData()
+                    initFragments()
                 }
             } else {
-                toast(R.string.no_contacts_permission)
-                finish()
+                storeLocalAccountData()
+                initFragments()
             }
         }
         storeStateVariables()
