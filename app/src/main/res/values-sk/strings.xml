@@ -40,6 +40,7 @@
     <string name="view_contact">Zobraziť údaje kontaktu</string>
     <string name="show_favorites_tab">Zobraziť okno s obľúbenými</string>
     <string name="show_groups_tab">Zobraziť okno so skupinami</string>
+    <string name="manage_shown_contact_fields">Spravovať zobrazené polia kontaktov</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
@@ -78,6 +79,23 @@
     <string name="target_contact_source">Cieľový zdroj kontaktov</string>
     <string name="include_contact_sources">Zahrnúť zdroje kontaktov</string>
     <string name="filename_without_vcf">Názov súboru (bez .vcf)</string>
+
+    <!-- Visible fields -->
+    <string name="select_fields_to_show">Zvoľte polia na zobrazenie</string>
+    <string name="prefix">Titul pred menom</string>
+    <string name="suffix">Titul za priezviskom</string>
+    <string name="phone_numbers">Telefónne čísla</string>
+    <string name="emails">Emaily</string>
+    <string name="addresses">Adresy</string>
+    <string name="events">Udalosti (narodeniny, výročia)</string>
+    <string name="notes">Poznámky</string>
+    <string name="organization">Firma</string>
+    <string name="groups">Skupiny</string>
+    <string name="contact_source">Zdroje kontaktov</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Nechcem mať zobrazené všetky tie polia pri kontaktoch, viem ich nejako skryť?</string>
+    <string name="faq_1_text">Áno, stačí ísť do Nastavenia -> Spravovať zobrazené polia kontaktov. Tam si viete zvoliť, ktoré polia majú byť viditeľné. Niektoré sú v predvolenom stave vypnuté, čiže tam môžete objaviť aj nové.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

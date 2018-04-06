@@ -40,6 +40,7 @@
     <string name="view_contact">Просмотреть подробности о контакте</string>
     <string name="show_favorites_tab">Показывать вкладку избранного</string>
     <string name="show_groups_tab">Показывать вкладку групп</string>
+    <string name="manage_shown_contact_fields">Manage shown contact fields</string>
 
     <!-- Emails -->
     <string name="email">Эл. почта</string>
@@ -78,6 +79,23 @@
     <string name="target_contact_source">Назначенный к обновлению источник контактов</string>
     <string name="include_contact_sources">Включить источники контактов</string>
     <string name="filename_without_vcf">Имя файла (без .vcf)</string>
+
+    <!-- Visible fields -->
+    <string name="select_fields_to_show">Select fields to show</string>
+    <string name="prefix">Prefix</string>
+    <string name="suffix">Suffix</string>
+    <string name="phone_numbers">Phone numbers</string>
+    <string name="emails">Emails</string>
+    <string name="addresses">Addresses</string>
+    <string name="events">Events (birthdays, anniversaries)</string>
+    <string name="notes">Notes</string>
+    <string name="organization">Organization</string>
+    <string name="groups">Groups</string>
+    <string name="contact_source">Contact source</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">I don\'t need all those fields displayed at every contact. Can I somehow hide them?</string>
+    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Select fields to show. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
