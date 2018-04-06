@@ -123,6 +123,7 @@ class ViewContactActivity : ContactActivity() {
         contact_event_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
         contact_notes_image.applyColorFilter(textColor)
+        contact_organization_image.applyColorFilter(textColor)
         contact_groups_image.applyColorFilter(textColor)
 
         contact_send_sms.setOnClickListener { trySendSMS() }
@@ -164,6 +165,7 @@ class ViewContactActivity : ContactActivity() {
         setupAddresses()
         setupEvents()
         setupNotes()
+        setupOrganization()
         setupGroups()
     }
 
@@ -249,6 +251,13 @@ class ViewContactActivity : ContactActivity() {
         contact_notes.text = notes
         contact_notes_image.beVisibleIf(notes.isNotEmpty())
         contact_notes.beVisibleIf(notes.isNotEmpty())
+    }
+
+    private fun setupOrganization() {
+        val organization = contact!!.organization
+        contact_organization.text = organization
+        contact_organization_image.beVisibleIf(organization.isNotEmpty())
+        contact_organization.beVisibleIf(organization.isNotEmpty())
     }
 
     private fun setupGroups() {
