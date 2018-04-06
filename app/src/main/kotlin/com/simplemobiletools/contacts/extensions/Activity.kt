@@ -126,7 +126,7 @@ fun BaseSimpleActivity.addContactsToGroup(contacts: ArrayList<Contact>, groupId:
 fun BaseSimpleActivity.removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
     val publicContacts = contacts.filter { it.source != SMT_PRIVATE }
     val privateContacts = contacts.filter { it.source == SMT_PRIVATE }
-    if (publicContacts.isNotEmpty()) {
+    if (publicContacts.isNotEmpty() && hasContactPermissions()) {
         ContactsHelper(this).removeContactsFromGroup(contacts, groupId)
     }
 

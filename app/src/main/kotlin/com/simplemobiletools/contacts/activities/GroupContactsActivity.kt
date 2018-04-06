@@ -109,7 +109,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     }
 
     override fun removeFromGroup(contacts: ArrayList<Contact>) {
-        ContactsHelper(this).removeContactsFromGroup(contacts, group.id)
+        removeContactsFromGroup(contacts, group.id)
         if (groupContacts.size == 0) {
             refreshContacts()
         }

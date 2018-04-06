@@ -1024,12 +1024,16 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
     fun addFavorites(contacts: ArrayList<Contact>) {
         toggleLocalFavorites(contacts, true)
-        toggleFavorites(contacts, true)
+        if (activity.hasContactPermissions()) {
+            toggleFavorites(contacts, true)
+        }
     }
 
     fun removeFavorites(contacts: ArrayList<Contact>) {
         toggleLocalFavorites(contacts, false)
-        toggleFavorites(contacts, false)
+        if (activity.hasContactPermissions()) {
+            toggleFavorites(contacts, false)
+        }
     }
 
     private fun toggleFavorites(contacts: ArrayList<Contact>, addToFavorites: Boolean) {
