@@ -36,9 +36,9 @@ import kotlinx.android.synthetic.main.fragment_groups.*
 import java.io.FileOutputStream
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
-    private var isFirstResume = true
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
+    private var werePermissionsHandled = false
 
     private var storedTextColor = 0
     private var storedBackgroundColor = 0
@@ -57,6 +57,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         dbHelper
 
         handlePermission(PERMISSION_READ_CONTACTS) {
+            werePermissionsHandled = true
             if (it) {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
                     storeLocalAccountData()
@@ -115,7 +116,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             favorites_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
         }
 
-        if (!isFirstResume) {
+        if (werePermissionsHandled) {
             if (viewpager.adapter == null) {
                 initFragments()
             }
@@ -124,10 +125,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 it?.onActivityResume()
             }
             refreshContacts(ALL_TABS_MASK)
-        }
-
-        if (hasPermission(PERMISSION_WRITE_CONTACTS)) {
-            isFirstResume = false
         }
     }
 
@@ -388,7 +385,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchAbout() {
-        val faqItems = arrayListOf(FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons))
+        val faqItems = arrayListOf(
+                FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons)
+        )
+
         startAboutActivity(R.string.app_name, LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_STETHO,
                 BuildConfig.VERSION_NAME, faqItems)
     }

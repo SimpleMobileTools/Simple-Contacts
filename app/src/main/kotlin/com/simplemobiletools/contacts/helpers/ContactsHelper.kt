@@ -25,8 +25,8 @@ import com.simplemobiletools.contacts.models.*
 
 class ContactsHelper(val activity: BaseSimpleActivity) {
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
-        val contacts = SparseArray<Contact>()
         Thread {
+            val contacts = SparseArray<Contact>()
             getDeviceContacts(contacts)
 
             activity.dbHelper.getContacts(activity).forEach {
@@ -519,35 +519,42 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     }
 
     fun getContactSources(callback: (ArrayList<ContactSource>) -> Unit) {
-        val sources = LinkedHashSet<ContactSource>()
         Thread {
-            val uri = ContactsContract.RawContacts.CONTENT_URI
-            val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_NAME, ContactsContract.RawContacts.ACCOUNT_TYPE)
-
-            var cursor: Cursor? = null
-            try {
-                cursor = activity.contentResolver.query(uri, projection, null, null, null)
-                if (cursor?.moveToFirst() == true) {
-                    do {
-                        val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: continue
-                        val type = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: continue
-                        val contactSource = ContactSource(name, type)
-                        sources.add(contactSource)
-                    } while (cursor.moveToNext())
-                }
-            } catch (e: Exception) {
-                activity.showErrorToast(e)
-            } finally {
-                cursor?.close()
-            }
-
-            if (sources.isEmpty() && activity.config.localAccountName.isEmpty() && activity.config.localAccountType.isEmpty()) {
-                sources.add(ContactSource("", ""))
-            }
-
+            val sources = LinkedHashSet<ContactSource>()
+            getDeviceContactSources(sources)
             sources.add(ContactSource(activity.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
             callback(ArrayList(sources))
         }.start()
+    }
+
+    private fun getDeviceContactSources(sources: LinkedHashSet<ContactSource>) {
+        if (!activity.hasContactPermissions()) {
+            return
+        }
+
+        val uri = ContactsContract.RawContacts.CONTENT_URI
+        val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_NAME, ContactsContract.RawContacts.ACCOUNT_TYPE)
+
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, null, null, null)
+            if (cursor?.moveToFirst() == true) {
+                do {
+                    val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: continue
+                    val type = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: continue
+                    val contactSource = ContactSource(name, type)
+                    sources.add(contactSource)
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        } finally {
+            cursor?.close()
+        }
+
+        if (sources.isEmpty() && activity.config.localAccountName.isEmpty() && activity.config.localAccountType.isEmpty()) {
+            sources.add(ContactSource("", ""))
+        }
     }
 
     private fun getContactSourceType(accountName: String): String {

@@ -16,8 +16,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.dialogs.SelectGroupsDialog
@@ -58,22 +56,7 @@ class EditContactActivity : ContactActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_contact)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross)
-
-        handlePermission(PERMISSION_READ_CONTACTS) {
-            if (it) {
-                handlePermission(PERMISSION_WRITE_CONTACTS) {
-                    if (it) {
-                        initContact()
-                    } else {
-                        toast(R.string.no_contacts_permission)
-                        finish()
-                    }
-                }
-            } else {
-                toast(R.string.no_contacts_permission)
-                finish()
-            }
-        }
+        initContact()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -378,7 +361,8 @@ class EditContactActivity : ContactActivity() {
     private fun setupNewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), config.lastUsedContactSource, 0, 0, "", null, "", ArrayList())
+        val contactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
+        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), contactSource, 0, 0, "", null, "", ArrayList())
         contact_source.text = getPublicContactSource(contact!!.source)
         contact_source.setOnClickListener {
             showContactSourcePicker(contact!!.source) {

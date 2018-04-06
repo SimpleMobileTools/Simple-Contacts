@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.CONTACT_ID
@@ -30,7 +29,7 @@ class ViewContactActivity : ContactActivity() {
 
     override fun onResume() {
         super.onResume()
-        tryInitContact()
+        initContact()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -46,17 +45,6 @@ class ViewContactActivity : ContactActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
-    }
-
-    private fun tryInitContact() {
-        handlePermission(PERMISSION_READ_CONTACTS) {
-            if (it) {
-                initContact()
-            } else {
-                toast(R.string.no_contacts_permission)
-                finish()
-            }
-        }
     }
 
     private fun initContact() {
