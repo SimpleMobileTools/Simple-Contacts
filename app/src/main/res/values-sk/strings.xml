@@ -6,6 +6,8 @@
     <string name="updating">Upravuje sa…</string>
     <string name="phone_storage">Úložisko mobilu</string>
     <string name="phone_storage_hidden">Úložisko mobilu (neviditeľné pre ostatné apky)</string>
+    <string name="company">Firma</string>
+    <string name="job_position">Pracovná pozícia</string>
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>

@@ -267,7 +267,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val groupIds = Gson().fromJson<ArrayList<Long>>(groupIdsJson, groupIdsToken) ?: ArrayList(1)
                 val groups = storedGroups.filter { groupIds.contains(it.id) } as ArrayList<Group>
 
-                val organization = ""
+                val organization = Organization("", "")
 
                 val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, addresses, events, SMT_PRIVATE, starred,
                         id, "", photo, notes, groups, organization)

@@ -6,6 +6,8 @@
     <string name="updating">Ažuriranje...</string>
     <string name="phone_storage">Pohrana na telefonu</string>
     <string name="phone_storage_hidden">Pohrana na telefonu (nije vidljiva drugim aplikacijama))</string>
+    <string name="company">Company</string>
+    <string name="job_position">Job position</string>
 
     <string name="new_contact">Novi kontakt</string>
     <string name="edit_contact">Uredi kontakt</string>

@@ -386,7 +386,8 @@ class EditContactActivity : ContactActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
         val contactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
-        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), contactSource, 0, 0, "", null, "", ArrayList(), "")
+        val organization = Organization("", "")
+        contact = Contact(0, "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), contactSource, 0, 0, "", null, "", ArrayList(), organization)
         contact_source.text = getPublicContactSource(contact!!.source)
         contact_source.setOnClickListener {
             showContactSourcePicker(contact!!.source) {
@@ -602,6 +603,10 @@ class EditContactActivity : ContactActivity() {
             source = contact!!.source
             starred = if (isContactStarred()) 1 else 0
             notes = contact_notes.value
+
+            val company = contact_organization_company.value
+            val jobPosition = contact_organization_job_position.value
+            organization = Organization(company, jobPosition)
 
             Thread {
                 config.lastUsedContactSource = source

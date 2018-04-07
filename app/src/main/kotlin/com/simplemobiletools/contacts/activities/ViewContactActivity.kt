@@ -255,9 +255,11 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupOrganization() {
         val organization = contact!!.organization
-        contact_organization.text = organization
-        contact_organization_image.beVisibleIf(organization.isNotEmpty())
-        contact_organization.beVisibleIf(organization.isNotEmpty())
+        contact_organization_company.text = organization.company
+        contact_organization_job_position.text = organization.jobPosition
+        contact_organization_image.beGoneIf(organization.isEmpty())
+        contact_organization_company.beGoneIf(organization.company.isEmpty())
+        contact_organization_job_position.beGoneIf(organization.jobPosition.isEmpty())
     }
 
     private fun setupGroups() {

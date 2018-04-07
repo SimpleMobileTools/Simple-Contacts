@@ -24,12 +24,12 @@ class VcfImporter(val activity: SimpleActivity) {
     private var curSurname = ""
     private var curPhotoUri = ""
     private var curNotes = ""
-    private var curOrganization = ""
     private var curPhoneNumbers = ArrayList<PhoneNumber>()
     private var curEmails = ArrayList<Email>()
     private var curEvents = ArrayList<Event>()
     private var curAddresses = ArrayList<Address>()
     private var curGroups = ArrayList<Group>()
+    private var curOrganization = Organization("", "")
 
     private var isGettingPhoto = false
     private var currentPhotoString = StringBuilder()
@@ -249,12 +249,12 @@ class VcfImporter(val activity: SimpleActivity) {
         curSurname = ""
         curPhotoUri = ""
         curNotes = ""
-        curOrganization = ""
         curPhoneNumbers = ArrayList()
         curEmails = ArrayList()
         curEvents = ArrayList()
         curAddresses = ArrayList()
         curGroups = ArrayList()
+        curOrganization = Organization("", "")
 
         isGettingPhoto = false
         currentPhotoString = StringBuilder()

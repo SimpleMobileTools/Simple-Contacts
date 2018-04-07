@@ -6,6 +6,8 @@
     <string name="updating">Ενημέρωση...</string>
     <string name="phone_storage">Μνήμη τηλεφώνου</string>
     <string name="phone_storage_hidden">Μνήμη τηλεφώνου (δεν είναι ορατή από άλλες εφαρμογές)</string>
+    <string name="company">Company</string>
+    <string name="job_position">Job position</string>
 
     <string name="new_contact">Νέα επαφή</string>
     <string name="edit_contact">Επεξεργασία επαφής</string>

@@ -6,6 +6,8 @@
     <string name="updating">A atualizar…</string>
     <string name="phone_storage">Armazenamento do telefone</string>
     <string name="phone_storage_hidden">Armazenamento do telefone (não visível por outras alicações)</string>
+    <string name="company">Company</string>
+    <string name="job_position">Job position</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>

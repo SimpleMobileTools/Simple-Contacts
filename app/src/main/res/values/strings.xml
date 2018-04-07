@@ -6,6 +6,8 @@
     <string name="updating">Updating…</string>
     <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
+    <string name="company">Company</string>
+    <string name="job_position">Job position</string>
 
     <string name="new_contact">New contact</string>
     <string name="edit_contact">Edit contact</string>

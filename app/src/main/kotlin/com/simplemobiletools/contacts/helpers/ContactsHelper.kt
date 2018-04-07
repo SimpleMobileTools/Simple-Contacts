@@ -83,7 +83,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
                     val notes = ""
                     val groups = ArrayList<Group>()
-                    val organization = ""
+                    val organization = Organization("", "")
                     val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName,
                             starred, contactId, thumbnailUri, null, notes, groups, organization)
                     contacts.put(id, contact)
@@ -328,12 +328,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return notes
     }
 
-    private fun getOrganizations(contactId: Int? = null): SparseArray<String> {
-        val organizations = SparseArray<String>()
+    private fun getOrganizations(contactId: Int? = null): SparseArray<Organization> {
+        val organizations = SparseArray<Organization>()
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = arrayOf(
                 ContactsContract.Data.RAW_CONTACT_ID,
-                CommonDataKinds.Organization.COMPANY
+                CommonDataKinds.Organization.COMPANY,
+                CommonDataKinds.Organization.TITLE
         )
 
         var selection = "${ContactsContract.Data.MIMETYPE} = ?"
@@ -350,7 +351,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val organization = cursor.getStringValue(CommonDataKinds.Organization.COMPANY) ?: continue
+                    val company = cursor.getStringValue(CommonDataKinds.Organization.COMPANY) ?: continue
+                    val title = cursor.getStringValue(CommonDataKinds.Organization.TITLE) ?: continue
+                    val organization = Organization(company, title)
                     organizations.put(id, organization)
                 } while (cursor.moveToNext())
             }
@@ -551,7 +554,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                 val groups = getContactGroups(storedGroups, contactId)[contactId] ?: ArrayList()
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                val organization = getOrganizations(id)[id] ?: ""
+                val organization = getOrganizations(id)[id] ?: Organization("", "")
                 return Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName, starred, contactId,
                         thumbnailUri, null, notes, groups, organization)
             }
@@ -772,6 +775,18 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 operations.add(build())
             }
 
+            // organization
+            ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
+                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                withSelection(selection, selectionArgs)
+                withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
+                withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
+                withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
+                withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
+                operations.add(build())
+            }
+
             // delete groups
             val relevantGroupIDs = getStoredGroups().map { it.id }
             if (relevantGroupIDs.isNotEmpty()) {
@@ -952,6 +967,17 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                 withValue(ContactsContract.Data.MIMETYPE, Note.CONTENT_ITEM_TYPE)
                 withValue(Note.NOTE, contact.notes)
+                operations.add(build())
+            }
+
+            // organization
+            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
+                withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
+                withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
+                withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
                 operations.add(build())
             }
 

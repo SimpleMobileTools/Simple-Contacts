@@ -6,6 +6,8 @@
     <string name="updating">수정중…</string>
     <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
+    <string name="company">Company</string>
+    <string name="job_position">Job position</string>
 
     <string name="new_contact">새로운 연락처</string>
     <string name="edit_contact">연락처 수정</string>

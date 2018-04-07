@@ -6,6 +6,8 @@
     <string name="updating">Uppdaterar…</string>
     <string name="phone_storage">Telefonens lagringsutrymme</string>
     <string name="phone_storage_hidden">Telefonens lagringsutrymme (inte synligt för andra appar)</string>
+    <string name="company">Company</string>
+    <string name="job_position">Job position</string>
 
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>

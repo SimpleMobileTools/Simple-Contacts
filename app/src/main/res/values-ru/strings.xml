@@ -6,6 +6,8 @@
     <string name="updating">Обновление…</string>
     <string name="phone_storage">Память устройства</string>
     <string name="phone_storage_hidden">Память устройства (не видна другим приложениям)</string>
+    <string name="company">Company</string>
+    <string name="job_position">Job position</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>

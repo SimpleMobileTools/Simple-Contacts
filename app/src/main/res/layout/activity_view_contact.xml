@@ -243,7 +243,7 @@
             android:id="@+id/contact_organization_image"
             android:layout_width="@dimen/contact_icons_size"
             android:layout_height="@dimen/contact_icons_size"
-            android:layout_alignTop="@+id/contact_organization"
+            android:layout_alignTop="@+id/contact_organization_company"
             android:paddingBottom="@dimen/small_margin"
             android:paddingEnd="@dimen/small_margin"
             android:paddingRight="@dimen/small_margin"
@@ -251,10 +251,23 @@
             android:src="@drawable/ic_business"/>
 
         <com.simplemobiletools.commons.views.MyTextView
-            android:id="@+id/contact_organization"
+            android:id="@+id/contact_organization_company"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_notes"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/contact_organization_image"
+            android:lineSpacingExtra="@dimen/medium_margin"
+            android:paddingBottom="@dimen/normal_margin"
+            android:paddingLeft="@dimen/small_margin"
+            android:paddingTop="@dimen/normal_margin"
+            android:textSize="@dimen/bigger_text_size"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/contact_organization_job_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_organization_company"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/contact_organization_image"
             android:lineSpacingExtra="@dimen/medium_margin"
@@ -278,7 +291,7 @@
             android:id="@+id/contact_groups_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_organization"
+            android:layout_below="@+id/contact_organization_job_position"
             android:layout_toRightOf="@+id/contact_name_image"
             android:orientation="vertical"
             android:paddingLeft="@dimen/small_margin"/>
