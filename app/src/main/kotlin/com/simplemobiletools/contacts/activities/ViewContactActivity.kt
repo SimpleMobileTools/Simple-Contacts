@@ -137,6 +137,9 @@ class ViewContactActivity : ContactActivity() {
     private fun setupViewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         contact!!.apply {
+            contact_prefix.text = prefix
+            contact_prefix.beVisibleIf(prefix.isNotEmpty())
+
             contact_first_name.text = firstName
             contact_first_name.beVisibleIf(firstName.isNotEmpty())
 
@@ -146,7 +149,10 @@ class ViewContactActivity : ContactActivity() {
             contact_surname.text = surname
             contact_surname.beVisibleIf(surname.isNotEmpty())
 
-            if (firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty()) {
+            contact_suffix.text = suffix
+            contact_suffix.beVisibleIf(suffix.isNotEmpty())
+
+            if (prefix.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && suffix.isEmpty()) {
                 contact_name_image.beInvisible()
                 (contact_photo.layoutParams as RelativeLayout.LayoutParams).bottomMargin = resources.getDimension(R.dimen.medium_margin).toInt()
             }

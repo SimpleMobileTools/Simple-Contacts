@@ -232,9 +232,11 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         cursor.use {
             while (cursor.moveToNext()) {
                 val id = cursor.getIntValue(COL_ID)
+                val prefix = ""
                 val firstName = cursor.getStringValue(COL_FIRST_NAME)
                 val middleName = cursor.getStringValue(COL_MIDDLE_NAME)
                 val surname = cursor.getStringValue(COL_SURNAME)
+                val suffix = ""
 
                 val phoneNumbersJson = cursor.getStringValue(COL_PHONE_NUMBERS)
                 val phoneNumbersToken = object : TypeToken<List<PhoneNumber>>() {}.type
@@ -269,8 +271,8 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
                 val organization = Organization("", "")
 
-                val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, addresses, events, SMT_PRIVATE, starred,
-                        id, "", photo, notes, groups, organization)
+                val contact = Contact(id, prefix, firstName, middleName, surname, suffix, "", phoneNumbers, emails, addresses, events,
+                        SMT_PRIVATE, starred, id, "", photo, notes, groups, organization)
                 contacts.add(contact)
             }
         }

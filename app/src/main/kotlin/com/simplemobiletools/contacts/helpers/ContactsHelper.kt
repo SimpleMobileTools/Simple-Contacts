@@ -69,9 +69,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
+                    val prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
                     val firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
                     val middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
                     val surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
+                    val suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
                     val photoUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
                     val number = ArrayList<PhoneNumber>()       // proper value is obtained below
                     val emails = ArrayList<Email>()
@@ -84,8 +86,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     val notes = ""
                     val groups = ArrayList<Group>()
                     val organization = Organization("", "")
-                    val contact = Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName,
-                            starred, contactId, thumbnailUri, null, notes, groups, organization)
+                    val contact = Contact(id, prefix, firstName, middleName, surname, suffix, photoUri, number, emails, addresses, events,
+                            accountName, starred, contactId, thumbnailUri, null, notes, groups, organization)
                     contacts.put(id, contact)
                 } while (cursor.moveToNext())
             }
@@ -540,9 +542,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
+                val prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
                 val firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
                 val middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
                 val surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
+                val suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
                 val photoUri = cursor.getStringValue(CommonDataKinds.Phone.PHOTO_URI) ?: ""
                 val number = getPhoneNumbers(id)[id] ?: ArrayList()
                 val emails = getEmails(id)[id] ?: ArrayList()
@@ -555,8 +559,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val groups = getContactGroups(storedGroups, contactId)[contactId] ?: ArrayList()
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
                 val organization = getOrganizations(id)[id] ?: Organization("", "")
-                return Contact(id, firstName, middleName, surname, photoUri, number, emails, addresses, events, accountName, starred, contactId,
-                        thumbnailUri, null, notes, groups, organization)
+                return Contact(id, prefix, firstName, middleName, surname, suffix, photoUri, number, emails, addresses, events, accountName,
+                        starred, contactId, thumbnailUri, null, notes, groups, organization)
             }
         } finally {
             cursor?.close()
@@ -629,9 +633,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     private fun getContactProjection() = arrayOf(
             ContactsContract.Data.CONTACT_ID,
             ContactsContract.Data.RAW_CONTACT_ID,
+            CommonDataKinds.StructuredName.PREFIX,
             CommonDataKinds.StructuredName.GIVEN_NAME,
             CommonDataKinds.StructuredName.MIDDLE_NAME,
             CommonDataKinds.StructuredName.FAMILY_NAME,
+            CommonDataKinds.StructuredName.SUFFIX,
             CommonDataKinds.StructuredName.PHOTO_URI,
             CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI,
             CommonDataKinds.StructuredName.STARRED,

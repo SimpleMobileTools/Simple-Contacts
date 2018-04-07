@@ -5,7 +5,7 @@ import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 
-data class Contact(val id: Int, var firstName: String, var middleName: String, var surname: String, var photoUri: String,
+data class Contact(val id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var photoUri: String,
                    var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>, var events: ArrayList<Event>,
                    var source: String, var starred: Int, val contactId: Int, val thumbnailUri: String, var photo: Bitmap?, var notes: String,
                    var groups: ArrayList<Group>, var organization: Organization) : Comparable<Contact> {
@@ -38,8 +38,10 @@ data class Contact(val id: Int, var firstName: String, var middleName: String, v
         if (middleName.isNotEmpty()) {
             firstPart += " $middleName"
         }
+
         val lastPart = if (startWithSurname) firstName else surname
-        return "$firstPart $lastPart".trim()
+        val suffixComma = if (suffix.isEmpty()) "" else ", $suffix"
+        return "$prefix $firstPart $lastPart$suffixComma".trim()
     }
 
     private fun compareStrings(first: String, second: String): Int {
