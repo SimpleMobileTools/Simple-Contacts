@@ -6,8 +6,8 @@
     <string name="updating">A atualizar…</string>
     <string name="phone_storage">Armazenamento do telefone</string>
     <string name="phone_storage_hidden">Armazenamento do telefone (não visível por outras alicações)</string>
-    <string name="company">Company</string>
-    <string name="job_position">Job position</string>
+    <string name="company">Organização</string>
+    <string name="job_position">Cargo</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
@@ -42,7 +42,7 @@
     <string name="view_contact">Ver detalhes</string>
     <string name="show_favorites_tab">Mostrar favoritos</string>
     <string name="show_groups_tab">Mostrar grupos</string>
-    <string name="manage_shown_contact_fields">Manage shown contact fields</string>
+    <string name="manage_shown_contact_fields">Gerir campos a exibir</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>
@@ -83,17 +83,17 @@
     <string name="filename_without_vcf">Nome do ficheiro (sem .vcf)</string>
 
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Select fields to show</string>
-    <string name="prefix">Prefix</string>
-    <string name="suffix">Suffix</string>
-    <string name="phone_numbers">Phone numbers</string>
-    <string name="emails">Emails</string>
-    <string name="addresses">Addresses</string>
-    <string name="events">Events (birthdays, anniversaries)</string>
-    <string name="notes">Notes</string>
-    <string name="organization">Organization</string>
-    <string name="groups">Groups</string>
-    <string name="contact_source">Contact source</string>
+    <string name="select_fields_to_show">Selecione os campos a mostrar</string>
+    <string name="prefix">Prefixo</string>
+    <string name="suffix">Sufixo</string>
+    <string name="phone_numbers">Número de telefone</string>
+    <string name="emails">E-mail</string>
+    <string name="addresses">Endereço</string>
+    <string name="events">Eventos (data de nascimento, aniversário)</string>
+    <string name="notes">Notas</string>
+    <string name="organization">Organização</string>
+    <string name="groups">Grupos</string>
+    <string name="contact_source">Fonte do contacto</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">I don\'t need all those fields displayed at every contact. Can I somehow hide them?</string>
@@ -105,7 +105,7 @@
     <string name="app_long_description">
         Uma aplicação básica para criar e gerir contactos. Pode utilizar a aplicação guardar os contactos localmente, na sua conta Google ou em outro tipo de contas. Pode mostrar os contactos favoritos numa lista distinta.
 
-        Também pode utilizar a plicação para gerir endereços de e-mail e eventos. Tem a capacidade de ordenar/filtrar por diversos parâmetros e também a possibilidade de diversas formas de exibição dos contactos.
+        Também pode utilizar a aplicação para gerir endereços de e-mail e eventos. Tem a capacidade de ordenar/filtrar por diversos parâmetros e também a possibilidade de diversas formas de exibição dos contactos.
 
         Não contém anúncios ou permissões desnecessárias. É totalmente open source e permite personalização de cores.
 
