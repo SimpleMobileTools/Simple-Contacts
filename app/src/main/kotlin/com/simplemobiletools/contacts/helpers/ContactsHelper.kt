@@ -690,9 +690,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
                 val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
+                withValue(CommonDataKinds.StructuredName.PREFIX, contact.prefix)
                 withValue(CommonDataKinds.StructuredName.GIVEN_NAME, contact.firstName)
                 withValue(CommonDataKinds.StructuredName.MIDDLE_NAME, contact.middleName)
                 withValue(CommonDataKinds.StructuredName.FAMILY_NAME, contact.surname)
+                withValue(CommonDataKinds.StructuredName.SUFFIX, contact.suffix)
                 operations.add(build())
             }
 
@@ -918,9 +920,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
                 withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                 withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                withValue(CommonDataKinds.StructuredName.PREFIX, contact.prefix)
                 withValue(CommonDataKinds.StructuredName.GIVEN_NAME, contact.firstName)
                 withValue(CommonDataKinds.StructuredName.MIDDLE_NAME, contact.middleName)
                 withValue(CommonDataKinds.StructuredName.FAMILY_NAME, contact.surname)
+                withValue(CommonDataKinds.StructuredName.SUFFIX, contact.suffix)
                 operations.add(build())
             }
 

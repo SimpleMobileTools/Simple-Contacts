@@ -242,9 +242,11 @@ class EditContactActivity : ContactActivity() {
     private fun setupEditContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         supportActionBar?.title = resources.getString(R.string.edit_contact)
+        contact_prefix.setText(contact!!.prefix)
         contact_first_name.setText(contact!!.firstName)
         contact_middle_name.setText(contact!!.middleName)
         contact_surname.setText(contact!!.surname)
+        contact_suffix.setText(contact!!.suffix)
         contact_source.text = getPublicContactSource(contact!!.source)
 
         setupPhoneNumbers()
@@ -599,9 +601,11 @@ class EditContactActivity : ContactActivity() {
         contact!!.apply {
             val oldPhotoUri = photoUri
 
+            prefix = contact_prefix.value
             firstName = contact_first_name.value
             middleName = contact_middle_name.value
             surname = contact_surname.value
+            suffix = contact_suffix.value
             photoUri = currentContactPhotoPath
             phoneNumbers = getFilledPhoneNumbers()
             emails = getFilledEmails()
