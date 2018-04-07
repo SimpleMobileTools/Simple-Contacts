@@ -176,6 +176,7 @@ class EditContactActivity : ContactActivity() {
         contact_notes_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
         contact_groups_image.applyColorFilter(textColor)
+        contact_organization_image.applyColorFilter(textColor)
 
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
         contact_number_add_new.applyColorFilter(adjustedPrimaryColor)
@@ -250,6 +251,7 @@ class EditContactActivity : ContactActivity() {
         setupEmails()
         setupAddresses()
         setupNotes()
+        setupOrganization()
         setupEvents()
         setupGroups()
     }
@@ -301,6 +303,11 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupNotes() {
         contact_notes.setText(contact!!.notes)
+    }
+
+    private fun setupOrganization() {
+        contact_organization_company.setText(contact!!.organization.company)
+        contact_organization_job_position.setText(contact!!.organization.jobPosition)
     }
 
     private fun setupEvents() {
