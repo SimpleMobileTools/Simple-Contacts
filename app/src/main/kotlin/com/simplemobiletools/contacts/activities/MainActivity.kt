@@ -39,6 +39,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
     private var werePermissionsHandled = false
+    private var isFirstResume = true
+    private var isGettingContacts = false
 
     private var storedTextColor = 0
     private var storedBackgroundColor = 0
@@ -116,16 +118,18 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             favorites_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
         }
 
-        if (werePermissionsHandled) {
+        if (werePermissionsHandled && !isFirstResume) {
             if (viewpager.adapter == null) {
                 initFragments()
+            } else {
+                refreshContacts(ALL_TABS_MASK)
             }
 
             getAllFragments().forEach {
                 it?.onActivityResume()
             }
-            refreshContacts(ALL_TABS_MASK)
         }
+        isFirstResume = false
     }
 
     override fun onPause() {
@@ -396,11 +400,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     override fun refreshContacts(refreshTabsMask: Int) {
-        if (isActivityDestroyed()) {
+        if (isActivityDestroyed() || isGettingContacts) {
             return
         }
 
+        isGettingContacts = true
         ContactsHelper(this).getContacts {
+            isGettingContacts = false
             if (isActivityDestroyed()) {
                 return@getContacts
             }
