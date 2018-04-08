@@ -96,7 +96,7 @@
     <string name="contact_source">Zdroje kontaktov</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">Nechcem mať zobrazené všetky tie polia pri kontaktoch, viem ich nejako skryť?</string>
+    <string name="faq_1_title">Chcem upraviť viditeľné polia kontaktov. Dá sa to?</string>
     <string name="faq_1_text">Áno, stačí ísť do Nastavenia -> Spravovať zobrazené polia kontaktov. Tam si viete zvoliť, ktoré polia majú byť viditeľné. Niektoré sú v predvolenom stave vypnuté, čiže tam môžete objaviť aj nové.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
