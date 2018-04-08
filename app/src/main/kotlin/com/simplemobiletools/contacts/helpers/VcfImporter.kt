@@ -31,7 +31,8 @@ class VcfImporter(val activity: SimpleActivity) {
     private var curEvents = ArrayList<Event>()
     private var curAddresses = ArrayList<Address>()
     private var curGroups = ArrayList<Group>()
-    private var curOrganization = Organization("", "")
+    private var curCompany = ""
+    private var curJobPosition = ""
 
     private var isGettingPhoto = false
     private var currentPhotoString = StringBuilder()
@@ -87,6 +88,8 @@ class VcfImporter(val activity: SimpleActivity) {
                         line.toUpperCase().startsWith(BDAY) -> addBirthday(line.substring(BDAY.length))
                         line.toUpperCase().startsWith(ANNIVERSARY) -> addAnniversary(line.substring(ANNIVERSARY.length))
                         line.toUpperCase().startsWith(PHOTO) -> addPhoto(line.substring(PHOTO.length))
+                        line.toUpperCase().startsWith(ORG) -> addCompany(line.substring(ORG.length))
+                        line.toUpperCase().startsWith(TITLE) -> addJobPosition(line.substring(TITLE.length))
                         line.toUpperCase() == END_VCARD -> saveContact(targetContactSource)
                         isGettingPhoto -> currentPhotoString.append(line.trim())
                     }
@@ -121,6 +124,8 @@ class VcfImporter(val activity: SimpleActivity) {
         curFirstName = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[1]) else nameParts[1]
         if (nameParts.size > 2) {
             curMiddleName = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[2]) else nameParts[2]
+            curPrefix = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[3]) else nameParts[3]
+            curSuffix = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[4]) else nameParts[4]
         }
     }
 
@@ -237,9 +242,18 @@ class VcfImporter(val activity: SimpleActivity) {
         isGettingNotes = true
     }
 
+    private fun addCompany(company: String) {
+        curCompany = company
+    }
+
+    private fun addJobPosition(jobPosition: String) {
+        curJobPosition = jobPosition
+    }
+
     private fun saveContact(source: String) {
+        val organization = Organization(curCompany, curJobPosition)
         val contact = Contact(0, curPrefix, curFirstName, curMiddleName, curSurname, curSuffix, curPhotoUri, curPhoneNumbers, curEmails, curAddresses, curEvents,
-                source, 0, 0, "", null, curNotes, curGroups, curOrganization)
+                source, 0, 0, "", null, curNotes, curGroups, organization)
         if (ContactsHelper(activity).insertContact(contact)) {
             contactsImported++
         }
@@ -258,7 +272,8 @@ class VcfImporter(val activity: SimpleActivity) {
         curEvents = ArrayList()
         curAddresses = ArrayList()
         curGroups = ArrayList()
-        curOrganization = Organization("", "")
+        curCompany = ""
+        curJobPosition = ""
 
         isGettingPhoto = false
         currentPhotoString = StringBuilder()
