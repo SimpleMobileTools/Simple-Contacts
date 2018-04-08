@@ -59,6 +59,7 @@ class EditContactActivity : ContactActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_contact)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross)
+        showFields = config.showContactFields
 
         val action = intent.action
         isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT_OR_EDIT || action == Intent.ACTION_INSERT
