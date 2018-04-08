@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/manage_visible_fields_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/manage_visible_fields_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_margin"
+        android:paddingRight="@dimen/activity_margin"
+        android:paddingTop="@dimen/activity_margin">
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_prefix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/prefix"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/first_name"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_middle_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/middle_name"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_surname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/surname"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_suffix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/suffix"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_phone_numbers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/phone_numbers"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_emails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/emails"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_addresses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/addresses"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_events"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/events"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/notes"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_organization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/organization"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_groups"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/groups"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_contact_source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/contact_source"/>
+
+    </LinearLayout>
+</ScrollView>

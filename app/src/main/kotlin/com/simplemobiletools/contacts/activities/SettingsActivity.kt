@@ -6,6 +6,7 @@ import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ON_CLICK_CALL_CONTACT
 import com.simplemobiletools.contacts.helpers.ON_CLICK_EDIT_CONTACT
@@ -42,7 +43,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupManageShownContactFields() {
         settings_manage_contact_fields_holder.setOnClickListener {
-
+            ManageVisibleFieldsDialog(this)
         }
     }
 
