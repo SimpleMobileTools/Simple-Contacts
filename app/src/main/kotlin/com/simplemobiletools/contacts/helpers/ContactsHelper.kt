@@ -24,6 +24,7 @@ import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.models.*
 
 class ContactsHelper(val activity: BaseSimpleActivity) {
+    private val BATCH_SIZE = 100
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
         Thread {
             val contacts = SparseArray<Contact>()
@@ -886,6 +887,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 withValue(CommonDataKinds.GroupMembership.GROUP_ROW_ID, groupId)
                 operations.add(build())
             }
+
+            if (operations.size % BATCH_SIZE == 0) {
+                activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                operations.clear()
+            }
         }
         activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
     }
@@ -898,6 +904,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val selectionArgs = arrayOf(it.contactId.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, groupId.toString())
                 withSelection(selection, selectionArgs)
                 operations.add(build())
+            }
+
+            if (operations.size % BATCH_SIZE == 0) {
+                activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                operations.clear()
             }
         }
         activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
@@ -1117,7 +1128,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
     }
 
     private fun toggleFavorites(contacts: ArrayList<Contact>, addToFavorites: Boolean) {
-        val applyBatchSize = 100
         try {
             val operations = ArrayList<ContentProviderOperation>()
             contacts.filter { it.source != SMT_PRIVATE }.map { it.contactId.toString() }.forEach {
@@ -1127,7 +1137,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     operations.add(build())
                 }
 
-                if (operations.size % applyBatchSize == 0) {
+                if (operations.size % BATCH_SIZE == 0) {
                     activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
                     operations.clear()
                 }
