@@ -1,6 +1,15 @@
 Changelog
 ==========
 
+Version 3.5.0 *(2018-04-08)*
+----------------------------
+
+ * Added name prefix/suffix and contact organizations (hidden by default)
+ * Added a settings item "Manage shown contact fields" for customizing visible contact details, with some fields disabled by default
+ * Allow using the app without granting Contacts permission, rely on local secret storage only
+ * Dial the selected contact if Call permission is not granted
+ * Many performance improvements and smaller bugfixes
+
 Version 3.4.0 *(2018-03-21)*
 ----------------------------
 
