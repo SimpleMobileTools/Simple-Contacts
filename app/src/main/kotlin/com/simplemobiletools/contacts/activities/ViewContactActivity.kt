@@ -118,9 +118,9 @@ class ViewContactActivity : ContactActivity() {
         contact_start_call.applyColorFilter(textColor)
         contact_send_email.applyColorFilter(textColor)
         contact_name_image.applyColorFilter(textColor)
-        contact_number_image.applyColorFilter(textColor)
-        contact_email_image.applyColorFilter(textColor)
-        contact_event_image.applyColorFilter(textColor)
+        contact_numbers_image.applyColorFilter(textColor)
+        contact_emails_image.applyColorFilter(textColor)
+        contact_events_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
         contact_notes_image.applyColorFilter(textColor)
         contact_organization_image.applyColorFilter(textColor)
@@ -199,10 +199,10 @@ class ViewContactActivity : ContactActivity() {
                     }
                 }
             }
-            contact_number_image.beVisible()
+            contact_numbers_image.beVisible()
             contact_numbers_holder.beVisible()
         } else {
-            contact_number_image.beGone()
+            contact_numbers_image.beGone()
             contact_numbers_holder.beGone()
         }
     }
@@ -223,10 +223,10 @@ class ViewContactActivity : ContactActivity() {
                     }
                 }
             }
-            contact_email_image.beVisible()
+            contact_emails_image.beVisible()
             contact_emails_holder.beVisible()
         } else {
-            contact_email_image.beGone()
+            contact_emails_image.beGone()
             contact_emails_holder.beGone()
         }
     }
@@ -247,10 +247,10 @@ class ViewContactActivity : ContactActivity() {
                     }
                 }
             }
-            contact_address_image.beVisible()
+            contact_addresses_image.beVisible()
             contact_addresses_holder.beVisible()
         } else {
-            contact_address_image.beGone()
+            contact_addresses_image.beGone()
             contact_addresses_holder.beGone()
         }
     }
@@ -268,10 +268,10 @@ class ViewContactActivity : ContactActivity() {
                     contact_event_remove.beGone()
                 }
             }
-            contact_event_image.beVisible()
+            contact_events_image.beVisible()
             contact_events_holder.beVisible()
         } else {
-            contact_event_image.beGone()
+            contact_events_image.beGone()
             contact_events_holder.beGone()
         }
     }
