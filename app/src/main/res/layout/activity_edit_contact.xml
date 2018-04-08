@@ -96,7 +96,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_photo"
             android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/normal_margin"
             android:layout_toRightOf="@+id/contact_name_image"
             android:hint="@string/prefix"
             android:inputType="textCapWords"
