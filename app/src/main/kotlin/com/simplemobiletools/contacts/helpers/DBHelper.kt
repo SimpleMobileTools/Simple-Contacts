@@ -242,6 +242,13 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         val contacts = ArrayList<Contact>()
         val projection = arrayOf(COL_ID, COL_PREFIX, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_SUFFIX, COL_PHONE_NUMBERS, COL_EMAILS,
                 COL_EVENTS, COL_STARRED, COL_PHOTO, COL_ADDRESSES, COL_NOTES, COL_GROUPS, COL_COMPANY, COL_JOB_POSITION)
+
+        val phoneNumbersToken = object : TypeToken<List<PhoneNumber>>() {}.type
+        val emailsToken = object : TypeToken<List<Email>>() {}.type
+        val addressesToken = object : TypeToken<List<Address>>() {}.type
+        val eventsToken = object : TypeToken<List<Event>>() {}.type
+        val groupIdsToken = object : TypeToken<List<Long>>() {}.type
+
         val cursor = mDb.query(CONTACTS_TABLE_NAME, projection, selection, selectionArgs, null, null, null)
         cursor.use {
             while (cursor.moveToNext()) {
@@ -253,19 +260,15 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val suffix = cursor.getStringValue(COL_SUFFIX)
 
                 val phoneNumbersJson = cursor.getStringValue(COL_PHONE_NUMBERS)
-                val phoneNumbersToken = object : TypeToken<List<PhoneNumber>>() {}.type
                 val phoneNumbers = Gson().fromJson<ArrayList<PhoneNumber>>(phoneNumbersJson, phoneNumbersToken) ?: ArrayList(1)
 
                 val emailsJson = cursor.getStringValue(COL_EMAILS)
-                val emailsToken = object : TypeToken<List<Email>>() {}.type
                 val emails = Gson().fromJson<ArrayList<Email>>(emailsJson, emailsToken) ?: ArrayList(1)
 
                 val addressesJson = cursor.getStringValue(COL_ADDRESSES)
-                val addressesToken = object : TypeToken<List<Address>>() {}.type
                 val addresses = Gson().fromJson<ArrayList<Address>>(addressesJson, addressesToken) ?: ArrayList(1)
 
                 val eventsJson = cursor.getStringValue(COL_EVENTS)
-                val eventsToken = object : TypeToken<List<Event>>() {}.type
                 val events = Gson().fromJson<ArrayList<Event>>(eventsJson, eventsToken) ?: ArrayList(1)
 
                 val photoByteArray = cursor.getBlobValue(COL_PHOTO) ?: null
@@ -279,7 +282,6 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val starred = cursor.getIntValue(COL_STARRED)
 
                 val groupIdsJson = cursor.getStringValue(COL_GROUPS)
-                val groupIdsToken = object : TypeToken<List<Long>>() {}.type
                 val groupIds = Gson().fromJson<ArrayList<Long>>(groupIdsJson, groupIdsToken) ?: ArrayList(1)
                 val groups = storedGroups.filter { groupIds.contains(it.id) } as ArrayList<Group>
 
