@@ -236,7 +236,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     private fun setupView(view: View, contact: Contact) {
         view.apply {
-            contact_name.text = contact.getFullName(startNameWithSurname)
+            contact_name.text = contact.getFullName()
             contact_name.setTextColor(textColor)
             contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
 

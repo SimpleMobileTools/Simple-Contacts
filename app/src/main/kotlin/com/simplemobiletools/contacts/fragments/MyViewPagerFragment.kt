@@ -233,7 +233,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun onSearchQueryChanged(text: String) {
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             val filtered = contactsIgnoringSearch.filter {
-                it.getFullName(startNameWithSurname).contains(text, true) ||
+                it.getFullName().contains(text, true) ||
                         it.phoneNumbers.any { it.value.contains(text, true) } ||
                         it.emails.any { it.value.contains(text, true) } ||
                         it.addresses.any { it.value.contains(text, true) } ||
@@ -243,8 +243,9 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             } as ArrayList
 
             Contact.sorting = config.sorting
+            Contact.startWithSurname = config.startNameWithSurname
             filtered.sort()
-            filtered.sortBy { !it.getFullName(startNameWithSurname).startsWith(text, true) }
+            filtered.sortBy { !it.getFullName().startsWith(text, true) }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
                 fragment_placeholder.text = activity.getString(R.string.no_items_found)

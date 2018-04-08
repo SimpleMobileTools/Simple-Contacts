@@ -11,13 +11,44 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
                    var groups: ArrayList<Group>, var organization: Organization) : Comparable<Contact> {
     companion object {
         var sorting = 0
+        var startWithSurname = false
     }
 
     override fun compareTo(other: Contact): Int {
-        var result = when {
-            sorting and SORT_BY_FIRST_NAME != 0 -> compareStrings(firstName, other.firstName)
-            sorting and SORT_BY_MIDDLE_NAME != 0 -> compareStrings(middleName, other.middleName)
-            else -> compareStrings(surname, other.surname)
+        val firstString: String
+        val secondString: String
+
+        when {
+            sorting and SORT_BY_FIRST_NAME != 0 -> {
+                firstString = firstName
+                secondString = other.firstName
+            }
+            sorting and SORT_BY_MIDDLE_NAME != 0 -> {
+                firstString = middleName
+                secondString = other.middleName
+            }
+            else -> {
+                firstString = surname
+                secondString = other.surname
+            }
+        }
+
+        var result = if (firstString.firstOrNull()?.isLetter() == true && secondString.firstOrNull()?.isLetter() == false) {
+            -1
+        } else if (firstString.firstOrNull()?.isLetter() == false && secondString.firstOrNull()?.isLetter() == true) {
+            1
+        } else {
+            if (firstString.isEmpty() && secondString.isNotEmpty()) {
+                1
+            } else if (firstString.isNotEmpty() && secondString.isEmpty()) {
+                -1
+            } else {
+                if (firstString.toLowerCase() == secondString.toLowerCase()) {
+                    getFullName().compareTo(other.getFullName())
+                } else {
+                    firstString.toLowerCase().compareTo(secondString.toLowerCase())
+                }
+            }
         }
 
         if (sorting and SORT_DESCENDING != 0) {
@@ -33,7 +64,7 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
         else -> surname
     }
 
-    fun getFullName(startWithSurname: Boolean): String {
+    fun getFullName(): String {
         var firstPart = if (startWithSurname) surname else firstName
         if (middleName.isNotEmpty()) {
             firstPart += " $middleName"
@@ -42,21 +73,5 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
         val lastPart = if (startWithSurname) firstName else surname
         val suffixComma = if (suffix.isEmpty()) "" else ", $suffix"
         return "$prefix $firstPart $lastPart$suffixComma".trim()
-    }
-
-    private fun compareStrings(first: String, second: String): Int {
-        return if (first.firstOrNull()?.isLetter() == true && second.firstOrNull()?.isLetter() == false) {
-            -1
-        } else if (first.firstOrNull()?.isLetter() == false && second.firstOrNull()?.isLetter() == true) {
-            1
-        } else {
-            if (first.isEmpty() && second.isNotEmpty()) {
-                1
-            } else if (first.isNotEmpty() && second.isEmpty()) {
-                -1
-            } else {
-                first.toLowerCase().compareTo(second.toLowerCase())
-            }
-        }
     }
 }
