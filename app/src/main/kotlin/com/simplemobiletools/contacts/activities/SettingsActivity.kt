@@ -23,6 +23,7 @@ class SettingsActivity : SimpleActivity() {
         super.onResume()
 
         setupCustomizeColors()
+        setupManageShownContactFields()
         setupUseEnglish()
         setupAvoidWhatsNew()
         setupShowInfoBubble()
@@ -36,6 +37,12 @@ class SettingsActivity : SimpleActivity() {
     private fun setupCustomizeColors() {
         settings_customize_colors_holder.setOnClickListener {
             startCustomizationActivity()
+        }
+    }
+
+    private fun setupManageShownContactFields() {
+        settings_manage_contact_fields_holder.setOnClickListener {
+
         }
     }
 

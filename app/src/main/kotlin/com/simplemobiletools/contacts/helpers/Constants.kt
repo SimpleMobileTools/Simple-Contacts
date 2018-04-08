@@ -9,6 +9,7 @@ const val LAST_USED_CONTACT_SOURCE = "last_used_contact_source"
 const val LOCAL_ACCOUNT_NAME = "local_account_name"
 const val LOCAL_ACCOUNT_TYPE = "local_account_type"
 const val ON_CONTACT_CLICK = "on_contact_click"
+const val SHOW_CONTACT_FIELDS = "show_contact_fields"
 
 const val CONTACT_ID = "contact_id"
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
@@ -66,3 +67,18 @@ const val VOICE = "VOICE"
 const val ON_CLICK_CALL_CONTACT = 1
 const val ON_CLICK_VIEW_CONTACT = 2
 const val ON_CLICK_EDIT_CONTACT = 3
+
+// visible fields filtering
+const val SHOW_PREFIX_FIELD = 1
+const val SHOW_FIRST_NAME_FIELD = 2
+const val SHOW_MIDDLE_NAME_FIELD = 4
+const val SHOW_SURNAME_FIELD = 8
+const val SHOW_SUFFIX_FIELD = 16
+const val SHOW_PHONE_NUMBERS_FIELD = 32
+const val SHOW_EMAILS_FIELD = 64
+const val SHOW_ADDRESSES_FIELD = 128
+const val SHOW_EVENTS_FIELD = 256
+const val SHOW_NOTES_FIELD = 512
+const val SHOW_ORGANIZATION_FIELD = 1024
+const val SHOW_GROUPS_FIELD = 2048
+const val SHOW_CONTACT_SOURCE_FIELD = 4096
