@@ -293,6 +293,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
             tryImportContactsFromFile(intent.data)
+            intent.data = null
         }
     }
 
