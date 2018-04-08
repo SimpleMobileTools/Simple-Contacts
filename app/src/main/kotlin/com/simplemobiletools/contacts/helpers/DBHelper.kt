@@ -50,6 +50,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         private const val DB_VERSION = 4
         const val DB_NAME = "contacts.db"
         var dbInstance: DBHelper? = null
+        var gson = Gson()
 
         fun newInstance(context: Context): DBHelper {
             if (dbInstance == null)
@@ -124,13 +125,13 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
             put(COL_MIDDLE_NAME, contact.middleName)
             put(COL_SURNAME, contact.surname)
             put(COL_SUFFIX, contact.suffix)
-            put(COL_PHONE_NUMBERS, Gson().toJson(contact.phoneNumbers))
-            put(COL_EMAILS, Gson().toJson(contact.emails))
-            put(COL_ADDRESSES, Gson().toJson(contact.addresses))
-            put(COL_EVENTS, Gson().toJson(contact.events))
+            put(COL_PHONE_NUMBERS, gson.toJson(contact.phoneNumbers))
+            put(COL_EMAILS, gson.toJson(contact.emails))
+            put(COL_ADDRESSES, gson.toJson(contact.addresses))
+            put(COL_EVENTS, gson.toJson(contact.events))
             put(COL_STARRED, contact.starred)
             put(COL_NOTES, contact.notes)
-            put(COL_GROUPS, Gson().toJson(contact.groups.map { it.id }))
+            put(COL_GROUPS, gson.toJson(contact.groups.map { it.id }))
             put(COL_COMPANY, contact.organization.company)
             put(COL_JOB_POSITION, contact.organization.jobPosition)
 
@@ -233,7 +234,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
     private fun fillContactGroupValues(groupIds: ArrayList<Long>): ContentValues {
         return ContentValues().apply {
-            put(COL_GROUPS, Gson().toJson(groupIds))
+            put(COL_GROUPS, gson.toJson(groupIds))
         }
     }
 
@@ -260,16 +261,20 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val suffix = cursor.getStringValue(COL_SUFFIX)
 
                 val phoneNumbersJson = cursor.getStringValue(COL_PHONE_NUMBERS)
-                val phoneNumbers = Gson().fromJson<ArrayList<PhoneNumber>>(phoneNumbersJson, phoneNumbersToken) ?: ArrayList(1)
+                val phoneNumbers = if (phoneNumbersJson == "[]") ArrayList() else gson.fromJson<ArrayList<PhoneNumber>>(phoneNumbersJson, phoneNumbersToken)
+                        ?: ArrayList(1)
 
                 val emailsJson = cursor.getStringValue(COL_EMAILS)
-                val emails = Gson().fromJson<ArrayList<Email>>(emailsJson, emailsToken) ?: ArrayList(1)
+                val emails = if (emailsJson == "[]") ArrayList() else gson.fromJson<ArrayList<Email>>(emailsJson, emailsToken)
+                        ?: ArrayList(1)
 
                 val addressesJson = cursor.getStringValue(COL_ADDRESSES)
-                val addresses = Gson().fromJson<ArrayList<Address>>(addressesJson, addressesToken) ?: ArrayList(1)
+                val addresses = if (addressesJson == "[]") ArrayList() else gson.fromJson<ArrayList<Address>>(addressesJson, addressesToken)
+                        ?: ArrayList(1)
 
                 val eventsJson = cursor.getStringValue(COL_EVENTS)
-                val events = Gson().fromJson<ArrayList<Event>>(eventsJson, eventsToken) ?: ArrayList(1)
+                val events = if (eventsJson == "[]") ArrayList() else gson.fromJson<ArrayList<Event>>(eventsJson, eventsToken)
+                        ?: ArrayList(1)
 
                 val photoByteArray = cursor.getBlobValue(COL_PHOTO) ?: null
                 val photo = if (photoByteArray?.isNotEmpty() == true) {
@@ -282,7 +287,8 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val starred = cursor.getIntValue(COL_STARRED)
 
                 val groupIdsJson = cursor.getStringValue(COL_GROUPS)
-                val groupIds = Gson().fromJson<ArrayList<Long>>(groupIdsJson, groupIdsToken) ?: ArrayList(1)
+                val groupIds = if (groupIdsJson == "[]") ArrayList() else gson.fromJson<ArrayList<Long>>(groupIdsJson, groupIdsToken)
+                        ?: ArrayList(1)
                 val groups = storedGroups.filter { groupIds.contains(it.id) } as ArrayList<Group>
 
                 val company = cursor.getStringValue(COL_COMPANY)
