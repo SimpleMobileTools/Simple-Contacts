@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 3.5.1 *(2018-04-10)*
+----------------------------
+
+ * Show the organization name as the contact name in case only that is filled
+ * Fix "Start name with surname"
+
 Version 3.5.0 *(2018-04-08)*
 ----------------------------
 
