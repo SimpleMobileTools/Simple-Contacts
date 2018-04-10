@@ -153,6 +153,7 @@ fun Context.getPhotoThumbnailSize(): Int {
         if (cursor?.moveToFirst() == true) {
             return cursor.getIntValue(ContactsContract.DisplayPhoto.THUMBNAIL_MAX_DIM)
         }
+    } catch (ignored: Exception) {
     } finally {
         cursor?.close()
     }
