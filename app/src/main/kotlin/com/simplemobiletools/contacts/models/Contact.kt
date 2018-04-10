@@ -72,6 +72,13 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
 
         val lastPart = if (startWithSurname) firstName else surname
         val suffixComma = if (suffix.isEmpty()) "" else ", $suffix"
-        return "$prefix $firstPart $lastPart$suffixComma".trim()
+        val fullName = "$prefix $firstPart $lastPart$suffixComma".trim()
+        return if (fullName.isEmpty()) {
+            var fullOrganization = if (organization.jobPosition.isEmpty()) "" else "${organization.jobPosition}, "
+            fullOrganization += organization.company
+            fullOrganization.trim().trimEnd(',')
+        } else {
+            fullName
+        }
     }
 }
