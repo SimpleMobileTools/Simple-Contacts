@@ -49,6 +49,7 @@ class EditContactActivity : ContactActivity() {
     private val REMOVE_PHOTO = 3
 
     private val KEY_PHONE = "phone"
+    private val KEY_NAME = "name"
 
     private var wasActivityInitialized = false
     private var lastPhotoIntentUri: Uri? = null
@@ -150,6 +151,9 @@ class EditContactActivity : ContactActivity() {
             val phoneNumber = intent.extras.get(KEY_PHONE).toString()
             contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE))
             setupPhoneNumbers()
+
+            val contactFullName = intent.extras.get(KEY_NAME).toString()
+            contact_first_name.setText(contactFullName)
         }
 
         setupTypePickers()
