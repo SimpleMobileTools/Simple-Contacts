@@ -92,6 +92,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
 
         Contact.sorting = config.sorting
+        Contact.startWithSurname = config.startNameWithSurname
         contacts.sort()
         allContacts = contacts
 

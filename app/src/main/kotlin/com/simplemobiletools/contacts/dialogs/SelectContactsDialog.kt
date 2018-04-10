@@ -29,6 +29,7 @@ class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayL
         }
 
         Contact.sorting = activity.config.sorting
+        Contact.startWithSurname = activity.config.startNameWithSurname
         allContacts.sort()
 
         activity.runOnUiThread {
