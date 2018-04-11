@@ -97,7 +97,7 @@
 
     <!-- FAQ -->
     <string name="faq_1_title">Je veux changer quelles champs sont visibles. Est-ce que je peux ?</string>
-    <string name="faq_1_text">Oui, tout ce que vous avez à faire c'est d\'aller dans Paramètres -> Configurer l\'affichage des champs de contact. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_text">Oui, tout ce que vous avez à faire c'est d\'aller dans Paramètres -> Configurer l\'affichage des champs de contact. Ici vous pouvez sélectionner quelles champs vous voulez afficher. Certains sont désactivés par défaut, ainsi vous pourrez y trouver des nouveaux champs.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
