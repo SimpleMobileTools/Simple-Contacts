@@ -38,6 +38,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     private val COL_COMPANY = "company"
     private val COL_JOB_POSITION = "job_position"
     private val COL_GROUPS = "groups"
+    private val COL_WEBSITES = "websites"
 
     private val GROUPS_TABLE_NAME = "groups"
     private val COL_TITLE = "title"
@@ -47,7 +48,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     private val mDb = writableDatabase
 
     companion object {
-        private const val DB_VERSION = 4
+        private const val DB_VERSION = 5
         const val DB_NAME = "contacts.db"
         var dbInstance: DBHelper? = null
         var gson = Gson()
@@ -63,7 +64,8 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE $CONTACTS_TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_FIRST_NAME TEXT, $COL_MIDDLE_NAME TEXT, " +
                 "$COL_SURNAME TEXT, $COL_PHOTO BLOB, $COL_PHONE_NUMBERS TEXT, $COL_EMAILS TEXT, $COL_EVENTS TEXT, $COL_STARRED INTEGER, " +
-                "$COL_ADDRESSES TEXT, $COL_NOTES TEXT, $COL_GROUPS TEXT, $COL_PREFIX TEXT, $COL_SUFFIX TEXT, $COL_COMPANY TEXT, $COL_JOB_POSITION TEXT)")
+                "$COL_ADDRESSES TEXT, $COL_NOTES TEXT, $COL_GROUPS TEXT, $COL_PREFIX TEXT, $COL_SUFFIX TEXT, $COL_COMPANY TEXT, $COL_JOB_POSITION TEXT," +
+                "$COL_WEBSITES TEXT)")
 
         // start autoincrement ID from FIRST_CONTACT_ID to avoid conflicts
         db.execSQL("REPLACE INTO sqlite_sequence (name, seq) VALUES ('$CONTACTS_TABLE_NAME', $FIRST_CONTACT_ID)")
@@ -87,6 +89,10 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
             db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_SUFFIX TEXT DEFAULT ''")
             db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_COMPANY TEXT DEFAULT ''")
             db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_JOB_POSITION TEXT DEFAULT ''")
+        }
+
+        if (oldVersion < 5) {
+            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_WEBSITES TEXT DEFAULT ''")
         }
     }
 
@@ -134,6 +140,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
             put(COL_GROUPS, gson.toJson(contact.groups.map { it.id }))
             put(COL_COMPANY, contact.organization.company)
             put(COL_JOB_POSITION, contact.organization.jobPosition)
+            put(COL_WEBSITES, gson.toJson(contact.websites))
 
             if (contact.photoUri.isNotEmpty()) {
                 put(COL_PHOTO, getPhotoByteArray(contact.photoUri))
@@ -242,13 +249,14 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         val storedGroups = ContactsHelper(activity).getStoredGroups()
         val contacts = ArrayList<Contact>()
         val projection = arrayOf(COL_ID, COL_PREFIX, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_SUFFIX, COL_PHONE_NUMBERS, COL_EMAILS,
-                COL_EVENTS, COL_STARRED, COL_PHOTO, COL_ADDRESSES, COL_NOTES, COL_GROUPS, COL_COMPANY, COL_JOB_POSITION)
+                COL_EVENTS, COL_STARRED, COL_PHOTO, COL_ADDRESSES, COL_NOTES, COL_GROUPS, COL_COMPANY, COL_JOB_POSITION, COL_WEBSITES)
 
         val phoneNumbersToken = object : TypeToken<List<PhoneNumber>>() {}.type
         val emailsToken = object : TypeToken<List<Email>>() {}.type
         val addressesToken = object : TypeToken<List<Address>>() {}.type
         val eventsToken = object : TypeToken<List<Event>>() {}.type
         val groupIdsToken = object : TypeToken<List<Long>>() {}.type
+        val websitesToken = object : TypeToken<List<String>>() {}.type
 
         val cursor = mDb.query(CONTACTS_TABLE_NAME, projection, selection, selectionArgs, null, null, null)
         cursor.use {
@@ -295,7 +303,9 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val jobPosition = cursor.getStringValue(COL_JOB_POSITION)
                 val organization = Organization(company, jobPosition)
 
-                val websites = ArrayList<String>()
+                val websitesJson = cursor.getStringValue(COL_WEBSITES)
+                val websites = if (websitesJson == "[]") ArrayList() else gson.fromJson<ArrayList<String>>(websitesJson, websitesToken)
+                        ?: ArrayList(1)
 
                 val contact = Contact(id, prefix, firstName, middleName, surname, suffix, "", phoneNumbers, emails, addresses, events,
                         SMT_PRIVATE, starred, id, "", photo, notes, groups, organization, websites)
