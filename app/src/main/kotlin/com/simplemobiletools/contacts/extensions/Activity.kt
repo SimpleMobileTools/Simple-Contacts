@@ -90,7 +90,7 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
         return
     }
 
-    VcfExporter().exportContacts(this, file, contacts) {
+    VcfExporter().exportContacts(this, file, contacts, false) {
         if (it == VcfExporter.ExportResult.EXPORT_OK) {
             sharePathIntent(file.absolutePath, BuildConfig.APPLICATION_ID)
         } else {

@@ -6,11 +6,9 @@ import android.provider.ContactsContract.CommonDataKinds
 import android.provider.MediaStore
 import android.util.Base64
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.commons.extensions.getFileOutputStream
-import com.simplemobiletools.commons.extensions.showErrorToast
-import com.simplemobiletools.commons.extensions.toFileDirItem
-import com.simplemobiletools.commons.extensions.writeLn
-import com.simplemobiletools.contacts.helpers.VcfExporter.ExportResult.*
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.helpers.VcfExporter.ExportResult.EXPORT_FAIL
 import com.simplemobiletools.contacts.models.Contact
 import java.io.BufferedWriter
 import java.io.ByteArrayOutputStream
@@ -26,12 +24,16 @@ class VcfExporter {
     private var contactsExported = 0
     private var contactsFailed = 0
 
-    fun exportContacts(activity: BaseSimpleActivity, file: File, contacts: ArrayList<Contact>, callback: (result: ExportResult) -> Unit) {
-        try {
-            activity.getFileOutputStream(file.toFileDirItem(activity)) {
+    fun exportContacts(activity: BaseSimpleActivity, file: File, contacts: ArrayList<Contact>, showExportingToast: Boolean, callback: (result: ExportResult) -> Unit) {
+        activity.getFileOutputStream(file.toFileDirItem(activity), true) {
+            try {
                 if (it == null) {
                     callback(EXPORT_FAIL)
                     return@getFileOutputStream
+                }
+
+                if (showExportingToast) {
+                    activity.toast(R.string.exporting)
                 }
 
                 it.bufferedWriter().use { out ->
@@ -88,16 +90,17 @@ class VcfExporter {
                         contactsExported++
                     }
                 }
-            }
-        } catch (e: Exception) {
-            activity.showErrorToast(e)
-        }
 
-        callback(when {
-            contactsExported == 0 -> EXPORT_FAIL
-            contactsFailed > 0 -> EXPORT_PARTIAL
-            else -> EXPORT_OK
-        })
+            } catch (e: Exception) {
+                activity.showErrorToast(e)
+            }
+
+            callback(when {
+                contactsExported == 0 -> EXPORT_FAIL
+                contactsFailed > 0 -> ExportResult.EXPORT_PARTIAL
+                else -> ExportResult.EXPORT_OK
+            })
+        }
     }
 
     private fun addBitmap(bitmap: Bitmap, out: BufferedWriter) {
