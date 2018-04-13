@@ -71,6 +71,10 @@ class VcfExporter {
                             out.writeLn("$TITLE${contact.organization.jobPosition.replace("\n", "\\n")}")
                         }
 
+                        contact.websites.forEach {
+                            out.writeLn("$URL$it")
+                        }
+
                         if (contact.thumbnailUri.isNotEmpty()) {
                             val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, Uri.parse(contact.thumbnailUri))
                             addBitmap(bitmap, out)
