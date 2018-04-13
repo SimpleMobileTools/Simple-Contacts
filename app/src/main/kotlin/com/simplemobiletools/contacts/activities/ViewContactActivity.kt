@@ -138,6 +138,29 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupViewContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        setupFavorite()
+        setupNames()
+        setupPhoneNumbers()
+        setupEmails()
+        setupAddresses()
+        setupEvents()
+        setupNotes()
+        setupOrganization()
+        setupWebsites()
+        setupGroups()
+        setupContactSource()
+    }
+
+    private fun setupFavorite() {
+        contact_toggle_favorite.apply {
+            beVisible()
+            setImageDrawable(getStarDrawable(contact!!.starred == 1))
+            tag = contact!!.starred
+            applyColorFilter(config.textColor)
+        }
+    }
+
+    private fun setupNames() {
         contact!!.apply {
             contact_prefix.text = prefix
             contact_prefix.beVisibleIf(prefix.isNotEmpty() && showFields and SHOW_PREFIX_FIELD != 0)
@@ -158,32 +181,7 @@ class ViewContactActivity : ContactActivity() {
                 contact_name_image.beInvisible()
                 (contact_photo.layoutParams as RelativeLayout.LayoutParams).bottomMargin = resources.getDimension(R.dimen.medium_margin).toInt()
             }
-
-            if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
-                contact_source.text = getPublicContactSource(source)
-                contact_source_image.beVisible()
-                contact_source.beVisible()
-            } else {
-                contact_source_image.beGone()
-                contact_source.beGone()
-            }
         }
-
-        contact_toggle_favorite.apply {
-            beVisible()
-            setImageDrawable(getStarDrawable(contact!!.starred == 1))
-            tag = contact!!.starred
-            applyColorFilter(config.textColor)
-        }
-
-        setupPhoneNumbers()
-        setupEmails()
-        setupAddresses()
-        setupEvents()
-        setupNotes()
-        setupOrganization()
-        setupWebsites()
-        setupGroups()
     }
 
     private fun setupPhoneNumbers() {
@@ -345,6 +343,17 @@ class ViewContactActivity : ContactActivity() {
         } else {
             contact_groups_image.beGone()
             contact_groups_holder.beGone()
+        }
+    }
+
+    private fun setupContactSource() {
+        if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
+            contact_source.text = getPublicContactSource(contact!!.source)
+            contact_source_image.beVisible()
+            contact_source.beVisible()
+        } else {
+            contact_source_image.beGone()
+            contact_source.beGone()
         }
     }
 
