@@ -710,6 +710,7 @@ class EditContactActivity : ContactActivity() {
             source = contact!!.source
             starred = if (isContactStarred()) 1 else 0
             notes = contact_notes.value
+            websites = getFilledWebsites()
 
             val company = contact_organization_company.value
             val jobPosition = contact_organization_job_position.value
@@ -786,6 +787,19 @@ class EditContactActivity : ContactActivity() {
             }
         }
         return events
+    }
+
+    private fun getFilledWebsites(): ArrayList<String> {
+        val websites = ArrayList<String>()
+        val websitesCount = contact_websites_holder.childCount
+        for (i in 0 until websitesCount) {
+            val websiteHolder = contact_websites_holder.getChildAt(i)
+            val website = websiteHolder.contact_website.value
+            if (website.isNotEmpty()) {
+                websites.add(website)
+            }
+        }
+        return websites
     }
 
     private fun insertNewContact() {

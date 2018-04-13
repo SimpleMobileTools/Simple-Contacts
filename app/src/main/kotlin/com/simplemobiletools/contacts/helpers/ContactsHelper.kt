@@ -845,6 +845,25 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 operations.add(build())
             }
 
+            // delete websites
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Website.CONTENT_ITEM_TYPE)
+                withSelection(selection, selectionArgs)
+                operations.add(build())
+            }
+
+            // add websites
+            contact.websites.forEach {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
+                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Website.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.Website.URL, it)
+                    withValue(CommonDataKinds.Website.TYPE, CommonDataKinds.Website.TYPE_HOMEPAGE)
+                    operations.add(build())
+                }
+            }
+
             // delete groups
             val relevantGroupIDs = getStoredGroups().map { it.id }
             if (relevantGroupIDs.isNotEmpty()) {
@@ -1049,6 +1068,17 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
                 withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
                 operations.add(build())
+            }
+
+            // websites
+            contact.websites.forEach {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Website.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.Website.URL, it)
+                    withValue(CommonDataKinds.Website.TYPE, CommonDataKinds.Website.TYPE_HOMEPAGE)
+                    operations.add(build())
+                }
             }
 
             // groups
