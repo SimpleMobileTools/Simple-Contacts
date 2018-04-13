@@ -839,9 +839,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
-                withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
+                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
                 withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
-                withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
+                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
                 operations.add(build())
             }
 
@@ -859,7 +859,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Website.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Website.URL, it)
-                    withValue(CommonDataKinds.Website.TYPE, CommonDataKinds.Website.TYPE_HOMEPAGE)
+                    withValue(CommonDataKinds.Website.TYPE, DEFAULT_WEBSITE_TYPE)
                     operations.add(build())
                 }
             }
@@ -1064,9 +1064,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                 withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
-                withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
+                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
                 withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
-                withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
+                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
                 operations.add(build())
             }
 
@@ -1076,7 +1076,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Website.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Website.URL, it)
-                    withValue(CommonDataKinds.Website.TYPE, CommonDataKinds.Website.TYPE_HOMEPAGE)
+                    withValue(CommonDataKinds.Website.TYPE, DEFAULT_WEBSITE_TYPE)
                     operations.add(build())
                 }
             }

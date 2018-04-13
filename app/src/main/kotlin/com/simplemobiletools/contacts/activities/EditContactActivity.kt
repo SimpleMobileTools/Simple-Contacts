@@ -37,11 +37,6 @@ import org.joda.time.format.DateTimeFormat
 import java.util.*
 
 class EditContactActivity : ContactActivity() {
-    private val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
-    private val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
-    private val DEFAULT_ADDRESS_TYPE = CommonDataKinds.StructuredPostal.TYPE_HOME
-    private val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
-
     private val INTENT_TAKE_PHOTO = 1
     private val INTENT_CHOOSE_PHOTO = 2
     private val INTENT_CROP_PHOTO = 3
@@ -936,6 +931,8 @@ class EditContactActivity : ContactActivity() {
                 CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE -> parseAddress(it)
                 CommonDataKinds.Organization.CONTENT_ITEM_TYPE -> parseOrganization(it)
                 CommonDataKinds.Event.CONTENT_ITEM_TYPE -> parseEvent(it)
+                CommonDataKinds.Website.CONTENT_ITEM_TYPE -> parseWebsite(it)
+                CommonDataKinds.Note.CONTENT_ITEM_TYPE -> parseNote(it)
             }
         }
     }
@@ -949,22 +946,33 @@ class EditContactActivity : ContactActivity() {
 
     private fun parseAddress(contentValues: ContentValues) {
         val type = contentValues.getAsInteger(CommonDataKinds.StructuredPostal.DATA2) ?: DEFAULT_ADDRESS_TYPE
-        val addressValue = contentValues.getAsString(CommonDataKinds.StructuredPostal.DATA4) ?: return
+        val addressValue = contentValues.getAsString(CommonDataKinds.StructuredPostal.DATA4)
+                ?: contentValues.getAsString(CommonDataKinds.StructuredPostal.DATA1) ?: return
         val address = Address(addressValue, type)
         contact!!.addresses.add(address)
     }
 
     private fun parseOrganization(contentValues: ContentValues) {
-        val company = contentValues.getAsString(CommonDataKinds.Organization.DATA5)
-        val jobPosition = contentValues.getAsString(CommonDataKinds.Organization.DATA4)
+        val company = contentValues.getAsString(CommonDataKinds.Organization.DATA1) ?: ""
+        val jobPosition = contentValues.getAsString(CommonDataKinds.Organization.DATA4) ?: ""
         contact!!.organization = Organization(company, jobPosition)
     }
 
     private fun parseEvent(contentValues: ContentValues) {
         val type = contentValues.getAsInteger(CommonDataKinds.Event.DATA2) ?: DEFAULT_EVENT_TYPE
-        val eventValue = contentValues.getAsString(CommonDataKinds.Event.DATA1)
+        val eventValue = contentValues.getAsString(CommonDataKinds.Event.DATA1) ?: return
         val event = Event(eventValue, type)
         contact!!.events.add(event)
+    }
+
+    private fun parseWebsite(contentValues: ContentValues) {
+        val website = contentValues.getAsString(CommonDataKinds.Website.DATA1) ?: return
+        contact!!.websites.add(website)
+    }
+
+    private fun parseNote(contentValues: ContentValues) {
+        val note = contentValues.getAsString(CommonDataKinds.Note.DATA1) ?: return
+        contact!!.notes = note
     }
 
     private fun startTakePhotoIntent() {
