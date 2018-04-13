@@ -295,8 +295,10 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val jobPosition = cursor.getStringValue(COL_JOB_POSITION)
                 val organization = Organization(company, jobPosition)
 
+                val websites = ArrayList<String>()
+
                 val contact = Contact(id, prefix, firstName, middleName, surname, suffix, "", phoneNumbers, emails, addresses, events,
-                        SMT_PRIVATE, starred, id, "", photo, notes, groups, organization)
+                        SMT_PRIVATE, starred, id, "", photo, notes, groups, organization, websites)
                 contacts.add(contact)
             }
         }

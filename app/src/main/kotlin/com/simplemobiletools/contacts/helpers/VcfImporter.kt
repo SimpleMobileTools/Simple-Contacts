@@ -26,13 +26,14 @@ class VcfImporter(val activity: SimpleActivity) {
     private var curSuffix = ""
     private var curPhotoUri = ""
     private var curNotes = ""
+    private var curCompany = ""
+    private var curJobPosition = ""
     private var curPhoneNumbers = ArrayList<PhoneNumber>()
     private var curEmails = ArrayList<Email>()
     private var curEvents = ArrayList<Event>()
     private var curAddresses = ArrayList<Address>()
     private var curGroups = ArrayList<Group>()
-    private var curCompany = ""
-    private var curJobPosition = ""
+    private var curWebsites = ArrayList<String>()
 
     private var isGettingPhoto = false
     private var currentPhotoString = StringBuilder()
@@ -253,7 +254,7 @@ class VcfImporter(val activity: SimpleActivity) {
     private fun saveContact(source: String) {
         val organization = Organization(curCompany, curJobPosition)
         val contact = Contact(0, curPrefix, curFirstName, curMiddleName, curSurname, curSuffix, curPhotoUri, curPhoneNumbers, curEmails, curAddresses, curEvents,
-                source, 0, 0, "", null, curNotes, curGroups, organization)
+                source, 0, 0, "", null, curNotes, curGroups, organization, curWebsites)
         if (ContactsHelper(activity).insertContact(contact)) {
             contactsImported++
         }
@@ -267,13 +268,14 @@ class VcfImporter(val activity: SimpleActivity) {
         curSuffix = ""
         curPhotoUri = ""
         curNotes = ""
+        curCompany = ""
+        curJobPosition = ""
         curPhoneNumbers = ArrayList()
         curEmails = ArrayList()
         curEvents = ArrayList()
         curAddresses = ArrayList()
         curGroups = ArrayList()
-        curCompany = ""
-        curJobPosition = ""
+        curWebsites = ArrayList()
 
         isGettingPhoto = false
         currentPhotoString = StringBuilder()

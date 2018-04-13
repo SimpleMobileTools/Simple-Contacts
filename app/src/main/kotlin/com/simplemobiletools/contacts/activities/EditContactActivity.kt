@@ -467,7 +467,8 @@ class EditContactActivity : ContactActivity() {
         supportActionBar?.title = resources.getString(R.string.new_contact)
         val contactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
         val organization = Organization("", "")
-        contact = Contact(0, "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), contactSource, 0, 0, "", null, "", ArrayList(), organization)
+        contact = Contact(0, "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), contactSource, 0, 0, "", null, "",
+                ArrayList(), organization, ArrayList())
         contact_source.text = getPublicContactSource(contact!!.source)
         contact_source.setOnClickListener {
             showContactSourcePicker(contact!!.source) {

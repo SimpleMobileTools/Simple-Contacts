@@ -240,7 +240,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                         it.addresses.any { it.value.contains(text, true) } ||
                         it.notes.contains(text, true) ||
                         it.organization.company.contains(text, true) ||
-                        it.organization.jobPosition.contains(text, true)
+                        it.organization.jobPosition.contains(text, true) ||
+                        it.websites.any { it.contains(text, true) }
             } as ArrayList
 
             Contact.sorting = config.sorting
