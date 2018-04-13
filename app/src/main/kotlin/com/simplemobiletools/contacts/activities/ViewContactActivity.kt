@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.item_view_address.view.*
 import kotlinx.android.synthetic.main.item_view_email.view.*
 import kotlinx.android.synthetic.main.item_view_group.view.*
 import kotlinx.android.synthetic.main.item_view_phone_number.view.*
+import kotlinx.android.synthetic.main.item_website.view.*
 
 class ViewContactActivity : ContactActivity() {
     private var isViewIntent = false
@@ -124,6 +125,7 @@ class ViewContactActivity : ContactActivity() {
         contact_source_image.applyColorFilter(textColor)
         contact_notes_image.applyColorFilter(textColor)
         contact_organization_image.applyColorFilter(textColor)
+        contact_websites_image.applyColorFilter(textColor)
         contact_groups_image.applyColorFilter(textColor)
 
         contact_send_sms.setOnClickListener { trySendSMS() }
@@ -180,6 +182,7 @@ class ViewContactActivity : ContactActivity() {
         setupEvents()
         setupNotes()
         setupOrganization()
+        setupWebsites()
         setupGroups()
     }
 
@@ -300,6 +303,29 @@ class ViewContactActivity : ContactActivity() {
             contact_organization_image.beGone()
             contact_organization_company.beGone()
             contact_organization_job_position.beGone()
+        }
+    }
+
+    private fun setupWebsites() {
+        contact_websites_holder.removeAllViews()
+        val websites = contact!!.websites
+        if (websites.isNotEmpty() && showFields and SHOW_WEBSITES_FIELD != 0) {
+            websites.forEach {
+                val url = it
+                layoutInflater.inflate(R.layout.item_website, contact_websites_holder, false).apply {
+                    contact_websites_holder.addView(this)
+                    contact_website.text = url
+
+                    setOnClickListener {
+                        openWebsiteIntent(url)
+                    }
+                }
+            }
+            contact_websites_image.beVisible()
+            contact_websites_holder.beVisible()
+        } else {
+            contact_websites_image.beGone()
+            contact_websites_holder.beGone()
         }
     }
 

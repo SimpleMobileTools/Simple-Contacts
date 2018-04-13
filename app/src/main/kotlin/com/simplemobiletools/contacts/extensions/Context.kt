@@ -68,11 +68,23 @@ fun Context.sendAddressIntent(address: String) {
     val location = Uri.encode(address)
     val uri = Uri.parse("geo:0,0?q=$location")
 
-    val intent = Intent(Intent.ACTION_VIEW, uri)
-    if (intent.resolveActivity(packageManager) != null) {
-        startActivity(intent)
-    } else {
-        toast(R.string.no_app_found)
+    Intent(Intent.ACTION_VIEW, uri).apply {
+        if (resolveActivity(packageManager) != null) {
+            startActivity(this)
+        } else {
+            toast(R.string.no_app_found)
+        }
+    }
+}
+
+fun Context.openWebsiteIntent(url: String) {
+    Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse(url)
+        if (resolveActivity(packageManager) != null) {
+            startActivity(this)
+        } else {
+            toast(R.string.no_app_found)
+        }
     }
 }
 
