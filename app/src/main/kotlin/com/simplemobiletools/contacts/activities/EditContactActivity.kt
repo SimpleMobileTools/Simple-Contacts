@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.item_edit_address.view.*
 import kotlinx.android.synthetic.main.item_edit_email.view.*
 import kotlinx.android.synthetic.main.item_edit_group.view.*
 import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
+import kotlinx.android.synthetic.main.item_edit_website.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
@@ -179,9 +180,10 @@ class EditContactActivity : ContactActivity() {
         contact_addresses_image.applyColorFilter(textColor)
         contact_events_image.applyColorFilter(textColor)
         contact_notes_image.applyColorFilter(textColor)
-        contact_source_image.applyColorFilter(textColor)
-        contact_groups_image.applyColorFilter(textColor)
         contact_organization_image.applyColorFilter(textColor)
+        contact_websites_image.applyColorFilter(textColor)
+        contact_groups_image.applyColorFilter(textColor)
+        contact_source_image.applyColorFilter(textColor)
 
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
         contact_numbers_add_new.applyColorFilter(adjustedPrimaryColor)
@@ -192,6 +194,8 @@ class EditContactActivity : ContactActivity() {
         contact_addresses_add_new.background.applyColorFilter(textColor)
         contact_events_add_new.applyColorFilter(adjustedPrimaryColor)
         contact_events_add_new.background.applyColorFilter(textColor)
+        contact_websites_add_new.applyColorFilter(adjustedPrimaryColor)
+        contact_websites_add_new.background.applyColorFilter(textColor)
         contact_groups_add_new.applyColorFilter(adjustedPrimaryColor)
         contact_groups_add_new.background.applyColorFilter(textColor)
 
@@ -204,6 +208,7 @@ class EditContactActivity : ContactActivity() {
         contact_emails_add_new.setOnClickListener { addNewEmailField() }
         contact_addresses_add_new.setOnClickListener { addNewAddressField() }
         contact_events_add_new.setOnClickListener { addNewEventField() }
+        contact_websites_add_new.setOnClickListener { addNewWebsiteField() }
         contact_groups_add_new.setOnClickListener { showSelectGroupsDialog() }
 
         setupFieldVisibility()
@@ -285,6 +290,11 @@ class EditContactActivity : ContactActivity() {
         contact_events_holder.beVisibleIf(areEventsVisible)
         contact_events_add_new.beVisibleIf(areEventsVisible)
 
+        val areWebsitesVisible = showFields and SHOW_WEBSITES_FIELD != 0
+        contact_websites_image.beVisibleIf(areWebsitesVisible)
+        contact_websites_holder.beVisibleIf(areWebsitesVisible)
+        contact_websites_add_new.beVisibleIf(areWebsitesVisible)
+
         val areGroupsVisible = showFields and SHOW_GROUPS_FIELD != 0
         contact_groups_image.beVisibleIf(areGroupsVisible)
         contact_groups_holder.beVisibleIf(areGroupsVisible)
@@ -311,6 +321,7 @@ class EditContactActivity : ContactActivity() {
         setupAddresses()
         setupNotes()
         setupOrganization()
+        setupWebsites()
         setupEvents()
         setupGroups()
     }
@@ -376,6 +387,20 @@ class EditContactActivity : ContactActivity() {
         if (showFields and SHOW_ORGANIZATION_FIELD != 0) {
             contact_organization_company.setText(contact!!.organization.company)
             contact_organization_job_position.setText(contact!!.organization.jobPosition)
+        }
+    }
+
+    private fun setupWebsites() {
+        if (showFields and SHOW_WEBSITES_FIELD != 0) {
+            contact!!.websites.forEachIndexed { index, website ->
+                var websitesHolder = contact_websites_holder.getChildAt(index)
+                if (websitesHolder == null) {
+                    websitesHolder = layoutInflater.inflate(R.layout.item_edit_website, contact_websites_holder, false)
+                    contact_websites_holder.addView(websitesHolder)
+                }
+
+                websitesHolder!!.contact_website.setText(website)
+            }
         }
     }
 
@@ -463,7 +488,6 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupNewContact() {
-        //window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
         val contactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
         val organization = Organization("", "")
@@ -841,6 +865,16 @@ class EditContactActivity : ContactActivity() {
             setImageDrawable(getStarDrawable(!isStarred))
             tag = if (isStarred) 0 else 1
             applyColorFilter(config.textColor)
+        }
+    }
+
+    private fun addNewWebsiteField() {
+        val websitesHolder = layoutInflater.inflate(R.layout.item_edit_website, contact_websites_holder, false) as ViewGroup
+        updateTextColors(websitesHolder)
+        contact_websites_holder.addView(websitesHolder)
+        contact_websites_holder.onGlobalLayout {
+            websitesHolder.contact_website.requestFocus()
+            showKeyboard(websitesHolder.contact_website)
         }
     }
 
