@@ -103,6 +103,14 @@
             android:text="@string/organization"/>
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_websites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/websites"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_groups"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -8,6 +8,7 @@
     <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
     <string name="company">Company</string>
     <string name="job_position">Job position</string>
+    <string name="website">Website</string>
 
     <string name="new_contact">New contact</string>
     <string name="edit_contact">Edit contact</string>
@@ -92,7 +93,7 @@
     <string name="events">Events (birthdays, anniversaries)</string>
     <string name="notes">Notes</string>
     <string name="organization">Organization</string>
-    <string name="website">Website</string>
+    <string name="websites">Websites</string>
     <string name="groups">Groups</string>
     <string name="contact_source">Contact source</string>
 

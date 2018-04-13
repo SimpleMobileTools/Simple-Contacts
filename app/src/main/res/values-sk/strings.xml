@@ -8,6 +8,7 @@
     <string name="phone_storage_hidden">Úložisko mobilu (neviditeľné pre ostatné apky)</string>
     <string name="company">Firma</string>
     <string name="job_position">Pracovná pozícia</string>
+    <string name="website">Website</string>
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
@@ -92,7 +93,7 @@
     <string name="events">Udalosti (narodeniny, výročia)</string>
     <string name="notes">Poznámky</string>
     <string name="organization">Firma</string>
-    <string name="website">Webstránka</string>
+    <string name="websites">Webstránky</string>
     <string name="groups">Skupiny</string>
     <string name="contact_source">Zdroje kontaktov</string>
 

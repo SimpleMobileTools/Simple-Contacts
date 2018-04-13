@@ -8,6 +8,7 @@
     <string name="phone_storage_hidden">Armazenamento do telefone (não visível por outras alicações)</string>
     <string name="company">Organização</string>
     <string name="job_position">Cargo</string>
+    <string name="website">Website</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
@@ -92,7 +93,7 @@
     <string name="events">Eventos (data de nascimento, aniversário)</string>
     <string name="notes">Notas</string>
     <string name="organization">Organização</string>
-    <string name="website">Website</string>
+    <string name="websites">Websites</string>
     <string name="groups">Grupos</string>
     <string name="contact_source">Fonte do contacto</string>
 

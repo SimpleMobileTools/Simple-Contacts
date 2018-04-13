@@ -2,12 +2,13 @@
     <string name="app_name">Jednostavni kontakti</string>
     <string name="app_launcher_name">Kontakti</string>
     <string name="address">Adresa</string>
-    <string name="inserting">Dodavanje...</string>
-    <string name="updating">Ažuriranje...</string>
+    <string name="inserting">Dodavanje…</string>
+    <string name="updating">Ažuriranje…</string>
     <string name="phone_storage">Pohrana na telefonu</string>
     <string name="phone_storage_hidden">Pohrana na telefonu (nije vidljiva drugim aplikacijama))</string>
     <string name="company">Company</string>
     <string name="job_position">Job position</string>
+    <string name="website">Website</string>
 
     <string name="new_contact">Novi kontakt</string>
     <string name="edit_contact">Uredi kontakt</string>
@@ -92,7 +93,7 @@
     <string name="events">Events (birthdays, anniversaries)</string>
     <string name="notes">Notes</string>
     <string name="organization">Organization</string>
-    <string name="website">Website</string>
+    <string name="websites">Websites</string>
     <string name="groups">Groups</string>
     <string name="contact_source">Contact source</string>
 
