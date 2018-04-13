@@ -442,7 +442,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getLongValue(ContactsContract.Groups._ID)
-                    val title = cursor.getStringValue(ContactsContract.Groups.TITLE)
+                    val title = cursor.getStringValue(ContactsContract.Groups.TITLE) ?: continue
 
                     val systemId = cursor.getStringValue(ContactsContract.Groups.SYSTEM_ID)
                     if (groups.map { it.title }.contains(title) && systemId != null) {
