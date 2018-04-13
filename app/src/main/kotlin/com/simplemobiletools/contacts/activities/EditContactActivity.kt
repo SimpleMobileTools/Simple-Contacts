@@ -2,6 +2,7 @@ package com.simplemobiletools.contacts.activities
 
 import android.app.DatePickerDialog
 import android.content.ClipData
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -151,10 +152,14 @@ class EditContactActivity : ContactActivity() {
         if (contact!!.id == 0 && intent.extras?.containsKey(KEY_PHONE) == true && (action == Intent.ACTION_INSERT_OR_EDIT || action == Intent.ACTION_INSERT)) {
             val phoneNumber = intent.extras.get(KEY_PHONE)?.toString() ?: ""
             contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE))
-            setupPhoneNumbers()
 
-            val contactFullName = intent.extras.get(KEY_NAME)?.toString() ?: ""
-            contact_first_name.setText(contactFullName)
+            contact!!.firstName = intent.extras.get(KEY_NAME)?.toString() ?: ""
+
+            val data = intent.extras.getParcelableArrayList<ContentValues>("data")
+            if (data != null) {
+                parseIntentData(data)
+            }
+            setupEditContact()
         }
 
         setupTypePickers()
@@ -308,14 +313,8 @@ class EditContactActivity : ContactActivity() {
     private fun setupEditContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         supportActionBar?.title = resources.getString(R.string.edit_contact)
-        contact_prefix.setText(contact!!.prefix)
-        contact_first_name.setText(contact!!.firstName)
-        contact_middle_name.setText(contact!!.middleName)
-        contact_surname.setText(contact!!.surname)
-        contact_suffix.setText(contact!!.suffix)
 
-        contact_source.text = getPublicContactSource(contact!!.source)
-
+        setupNames()
         setupPhoneNumbers()
         setupEmails()
         setupAddresses()
@@ -324,6 +323,17 @@ class EditContactActivity : ContactActivity() {
         setupWebsites()
         setupEvents()
         setupGroups()
+        setupContactSource()
+    }
+
+    private fun setupNames() {
+        contact!!.apply {
+            contact_prefix.setText(prefix)
+            contact_first_name.setText(firstName)
+            contact_middle_name.setText(middleName)
+            contact_surname.setText(surname)
+            contact_suffix.setText(suffix)
+        }
     }
 
     private fun setupPhoneNumbers() {
@@ -485,6 +495,10 @@ class EditContactActivity : ContactActivity() {
                 }
             }
         }
+    }
+
+    private fun setupContactSource() {
+        contact_source.text = getPublicContactSource(contact!!.source)
     }
 
     private fun setupNewContact() {
@@ -913,6 +927,44 @@ class EditContactActivity : ContactActivity() {
                 else -> showPhotoPlaceholder(contact_photo)
             }
         }
+    }
+
+    private fun parseIntentData(data: ArrayList<ContentValues>) {
+        data.forEach {
+            when (it.get(CommonDataKinds.StructuredName.MIMETYPE)) {
+                CommonDataKinds.Email.CONTENT_ITEM_TYPE -> parseEmail(it)
+                CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE -> parseAddress(it)
+                CommonDataKinds.Organization.CONTENT_ITEM_TYPE -> parseOrganization(it)
+                CommonDataKinds.Event.CONTENT_ITEM_TYPE -> parseEvent(it)
+            }
+        }
+    }
+
+    private fun parseEmail(contentValues: ContentValues) {
+        val type = contentValues.getAsInteger(CommonDataKinds.Email.DATA2) ?: DEFAULT_EMAIL_TYPE
+        val emailValue = contentValues.getAsString(CommonDataKinds.Email.DATA1) ?: return
+        val email = Email(emailValue, type)
+        contact!!.emails.add(email)
+    }
+
+    private fun parseAddress(contentValues: ContentValues) {
+        val type = contentValues.getAsInteger(CommonDataKinds.StructuredPostal.DATA2) ?: DEFAULT_ADDRESS_TYPE
+        val addressValue = contentValues.getAsString(CommonDataKinds.StructuredPostal.DATA4) ?: return
+        val address = Address(addressValue, type)
+        contact!!.addresses.add(address)
+    }
+
+    private fun parseOrganization(contentValues: ContentValues) {
+        val company = contentValues.getAsString(CommonDataKinds.Organization.DATA5)
+        val jobPosition = contentValues.getAsString(CommonDataKinds.Organization.DATA4)
+        contact!!.organization = Organization(company, jobPosition)
+    }
+
+    private fun parseEvent(contentValues: ContentValues) {
+        val type = contentValues.getAsInteger(CommonDataKinds.Event.DATA2) ?: DEFAULT_EVENT_TYPE
+        val eventValue = contentValues.getAsString(CommonDataKinds.Event.DATA1)
+        val event = Event(eventValue, type)
+        contact!!.events.add(event)
     }
 
     private fun startTakePhotoIntent() {
