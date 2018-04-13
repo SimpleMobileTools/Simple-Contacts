@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 3.5.2 *(2018-04-13)*
+----------------------------
+
+ * Added an optional website field
+ * Parse more fields from Add Contact third party intents, like the one from WhatsApp
+ * Fix exporting contacts on SD cards
+
 Version 3.5.1 *(2018-04-10)*
 ----------------------------
 
