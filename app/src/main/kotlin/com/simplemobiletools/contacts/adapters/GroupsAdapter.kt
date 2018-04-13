@@ -24,11 +24,14 @@ import java.util.*
 class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val refreshListener: RefreshContactsListener?, recyclerView: MyRecyclerView,
                     fastScroller: FastScroller, itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
-    private var config = activity.config
     private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
     private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
 
-    var showContactThumbnails = config.showContactThumbnails
+    var showContactThumbnails = activity.config.showContactThumbnails
+
+    init {
+        setupDragListener(true)
+    }
 
     override fun getActionMenuId() = R.menu.cab_groups
 

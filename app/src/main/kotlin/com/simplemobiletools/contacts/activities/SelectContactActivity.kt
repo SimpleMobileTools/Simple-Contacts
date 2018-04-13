@@ -103,6 +103,7 @@ class SelectContactActivity : SimpleActivity() {
             }
 
             Contact.sorting = config.sorting
+            Contact.startWithSurname = config.startNameWithSurname
             contacts.sort()
 
             runOnUiThread {

@@ -47,6 +47,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
 
     init {
+        setupDragListener(true)
         initDrawables()
         showContactThumbnails = config.showContactThumbnails
         showPhoneNumbers = config.showPhoneNumbers
@@ -220,10 +221,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             contactsIDs.add(contactItems[it].id)
         }
 
-        ContactsHelper(activity).getContacts {
-            val filtered = it.filter { contactsIDs.contains(it.id) } as ArrayList<Contact>
-            activity.shareContacts(filtered)
-        }
+        val filtered = contactItems.filter { contactsIDs.contains(it.id) } as ArrayList<Contact>
+        activity.shareContacts(filtered)
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
@@ -235,7 +234,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     private fun setupView(view: View, contact: Contact) {
         view.apply {
-            contact_name.text = contact.getFullName(startNameWithSurname)
+            contact_name.text = contact.getFullName()
             contact_name.setTextColor(textColor)
             contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
 

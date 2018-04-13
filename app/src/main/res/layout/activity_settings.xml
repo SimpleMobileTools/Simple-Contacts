@@ -34,6 +34,28 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/settings_manage_contact_fields_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:background="?attr/selectableItemBackground"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingLeft="@dimen/normal_margin"
+            android:paddingRight="@dimen/normal_margin"
+            android:paddingTop="@dimen/activity_margin">
+
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/settings_manage_contact_fields"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/medium_margin"
+                android:paddingStart="@dimen/medium_margin"
+                android:text="@string/manage_shown_contact_fields"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/settings_use_english_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

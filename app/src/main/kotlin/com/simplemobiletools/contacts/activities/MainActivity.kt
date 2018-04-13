@@ -36,11 +36,12 @@ import kotlinx.android.synthetic.main.fragment_groups.*
 import java.io.FileOutputStream
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
-    private var isFirstResume = true
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
+    private var werePermissionsHandled = false
+    private var isFirstResume = true
+    private var isGettingContacts = false
 
-    private var storedUseEnglish = false
     private var storedTextColor = 0
     private var storedBackgroundColor = 0
     private var storedPrimaryColor = 0
@@ -58,19 +59,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         dbHelper
 
         handlePermission(PERMISSION_READ_CONTACTS) {
+            werePermissionsHandled = true
             if (it) {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
-                    if (it) {
-                        storeLocalAccountData()
-                        initFragments()
-                    } else {
-                        toast(R.string.no_contacts_permission)
-                        finish()
-                    }
+                    storeLocalAccountData()
+                    initFragments()
                 }
             } else {
-                toast(R.string.no_contacts_permission)
-                finish()
+                storeLocalAccountData()
+                initFragments()
             }
         }
         storeStateVariables()
@@ -79,13 +76,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     override fun onResume() {
         super.onResume()
-        if (storedUseEnglish != config.useEnglish) {
-            restartActivity()
-            return
-        }
-
         if (storedShowPhoneNumbers != config.showPhoneNumbers) {
-            restartActivity()
+            System.exit(0)
             return
         }
 
@@ -126,20 +118,18 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             favorites_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
         }
 
-        if (!isFirstResume) {
+        if (werePermissionsHandled && !isFirstResume) {
             if (viewpager.adapter == null) {
                 initFragments()
+            } else {
+                refreshContacts(ALL_TABS_MASK)
             }
 
             getAllFragments().forEach {
                 it?.onActivityResume()
             }
-            refreshContacts(ALL_TABS_MASK)
         }
-
-        if (hasPermission(PERMISSION_WRITE_CONTACTS)) {
-            isFirstResume = false
-        }
+        isFirstResume = false
     }
 
     override fun onPause() {
@@ -179,7 +169,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun storeStateVariables() {
         config.apply {
-            storedUseEnglish = useEnglish
             storedTextColor = textColor
             storedBackgroundColor = backgroundColor
             storedPrimaryColor = primaryColor
@@ -308,6 +297,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
             tryImportContactsFromFile(intent.data)
+            intent.data = null
         }
     }
 
@@ -400,17 +390,23 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchAbout() {
-        val faqItems = arrayListOf(FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons))
+        val faqItems = arrayListOf(
+                FAQItem(R.string.faq_1_title, R.string.faq_1_text),
+                FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons)
+        )
+
         startAboutActivity(R.string.app_name, LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_STETHO,
                 BuildConfig.VERSION_NAME, faqItems)
     }
 
     override fun refreshContacts(refreshTabsMask: Int) {
-        if (isActivityDestroyed()) {
+        if (isActivityDestroyed() || isGettingContacts) {
             return
         }
 
+        isGettingContacts = true
         ContactsHelper(this).getContacts {
+            isGettingContacts = false
             if (isActivityDestroyed()) {
                 return@getContacts
             }
@@ -443,6 +439,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         arrayListOf<Release>().apply {
             add(Release(10, R.string.release_10))
             add(Release(11, R.string.release_11))
+            add(Release(16, R.string.release_16))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }

@@ -30,7 +30,6 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
     private val config = activity.config
     private val textColor = config.textColor
     private val contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person, textColor)
-    private val startNameWithSurname = config.startNameWithSurname
     private val showContactThumbnails = config.showContactThumbnails
     private val itemLayout = if (config.showPhoneNumbers) R.layout.item_add_favorite_with_number else R.layout.item_add_favorite_without_number
 
@@ -80,7 +79,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val eventType = contacts[position]
-        itemViews.put(position, holder.bindView(eventType, startNameWithSurname, contactDrawable, config, showContactThumbnails, smallPadding, bigPadding))
+        itemViews.put(position, holder.bindView(eventType, contactDrawable, config, showContactThumbnails, smallPadding, bigPadding))
         toggleItemSelection(selectedPositions.contains(position), position)
     }
 
@@ -88,14 +87,14 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
     class ViewHolder(view: View, private val adapterListener: MyAdapterListener, val activity: SimpleActivity, private val showCheckbox: Boolean,
                      private val itemClick: ((Contact) -> Unit)?) : RecyclerView.ViewHolder(view) {
-        fun bindView(contact: Contact, startNameWithSurname: Boolean, contactDrawable: Drawable, config: Config, showContactThumbnails: Boolean,
+        fun bindView(contact: Contact, contactDrawable: Drawable, config: Config, showContactThumbnails: Boolean,
                      smallPadding: Int, bigPadding: Int): View {
             itemView.apply {
                 contact_checkbox.beVisibleIf(showCheckbox)
                 contact_checkbox.setColors(config.textColor, context.getAdjustedPrimaryColor(), config.backgroundColor)
                 val textColor = config.textColor
 
-                contact_name.text = contact.getFullName(startNameWithSurname)
+                contact_name.text = contact.getFullName()
                 contact_name.setTextColor(textColor)
                 contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
 

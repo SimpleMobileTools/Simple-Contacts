@@ -18,7 +18,8 @@
         <ImageView
             android:id="@+id/contact_photo"
             android:layout_width="@dimen/contact_photo_size"
-            android:layout_height="@dimen/contact_photo_size"/>
+            android:layout_height="@dimen/contact_photo_size"
+            android:layout_marginBottom="@dimen/normal_margin"/>
 
         <ImageView
             android:id="@+id/contact_toggle_favorite"
@@ -82,7 +83,7 @@
             android:id="@+id/contact_name_image"
             android:layout_width="@dimen/contact_icons_size"
             android:layout_height="@dimen/contact_icons_size"
-            android:layout_alignTop="@+id/contact_first_name"
+            android:layout_below="@+id/contact_photo"
             android:paddingBottom="@dimen/small_margin"
             android:paddingEnd="@dimen/small_margin"
             android:paddingRight="@dimen/small_margin"
@@ -90,12 +91,28 @@
             android:src="@drawable/ic_person"/>
 
         <com.simplemobiletools.commons.views.MyEditText
-            android:id="@+id/contact_first_name"
+            android:id="@+id/contact_prefix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_photo"
             android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/normal_margin"
+            android:layout_toRightOf="@+id/contact_name_image"
+            android:hint="@string/prefix"
+            android:inputType="textCapWords"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/bigger_text_size"/>
+
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/contact_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_prefix"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/normal_margin"
             android:layout_toRightOf="@+id/contact_name_image"
             android:hint="@string/first_name"
             android:inputType="textCapWords"
@@ -111,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_first_name"
             android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/normal_margin"
             android:layout_toRightOf="@+id/contact_name_image"
             android:hint="@string/middle_name"
             android:inputType="textCapWords"
@@ -127,7 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_middle_name"
             android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/normal_margin"
             android:layout_toRightOf="@+id/contact_name_image"
             android:hint="@string/surname"
             android:inputType="textCapWords"
@@ -137,8 +154,24 @@
             android:textCursorDrawable="@null"
             android:textSize="@dimen/bigger_text_size"/>
 
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/contact_suffix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_surname"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:layout_toRightOf="@+id/contact_name_image"
+            android:hint="@string/suffix"
+            android:inputType="textCapWords"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/bigger_text_size"/>
+
         <ImageView
-            android:id="@+id/contact_number_image"
+            android:id="@+id/contact_numbers_image"
             android:layout_width="@dimen/contact_icons_size"
             android:layout_height="@dimen/contact_icons_size"
             android:layout_alignTop="@+id/contact_numbers_holder"
@@ -152,9 +185,9 @@
             android:id="@+id/contact_numbers_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_surname"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:layout_toRightOf="@+id/contact_number_image"
+            android:layout_below="@+id/contact_suffix"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:layout_toRightOf="@+id/contact_numbers_image"
             android:orientation="vertical">
 
             <include layout="@layout/item_edit_phone_number"/>
@@ -162,21 +195,21 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/contact_number_add_new"
+            android:id="@+id/contact_numbers_add_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_numbers_holder"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/small_margin"
             android:background="@drawable/button_background"
             android:paddingBottom="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
             android:paddingLeft="@dimen/activity_margin"
             android:paddingRight="@dimen/activity_margin"
             android:paddingTop="@dimen/medium_margin"
             android:src="@drawable/ic_plus"/>
 
         <ImageView
-            android:id="@+id/contact_email_image"
+            android:id="@+id/contact_emails_image"
             android:layout_width="@dimen/contact_icons_size"
             android:layout_height="@dimen/contact_icons_size"
             android:layout_alignTop="@+id/contact_emails_holder"
@@ -190,8 +223,7 @@
             android:id="@+id/contact_emails_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_number_add_new"
-            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_below="@+id/contact_numbers_add_new"
             android:layout_toRightOf="@+id/contact_name_image"
             android:orientation="vertical">
 
@@ -200,7 +232,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/contact_email_add_new"
+            android:id="@+id/contact_emails_add_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_emails_holder"
@@ -214,7 +246,7 @@
             android:src="@drawable/ic_plus"/>
 
         <ImageView
-            android:id="@+id/contact_address_image"
+            android:id="@+id/contact_addresses_image"
             android:layout_width="@dimen/contact_icons_size"
             android:layout_height="@dimen/contact_icons_size"
             android:layout_alignTop="@+id/contact_addresses_holder"
@@ -228,7 +260,7 @@
             android:id="@+id/contact_addresses_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_email_add_new"
+            android:layout_below="@+id/contact_emails_add_new"
             android:layout_marginTop="@dimen/medium_margin"
             android:layout_toRightOf="@+id/contact_name_image"
             android:orientation="vertical">
@@ -238,7 +270,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/contact_address_add_new"
+            android:id="@+id/contact_addresses_add_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_addresses_holder"
@@ -252,7 +284,7 @@
             android:src="@drawable/ic_plus"/>
 
         <ImageView
-            android:id="@+id/contact_event_image"
+            android:id="@+id/contact_events_image"
             android:layout_width="@dimen/contact_icons_size"
             android:layout_height="@dimen/contact_icons_size"
             android:layout_alignTop="@+id/contact_events_holder"
@@ -266,7 +298,7 @@
             android:id="@+id/contact_events_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_address_add_new"
+            android:layout_below="@+id/contact_addresses_add_new"
             android:layout_marginTop="@dimen/medium_margin"
             android:layout_toRightOf="@+id/contact_name_image"
             android:orientation="vertical">
@@ -276,7 +308,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/contact_event_add_new"
+            android:id="@+id/contact_events_add_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_events_holder"
@@ -304,12 +336,53 @@
             android:id="@+id/contact_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_event_add_new"
+            android:layout_below="@+id/contact_events_add_new"
             android:layout_centerVertical="true"
             android:layout_marginTop="@dimen/normal_margin"
             android:layout_toRightOf="@+id/contact_notes_image"
             android:hint="@string/notes"
             android:inputType="textCapWords|textMultiLine"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/bigger_text_size"/>
+
+        <ImageView
+            android:id="@+id/contact_organization_image"
+            android:layout_width="@dimen/contact_icons_size"
+            android:layout_height="@dimen/contact_icons_size"
+            android:layout_alignTop="@+id/contact_organization_company"
+            android:paddingBottom="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
+            android:paddingRight="@dimen/small_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@drawable/ic_business"/>
+
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/contact_organization_company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_notes"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_toRightOf="@+id/contact_organization_image"
+            android:hint="@string/company"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/bigger_text_size"/>
+
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/contact_organization_job_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_organization_company"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_toRightOf="@+id/contact_organization_image"
+            android:hint="@string/job_position"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:singleLine="true"
             android:textCursorDrawable="@null"
             android:textSize="@dimen/bigger_text_size"/>
 
@@ -328,7 +401,7 @@
             android:id="@+id/contact_groups_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_notes"
+            android:layout_below="@+id/contact_organization_job_position"
             android:layout_marginTop="@dimen/medium_margin"
             android:layout_toRightOf="@+id/contact_name_image"
             android:orientation="vertical">

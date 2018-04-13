@@ -67,6 +67,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
             group_contacts_list.beVisibleIf(groupContacts.isNotEmpty())
 
             Contact.sorting = config.sorting
+            Contact.startWithSurname = config.startNameWithSurname
             groupContacts.sort()
 
             updateContacts(groupContacts)
@@ -90,7 +91,6 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
                     ON_CLICK_EDIT_CONTACT -> editContact(it as Contact)
                 }
             }.apply {
-                setupDragListener(true)
                 addVerticalDividers(true)
                 group_contacts_list.adapter = this
             }
@@ -110,9 +110,11 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     }
 
     override fun removeFromGroup(contacts: ArrayList<Contact>) {
-        ContactsHelper(this).removeContactsFromGroup(contacts, group.id)
-        if (groupContacts.size == 0) {
-            refreshContacts()
-        }
+        Thread {
+            removeContactsFromGroup(contacts, group.id)
+            if (groupContacts.size == 0) {
+                refreshContacts()
+            }
+        }.start()
     }
 }

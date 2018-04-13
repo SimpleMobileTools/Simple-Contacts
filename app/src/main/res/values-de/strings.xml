@@ -6,6 +6,9 @@
     <string name="updating">Aktualisiere…</string>
     <string name="phone_storage">Gerätespeicher</string>
     <string name="phone_storage_hidden">Gerätespeicher (nicht sichtbar für andere Apps)</string>
+    <string name="company">Company</string>
+    <string name="job_position">Job position</string>
+    <string name="website">Website</string>
 
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
@@ -16,15 +19,15 @@
     <string name="surname">Familienname</string>
 
     <!-- Groups -->
-    <string name="no_groups">No groups</string>
-    <string name="create_new_group">Create a new group</string>
-    <string name="remove_from_group">Remove from group</string>
-    <string name="no_group_participants">This group is empty</string>
-    <string name="add_contacts">Add contacts</string>
-    <string name="no_group_created">There are no contact groups on the device</string>
-    <string name="create_group">Create group</string>
-    <string name="add_to_group">Add to group</string>
-    <string name="create_group_under_account">Create group under account</string>
+    <string name="no_groups">Keine Gruppen</string>
+    <string name="create_new_group">Eine neue Gruppe erstellen</string>
+    <string name="remove_from_group">Von Gruppe entfernen</string>
+    <string name="no_group_participants">Diese Gruppe ist leer</string>
+    <string name="add_contacts">Kontakte hinzufügen</string>
+    <string name="no_group_created">Es sind keine Kontaktgruppen auf diesem Gerät vorhanden</string>
+    <string name="create_group">Erstelle Gruppe</string>
+    <string name="add_to_group">Zu Gruppe hinzufügen</string>
+    <string name="create_group_under_account">Gruppe in diesem Konto erstellen</string>
 
     <!-- Photo -->
     <string name="take_photo">Foto machen</string>
@@ -40,6 +43,7 @@
     <string name="view_contact">Kontaktdetails ansehen</string>
     <string name="show_favorites_tab">Show favorites tab</string>
     <string name="show_groups_tab">Show groups tab</string>
+    <string name="manage_shown_contact_fields">Manage shown contact fields</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
@@ -78,6 +82,24 @@
     <string name="target_contact_source">Zielkontaktquelle</string>
     <string name="include_contact_sources">Kontaktquellen einschließen</string>
     <string name="filename_without_vcf">Dateiname (ohne .vcf)</string>
+
+    <!-- Visible fields -->
+    <string name="select_fields_to_show">Select fields to show</string>
+    <string name="prefix">Prefix</string>
+    <string name="suffix">Suffix</string>
+    <string name="phone_numbers">Phone numbers</string>
+    <string name="emails">Emails</string>
+    <string name="addresses">Addresses</string>
+    <string name="events">Events (birthdays, anniversaries)</string>
+    <string name="notes">Notes</string>
+    <string name="organization">Organization</string>
+    <string name="websites">Websites</string>
+    <string name="groups">Groups</string>
+    <string name="contact_source">Contact source</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
+    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

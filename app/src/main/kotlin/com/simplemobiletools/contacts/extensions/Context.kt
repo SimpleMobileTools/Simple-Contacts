@@ -9,7 +9,10 @@ import android.os.Build
 import android.provider.ContactsContract
 import android.support.v4.content.FileProvider
 import com.simplemobiletools.commons.extensions.getIntValue
+import com.simplemobiletools.commons.extensions.hasPermission
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
+import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
@@ -65,11 +68,23 @@ fun Context.sendAddressIntent(address: String) {
     val location = Uri.encode(address)
     val uri = Uri.parse("geo:0,0?q=$location")
 
-    val intent = Intent(Intent.ACTION_VIEW, uri)
-    if (intent.resolveActivity(packageManager) != null) {
-        startActivity(intent)
-    } else {
-        toast(R.string.no_app_found)
+    Intent(Intent.ACTION_VIEW, uri).apply {
+        if (resolveActivity(packageManager) != null) {
+            startActivity(this)
+        } else {
+            toast(R.string.no_app_found)
+        }
+    }
+}
+
+fun Context.openWebsiteIntent(url: String) {
+    Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse(url)
+        if (resolveActivity(packageManager) != null) {
+            startActivity(this)
+        } else {
+            toast(R.string.no_app_found)
+        }
     }
 }
 
@@ -150,8 +165,11 @@ fun Context.getPhotoThumbnailSize(): Int {
         if (cursor?.moveToFirst() == true) {
             return cursor.getIntValue(ContactsContract.DisplayPhoto.THUMBNAIL_MAX_DIM)
         }
+    } catch (ignored: Exception) {
     } finally {
         cursor?.close()
     }
     return 0
 }
+
+fun Context.hasContactPermissions() = hasPermission(PERMISSION_READ_CONTACTS) && hasPermission(PERMISSION_WRITE_CONTACTS)

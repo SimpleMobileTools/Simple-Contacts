@@ -66,6 +66,11 @@ class VcfExporter {
                             out.writeLn("$NOTE${contact.notes.replace("\n", "\\n")}")
                         }
 
+                        if (!contact.organization.isEmpty()) {
+                            out.writeLn("$ORG${contact.organization.company.replace("\n", "\\n")}")
+                            out.writeLn("$TITLE${contact.organization.jobPosition.replace("\n", "\\n")}")
+                        }
+
                         if (contact.thumbnailUri.isNotEmpty()) {
                             val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, Uri.parse(contact.thumbnailUri))
                             addBitmap(bitmap, out)
@@ -116,17 +121,23 @@ class VcfExporter {
         var firstName = contact.firstName
         var surName = contact.surname
         var middleName = contact.middleName
+        var prefix = contact.prefix
+        var suffix = contact.suffix
 
         if (QuotedPrintable.urlEncode(firstName) != firstName
                 || QuotedPrintable.urlEncode(surName) != surName
-                || QuotedPrintable.urlEncode(middleName) != middleName) {
+                || QuotedPrintable.urlEncode(middleName) != middleName
+                || QuotedPrintable.urlEncode(prefix) != prefix
+                || QuotedPrintable.urlEncode(suffix) != suffix) {
             firstName = QuotedPrintable.encode(firstName)
             surName = QuotedPrintable.encode(surName)
             middleName = QuotedPrintable.encode(middleName)
+            prefix = QuotedPrintable.encode(prefix)
+            suffix = QuotedPrintable.encode(suffix)
             result += ";CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE"
         }
 
-        return "$result:$surName;$firstName;$middleName;;"
+        return "$result:$surName;$firstName;$middleName;$prefix;$suffix"
     }
 
     private fun getPhoneNumberLabel(type: Int) = when (type) {

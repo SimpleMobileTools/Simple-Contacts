@@ -92,6 +92,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
 
         Contact.sorting = config.sorting
+        Contact.startWithSurname = config.startNameWithSurname
         contacts.sort()
         allContacts = contacts
 
@@ -149,7 +150,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     activity!!.startActivity(this)
                 }
             }.apply {
-                setupDragListener(true)
                 addVerticalDividers(true)
                 fragment_list.adapter = this
             }
@@ -190,7 +190,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     ON_CLICK_EDIT_CONTACT -> context!!.editContact(it as Contact)
                 }
             }.apply {
-                setupDragListener(true)
                 addVerticalDividers(true)
                 fragment_list.adapter = this
             }
@@ -235,16 +234,20 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun onSearchQueryChanged(text: String) {
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             val filtered = contactsIgnoringSearch.filter {
-                it.getFullName(startNameWithSurname).contains(text, true) ||
+                it.getFullName().contains(text, true) ||
                         it.phoneNumbers.any { it.value.contains(text, true) } ||
                         it.emails.any { it.value.contains(text, true) } ||
                         it.addresses.any { it.value.contains(text, true) } ||
-                        it.notes.contains(text, true)
+                        it.notes.contains(text, true) ||
+                        it.organization.company.contains(text, true) ||
+                        it.organization.jobPosition.contains(text, true) ||
+                        it.websites.any { it.contains(text, true) }
             } as ArrayList
 
             Contact.sorting = config.sorting
+            Contact.startWithSurname = config.startNameWithSurname
             filtered.sort()
-            filtered.sortBy { !it.getFullName(startNameWithSurname).startsWith(text, true) }
+            filtered.sortBy { !it.getFullName().startsWith(text, true) }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
                 fragment_placeholder.text = activity.getString(R.string.no_items_found)

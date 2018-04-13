@@ -6,6 +6,9 @@
     <string name="updating">更新中…</string>
     <string name="phone_storage">手機空間</string>
     <string name="phone_storage_hidden">手機空間 (其他程式不可見)</string>
+    <string name="company">公司</string>
+    <string name="job_position">職位</string>
+    <string name="website">Website</string>
 
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>
@@ -24,7 +27,7 @@
     <string name="no_group_created">裝置內沒有聯絡人群組</string>
     <string name="create_group">建立群組</string>
     <string name="add_to_group">添加到群組</string>
-    <string name="create_group_under_account">Create group under account</string>
+    <string name="create_group_under_account">在帳號下建立群組</string>
 
     <!-- Photo -->
     <string name="take_photo">拍照</string>
@@ -40,9 +43,10 @@
     <string name="view_contact">顯示聯絡人資料</string>
     <string name="show_favorites_tab">顯示我的最愛頁面</string>
     <string name="show_groups_tab">顯示群組頁面</string>
+    <string name="manage_shown_contact_fields">管理顯示的聯絡人欄位</string>
 
     <!-- Emails -->
-    <string name="email">信箱</string>
+    <string name="email">電子信箱</string>
     <string name="home">住家</string>
     <string name="work">工作</string>
     <string name="other">其它</string>
@@ -78,6 +82,24 @@
     <string name="target_contact_source">聯絡人來源</string>
     <string name="include_contact_sources">包含聯絡人來源</string>
     <string name="filename_without_vcf">檔案名稱 (不含.vcf)</string>
+
+    <!-- Visible fields -->
+    <string name="select_fields_to_show">選擇要顯示的欄位</string>
+    <string name="prefix">前缀</string>
+    <string name="suffix">後綴</string>
+    <string name="phone_numbers">電話號碼</string>
+    <string name="emails">電子信箱</string>
+    <string name="addresses">地址</string>
+    <string name="events">活動 (生日、紀念日)</string>
+    <string name="notes">筆記</string>
+    <string name="organization">組織</string>
+    <string name="websites">Websites</string>
+    <string name="groups">群組</string>
+    <string name="contact_source">聯絡人來源</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">我想要更改在通訊錄會看到哪些欄位。我能這麼做嗎?</string>
+    <string name="faq_1_text">可以，你要做的是到[設定] -> [管理顯示的聯絡人欄位]。在那裡，你可以選擇應該看到什麼欄位。其中有些甚至預設是關閉的，所以你可能會在那裡發現一些新的。</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

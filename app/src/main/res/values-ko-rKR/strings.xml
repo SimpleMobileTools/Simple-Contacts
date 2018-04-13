@@ -6,6 +6,9 @@
     <string name="updating">수정중…</string>
     <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
+    <string name="company">Company</string>
+    <string name="job_position">Job position</string>
+    <string name="website">Website</string>
 
     <string name="new_contact">새로운 연락처</string>
     <string name="edit_contact">연락처 수정</string>
@@ -40,6 +43,7 @@
     <string name="view_contact">View contact details</string>
     <string name="show_favorites_tab">Show favorites tab</string>
     <string name="show_groups_tab">Show groups tab</string>
+    <string name="manage_shown_contact_fields">Manage shown contact fields</string>
 
     <!-- Emails -->
     <string name="email">이메일</string>
@@ -78,6 +82,24 @@
     <string name="target_contact_source">내보내기 대상</string>
     <string name="include_contact_sources">가져오기 대상</string>
     <string name="filename_without_vcf">파일이름 (.vcf 확장자 생략)</string>
+
+    <!-- Visible fields -->
+    <string name="select_fields_to_show">Select fields to show</string>
+    <string name="prefix">Prefix</string>
+    <string name="suffix">Suffix</string>
+    <string name="phone_numbers">Phone numbers</string>
+    <string name="emails">Emails</string>
+    <string name="addresses">Addresses</string>
+    <string name="events">Events (birthdays, anniversaries)</string>
+    <string name="notes">Notes</string>
+    <string name="organization">Organization</string>
+    <string name="websites">Websites</string>
+    <string name="groups">Groups</string>
+    <string name="contact_source">Contact source</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
+    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

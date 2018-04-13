@@ -20,14 +20,13 @@ import java.io.File
 
 fun SimpleActivity.startCallIntent(recipient: String) {
     handlePermission(PERMISSION_CALL_PHONE) {
-        if (it) {
-            Intent(Intent.ACTION_CALL).apply {
-                data = Uri.fromParts("tel", recipient, null)
-                if (resolveActivity(packageManager) != null) {
-                    startActivity(this)
-                } else {
-                    toast(R.string.no_app_found)
-                }
+        val action = if (it) Intent.ACTION_CALL else Intent.ACTION_DIAL
+        Intent(action).apply {
+            data = Uri.fromParts("tel", recipient, null)
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
             }
         }
     }
@@ -127,7 +126,7 @@ fun BaseSimpleActivity.addContactsToGroup(contacts: ArrayList<Contact>, groupId:
 fun BaseSimpleActivity.removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
     val publicContacts = contacts.filter { it.source != SMT_PRIVATE }
     val privateContacts = contacts.filter { it.source == SMT_PRIVATE }
-    if (publicContacts.isNotEmpty()) {
+    if (publicContacts.isNotEmpty() && hasContactPermissions()) {
         ContactsHelper(this).removeContactsFromGroup(contacts, groupId)
     }
 

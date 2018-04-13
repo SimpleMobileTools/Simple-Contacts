@@ -23,9 +23,11 @@ import com.simplemobiletools.contacts.models.*
 class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
     private val CONTACTS_TABLE_NAME = "contacts"
     private val COL_ID = "id"
+    private val COL_PREFIX = "prefix"
     private val COL_FIRST_NAME = "first_name"
     private val COL_MIDDLE_NAME = "middle_name"
     private val COL_SURNAME = "surname"
+    private val COL_SUFFIX = "suffix"
     private val COL_PHOTO = "photo"
     private val COL_PHONE_NUMBERS = "phone_numbers"
     private val COL_EMAILS = "emails"
@@ -33,6 +35,8 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     private val COL_STARRED = "starred"
     private val COL_ADDRESSES = "addresses"
     private val COL_NOTES = "notes"
+    private val COL_COMPANY = "company"
+    private val COL_JOB_POSITION = "job_position"
     private val COL_GROUPS = "groups"
 
     private val GROUPS_TABLE_NAME = "groups"
@@ -43,9 +47,10 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     private val mDb = writableDatabase
 
     companion object {
-        private const val DB_VERSION = 3
+        private const val DB_VERSION = 4
         const val DB_NAME = "contacts.db"
         var dbInstance: DBHelper? = null
+        var gson = Gson()
 
         fun newInstance(context: Context): DBHelper {
             if (dbInstance == null)
@@ -58,7 +63,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE $CONTACTS_TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_FIRST_NAME TEXT, $COL_MIDDLE_NAME TEXT, " +
                 "$COL_SURNAME TEXT, $COL_PHOTO BLOB, $COL_PHONE_NUMBERS TEXT, $COL_EMAILS TEXT, $COL_EVENTS TEXT, $COL_STARRED INTEGER, " +
-                "$COL_ADDRESSES TEXT, $COL_NOTES TEXT, $COL_GROUPS TEXT)")
+                "$COL_ADDRESSES TEXT, $COL_NOTES TEXT, $COL_GROUPS TEXT, $COL_PREFIX TEXT, $COL_SUFFIX TEXT, $COL_COMPANY TEXT, $COL_JOB_POSITION TEXT)")
 
         // start autoincrement ID from FIRST_CONTACT_ID to avoid conflicts
         db.execSQL("REPLACE INTO sqlite_sequence (name, seq) VALUES ('$CONTACTS_TABLE_NAME', $FIRST_CONTACT_ID)")
@@ -75,6 +80,13 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         if (oldVersion < 3) {
             createGroupsTable(db)
             db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_GROUPS TEXT DEFAULT ''")
+        }
+
+        if (oldVersion < 4) {
+            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_PREFIX TEXT DEFAULT ''")
+            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_SUFFIX TEXT DEFAULT ''")
+            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_COMPANY TEXT DEFAULT ''")
+            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_JOB_POSITION TEXT DEFAULT ''")
         }
     }
 
@@ -108,16 +120,20 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
     private fun fillContactValues(contact: Contact): ContentValues {
         return ContentValues().apply {
+            put(COL_PREFIX, contact.prefix)
             put(COL_FIRST_NAME, contact.firstName)
             put(COL_MIDDLE_NAME, contact.middleName)
             put(COL_SURNAME, contact.surname)
-            put(COL_PHONE_NUMBERS, Gson().toJson(contact.phoneNumbers))
-            put(COL_EMAILS, Gson().toJson(contact.emails))
-            put(COL_ADDRESSES, Gson().toJson(contact.addresses))
-            put(COL_EVENTS, Gson().toJson(contact.events))
+            put(COL_SUFFIX, contact.suffix)
+            put(COL_PHONE_NUMBERS, gson.toJson(contact.phoneNumbers))
+            put(COL_EMAILS, gson.toJson(contact.emails))
+            put(COL_ADDRESSES, gson.toJson(contact.addresses))
+            put(COL_EVENTS, gson.toJson(contact.events))
             put(COL_STARRED, contact.starred)
             put(COL_NOTES, contact.notes)
-            put(COL_GROUPS, Gson().toJson(contact.groups.map { it.id }))
+            put(COL_GROUPS, gson.toJson(contact.groups.map { it.id }))
+            put(COL_COMPANY, contact.organization.company)
+            put(COL_JOB_POSITION, contact.organization.jobPosition)
 
             if (contact.photoUri.isNotEmpty()) {
                 put(COL_PHOTO, getPhotoByteArray(contact.photoUri))
@@ -166,7 +182,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
     fun deleteGroup(id: Long) = deleteGroups(arrayOf(id.toString()))
 
-    fun deleteGroups(ids: Array<String>) {
+    private fun deleteGroups(ids: Array<String>) {
         val args = TextUtils.join(", ", ids)
         val selection = "$GROUPS_TABLE_NAME.$COL_ID IN ($args)"
         mDb.delete(GROUPS_TABLE_NAME, selection, null)
@@ -209,7 +225,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         }
     }
 
-    fun updateContactGroups(contact: Contact, groupIds: ArrayList<Long>) {
+    private fun updateContactGroups(contact: Contact, groupIds: ArrayList<Long>) {
         val contactValues = fillContactGroupValues(groupIds)
         val selection = "$COL_ID = ?"
         val selectionArgs = arrayOf(contact.id.toString())
@@ -218,39 +234,47 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
     private fun fillContactGroupValues(groupIds: ArrayList<Long>): ContentValues {
         return ContentValues().apply {
-            put(COL_GROUPS, Gson().toJson(groupIds))
+            put(COL_GROUPS, gson.toJson(groupIds))
         }
     }
-
 
     fun getContacts(activity: BaseSimpleActivity, selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
         val storedGroups = ContactsHelper(activity).getStoredGroups()
         val contacts = ArrayList<Contact>()
-        val projection = arrayOf(COL_ID, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_PHONE_NUMBERS, COL_EMAILS, COL_EVENTS, COL_STARRED,
-                COL_PHOTO, COL_ADDRESSES, COL_NOTES, COL_GROUPS)
+        val projection = arrayOf(COL_ID, COL_PREFIX, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_SUFFIX, COL_PHONE_NUMBERS, COL_EMAILS,
+                COL_EVENTS, COL_STARRED, COL_PHOTO, COL_ADDRESSES, COL_NOTES, COL_GROUPS, COL_COMPANY, COL_JOB_POSITION)
+
+        val phoneNumbersToken = object : TypeToken<List<PhoneNumber>>() {}.type
+        val emailsToken = object : TypeToken<List<Email>>() {}.type
+        val addressesToken = object : TypeToken<List<Address>>() {}.type
+        val eventsToken = object : TypeToken<List<Event>>() {}.type
+        val groupIdsToken = object : TypeToken<List<Long>>() {}.type
+
         val cursor = mDb.query(CONTACTS_TABLE_NAME, projection, selection, selectionArgs, null, null, null)
         cursor.use {
             while (cursor.moveToNext()) {
                 val id = cursor.getIntValue(COL_ID)
+                val prefix = cursor.getStringValue(COL_PREFIX)
                 val firstName = cursor.getStringValue(COL_FIRST_NAME)
                 val middleName = cursor.getStringValue(COL_MIDDLE_NAME)
                 val surname = cursor.getStringValue(COL_SURNAME)
+                val suffix = cursor.getStringValue(COL_SUFFIX)
 
                 val phoneNumbersJson = cursor.getStringValue(COL_PHONE_NUMBERS)
-                val phoneNumbersToken = object : TypeToken<List<PhoneNumber>>() {}.type
-                val phoneNumbers = Gson().fromJson<ArrayList<PhoneNumber>>(phoneNumbersJson, phoneNumbersToken) ?: ArrayList(1)
+                val phoneNumbers = if (phoneNumbersJson == "[]") ArrayList() else gson.fromJson<ArrayList<PhoneNumber>>(phoneNumbersJson, phoneNumbersToken)
+                        ?: ArrayList(1)
 
                 val emailsJson = cursor.getStringValue(COL_EMAILS)
-                val emailsToken = object : TypeToken<List<Email>>() {}.type
-                val emails = Gson().fromJson<ArrayList<Email>>(emailsJson, emailsToken) ?: ArrayList(1)
+                val emails = if (emailsJson == "[]") ArrayList() else gson.fromJson<ArrayList<Email>>(emailsJson, emailsToken)
+                        ?: ArrayList(1)
 
                 val addressesJson = cursor.getStringValue(COL_ADDRESSES)
-                val addressesToken = object : TypeToken<List<Address>>() {}.type
-                val addresses = Gson().fromJson<ArrayList<Address>>(addressesJson, addressesToken) ?: ArrayList(1)
+                val addresses = if (addressesJson == "[]") ArrayList() else gson.fromJson<ArrayList<Address>>(addressesJson, addressesToken)
+                        ?: ArrayList(1)
 
                 val eventsJson = cursor.getStringValue(COL_EVENTS)
-                val eventsToken = object : TypeToken<List<Event>>() {}.type
-                val events = Gson().fromJson<ArrayList<Event>>(eventsJson, eventsToken) ?: ArrayList(1)
+                val events = if (eventsJson == "[]") ArrayList() else gson.fromJson<ArrayList<Event>>(eventsJson, eventsToken)
+                        ?: ArrayList(1)
 
                 val photoByteArray = cursor.getBlobValue(COL_PHOTO) ?: null
                 val photo = if (photoByteArray?.isNotEmpty() == true) {
@@ -263,11 +287,18 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val starred = cursor.getIntValue(COL_STARRED)
 
                 val groupIdsJson = cursor.getStringValue(COL_GROUPS)
-                val groupIdsToken = object : TypeToken<List<Long>>() {}.type
-                val groupIds = Gson().fromJson<ArrayList<Long>>(groupIdsJson, groupIdsToken) ?: ArrayList(1)
+                val groupIds = if (groupIdsJson == "[]") ArrayList() else gson.fromJson<ArrayList<Long>>(groupIdsJson, groupIdsToken)
+                        ?: ArrayList(1)
                 val groups = storedGroups.filter { groupIds.contains(it.id) } as ArrayList<Group>
 
-                val contact = Contact(id, firstName, middleName, surname, "", phoneNumbers, emails, addresses, events, SMT_PRIVATE, starred, id, "", photo, notes, groups)
+                val company = cursor.getStringValue(COL_COMPANY)
+                val jobPosition = cursor.getStringValue(COL_JOB_POSITION)
+                val organization = Organization(company, jobPosition)
+
+                val websites = ArrayList<String>()
+
+                val contact = Contact(id, prefix, firstName, middleName, surname, suffix, "", phoneNumbers, emails, addresses, events,
+                        SMT_PRIVATE, starred, id, "", photo, notes, groups, organization, websites)
                 contacts.add(contact)
             }
         }
