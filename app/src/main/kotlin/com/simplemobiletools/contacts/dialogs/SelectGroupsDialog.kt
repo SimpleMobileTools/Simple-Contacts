@@ -22,7 +22,7 @@ class SelectGroupsDialog(val activity: SimpleActivity, val selectedGroups: Array
     private val dialog: AlertDialog?
 
     init {
-        groups.forEach {
+        groups.sortedBy { it.title }.forEach {
             addGroupCheckbox(it)
         }
 
