@@ -1,32 +1,3 @@
-
-Skip to content
-This repository
-
-    Pull requests
-    Issues
-    Marketplace
-    Explore
-
-    @mobtechpd
-
-6
-52
-
-    19
-
-SimpleMobileTools/Simple-Contacts
-Code
-Issues 25
-Pull requests 0
-Projects 0
-Wiki
-Insights
-Simple-Contacts/app/src/main/res/values-lt/strings.xml
-2fca861 2 days ago
-@tibbi tibbi add websites to the list of available fields
-@tibbi
-@mobtechpd
-122 lines (104 sloc) 6.4 KB
 <resources>
     <string name="app_name">Paprasti kontaktai</string>
     <string name="app_launcher_name">Kontaktai</string>
