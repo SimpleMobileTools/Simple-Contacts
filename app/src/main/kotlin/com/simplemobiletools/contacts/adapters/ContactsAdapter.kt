@@ -1,6 +1,8 @@
 package com.simplemobiletools.contacts.adapters
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -62,6 +65,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             findItem(R.id.cab_remove).isVisible = location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
             findItem(R.id.cab_add_to_favorites).isVisible = location == LOCATION_CONTACTS_TAB
             findItem(R.id.cab_add_to_group).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB
+            findItem(R.id.cab_send_sms_to_contacts).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB
+            findItem(R.id.cab_send_email_to_contacts).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB
             findItem(R.id.cab_delete).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_GROUP_CONTACTS
 
             if (location == LOCATION_GROUP_CONTACTS) {
@@ -87,6 +92,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             R.id.cab_add_to_favorites -> addToFavorites()
             R.id.cab_add_to_group -> addToGroup()
             R.id.cab_share -> shareContacts()
+            R.id.cab_send_sms_to_contacts -> sendSMSToContacts()
+            R.id.cab_send_email_to_contacts -> sendEmailToContacts()
             R.id.cab_remove -> removeContacts()
             R.id.cab_delete -> askConfirmDelete()
         }
@@ -223,6 +230,49 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
         val filtered = contactItems.filter { contactsIDs.contains(it.id) } as ArrayList<Contact>
         activity.shareContacts(filtered)
+    }
+
+    private fun sendSMSToContacts() {
+        val numbers = StringBuilder()
+        selectedPositions.forEach {
+            val contact = contactItems[it]
+            contact.phoneNumbers.forEach {
+                if (it.value.isNotEmpty()) {
+                    numbers.append("${it.value};")
+                }
+            }
+        }
+
+        val uriString = "smsto:${numbers.toString().trimEnd(';')}"
+        Intent(Intent.ACTION_SENDTO, Uri.parse(uriString)).apply {
+            if (resolveActivity(activity.packageManager) != null) {
+                activity.startActivity(this)
+            } else {
+                activity.toast(R.string.no_app_found)
+            }
+        }
+    }
+
+    private fun sendEmailToContacts() {
+        val emails = ArrayList<String>()
+        selectedPositions.forEach {
+            val contact = contactItems[it]
+            contact.emails.forEach {
+                if (it.value.isNotEmpty()) {
+                    emails.add(it.value)
+                }
+            }
+        }
+
+        Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+            type = "message/rfc822"
+            putExtra(Intent.EXTRA_EMAIL, emails.toTypedArray())
+            if (resolveActivity(activity.packageManager) != null) {
+                activity.startActivity(this)
+            } else {
+                activity.toast(R.string.no_app_found)
+            }
+        }
     }
 
     override fun onViewRecycled(holder: ViewHolder) {

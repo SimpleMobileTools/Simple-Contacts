@@ -9,6 +9,10 @@
     <string name="company">Tvrtka</string>
     <string name="job_position">Radno mjesto</string>
     <string name="website">Web stranica</string>
+    <string name="send_sms_to_contacts">Send SMS to contacts</string>
+    <string name="send_email_to_contacts">Send email to contacts</string>
+    <string name="send_sms_to_group">Send SMS to group</string>
+    <string name="send_email_to_group">Send email to group</string>
 
     <string name="new_contact">Novi kontakt</string>
     <string name="edit_contact">Uredi kontakt</string>

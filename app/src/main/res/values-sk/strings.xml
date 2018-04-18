@@ -9,6 +9,10 @@
     <string name="company">Firma</string>
     <string name="job_position">Pracovná pozícia</string>
     <string name="website">Website</string>
+    <string name="send_sms_to_contacts">Poslať kontaktom SMS</string>
+    <string name="send_email_to_contacts">Poslať kontaktom email</string>
+    <string name="send_sms_to_group">Poslať skupine SMS</string>
+    <string name="send_email_to_group">Poslať skupine email</string>
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
