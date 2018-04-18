@@ -102,7 +102,7 @@
     <string name="faq_1_text">Da, sve što morate učiniti je otići u Postavke -> Upravljanje poljima za prikaz. Tamo možete odabrati polja koja bi trebala biti vidljiva. Neka od njih su čak i onemogućena prema zadanim postavkama, tako da možete pronaći neke nove.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- Short description has to have less than 80 chars -->Da, sve što morate učiniti je otići u Postavke -> Upravljanje prikazanim kontaktnim poljima. Tamo možete odabrati polja koja bi trebala biti vidljiva. Neke od njih su čak i onemogućene prema zadanim postavkama, tako da možete pronaći neke nove.
+    <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Aplikacija za upravljanje kontaktima bez oglasa.</string>
     <string name="app_long_description">
         Jednostavna aplikacija za izradu ili upravljanje kontaktima iz bilo kojeg izvora. Kontakti mogu biti pohranjeni samo na Vašem uređaju, ali i sinkronizirani putem Googlea ili drugih računa. Možete prikazati svoje omiljene kontakte na zasebnom popisu.
