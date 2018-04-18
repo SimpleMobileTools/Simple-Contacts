@@ -1,8 +1,6 @@
 package com.simplemobiletools.contacts.adapters
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -17,17 +15,13 @@ import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
-import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.dialogs.CreateNewGroupDialog
-import com.simplemobiletools.contacts.extensions.addContactsToGroup
-import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.editContact
-import com.simplemobiletools.contacts.extensions.shareContacts
+import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.interfaces.RemoveFromGroupListener
@@ -181,21 +175,13 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     }
 
     private fun addToFavorites() {
-        val newFavorites = ArrayList<Contact>()
-        selectedPositions.forEach {
-            newFavorites.add(contactItems[it])
-        }
-        ContactsHelper(activity).addFavorites(newFavorites)
+        ContactsHelper(activity).addFavorites(getSelectedContacts())
         refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
         finishActMode()
     }
 
     private fun addToGroup() {
-        val selectedContacts = ArrayList<Contact>()
-        selectedPositions.forEach {
-            selectedContacts.add(contactItems[it])
-        }
-
+        val selectedContacts = getSelectedContacts()
         val NEW_GROUP_ID = -1
         val items = ArrayList<RadioItem>()
         ContactsHelper(activity).getStoredGroups().forEach {
@@ -233,46 +219,19 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     }
 
     private fun sendSMSToContacts() {
-        val numbers = StringBuilder()
-        selectedPositions.forEach {
-            val contact = contactItems[it]
-            contact.phoneNumbers.forEach {
-                if (it.value.isNotEmpty()) {
-                    numbers.append("${it.value};")
-                }
-            }
-        }
-
-        val uriString = "smsto:${numbers.toString().trimEnd(';')}"
-        Intent(Intent.ACTION_SENDTO, Uri.parse(uriString)).apply {
-            if (resolveActivity(activity.packageManager) != null) {
-                activity.startActivity(this)
-            } else {
-                activity.toast(R.string.no_app_found)
-            }
-        }
+        activity.sendSMSToContacts(getSelectedContacts())
     }
 
     private fun sendEmailToContacts() {
-        val emails = ArrayList<String>()
-        selectedPositions.forEach {
-            val contact = contactItems[it]
-            contact.emails.forEach {
-                if (it.value.isNotEmpty()) {
-                    emails.add(it.value)
-                }
-            }
-        }
+        activity.sendEmailToContacts(getSelectedContacts())
+    }
 
-        Intent(Intent.ACTION_SEND_MULTIPLE).apply {
-            type = "message/rfc822"
-            putExtra(Intent.EXTRA_EMAIL, emails.toTypedArray())
-            if (resolveActivity(activity.packageManager) != null) {
-                activity.startActivity(this)
-            } else {
-                activity.toast(R.string.no_app_found)
-            }
+    private fun getSelectedContacts(): ArrayList<Contact> {
+        val contacts = ArrayList<Contact>()
+        selectedPositions.forEach {
+            contacts.add(contactItems[it])
         }
+        return contacts
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
