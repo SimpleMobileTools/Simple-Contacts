@@ -55,7 +55,7 @@ class VcfExporter {
                         contact.addresses.forEach {
                             val type = getAddressTypeLabel(it.type)
                             val delimiterType = if (type.isEmpty()) "" else ";$type"
-                            out.writeLn("$ADR$delimiterType:;;${it.value};;;;")
+                            out.writeLn("$ADR$delimiterType:;;${it.value.replace("\n", "\\n")};;;;")
                         }
 
                         contact.events.forEach {

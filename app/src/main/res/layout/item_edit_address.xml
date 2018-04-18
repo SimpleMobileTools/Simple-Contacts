@@ -13,10 +13,7 @@
         android:layout_toLeftOf="@+id/contact_address_type"
         android:layout_toStartOf="@+id/contact_address_type"
         android:hint="@string/address"
-        android:inputType="textCapWords"
-        android:lines="1"
-        android:maxLines="1"
-        android:singleLine="true"
+        android:inputType="textCapWords|textMultiLine"
         android:textCursorDrawable="@null"
         android:textSize="@dimen/bigger_text_size"/>
 
