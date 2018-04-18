@@ -254,7 +254,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
 
             fragment_placeholder.beVisibleIf(filtered.isEmpty())
-            updateItems(filtered)
+            updateItems(filtered, text)
         }
     }
 

@@ -14,6 +14,7 @@ import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
+import com.simplemobiletools.commons.extensions.highlightTextPart
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
@@ -36,6 +37,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     private lateinit var contactDrawable: Drawable
     private var config = activity.config
+    private var textToHighlight = ""
     var startNameWithSurname: Boolean
     var showContactThumbnails: Boolean
     var showPhoneNumbers: Boolean
@@ -114,11 +116,15 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person, textColor)
     }
 
-    fun updateItems(newItems: ArrayList<Contact>) {
+    fun updateItems(newItems: ArrayList<Contact>, highlightText: String = "") {
         if (newItems.hashCode() != contactItems.hashCode()) {
             contactItems = newItems
+            textToHighlight = highlightText
             notifyDataSetChanged()
             finishActMode()
+        } else if (textToHighlight != highlightText) {
+            textToHighlight = highlightText
+            notifyDataSetChanged()
         }
     }
 
@@ -243,13 +249,18 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     private fun setupView(view: View, contact: Contact) {
         view.apply {
-            contact_name.text = contact.getFullName()
+            val fullName = contact.getFullName()
+            val nameText = if (textToHighlight.isEmpty()) fullName else fullName.highlightTextPart(textToHighlight, primaryColor)
+            contact_name.text = nameText
             contact_name.setTextColor(textColor)
             contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
 
-            contact_number?.text = contact.phoneNumbers.firstOrNull()?.value ?: ""
-            contact_number?.setTextColor(textColor)
-            contact_number?.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
+            if (contact_number != null) {
+                val numberText = contact.phoneNumbers.firstOrNull()?.value ?: ""
+                contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, primaryColor)
+                contact_number.setTextColor(textColor)
+                contact_number.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
+            }
 
             contact_tmb.beVisibleIf(showContactThumbnails)
 
