@@ -51,7 +51,7 @@
                 android:paddingLeft="@dimen/activity_margin"
                 android:paddingRight="@dimen/activity_margin"
                 android:scaleType="center"
-                android:src="@drawable/ic_email"/>
+                android:src="@drawable/ic_email_big"/>
 
             <ImageView
                 android:id="@+id/contact_start_call"
@@ -75,7 +75,7 @@
                 android:paddingLeft="@dimen/activity_margin"
                 android:paddingRight="@dimen/activity_margin"
                 android:scaleType="center"
-                android:src="@drawable/ic_sms"/>
+                android:src="@drawable/ic_sms_big"/>
 
         </LinearLayout>
 
