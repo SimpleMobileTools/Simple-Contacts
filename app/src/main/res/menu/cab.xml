@@ -28,12 +28,14 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/cab_send_sms_to_contacts"
+        android:icon="@drawable/ic_sms"
         android:title="@string/send_sms_to_contacts"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/cab_send_email_to_contacts"
+        android:icon="@drawable/ic_email"
         android:title="@string/send_email_to_contacts"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/cab_delete"
         android:icon="@drawable/ic_delete"
