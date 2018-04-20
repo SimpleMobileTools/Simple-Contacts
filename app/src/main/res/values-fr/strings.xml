@@ -8,11 +8,11 @@
     <string name="phone_storage_hidden">Stockage du téléphone (non visible par d\'autres applis)</string>
     <string name="company">Société</string>
     <string name="job_position">Poste</string>
-    <string name="website">Website</string>
-    <string name="send_sms_to_contacts">Send SMS to contacts</string>
-    <string name="send_email_to_contacts">Send email to contacts</string>
-    <string name="send_sms_to_group">Send SMS to group</string>
-    <string name="send_email_to_group">Send email to group</string>
+    <string name="website">Site web</string>
+    <string name="send_sms_to_contacts">Envoyer un SMS aux contacts</string>
+    <string name="send_email_to_contacts">Envoyer un e-mail aux contacts</string>
+    <string name="send_sms_to_group">Envoyer un SMS au groupe</string>
+    <string name="send_email_to_group">Envoyer un e-mail au groupe</string>
 
     <string name="new_contact">Nouveau contact</string>
     <string name="edit_contact">Modifier contact</string>
@@ -97,7 +97,7 @@
     <string name="events">Évènements (naissances, anniversaires)</string>
     <string name="notes">Notes</string>
     <string name="organization">Organisation</string>
-    <string name="websites">Websites</string>
+    <string name="websites">Sites web</string>
     <string name="groups">Groupe</string>
     <string name="contact_source">Source du contact</string>
 
