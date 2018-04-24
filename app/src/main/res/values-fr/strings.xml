@@ -39,15 +39,15 @@
     <string name="remove_photo">Supprimer la photo</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Commencer le nom par le nom de famille</string>
-    <string name="show_phone_numbers">Afficher les numéros de téléphone sur l\'écran principal</string>
+    <string name="start_name_with_surname">Trier les contacts par nom de famille</string>
+    <string name="show_phone_numbers">Afficher les numéros de téléphone</string>
     <string name="show_contact_thumbnails">Afficher les vignettes des contacts</string>
     <string name="on_contact_click">Sur appui du contact</string>
     <string name="call_contact">Appeler le contact</string>
     <string name="view_contact">Voir les détails du contact</string>
     <string name="show_favorites_tab">Afficher l\'onglet favoris</string>
     <string name="show_groups_tab">Afficher l\'onglet groupes</string>
-    <string name="manage_shown_contact_fields">Configurer l\'affichage des champs de contact</string>
+    <string name="manage_shown_contact_fields">Configurer l\'affichage des champs des contacts</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>
@@ -69,7 +69,7 @@
     <string name="anniversary">Anniversaire</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Il semble que vous n\'ayez pas encore ajouté de contact favori.</string>
+    <string name="no_favorites">Vous n\'ayez pas encore ajouté de contact favori.</string>
     <string name="add_favorites">Ajouter des favoris</string>
     <string name="add_to_favorites">Ajouter aux favoris</string>
     <string name="remove_from_favorites">Retirer des favoris</string>
