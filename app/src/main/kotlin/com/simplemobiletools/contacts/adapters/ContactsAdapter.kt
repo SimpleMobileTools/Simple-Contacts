@@ -117,7 +117,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     fun updateItems(newItems: ArrayList<Contact>, highlightText: String = "") {
         if (newItems.hashCode() != contactItems.hashCode()) {
-            contactItems = newItems
+            contactItems = newItems.clone() as ArrayList<Contact>
             textToHighlight = highlightText
             notifyDataSetChanged()
             finishActMode()
