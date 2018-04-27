@@ -73,6 +73,7 @@
     <string name="add_favorites">Добавить избранные</string>
     <string name="add_to_favorites">Добавить в избранные</string>
     <string name="remove_from_favorites">Удалить из избранных</string>
+    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 
     <!-- Search -->
     <string name="search_contacts">Поиск контактов</string>

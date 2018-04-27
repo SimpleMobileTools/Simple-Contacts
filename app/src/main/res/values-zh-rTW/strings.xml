@@ -73,6 +73,7 @@
     <string name="add_favorites">添加我的最愛</string>
     <string name="add_to_favorites">加入我的最愛</string>
     <string name="remove_from_favorites">從我的最愛移除</string>
+    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 
     <!-- Search -->
     <string name="search_contacts">搜尋聯絡人</string>

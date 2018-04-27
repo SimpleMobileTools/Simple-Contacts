@@ -73,6 +73,7 @@
     <string name="add_favorites">Προσθήκη αγαπημένων</string>
     <string name="add_to_favorites">Προσθήκη στα αγαπημένα</string>
     <string name="remove_from_favorites">Αφαίρεση από τα αγαπημένα</string>
+    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 
     <!-- Search -->
     <string name="search_contacts">Αναζήτηση επαφών</string>

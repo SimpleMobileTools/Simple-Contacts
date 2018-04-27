@@ -73,6 +73,7 @@
     <string name="add_favorites">자주쓰는 연락처 등록</string>
     <string name="add_to_favorites">자주쓰는 연락처에 추가</string>
     <string name="remove_from_favorites">자주쓰는 연락처에서 제거</string>
+    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 
     <!-- Search -->
     <string name="search_contacts">연락처 검색</string>

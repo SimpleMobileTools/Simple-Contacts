@@ -157,6 +157,9 @@ class ViewContactActivity : ContactActivity() {
             setImageDrawable(getStarDrawable(contact!!.starred == 1))
             tag = contact!!.starred
             applyColorFilter(config.textColor)
+            setOnClickListener {
+                toast(R.string.must_be_at_edit)
+            }
         }
     }
 
