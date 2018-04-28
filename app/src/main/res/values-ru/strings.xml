@@ -9,10 +9,10 @@
     <string name="company">Организация</string>
     <string name="job_position">Должность</string>
     <string name="website">Сайт</string>
-    <string name="send_sms_to_contacts">Send SMS to contacts</string>
-    <string name="send_email_to_contacts">Send email to contacts</string>
-    <string name="send_sms_to_group">Send SMS to group</string>
-    <string name="send_email_to_group">Send email to group</string>
+    <string name="send_sms_to_contacts">Отправить SMS контактам</string>
+    <string name="send_email_to_contacts">Отправить письмо контактам</string>
+    <string name="send_sms_to_group">Отправить SMS группе</string>
+    <string name="send_email_to_group">Отправить письмо группе</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
@@ -73,7 +73,7 @@
     <string name="add_favorites">Добавить избранные</string>
     <string name="add_to_favorites">Добавить в избранные</string>
     <string name="remove_from_favorites">Удалить из избранных</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
+    <string name="must_be_at_edit">Для изменения контакта необходимо находиться на экране редактирования</string>
 
     <!-- Search -->
     <string name="search_contacts">Поиск контактов</string>
