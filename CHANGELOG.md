@@ -1,6 +1,20 @@
 Changelog
 ==========
 
+Version 3.5.3 *(2018-04-18)*
+----------------------------
+
+ * Allow splitting the Address in multiple lines
+ * Allow batch sending SMS or emails to selected contacts or whole group
+ * Highlight the searched string at the result contacts
+
+Version 3.5.2 *(2018-04-13)*
+----------------------------
+
+ * Added an optional website field
+ * Parse more fields from Add Contact third party intents, like the one from WhatsApp
+ * Fix exporting contacts on SD cards
+
 Version 3.5.1 *(2018-04-10)*
 ----------------------------
 

@@ -8,7 +8,11 @@
     <string name="phone_storage_hidden">Armazenamento do telefone (não visível por outras alicações)</string>
     <string name="company">Organização</string>
     <string name="job_position">Cargo</string>
-    <string name="website">Website</string>
+    <string name="website">Site</string>
+    <string name="send_sms_to_contacts">Send SMS to contacts</string>
+    <string name="send_email_to_contacts">Send email to contacts</string>
+    <string name="send_sms_to_group">Send SMS to group</string>
+    <string name="send_email_to_group">Send email to group</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
@@ -38,7 +42,7 @@
     <string name="start_name_with_surname">Ordenar por apelido</string>
     <string name="show_phone_numbers">Mostrar número de telefone no ecrã principal</string>
     <string name="show_contact_thumbnails">Mostrar miniatura do contacto</string>
-    <string name="on_contact_click">Ao clicar no contacto</string>
+    <string name="on_contact_click">Ao tocar no contacto</string>
     <string name="call_contact">Ligar</string>
     <string name="view_contact">Ver detalhes</string>
     <string name="show_favorites_tab">Mostrar favoritos</string>
@@ -65,10 +69,11 @@
     <string name="anniversary">Aniversário</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Parece que ainda não adicionou contactos como favoritos.</string>
+    <string name="no_favorites">Parece que ainda não adicionou contactos como favoritos</string>
     <string name="add_favorites">Adicionar favoritos</string>
     <string name="add_to_favorites">Adicionar aos favoritos</string>
     <string name="remove_from_favorites">Remover dos favoritos</string>
+    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 
     <!-- Search -->
     <string name="search_contacts">Pesquisar contactos</string>
@@ -79,7 +84,7 @@
     <string name="export_contacts">Exportar contactos</string>
     <string name="import_contacts_from_vcf">Importar contactos de um ficheiro .vcf</string>
     <string name="export_contacts_to_vcf">Exportar contactos para um ficheiro .vcf</string>
-    <string name="target_contact_source">Destino da fonte do contacto</string>
+    <string name="target_contact_source">Destino da origem do contacto</string>
     <string name="include_contact_sources">Incluir fontes dos contactos</string>
     <string name="filename_without_vcf">Nome do ficheiro (sem .vcf)</string>
 
@@ -93,9 +98,9 @@
     <string name="events">Eventos (data de nascimento, aniversário)</string>
     <string name="notes">Notas</string>
     <string name="organization">Organização</string>
-    <string name="websites">Websites</string>
+    <string name="websites">Site</string>
     <string name="groups">Grupos</string>
-    <string name="contact_source">Fonte do contacto</string>
+    <string name="contact_source">Origem do contacto</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>

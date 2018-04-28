@@ -6,9 +6,13 @@
     <string name="updating">Uppdaterar…</string>
     <string name="phone_storage">Telefonens lagringsutrymme</string>
     <string name="phone_storage_hidden">Telefonens lagringsutrymme (inte synligt för andra appar)</string>
-    <string name="company">Company</string>
-    <string name="job_position">Job position</string>
-    <string name="website">Website</string>
+    <string name="company">Företag</string>
+    <string name="job_position">Befattning</string>
+    <string name="website">Webbplats</string>
+    <string name="send_sms_to_contacts">Skicka sms till kontakter</string>
+    <string name="send_email_to_contacts">Skicka e-post till kontakter</string>
+    <string name="send_sms_to_group">Skicka sms till grupp</string>
+    <string name="send_email_to_group">Skicka e-post till grupp</string>
 
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>
@@ -43,7 +47,7 @@
     <string name="view_contact">Visa kontaktuppgifter</string>
     <string name="show_favorites_tab">Visa fliken Favoriter</string>
     <string name="show_groups_tab">Visa fliken Grupper</string>
-    <string name="manage_shown_contact_fields">Manage shown contact fields</string>
+    <string name="manage_shown_contact_fields">Hantera visade kontaktfält</string>
 
     <!-- Emails -->
     <string name="email">E-post</string>
@@ -69,6 +73,7 @@
     <string name="add_favorites">Lägg till favoriter</string>
     <string name="add_to_favorites">Lägg till i favoriter</string>
     <string name="remove_from_favorites">Ta bort från favoriter</string>
+    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 
     <!-- Search -->
     <string name="search_contacts">Sök efter kontakter</string>
@@ -84,18 +89,18 @@
     <string name="filename_without_vcf">Filnamn (utan .vcf)</string>
 
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Select fields to show</string>
+    <string name="select_fields_to_show">Välj vilka fält som ska visas</string>
     <string name="prefix">Prefix</string>
     <string name="suffix">Suffix</string>
-    <string name="phone_numbers">Phone numbers</string>
-    <string name="emails">Emails</string>
-    <string name="addresses">Addresses</string>
-    <string name="events">Events (birthdays, anniversaries)</string>
-    <string name="notes">Notes</string>
-    <string name="organization">Organization</string>
-    <string name="websites">Websites</string>
-    <string name="groups">Groups</string>
-    <string name="contact_source">Contact source</string>
+    <string name="phone_numbers">Telefonnummer</string>
+    <string name="emails">E-postadresser</string>
+    <string name="addresses">Adresser</string>
+    <string name="events">Händelser (födelsedagar, årsdagar)</string>
+    <string name="notes">Anteckningar</string>
+    <string name="organization">Organisation</string>
+    <string name="websites">Webbplatser</string>
+    <string name="groups">Grupper</string>
+    <string name="contact_source">Kontaktkälla</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>

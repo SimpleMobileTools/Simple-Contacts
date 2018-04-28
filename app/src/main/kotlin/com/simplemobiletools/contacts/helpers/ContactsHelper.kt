@@ -839,10 +839,29 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
-                withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
+                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
                 withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
-                withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
+                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
                 operations.add(build())
+            }
+
+            // delete websites
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Website.CONTENT_ITEM_TYPE)
+                withSelection(selection, selectionArgs)
+                operations.add(build())
+            }
+
+            // add websites
+            contact.websites.forEach {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
+                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Website.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.Website.URL, it)
+                    withValue(CommonDataKinds.Website.TYPE, DEFAULT_WEBSITE_TYPE)
+                    operations.add(build())
+                }
             }
 
             // delete groups
@@ -1045,10 +1064,21 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                 withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
-                withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
+                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
                 withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
-                withValue(CommonDataKinds.Organization.TYPE, CommonDataKinds.Organization.TYPE_WORK)
+                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
                 operations.add(build())
+            }
+
+            // websites
+            contact.websites.forEach {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Website.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.Website.URL, it)
+                    withValue(CommonDataKinds.Website.TYPE, DEFAULT_WEBSITE_TYPE)
+                    operations.add(build())
+                }
             }
 
             // groups

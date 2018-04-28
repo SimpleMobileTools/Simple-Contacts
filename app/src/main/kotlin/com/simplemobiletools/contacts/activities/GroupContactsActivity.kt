@@ -1,6 +1,8 @@
 package com.simplemobiletools.contacts.activities
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
@@ -46,6 +48,20 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         refreshContacts()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_group, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.send_sms_to_group -> sendSMSToGroup()
+            R.id.send_email_to_group -> sendEmailToGroup()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
     private fun fabClicked() {
         SelectContactsDialog(this, allContacts, groupContacts) { addedContacts, removedContacts ->
             Thread {
@@ -72,6 +88,14 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
 
             updateContacts(groupContacts)
         }
+    }
+
+    private fun sendSMSToGroup() {
+        sendSMSToContacts(groupContacts)
+    }
+
+    private fun sendEmailToGroup() {
+        sendEmailToContacts(groupContacts)
     }
 
     private fun updateContacts(contacts: ArrayList<Contact>) {

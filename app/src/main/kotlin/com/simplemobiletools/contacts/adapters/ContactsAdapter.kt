@@ -12,19 +12,14 @@ import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.isActivityDestroyed
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.dialogs.CreateNewGroupDialog
-import com.simplemobiletools.contacts.extensions.addContactsToGroup
-import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.editContact
-import com.simplemobiletools.contacts.extensions.shareContacts
+import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.interfaces.RemoveFromGroupListener
@@ -39,6 +34,9 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     private lateinit var contactDrawable: Drawable
     private var config = activity.config
+    private var textToHighlight = ""
+
+    var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
     var startNameWithSurname: Boolean
     var showContactThumbnails: Boolean
     var showPhoneNumbers: Boolean
@@ -62,6 +60,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             findItem(R.id.cab_remove).isVisible = location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
             findItem(R.id.cab_add_to_favorites).isVisible = location == LOCATION_CONTACTS_TAB
             findItem(R.id.cab_add_to_group).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB
+            findItem(R.id.cab_send_sms_to_contacts).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
+            findItem(R.id.cab_send_email_to_contacts).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
             findItem(R.id.cab_delete).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_GROUP_CONTACTS
 
             if (location == LOCATION_GROUP_CONTACTS) {
@@ -87,6 +87,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             R.id.cab_add_to_favorites -> addToFavorites()
             R.id.cab_add_to_group -> addToGroup()
             R.id.cab_share -> shareContacts()
+            R.id.cab_send_sms_to_contacts -> sendSMSToContacts()
+            R.id.cab_send_email_to_contacts -> sendEmailToContacts()
             R.id.cab_remove -> removeContacts()
             R.id.cab_delete -> askConfirmDelete()
         }
@@ -113,11 +115,15 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person, textColor)
     }
 
-    fun updateItems(newItems: ArrayList<Contact>) {
+    fun updateItems(newItems: ArrayList<Contact>, highlightText: String = "") {
         if (newItems.hashCode() != contactItems.hashCode()) {
-            contactItems = newItems
+            contactItems = newItems.clone() as ArrayList<Contact>
+            textToHighlight = highlightText
             notifyDataSetChanged()
             finishActMode()
+        } else if (textToHighlight != highlightText) {
+            textToHighlight = highlightText
+            notifyDataSetChanged()
         }
     }
 
@@ -174,21 +180,13 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     }
 
     private fun addToFavorites() {
-        val newFavorites = ArrayList<Contact>()
-        selectedPositions.forEach {
-            newFavorites.add(contactItems[it])
-        }
-        ContactsHelper(activity).addFavorites(newFavorites)
+        ContactsHelper(activity).addFavorites(getSelectedContacts())
         refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
         finishActMode()
     }
 
     private fun addToGroup() {
-        val selectedContacts = ArrayList<Contact>()
-        selectedPositions.forEach {
-            selectedContacts.add(contactItems[it])
-        }
-
+        val selectedContacts = getSelectedContacts()
         val NEW_GROUP_ID = -1
         val items = ArrayList<RadioItem>()
         ContactsHelper(activity).getStoredGroups().forEach {
@@ -225,6 +223,22 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         activity.shareContacts(filtered)
     }
 
+    private fun sendSMSToContacts() {
+        activity.sendSMSToContacts(getSelectedContacts())
+    }
+
+    private fun sendEmailToContacts() {
+        activity.sendEmailToContacts(getSelectedContacts())
+    }
+
+    private fun getSelectedContacts(): ArrayList<Contact> {
+        val contacts = ArrayList<Contact>()
+        selectedPositions.forEach {
+            contacts.add(contactItems[it])
+        }
+        return contacts
+    }
+
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isActivityDestroyed()) {
@@ -234,13 +248,18 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     private fun setupView(view: View, contact: Contact) {
         view.apply {
-            contact_name.text = contact.getFullName()
+            val fullName = contact.getFullName()
+            val nameText = if (textToHighlight.isEmpty()) fullName else fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+            contact_name.text = nameText
             contact_name.setTextColor(textColor)
             contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
 
-            contact_number?.text = contact.phoneNumbers.firstOrNull()?.value ?: ""
-            contact_number?.setTextColor(textColor)
-            contact_number?.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
+            if (contact_number != null) {
+                val numberText = contact.phoneNumbers.firstOrNull()?.value ?: ""
+                contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+                contact_number.setTextColor(textColor)
+                contact_number.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
+            }
 
             contact_tmb.beVisibleIf(showContactThumbnails)
 

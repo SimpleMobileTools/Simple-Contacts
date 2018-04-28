@@ -6,9 +6,13 @@
     <string name="updating">Ažuriranje…</string>
     <string name="phone_storage">Pohrana na telefonu</string>
     <string name="phone_storage_hidden">Pohrana na telefonu (nije vidljiva drugim aplikacijama))</string>
-    <string name="company">Company</string>
-    <string name="job_position">Job position</string>
-    <string name="website">Website</string>
+    <string name="company">Tvrtka</string>
+    <string name="job_position">Radno mjesto</string>
+    <string name="website">Web stranica</string>
+    <string name="send_sms_to_contacts">Send SMS to contacts</string>
+    <string name="send_email_to_contacts">Send email to contacts</string>
+    <string name="send_sms_to_group">Send SMS to group</string>
+    <string name="send_email_to_group">Send email to group</string>
 
     <string name="new_contact">Novi kontakt</string>
     <string name="edit_contact">Uredi kontakt</string>
@@ -69,6 +73,7 @@
     <string name="add_favorites">Dodaj favorite</string>
     <string name="add_to_favorites">Dodaj u favorite</string>
     <string name="remove_from_favorites">Ukloni iz favorita</string>
+    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 
     <!-- Search -->
     <string name="search_contacts">Pretraži kontakte</string>
@@ -84,22 +89,22 @@
     <string name="filename_without_vcf">Naziv datoteke (bez .vcf)</string>
 
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Select fields to show</string>
-    <string name="prefix">Prefix</string>
-    <string name="suffix">Suffix</string>
-    <string name="phone_numbers">Phone numbers</string>
-    <string name="emails">Emails</string>
-    <string name="addresses">Addresses</string>
-    <string name="events">Events (birthdays, anniversaries)</string>
-    <string name="notes">Notes</string>
-    <string name="organization">Organization</string>
-    <string name="websites">Websites</string>
-    <string name="groups">Groups</string>
-    <string name="contact_source">Contact source</string>
+    <string name="select_fields_to_show">Odaberi polja za prikaz</string>
+    <string name="prefix">Prefiks</string>
+    <string name="suffix">Sufiks</string>
+    <string name="phone_numbers">Brojevi telefona</string>
+    <string name="emails">E-pošte</string>
+    <string name="addresses">Adrese</string>
+    <string name="events">Događaji (rođendani, godišnjice)</string>
+    <string name="notes">Bilješke</string>
+    <string name="organization">Organizacije</string>
+    <string name="websites">Web stranice</string>
+    <string name="groups">Grupe</string>
+    <string name="contact_source">Izvori kontakata</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_title">Želim promijeniti polja koja su vidljiva na kontaktima. Mogu li to napraviti?</string>
+    <string name="faq_1_text">Da, sve što morate učiniti je otići u Postavke -> Upravljanje poljima za prikaz. Tamo možete odabrati polja koja bi trebala biti vidljiva. Neka od njih su čak i onemogućena prema zadanim postavkama, tako da možete pronaći neke nove.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

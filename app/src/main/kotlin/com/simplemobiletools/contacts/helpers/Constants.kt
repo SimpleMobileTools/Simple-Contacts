@@ -1,5 +1,7 @@
 package com.simplemobiletools.contacts.helpers
 
+import android.provider.ContactsContract.CommonDataKinds
+
 // shared prefs
 const val SHOW_CONTACT_THUMBNAILS = "show_contact_thumbnails"
 const val SHOW_PHONE_NUMBERS = "show_phone_numbers"
@@ -46,6 +48,7 @@ const val ADR = "ADR"
 const val NOTE = "NOTE:"
 const val ORG = "ORG:"
 const val TITLE = "TITLE:"
+const val URL = "URL:"
 const val ENCODING = "ENCODING"
 const val BASE64 = "BASE64"
 const val JPEG = "JPEG"
@@ -83,3 +86,10 @@ const val SHOW_ORGANIZATION_FIELD = 1024
 const val SHOW_GROUPS_FIELD = 2048
 const val SHOW_CONTACT_SOURCE_FIELD = 4096
 const val SHOW_WEBSITES_FIELD = 8192
+
+const val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
+const val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
+const val DEFAULT_ADDRESS_TYPE = CommonDataKinds.StructuredPostal.TYPE_HOME
+const val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
+const val DEFAULT_ORGANIZATION_TYPE = CommonDataKinds.Organization.TYPE_WORK
+const val DEFAULT_WEBSITE_TYPE = CommonDataKinds.Website.TYPE_HOMEPAGE

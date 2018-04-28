@@ -15,9 +15,6 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/contact_address_type"
         android:layout_toStartOf="@+id/contact_address_type"
-        android:lines="1"
-        android:maxLines="1"
-        android:singleLine="true"
         android:textSize="@dimen/bigger_text_size"/>
 
     <com.simplemobiletools.commons.views.MyTextView

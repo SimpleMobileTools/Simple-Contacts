@@ -90,11 +90,52 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
         return
     }
 
-    VcfExporter().exportContacts(this, file, contacts) {
+    VcfExporter().exportContacts(this, file, contacts, false) {
         if (it == VcfExporter.ExportResult.EXPORT_OK) {
             sharePathIntent(file.absolutePath, BuildConfig.APPLICATION_ID)
         } else {
             showErrorToast("$it")
+        }
+    }
+}
+
+fun BaseSimpleActivity.sendSMSToContacts(contacts: ArrayList<Contact>) {
+    val numbers = StringBuilder()
+    contacts.forEach {
+        it.phoneNumbers.forEach {
+            if (it.value.isNotEmpty()) {
+                numbers.append("${it.value};")
+            }
+        }
+
+        val uriString = "smsto:${numbers.toString().trimEnd(';')}"
+        Intent(Intent.ACTION_SENDTO, Uri.parse(uriString)).apply {
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
+            }
+        }
+    }
+}
+
+fun BaseSimpleActivity.sendEmailToContacts(contacts: ArrayList<Contact>) {
+    val emails = ArrayList<String>()
+    contacts.forEach {
+        it.emails.forEach {
+            if (it.value.isNotEmpty()) {
+                emails.add(it.value)
+            }
+        }
+    }
+
+    Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+        type = "message/rfc822"
+        putExtra(Intent.EXTRA_EMAIL, emails.toTypedArray())
+        if (resolveActivity(packageManager) != null) {
+            startActivity(this)
+        } else {
+            toast(R.string.no_app_found)
         }
     }
 }

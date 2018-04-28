@@ -374,8 +374,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                         if (contacts.isEmpty()) {
                             toast(R.string.no_entries_for_exporting)
                         } else {
-                            toast(R.string.exporting)
-                            VcfExporter().exportContacts(this, file, contacts as ArrayList<Contact>) {
+                            VcfExporter().exportContacts(this, file, contacts as ArrayList<Contact>, true) {
                                 toast(when (it) {
                                     VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
                                     VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed

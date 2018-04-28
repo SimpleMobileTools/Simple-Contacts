@@ -2,6 +2,7 @@ package com.simplemobiletools.contacts.activities
 
 import android.app.DatePickerDialog
 import android.content.ClipData
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -29,17 +30,13 @@ import kotlinx.android.synthetic.main.item_edit_address.view.*
 import kotlinx.android.synthetic.main.item_edit_email.view.*
 import kotlinx.android.synthetic.main.item_edit_group.view.*
 import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
+import kotlinx.android.synthetic.main.item_edit_website.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.util.*
 
 class EditContactActivity : ContactActivity() {
-    private val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
-    private val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
-    private val DEFAULT_ADDRESS_TYPE = CommonDataKinds.StructuredPostal.TYPE_HOME
-    private val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
-
     private val INTENT_TAKE_PHOTO = 1
     private val INTENT_CHOOSE_PHOTO = 2
     private val INTENT_CROP_PHOTO = 3
@@ -148,12 +145,16 @@ class EditContactActivity : ContactActivity() {
         }
 
         if (contact!!.id == 0 && intent.extras?.containsKey(KEY_PHONE) == true && (action == Intent.ACTION_INSERT_OR_EDIT || action == Intent.ACTION_INSERT)) {
-            val phoneNumber = intent.extras.get(KEY_PHONE).toString() ?: ""
+            val phoneNumber = intent.extras.get(KEY_PHONE)?.toString() ?: ""
             contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE))
-            setupPhoneNumbers()
 
-            val contactFullName = intent.extras.get(KEY_NAME)?.toString() ?: ""
-            contact_first_name.setText(contactFullName)
+            contact!!.firstName = intent.extras.get(KEY_NAME)?.toString() ?: ""
+
+            val data = intent.extras.getParcelableArrayList<ContentValues>("data")
+            if (data != null) {
+                parseIntentData(data)
+            }
+            setupEditContact()
         }
 
         setupTypePickers()
@@ -179,9 +180,10 @@ class EditContactActivity : ContactActivity() {
         contact_addresses_image.applyColorFilter(textColor)
         contact_events_image.applyColorFilter(textColor)
         contact_notes_image.applyColorFilter(textColor)
-        contact_source_image.applyColorFilter(textColor)
-        contact_groups_image.applyColorFilter(textColor)
         contact_organization_image.applyColorFilter(textColor)
+        contact_websites_image.applyColorFilter(textColor)
+        contact_groups_image.applyColorFilter(textColor)
+        contact_source_image.applyColorFilter(textColor)
 
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
         contact_numbers_add_new.applyColorFilter(adjustedPrimaryColor)
@@ -192,6 +194,8 @@ class EditContactActivity : ContactActivity() {
         contact_addresses_add_new.background.applyColorFilter(textColor)
         contact_events_add_new.applyColorFilter(adjustedPrimaryColor)
         contact_events_add_new.background.applyColorFilter(textColor)
+        contact_websites_add_new.applyColorFilter(adjustedPrimaryColor)
+        contact_websites_add_new.background.applyColorFilter(textColor)
         contact_groups_add_new.applyColorFilter(adjustedPrimaryColor)
         contact_groups_add_new.background.applyColorFilter(textColor)
 
@@ -204,6 +208,7 @@ class EditContactActivity : ContactActivity() {
         contact_emails_add_new.setOnClickListener { addNewEmailField() }
         contact_addresses_add_new.setOnClickListener { addNewAddressField() }
         contact_events_add_new.setOnClickListener { addNewEventField() }
+        contact_websites_add_new.setOnClickListener { addNewWebsiteField() }
         contact_groups_add_new.setOnClickListener { showSelectGroupsDialog() }
 
         setupFieldVisibility()
@@ -285,6 +290,11 @@ class EditContactActivity : ContactActivity() {
         contact_events_holder.beVisibleIf(areEventsVisible)
         contact_events_add_new.beVisibleIf(areEventsVisible)
 
+        val areWebsitesVisible = showFields and SHOW_WEBSITES_FIELD != 0
+        contact_websites_image.beVisibleIf(areWebsitesVisible)
+        contact_websites_holder.beVisibleIf(areWebsitesVisible)
+        contact_websites_add_new.beVisibleIf(areWebsitesVisible)
+
         val areGroupsVisible = showFields and SHOW_GROUPS_FIELD != 0
         contact_groups_image.beVisibleIf(areGroupsVisible)
         contact_groups_holder.beVisibleIf(areGroupsVisible)
@@ -298,21 +308,27 @@ class EditContactActivity : ContactActivity() {
     private fun setupEditContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         supportActionBar?.title = resources.getString(R.string.edit_contact)
-        contact_prefix.setText(contact!!.prefix)
-        contact_first_name.setText(contact!!.firstName)
-        contact_middle_name.setText(contact!!.middleName)
-        contact_surname.setText(contact!!.surname)
-        contact_suffix.setText(contact!!.suffix)
 
-        contact_source.text = getPublicContactSource(contact!!.source)
-
+        setupNames()
         setupPhoneNumbers()
         setupEmails()
         setupAddresses()
         setupNotes()
         setupOrganization()
+        setupWebsites()
         setupEvents()
         setupGroups()
+        setupContactSource()
+    }
+
+    private fun setupNames() {
+        contact!!.apply {
+            contact_prefix.setText(prefix)
+            contact_first_name.setText(firstName)
+            contact_middle_name.setText(middleName)
+            contact_surname.setText(surname)
+            contact_suffix.setText(suffix)
+        }
     }
 
     private fun setupPhoneNumbers() {
@@ -376,6 +392,20 @@ class EditContactActivity : ContactActivity() {
         if (showFields and SHOW_ORGANIZATION_FIELD != 0) {
             contact_organization_company.setText(contact!!.organization.company)
             contact_organization_job_position.setText(contact!!.organization.jobPosition)
+        }
+    }
+
+    private fun setupWebsites() {
+        if (showFields and SHOW_WEBSITES_FIELD != 0) {
+            contact!!.websites.forEachIndexed { index, website ->
+                var websitesHolder = contact_websites_holder.getChildAt(index)
+                if (websitesHolder == null) {
+                    websitesHolder = layoutInflater.inflate(R.layout.item_edit_website, contact_websites_holder, false)
+                    contact_websites_holder.addView(websitesHolder)
+                }
+
+                websitesHolder!!.contact_website.setText(website)
+            }
         }
     }
 
@@ -462,8 +492,11 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
+    private fun setupContactSource() {
+        contact_source.text = getPublicContactSource(contact!!.source)
+    }
+
     private fun setupNewContact() {
-        //window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         supportActionBar?.title = resources.getString(R.string.new_contact)
         val contactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
         val organization = Organization("", "")
@@ -686,6 +719,7 @@ class EditContactActivity : ContactActivity() {
             source = contact!!.source
             starred = if (isContactStarred()) 1 else 0
             notes = contact_notes.value
+            websites = getFilledWebsites()
 
             val company = contact_organization_company.value
             val jobPosition = contact_organization_job_position.value
@@ -762,6 +796,19 @@ class EditContactActivity : ContactActivity() {
             }
         }
         return events
+    }
+
+    private fun getFilledWebsites(): ArrayList<String> {
+        val websites = ArrayList<String>()
+        val websitesCount = contact_websites_holder.childCount
+        for (i in 0 until websitesCount) {
+            val websiteHolder = contact_websites_holder.getChildAt(i)
+            val website = websiteHolder.contact_website.value
+            if (website.isNotEmpty()) {
+                websites.add(website)
+            }
+        }
+        return websites
     }
 
     private fun insertNewContact() {
@@ -844,6 +891,16 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
+    private fun addNewWebsiteField() {
+        val websitesHolder = layoutInflater.inflate(R.layout.item_edit_website, contact_websites_holder, false) as ViewGroup
+        updateTextColors(websitesHolder)
+        contact_websites_holder.addView(websitesHolder)
+        contact_websites_holder.onGlobalLayout {
+            websitesHolder.contact_website.requestFocus()
+            showKeyboard(websitesHolder.contact_website)
+        }
+    }
+
     private fun isContactStarred() = contact_toggle_favorite.tag == 1
 
     private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_big else R.drawable.ic_star_off_big)
@@ -865,6 +922,57 @@ class EditContactActivity : ContactActivity() {
                 else -> showPhotoPlaceholder(contact_photo)
             }
         }
+    }
+
+    private fun parseIntentData(data: ArrayList<ContentValues>) {
+        data.forEach {
+            when (it.get(CommonDataKinds.StructuredName.MIMETYPE)) {
+                CommonDataKinds.Email.CONTENT_ITEM_TYPE -> parseEmail(it)
+                CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE -> parseAddress(it)
+                CommonDataKinds.Organization.CONTENT_ITEM_TYPE -> parseOrganization(it)
+                CommonDataKinds.Event.CONTENT_ITEM_TYPE -> parseEvent(it)
+                CommonDataKinds.Website.CONTENT_ITEM_TYPE -> parseWebsite(it)
+                CommonDataKinds.Note.CONTENT_ITEM_TYPE -> parseNote(it)
+            }
+        }
+    }
+
+    private fun parseEmail(contentValues: ContentValues) {
+        val type = contentValues.getAsInteger(CommonDataKinds.Email.DATA2) ?: DEFAULT_EMAIL_TYPE
+        val emailValue = contentValues.getAsString(CommonDataKinds.Email.DATA1) ?: return
+        val email = Email(emailValue, type)
+        contact!!.emails.add(email)
+    }
+
+    private fun parseAddress(contentValues: ContentValues) {
+        val type = contentValues.getAsInteger(CommonDataKinds.StructuredPostal.DATA2) ?: DEFAULT_ADDRESS_TYPE
+        val addressValue = contentValues.getAsString(CommonDataKinds.StructuredPostal.DATA4)
+                ?: contentValues.getAsString(CommonDataKinds.StructuredPostal.DATA1) ?: return
+        val address = Address(addressValue, type)
+        contact!!.addresses.add(address)
+    }
+
+    private fun parseOrganization(contentValues: ContentValues) {
+        val company = contentValues.getAsString(CommonDataKinds.Organization.DATA1) ?: ""
+        val jobPosition = contentValues.getAsString(CommonDataKinds.Organization.DATA4) ?: ""
+        contact!!.organization = Organization(company, jobPosition)
+    }
+
+    private fun parseEvent(contentValues: ContentValues) {
+        val type = contentValues.getAsInteger(CommonDataKinds.Event.DATA2) ?: DEFAULT_EVENT_TYPE
+        val eventValue = contentValues.getAsString(CommonDataKinds.Event.DATA1) ?: return
+        val event = Event(eventValue, type)
+        contact!!.events.add(event)
+    }
+
+    private fun parseWebsite(contentValues: ContentValues) {
+        val website = contentValues.getAsString(CommonDataKinds.Website.DATA1) ?: return
+        contact!!.websites.add(website)
+    }
+
+    private fun parseNote(contentValues: ContentValues) {
+        val note = contentValues.getAsString(CommonDataKinds.Note.DATA1) ?: return
+        contact!!.notes = note
     }
 
     private fun startTakePhotoIntent() {

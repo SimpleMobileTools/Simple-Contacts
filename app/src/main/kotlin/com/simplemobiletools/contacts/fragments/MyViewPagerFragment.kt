@@ -74,6 +74,9 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun primaryColorChanged() {
         fragment_fastscroller.updatePrimaryColor()
         fragment_fastscroller.updateBubblePrimaryColor()
+        (fragment_list.adapter as? ContactsAdapter)?.apply {
+            adjustedPrimaryColor = context.getAdjustedPrimaryColor()
+        }
     }
 
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
@@ -254,7 +257,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
 
             fragment_placeholder.beVisibleIf(filtered.isEmpty())
-            updateItems(filtered)
+            updateItems(filtered, text)
         }
     }
 

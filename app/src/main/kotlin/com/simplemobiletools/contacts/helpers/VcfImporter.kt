@@ -91,6 +91,7 @@ class VcfImporter(val activity: SimpleActivity) {
                         line.toUpperCase().startsWith(PHOTO) -> addPhoto(line.substring(PHOTO.length))
                         line.toUpperCase().startsWith(ORG) -> addCompany(line.substring(ORG.length))
                         line.toUpperCase().startsWith(TITLE) -> addJobPosition(line.substring(TITLE.length))
+                        line.toUpperCase().startsWith(URL) -> addWebsite(line.substring(URL.length))
                         line.toUpperCase() == END_VCARD -> saveContact(targetContactSource)
                         isGettingPhoto -> currentPhotoString.append(line.trim())
                     }
@@ -186,7 +187,7 @@ class VcfImporter(val activity: SimpleActivity) {
         val type = getAddressTypeId(rawType.toUpperCase())
         val addresses = addressParts[1].split(";")
         if (addresses.size == 7) {
-            curAddresses.add(Address(addresses[2], type))
+            curAddresses.add(Address(addresses[2].replace("\\n", "\n"), type))
         }
     }
 
@@ -249,6 +250,10 @@ class VcfImporter(val activity: SimpleActivity) {
 
     private fun addJobPosition(jobPosition: String) {
         curJobPosition = jobPosition
+    }
+
+    private fun addWebsite(website: String) {
+        curWebsites.add(website)
     }
 
     private fun saveContact(source: String) {
