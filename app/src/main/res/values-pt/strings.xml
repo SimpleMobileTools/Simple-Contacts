@@ -9,10 +9,10 @@
     <string name="company">Organização</string>
     <string name="job_position">Cargo</string>
     <string name="website">Site</string>
-    <string name="send_sms_to_contacts">Send SMS to contacts</string>
-    <string name="send_email_to_contacts">Send email to contacts</string>
-    <string name="send_sms_to_group">Send SMS to group</string>
-    <string name="send_email_to_group">Send email to group</string>
+    <string name="send_sms_to_contacts">Enviar SMS aos contactos</string>
+    <string name="send_email_to_contacts">Enviar e-mail aos contactos</string>
+    <string name="send_sms_to_group">Enviar SMS para o grupo</string>
+    <string name="send_email_to_group">Enviar e-mail para o grupo</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
@@ -73,7 +73,7 @@
     <string name="add_favorites">Adicionar favoritos</string>
     <string name="add_to_favorites">Adicionar aos favoritos</string>
     <string name="remove_from_favorites">Remover dos favoritos</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
+    <string name="must_be_at_edit">Tem que estar no ecrã de edição para alterar um contacto</string>
 
     <!-- Search -->
     <string name="search_contacts">Pesquisar contactos</string>
