@@ -234,16 +234,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun storeLocalAccountData() {
         if (config.localAccountType == "-1") {
-            // some manufacturer contact account types from https://stackoverflow.com/a/44802016/1967672
-            val localAccountTypes = arrayListOf("vnd.sec.contact.phone",
-                    "com.htc.android.pcsc",
-                    "com.sonyericsson.localcontacts",
-                    "com.lge.sync",
-                    "com.lge.phone",
-                    "vnd.tmobileus.contact.phone",
-                    "com.android.huawei.phone",
-                    "Local Phone Account")
-
             ContactsHelper(this).getContactSources {
                 var localAccountType = ""
                 var localAccountName = ""

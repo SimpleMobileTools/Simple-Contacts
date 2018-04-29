@@ -1,9 +1,7 @@
 package com.simplemobiletools.contacts.helpers
 
-import android.content.ContentProviderOperation
-import android.content.ContentProviderResult
-import android.content.ContentUris
-import android.content.ContentValues
+import android.accounts.AccountManager
+import android.content.*
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
@@ -621,64 +619,34 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
     fun getContactSources(callback: (ArrayList<ContactSource>) -> Unit) {
         Thread {
-            val sources = LinkedHashSet<ContactSource>()
-            getDeviceContactSources(sources)
+            val sources = getDeviceContactSources()
             sources.add(ContactSource(activity.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
             callback(ArrayList(sources))
         }.start()
     }
 
-    private fun getDeviceContactSources(sources: LinkedHashSet<ContactSource>) {
+    private fun getDeviceContactSources(): LinkedHashSet<ContactSource> {
+        val sources = LinkedHashSet<ContactSource>()
         if (!activity.hasContactPermissions()) {
-            return
+            return sources
         }
 
-        val uri = ContactsContract.RawContacts.CONTENT_URI
-        val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_NAME, ContactsContract.RawContacts.ACCOUNT_TYPE)
-
-        var cursor: Cursor? = null
-        try {
-            cursor = activity.contentResolver.query(uri, projection, null, null, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: continue
-                    val type = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: continue
-                    val contactSource = ContactSource(name, type)
-                    sources.add(contactSource)
-                } while (cursor.moveToNext())
+        val accountManager = AccountManager.get(activity)
+        accountManager.accounts.filter { it.name.contains("@") || localAccountTypes.contains(it.type) }.forEach {
+            if (ContentResolver.getIsSyncable(it, ContactsContract.Contacts.CONTENT_URI.authority) == 1) {
+                val contactSource = ContactSource(it.name, it.type)
+                sources.add(contactSource)
             }
-        } catch (e: Exception) {
-            activity.showErrorToast(e)
-        } finally {
-            cursor?.close()
         }
 
         if (sources.isEmpty() && activity.config.localAccountName.isEmpty() && activity.config.localAccountType.isEmpty()) {
             sources.add(ContactSource("", ""))
         }
+
+        return sources
     }
 
-    private fun getContactSourceType(accountName: String): String {
-        if (accountName.isEmpty()) {
-            return ""
-        }
-
-        val uri = ContactsContract.RawContacts.CONTENT_URI
-        val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_TYPE)
-        val selection = "${ContactsContract.RawContacts.ACCOUNT_NAME} = ?"
-        val selectionArgs = arrayOf(accountName)
-
-        var cursor: Cursor? = null
-        try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                return cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE)
-            }
-        } finally {
-            cursor?.close()
-        }
-        return ""
-    }
+    private fun getContactSourceType(accountName: String) = getDeviceContactSources().firstOrNull { it.name == accountName }?.type ?: ""
 
     private fun getContactProjection() = arrayOf(
             ContactsContract.Data.CONTACT_ID,
