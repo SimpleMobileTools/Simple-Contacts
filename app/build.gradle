@@ -3,8 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+lintOptions { abortOnError false }
+
     compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+//    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "com.simplemobiletools.contacts"

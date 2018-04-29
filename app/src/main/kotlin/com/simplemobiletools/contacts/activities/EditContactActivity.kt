@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.item_edit_address.view.*
 import kotlinx.android.synthetic.main.item_edit_email.view.*
 import kotlinx.android.synthetic.main.item_edit_group.view.*
 import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
+import kotlinx.android.synthetic.main.item_edit_structured_address.view.*
 import kotlinx.android.synthetic.main.item_edit_website.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import org.joda.time.DateTime
@@ -378,15 +379,46 @@ class EditContactActivity : ContactActivity() {
     private fun setupAddresses() {
         if (showFields and SHOW_ADDRESSES_FIELD != 0) {
             contact!!.addresses.forEachIndexed { index, address ->
-                var addressHolder = contact_addresses_holder.getChildAt(index)
-                if (addressHolder == null) {
-                    addressHolder = layoutInflater.inflate(R.layout.item_edit_address, contact_addresses_holder, false)
-                    contact_addresses_holder.addView(addressHolder)
-                }
+                if (showFields and SHOW_STRUCTURED_ADDRESSES_FIELD != 0) {
+                    var structuredAddressHolder = contact_addresses_holder.getChildAt(index)
+                    if (structuredAddressHolder == null) {
+                        structuredAddressHolder = layoutInflater.inflate(R.layout.item_edit_structured_address,
+                                contact_addresses_holder, false)
+                        contact_addresses_holder.addView(structuredAddressHolder)
+                    }
 
-                addressHolder!!.apply {
-                    contact_address.setText(address.value)
-                    setupAddressTypePicker(contact_address_type, address.type)
+                    structuredAddressHolder!!.apply {
+                        contact_street.setText(address.street)
+                        contact_neighborhood.setText(address.neighborhood)
+                        contact_city.setText(address.city)
+                        contact_postcode.setText(address.postcode)
+                        contact_pobox.setText(address.pobox)
+                        contact_region.setText(address.region)
+                        contact_country.setText(address.country)
+                        setupAddressTypePicker(contact_structured_address_type, address.type)
+                    }
+                } else {
+                    var addressHolder = contact_addresses_holder.getChildAt(index)
+                    if (addressHolder == null) {
+                        addressHolder = layoutInflater.inflate(R.layout.item_edit_address, contact_addresses_holder, false)
+                        contact_addresses_holder.addView(addressHolder)
+                    }
+
+                    addressHolder!!.apply {
+                        contact_address.setText(address.value)
+                        setupAddressTypePicker(contact_address_type, address.type)
+                    }
+                }
+            }
+            if (contact_addresses_holder.childCount == 0) {
+                if (showFields and SHOW_STRUCTURED_ADDRESSES_FIELD != 0) {
+                    var structuredAddressHolder = layoutInflater.inflate(R.layout.item_edit_structured_address,
+                            contact_addresses_holder, false)
+                    contact_addresses_holder.addView(structuredAddressHolder)
+                } else {
+                    var addressHolder = layoutInflater.inflate(R.layout.item_edit_address, contact_addresses_holder,
+                            false)
+                    contact_addresses_holder.addView(addressHolder)
                 }
             }
         }
@@ -782,11 +814,37 @@ class EditContactActivity : ContactActivity() {
         val addressesCount = contact_addresses_holder.childCount
         for (i in 0 until addressesCount) {
             val addressHolder = contact_addresses_holder.getChildAt(i)
-            val address = addressHolder.contact_address.value
-            val addressType = getAddressTypeId(addressHolder.contact_address_type.value)
+            if (showFields and SHOW_STRUCTURED_ADDRESSES_FIELD != 0) {
+                val street = addressHolder.contact_street.value
+                val neighborhood = addressHolder.contact_neighborhood.value
+                val city = addressHolder.contact_city.value
+                val postcode = addressHolder.contact_postcode.value
+                val pobox = addressHolder.contact_pobox.value
+                val region = addressHolder.contact_region.value
+                val country = addressHolder.contact_country.value
 
-            if (address.isNotEmpty()) {
-                addresses.add(Address(address, addressType))
+                /* from DAVdroid */
+                val lineStreet = arrayOf(street, pobox, neighborhood).filterNot { it.isNullOrEmpty() }.joinToString(" ")
+                val lineLocality = arrayOf(postcode, city).filterNot { it.isNullOrEmpty() }.joinToString(" ")
+                val lines = LinkedList<String>()
+                if (!lineStreet.isEmpty()) lines += lineStreet
+                if (!lineLocality.isEmpty()) lines += lineLocality
+                if (!region.isNullOrEmpty()) lines += region
+                if (!country.isNullOrEmpty()) lines += country.toUpperCase()
+                val address  = lines.joinToString("\n")
+                val addressType = getAddressTypeId(addressHolder.contact_structured_address_type.value)
+
+                if (address.isNotEmpty()) {
+                    addresses.add(Address(address, addressType, country, region, city, postcode, pobox,
+                            street, neighborhood))
+                }
+            } else {
+                val address = addressHolder.contact_address.value
+                val addressType = getAddressTypeId(addressHolder.contact_address_type.value)
+
+                if (address.isNotEmpty()) {
+                    addresses.add(Address(address, addressType, "", "", "", "", "", "", ""))
+                }
             }
         }
         return addresses
@@ -875,13 +933,25 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun addNewAddressField() {
-        val addressHolder = layoutInflater.inflate(R.layout.item_edit_address, contact_addresses_holder, false) as ViewGroup
-        updateTextColors(addressHolder)
-        setupAddressTypePicker(addressHolder.contact_address_type)
-        contact_addresses_holder.addView(addressHolder)
-        contact_addresses_holder.onGlobalLayout {
-            addressHolder.contact_address.requestFocus()
-            showKeyboard(addressHolder.contact_address)
+        if (showFields and SHOW_STRUCTURED_ADDRESSES_FIELD != 0) {
+            val structuredAddressHolder = layoutInflater.inflate(R.layout.item_edit_structured_address,
+                    contact_addresses_holder, false) as ViewGroup
+            updateTextColors(structuredAddressHolder)
+            setupAddressTypePicker(structuredAddressHolder.contact_structured_address_type)
+            contact_addresses_holder.addView(structuredAddressHolder)
+            contact_addresses_holder.onGlobalLayout {
+                structuredAddressHolder.contact_street.requestFocus()
+                showKeyboard(structuredAddressHolder.contact_street)
+            }
+        } else {
+            val addressHolder = layoutInflater.inflate(R.layout.item_edit_address, contact_addresses_holder, false) as ViewGroup
+            updateTextColors(addressHolder)
+            setupAddressTypePicker(addressHolder.contact_address_type)
+            contact_addresses_holder.addView(addressHolder)
+            contact_addresses_holder.onGlobalLayout {
+                addressHolder.contact_address.requestFocus()
+                showKeyboard(addressHolder.contact_address)
+            }
         }
     }
 
@@ -955,10 +1025,17 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun parseAddress(contentValues: ContentValues) {
-        val type = contentValues.getAsInteger(CommonDataKinds.StructuredPostal.DATA2) ?: DEFAULT_ADDRESS_TYPE
-        val addressValue = contentValues.getAsString(CommonDataKinds.StructuredPostal.DATA4)
-                ?: contentValues.getAsString(CommonDataKinds.StructuredPostal.DATA1) ?: return
-        val address = Address(addressValue, type)
+        val type = contentValues.getAsInteger(CommonDataKinds.StructuredPostal.TYPE) ?: DEFAULT_ADDRESS_TYPE
+        val addressValue = contentValues.getAsString(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS)
+                ?: contentValues.getAsString(CommonDataKinds.StructuredPostal.STREET) ?: return
+        val country = contentValues.getAsString(CommonDataKinds.StructuredPostal.COUNTRY)
+        val region = contentValues.getAsString(CommonDataKinds.StructuredPostal.REGION)
+        val city = contentValues.getAsString(CommonDataKinds.StructuredPostal.CITY)
+        val postcode = contentValues.getAsString(CommonDataKinds.StructuredPostal.POSTCODE)
+        val pobox = contentValues.getAsString(CommonDataKinds.StructuredPostal.POBOX)
+        val street = contentValues.getAsString(CommonDataKinds.StructuredPostal.STREET)
+        val neighborhood = contentValues.getAsString(CommonDataKinds.StructuredPostal.NEIGHBORHOOD)
+        val address = Address(addressValue, type, country, region, city, postcode, pobox, street, neighborhood)
         contact!!.addresses.add(address)
     }
 
