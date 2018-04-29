@@ -35,7 +35,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             val contactsSize = contacts.size()
             var resultContacts = ArrayList<Contact>(contactsSize)
             (0 until contactsSize).mapTo(resultContacts) { contacts.valueAt(it) }
-            resultContacts = resultContacts.distinctBy { it.contactId } as ArrayList<Contact>
+            resultContacts = resultContacts.distinctBy {
+                it.getHashToCompare()
+            } as ArrayList<Contact>
 
             // groups are obtained with contactID, not rawID, so assign them to proper contacts like this
             val groups = getContactGroups(getStoredGroups())
@@ -88,6 +90,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     val websites = ArrayList<String>()
                     val contact = Contact(id, prefix, firstName, middleName, surname, suffix, photoUri, number, emails, addresses, events,
                             accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites)
+
                     contacts.put(id, contact)
                 } while (cursor.moveToNext())
             }
@@ -1214,16 +1217,14 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             activity.dbHelper.deleteContacts(localContacts)
 
             try {
-                val contactIDs = HashSet<String>()
                 val operations = ArrayList<ContentProviderOperation>()
                 val selection = "${ContactsContract.Data.CONTACT_ID} = ?"
                 contacts.filter { it.source != SMT_PRIVATE }.forEach {
                     ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
                         val selectionArgs = arrayOf(it.contactId.toString())
                         withSelection(selection, selectionArgs)
-                        operations.add(this.build())
+                        operations.add(build())
                     }
-                    contactIDs.add(it.id.toString())
                 }
 
                 activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)

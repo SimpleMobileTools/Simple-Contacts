@@ -12,6 +12,7 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
     companion object {
         var sorting = 0
         var startWithSurname = false
+        val pattern = "\\D+".toRegex()
     }
 
     override fun compareTo(other: Contact): Int {
@@ -80,5 +81,11 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
         } else {
             fullName
         }
+    }
+
+    fun getHashToCompare(): Int {
+        val newPhoneNumbers = ArrayList<PhoneNumber>()
+        phoneNumbers.mapTo(newPhoneNumbers, { PhoneNumber(it.value.replace(pattern, ""), 0) })
+        return copy(id = 0, phoneNumbers = newPhoneNumbers).hashCode()
     }
 }

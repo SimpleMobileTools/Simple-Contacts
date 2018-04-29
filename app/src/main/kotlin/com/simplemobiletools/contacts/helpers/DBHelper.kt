@@ -119,6 +119,10 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     fun deleteContact(id: Int) = deleteContacts(arrayOf(id.toString()))
 
     fun deleteContacts(ids: Array<String>) {
+        if (ids.isEmpty()) {
+            return
+        }
+
         val args = TextUtils.join(", ", ids)
         val selection = "$CONTACTS_TABLE_NAME.$COL_ID IN ($args)"
         mDb.delete(CONTACTS_TABLE_NAME, selection, null)

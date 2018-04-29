@@ -99,9 +99,7 @@ class SelectContactActivity : SimpleActivity() {
             } as ArrayList<Contact>
 
             val contactSources = config.displayContactSources
-            if (!config.showAllContacts()) {
-                contacts = contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
-            }
+            contacts = contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
 
             Contact.sorting = config.sorting
             Contact.startWithSurname = config.startNameWithSurname

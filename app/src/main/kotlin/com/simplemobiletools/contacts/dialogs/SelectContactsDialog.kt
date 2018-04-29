@@ -19,9 +19,7 @@ class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayL
         var allContacts = initialContacts
         if (selectContacts == null) {
             val contactSources = activity.config.displayContactSources
-            if (!activity.config.showAllContacts()) {
-                allContacts = allContacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
-            }
+            allContacts = allContacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
 
             initiallySelectedContacts = allContacts.filter { it.starred == 1 } as ArrayList<Contact>
         } else {

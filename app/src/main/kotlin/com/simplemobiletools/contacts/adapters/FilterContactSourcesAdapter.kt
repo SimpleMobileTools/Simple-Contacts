@@ -21,7 +21,7 @@ class FilterContactSourcesAdapter(val activity: SimpleActivity, private val cont
 
     init {
         contactSources.forEachIndexed { index, contactSource ->
-            if (activity.config.showAllContacts() || displayContactSources.contains(contactSource.name)) {
+            if (displayContactSources.contains(contactSource.name)) {
                 selectedPositions.add(index)
             }
 
