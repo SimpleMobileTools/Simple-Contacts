@@ -231,8 +231,15 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         val projection = arrayOf(
                 ContactsContract.Data.RAW_CONTACT_ID,
                 CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS,
+                CommonDataKinds.StructuredPostal.COUNTRY,
+                CommonDataKinds.StructuredPostal.REGION,
+                CommonDataKinds.StructuredPostal.CITY,
+                CommonDataKinds.StructuredPostal.POSTCODE,
+                CommonDataKinds.StructuredPostal.POBOX,
+                CommonDataKinds.StructuredPostal.STREET,
+                CommonDataKinds.StructuredPostal.NEIGHBORHOOD,
                 CommonDataKinds.StructuredPostal.TYPE
-        )
+                )
 
         val selection = if (contactId == null) null else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
         val selectionArgs = if (contactId == null) null else arrayOf(contactId.toString())
@@ -244,13 +251,21 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
                     val address = cursor.getStringValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS) ?: ""
+                    val country = cursor.getStringValue(CommonDataKinds.StructuredPostal.COUNTRY) ?: ""
+                    val region = cursor.getStringValue(CommonDataKinds.StructuredPostal.REGION) ?: ""
+                    val city = cursor.getStringValue(CommonDataKinds.StructuredPostal.CITY) ?: ""
+                    val postcode = cursor.getStringValue(CommonDataKinds.StructuredPostal.POSTCODE) ?: ""
+                    val pobox = cursor.getStringValue(CommonDataKinds.StructuredPostal.POBOX) ?: ""
+                    val street = cursor.getStringValue(CommonDataKinds.StructuredPostal.STREET) ?: ""
+                    val neighborhood = cursor.getStringValue(CommonDataKinds.StructuredPostal.NEIGHBORHOOD) ?: ""
                     val type = cursor.getIntValue(CommonDataKinds.StructuredPostal.TYPE)
 
                     if (addresses[id] == null) {
                         addresses.put(id, ArrayList())
                     }
 
-                    addresses[id]!!.add(Address(address, type))
+                    addresses[id]!!.add(Address(address, type, country, region, city, postcode, pobox, street,
+                            neighborhood))
                 } while (cursor.moveToNext())
             }
 
@@ -771,6 +786,13 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, it.value)
+                    if (it.country.isNotEmpty()) withValue(CommonDataKinds.StructuredPostal.COUNTRY, it.country)
+                    if (it.region.isNotEmpty()) withValue(CommonDataKinds.StructuredPostal.REGION, it.region)
+                    if (it.city.isNotEmpty()) withValue(CommonDataKinds.StructuredPostal.CITY, it.city)
+                    if (it.postcode.isNotEmpty()) withValue(CommonDataKinds.StructuredPostal.POSTCODE, it.postcode)
+                    if (it.pobox.isNotEmpty()) withValue(CommonDataKinds.StructuredPostal.POBOX, it.pobox)
+                    if (it.street.isNotEmpty()) withValue(CommonDataKinds.StructuredPostal.STREET, it.street)
+                    if (it.neighborhood.isNotEmpty()) withValue(CommonDataKinds.StructuredPostal.NEIGHBORHOOD, it.neighborhood)
                     withValue(CommonDataKinds.StructuredPostal.TYPE, it.type)
                     operations.add(build())
                 }

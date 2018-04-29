@@ -187,7 +187,8 @@ class VcfImporter(val activity: SimpleActivity) {
         val type = getAddressTypeId(rawType.toUpperCase())
         val addresses = addressParts[1].split(";")
         if (addresses.size == 7) {
-            curAddresses.add(Address(addresses[2].replace("\\n", "\n"), type))
+            curAddresses.add(Address(addresses[2].replace("\\n", "\n"), type,
+                    addresses[6], addresses[4], addresses[3], addresses[5], addresses[0], addresses[2], addresses[1]))
         }
     }
 
