@@ -17,6 +17,7 @@ import com.simplemobiletools.contacts.adapters.SelectContactsAdapter
 import com.simplemobiletools.contacts.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.getContactPublicUri
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.models.Contact
@@ -135,8 +136,7 @@ class SelectContactActivity : SimpleActivity() {
                 Uri.withAppendedPath(ContactsContract.Data.CONTENT_URI, contactId)
             }
             else -> {
-                val lookupKey = ContactsHelper(this).getContactLookupKey(contact.id.toString())
-                Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey)
+                getContactPublicUri(contact)
             }
         }
     }

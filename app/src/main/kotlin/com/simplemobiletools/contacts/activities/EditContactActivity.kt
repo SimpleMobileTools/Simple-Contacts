@@ -87,6 +87,7 @@ class EditContactActivity : ContactActivity() {
         if (wasActivityInitialized) {
             menu.findItem(R.id.delete).isVisible = contact?.id != 0
             menu.findItem(R.id.share).isVisible = contact?.id != 0
+            menu.findItem(R.id.open_with).isVisible = contact?.id != 0 && contact?.source != SMT_PRIVATE
         }
         return true
     }
@@ -94,8 +95,9 @@ class EditContactActivity : ContactActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.save -> saveContact()
-            R.id.delete -> deleteContact()
             R.id.share -> shareContact()
+            R.id.open_with -> openWith()
+            R.id.delete -> deleteContact()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -222,6 +224,14 @@ class EditContactActivity : ContactActivity() {
         updateTextColors(contact_scrollview)
         wasActivityInitialized = true
         invalidateOptionsMenu()
+    }
+
+    private fun openWith() {
+        Intent().apply {
+            action = Intent.ACTION_EDIT
+            data = getContactPublicUri(contact!!)
+            startActivity(this)
+        }
     }
 
     private fun startCropPhotoIntent(uri: Uri?) {

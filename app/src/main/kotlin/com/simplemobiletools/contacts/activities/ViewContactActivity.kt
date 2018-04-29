@@ -2,7 +2,6 @@ package com.simplemobiletools.contacts.activities
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.Menu
@@ -158,12 +157,9 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun openWith() {
-        val lookupKey = ContactsHelper(this).getContactLookupKey(contact?.id.toString())
-        val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey)
-
         Intent().apply {
             action = ContactsContract.QuickContact.ACTION_QUICK_CONTACT
-            data = uri
+            data = getContactPublicUri(contact!!)
             startActivity(this)
         }
     }
