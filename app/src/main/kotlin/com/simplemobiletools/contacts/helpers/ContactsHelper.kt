@@ -1031,14 +1031,16 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             }
 
             // organization
-            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
-                withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
-                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
-                withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
-                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
-                operations.add(build())
+            if (!contact.organization.isEmpty()) {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
+                    withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
+                    withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
+                    withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
+                    operations.add(build())
+                }
             }
 
             // websites
