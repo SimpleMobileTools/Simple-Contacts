@@ -341,7 +341,7 @@
             android:layout_marginTop="@dimen/normal_margin"
             android:layout_toRightOf="@+id/contact_notes_image"
             android:hint="@string/notes"
-            android:inputType="textCapWords|textMultiLine"
+            android:inputType="textCapSentences|textMultiLine"
             android:textCursorDrawable="@null"
             android:textSize="@dimen/bigger_text_size"/>
 
