@@ -633,7 +633,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
         val accountManager = AccountManager.get(activity)
         accountManager.accounts.filter { it.name.contains("@") || localAccountTypes.contains(it.type) }.forEach {
-            if (ContentResolver.getIsSyncable(it, ContactsContract.Contacts.CONTENT_URI.authority) == 1) {
+            if (ContentResolver.getIsSyncable(it, ContactsContract.AUTHORITY) == 1) {
                 val contactSource = ContactSource(it.name, it.type)
                 sources.add(contactSource)
             }
