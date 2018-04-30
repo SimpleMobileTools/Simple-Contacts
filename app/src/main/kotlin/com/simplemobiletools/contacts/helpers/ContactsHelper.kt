@@ -268,39 +268,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return addresses
     }
 
-    private fun getQuestionMarks() = "?,".times(displayContactSources.size).trimEnd(',')
-
-    private fun getSourcesSelection(addMimeType: Boolean = false, addContactId: Boolean = false): String {
-        val strings = ArrayList<String>()
-        if (addMimeType) {
-            strings.add("${ContactsContract.Data.MIMETYPE} = ?")
-        }
-
-        if (addContactId) {
-            strings.add("${ContactsContract.Data.RAW_CONTACT_ID} = ?")
-        } else {
-            strings.add("${ContactsContract.RawContacts.ACCOUNT_NAME} IN (${getQuestionMarks()})")
-        }
-
-        return TextUtils.join(" AND ", strings)
-    }
-
-    private fun getSourcesSelectionArgs(mimetype: String? = null, contactId: Int? = null): Array<String> {
-        val args = ArrayList<String>()
-
-        if (mimetype != null) {
-            args.add(mimetype)
-        }
-
-        if (contactId != null) {
-            args.add(contactId.toString())
-        } else {
-            args.addAll(displayContactSources)
-        }
-
-        return args.toTypedArray()
-    }
-
     private fun getEvents(contactId: Int? = null): SparseArray<ArrayList<Event>> {
         val events = SparseArray<ArrayList<Event>>()
         val uri = ContactsContract.Data.CONTENT_URI
@@ -448,7 +415,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 ContactsContract.Data.DATA1
         )
 
-        val selection = getSourcesSelection(true, contactId != null)
+        val selection = getSourcesSelection(true, contactId != null, false)
         val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, contactId)
 
         var cursor: Cursor? = null
@@ -474,6 +441,39 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         }
 
         return groups
+    }
+
+    private fun getQuestionMarks() = "?,".times(displayContactSources.size).trimEnd(',')
+
+    private fun getSourcesSelection(addMimeType: Boolean = false, addContactId: Boolean = false, useRawContactId: Boolean = true): String {
+        val strings = ArrayList<String>()
+        if (addMimeType) {
+            strings.add("${ContactsContract.Data.MIMETYPE} = ?")
+        }
+
+        if (addContactId) {
+            strings.add("${if (useRawContactId) ContactsContract.Data.RAW_CONTACT_ID else ContactsContract.Data.CONTACT_ID} = ?")
+        } else {
+            strings.add("${ContactsContract.RawContacts.ACCOUNT_NAME} IN (${getQuestionMarks()})")
+        }
+
+        return TextUtils.join(" AND ", strings)
+    }
+
+    private fun getSourcesSelectionArgs(mimetype: String? = null, contactId: Int? = null): Array<String> {
+        val args = ArrayList<String>()
+
+        if (mimetype != null) {
+            args.add(mimetype)
+        }
+
+        if (contactId != null) {
+            args.add(contactId.toString())
+        } else {
+            args.addAll(displayContactSources)
+        }
+
+        return args.toTypedArray()
     }
 
     fun getStoredGroups(): ArrayList<Group> {
