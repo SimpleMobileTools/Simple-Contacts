@@ -48,6 +48,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var storedShowContactThumbnails = false
     private var storedShowPhoneNumbers = false
     private var storedStartNameWithSurname = false
+    private var storedFilterDuplicates = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,6 +119,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             favorites_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
         }
 
+        if (storedFilterDuplicates != config.filterDuplicates) {
+            refreshContacts(ALL_TABS_MASK)
+        }
+
         if (werePermissionsHandled && !isFirstResume) {
             if (viewpager.adapter == null) {
                 initFragments()
@@ -175,6 +180,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             storedShowContactThumbnails = showContactThumbnails
             storedShowPhoneNumbers = showPhoneNumbers
             storedStartNameWithSurname = startNameWithSurname
+            storedFilterDuplicates = filterDuplicates
         }
     }
 

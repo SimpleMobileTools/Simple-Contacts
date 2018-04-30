@@ -48,7 +48,7 @@
     <string name="show_favorites_tab">Show favorites tab</string>
     <string name="show_groups_tab">Show groups tab</string>
     <string name="manage_shown_contact_fields">Manage shown contact fields</string>
-    <string name="filter_out_duplicates">Try filtering out duplicate contacts</string>
+    <string name="filter_duplicates">Try filtering out duplicate contacts</string>
 
     <!-- Emails -->
     <string name="email">이메일</string>

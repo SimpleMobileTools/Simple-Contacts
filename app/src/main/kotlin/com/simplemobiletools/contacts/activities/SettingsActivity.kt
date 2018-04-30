@@ -31,6 +31,7 @@ class SettingsActivity : SimpleActivity() {
         setupShowContactThumbnails()
         setupShowPhoneNumbers()
         setupStartNameWithSurname()
+        setupFilterDuplicates()
         setupOnContactClick()
         updateTextColors(settings_holder)
     }
@@ -94,6 +95,14 @@ class SettingsActivity : SimpleActivity() {
         settings_start_with_surname_holder.setOnClickListener {
             settings_start_with_surname.toggle()
             config.startNameWithSurname = settings_start_with_surname.isChecked
+        }
+    }
+
+    private fun setupFilterDuplicates() {
+        settings_filter_duplicates.isChecked = config.filterDuplicates
+        settings_filter_duplicates_holder.setOnClickListener {
+            settings_filter_duplicates.toggle()
+            config.filterDuplicates = settings_filter_duplicates.isChecked
         }
     }
 

@@ -41,9 +41,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             val contactsSize = contacts.size()
             var resultContacts = ArrayList<Contact>(contactsSize)
             (0 until contactsSize).mapTo(resultContacts) { contacts.valueAt(it) }
-            resultContacts = resultContacts.distinctBy {
-                it.getHashToCompare()
-            } as ArrayList<Contact>
+            if (activity.config.filterDuplicates) {
+                resultContacts = resultContacts.distinctBy {
+                    it.getHashToCompare()
+                } as ArrayList<Contact>
+            }
 
             // groups are obtained with contactID, not rawID, so assign them to proper contacts like this
             val groups = getContactGroups(getStoredGroups())

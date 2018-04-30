@@ -48,7 +48,7 @@
     <string name="show_favorites_tab">顯示我的最愛頁面</string>
     <string name="show_groups_tab">顯示群組頁面</string>
     <string name="manage_shown_contact_fields">管理顯示的聯絡人欄位</string>
-    <string name="filter_out_duplicates">Try filtering out duplicate contacts</string>
+    <string name="filter_duplicates">Try filtering out duplicate contacts</string>
 
     <!-- Emails -->
     <string name="email">電子信箱</string>

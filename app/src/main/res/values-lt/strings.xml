@@ -48,7 +48,7 @@
     <string name="show_favorites_tab">Rodyti mėgiamiausiųjų skirtuką</string>
     <string name="show_groups_tab">Rodyti grupių skirtuką</string>
     <string name="manage_shown_contact_fields">Manage shown contact fields</string>
-    <string name="filter_out_duplicates">Try filtering out duplicate contacts</string>
+    <string name="filter_duplicates">Try filtering out duplicate contacts</string>
 
     <!-- Emails -->
     <string name="email">Elektroninis paštas</string>
