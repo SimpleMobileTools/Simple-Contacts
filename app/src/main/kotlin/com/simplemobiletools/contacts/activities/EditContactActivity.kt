@@ -52,6 +52,7 @@ class EditContactActivity : ContactActivity() {
     private var lastPhotoIntentUri: Uri? = null
     private var isSaving = false
     private var isThirdPartyIntent = false
+    private var originalContactSource = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -212,6 +213,7 @@ class EditContactActivity : ContactActivity() {
         contact_events_add_new.setOnClickListener { addNewEventField() }
         contact_websites_add_new.setOnClickListener { addNewWebsiteField() }
         contact_groups_add_new.setOnClickListener { showSelectGroupsDialog() }
+        contact_source.setOnClickListener { showSelectContactSourceDialog() }
 
         setupFieldVisibility()
 
@@ -504,21 +506,16 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupContactSource() {
         contact_source.text = getPublicContactSource(contact!!.source)
+        originalContactSource = contact!!.source
     }
 
     private fun setupNewContact() {
         supportActionBar?.title = resources.getString(R.string.new_contact)
-        val contactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
+        originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
         val organization = Organization("", "")
-        contact = Contact(0, "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), contactSource, 0, 0, "", null, "",
+        contact = Contact(0, "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), originalContactSource, 0, 0, "", null, "",
                 ArrayList(), organization, ArrayList())
         contact_source.text = getPublicContactSource(contact!!.source)
-        contact_source.setOnClickListener {
-            showContactSourcePicker(contact!!.source) {
-                contact!!.source = if (it == getString(R.string.phone_storage_hidden)) SMT_PRIVATE else it
-                contact_source.text = getPublicContactSource(it)
-            }
-        }
     }
 
     private fun setupTypePickers() {
@@ -708,6 +705,13 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
+    private fun showSelectContactSourceDialog() {
+        showContactSourcePicker(contact!!.source) {
+            contact!!.source = if (it == getString(R.string.phone_storage_hidden)) SMT_PRIVATE else it
+            contact_source.text = getPublicContactSource(it)
+        }
+    }
+
     private fun saveContact() {
         if (isSaving || contact == null) {
             return
@@ -726,7 +730,6 @@ class EditContactActivity : ContactActivity() {
             emails = getFilledEmails()
             addresses = getFilledAddresses()
             events = getFilledEvents()
-            source = contact!!.source
             starred = if (isContactStarred()) 1 else 0
             notes = contact_notes.value
             websites = getFilledWebsites()
@@ -737,11 +740,13 @@ class EditContactActivity : ContactActivity() {
 
             Thread {
                 config.lastUsedContactSource = source
-                if (id == 0) {
-                    insertNewContact()
-                } else {
-                    val photoUpdateStatus = getPhotoUpdateStatus(oldPhotoUri, photoUri)
-                    updateContact(photoUpdateStatus)
+                when {
+                    id == 0 -> insertNewContact(false)
+                    originalContactSource != source -> insertNewContact(true)
+                    else -> {
+                        val photoUpdateStatus = getPhotoUpdateStatus(oldPhotoUri, photoUri)
+                        updateContact(photoUpdateStatus)
+                    }
                 }
             }.start()
         }
@@ -821,10 +826,17 @@ class EditContactActivity : ContactActivity() {
         return websites
     }
 
-    private fun insertNewContact() {
+    private fun insertNewContact(deleteCurrentContact: Boolean) {
         isSaving = true
-        toast(R.string.inserting)
+        if (!deleteCurrentContact) {
+            toast(R.string.inserting)
+        }
+
         if (ContactsHelper(this@EditContactActivity).insertContact(contact!!)) {
+            if (deleteCurrentContact) {
+                contact!!.source = originalContactSource
+                ContactsHelper(this).deleteContact(contact!!)
+            }
             finish()
         } else {
             toast(R.string.unknown_error_occurred)
