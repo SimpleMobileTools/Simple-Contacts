@@ -48,6 +48,7 @@
     <string name="show_favorites_tab">Afficher l\'onglet favoris</string>
     <string name="show_groups_tab">Afficher l\'onglet groupes</string>
     <string name="manage_shown_contact_fields">Configurer l\'affichage des champs des contacts</string>
+    <string name="filter_out_duplicates">Try filtering out duplicate contacts</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>
