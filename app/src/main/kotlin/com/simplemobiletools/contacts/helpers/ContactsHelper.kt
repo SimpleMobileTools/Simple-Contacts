@@ -637,10 +637,14 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
     fun getContactSources(callback: (ArrayList<ContactSource>) -> Unit) {
         Thread {
-            val sources = getDeviceContactSources()
-            sources.add(ContactSource(activity.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
-            callback(ArrayList(sources))
+            callback(getContactSourcesSync())
         }.start()
+    }
+
+    private fun getContactSourcesSync(): ArrayList<ContactSource> {
+        val sources = getDeviceContactSources()
+        sources.add(ContactSource(activity.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
+        return ArrayList(sources)
     }
 
     private fun getDeviceContactSources(): LinkedHashSet<ContactSource> {
