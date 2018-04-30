@@ -8,8 +8,8 @@ class Config(context: Context) : BaseConfig(context) {
         fun newInstance(context: Context) = Config(context)
     }
 
-    var displayContactSources: Set<String>
-        get() = prefs.getStringSet(DISPLAY_CONTACT_SOURCES, hashSetOf("-1"))
+    var displayContactSources: HashSet<String>
+        get() = prefs.getStringSet(DISPLAY_CONTACT_SOURCES, hashSetOf("-1")) as HashSet
         set(displayContactSources) = prefs.edit().remove(DISPLAY_CONTACT_SOURCES).putStringSet(DISPLAY_CONTACT_SOURCES, displayContactSources).apply()
 
     var showContactThumbnails: Boolean
