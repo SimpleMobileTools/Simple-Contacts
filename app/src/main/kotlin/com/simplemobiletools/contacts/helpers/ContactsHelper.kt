@@ -1227,6 +1227,11 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                         withSelection(selection, selectionArgs)
                         operations.add(build())
                     }
+
+                    if (operations.size % BATCH_SIZE == 0) {
+                        activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                        operations.clear()
+                    }
                 }
 
                 activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
