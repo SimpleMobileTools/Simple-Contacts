@@ -1,9 +1,7 @@
 package com.simplemobiletools.contacts.helpers
 
-import android.content.ContentProviderOperation
-import android.content.ContentProviderResult
-import android.content.ContentUris
-import android.content.ContentValues
+import android.accounts.AccountManager
+import android.content.*
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
@@ -37,7 +35,9 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             val contactsSize = contacts.size()
             var resultContacts = ArrayList<Contact>(contactsSize)
             (0 until contactsSize).mapTo(resultContacts) { contacts.valueAt(it) }
-            resultContacts = resultContacts.distinctBy { it.contactId } as ArrayList<Contact>
+            resultContacts = resultContacts.distinctBy {
+                it.getHashToCompare()
+            } as ArrayList<Contact>
 
             // groups are obtained with contactID, not rawID, so assign them to proper contacts like this
             val groups = getContactGroups(getStoredGroups())
@@ -90,6 +90,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     val websites = ArrayList<String>()
                     val contact = Contact(id, prefix, firstName, middleName, surname, suffix, photoUri, number, emails, addresses, events,
                             accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites)
+
                     contacts.put(id, contact)
                 } while (cursor.moveToNext())
             }
@@ -621,64 +622,34 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
     fun getContactSources(callback: (ArrayList<ContactSource>) -> Unit) {
         Thread {
-            val sources = LinkedHashSet<ContactSource>()
-            getDeviceContactSources(sources)
+            val sources = getDeviceContactSources()
             sources.add(ContactSource(activity.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
             callback(ArrayList(sources))
         }.start()
     }
 
-    private fun getDeviceContactSources(sources: LinkedHashSet<ContactSource>) {
+    private fun getDeviceContactSources(): LinkedHashSet<ContactSource> {
+        val sources = LinkedHashSet<ContactSource>()
         if (!activity.hasContactPermissions()) {
-            return
+            return sources
         }
 
-        val uri = ContactsContract.RawContacts.CONTENT_URI
-        val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_NAME, ContactsContract.RawContacts.ACCOUNT_TYPE)
-
-        var cursor: Cursor? = null
-        try {
-            cursor = activity.contentResolver.query(uri, projection, null, null, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: continue
-                    val type = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: continue
-                    val contactSource = ContactSource(name, type)
-                    sources.add(contactSource)
-                } while (cursor.moveToNext())
+        val accountManager = AccountManager.get(activity)
+        accountManager.accounts.filter { it.name.contains("@") || localAccountTypes.contains(it.type) }.forEach {
+            if (ContentResolver.getIsSyncable(it, ContactsContract.AUTHORITY) == 1) {
+                val contactSource = ContactSource(it.name, it.type)
+                sources.add(contactSource)
             }
-        } catch (e: Exception) {
-            activity.showErrorToast(e)
-        } finally {
-            cursor?.close()
         }
 
         if (sources.isEmpty() && activity.config.localAccountName.isEmpty() && activity.config.localAccountType.isEmpty()) {
             sources.add(ContactSource("", ""))
         }
+
+        return sources
     }
 
-    private fun getContactSourceType(accountName: String): String {
-        if (accountName.isEmpty()) {
-            return ""
-        }
-
-        val uri = ContactsContract.RawContacts.CONTENT_URI
-        val projection = arrayOf(ContactsContract.RawContacts.ACCOUNT_TYPE)
-        val selection = "${ContactsContract.RawContacts.ACCOUNT_NAME} = ?"
-        val selectionArgs = arrayOf(accountName)
-
-        var cursor: Cursor? = null
-        try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                return cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE)
-            }
-        } finally {
-            cursor?.close()
-        }
-        return ""
-    }
+    private fun getContactSourceType(accountName: String) = getDeviceContactSources().firstOrNull { it.name == accountName }?.type ?: ""
 
     private fun getContactProjection() = arrayOf(
             ContactsContract.Data.CONTACT_ID,
@@ -1060,14 +1031,16 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             }
 
             // organization
-            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
-                withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
-                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
-                withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
-                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
-                operations.add(build())
+            if (!contact.organization.isEmpty()) {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
+                    withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
+                    withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
+                    withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
+                    operations.add(build())
+                }
             }
 
             // websites
@@ -1246,16 +1219,14 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             activity.dbHelper.deleteContacts(localContacts)
 
             try {
-                val contactIDs = HashSet<String>()
                 val operations = ArrayList<ContentProviderOperation>()
                 val selection = "${ContactsContract.Data.CONTACT_ID} = ?"
                 contacts.filter { it.source != SMT_PRIVATE }.forEach {
                     ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
                         val selectionArgs = arrayOf(it.contactId.toString())
                         withSelection(selection, selectionArgs)
-                        operations.add(this.build())
+                        operations.add(build())
                     }
-                    contactIDs.add(it.id.toString())
                 }
 
                 activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)

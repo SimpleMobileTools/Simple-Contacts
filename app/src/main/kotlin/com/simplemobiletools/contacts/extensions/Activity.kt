@@ -2,6 +2,7 @@ package com.simplemobiletools.contacts.extensions
 
 import android.content.Intent
 import android.net.Uri
+import android.provider.ContactsContract
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.sharePathIntent
@@ -174,4 +175,9 @@ fun BaseSimpleActivity.removeContactsFromGroup(contacts: ArrayList<Contact>, gro
     if (privateContacts.isNotEmpty()) {
         dbHelper.removeContactsFromGroup(contacts, groupId)
     }
+}
+
+fun BaseSimpleActivity.getContactPublicUri(contact: Contact): Uri {
+    val lookupKey = ContactsHelper(this).getContactLookupKey(contact.id.toString())
+    return Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey)
 }

@@ -93,3 +93,14 @@ const val DEFAULT_ADDRESS_TYPE = CommonDataKinds.StructuredPostal.TYPE_HOME
 const val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
 const val DEFAULT_ORGANIZATION_TYPE = CommonDataKinds.Organization.TYPE_WORK
 const val DEFAULT_WEBSITE_TYPE = CommonDataKinds.Website.TYPE_HOMEPAGE
+
+// some manufacturer contact account types from https://stackoverflow.com/a/44802016/1967672
+val localAccountTypes = arrayListOf("vnd.sec.contact.phone",
+        "com.htc.android.pcsc",
+        "com.sonyericsson.localcontacts",
+        "com.lge.sync",
+        "com.lge.phone",
+        "vnd.tmobileus.contact.phone",
+        "com.android.huawei.phone",
+        "Local Phone Account"
+)

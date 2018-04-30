@@ -99,15 +99,11 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         contacts.sort()
         allContacts = contacts
 
-        val filtered = if (this is GroupsFragment) {
-            contacts
-        } else if (this is FavoritesFragment) {
-            contacts.filter { it.starred == 1 } as ArrayList<Contact>
-        } else {
-            val contactSources = config.displayContactSources
-            if (config.showAllContacts()) {
-                contacts
-            } else {
+        val filtered = when {
+            this is GroupsFragment -> contacts
+            this is FavoritesFragment -> contacts.filter { it.starred == 1 } as ArrayList<Contact>
+            else -> {
+                val contactSources = config.displayContactSources
                 contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
             }
         }

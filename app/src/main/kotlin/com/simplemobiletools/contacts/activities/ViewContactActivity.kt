@@ -49,13 +49,18 @@ class ViewContactActivity : ContactActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_view_contact, menu)
+        menu.apply {
+            findItem(R.id.open_with).isVisible = contact?.source != SMT_PRIVATE
+        }
         return true
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.edit -> editContact(contact!!)
             R.id.share -> shareContact()
+            R.id.open_with -> openWith()
             R.id.delete -> deleteContact()
             else -> return super.onOptionsItemSelected(item)
         }
@@ -149,6 +154,14 @@ class ViewContactActivity : ContactActivity() {
         setupWebsites()
         setupGroups()
         setupContactSource()
+    }
+
+    private fun openWith() {
+        Intent().apply {
+            action = ContactsContract.QuickContact.ACTION_QUICK_CONTACT
+            data = getContactPublicUri(contact!!)
+            startActivity(this)
+        }
     }
 
     private fun setupFavorite() {

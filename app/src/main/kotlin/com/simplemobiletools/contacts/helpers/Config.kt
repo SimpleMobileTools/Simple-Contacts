@@ -12,8 +12,6 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getStringSet(DISPLAY_CONTACT_SOURCES, hashSetOf("-1"))
         set(displayContactSources) = prefs.edit().remove(DISPLAY_CONTACT_SOURCES).putStringSet(DISPLAY_CONTACT_SOURCES, displayContactSources).apply()
 
-    fun showAllContacts() = displayContactSources.size == 1 && displayContactSources.first() == "-1"
-
     var showContactThumbnails: Boolean
         get() = prefs.getBoolean(SHOW_CONTACT_THUMBNAILS, true)
         set(showContactThumbnails) = prefs.edit().putBoolean(SHOW_CONTACT_THUMBNAILS, showContactThumbnails).apply()
