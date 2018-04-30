@@ -77,6 +77,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
         groups = newItems
         notifyDataSetChanged()
         finishActMode()
+        fastScroller?.measureRecyclerView()
     }
 
     private fun editGroup() {
