@@ -18,6 +18,7 @@ import com.simplemobiletools.contacts.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.getContactPublicUri
+import com.simplemobiletools.contacts.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.models.Contact
@@ -98,7 +99,7 @@ class SelectContactActivity : SimpleActivity() {
                 }
             } as ArrayList<Contact>
 
-            val contactSources = config.displayContactSources
+            val contactSources = getVisibleContactSources()
             contacts = contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
 
             Contact.sorting = config.sorting

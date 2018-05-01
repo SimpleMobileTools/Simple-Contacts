@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.helpers
 
 import android.accounts.AccountManager
+import android.app.Activity
 import android.content.*
 import android.database.Cursor
 import android.graphics.Bitmap
@@ -11,7 +12,6 @@ import android.provider.ContactsContract.CommonDataKinds.Note
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.SparseArray
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
@@ -22,14 +22,14 @@ import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.models.*
 import com.simplemobiletools.contacts.overloads.times
 
-class ContactsHelper(val activity: BaseSimpleActivity) {
+class ContactsHelper(val activity: Activity) {
     private val BATCH_SIZE = 100
-    private var displayContactSources = HashSet<String>()
+    private var displayContactSources = ArrayList<String>()
 
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
         Thread {
             val contacts = SparseArray<Contact>()
-            displayContactSources = activity.config.displayContactSources
+            displayContactSources = activity.getVisibleContactSources()
             getDeviceContacts(contacts)
 
             if (displayContactSources.contains(SMT_PRIVATE)) {
@@ -72,6 +72,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
         val sortOrder = getSortString()
 
+        val names = HashSet<String>()
         var cursor: Cursor? = null
         try {
             cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, sortOrder)
@@ -89,6 +90,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     val addresses = ArrayList<Address>()
                     val events = ArrayList<Event>()
                     val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
+                    names.add(accountName)
                     val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                     val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                     val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
@@ -647,7 +649,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         return ArrayList(sources)
     }
 
-    private fun getDeviceContactSources(): LinkedHashSet<ContactSource> {
+    fun getDeviceContactSources(): LinkedHashSet<ContactSource> {
         val sources = LinkedHashSet<ContactSource>()
         if (!activity.hasContactPermissions()) {
             return sources

@@ -8,9 +8,9 @@ class Config(context: Context) : BaseConfig(context) {
         fun newInstance(context: Context) = Config(context)
     }
 
-    var displayContactSources: HashSet<String>
-        get() = prefs.getStringSet(DISPLAY_CONTACT_SOURCES, hashSetOf("-1")) as HashSet
-        set(displayContactSources) = prefs.edit().remove(DISPLAY_CONTACT_SOURCES).putStringSet(DISPLAY_CONTACT_SOURCES, displayContactSources).apply()
+    var ignoredContactSources: HashSet<String>
+        get() = prefs.getStringSet(IGNORED_CONTACT_SOURCES, hashSetOf("")) as HashSet
+        set(ignoreContactSources) = prefs.edit().remove(IGNORED_CONTACT_SOURCES).putStringSet(IGNORED_CONTACT_SOURCES, ignoreContactSources).apply()
 
     var showContactThumbnails: Boolean
         get() = prefs.getBoolean(SHOW_CONTACT_THUMBNAILS, true)
