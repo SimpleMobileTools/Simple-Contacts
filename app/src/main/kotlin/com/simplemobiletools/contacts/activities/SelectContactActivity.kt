@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
-import com.simplemobiletools.commons.extensions.appLaunched
 import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
 import com.simplemobiletools.commons.extensions.toast
@@ -30,7 +29,6 @@ class SelectContactActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_select_contact)
-        appLaunched()
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {

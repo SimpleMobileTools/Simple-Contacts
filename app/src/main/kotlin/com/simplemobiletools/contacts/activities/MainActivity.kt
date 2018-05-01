@@ -53,7 +53,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        appLaunched()
+        appLaunched(BuildConfig.APPLICATION_ID)
         setupTabColors()
 
         // just get a reference to the database to make sure it is created properly

@@ -5,7 +5,6 @@ import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.models.RadioItem
-import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.extensions.config
@@ -39,7 +38,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupCustomizeColors() {
         settings_customize_colors_holder.setOnClickListener {
-            startCustomizationActivity(BuildConfig.APPLICATION_ID)
+            startCustomizationActivity()
         }
     }
 
