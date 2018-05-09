@@ -72,7 +72,6 @@ class ContactsHelper(val activity: Activity) {
         val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
         val sortOrder = getSortString()
 
-        val names = HashSet<String>()
         var cursor: Cursor? = null
         try {
             cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, sortOrder)
@@ -90,7 +89,6 @@ class ContactsHelper(val activity: Activity) {
                     val addresses = ArrayList<Address>()
                     val events = ArrayList<Event>()
                     val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
-                    names.add(accountName)
                     val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                     val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                     val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
