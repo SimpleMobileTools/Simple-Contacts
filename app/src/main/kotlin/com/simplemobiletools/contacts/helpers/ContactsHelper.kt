@@ -445,7 +445,7 @@ class ContactsHelper(val activity: Activity) {
         return groups
     }
 
-    private fun getQuestionMarks() = "?,".times(displayContactSources.size).trimEnd(',')
+    private fun getQuestionMarks() = "?,".times(displayContactSources.filter { it.isNotEmpty() }.size).trimEnd(',')
 
     private fun getSourcesSelection(addMimeType: Boolean = false, addContactId: Boolean = false, useRawContactId: Boolean = true): String {
         val strings = ArrayList<String>()
@@ -456,7 +456,16 @@ class ContactsHelper(val activity: Activity) {
         if (addContactId) {
             strings.add("${if (useRawContactId) ContactsContract.Data.RAW_CONTACT_ID else ContactsContract.Data.CONTACT_ID} = ?")
         } else {
-            strings.add("${ContactsContract.RawContacts.ACCOUNT_NAME} IN (${getQuestionMarks()})")
+            // sometimes local device storage has null account_name, handle it properly
+            val accountnameString = StringBuilder()
+            if (displayContactSources.contains("")) {
+                accountnameString.append("(")
+            }
+            accountnameString.append("${ContactsContract.RawContacts.ACCOUNT_NAME} IN (${getQuestionMarks()})")
+            if (displayContactSources.contains("")) {
+                accountnameString.append(" OR ${ContactsContract.RawContacts.ACCOUNT_NAME} IS NULL)")
+            }
+            strings.add(accountnameString.toString())
         }
 
         return TextUtils.join(" AND ", strings)
@@ -472,7 +481,7 @@ class ContactsHelper(val activity: Activity) {
         if (contactId != null) {
             args.add(contactId.toString())
         } else {
-            args.addAll(displayContactSources)
+            args.addAll(displayContactSources.filter { it.isNotEmpty() })
         }
 
         return args.toTypedArray()
