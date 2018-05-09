@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 4.0.1 *(2018-05-09)*
+----------------------------
+
+ * Fixed a glitch happening at updating from old app version to 4.x
+
 Version 4.0.0 *(2018-05-09)*
 ----------------------------
 
