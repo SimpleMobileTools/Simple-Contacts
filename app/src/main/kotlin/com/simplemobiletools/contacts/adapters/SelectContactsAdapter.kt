@@ -119,7 +119,9 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
                                 .error(contactDrawable)
                                 .centerCrop()
 
-                        Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                        if (activity.isActivityDestroyed()) {
+                            Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                        }
                     } else {
                         contact_tmb.setImageDrawable(contactDrawable)
                     }
