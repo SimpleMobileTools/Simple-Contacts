@@ -9,7 +9,7 @@ class Config(context: Context) : BaseConfig(context) {
     }
 
     var ignoredContactSources: HashSet<String>
-        get() = prefs.getStringSet(IGNORED_CONTACT_SOURCES, hashSetOf("")) as HashSet
+        get() = prefs.getStringSet(IGNORED_CONTACT_SOURCES, hashSetOf(".")) as HashSet
         set(ignoreContactSources) = prefs.edit().remove(IGNORED_CONTACT_SOURCES).putStringSet(IGNORED_CONTACT_SOURCES, ignoreContactSources).apply()
 
     var showContactThumbnails: Boolean
