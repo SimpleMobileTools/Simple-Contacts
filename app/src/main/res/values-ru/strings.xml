@@ -48,6 +48,7 @@
     <string name="show_favorites_tab">Показывать вкладку избранного</string>
     <string name="show_groups_tab">Показывать вкладку групп</string>
     <string name="manage_shown_contact_fields">Управление отображаемыми полями контактов</string>
+    <string name="filter_duplicates">Try filtering out duplicate contacts</string>
 
     <!-- Emails -->
     <string name="email">Эл. почта</string>

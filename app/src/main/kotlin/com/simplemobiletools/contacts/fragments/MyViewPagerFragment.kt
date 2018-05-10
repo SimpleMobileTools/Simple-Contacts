@@ -15,10 +15,7 @@ import com.simplemobiletools.contacts.activities.MainActivity
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.adapters.GroupsAdapter
-import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.editContact
-import com.simplemobiletools.contacts.extensions.tryStartCall
-import com.simplemobiletools.contacts.extensions.viewContact
+import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Group
@@ -103,7 +100,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             this is GroupsFragment -> contacts
             this is FavoritesFragment -> contacts.filter { it.starred == 1 } as ArrayList<Contact>
             else -> {
-                val contactSources = config.displayContactSources
+                val contactSources = activity!!.getVisibleContactSources()
                 contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
             }
         }

@@ -1,6 +1,21 @@
 Changelog
 ==========
 
+Version 4.0.1 *(2018-05-09)*
+----------------------------
+
+ * Fixed a glitch happening at updating from old app version to 4.x
+
+Version 4.0.0 *(2018-05-09)*
+----------------------------
+
+ * Allow changing app icon color
+ * Add a toggle for trying to filter out duplicate contacts, enabled by default
+ * Fix some contacts not being visible
+ * Allow opening contacts with third party apps
+ * Couple misc fixes related to contacts syncing via CardDAV
+ * Allow moving contacts in a different contact source at the Edit screen
+
 Version 3.5.3 *(2018-04-18)*
 ----------------------------
 

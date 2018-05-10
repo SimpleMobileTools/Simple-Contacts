@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.helpers
 
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -11,7 +12,6 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.getBlobValue
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.getLongValue
@@ -249,7 +249,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         }
     }
 
-    fun getContacts(activity: BaseSimpleActivity, selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
+    fun getContacts(activity: Activity, selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
         val storedGroups = ContactsHelper(activity).getStoredGroups()
         val contacts = ArrayList<Contact>()
         val projection = arrayOf(COL_ID, COL_PREFIX, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_SUFFIX, COL_PHONE_NUMBERS, COL_EMAILS,
@@ -319,7 +319,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         return contacts
     }
 
-    fun getContactWithId(activity: BaseSimpleActivity, id: Int): Contact? {
+    fun getContactWithId(activity: Activity, id: Int): Contact? {
         val selection = "$COL_ID = ?"
         val selectionArgs = arrayOf(id.toString())
         return getContacts(activity, selection, selectionArgs).firstOrNull()

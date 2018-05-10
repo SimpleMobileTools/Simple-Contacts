@@ -48,6 +48,7 @@
     <string name="show_favorites_tab">Visa fliken Favoriter</string>
     <string name="show_groups_tab">Visa fliken Grupper</string>
     <string name="manage_shown_contact_fields">Hantera visade kontaktfält</string>
+    <string name="filter_duplicates">Try filtering out duplicate contacts</string>
 
     <!-- Emails -->
     <string name="email">E-post</string>

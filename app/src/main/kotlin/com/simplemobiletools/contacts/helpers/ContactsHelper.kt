@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.helpers
 
 import android.accounts.AccountManager
+import android.app.Activity
 import android.content.*
 import android.database.Cursor
 import android.graphics.Bitmap
@@ -11,7 +12,6 @@ import android.provider.ContactsContract.CommonDataKinds.Note
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.SparseArray
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
@@ -20,24 +20,32 @@ import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.models.*
+import com.simplemobiletools.contacts.overloads.times
 
-class ContactsHelper(val activity: BaseSimpleActivity) {
+class ContactsHelper(val activity: Activity) {
     private val BATCH_SIZE = 100
+    private var displayContactSources = ArrayList<String>()
+
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
         Thread {
             val contacts = SparseArray<Contact>()
+            displayContactSources = activity.getVisibleContactSources()
             getDeviceContacts(contacts)
 
-            activity.dbHelper.getContacts(activity).forEach {
-                contacts.put(it.id, it)
+            if (displayContactSources.contains(SMT_PRIVATE)) {
+                activity.dbHelper.getContacts(activity).forEach {
+                    contacts.put(it.id, it)
+                }
             }
 
             val contactsSize = contacts.size()
             var resultContacts = ArrayList<Contact>(contactsSize)
             (0 until contactsSize).mapTo(resultContacts) { contacts.valueAt(it) }
-            resultContacts = resultContacts.distinctBy {
-                it.getHashToCompare()
-            } as ArrayList<Contact>
+            if (activity.config.filterDuplicates) {
+                resultContacts = resultContacts.distinctBy {
+                    it.getHashToCompare()
+                } as ArrayList<Contact>
+            }
 
             // groups are obtained with contactID, not rawID, so assign them to proper contacts like this
             val groups = getContactGroups(getStoredGroups())
@@ -60,8 +68,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = getContactProjection()
-        val selection = "${ContactsContract.Data.MIMETYPE} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+        val selection = getSourcesSelection(true)
+        val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
         val sortOrder = getSortString()
 
         var cursor: Cursor? = null
@@ -100,7 +108,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
             cursor?.close()
         }
 
-        val phoneNumbers = getPhoneNumbers()
+        val phoneNumbers = getPhoneNumbers(null)
         var size = phoneNumbers.size()
         for (i in 0 until size) {
             val key = phoneNumbers.keyAt(i)
@@ -159,8 +167,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 CommonDataKinds.Phone.TYPE
         )
 
-        val selection = if (contactId == null) null else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = if (contactId == null) null else arrayOf(contactId.toString())
+        val selection = if (contactId == null) getSourcesSelection() else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = if (contactId == null) getSourcesSelectionArgs() else arrayOf(contactId.toString())
 
         var cursor: Cursor? = null
         try {
@@ -184,6 +192,7 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         } finally {
             cursor?.close()
         }
+
         return phoneNumbers
     }
 
@@ -196,8 +205,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 CommonDataKinds.Email.TYPE
         )
 
-        val selection = if (contactId == null) null else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = if (contactId == null) null else arrayOf(contactId.toString())
+        val selection = if (contactId == null) getSourcesSelection() else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = if (contactId == null) getSourcesSelectionArgs() else arrayOf(contactId.toString())
 
         var cursor: Cursor? = null
         try {
@@ -215,7 +224,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     emails[id]!!.add(Email(email, type))
                 } while (cursor.moveToNext())
             }
-
         } catch (e: Exception) {
             activity.showErrorToast(e)
         } finally {
@@ -234,8 +242,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 CommonDataKinds.StructuredPostal.TYPE
         )
 
-        val selection = if (contactId == null) null else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = if (contactId == null) null else arrayOf(contactId.toString())
+        val selection = if (contactId == null) getSourcesSelection() else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = if (contactId == null) getSourcesSelectionArgs() else arrayOf(contactId.toString())
 
         var cursor: Cursor? = null
         try {
@@ -253,7 +261,6 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                     addresses[id]!!.add(Address(address, type))
                 } while (cursor.moveToNext())
             }
-
         } catch (e: Exception) {
             activity.showErrorToast(e)
         } finally {
@@ -272,13 +279,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 CommonDataKinds.Event.TYPE
         )
 
-        var selection = "${ContactsContract.Data.MIMETYPE} = ?"
-        var selectionArgs = arrayOf(CommonDataKinds.Event.CONTENT_ITEM_TYPE)
-
-        if (contactId != null) {
-            selection += " AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-            selectionArgs = arrayOf(CommonDataKinds.Event.CONTENT_ITEM_TYPE, contactId.toString())
-        }
+        val selection = getSourcesSelection(true, contactId != null)
+        val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.Event.CONTENT_ITEM_TYPE, contactId)
 
         var cursor: Cursor? = null
         try {
@@ -313,13 +315,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 Note.NOTE
         )
 
-        var selection = "${ContactsContract.Data.MIMETYPE} = ?"
-        var selectionArgs = arrayOf(Note.CONTENT_ITEM_TYPE)
-
-        if (contactId != null) {
-            selection += " AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-            selectionArgs = arrayOf(Note.CONTENT_ITEM_TYPE, contactId.toString())
-        }
+        val selection = getSourcesSelection(true, contactId != null)
+        val selectionArgs = getSourcesSelectionArgs(Note.CONTENT_ITEM_TYPE, contactId)
 
         var cursor: Cursor? = null
         try {
@@ -349,13 +346,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 CommonDataKinds.Organization.TITLE
         )
 
-        var selection = "${ContactsContract.Data.MIMETYPE} = ?"
-        var selectionArgs = arrayOf(CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
-
-        if (contactId != null) {
-            selection += " AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-            selectionArgs = arrayOf(CommonDataKinds.Organization.CONTENT_ITEM_TYPE, contactId.toString())
-        }
+        val selection = getSourcesSelection(true, contactId != null)
+        val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.Organization.CONTENT_ITEM_TYPE, contactId)
 
         var cursor: Cursor? = null
         try {
@@ -386,13 +378,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 CommonDataKinds.Website.URL
         )
 
-        var selection = "${ContactsContract.Data.MIMETYPE} = ?"
-        var selectionArgs = arrayOf(CommonDataKinds.Website.CONTENT_ITEM_TYPE)
-
-        if (contactId != null) {
-            selection += " AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-            selectionArgs = arrayOf(CommonDataKinds.Website.CONTENT_ITEM_TYPE, contactId.toString())
-        }
+        val selection = getSourcesSelection(true, contactId != null)
+        val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.Website.CONTENT_ITEM_TYPE, contactId)
 
         var cursor: Cursor? = null
         try {
@@ -430,13 +417,8 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
                 ContactsContract.Data.DATA1
         )
 
-        var selection = "${ContactsContract.Data.MIMETYPE} = ?"
-        var selectionArgs = arrayOf(CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
-
-        if (contactId != null) {
-            selection += " AND ${ContactsContract.Data.CONTACT_ID} = ?"
-            selectionArgs = arrayOf(CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, contactId.toString())
-        }
+        val selection = getSourcesSelection(true, contactId != null, false)
+        val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, contactId)
 
         var cursor: Cursor? = null
         try {
@@ -461,6 +443,48 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
         }
 
         return groups
+    }
+
+    private fun getQuestionMarks() = "?,".times(displayContactSources.filter { it.isNotEmpty() }.size).trimEnd(',')
+
+    private fun getSourcesSelection(addMimeType: Boolean = false, addContactId: Boolean = false, useRawContactId: Boolean = true): String {
+        val strings = ArrayList<String>()
+        if (addMimeType) {
+            strings.add("${ContactsContract.Data.MIMETYPE} = ?")
+        }
+
+        if (addContactId) {
+            strings.add("${if (useRawContactId) ContactsContract.Data.RAW_CONTACT_ID else ContactsContract.Data.CONTACT_ID} = ?")
+        } else {
+            // sometimes local device storage has null account_name, handle it properly
+            val accountnameString = StringBuilder()
+            if (displayContactSources.contains("")) {
+                accountnameString.append("(")
+            }
+            accountnameString.append("${ContactsContract.RawContacts.ACCOUNT_NAME} IN (${getQuestionMarks()})")
+            if (displayContactSources.contains("")) {
+                accountnameString.append(" OR ${ContactsContract.RawContacts.ACCOUNT_NAME} IS NULL)")
+            }
+            strings.add(accountnameString.toString())
+        }
+
+        return TextUtils.join(" AND ", strings)
+    }
+
+    private fun getSourcesSelectionArgs(mimetype: String? = null, contactId: Int? = null): Array<String> {
+        val args = ArrayList<String>()
+
+        if (mimetype != null) {
+            args.add(mimetype)
+        }
+
+        if (contactId != null) {
+            args.add(contactId.toString())
+        } else {
+            args.addAll(displayContactSources.filter { it.isNotEmpty() })
+        }
+
+        return args.toTypedArray()
     }
 
     fun getStoredGroups(): ArrayList<Group> {
@@ -622,13 +646,17 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
     fun getContactSources(callback: (ArrayList<ContactSource>) -> Unit) {
         Thread {
-            val sources = getDeviceContactSources()
-            sources.add(ContactSource(activity.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
-            callback(ArrayList(sources))
+            callback(getContactSourcesSync())
         }.start()
     }
 
-    private fun getDeviceContactSources(): LinkedHashSet<ContactSource> {
+    private fun getContactSourcesSync(): ArrayList<ContactSource> {
+        val sources = getDeviceContactSources()
+        sources.add(ContactSource(activity.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
+        return ArrayList(sources)
+    }
+
+    fun getDeviceContactSources(): LinkedHashSet<ContactSource> {
         val sources = LinkedHashSet<ContactSource>()
         if (!activity.hasContactPermissions()) {
             return sources
@@ -1220,12 +1248,17 @@ class ContactsHelper(val activity: BaseSimpleActivity) {
 
             try {
                 val operations = ArrayList<ContentProviderOperation>()
-                val selection = "${ContactsContract.Data.CONTACT_ID} = ?"
+                val selection = "${ContactsContract.RawContacts._ID} = ?"
                 contacts.filter { it.source != SMT_PRIVATE }.forEach {
-                    ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                        val selectionArgs = arrayOf(it.contactId.toString())
+                    ContentProviderOperation.newDelete(ContactsContract.RawContacts.CONTENT_URI).apply {
+                        val selectionArgs = arrayOf(it.id.toString())
                         withSelection(selection, selectionArgs)
                         operations.add(build())
+                    }
+
+                    if (operations.size % BATCH_SIZE == 0) {
+                        activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                        operations.clear()
                     }
                 }
 

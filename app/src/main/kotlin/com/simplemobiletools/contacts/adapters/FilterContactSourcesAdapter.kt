@@ -14,7 +14,7 @@ import com.simplemobiletools.contacts.models.ContactSource
 import kotlinx.android.synthetic.main.item_filter_contact_source.view.*
 import java.util.*
 
-class FilterContactSourcesAdapter(val activity: SimpleActivity, private val contactSources: List<ContactSource>, private val displayContactSources: Set<String>) :
+class FilterContactSourcesAdapter(val activity: SimpleActivity, private val contactSources: List<ContactSource>, private val displayContactSources: ArrayList<String>) :
         RecyclerView.Adapter<FilterContactSourcesAdapter.ViewHolder>() {
     private val itemViews = SparseArray<View>()
     private val selectedPositions = HashSet<Int>()

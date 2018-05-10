@@ -6,7 +6,7 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.adapters.FilterContactSourcesAdapter
-import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.models.ContactSource
@@ -25,7 +25,7 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, priva
             ContactsHelper(activity).getContactSources {
                 it.mapTo(contactSources, { it.copy() })
                 activity.runOnUiThread {
-                    export_contacts_list.adapter = FilterContactSourcesAdapter(activity, it, activity.config.displayContactSources)
+                    export_contacts_list.adapter = FilterContactSourcesAdapter(activity, it, activity.getVisibleContactSources())
                 }
             }
         }

@@ -1,11 +1,15 @@
 package com.simplemobiletools.contacts.activities
 
+import android.Manifest
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.MenuItemCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.SearchView
@@ -48,11 +52,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var storedShowContactThumbnails = false
     private var storedShowPhoneNumbers = false
     private var storedStartNameWithSurname = false
+    private var storedFilterDuplicates = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        appLaunched()
+        appLaunched(BuildConfig.APPLICATION_ID)
         setupTabColors()
 
         // just get a reference to the database to make sure it is created properly
@@ -62,6 +67,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             werePermissionsHandled = true
             if (it) {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
+                    // workaround for upgrading from version 3.x to 4.x as we added a new permission from an already granted permissions group
+                    val hasGetAccountsPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED
+                    if (!hasGetAccountsPermission) {
+                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.GET_ACCOUNTS), 34)
+                    }
+
                     storeLocalAccountData()
                     initFragments()
                 }
@@ -116,6 +127,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (storedStartNameWithSurname != configStartNameWithSurname) {
             contacts_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
             favorites_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
+        }
+
+        if (storedFilterDuplicates != config.filterDuplicates) {
+            refreshContacts(ALL_TABS_MASK)
         }
 
         if (werePermissionsHandled && !isFirstResume) {
@@ -175,6 +190,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             storedShowContactThumbnails = showContactThumbnails
             storedShowPhoneNumbers = showPhoneNumbers
             storedStartNameWithSurname = startNameWithSurname
+            storedFilterDuplicates = filterDuplicates
         }
     }
 

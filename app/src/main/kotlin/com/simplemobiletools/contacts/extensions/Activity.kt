@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.extensions
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract
@@ -17,6 +18,7 @@ import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.helpers.VcfExporter
 import com.simplemobiletools.contacts.models.Contact
+import com.simplemobiletools.contacts.models.ContactSource
 import java.io.File
 
 fun SimpleActivity.startCallIntent(recipient: String) {
@@ -180,4 +182,12 @@ fun BaseSimpleActivity.removeContactsFromGroup(contacts: ArrayList<Contact>, gro
 fun BaseSimpleActivity.getContactPublicUri(contact: Contact): Uri {
     val lookupKey = ContactsHelper(this).getContactLookupKey(contact.id.toString())
     return Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey)
+}
+
+fun Activity.getVisibleContactSources(): ArrayList<String> {
+    val sources = ContactsHelper(this).getDeviceContactSources()
+    sources.add(ContactSource(getString(R.string.phone_storage_hidden), SMT_PRIVATE))
+    val sourceNames = ArrayList(sources).map { if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name }.toMutableList() as ArrayList<String>
+    sourceNames.removeAll(config.ignoredContactSources)
+    return sourceNames
 }

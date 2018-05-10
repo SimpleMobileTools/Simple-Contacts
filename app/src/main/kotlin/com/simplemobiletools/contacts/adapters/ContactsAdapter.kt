@@ -125,6 +125,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             textToHighlight = highlightText
             notifyDataSetChanged()
         }
+        fastScroller?.measureRecyclerView()
     }
 
     private fun editContact() {

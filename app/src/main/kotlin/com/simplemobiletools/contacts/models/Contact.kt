@@ -86,6 +86,7 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
     fun getHashToCompare(): Int {
         val newPhoneNumbers = ArrayList<PhoneNumber>()
         phoneNumbers.mapTo(newPhoneNumbers, { PhoneNumber(it.value.replace(pattern, ""), 0) })
-        return copy(id = 0, phoneNumbers = newPhoneNumbers).hashCode()
+        return copy(id = 0, prefix = "", firstName = getFullName().toLowerCase(), middleName = "", surname = "", suffix = "", photoUri = "",
+                phoneNumbers = newPhoneNumbers, source = "", starred = 0, contactId = 0, thumbnailUri = "", notes = "").hashCode()
     }
 }

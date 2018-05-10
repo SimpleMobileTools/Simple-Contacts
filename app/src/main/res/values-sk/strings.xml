@@ -48,6 +48,7 @@
     <string name="show_favorites_tab">Zobraziť okno s obľúbenými</string>
     <string name="show_groups_tab">Zobraziť okno so skupinami</string>
     <string name="manage_shown_contact_fields">Spravovať zobrazené polia kontaktov</string>
+    <string name="filter_duplicates">Pokúsiť sa vyfiltrovať duplicitné kontakty</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
