@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 4.0.2 *(2018-05-12)*
+----------------------------
+
+ * Make sure all relevant contact sources are visible
+
 Version 4.0.1 *(2018-05-09)*
 ----------------------------
 
