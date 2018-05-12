@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.helpers
 
+import android.accounts.Account
 import android.accounts.AccountManager
 import android.app.Activity
 import android.content.*
@@ -59,6 +60,33 @@ class ContactsHelper(val activity: Activity) {
                 callback(resultContacts)
             }
         }.start()
+    }
+
+    private fun getContentResolverAccounts(): HashSet<ContactSource> {
+        val uri = ContactsContract.Data.CONTENT_URI
+        val projection = arrayOf(
+                ContactsContract.RawContacts.ACCOUNT_NAME,
+                ContactsContract.RawContacts.ACCOUNT_TYPE
+        )
+
+        val sources = HashSet<ContactSource>()
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, null, null, null)
+            if (cursor?.moveToFirst() == true) {
+                do {
+                    val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
+                    val type = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: ""
+                    val source = ContactSource(name, type)
+                    sources.add(source)
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+        } finally {
+            cursor?.close()
+        }
+
+        return sources
     }
 
     private fun getDeviceContacts(contacts: SparseArray<Contact>) {
@@ -662,13 +690,16 @@ class ContactsHelper(val activity: Activity) {
             return sources
         }
 
-        val accountManager = AccountManager.get(activity)
-        accountManager.accounts.filter { it.name.contains("@") || localAccountTypes.contains(it.type) }.forEach {
-            if (ContentResolver.getIsSyncable(it, ContactsContract.AUTHORITY) == 1) {
+        val accounts = AccountManager.get(activity).accounts
+        accounts.forEach {
+            if (ContentResolver.getIsSyncable(it, ContactsContract.AUTHORITY) == 1 && ContentResolver.getSyncAutomatically(it, ContactsContract.AUTHORITY)) {
                 val contactSource = ContactSource(it.name, it.type)
                 sources.add(contactSource)
             }
         }
+
+        val contentResolverAccounts = getContentResolverAccounts().filter { !accounts.contains(Account(it.name, it.type)) }
+        sources.addAll(contentResolverAccounts)
 
         if (sources.isEmpty() && activity.config.localAccountName.isEmpty() && activity.config.localAccountType.isEmpty()) {
             sources.add(ContactSource("", ""))
