@@ -692,7 +692,7 @@ class ContactsHelper(val activity: Activity) {
 
         val accounts = AccountManager.get(activity).accounts
         accounts.forEach {
-            if (ContentResolver.getIsSyncable(it, ContactsContract.AUTHORITY) == 1 && ContentResolver.getSyncAutomatically(it, ContactsContract.AUTHORITY)) {
+            if (ContentResolver.getIsSyncable(it, ContactsContract.AUTHORITY) == 1) {
                 val contactSource = ContactSource(it.name, it.type)
                 sources.add(contactSource)
             }
