@@ -698,7 +698,9 @@ class ContactsHelper(val activity: Activity) {
             }
         }
 
-        val contentResolverAccounts = getContentResolverAccounts().filter { !accounts.contains(Account(it.name, it.type)) }
+        val contentResolverAccounts = getContentResolverAccounts().filter {
+            it.name.isNotEmpty() && it.type.isNotEmpty() && !accounts.contains(Account(it.name, it.type))
+        }
         sources.addAll(contentResolverAccounts)
 
         if (sources.isEmpty() && activity.config.localAccountName.isEmpty() && activity.config.localAccountType.isEmpty()) {
