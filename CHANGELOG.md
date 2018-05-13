@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 4.0.3 *(2018-05-13)*
+----------------------------
+
+ * Show a couple additional contact sources
+
 Version 4.0.2 *(2018-05-12)*
 ----------------------------
 
