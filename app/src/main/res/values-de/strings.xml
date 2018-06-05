@@ -6,13 +6,13 @@
     <string name="updating">Aktualisiere…</string>
     <string name="phone_storage">Gerätespeicher</string>
     <string name="phone_storage_hidden">Gerätespeicher (nicht sichtbar für andere Apps)</string>
-    <string name="company">Company</string>
-    <string name="job_position">Job position</string>
+    <string name="company">Unternehmen</string>
+    <string name="job_position">Arbeitsstelle</string>
     <string name="website">Website</string>
-    <string name="send_sms_to_contacts">Send SMS to contacts</string>
-    <string name="send_email_to_contacts">Send email to contacts</string>
-    <string name="send_sms_to_group">Send SMS to group</string>
-    <string name="send_email_to_group">Send email to group</string>
+    <string name="send_sms_to_contacts">Sende SMS zu Kontakten</string>
+    <string name="send_email_to_contacts">Sende E-Mail zu Kontakten</string>
+    <string name="send_sms_to_group">Sende SMS zu Gruppe</string>
+    <string name="send_email_to_group">Sende E-Mail zu Gruppe</string>
 
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
@@ -45,13 +45,13 @@
     <string name="on_contact_click">Beim Klicken auf den Kontakt</string>
     <string name="call_contact">Kontakt anrufen</string>
     <string name="view_contact">Kontaktdetails ansehen</string>
-    <string name="show_favorites_tab">Show favorites tab</string>
-    <string name="show_groups_tab">Show groups tab</string>
-    <string name="manage_shown_contact_fields">Manage shown contact fields</string>
-    <string name="filter_duplicates">Try filtering out duplicate contacts</string>
+    <string name="show_favorites_tab">Zeige Favoriten</string>
+    <string name="show_groups_tab">Zeige Gruppen</string>
+    <string name="manage_shown_contact_fields">Bearbeite sichtbare Kontaktfelder</string>
+    <string name="filter_duplicates">Versuche Kontaktdupplikate herauszufiltern</string>
 
     <!-- Emails -->
-    <string name="email">Email</string>
+    <string name="email">E-Mail</string>
     <string name="home">Privat</string>
     <string name="work">Arbeit</string>
     <string name="other">Sonstiges</string>
@@ -74,7 +74,7 @@
     <string name="add_favorites">Favoriten hinzufügen</string>
     <string name="add_to_favorites">Zu Favoriten hinzufügen</string>
     <string name="remove_from_favorites">Aus Favoriten entfernen</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
+    <string name="must_be_at_edit">Sie müssen sich im Editier-Modus befinden, um einen Kontakt zu bearbeiten</string>
 
     <!-- Search -->
     <string name="search_contacts">Kontakte durchsuchen</string>
@@ -90,22 +90,22 @@
     <string name="filename_without_vcf">Dateiname (ohne .vcf)</string>
 
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Select fields to show</string>
+    <string name="select_fields_to_show">Sichtbare Felder selektieren</string>
     <string name="prefix">Prefix</string>
     <string name="suffix">Suffix</string>
-    <string name="phone_numbers">Phone numbers</string>
-    <string name="emails">Emails</string>
-    <string name="addresses">Addresses</string>
-    <string name="events">Events (birthdays, anniversaries)</string>
-    <string name="notes">Notes</string>
-    <string name="organization">Organization</string>
+    <string name="phone_numbers">Telefonnummern</string>
+    <string name="emails">E-Mails</string>
+    <string name="addresses">Addressen</string>
+    <string name="events">Termine (Geburtstage, Jahrestage)</string>
+    <string name="notes">Notizen</string>
+    <string name="organization">Organisation</string>
     <string name="websites">Websites</string>
-    <string name="groups">Groups</string>
-    <string name="contact_source">Contact source</string>
+    <string name="groups">Gruppen</string>
+    <string name="contact_source">Kontaktquelle</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_title">Ich möchte die sichtbaren Kontaktfelder ändern. Kann ich das machen?</string>
+    <string name="faq_1_text">Ja, alles, was Sie machen müssen ist folgendes: Gehen Sie zu Einstellungen -> Bearbeite sichtbare Kontaktfelder. Hier können die sichtbaren Felder bearbeitet werden. Einige sind standardmäßig deaktiviert, weshalb hier neue gefunden werden können.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
