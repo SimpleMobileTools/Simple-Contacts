@@ -109,15 +109,15 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Eine App zum Verwalten von Kontakten, ganz ohne Werbung.</string>
+    <string name="app_short_description">Eine Kontakte-App zur Verwaltung Ihrer Kontake. Ohne Werbung.</string>
     <string name="app_long_description">
-        Eine schlichte App um Kontakte aus allen Quellen zu verwalten und neue zu erstellen. Die Kontakte können nur auf deinem Gerät gespeichert werden, aber auch über Google oder andere Dienste synchronisiert werden. Deine wichtigsten Kontakte werden in einer separaten Liste angezeigt.
+        Eine einfache App, mit der Sie Kontakte erstellen oder von jeder Quelle verwalten können. Die Kontakte können entweder nur auf Ihrem Gerät gespeichert, oder mittels Google oder anderer Konten synchronisiert werden. Sie können Ihre Lieblingskontake in einer separaten Liste anzeigen.
 
-        Du kannst diese App auch dazu nutzen, um die Email-Adressen und Termine von Kontakten zu verwalten. Sie hat die Möglichkeit mithilfe von mehreren Parametern zu sortieren/filtern, optional auch den Familiennamen als Vornamen anzuzeigen.
+        Sie können es auch zur Verwaltung von Nutzer-E-Mails und Ereignisse nutzen. Es kann nach mehreren Parametern sortieren oder filtern, oder optional den Nachnamen zuerst anzeigen.
 
-        Beinhaltet keine Werbung oder unnötige Berechtigungen. Sie ist komplett Open Source, alle verwendeten Farben sind anpassbar.
+        Enthält keine Werbung oder unnötige Berechtigungen. Vollständig quelloffen. Die Farben sind anpassbar.
 
-        Diese App ist nur eine aus einer größeren Serie von schlichten Apps. Der Rest davon findet sich auf https://www.simplemobiletools.com
+        Diese App ist nur ein Teil einer größeren App-Familie. Die übrigen finden Sie unter https://www.simplemobiletools.com
     </string>
 
     <!--
