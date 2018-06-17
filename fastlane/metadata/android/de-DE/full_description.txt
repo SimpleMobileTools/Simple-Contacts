@@ -1,0 +1,7 @@
+Eine einfache App, mit der Sie Kontakte erstellen oder von jeder Quelle verwalten können. Die Kontakte können entweder nur auf Ihrem Gerät gespeichert, oder mittels Google oder anderer Konten synchronisiert werden. Sie können Ihre Lieblingskontake in einer separaten Liste anzeigen.
+
+Sie können es auch zur Verwaltung von Nutzer-E-Mails und Ereignisse nutzen. Es kann nach mehreren Parametern sortieren oder filtern, oder optional den Nachnamen zuerst anzeigen.
+
+Enthält keine Werbung oder unnötige Berechtigungen. Vollständig quelloffen. Die Farben sind anpassbar.
+
+Diese App ist nur ein Teil einer größeren App-Familie. Die übrigen finden Sie unter https://www.simplemobiletools.com
