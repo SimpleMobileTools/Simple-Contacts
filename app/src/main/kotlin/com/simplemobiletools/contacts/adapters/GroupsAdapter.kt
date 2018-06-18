@@ -41,10 +41,10 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
         }
     }
 
-    override fun prepareItemSelection(view: View) {}
+    override fun prepareItemSelection(viewHolder: ViewHolder) {}
 
-    override fun markItemSelection(select: Boolean, view: View?) {
-        view?.group_frame?.isSelected = select
+    override fun markViewHolderSelection(select: Boolean, viewHolder: ViewHolder?) {
+        viewHolder?.itemView?.group_frame?.isSelected = select
     }
 
     override fun actionItemPressed(id: Int) {

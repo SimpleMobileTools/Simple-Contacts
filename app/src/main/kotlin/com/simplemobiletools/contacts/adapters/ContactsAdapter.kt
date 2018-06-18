@@ -70,10 +70,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         }
     }
 
-    override fun prepareItemSelection(view: View) {}
+    override fun prepareItemSelection(viewHolder: ViewHolder) {}
 
-    override fun markItemSelection(select: Boolean, view: View?) {
-        view?.contact_frame?.isSelected = select
+    override fun markViewHolderSelection(select: Boolean, viewHolder: ViewHolder?) {
+        viewHolder?.itemView?.contact_frame?.isSelected = select
     }
 
     override fun actionItemPressed(id: Int) {
