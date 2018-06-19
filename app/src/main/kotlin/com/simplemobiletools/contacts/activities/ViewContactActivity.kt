@@ -57,6 +57,10 @@ class ViewContactActivity : ContactActivity() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (contact == null) {
+            return true
+        }
+
         when (item.itemId) {
             R.id.edit -> editContact(contact!!)
             R.id.share -> shareContact()

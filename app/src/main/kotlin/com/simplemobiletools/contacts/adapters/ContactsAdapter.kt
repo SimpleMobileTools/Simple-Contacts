@@ -145,7 +145,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
         val contactsToRemove = ArrayList<Contact>()
         selectedPositions.sortedDescending().forEach {
-            contactsToRemove.add(contactItems[it])
+            val contact = contactItems.getOrNull(it)
+            if (contact != null) {
+                contactsToRemove.add(contact)
+            }
         }
         contactItems.removeAll(contactsToRemove)
 

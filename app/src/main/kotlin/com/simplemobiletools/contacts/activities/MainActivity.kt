@@ -354,10 +354,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                     return
                 }
 
-                val inputStream = contentResolver.openInputStream(uri)
-                val out = FileOutputStream(tempFile)
-                inputStream.copyTo(out)
-                showImportContactsDialog(tempFile.absolutePath)
+                try {
+                    val inputStream = contentResolver.openInputStream(uri)
+                    val out = FileOutputStream(tempFile)
+                    inputStream.copyTo(out)
+                    showImportContactsDialog(tempFile.absolutePath)
+                } catch (e: Exception) {
+                    showErrorToast(e)
+                }
             }
             else -> toast(R.string.invalid_file_format)
         }

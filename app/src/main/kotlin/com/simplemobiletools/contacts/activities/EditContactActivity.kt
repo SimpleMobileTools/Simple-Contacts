@@ -94,6 +94,10 @@ class EditContactActivity : ContactActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (contact == null) {
+            return true
+        }
+
         when (item.itemId) {
             R.id.save -> saveContact()
             R.id.share -> shareContact()
@@ -232,7 +236,11 @@ class EditContactActivity : ContactActivity() {
         Intent().apply {
             action = Intent.ACTION_EDIT
             data = getContactPublicUri(contact!!)
-            startActivity(this)
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
+            }
         }
     }
 
@@ -713,7 +721,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun saveContact() {
-        if (isSaving || contact == null) {
+        if (isSaving) {
             return
         }
 
