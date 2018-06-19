@@ -116,7 +116,11 @@ class VcfImporter(val activity: SimpleActivity) {
         if (!isGettingName && currentNameIsANSI && names.endsWith('=')) {
             isGettingName = true
         } else {
-            parseNames()
+            if (names.contains(";")) {
+                parseNames()
+            } else if (names.startsWith(":")) {
+                curFirstName = names.substring(1)
+            }
         }
     }
 
