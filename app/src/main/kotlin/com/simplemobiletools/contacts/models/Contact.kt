@@ -85,8 +85,19 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
 
     fun getHashToCompare(): Int {
         val newPhoneNumbers = ArrayList<PhoneNumber>()
-        phoneNumbers.mapTo(newPhoneNumbers, { PhoneNumber(it.value.replace(pattern, ""), 0) })
+        phoneNumbers.mapTo(newPhoneNumbers) { PhoneNumber(it.value.replace(pattern, ""), 0) }
+
+        val newEvents = ArrayList<Event>()
+        events.mapTo(newEvents) { Event(it.value.replace(pattern, ""), 0) }
+
+        val newAddresses = ArrayList<Address>()
+        addresses.mapTo(newAddresses) { Address(it.value, 0) }
+
+        val newEmails = ArrayList<Email>()
+        emails.mapTo(newEmails) { Email(it.value, 0) }
+
         return copy(id = 0, prefix = "", firstName = getFullName().toLowerCase(), middleName = "", surname = "", suffix = "", photoUri = "",
-                phoneNumbers = newPhoneNumbers, source = "", starred = 0, contactId = 0, thumbnailUri = "", notes = "").hashCode()
+                phoneNumbers = newPhoneNumbers, events = newEvents, addresses = newAddresses, emails = newEmails, source = "", starred = 0,
+                contactId = 0, thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", "")).hashCode()
     }
 }
