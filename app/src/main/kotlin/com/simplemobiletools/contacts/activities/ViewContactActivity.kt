@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.item_website.view.*
 
 class ViewContactActivity : ContactActivity() {
     private var isViewIntent = false
+    private var showFields = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

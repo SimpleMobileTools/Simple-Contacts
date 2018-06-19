@@ -58,7 +58,6 @@ class EditContactActivity : ContactActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_contact)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross)
-        showFields = config.showContactFields
 
         val action = intent.action
         isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT_OR_EDIT || action == Intent.ACTION_INSERT
@@ -272,6 +271,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupFieldVisibility() {
+        val showFields = config.showContactFields
         if (showFields and (SHOW_PREFIX_FIELD or SHOW_FIRST_NAME_FIELD or SHOW_MIDDLE_NAME_FIELD or SHOW_SURNAME_FIELD or SHOW_SUFFIX_FIELD) == 0) {
             contact_name_image.beInvisible()
         }
@@ -352,108 +352,94 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupPhoneNumbers() {
-        if (showFields and SHOW_PHONE_NUMBERS_FIELD != 0) {
-            contact!!.phoneNumbers.forEachIndexed { index, number ->
-                var numberHolder = contact_numbers_holder.getChildAt(index)
-                if (numberHolder == null) {
-                    numberHolder = layoutInflater.inflate(R.layout.item_edit_phone_number, contact_numbers_holder, false)
-                    contact_numbers_holder.addView(numberHolder)
-                }
+        contact!!.phoneNumbers.forEachIndexed { index, number ->
+            var numberHolder = contact_numbers_holder.getChildAt(index)
+            if (numberHolder == null) {
+                numberHolder = layoutInflater.inflate(R.layout.item_edit_phone_number, contact_numbers_holder, false)
+                contact_numbers_holder.addView(numberHolder)
+            }
 
-                numberHolder!!.apply {
-                    contact_number.setText(number.value)
-                    setupPhoneNumberTypePicker(contact_number_type, number.type)
-                }
+            numberHolder!!.apply {
+                contact_number.setText(number.value)
+                setupPhoneNumberTypePicker(contact_number_type, number.type)
             }
         }
     }
 
     private fun setupEmails() {
-        if (showFields and SHOW_EMAILS_FIELD != 0) {
-            contact!!.emails.forEachIndexed { index, email ->
-                var emailHolder = contact_emails_holder.getChildAt(index)
-                if (emailHolder == null) {
-                    emailHolder = layoutInflater.inflate(R.layout.item_edit_email, contact_emails_holder, false)
-                    contact_emails_holder.addView(emailHolder)
-                }
+        contact!!.emails.forEachIndexed { index, email ->
+            var emailHolder = contact_emails_holder.getChildAt(index)
+            if (emailHolder == null) {
+                emailHolder = layoutInflater.inflate(R.layout.item_edit_email, contact_emails_holder, false)
+                contact_emails_holder.addView(emailHolder)
+            }
 
-                emailHolder!!.apply {
-                    contact_email.setText(email.value)
-                    setupEmailTypePicker(contact_email_type, email.type)
-                }
+            emailHolder!!.apply {
+                contact_email.setText(email.value)
+                setupEmailTypePicker(contact_email_type, email.type)
             }
         }
     }
 
     private fun setupAddresses() {
-        if (showFields and SHOW_ADDRESSES_FIELD != 0) {
-            contact!!.addresses.forEachIndexed { index, address ->
-                var addressHolder = contact_addresses_holder.getChildAt(index)
-                if (addressHolder == null) {
-                    addressHolder = layoutInflater.inflate(R.layout.item_edit_address, contact_addresses_holder, false)
-                    contact_addresses_holder.addView(addressHolder)
-                }
+        contact!!.addresses.forEachIndexed { index, address ->
+            var addressHolder = contact_addresses_holder.getChildAt(index)
+            if (addressHolder == null) {
+                addressHolder = layoutInflater.inflate(R.layout.item_edit_address, contact_addresses_holder, false)
+                contact_addresses_holder.addView(addressHolder)
+            }
 
-                addressHolder!!.apply {
-                    contact_address.setText(address.value)
-                    setupAddressTypePicker(contact_address_type, address.type)
-                }
+            addressHolder!!.apply {
+                contact_address.setText(address.value)
+                setupAddressTypePicker(contact_address_type, address.type)
             }
         }
     }
 
     private fun setupNotes() {
-        if (showFields and SHOW_NOTES_FIELD != 0) {
-            contact_notes.setText(contact!!.notes)
-        }
+        contact_notes.setText(contact!!.notes)
     }
 
     private fun setupOrganization() {
-        if (showFields and SHOW_ORGANIZATION_FIELD != 0) {
-            contact_organization_company.setText(contact!!.organization.company)
-            contact_organization_job_position.setText(contact!!.organization.jobPosition)
-        }
+        contact_organization_company.setText(contact!!.organization.company)
+        contact_organization_job_position.setText(contact!!.organization.jobPosition)
     }
 
     private fun setupWebsites() {
-        if (showFields and SHOW_WEBSITES_FIELD != 0) {
-            contact!!.websites.forEachIndexed { index, website ->
-                var websitesHolder = contact_websites_holder.getChildAt(index)
-                if (websitesHolder == null) {
-                    websitesHolder = layoutInflater.inflate(R.layout.item_edit_website, contact_websites_holder, false)
-                    contact_websites_holder.addView(websitesHolder)
-                }
-
-                websitesHolder!!.contact_website.setText(website)
+        contact!!.websites.forEachIndexed { index, website ->
+            var websitesHolder = contact_websites_holder.getChildAt(index)
+            if (websitesHolder == null) {
+                websitesHolder = layoutInflater.inflate(R.layout.item_edit_website, contact_websites_holder, false)
+                contact_websites_holder.addView(websitesHolder)
             }
+
+            websitesHolder!!.contact_website.setText(website)
         }
     }
 
     private fun setupEvents() {
-        if (showFields and SHOW_EVENTS_FIELD != 0) {
-            contact!!.events.forEachIndexed { index, event ->
-                var eventHolder = contact_events_holder.getChildAt(index)
-                if (eventHolder == null) {
-                    eventHolder = layoutInflater.inflate(R.layout.item_event, contact_events_holder, false)
-                    contact_events_holder.addView(eventHolder)
+        contact!!.events.forEachIndexed { index, event ->
+            var eventHolder = contact_events_holder.getChildAt(index)
+            if (eventHolder == null) {
+                eventHolder = layoutInflater.inflate(R.layout.item_event, contact_events_holder, false)
+                contact_events_holder.addView(eventHolder)
+            }
+
+            (eventHolder as ViewGroup).apply {
+                val contactEvent = contact_event.apply {
+                    getDateTime(event.value, this)
+                    tag = event.value
+                    alpha = 1f
                 }
 
-                (eventHolder as ViewGroup).apply {
-                    val contactEvent = contact_event.apply {
-                        getDateTime(event.value, this)
-                        tag = event.value
-                        alpha = 1f
-                    }
+                setupEventTypePicker(this, event.type)
 
-                    setupEventTypePicker(this, event.type)
-
-                    contact_event_remove.apply {
-                        beVisible()
-                        applyColorFilter(getAdjustedPrimaryColor())
-                        background.applyColorFilter(config.textColor)
-                        setOnClickListener {
-                            resetContactEvent(contactEvent, this)
-                        }
+                contact_event_remove.apply {
+                    beVisible()
+                    applyColorFilter(getAdjustedPrimaryColor())
+                    background.applyColorFilter(config.textColor)
+                    setOnClickListener {
+                        resetContactEvent(contactEvent, this)
                     }
                 }
             }
@@ -461,52 +447,50 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupGroups() {
-        if (showFields and SHOW_GROUPS_FIELD != 0) {
-            contact_groups_holder.removeAllViews()
-            val groups = contact!!.groups
-            groups.forEachIndexed { index, group ->
-                var groupHolder = contact_groups_holder.getChildAt(index)
-                if (groupHolder == null) {
-                    groupHolder = layoutInflater.inflate(R.layout.item_edit_group, contact_groups_holder, false)
-                    contact_groups_holder.addView(groupHolder)
+        contact_groups_holder.removeAllViews()
+        val groups = contact!!.groups
+        groups.forEachIndexed { index, group ->
+            var groupHolder = contact_groups_holder.getChildAt(index)
+            if (groupHolder == null) {
+                groupHolder = layoutInflater.inflate(R.layout.item_edit_group, contact_groups_holder, false)
+                contact_groups_holder.addView(groupHolder)
+            }
+
+            (groupHolder as ViewGroup).apply {
+                contact_group.apply {
+                    text = group.title
+                    setTextColor(config.textColor)
+                    tag = group.id
+                    alpha = 1f
                 }
 
-                (groupHolder as ViewGroup).apply {
-                    contact_group.apply {
-                        text = group.title
-                        setTextColor(config.textColor)
-                        tag = group.id
-                        alpha = 1f
-                    }
+                setOnClickListener {
+                    showSelectGroupsDialog()
+                }
 
+                contact_group_remove.apply {
+                    beVisible()
+                    applyColorFilter(getAdjustedPrimaryColor())
+                    background.applyColorFilter(config.textColor)
                     setOnClickListener {
-                        showSelectGroupsDialog()
-                    }
-
-                    contact_group_remove.apply {
-                        beVisible()
-                        applyColorFilter(getAdjustedPrimaryColor())
-                        background.applyColorFilter(config.textColor)
-                        setOnClickListener {
-                            removeGroup(group.id)
-                        }
+                        removeGroup(group.id)
                     }
                 }
             }
+        }
 
-            if (groups.isEmpty()) {
-                layoutInflater.inflate(R.layout.item_edit_group, contact_groups_holder, false).apply {
-                    contact_group.apply {
-                        alpha = 0.5f
-                        text = getString(R.string.no_groups)
-                        setTextColor(config.textColor)
-                    }
+        if (groups.isEmpty()) {
+            layoutInflater.inflate(R.layout.item_edit_group, contact_groups_holder, false).apply {
+                contact_group.apply {
+                    alpha = 0.5f
+                    text = getString(R.string.no_groups)
+                    setTextColor(config.textColor)
+                }
 
-                    contact_groups_holder.addView(this)
-                    contact_group_remove.beGone()
-                    setOnClickListener {
-                        showSelectGroupsDialog()
-                    }
+                contact_groups_holder.addView(this)
+                contact_group_remove.beGone()
+                setOnClickListener {
+                    showSelectGroupsDialog()
                 }
             }
         }

@@ -35,7 +35,6 @@ import java.util.*
 abstract class ContactActivity : SimpleActivity() {
     protected var contact: Contact? = null
     protected var currentContactPhotoPath = ""
-    protected var showFields = 0
 
     fun showPhotoPlaceholder(photoView: ImageView) {
         val placeholder = resources.getColoredBitmap(R.drawable.ic_person, config.primaryColor.getContrastColor())
