@@ -105,10 +105,10 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
 fun BaseSimpleActivity.sendSMSToContacts(contacts: ArrayList<Contact>) {
     val numbers = StringBuilder()
     contacts.forEach {
-        it.phoneNumbers.forEach {
-            if (it.value.isNotEmpty()) {
-                numbers.append("${it.value};")
-            }
+        val number = it.phoneNumbers.firstOrNull { it.type == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE }
+                ?: it.phoneNumbers.firstOrNull()
+        if (number != null) {
+            numbers.append("${number.value};")
         }
 
         val uriString = "smsto:${numbers.toString().trimEnd(';')}"
