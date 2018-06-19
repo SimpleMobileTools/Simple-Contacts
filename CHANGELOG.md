@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 4.0.4 *(2018-06-19)*
+----------------------------
+
+ * Make "Try filtering out duplicate contacts" more agressive
+ * Ignore hidden contact fields, do not wipe them
+ * Prefer the contacts Mobile number at sending batch SMS
+ * Added a couple stability improvements
+
 Version 4.0.3 *(2018-05-13)*
 ----------------------------
 
