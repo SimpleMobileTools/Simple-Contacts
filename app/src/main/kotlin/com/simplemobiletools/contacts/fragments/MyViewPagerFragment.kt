@@ -150,7 +150,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 fragment_list.adapter = this
             }
 
-            fragment_fastscroller.setScrollTo(0)
+            fragment_fastscroller.setScrollToY(0)
             fragment_fastscroller.setViews(fragment_list) {
                 val item = (fragment_list.adapter as GroupsAdapter).groups.getOrNull(it)
                 fragment_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
@@ -190,7 +190,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 fragment_list.adapter = this
             }
 
-            fragment_fastscroller.setScrollTo(0)
+            fragment_fastscroller.setScrollToY(0)
             fragment_fastscroller.setViews(fragment_list) {
                 val item = (fragment_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
                 fragment_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")

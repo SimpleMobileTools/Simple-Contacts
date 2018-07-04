@@ -96,6 +96,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun getSelectableItemCount() = contactItems.size
 
+    override fun getIsItemSelectable(position: Int) = true
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
         return createViewHolder(layout, parent)
@@ -103,7 +105,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val contact = contactItems[position]
-        val view = holder.bindView(contact, true) { itemView, layoutPosition ->
+        val view = holder.bindView(contact, true, true) { itemView, layoutPosition ->
             setupView(itemView, contact)
         }
         bindViewHolder(holder, position, view)
