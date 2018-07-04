@@ -290,7 +290,11 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
                 val photoByteArray = cursor.getBlobValue(COL_PHOTO) ?: null
                 val photo = if (photoByteArray?.isNotEmpty() == true) {
-                    BitmapFactory.decodeByteArray(photoByteArray, 0, photoByteArray.size)
+                    try {
+                        BitmapFactory.decodeByteArray(photoByteArray, 0, photoByteArray.size)
+                    } catch (e: OutOfMemoryError) {
+                        null
+                    }
                 } else {
                     null
                 }
