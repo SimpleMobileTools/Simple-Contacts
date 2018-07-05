@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 4.0.5 *(2018-07-05)*
+----------------------------
+
+ * Make duplicate contact filtering more agressive
+ * Couple UX and stability improvements
+
 Version 4.0.4 *(2018-06-19)*
 ----------------------------
 
