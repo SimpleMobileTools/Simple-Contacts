@@ -59,7 +59,8 @@ class VcfImporter(val activity: SimpleActivity) {
 
             inputStream.bufferedReader().use {
                 while (true) {
-                    val line = it.readLine() ?: break
+                    var line = it.readLine() ?: break
+                    line = line.trim()
                     if (line.trim().isEmpty()) {
                         if (isGettingPhoto) {
                             savePhoto()
@@ -128,6 +129,7 @@ class VcfImporter(val activity: SimpleActivity) {
         val nameParts = currentNameString.split(";")
         curSurname = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[0]) else nameParts[0]
         curFirstName = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[1]) else nameParts[1]
+
         if (nameParts.size > 2) {
             curMiddleName = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[2]) else nameParts[2]
             curPrefix = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[3]) else nameParts[3]
@@ -244,26 +246,43 @@ class VcfImporter(val activity: SimpleActivity) {
     }
 
     private fun addNotes(notes: String) {
-        currentNotesSB.append(notes)
+        if (notes.startsWith(";CHARSET", true)) {
+            currentNotesSB.append(notes.substringAfter(":"))
+        } else {
+            currentNotesSB.append(notes.substring(1))
+        }
         isGettingNotes = true
     }
 
     private fun addCompany(company: String) {
-        curCompany = company
+        curCompany = if (company.startsWith(";")) {
+            company.substringAfter(":").trim(';')
+        } else {
+            company
+        }
     }
 
     private fun addJobPosition(jobPosition: String) {
-        curJobPosition = jobPosition
+        curJobPosition = if (jobPosition.startsWith(";")) {
+            jobPosition.substringAfter(":")
+        } else {
+            jobPosition
+        }
     }
 
     private fun addWebsite(website: String) {
-        curWebsites.add(website)
+        if (website.startsWith(";")) {
+            curWebsites.add(website.substringAfter(":"))
+        } else {
+            curWebsites.add(website)
+        }
     }
 
     private fun saveContact(source: String) {
         val organization = Organization(curCompany, curJobPosition)
         val contact = Contact(0, curPrefix, curFirstName, curMiddleName, curSurname, curSuffix, curPhotoUri, curPhoneNumbers, curEmails, curAddresses, curEvents,
                 source, 0, 0, "", null, curNotes, curGroups, organization, curWebsites)
+
         if (ContactsHelper(activity).insertContact(contact)) {
             contactsImported++
         }

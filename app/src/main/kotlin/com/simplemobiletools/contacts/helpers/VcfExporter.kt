@@ -65,16 +65,16 @@ class VcfExporter {
                         }
 
                         if (contact.notes.isNotEmpty()) {
-                            out.writeLn("$NOTE${contact.notes.replace("\n", "\\n")}")
+                            out.writeLn("$NOTE:${contact.notes.replace("\n", "\\n")}")
                         }
 
                         if (!contact.organization.isEmpty()) {
-                            out.writeLn("$ORG${contact.organization.company.replace("\n", "\\n")}")
-                            out.writeLn("$TITLE${contact.organization.jobPosition.replace("\n", "\\n")}")
+                            out.writeLn("$ORG:${contact.organization.company.replace("\n", "\\n")}")
+                            out.writeLn("$TITLE:${contact.organization.jobPosition.replace("\n", "\\n")}")
                         }
 
                         contact.websites.forEach {
-                            out.writeLn("$URL$it")
+                            out.writeLn("$URL:$it")
                         }
 
                         if (contact.thumbnailUri.isNotEmpty()) {
