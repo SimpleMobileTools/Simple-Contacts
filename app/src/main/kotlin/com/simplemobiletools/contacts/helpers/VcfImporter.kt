@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.helpers
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.provider.ContactsContract.CommonDataKinds
+import android.text.TextUtils
 import android.util.Base64
 import android.widget.Toast
 import com.simplemobiletools.commons.extensions.showErrorToast
@@ -190,10 +191,16 @@ class VcfImporter(val activity: SimpleActivity) {
         if (rawType.contains('=')) {
             rawType = rawType.split('=').last()
         }
+
         val type = getAddressTypeId(rawType.toUpperCase())
         val addresses = addressParts[1].split(";")
         if (addresses.size == 7) {
-            curAddresses.add(Address(addresses[2].replace("\\n", "\n"), type))
+            if (address.contains(";CHARSET=UTF-8:")) {
+                val fullAddress = TextUtils.join(", ", addresses.filter { it.trim().isNotEmpty() })
+                curAddresses.add(Address(fullAddress, type))
+            } else {
+                curAddresses.add(Address(addresses[2].replace("\\n", "\n"), type))
+            }
         }
     }
 
