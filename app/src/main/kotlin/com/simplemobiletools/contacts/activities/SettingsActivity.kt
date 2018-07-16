@@ -3,6 +3,8 @@ package com.simplemobiletools.contacts.activities
 import android.os.Bundle
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.isThankYouInstalled
+import com.simplemobiletools.commons.extensions.launchPurchaseThankYouIntent
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
@@ -23,6 +25,7 @@ class SettingsActivity : SimpleActivity() {
     override fun onResume() {
         super.onResume()
 
+        setupPurchaseThankYou()
         setupCustomizeColors()
         setupManageShownContactFields()
         setupUseEnglish()
@@ -34,6 +37,13 @@ class SettingsActivity : SimpleActivity() {
         setupFilterDuplicates()
         setupOnContactClick()
         updateTextColors(settings_holder)
+    }
+
+    private fun setupPurchaseThankYou() {
+        settings_purchase_thank_you_holder.beVisibleIf(config.appRunCount > 10 && !isThankYouInstalled())
+        settings_purchase_thank_you_holder.setOnClickListener {
+            launchPurchaseThankYouIntent()
+        }
     }
 
     private fun setupCustomizeColors() {
