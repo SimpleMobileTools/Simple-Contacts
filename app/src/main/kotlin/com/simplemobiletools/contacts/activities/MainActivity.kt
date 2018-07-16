@@ -296,6 +296,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                     it.icon?.applyColorFilter(config.textColor)
                 },
                 tabSelectedAction = {
+                    if (isSearchOpen) {
+                        getCurrentFragment()?.onSearchQueryChanged("")
+                        searchMenuItem?.collapseActionView()
+                    }
                     viewpager.currentItem = it.position
                     it.icon?.applyColorFilter(getAdjustedPrimaryColor())
                 }
