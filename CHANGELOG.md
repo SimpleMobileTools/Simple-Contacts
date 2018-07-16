@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 4.1.0 *(2018-07-16)*
+----------------------------
+
+ * Fixed a couple issues related to importing contacts from .vcf files
+ * Couple other UX and stability improvements
+
 Version 4.0.5 *(2018-07-05)*
 ----------------------------
 
