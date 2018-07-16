@@ -45,9 +45,9 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
                 -1
             } else {
                 if (firstString.toLowerCase() == secondString.toLowerCase()) {
-                    getFullName().compareTo(other.getFullName())
+                    getFullName().compareTo(other.getFullName(), true)
                 } else {
-                    firstString.toLowerCase().compareTo(secondString.toLowerCase())
+                    firstString.compareTo(secondString, true)
                 }
             }
         }
