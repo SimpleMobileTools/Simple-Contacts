@@ -40,6 +40,7 @@ const val PHOTO_UNCHANGED = 4
 const val BEGIN_VCARD = "BEGIN:VCARD"
 const val END_VCARD = "END:VCARD"
 const val N = "N"
+const val NICKNAME = "NICKNAME"
 const val TEL = "TEL"
 const val BDAY = "BDAY:"
 const val ANNIVERSARY = "ANNIVERSARY:"

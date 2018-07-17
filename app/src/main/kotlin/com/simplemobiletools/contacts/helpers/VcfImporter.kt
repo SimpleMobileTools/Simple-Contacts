@@ -84,6 +84,7 @@ class VcfImporter(val activity: SimpleActivity) {
                     when {
                         line.toUpperCase() == BEGIN_VCARD -> resetValues()
                         line.toUpperCase().startsWith(NOTE) -> addNotes(line.substring(NOTE.length))
+                        line.toUpperCase().startsWith(NICKNAME) -> { }
                         line.toUpperCase().startsWith(N) -> addNames(line.substring(N.length))
                         line.toUpperCase().startsWith(TEL) -> addPhoneNumber(line.substring(TEL.length))
                         line.toUpperCase().startsWith(EMAIL) -> addEmail(line.substring(EMAIL.length))
