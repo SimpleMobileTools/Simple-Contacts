@@ -993,7 +993,12 @@ class ContactsHelper(val activity: Activity) {
                 operations.clear()
             }
         }
-        activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+
+        try {
+            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        }
     }
 
     fun removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
