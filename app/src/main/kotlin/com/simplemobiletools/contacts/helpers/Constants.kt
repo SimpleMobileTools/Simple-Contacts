@@ -12,6 +12,7 @@ const val LOCAL_ACCOUNT_NAME = "local_account_name"
 const val LOCAL_ACCOUNT_TYPE = "local_account_type"
 const val ON_CONTACT_CLICK = "on_contact_click"
 const val SHOW_CONTACT_FIELDS = "show_contact_fields"
+const val SHOW_TABS = "show_tabs"
 const val FILTER_DUPLICATES = "filter_duplicates"
 
 const val CONTACT_ID = "contact_id"
