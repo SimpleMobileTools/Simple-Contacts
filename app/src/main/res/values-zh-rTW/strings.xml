@@ -45,10 +45,11 @@
     <string name="on_contact_click">點擊聯絡人</string>
     <string name="call_contact">打電話給聯絡人</string>
     <string name="view_contact">顯示聯絡人資料</string>
-    <string name="show_favorites_tab">顯示我的最愛頁面</string>
-    <string name="show_groups_tab">顯示群組頁面</string>
     <string name="manage_shown_contact_fields">管理顯示的聯絡人欄位</string>
     <string name="filter_duplicates">試著過濾重複的聯絡人</string>
+    <string name="manage_shown_tabs">Manage shown tabs</string>
+    <string name="contacts">Contacts</string>
+    <string name="favorites">Favorites</string>
 
     <!-- Emails -->
     <string name="email">電子信箱</string>

@@ -45,10 +45,11 @@
     <string name="on_contact_click">On contact click</string>
     <string name="call_contact">Call contact</string>
     <string name="view_contact">View contact details</string>
-    <string name="show_favorites_tab">Show favorites tab</string>
-    <string name="show_groups_tab">Show groups tab</string>
     <string name="manage_shown_contact_fields">Manage shown contact fields</string>
     <string name="filter_duplicates">Try filtering out duplicate contacts</string>
+    <string name="manage_shown_tabs">Manage shown tabs</string>
+    <string name="contacts">Contacts</string>
+    <string name="favorites">Favorites</string>
 
     <!-- Emails -->
     <string name="email">이메일</string>

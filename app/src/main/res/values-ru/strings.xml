@@ -45,10 +45,11 @@
     <string name="on_contact_click">При нажатии на контакт</string>
     <string name="call_contact">Позвонить контакту</string>
     <string name="view_contact">Просмотреть подробности о контакте</string>
-    <string name="show_favorites_tab">Показывать вкладку избранного</string>
-    <string name="show_groups_tab">Показывать вкладку групп</string>
     <string name="manage_shown_contact_fields">Управление отображаемыми полями контактов</string>
     <string name="filter_duplicates">Отфильтровывать повторяющиеся контакты</string>
+    <string name="manage_shown_tabs">Manage shown tabs</string>
+    <string name="contacts">Contacts</string>
+    <string name="favorites">Favorites</string>
 
     <!-- Emails -->
     <string name="email">Эл. почта</string>

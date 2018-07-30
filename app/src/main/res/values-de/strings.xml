@@ -45,10 +45,11 @@
     <string name="on_contact_click">Beim Klicken auf den Kontakt</string>
     <string name="call_contact">Kontakt anrufen</string>
     <string name="view_contact">Kontaktdetails anzeigen</string>
-    <string name="show_favorites_tab">Zeige Favoriten-Reiter</string>
-    <string name="show_groups_tab">Zeige Gruppen-Reiter</string>
     <string name="manage_shown_contact_fields">Bearbeite sichtbare Kontaktfelder</string>
     <string name="filter_duplicates">Versuche Kontaktduplikate herauszufiltern</string>
+    <string name="manage_shown_tabs">Manage shown tabs</string>
+    <string name="contacts">Contacts</string>
+    <string name="favorites">Favorites</string>
 
     <!-- Emails -->
     <string name="email">E-Mail</string>

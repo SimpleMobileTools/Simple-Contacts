@@ -45,10 +45,11 @@
     <string name="on_contact_click">Kişi tıklandığında</string>
     <string name="call_contact">Kişiyi ara</string>
     <string name="view_contact">Kişi bilgilerini göster</string>
-    <string name="show_favorites_tab">Favoriler sekmesini göster</string>
-    <string name="show_groups_tab">Gruplar sekmesini göster</string>
     <string name="manage_shown_contact_fields">Görüntülenecek kişi alanlarını yönet</string>
     <string name="filter_duplicates">Çift kişileri filtrelemeyi dene</string>
+    <string name="manage_shown_tabs">Manage shown tabs</string>
+    <string name="contacts">Contacts</string>
+    <string name="favorites">Favorites</string>
 
     <!-- Emails -->
     <string name="email">E-posta</string>

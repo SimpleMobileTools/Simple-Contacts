@@ -45,10 +45,11 @@
     <string name="on_contact_click">Po kliknutí na kontakt</string>
     <string name="call_contact">Zavolať kontakt</string>
     <string name="view_contact">Zobraziť údaje kontaktu</string>
-    <string name="show_favorites_tab">Zobraziť okno s obľúbenými</string>
-    <string name="show_groups_tab">Zobraziť okno so skupinami</string>
     <string name="manage_shown_contact_fields">Spravovať zobrazené polia kontaktov</string>
     <string name="filter_duplicates">Pokúsiť sa vyfiltrovať duplicitné kontakty</string>
+    <string name="manage_shown_tabs">Spravovať zobrazené karty</string>
+    <string name="contacts">Kontakty</string>
+    <string name="favorites">Obľúbené</string>
 
     <!-- Emails -->
     <string name="email">Email</string>

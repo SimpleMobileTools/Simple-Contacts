@@ -45,10 +45,11 @@
     <string name="on_contact_click">Ant kontakto paspaudimo</string>
     <string name="call_contact">Skambinti kontaktui</string>
     <string name="view_contact">Žiūrėti kontakto detales</string>
-    <string name="show_favorites_tab">Rodyti mėgiamiausiųjų skirtuką</string>
-    <string name="show_groups_tab">Rodyti grupių skirtuką</string>
     <string name="manage_shown_contact_fields">Manage shown contact fields</string>
     <string name="filter_duplicates">Try filtering out duplicate contacts</string>
+    <string name="manage_shown_tabs">Manage shown tabs</string>
+    <string name="contacts">Contacts</string>
+    <string name="favorites">Favorites</string>
 
     <!-- Emails -->
     <string name="email">Elektroninis paštas</string>

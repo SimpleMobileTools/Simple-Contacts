@@ -45,10 +45,11 @@
     <string name="on_contact_click">Vid kontakttryckning</string>
     <string name="call_contact">Ring kontakt</string>
     <string name="view_contact">Visa kontaktuppgifter</string>
-    <string name="show_favorites_tab">Visa fliken Favoriter</string>
-    <string name="show_groups_tab">Visa fliken Grupper</string>
     <string name="manage_shown_contact_fields">Hantera visade kontaktfält</string>
     <string name="filter_duplicates">Försök filtrera bort dubblettkontakter</string>
+    <string name="manage_shown_tabs">Manage shown tabs</string>
+    <string name="contacts">Contacts</string>
+    <string name="favorites">Favorites</string>
 
     <!-- Emails -->
     <string name="email">E-post</string>

@@ -45,10 +45,11 @@
     <string name="on_contact_click">Στην επιλογή επαφής</string>
     <string name="call_contact">Κλήση επαφής</string>
     <string name="view_contact">Εμφάνιση λεπτομερειών επαφής</string>
-    <string name="show_favorites_tab">Εμφάνιση καρτέλας αγαπημένων</string>
-    <string name="show_groups_tab">Εμφάνιση καρτέλας ομάδων</string>
     <string name="manage_shown_contact_fields">Manage shown contact fields</string>
     <string name="filter_duplicates">Try filtering out duplicate contacts</string>
+    <string name="manage_shown_tabs">Manage shown tabs</string>
+    <string name="contacts">Contacts</string>
+    <string name="favorites">Favorites</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
