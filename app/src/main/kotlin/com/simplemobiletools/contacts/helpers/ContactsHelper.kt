@@ -14,10 +14,7 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.SparseArray
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
-import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
-import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
-import com.simplemobiletools.commons.helpers.SORT_DESCENDING
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.models.*
@@ -1300,7 +1297,9 @@ class ContactsHelper(val activity: Activity) {
                     }
                 }
 
-                activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                if (activity.hasPermission(PERMISSION_WRITE_CONTACTS)) {
+                    activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                }
             } catch (e: Exception) {
                 activity.showErrorToast(e)
             }
