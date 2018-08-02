@@ -318,60 +318,22 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             intent.data = null
         }
 
-        val showTabs = config.showTabs
-        val indexesToRemove = ArrayList<Int>()
+        main_tabs_holder.removeAllTabs()
+        var skippedTabs = 0
         tabsList.forEachIndexed { index, value ->
-            if (showTabs and value == 0) {
-                if (main_tabs_holder?.getTabAt(index) != null) {
-                    indexesToRemove.add(index)
-                }
+            if (config.showTabs and value == 0) {
+                skippedTabs++
+            } else {
+                main_tabs_holder.addTab(main_tabs_holder.newTab().setIcon(getTabIcon(index)), index - skippedTabs, config.lastUsedViewPagerPage == index - skippedTabs)
             }
         }
-
-        indexesToRemove.reversed().forEach {
-            main_tabs_holder.removeTabAt(it)
-        }
-
-        tabsList.forEachIndexed { index, value ->
-            if (showTabs and value != 0 && handledShowTabs and value == 0) {
-                main_tabs_holder.addTab(main_tabs_holder.newTab().setIcon(getTabIcon(value)), getTabPosition(value, showTabs))
-            }
-        }
-
-        handledShowTabs = config.showTabs
     }
 
     private fun getTabIcon(position: Int) = resources.getDrawable(when (position) {
-        CONTACTS_TAB_MASK -> R.drawable.ic_person
-        FAVORITES_TAB_MASK -> R.drawable.ic_star_on
+        LOCATION_CONTACTS_TAB -> R.drawable.ic_person
+        LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on
         else -> R.drawable.ic_group
     })
-
-    private fun getTabPosition(value: Int, showTabs: Int): Int {
-        return when (value) {
-            CONTACTS_TAB_MASK -> 0
-            FAVORITES_TAB_MASK -> {
-                if (showTabs and CONTACTS_TAB_MASK != 0) {
-                    1
-                } else {
-                    0
-                }
-            }
-            else -> {
-                if (showTabs and CONTACTS_TAB_MASK != 0) {
-                    if (showTabs and FAVORITES_TAB_MASK != 0) {
-                        2
-                    } else {
-                        1
-                    }
-                } else if (showTabs and FAVORITES_TAB_MASK != 0) {
-                    1
-                } else {
-                    0
-                }
-            }
-        }
-    }
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
