@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/settings_scrollview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -118,7 +119,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/use_english_language"/>
+                android:text="@string/use_english_language"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -141,7 +143,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/avoid_whats_new"/>
+                android:text="@string/avoid_whats_new"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -164,7 +167,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/show_info_bubble"/>
+                android:text="@string/show_info_bubble"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -187,7 +191,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/show_contact_thumbnails"/>
+                android:text="@string/show_contact_thumbnails"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -210,7 +215,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/show_phone_numbers"/>
+                android:text="@string/show_phone_numbers"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -233,7 +239,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/start_name_with_surname"/>
+                android:text="@string/start_name_with_surname"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -256,7 +263,32 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/filter_duplicates"/>
+                android:text="@string/filter_duplicates"
+                app:switchPadding="@dimen/medium_margin"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/settings_show_call_confirmation_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:background="?attr/selectableItemBackground"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingLeft="@dimen/normal_margin"
+            android:paddingRight="@dimen/normal_margin"
+            android:paddingTop="@dimen/activity_margin">
+
+            <com.simplemobiletools.commons.views.MySwitchCompat
+                android:id="@+id/settings_show_call_confirmation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:paddingLeft="@dimen/medium_margin"
+                android:paddingStart="@dimen/medium_margin"
+                android:text="@string/show_call_confirmation_dialog"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 

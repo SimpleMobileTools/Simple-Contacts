@@ -37,6 +37,7 @@ class SettingsActivity : SimpleActivity() {
         setupShowPhoneNumbers()
         setupStartNameWithSurname()
         setupFilterDuplicates()
+        setupShowCallConfirmation()
         setupOnContactClick()
         updateTextColors(settings_holder)
     }
@@ -144,4 +145,12 @@ class SettingsActivity : SimpleActivity() {
         ON_CLICK_VIEW_CONTACT -> R.string.view_contact
         else -> R.string.edit_contact
     })
+
+    private fun setupShowCallConfirmation() {
+        settings_show_call_confirmation.isChecked = config.showCallConfirmation
+        settings_show_call_confirmation_holder.setOnClickListener {
+            settings_show_call_confirmation.toggle()
+            config.showCallConfirmation = settings_show_call_confirmation.isChecked
+        }
+    }
 }
