@@ -45,6 +45,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var werePermissionsHandled = false
     private var isFirstResume = true
     private var isGettingContacts = false
+    private var handledShowTabs = 0
 
     private var storedTextColor = 0
     private var storedBackgroundColor = 0
@@ -53,6 +54,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var storedShowPhoneNumbers = false
     private var storedStartNameWithSurname = false
     private var storedFilterDuplicates = true
+    private var storedShowTabs = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +92,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (storedShowPhoneNumbers != config.showPhoneNumbers) {
             System.exit(0)
             return
+        }
+
+        if (storedShowTabs != config.showTabs) {
+            viewpager.adapter = null
         }
 
         val configShowContactThumbnails = config.showContactThumbnails
@@ -191,6 +197,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             storedShowPhoneNumbers = showPhoneNumbers
             storedStartNameWithSurname = startNameWithSurname
             storedFilterDuplicates = filterDuplicates
+            storedShowTabs = showTabs
         }
     }
 
@@ -235,6 +242,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun setupTabColors() {
+        handledShowTabs = config.showTabs
         val lastUsedPage = config.lastUsedViewPagerPage
         main_tabs_holder.apply {
             background = ColorDrawable(config.backgroundColor)
@@ -250,10 +258,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun storeLocalAccountData() {
         if (config.localAccountType == "-1") {
-            ContactsHelper(this).getContactSources {
+            ContactsHelper(this).getContactSources { sources ->
                 var localAccountType = ""
                 var localAccountName = ""
-                it.forEach {
+                sources.forEach {
                     if (localAccountTypes.contains(it.type)) {
                         localAccountType = it.type
                         localAccountName = it.name
@@ -308,6 +316,60 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
             tryImportContactsFromFile(intent.data)
             intent.data = null
+        }
+
+        val showTabs = config.showTabs
+        val indexesToRemove = ArrayList<Int>()
+        tabsList.forEachIndexed { index, value ->
+            if (showTabs and value == 0) {
+                if (main_tabs_holder?.getTabAt(index) != null) {
+                    indexesToRemove.add(index)
+                }
+            }
+        }
+
+        indexesToRemove.reversed().forEach {
+            main_tabs_holder.removeTabAt(it)
+        }
+
+        tabsList.forEachIndexed { index, value ->
+            if (showTabs and value != 0 && handledShowTabs and value == 0) {
+                main_tabs_holder.addTab(main_tabs_holder.newTab().setIcon(getTabIcon(value)), getTabPosition(value, showTabs))
+            }
+        }
+
+        handledShowTabs = config.showTabs
+    }
+
+    private fun getTabIcon(position: Int) = resources.getDrawable(when (position) {
+        CONTACTS_TAB_MASK -> R.drawable.ic_person
+        FAVORITES_TAB_MASK -> R.drawable.ic_star_on
+        else -> R.drawable.ic_group
+    })
+
+    private fun getTabPosition(value: Int, showTabs: Int): Int {
+        return when (value) {
+            CONTACTS_TAB_MASK -> 0
+            FAVORITES_TAB_MASK -> {
+                if (showTabs and CONTACTS_TAB_MASK != 0) {
+                    1
+                } else {
+                    0
+                }
+            }
+            else -> {
+                if (showTabs and CONTACTS_TAB_MASK != 0) {
+                    if (showTabs and FAVORITES_TAB_MASK != 0) {
+                        2
+                    } else {
+                        1
+                    }
+                } else if (showTabs and FAVORITES_TAB_MASK != 0) {
+                    1
+                } else {
+                    0
+                }
+            }
         }
     }
 
@@ -383,13 +445,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         FilePickerDialog(this, pickFile = false, showFAB = true) {
             ExportContactsDialog(this, it) { file, contactSources ->
                 Thread {
-                    ContactsHelper(this).getContacts {
-                        val contacts = it.filter { contactSources.contains(it.source) }
+                    ContactsHelper(this).getContacts { allContacts ->
+                        val contacts = allContacts.filter { contactSources.contains(it.source) }
                         if (contacts.isEmpty()) {
                             toast(R.string.no_entries_for_exporting)
                         } else {
-                            VcfExporter().exportContacts(this, file, contacts as ArrayList<Contact>, true) {
-                                toast(when (it) {
+                            VcfExporter().exportContacts(this, file, contacts as ArrayList<Contact>, true) { result ->
+                                toast(when (result) {
                                     VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
                                     VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
                                     else -> R.string.exporting_failed

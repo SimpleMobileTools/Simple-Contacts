@@ -31,6 +31,11 @@ const val FAVORITES_TAB_MASK = 2
 const val GROUPS_TAB_MASK = 4
 const val ALL_TABS_MASK = 7
 
+val tabsList = arrayListOf(CONTACTS_TAB_MASK,
+        FAVORITES_TAB_MASK,
+        GROUPS_TAB_MASK
+)
+
 // contact photo changes
 const val PHOTO_ADDED = 1
 const val PHOTO_REMOVED = 2
