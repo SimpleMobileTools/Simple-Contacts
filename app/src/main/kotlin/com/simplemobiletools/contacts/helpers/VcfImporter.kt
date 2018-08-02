@@ -266,7 +266,7 @@ class VcfImporter(val activity: SimpleActivity) {
         curCompany = if (company.startsWith(";")) {
             company.substringAfter(":").trim(';')
         } else {
-            company
+            company.trimStart(':')
         }
     }
 
@@ -274,7 +274,7 @@ class VcfImporter(val activity: SimpleActivity) {
         curJobPosition = if (jobPosition.startsWith(";")) {
             jobPosition.substringAfter(":")
         } else {
-            jobPosition
+            jobPosition.trimStart(':')
         }
     }
 
