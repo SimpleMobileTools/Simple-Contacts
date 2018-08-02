@@ -327,6 +327,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 main_tabs_holder.addTab(main_tabs_holder.newTab().setIcon(getTabIcon(index)), index - skippedTabs, config.lastUsedViewPagerPage == index - skippedTabs)
             }
         }
+
+        main_tabs_holder.beVisibleIf(skippedTabs < 2)
     }
 
     private fun getTabIcon(position: Int) = resources.getDrawable(when (position) {
