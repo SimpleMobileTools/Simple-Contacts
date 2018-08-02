@@ -16,8 +16,8 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
     }
 
     override fun compareTo(other: Contact): Int {
-        val firstString: String
-        val secondString: String
+        var firstString: String
+        var secondString: String
 
         when {
             sorting and SORT_BY_FIRST_NAME != 0 -> {
@@ -32,6 +32,14 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
                 firstString = surname
                 secondString = other.surname
             }
+        }
+
+        if (firstString.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && organization.company.isNotEmpty()) {
+            firstString = organization.company
+        }
+
+        if (secondString.isEmpty() && other.firstName.isEmpty() && other.middleName.isEmpty() && other.surname.isEmpty() && other.organization.company.isNotEmpty()) {
+            secondString = other.organization.company
         }
 
         var result = if (firstString.firstOrNull()?.isLetter() == true && secondString.firstOrNull()?.isLetter() == false) {
