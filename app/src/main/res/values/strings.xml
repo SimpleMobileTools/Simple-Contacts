@@ -50,6 +50,7 @@
     <string name="manage_shown_tabs">Manage shown tabs</string>
     <string name="contacts">Contacts</string>
     <string name="favorites">Favorites</string>
+    <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
 
     <!-- Emails -->
     <string name="email">Email</string>

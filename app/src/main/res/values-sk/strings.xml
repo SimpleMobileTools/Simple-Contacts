@@ -50,6 +50,7 @@
     <string name="manage_shown_tabs">Spravovať zobrazené karty</string>
     <string name="contacts">Kontakty</string>
     <string name="favorites">Obľúbené</string>
+    <string name="show_call_confirmation_dialog">Zobraziť pred spustením hovoru okno na jeho potvrdenie</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
