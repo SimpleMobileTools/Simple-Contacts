@@ -380,8 +380,12 @@ class ContactsHelper(val activity: Activity) {
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val company = cursor.getStringValue(CommonDataKinds.Organization.COMPANY) ?: continue
-                    val title = cursor.getStringValue(CommonDataKinds.Organization.TITLE) ?: continue
+                    val company = cursor.getStringValue(CommonDataKinds.Organization.COMPANY) ?: ""
+                    val title = cursor.getStringValue(CommonDataKinds.Organization.TITLE) ?: ""
+                    if (company.isEmpty() && title.isEmpty()) {
+                        continue
+                    }
+
                     val organization = Organization(company, title)
                     organizations.put(id, organization)
                 } while (cursor.moveToNext())
