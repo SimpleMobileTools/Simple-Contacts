@@ -51,6 +51,7 @@
     <string name="manage_shown_tabs">表示するタブを管理</string>
     <string name="contacts">連絡先</string>
     <string name="favorites">お気に入り</string>
+    <string name="recent_calls">Recent calls</string>
     <string name="show_call_confirmation_dialog">発信する前に確認ダイアログを表示する</string>
 
     <!-- Emails -->
