@@ -1,0 +1,129 @@
+<resources>
+    <string name="app_name">Simple Contacts</string>
+    <string name="app_launcher_name">連絡先</string>
+    <string name="address">住所</string>
+    <string name="inserting">挿入中…</string>
+    <string name="updating">更新中…</string>
+    <string name="phone_storage">内部ストレージ</string>
+    <string name="phone_storage_hidden">内部ストレージ (他のアプリからは表示されません)</string>
+    <string name="company">会社</string>
+    <string name="job_position">役職</string>
+    <string name="website">ウェブサイト</string>
+    <string name="send_sms_to_contacts">連絡先にSMSを送信</string>
+    <string name="send_email_to_contacts">連絡先にメールを送信</string>
+    <string name="send_sms_to_group">グループにSMSを送信</string>
+    <string name="send_email_to_group">グループにメールを送信</string>
+
+    <string name="new_contact">新しい連絡先</string>
+    <string name="edit_contact">連絡先を編集</string>
+    <string name="select_contact">連絡先を選択</string>
+    <string name="select_contacts">連絡先を選択</string>
+    <string name="first_name">名</string>
+    <string name="middle_name">ミドルネーム</string>
+    <string name="surname">姓</string>
+
+    <!-- Groups -->
+    <string name="no_groups">グループなし</string>
+    <string name="create_new_group">新しいグループを作成</string>
+    <string name="remove_from_group">グループから削除</string>
+    <string name="no_group_participants">このグループは空です</string>
+    <string name="add_contacts">連絡先を追加</string>
+    <string name="no_group_created">連絡先グループがありません</string>
+    <string name="create_group">グループを作成</string>
+    <string name="add_to_group">グループに追加</string>
+    <string name="create_group_under_account">アカウントの下にグループを作成</string>
+
+    <!-- Photo -->
+    <string name="take_photo">写真を撮影</string>
+    <string name="choose_photo">写真を選択</string>
+    <string name="remove_photo">写真を削除</string>
+
+    <!-- Settings -->
+    <string name="start_name_with_surname">姓を先に表示</string>
+    <string name="show_phone_numbers">メイン画面に電話番号を表示</string>
+    <string name="show_contact_thumbnails">連絡先のサムネイルを表示</string>
+    <string name="on_contact_click">連絡先をタップ</string>
+    <string name="call_contact">連絡先に発信</string>
+    <string name="view_contact">連絡先の詳細を表示</string>
+    <string name="manage_shown_contact_fields">連絡先に表示するフィールドを管理</string>
+    <string name="filter_duplicates">重複した連絡先を除外する</string>
+    <string name="manage_shown_tabs">表示するタブを管理</string>
+    <string name="contacts">連絡先</string>
+    <string name="favorites">お気に入り</string>
+    <string name="show_call_confirmation_dialog">発信する前に確認ダイアログを表示する</string>
+
+    <!-- Emails -->
+    <string name="email">メール</string>
+    <string name="home">自宅</string>
+    <string name="work">職場</string>
+    <string name="other">その他</string>
+
+    <!-- Phone numbers -->
+    <string name="number">番号</string>
+    <string name="mobile">携帯</string>
+    <string name="main_number">Main</string>
+    <string name="work_fax">職場FAX</string>
+    <string name="home_fax">自宅FAX</string>
+    <string name="pager">ポケベル</string>
+    <string name="no_phone_number_found">電話番号が見つかりません</string>
+
+    <!-- Events -->
+    <string name="birthday">誕生日</string>
+    <string name="anniversary">記念日</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">お気に入りの連絡先はまだありません</string>
+    <string name="add_favorites">お気に入りを追加</string>
+    <string name="add_to_favorites">お気に入りに追加</string>
+    <string name="remove_from_favorites">お気に入りから削除</string>
+    <string name="must_be_at_edit">連絡先を編集するには編集画面に切り替えてください</string>
+
+    <!-- Search -->
+    <string name="search_contacts">連絡先を検索</string>
+    <string name="search_favorites">お気に入りを検索</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">連絡先をインポート</string>
+    <string name="export_contacts">連絡先をエクスポート</string>
+    <string name="import_contacts_from_vcf">.vcfファイルから連絡先をインポート</string>
+    <string name="export_contacts_to_vcf">連絡先を.vcfファイルにエクスポート</string>
+    <string name="target_contact_source">Target contact source</string>
+    <string name="include_contact_sources">Include contact sources</string>
+    <string name="filename_without_vcf">ファイル名 (.vcfを含めない)</string>
+
+    <!-- Visible fields -->
+    <string name="select_fields_to_show">表示する項目を選択</string>
+    <string name="prefix">敬称（名前の前）</string>
+    <string name="suffix">敬称（名前の後）</string>
+    <string name="phone_numbers">電話番号</string>
+    <string name="emails">メール</string>
+    <string name="addresses">住所</string>
+    <string name="events">予定 (誕生日、記念日)</string>
+    <string name="notes">メモ</string>
+    <string name="organization">所属</string>
+    <string name="websites">ウェブサイト</string>
+    <string name="groups">グループ</string>
+    <string name="contact_source">インポート元</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">連絡先に表示される項目(フィールド)を変更することはできますか？</string>
+    <string name="faq_1_text">可能です。[設定] -> [連絡先に表示するフィールドを管理] から、表示されるフィールドを選択することができます。これらの中にはデフォルトで無効になっているものもあるので、あなたは新しいものを見つけるかもしれません。</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">連絡先を管理するシンプルなアプリ (広告表示なし)。</string>
+    <string name="app_long_description">
+        連絡先を作成または管理するためのシンプルなアプリです。連絡先はお使いの端末上にのみ保存されますが、Googleや他のアカウントと同期することもできます。お気に入りの連絡先を別のリストとして表示することができます。
+
+        友人のメールアドレスや予定の管理にも使用できます。これらは複数の項目で並べ替えやフィルタリングする機能があり、名前を\"姓 名\"の順に表示することもできます。
+
+        広告や不要なアクセス許可は含まれていません。完全にオープンソースで、色のカスタマイズも可能です。
+
+        このアプリは大きな一連のアプリの一つです。 その他のアプリは http://www.simplemobiletools.com で見つけることができます。
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
