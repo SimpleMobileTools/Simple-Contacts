@@ -37,6 +37,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.android.synthetic.main.fragment_groups.*
+import kotlinx.android.synthetic.main.fragment_recents.*
 import java.io.FileOutputStream
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
@@ -168,7 +169,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val currentPage = viewpager?.currentItem
         menu.apply {
             findItem(R.id.search).isVisible = currentPage != LOCATION_GROUPS_TAB
-            findItem(R.id.sort).isVisible = currentPage != LOCATION_GROUPS_TAB
+            findItem(R.id.sort).isVisible = currentPage != LOCATION_GROUPS_TAB && currentPage != LOCATION_RECENTS_TAB
             findItem(R.id.filter).isVisible = currentPage != LOCATION_GROUPS_TAB
         }
         setupSearch(menu)
@@ -278,7 +279,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun initFragments() {
         refreshContacts(ALL_TABS_MASK)
-        viewpager.offscreenPageLimit = 2
+        viewpager.offscreenPageLimit = 3
         viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
@@ -328,13 +329,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         }
 
-        main_tabs_holder.beVisibleIf(skippedTabs < 2)
+        main_tabs_holder.beVisibleIf(skippedTabs < 3)
         invalidateOptionsMenu()
     }
 
     private fun getTabIcon(position: Int) = resources.getDrawable(when (position) {
         LOCATION_CONTACTS_TAB -> R.drawable.ic_person
         LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on
+        LOCATION_RECENTS_TAB -> R.drawable.ic_clock
         else -> R.drawable.ic_group
     })
 
@@ -463,6 +465,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
             if (refreshTabsMask and FAVORITES_TAB_MASK != 0) {
                 favorites_fragment?.refreshContacts(it)
+            }
+
+            if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
+                recents_fragment?.refreshContacts(it)
             }
 
             if (refreshTabsMask and GROUPS_TAB_MASK != 0) {

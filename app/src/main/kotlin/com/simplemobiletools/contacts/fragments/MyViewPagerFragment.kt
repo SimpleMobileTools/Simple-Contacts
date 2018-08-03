@@ -47,12 +47,16 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             fragment_placeholder_2.underlineText()
             updateViewStuff()
 
-            if (this is FavoritesFragment) {
-                fragment_placeholder.text = activity.getString(R.string.no_favorites)
-                fragment_placeholder_2.text = activity.getString(R.string.add_favorites)
-            } else if (this is GroupsFragment) {
-                fragment_placeholder.text = activity.getString(R.string.no_group_created)
-                fragment_placeholder_2.text = activity.getString(R.string.create_group)
+            when {
+                this is FavoritesFragment -> {
+                    fragment_placeholder.text = activity.getString(R.string.no_favorites)
+                    fragment_placeholder_2.text = activity.getString(R.string.add_favorites)
+                }
+                this is GroupsFragment -> {
+                    fragment_placeholder.text = activity.getString(R.string.no_group_created)
+                    fragment_placeholder_2.text = activity.getString(R.string.create_group)
+                }
+                this is RecentsFragment -> fragment_fab.beGone()
             }
         }
     }
@@ -88,6 +92,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun refreshContacts(contacts: ArrayList<Contact>) {
         if ((config.showTabs and CONTACTS_TAB_MASK == 0 && this is ContactsFragment) ||
                 (config.showTabs and FAVORITES_TAB_MASK == 0 && this is FavoritesFragment) ||
+                (config.showTabs and RECENTS_TAB_MASK == 0 && this is RecentsFragment) ||
                 (config.showTabs and GROUPS_TAB_MASK == 0 && this is GroupsFragment)) {
             return
         }
@@ -105,6 +110,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         val filtered = when {
             this is GroupsFragment -> contacts
             this is FavoritesFragment -> contacts.filter { it.starred == 1 } as ArrayList<Contact>
+            this is RecentsFragment -> ArrayList()
             else -> {
                 val contactSources = activity!!.getVisibleContactSources()
                 contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
@@ -170,7 +176,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     private fun setupContactsFavoritesAdapter(contacts: ArrayList<Contact>) {
-        fragment_placeholder_2.beVisibleIf(contacts.isEmpty())
+        fragment_placeholder_2.beVisibleIf(contacts.isEmpty() && this !is RecentsFragment)
         fragment_placeholder.beVisibleIf(contacts.isEmpty())
         fragment_list.beVisibleIf(contacts.isNotEmpty())
 

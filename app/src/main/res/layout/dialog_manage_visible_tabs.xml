@@ -31,6 +31,14 @@
             android:text="@string/favorites"/>
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_tabs_recents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/recent_calls"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_tabs_groups"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

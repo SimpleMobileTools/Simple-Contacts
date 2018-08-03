@@ -7,9 +7,7 @@ import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.MainActivity
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.fragments.MyViewPagerFragment
-import com.simplemobiletools.contacts.helpers.CONTACTS_TAB_MASK
-import com.simplemobiletools.contacts.helpers.FAVORITES_TAB_MASK
-import com.simplemobiletools.contacts.helpers.tabsList
+import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.Contact
 
 class ViewPagerAdapter(val activity: MainActivity, val contacts: ArrayList<Contact>) : PagerAdapter() {
@@ -36,26 +34,23 @@ class ViewPagerAdapter(val activity: MainActivity, val contacts: ArrayList<Conta
     override fun isViewFromObject(view: View, item: Any) = view == item
 
     private fun getFragment(position: Int): Int {
-        return when (position) {
-            0 -> {
-                when {
-                    showTabs and CONTACTS_TAB_MASK != 0 -> R.layout.fragment_contacts
-                    showTabs and FAVORITES_TAB_MASK != 0 -> R.layout.fragment_favorites
-                    else -> R.layout.fragment_groups
-                }
-            }
-            1 -> {
-                if (showTabs and CONTACTS_TAB_MASK != 0) {
-                    if (showTabs and FAVORITES_TAB_MASK != 0) {
-                        R.layout.fragment_favorites
-                    } else {
-                        R.layout.fragment_groups
-                    }
-                } else {
-                    R.layout.fragment_groups
-                }
-            }
-            else -> R.layout.fragment_groups
+        val fragments = arrayListOf<Int>()
+        if (showTabs and CONTACTS_TAB_MASK != 0) {
+            fragments.add(R.layout.fragment_contacts)
         }
+
+        if (showTabs and FAVORITES_TAB_MASK != 0) {
+            fragments.add(R.layout.fragment_favorites)
+        }
+
+        if (showTabs and RECENTS_TAB_MASK != 0) {
+            fragments.add(R.layout.fragment_recents)
+        }
+
+        if (showTabs and GROUPS_TAB_MASK != 0) {
+            fragments.add(R.layout.fragment_groups)
+        }
+
+        return fragments[position]
     }
 }

@@ -24,16 +24,19 @@ const val FIRST_GROUP_ID = 10000
 
 const val LOCATION_CONTACTS_TAB = 0
 const val LOCATION_FAVORITES_TAB = 1
-const val LOCATION_GROUPS_TAB = 2
-const val LOCATION_GROUP_CONTACTS = 3
+const val LOCATION_RECENTS_TAB = 2
+const val LOCATION_GROUPS_TAB = 3
+const val LOCATION_GROUP_CONTACTS = 4
 
 const val CONTACTS_TAB_MASK = 1
 const val FAVORITES_TAB_MASK = 2
-const val GROUPS_TAB_MASK = 4
-const val ALL_TABS_MASK = 7
+const val RECENTS_TAB_MASK = 4
+const val GROUPS_TAB_MASK = 8
+const val ALL_TABS_MASK = 15
 
 val tabsList = arrayListOf(CONTACTS_TAB_MASK,
         FAVORITES_TAB_MASK,
+        RECENTS_TAB_MASK,
         GROUPS_TAB_MASK
 )
 
