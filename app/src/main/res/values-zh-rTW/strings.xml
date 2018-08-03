@@ -13,6 +13,7 @@
     <string name="send_email_to_contacts">發送電子郵件給聯絡人</string>
     <string name="send_sms_to_group">發送簡訊給群組</string>
     <string name="send_email_to_group">發送電子郵件給群組</string>
+    <string name="call_person">Call %s</string>
 
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>

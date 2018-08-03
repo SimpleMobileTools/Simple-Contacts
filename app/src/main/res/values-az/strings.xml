@@ -13,6 +13,7 @@
     <string name="send_email_to_contacts">Kontaktlara e-poçt göndər</string>
     <string name="send_sms_to_group">Grupa SMS göndər</string>
     <string name="send_email_to_group">Grupa e-poçt göndər</string>
+    <string name="call_person">Call %s</string>
 
     <string name="new_contact">Yeni kontakt</string>
     <string name="edit_contact">Redaktə et</string>

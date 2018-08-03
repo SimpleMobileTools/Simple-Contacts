@@ -14,6 +14,7 @@ import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
+import com.simplemobiletools.contacts.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.helpers.VcfExporter
@@ -36,6 +37,16 @@ fun SimpleActivity.startCallIntent(recipient: String) {
 }
 
 fun SimpleActivity.tryStartCall(contact: Contact) {
+    if (config.showCallConfirmation) {
+        CallConfirmationDialog(this, contact) {
+            startCall(contact)
+        }
+    } else {
+        startCall(contact)
+    }
+}
+
+fun SimpleActivity.startCall(contact: Contact) {
     val numbers = contact.phoneNumbers
     if (numbers.size == 1) {
         startCallIntent(numbers.first().value)

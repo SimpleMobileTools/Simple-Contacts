@@ -13,6 +13,7 @@
     <string name="send_email_to_contacts">Отправить письмо контактам</string>
     <string name="send_sms_to_group">Отправить SMS группе</string>
     <string name="send_email_to_group">Отправить письмо группе</string>
+    <string name="call_person">Call %s</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
