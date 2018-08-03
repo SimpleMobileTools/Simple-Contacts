@@ -21,6 +21,8 @@ import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.models.*
 import com.simplemobiletools.contacts.overloads.times
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ContactsHelper(val activity: Activity) {
     private val BATCH_SIZE = 100
@@ -1326,7 +1328,6 @@ class ContactsHelper(val activity: Activity) {
                     CallLog.Calls._ID,
                     CallLog.Calls.NUMBER,
                     CallLog.Calls.DATE,
-                    CallLog.Calls.DURATION,
                     CallLog.Calls.CACHED_NAME,
                     CallLog.Calls.TYPE
             )
@@ -1341,10 +1342,11 @@ class ContactsHelper(val activity: Activity) {
                         val id = cursor.getIntValue(CallLog.Calls._ID)
                         val number = cursor.getStringValue(CallLog.Calls.NUMBER)
                         val date = cursor.getLongValue(CallLog.Calls.DATE)
-                        val duration = cursor.getIntValue(CallLog.Calls.DURATION)
                         val name = cursor.getStringValue(CallLog.Calls.CACHED_NAME)
                         val type = cursor.getIntValue(CallLog.Calls.TYPE)
-                        val recentCall = RecentCall(id, number, date, duration, name, type)
+
+                        val formattedDate = SimpleDateFormat("dd.MM.yyyy, HH:mm", Locale.getDefault()).format(Date(date))
+                        val recentCall = RecentCall(id, number, formattedDate, name, type)
                         calls.add(recentCall)
                     } while (cursor.moveToNext())
                 }

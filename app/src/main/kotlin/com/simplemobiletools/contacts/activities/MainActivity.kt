@@ -481,7 +481,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
             if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
                 ContactsHelper(this).getRecents {
-                    recents_fragment?.updateRecentCalls(it)
+                    runOnUiThread {
+                        recents_fragment?.updateRecentCalls(it)
+                    }
                 }
             }
         }

@@ -9,13 +9,9 @@ import com.simplemobiletools.contacts.models.RecentCall
 import kotlinx.android.synthetic.main.fragment_layout.view.*
 
 class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
-    override fun fabClicked() {
-        finishActMode()
-    }
+    override fun fabClicked() {}
 
-    override fun placeholderClicked() {
-
-    }
+    override fun placeholderClicked() {}
 
     fun updateRecentCalls(recentCalls: ArrayList<RecentCall>) {
         if (activity == null || activity!!.isActivityDestroyed()) {
@@ -33,6 +29,8 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 addVerticalDividers(true)
                 fragment_list.adapter = this
             }
+
+            fragment_fastscroller.setViews(fragment_list) {}
         } else {
             (currAdapter as RecentCallsAdapter).updateItems(recentCalls)
         }

@@ -4,6 +4,7 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
+import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
@@ -60,6 +61,17 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
         view.apply {
             recent_call_name.apply {
                 text = recentCall.name ?: recentCall.number
+                setTextColor(textColor)
+            }
+
+            recent_call_number.apply {
+                beVisibleIf(recentCall.name != null)
+                text = recentCall.number
+                setTextColor(textColor)
+            }
+
+            recent_call_date_time.apply {
+                text = recentCall.date.toString()
                 setTextColor(textColor)
             }
         }

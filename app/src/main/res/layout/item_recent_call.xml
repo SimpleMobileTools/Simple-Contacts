@@ -13,19 +13,40 @@
     <RelativeLayout
         android:id="@+id/recent_call_holder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/contact_item_height"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/activity_margin"
         android:paddingRight="@dimen/activity_margin">
 
         <TextView
             android:id="@+id/recent_call_name"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/contact_item_height"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:gravity="center_vertical"
             android:maxLines="1"
-            android:paddingLeft="@dimen/activity_margin"
             android:textSize="@dimen/big_text_size"
             tools:text="John Doe"/>
+
+        <TextView
+            android:id="@+id/recent_call_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recent_call_name"
+            android:layout_toLeftOf="@+id/recent_call_date_time"
+            android:maxLines="1"
+            android:textSize="@dimen/bigger_text_size"
+            tools:text="0123 456 789"/>
+
+        <TextView
+            android:id="@+id/recent_call_date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/recent_call_name"
+            android:gravity="right"
+            android:maxLines="1"
+            android:textSize="@dimen/bigger_text_size"
+            tools:text="Today, 17:00"/>
 
     </RelativeLayout>
 </FrameLayout>
