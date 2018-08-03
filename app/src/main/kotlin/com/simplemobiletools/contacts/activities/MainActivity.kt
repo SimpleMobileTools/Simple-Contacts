@@ -37,7 +37,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.android.synthetic.main.fragment_groups.*
-import kotlinx.android.synthetic.main.fragment_recents.*
 import java.io.FileOutputStream
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
@@ -74,6 +73,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                     val hasGetAccountsPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED
                     if (!hasGetAccountsPermission) {
                         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.GET_ACCOUNTS), 34)
+                    }
+
+                    val hasWriteCallLogPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALL_LOG) == PackageManager.PERMISSION_GRANTED
+                    if (!hasWriteCallLogPermission) {
+                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_CALL_LOG), 35)
                     }
 
                     storeLocalAccountData()
@@ -467,15 +471,17 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 favorites_fragment?.refreshContacts(it)
             }
 
-            if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
-                recents_fragment?.refreshContacts(it)
-            }
-
             if (refreshTabsMask and GROUPS_TAB_MASK != 0) {
                 if (refreshTabsMask == GROUPS_TAB_MASK) {
                     groups_fragment.skipHashComparing = true
                 }
                 groups_fragment?.refreshContacts(it)
+            }
+        }
+
+        if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
+            ContactsHelper(this).getRecents {
+
             }
         }
     }

@@ -2,11 +2,13 @@ package com.simplemobiletools.contacts.helpers
 
 import android.accounts.Account
 import android.accounts.AccountManager
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.*
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
+import android.provider.CallLog
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.CommonDataKinds.Note
@@ -1307,6 +1309,49 @@ class ContactsHelper(val activity: Activity) {
             } catch (e: Exception) {
                 activity.showErrorToast(e)
             }
+        }.start()
+    }
+
+    @SuppressLint("MissingPermission")
+    fun getRecents(callback: (ArrayList<RecentCall>) -> Unit) {
+        Thread {
+            val calls = ArrayList<RecentCall>()
+            if (!activity.hasPermission(PERMISSION_WRITE_CALL_LOG)) {
+                callback(calls)
+                return@Thread
+            }
+
+            val uri = android.provider.CallLog.Calls.CONTENT_URI
+            val projection = arrayOf(
+                    CallLog.Calls._ID,
+                    CallLog.Calls.NUMBER,
+                    CallLog.Calls.DATE,
+                    CallLog.Calls.DURATION,
+                    CallLog.Calls.CACHED_NAME,
+                    CallLog.Calls.TYPE
+            )
+
+            val sorting = "${CallLog.Calls._ID} DESC LIMIT 50"
+
+            var cursor: Cursor? = null
+            try {
+                cursor = activity.contentResolver.query(uri, projection, null, null, sorting)
+                if (cursor?.moveToFirst() == true) {
+                    do {
+                        val id = cursor.getIntValue(CallLog.Calls._ID)
+                        val number = cursor.getStringValue(CallLog.Calls.NUMBER)
+                        val date = cursor.getLongValue(CallLog.Calls.DATE)
+                        val duration = cursor.getIntValue(CallLog.Calls.DURATION)
+                        val name = cursor.getStringValue(CallLog.Calls.CACHED_NAME) ?: ""
+                        val type = cursor.getIntValue(CallLog.Calls.TYPE)
+                        val recentCall = RecentCall(id, number, date, duration, name, type)
+                        calls.add(recentCall)
+                    } while (cursor.moveToNext())
+                }
+            } finally {
+                cursor?.close()
+            }
+            callback(calls)
         }.start()
     }
 }
