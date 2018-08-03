@@ -37,6 +37,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.android.synthetic.main.fragment_groups.*
+import kotlinx.android.synthetic.main.fragment_recents.*
 import java.io.FileOutputStream
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
@@ -477,11 +478,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 }
                 groups_fragment?.refreshContacts(it)
             }
-        }
 
-        if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
-            ContactsHelper(this).getRecents {
-
+            if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
+                ContactsHelper(this).getRecents {
+                    recents_fragment?.updateRecentCalls(it)
+                }
             }
         }
     }

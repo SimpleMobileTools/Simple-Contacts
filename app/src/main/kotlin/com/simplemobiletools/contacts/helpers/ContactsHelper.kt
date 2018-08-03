@@ -1331,7 +1331,7 @@ class ContactsHelper(val activity: Activity) {
                     CallLog.Calls.TYPE
             )
 
-            val sorting = "${CallLog.Calls._ID} DESC LIMIT 50"
+            val sorting = "${CallLog.Calls._ID} DESC LIMIT 100"
 
             var cursor: Cursor? = null
             try {
@@ -1342,7 +1342,7 @@ class ContactsHelper(val activity: Activity) {
                         val number = cursor.getStringValue(CallLog.Calls.NUMBER)
                         val date = cursor.getLongValue(CallLog.Calls.DATE)
                         val duration = cursor.getIntValue(CallLog.Calls.DURATION)
-                        val name = cursor.getStringValue(CallLog.Calls.CACHED_NAME) ?: ""
+                        val name = cursor.getStringValue(CallLog.Calls.CACHED_NAME)
                         val type = cursor.getIntValue(CallLog.Calls.TYPE)
                         val recentCall = RecentCall(id, number, date, duration, name, type)
                         calls.add(recentCall)

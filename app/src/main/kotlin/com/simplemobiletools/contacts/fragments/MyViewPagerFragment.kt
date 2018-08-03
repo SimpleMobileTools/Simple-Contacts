@@ -129,7 +129,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     private fun setupContacts(contacts: ArrayList<Contact>) {
         if (this is GroupsFragment) {
             setupGroupsAdapter(contacts)
-        } else {
+        } else if (this !is RecentsFragment) {
             setupContactsFavoritesAdapter(contacts)
         }
     }
@@ -176,7 +176,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     private fun setupContactsFavoritesAdapter(contacts: ArrayList<Contact>) {
-        fragment_placeholder_2.beVisibleIf(contacts.isEmpty() && this !is RecentsFragment)
+        fragment_placeholder_2.beVisibleIf(contacts.isEmpty())
         fragment_placeholder.beVisibleIf(contacts.isEmpty())
         fragment_list.beVisibleIf(contacts.isNotEmpty())
 
