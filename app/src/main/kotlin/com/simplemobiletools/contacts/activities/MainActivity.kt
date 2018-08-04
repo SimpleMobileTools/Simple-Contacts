@@ -150,10 +150,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 initFragments()
             } else {
                 refreshContacts(ALL_TABS_MASK)
-            }
 
-            getAllFragments().forEach {
-                it?.onActivityResume()
+                getAllFragments().forEach {
+                    it?.onActivityResume()
+                }
             }
         }
         isFirstResume = false
