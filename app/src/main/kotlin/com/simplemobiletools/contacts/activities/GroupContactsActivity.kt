@@ -3,12 +3,17 @@ package com.simplemobiletools.contacts.activities
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
+import com.simplemobiletools.commons.extensions.underlineText
+import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.dialogs.SelectContactsDialog
 import com.simplemobiletools.contacts.extensions.*
-import com.simplemobiletools.contacts.helpers.*
+import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.GROUP
+import com.simplemobiletools.contacts.helpers.LOCATION_GROUP_CONTACTS
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.interfaces.RemoveFromGroupListener
 import com.simplemobiletools.contacts.models.Contact
@@ -102,18 +107,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         val currAdapter = group_contacts_list.adapter
         if (currAdapter == null) {
             ContactsAdapter(this, contacts, this, LOCATION_GROUP_CONTACTS, this, group_contacts_list, group_contacts_fastscroller) {
-                when (config.onContactClick) {
-                    ON_CLICK_CALL_CONTACT -> {
-                        val contact = it as Contact
-                        if (contact.phoneNumbers.isNotEmpty()) {
-                            tryStartCall(it)
-                        } else {
-                            toast(R.string.no_phone_number_found)
-                        }
-                    }
-                    ON_CLICK_VIEW_CONTACT -> viewContact(it as Contact)
-                    ON_CLICK_EDIT_CONTACT -> editContact(it as Contact)
-                }
+                contactClicked(it as Contact)
             }.apply {
                 addVerticalDividers(true)
                 group_contacts_list.adapter = this

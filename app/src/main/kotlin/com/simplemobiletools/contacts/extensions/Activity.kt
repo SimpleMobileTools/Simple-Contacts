@@ -15,9 +15,7 @@ import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.dialogs.CallConfirmationDialog
-import com.simplemobiletools.contacts.helpers.ContactsHelper
-import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
-import com.simplemobiletools.contacts.helpers.VcfExporter
+import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.ContactSource
 import java.io.File
@@ -201,4 +199,18 @@ fun Activity.getVisibleContactSources(): ArrayList<String> {
     val sourceNames = ArrayList(sources).map { if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name }.toMutableList() as ArrayList<String>
     sourceNames.removeAll(config.ignoredContactSources)
     return sourceNames
+}
+
+fun SimpleActivity.contactClicked(contact: Contact) {
+    when (config.onContactClick) {
+        ON_CLICK_CALL_CONTACT -> {
+            if (contact.phoneNumbers.isNotEmpty()) {
+                tryStartCall(contact)
+            } else {
+                toast(R.string.no_phone_number_found)
+            }
+        }
+        ON_CLICK_VIEW_CONTACT -> viewContact(contact)
+        ON_CLICK_EDIT_CONTACT -> editContact(contact)
+    }
 }

@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
 import com.simplemobiletools.contacts.adapters.RecentCallsAdapter
+import com.simplemobiletools.contacts.extensions.contactClicked
 import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.RecentCall
@@ -33,6 +34,10 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                         selectedContact = contact
                         break
                     }
+                }
+
+                if (selectedContact != null) {
+                    activity?.contactClicked(selectedContact)
                 }
             }.apply {
                 addVerticalDividers(true)

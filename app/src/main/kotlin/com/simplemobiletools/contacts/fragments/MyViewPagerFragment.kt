@@ -15,7 +15,9 @@ import com.simplemobiletools.contacts.activities.MainActivity
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.adapters.GroupsAdapter
-import com.simplemobiletools.contacts.extensions.*
+import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.contactClicked
+import com.simplemobiletools.contacts.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.Group
@@ -185,18 +187,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             forceListRedraw = false
             val location = if (this is FavoritesFragment) LOCATION_FAVORITES_TAB else LOCATION_CONTACTS_TAB
             ContactsAdapter(activity as SimpleActivity, contacts, activity, location, null, fragment_list, fragment_fastscroller) {
-                when (config.onContactClick) {
-                    ON_CLICK_CALL_CONTACT -> {
-                        val contact = it as Contact
-                        if (contact.phoneNumbers.isNotEmpty()) {
-                            (activity as SimpleActivity).tryStartCall(it)
-                        } else {
-                            activity!!.toast(R.string.no_phone_number_found)
-                        }
-                    }
-                    ON_CLICK_VIEW_CONTACT -> context!!.viewContact(it as Contact)
-                    ON_CLICK_EDIT_CONTACT -> context!!.editContact(it as Contact)
-                }
+                activity?.contactClicked(it as Contact)
             }.apply {
                 addVerticalDividers(true)
                 fragment_list.adapter = this
