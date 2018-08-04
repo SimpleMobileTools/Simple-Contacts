@@ -45,9 +45,6 @@ class EditContactActivity : ContactActivity() {
     private val CHOOSE_PHOTO = 2
     private val REMOVE_PHOTO = 3
 
-    private val KEY_PHONE = "phone"
-    private val KEY_NAME = "name"
-
     private var wasActivityInitialized = false
     private var lastPhotoIntentUri: Uri? = null
     private var isSaving = false

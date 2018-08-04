@@ -23,6 +23,10 @@ const val GROUP = "group"
 const val FIRST_GROUP_ID = 10000
 const val PHONE_NUMBER_PATTERN = "\\D+"
 
+// extras used at third party intents
+const val KEY_PHONE = "phone"
+const val KEY_NAME = "name"
+
 const val LOCATION_CONTACTS_TAB = 0
 const val LOCATION_FAVORITES_TAB = 1
 const val LOCATION_RECENTS_TAB = 2

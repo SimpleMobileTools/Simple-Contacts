@@ -1,11 +1,14 @@
 package com.simplemobiletools.contacts.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.util.AttributeSet
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
+import com.simplemobiletools.contacts.activities.EditContactActivity
 import com.simplemobiletools.contacts.adapters.RecentCallsAdapter
 import com.simplemobiletools.contacts.extensions.contactClicked
+import com.simplemobiletools.contacts.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.RecentCall
@@ -38,6 +41,12 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
                 if (selectedContact != null) {
                     activity?.contactClicked(selectedContact)
+                } else {
+                    Intent(context, EditContactActivity::class.java).apply {
+                        action = Intent.ACTION_INSERT
+                        putExtra(KEY_PHONE, recentCall)
+                        context.startActivity(this)
+                    }
                 }
             }.apply {
                 addVerticalDividers(true)
