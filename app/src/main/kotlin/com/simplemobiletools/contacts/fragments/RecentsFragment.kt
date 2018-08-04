@@ -5,6 +5,8 @@ import android.util.AttributeSet
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
 import com.simplemobiletools.contacts.adapters.RecentCallsAdapter
+import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
+import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.RecentCall
 import kotlinx.android.synthetic.main.fragment_layout.view.*
 
@@ -24,7 +26,14 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         val currAdapter = fragment_list.adapter
         if (currAdapter == null) {
             RecentCallsAdapter(activity!!, recentCalls, activity, fragment_list, fragment_fastscroller) {
-
+                val recentCall = (it as RecentCall).number.replace(PHONE_NUMBER_PATTERN.toRegex(), "")
+                var selectedContact: Contact? = null
+                for (contact in allContacts) {
+                    if (contact.phoneNumbers.any { it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), "") == recentCall }) {
+                        selectedContact = contact
+                        break
+                    }
+                }
             }.apply {
                 addVerticalDividers(true)
                 fragment_list.adapter = this

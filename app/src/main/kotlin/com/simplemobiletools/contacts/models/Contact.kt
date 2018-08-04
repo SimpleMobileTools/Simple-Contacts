@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
+import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
 
 data class Contact(val id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var photoUri: String,
                    var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>, var events: ArrayList<Event>,
@@ -12,7 +13,6 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
     companion object {
         var sorting = 0
         var startWithSurname = false
-        val pattern = "\\D+".toRegex()
     }
 
     override fun compareTo(other: Contact): Int {
@@ -93,7 +93,7 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
 
     fun getHashToCompare(): Int {
         val newPhoneNumbers = ArrayList<PhoneNumber>()
-        phoneNumbers.mapTo(newPhoneNumbers) { PhoneNumber(it.value.replace(pattern, ""), 0) }
+        phoneNumbers.mapTo(newPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0) }
 
         val newEmails = ArrayList<Email>()
         emails.mapTo(newEmails) { Email(it.value, 0) }

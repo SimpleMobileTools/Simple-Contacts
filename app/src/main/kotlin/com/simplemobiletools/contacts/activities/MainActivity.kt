@@ -502,6 +502,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 favorites_fragment?.refreshContacts(it)
             }
 
+            if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
+                recents_fragment?.refreshContacts(it)
+            }
+
             if (refreshTabsMask and GROUPS_TAB_MASK != 0) {
                 if (refreshTabsMask == GROUPS_TAB_MASK) {
                     groups_fragment.skipHashComparing = true
