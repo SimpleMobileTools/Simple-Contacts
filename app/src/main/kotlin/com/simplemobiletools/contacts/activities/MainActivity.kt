@@ -4,13 +4,11 @@ import android.Manifest
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v4.view.MenuItemCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.SearchView
@@ -73,13 +71,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             if (it) {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
                     // workaround for upgrading from version 3.x to 4.x as we added a new permission from an already granted permissions group
-                    val hasGetAccountsPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED
-                    if (!hasGetAccountsPermission) {
+                    if (!hasPermission(PERMISSION_GET_ACCOUNTS)) {
                         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.GET_ACCOUNTS), 34)
                     }
 
-                    val hasWriteCallLogPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALL_LOG) == PackageManager.PERMISSION_GRANTED
-                    if (!hasWriteCallLogPermission) {
+                    if (!hasPermission(PERMISSION_WRITE_CALL_LOG)) {
                         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_CALL_LOG), 35)
                     }
 
