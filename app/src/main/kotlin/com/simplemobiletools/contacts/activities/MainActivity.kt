@@ -283,7 +283,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(0, 1, 2).filter { it != activeIndex }
 
     private fun initFragments() {
-        refreshContacts(ALL_TABS_MASK)
         viewpager.offscreenPageLimit = 3
         viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
@@ -304,6 +303,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 invalidateOptionsMenu()
             }
         })
+
+        viewpager.onGlobalLayout {
+            refreshContacts(ALL_TABS_MASK)
+        }
 
         main_tabs_holder.onTabSelectionChanged(
                 tabUnselectedAction = {
@@ -451,17 +454,17 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (isActivityDestroyed() || isGettingContacts) {
             return
         }
-
         isGettingContacts = true
+
+        if (viewpager.adapter == null) {
+            viewpager.adapter = ViewPagerAdapter(this)
+            viewpager.currentItem = config.lastUsedViewPagerPage
+        }
+
         ContactsHelper(this).getContacts {
             isGettingContacts = false
             if (isActivityDestroyed()) {
                 return@getContacts
-            }
-
-            if (viewpager.adapter == null) {
-                viewpager.adapter = ViewPagerAdapter(this, it)
-                viewpager.currentItem = config.lastUsedViewPagerPage
             }
 
             if (refreshTabsMask and CONTACTS_TAB_MASK != 0) {
@@ -478,12 +481,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 }
                 groups_fragment?.refreshContacts(it)
             }
+        }
 
-            if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
-                ContactsHelper(this).getRecents {
-                    runOnUiThread {
-                        recents_fragment?.updateRecentCalls(it)
-                    }
+        if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
+            ContactsHelper(this).getRecents {
+                runOnUiThread {
+                    recents_fragment?.updateRecentCalls(it)
                 }
             }
         }

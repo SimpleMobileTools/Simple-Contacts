@@ -8,10 +8,9 @@ import com.simplemobiletools.contacts.activities.MainActivity
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.helpers.*
-import com.simplemobiletools.contacts.models.Contact
 
-class ViewPagerAdapter(val activity: MainActivity, val contacts: ArrayList<Contact>) : PagerAdapter() {
-    val showTabs = activity.config.showTabs
+class ViewPagerAdapter(val activity: MainActivity) : PagerAdapter() {
+    private val showTabs = activity.config.showTabs
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val layout = getFragment(position)
@@ -20,8 +19,8 @@ class ViewPagerAdapter(val activity: MainActivity, val contacts: ArrayList<Conta
 
         (view as MyViewPagerFragment).apply {
             setupFragment(activity)
-            refreshContacts(contacts)
         }
+
         return view
     }
 
