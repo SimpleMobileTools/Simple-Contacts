@@ -30,6 +30,7 @@ import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.extensions.getTempFile
+import com.simplemobiletools.contacts.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.models.Contact
@@ -171,11 +172,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        val currentPage = viewpager?.currentItem
+        val currentFragment = getCurrentFragment()
         menu.apply {
-            findItem(R.id.search).isVisible = currentPage != LOCATION_GROUPS_TAB
-            findItem(R.id.sort).isVisible = currentPage != LOCATION_GROUPS_TAB && currentPage != LOCATION_RECENTS_TAB
-            findItem(R.id.filter).isVisible = currentPage != LOCATION_GROUPS_TAB
+            findItem(R.id.search).isVisible = currentFragment != groups_fragment
+            findItem(R.id.sort).isVisible = currentFragment != groups_fragment && currentFragment != recents_fragment
+            findItem(R.id.filter).isVisible = currentFragment != groups_fragment
         }
         setupSearch(menu)
         return true
@@ -213,13 +214,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         (searchMenuItem!!.actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isSubmitButtonEnabled = false
-            queryHint = getString(if (viewpager.currentItem == 0) R.string.search_contacts else R.string.search_favorites)
+            queryHint = getString(if (getCurrentFragment() == contacts_fragment) R.string.search_contacts else R.string.search_favorites)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String) = false
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
-                        getCurrentFragment()?.onSearchQueryChanged(newText)
+                        getCurrentFragment().onSearchQueryChanged(newText)
                     }
                     return true
                 }
@@ -228,23 +229,39 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                getCurrentFragment()?.onSearchOpened()
+                getCurrentFragment().onSearchOpened()
                 isSearchOpen = true
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                getCurrentFragment()?.onSearchClosed()
+                getCurrentFragment().onSearchClosed()
                 isSearchOpen = false
                 return true
             }
         })
     }
 
-    private fun getCurrentFragment() = when (viewpager.currentItem) {
-        0 -> contacts_fragment
-        1 -> favorites_fragment
-        else -> groups_fragment
+    private fun getCurrentFragment(): MyViewPagerFragment {
+        val showTabs = config.showTabs
+        val fragments = arrayListOf<MyViewPagerFragment>()
+        if (showTabs and CONTACTS_TAB_MASK != 0) {
+            fragments.add(contacts_fragment)
+        }
+
+        if (showTabs and FAVORITES_TAB_MASK != 0) {
+            fragments.add(favorites_fragment)
+        }
+
+        if (showTabs and RECENTS_TAB_MASK != 0) {
+            fragments.add(recents_fragment)
+        }
+
+        if (showTabs and GROUPS_TAB_MASK != 0) {
+            fragments.add(groups_fragment)
+        }
+
+        return fragments[viewpager.currentItem]
     }
 
     private fun setupTabColors() {
@@ -287,7 +304,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
-                    getCurrentFragment()?.onSearchQueryChanged("")
+                    getCurrentFragment().onSearchQueryChanged("")
                     searchMenuItem?.collapseActionView()
                 }
             }
@@ -314,7 +331,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 },
                 tabSelectedAction = {
                     if (isSearchOpen) {
-                        getCurrentFragment()?.onSearchQueryChanged("")
+                        getCurrentFragment().onSearchQueryChanged("")
                         searchMenuItem?.collapseActionView()
                     }
                     viewpager.currentItem = it.position
