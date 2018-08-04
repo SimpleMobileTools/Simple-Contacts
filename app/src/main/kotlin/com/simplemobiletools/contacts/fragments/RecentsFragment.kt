@@ -30,7 +30,10 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 fragment_list.adapter = this
             }
 
-            fragment_fastscroller.setViews(fragment_list) {}
+            fragment_fastscroller.setViews(fragment_list) {
+                val item = (fragment_list.adapter as RecentCallsAdapter).recentCalls.getOrNull(it)
+                fragment_fastscroller.updateBubbleText(item?.name ?: item?.number ?: "")
+            }
         } else {
             (currAdapter as RecentCallsAdapter).updateItems(recentCalls)
         }
