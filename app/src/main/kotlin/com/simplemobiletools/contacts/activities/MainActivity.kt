@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.MenuItemCompat
@@ -102,7 +103,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         if (storedShowTabs != config.showTabs) {
-            viewpager.adapter = null
+            config.lastUsedViewPagerPage = 0
+            System.exit(0)
+            return
         }
 
         val configShowContactThumbnails = config.showContactThumbnails
@@ -220,7 +223,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
-                        getCurrentFragment().onSearchQueryChanged(newText)
+                        getCurrentFragment()?.onSearchQueryChanged(newText)
                     }
                     return true
                 }
@@ -229,20 +232,20 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                getCurrentFragment().onSearchOpened()
+                getCurrentFragment()?.onSearchOpened()
                 isSearchOpen = true
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                getCurrentFragment().onSearchClosed()
+                getCurrentFragment()?.onSearchClosed()
                 isSearchOpen = false
                 return true
             }
         })
     }
 
-    private fun getCurrentFragment(): MyViewPagerFragment {
+    private fun getCurrentFragment(): MyViewPagerFragment? {
         val showTabs = config.showTabs
         val fragments = arrayListOf<MyViewPagerFragment>()
         if (showTabs and CONTACTS_TAB_MASK != 0) {
@@ -297,14 +300,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(0, 1, 2).filter { it != activeIndex }
+    private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(0, 1, 2, 3).filter { it != activeIndex }
 
     private fun initFragments() {
         viewpager.offscreenPageLimit = 3
         viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
-                    getCurrentFragment().onSearchQueryChanged("")
+                    getCurrentFragment()?.onSearchQueryChanged("")
                     searchMenuItem?.collapseActionView()
                 }
             }
@@ -331,7 +334,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 },
                 tabSelectedAction = {
                     if (isSearchOpen) {
-                        getCurrentFragment().onSearchQueryChanged("")
+                        getCurrentFragment()?.onSearchQueryChanged("")
                         searchMenuItem?.collapseActionView()
                     }
                     viewpager.currentItem = it.position
@@ -352,6 +355,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             } else {
                 main_tabs_holder.addTab(main_tabs_holder.newTab().setIcon(getTabIcon(index)), index - skippedTabs, config.lastUsedViewPagerPage == index - skippedTabs)
             }
+        }
+
+        // selecting the proper tab sometimes glitches, add an extra selector to make sure we have it right
+        main_tabs_holder.onGlobalLayout {
+            Handler().postDelayed({
+                main_tabs_holder.getTabAt(config.lastUsedViewPagerPage)?.select()
+            }, 100L)
         }
 
         main_tabs_holder.beVisibleIf(skippedTabs < 3)
