@@ -1,6 +1,15 @@
 Changelog
 ==========
 
+Version 4.2.0 *(2018-08-04)*
+----------------------------
+
+ * Added a Recent Calls tab
+ * Allow customizing which tabs are visible
+ * Added an optional call confirmation dialog
+ * Fixed some glitches related to company contacts
+ * Some other performance and stability improvements
+
 Version 4.1.0 *(2018-07-16)*
 ----------------------------
 
