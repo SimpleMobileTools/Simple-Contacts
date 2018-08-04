@@ -43,7 +43,7 @@ import java.io.FileOutputStream
 class MainActivity : SimpleActivity(), RefreshContactsListener {
     // just some random constants
     private val GET_ACCOUNTS_PERMISSION = 34
-    private val WRITE_CALL_LOG_PERMISSION = 34
+    private val WRITE_CALL_LOG_PERMISSION = 35
 
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
