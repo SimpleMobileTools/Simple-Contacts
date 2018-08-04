@@ -177,7 +177,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         menuInflater.inflate(R.menu.menu, menu)
         val currentFragment = getCurrentFragment()
         menu.apply {
-            findItem(R.id.search).isVisible = currentFragment != groups_fragment
+            findItem(R.id.search).isVisible = currentFragment != groups_fragment && currentFragment != recents_fragment
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment && currentFragment != recents_fragment
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
         }
