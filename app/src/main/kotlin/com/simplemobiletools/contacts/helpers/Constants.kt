@@ -22,6 +22,7 @@ const val IS_PRIVATE = "is_private"
 const val GROUP = "group"
 const val FIRST_GROUP_ID = 10000
 const val PHONE_NUMBER_PATTERN = "\\D+"
+const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"
 
 // extras used at third party intents
 const val KEY_PHONE = "phone"

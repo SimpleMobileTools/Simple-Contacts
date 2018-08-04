@@ -10,6 +10,7 @@ import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CALL_LOG
 import com.simplemobiletools.contacts.activities.EditContactActivity
 import com.simplemobiletools.contacts.adapters.RecentCallsAdapter
 import com.simplemobiletools.contacts.extensions.contactClicked
+import com.simplemobiletools.contacts.helpers.IS_FROM_SIMPLE_CONTACTS
 import com.simplemobiletools.contacts.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
 import com.simplemobiletools.contacts.helpers.RECENTS_TAB_MASK
@@ -55,6 +56,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                     Intent(context, EditContactActivity::class.java).apply {
                         action = Intent.ACTION_INSERT
                         putExtra(KEY_PHONE, recentCall)
+                        putExtra(IS_FROM_SIMPLE_CONTACTS, true)
                         context.startActivity(this)
                     }
                 }

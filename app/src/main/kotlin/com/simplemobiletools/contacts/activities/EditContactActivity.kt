@@ -58,7 +58,8 @@ class EditContactActivity : ContactActivity() {
 
         val action = intent.action
         isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT_OR_EDIT || action == Intent.ACTION_INSERT
-        if (isThirdPartyIntent) {
+        val isFromSimpleContacts = intent.getBooleanExtra(IS_FROM_SIMPLE_CONTACTS, false)
+        if (isThirdPartyIntent && !isFromSimpleContacts) {
             handlePermission(PERMISSION_READ_CONTACTS) {
                 if (it) {
                     handlePermission(PERMISSION_WRITE_CONTACTS) {
