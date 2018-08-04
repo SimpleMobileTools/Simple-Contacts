@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.hasPermission
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
+import com.simplemobiletools.commons.helpers.PERMISSION_READ_CALL_LOG
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CALL_LOG
 import com.simplemobiletools.contacts.activities.EditContactActivity
 import com.simplemobiletools.contacts.adapters.RecentCallsAdapter
@@ -24,7 +25,9 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     override fun placeholderClicked() {
         activity!!.handlePermission(PERMISSION_WRITE_CALL_LOG) {
             if (it) {
-                activity?.refreshContacts(RECENTS_TAB_MASK)
+                activity!!.handlePermission(PERMISSION_READ_CALL_LOG) {
+                    activity?.refreshContacts(RECENTS_TAB_MASK)
+                }
             }
         }
     }

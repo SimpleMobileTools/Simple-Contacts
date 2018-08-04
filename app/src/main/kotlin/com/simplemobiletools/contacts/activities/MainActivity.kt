@@ -1,6 +1,5 @@
 package com.simplemobiletools.contacts.activities
 
-import android.Manifest
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
@@ -8,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.ActivityCompat
 import android.support.v4.view.MenuItemCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.SearchView
@@ -41,10 +39,6 @@ import kotlinx.android.synthetic.main.fragment_recents.*
 import java.io.FileOutputStream
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
-    // just some random constants
-    private val GET_ACCOUNTS_PERMISSION = 34
-    private val WRITE_CALL_LOG_PERMISSION = 35
-
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
     private var werePermissionsHandled = false
@@ -70,29 +64,36 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         // just get a reference to the database to make sure it is created properly
         dbHelper
 
+        handlePermission(PERMISSION_READ_CALL_LOG) {
+            if (it) {
+                handlePermission(PERMISSION_WRITE_CALL_LOG) {
+                    checkContactPermissions()
+                }
+            } else {
+                checkContactPermissions()
+            }
+
+        }
+        storeStateVariables()
+        checkWhatsNewDialog()
+    }
+
+    private fun checkContactPermissions() {
         handlePermission(PERMISSION_READ_CONTACTS) {
             werePermissionsHandled = true
             if (it) {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
                     // workaround for upgrading from version 3.x to 4.x as we added a new permission from an already granted permissions group
-                    if (!hasPermission(PERMISSION_GET_ACCOUNTS)) {
-                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.GET_ACCOUNTS), GET_ACCOUNTS_PERMISSION)
+                    handlePermission(PERMISSION_GET_ACCOUNTS) {
+                        storeLocalAccountData()
+                        initFragments()
                     }
-
-                    if (!hasPermission(PERMISSION_WRITE_CALL_LOG)) {
-                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_CALL_LOG), WRITE_CALL_LOG_PERMISSION)
-                    }
-
-                    storeLocalAccountData()
-                    initFragments()
                 }
             } else {
                 storeLocalAccountData()
                 initFragments()
             }
         }
-        storeStateVariables()
-        checkWhatsNewDialog()
     }
 
     override fun onResume() {

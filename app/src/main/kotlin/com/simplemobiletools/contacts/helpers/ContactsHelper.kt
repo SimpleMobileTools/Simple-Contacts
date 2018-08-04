@@ -1318,7 +1318,7 @@ class ContactsHelper(val activity: Activity) {
     fun getRecents(callback: (ArrayList<RecentCall>) -> Unit) {
         Thread {
             val calls = ArrayList<RecentCall>()
-            if (!activity.hasPermission(PERMISSION_WRITE_CALL_LOG)) {
+            if (!activity.hasPermission(PERMISSION_WRITE_CALL_LOG) || !activity.hasPermission(PERMISSION_READ_CALL_LOG)) {
                 callback(calls)
                 return@Thread
             }
