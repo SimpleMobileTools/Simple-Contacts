@@ -492,7 +492,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, groups_fragment)
+    private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, recents_fragment, groups_fragment)
 
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {
