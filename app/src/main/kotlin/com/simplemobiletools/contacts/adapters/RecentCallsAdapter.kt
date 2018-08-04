@@ -16,23 +16,29 @@ import java.util.*
 
 class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<RecentCall>, recyclerView: MyRecyclerView, fastScroller: FastScroller,
                          itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
-    val showPhoneNumbers = activity.config.showPhoneNumbers
+    private val showPhoneNumbers = activity.config.showPhoneNumbers
 
     init {
         setupDragListener(true)
     }
 
-    override fun getActionMenuId() = 0
+    override fun getActionMenuId() = R.menu.cab_recent_calls
 
     override fun prepareActionMode(menu: Menu) {}
 
     override fun prepareItemSelection(viewHolder: ViewHolder) {}
 
-    override fun markViewHolderSelection(select: Boolean, viewHolder: ViewHolder?) {}
+    override fun markViewHolderSelection(select: Boolean, viewHolder: ViewHolder?) {
+        viewHolder?.itemView?.recent_call_frame?.isSelected = select
+    }
 
     override fun actionItemPressed(id: Int) {
         if (selectedPositions.isEmpty()) {
             return
+        }
+
+        when (id) {
+            R.id.cab_select_all -> selectAll()
         }
     }
 
