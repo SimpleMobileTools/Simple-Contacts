@@ -1323,7 +1323,7 @@ class ContactsHelper(val activity: Activity) {
                 return@Thread
             }
 
-            val uri = android.provider.CallLog.Calls.CONTENT_URI
+            val uri = CallLog.Calls.CONTENT_URI
             val projection = arrayOf(
                     CallLog.Calls._ID,
                     CallLog.Calls.NUMBER,
@@ -1369,6 +1369,31 @@ class ContactsHelper(val activity: Activity) {
                 cursor?.close()
             }
             callback(calls)
+        }.start()
+    }
+
+    fun removeRecentCalls(ids: ArrayList<Int>) {
+        Thread {
+            try {
+                val operations = ArrayList<ContentProviderOperation>()
+                val selection = "${CallLog.Calls._ID} = ?"
+                ids.forEach {
+                    ContentProviderOperation.newDelete(CallLog.Calls.CONTENT_URI).apply {
+                        val selectionArgs = arrayOf(it.toString())
+                        withSelection(selection, selectionArgs)
+                        operations.add(build())
+                    }
+
+                    if (operations.size % BATCH_SIZE == 0) {
+                        activity.contentResolver.applyBatch(CallLog.AUTHORITY, operations)
+                        operations.clear()
+                    }
+                }
+
+                activity.contentResolver.applyBatch(CallLog.AUTHORITY, operations)
+            } catch (e: Exception) {
+                activity.showErrorToast(e)
+            }
         }.start()
     }
 }

@@ -23,7 +23,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
         val currAdapter = fragment_list.adapter
         if (currAdapter == null) {
-            RecentCallsAdapter(activity!!, recentCalls, fragment_list, fragment_fastscroller) {
+            RecentCallsAdapter(activity!!, recentCalls, activity, fragment_list, fragment_fastscroller) {
 
             }.apply {
                 addVerticalDividers(true)

@@ -91,11 +91,11 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     private fun askConfirmDelete() {
         ConfirmationDialog(activity) {
-            deleteContacts()
+            deleteGroups()
         }
     }
 
-    private fun deleteContacts() {
+    private fun deleteGroups() {
         if (selectedPositions.isEmpty()) {
             return
         }
