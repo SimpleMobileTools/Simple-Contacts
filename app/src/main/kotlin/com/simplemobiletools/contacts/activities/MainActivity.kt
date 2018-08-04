@@ -41,6 +41,10 @@ import kotlinx.android.synthetic.main.fragment_recents.*
 import java.io.FileOutputStream
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
+    // just some random constants
+    private val GET_ACCOUNTS_PERMISSION = 34
+    private val WRITE_CALL_LOG_PERMISSION = 34
+
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
     private var werePermissionsHandled = false
@@ -72,11 +76,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
                     // workaround for upgrading from version 3.x to 4.x as we added a new permission from an already granted permissions group
                     if (!hasPermission(PERMISSION_GET_ACCOUNTS)) {
-                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.GET_ACCOUNTS), 34)
+                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.GET_ACCOUNTS), GET_ACCOUNTS_PERMISSION)
                     }
 
                     if (!hasPermission(PERMISSION_WRITE_CALL_LOG)) {
-                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_CALL_LOG), 35)
+                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_CALL_LOG), WRITE_CALL_LOG_PERMISSION)
                     }
 
                     storeLocalAccountData()
