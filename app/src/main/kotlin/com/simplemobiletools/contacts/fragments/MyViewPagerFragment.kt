@@ -58,7 +58,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     fragment_placeholder.text = activity.getString(R.string.no_group_created)
                     fragment_placeholder_2.text = activity.getString(R.string.create_group)
                 }
-                this is RecentsFragment -> fragment_fab.beGone()
+                this is RecentsFragment -> {
+                    fragment_fab.beGone()
+                    fragment_placeholder_2.text = activity.getString(R.string.request_the_required_permissions)
+                }
             }
         }
     }

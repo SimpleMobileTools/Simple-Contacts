@@ -4,12 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
 import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.hasPermission
 import com.simplemobiletools.commons.extensions.isActivityDestroyed
+import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CALL_LOG
 import com.simplemobiletools.contacts.activities.EditContactActivity
 import com.simplemobiletools.contacts.adapters.RecentCallsAdapter
 import com.simplemobiletools.contacts.extensions.contactClicked
 import com.simplemobiletools.contacts.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
+import com.simplemobiletools.contacts.helpers.RECENTS_TAB_MASK
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.RecentCall
 import kotlinx.android.synthetic.main.fragment_layout.view.*
@@ -17,7 +20,13 @@ import kotlinx.android.synthetic.main.fragment_layout.view.*
 class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun fabClicked() {}
 
-    override fun placeholderClicked() {}
+    override fun placeholderClicked() {
+        activity!!.handlePermission(PERMISSION_WRITE_CALL_LOG) {
+            if (it) {
+                activity?.refreshContacts(RECENTS_TAB_MASK)
+            }
+        }
+    }
 
     fun updateRecentCalls(recentCalls: ArrayList<RecentCall>) {
         if (activity == null || activity!!.isActivityDestroyed()) {
@@ -25,6 +34,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
 
         fragment_placeholder.beVisibleIf(recentCalls.isEmpty())
+        fragment_placeholder_2.beVisibleIf(recentCalls.isEmpty() && !activity!!.hasPermission(PERMISSION_WRITE_CALL_LOG))
         fragment_list.beVisibleIf(recentCalls.isNotEmpty())
 
         val currAdapter = fragment_list.adapter
