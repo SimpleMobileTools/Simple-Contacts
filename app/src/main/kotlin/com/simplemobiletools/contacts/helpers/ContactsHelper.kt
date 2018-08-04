@@ -1332,12 +1332,13 @@ class ContactsHelper(val activity: Activity) {
                     CallLog.Calls.TYPE
             )
 
-            val sorting = "${CallLog.Calls._ID} DESC LIMIT 50"
+            val sorting = "${CallLog.Calls._ID} DESC LIMIT 100"
             val currentDate = Date(System.currentTimeMillis())
             val currentYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(currentDate)
             val todayDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(currentDate)
             val yesterdayDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(System.currentTimeMillis() - DAY_SECONDS * 1000))
             val yesterday = activity.getString(R.string.yesterday)
+            var prevNumber = ""
 
             var cursor: Cursor? = null
             try {
@@ -1349,6 +1350,9 @@ class ContactsHelper(val activity: Activity) {
                         val date = cursor.getLongValue(CallLog.Calls.DATE)
                         val name = cursor.getStringValue(CallLog.Calls.CACHED_NAME)
                         val type = cursor.getIntValue(CallLog.Calls.TYPE)
+                        if (number == prevNumber) {
+                            continue
+                        }
 
                         var formattedDate = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault()).format(Date(date))
                         val datePart = formattedDate.substring(0, 11)
@@ -1358,6 +1362,7 @@ class ContactsHelper(val activity: Activity) {
                             formattedDate.substring(7, 11) == currentYear -> formattedDate = formattedDate.substring(0, 6) + formattedDate.substring(11)
                         }
 
+                        prevNumber = number
                         val recentCall = RecentCall(id, number, formattedDate, name, type)
                         calls.add(recentCall)
                     } while (cursor.moveToNext())
