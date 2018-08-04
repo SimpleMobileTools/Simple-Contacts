@@ -2,6 +2,10 @@
 <resources>
 
     <!-- Release notes -->
+    <string name="release_27">
+        Allow customizing which tabs are visible\n
+        Added an optional call confirmation dialog
+    </string>
     <string name="release_16">
         Added name prefix/suffix and contact organizations\n
         Added a settings item \"Manage shown contact fields\" for customizing visible contact details, with some fields disabled by default
