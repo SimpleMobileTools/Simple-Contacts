@@ -45,8 +45,8 @@
             android:layout_below="@+id/recent_call_name"
             android:gravity="right"
             android:maxLines="1"
-            android:textSize="@dimen/bigger_text_size"
-            tools:text="Today, 17:00"/>
+            android:textSize="@dimen/normal_text_size"
+            tools:text="Yesterday, 17:00"/>
 
     </RelativeLayout>
 </FrameLayout>

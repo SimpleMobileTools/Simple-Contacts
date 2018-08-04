@@ -71,7 +71,7 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
             }
 
             recent_call_date_time.apply {
-                text = recentCall.date.toString()
+                text = recentCall.dateTime
                 setTextColor(textColor)
             }
         }
