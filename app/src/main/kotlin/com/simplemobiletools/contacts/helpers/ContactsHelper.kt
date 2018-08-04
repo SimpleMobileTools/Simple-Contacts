@@ -1328,8 +1328,7 @@ class ContactsHelper(val activity: Activity) {
                     CallLog.Calls._ID,
                     CallLog.Calls.NUMBER,
                     CallLog.Calls.DATE,
-                    CallLog.Calls.CACHED_NAME,
-                    CallLog.Calls.TYPE
+                    CallLog.Calls.CACHED_NAME
             )
 
             val sorting = "${CallLog.Calls._ID} DESC LIMIT 100"
@@ -1349,7 +1348,6 @@ class ContactsHelper(val activity: Activity) {
                         val number = cursor.getStringValue(CallLog.Calls.NUMBER)
                         val date = cursor.getLongValue(CallLog.Calls.DATE)
                         val name = cursor.getStringValue(CallLog.Calls.CACHED_NAME)
-                        val type = cursor.getIntValue(CallLog.Calls.TYPE)
                         if (number == prevNumber) {
                             continue
                         }
@@ -1363,7 +1361,7 @@ class ContactsHelper(val activity: Activity) {
                         }
 
                         prevNumber = number
-                        val recentCall = RecentCall(id, number, formattedDate, name, type)
+                        val recentCall = RecentCall(id, number, formattedDate, name)
                         calls.add(recentCall)
                     } while (cursor.moveToNext())
                 }
