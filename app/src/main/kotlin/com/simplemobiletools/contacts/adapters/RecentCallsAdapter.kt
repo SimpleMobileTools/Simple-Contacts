@@ -9,12 +9,14 @@ import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
+import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.models.RecentCall
 import kotlinx.android.synthetic.main.item_recent_call.view.*
 import java.util.*
 
 class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<RecentCall>, recyclerView: MyRecyclerView, fastScroller: FastScroller,
                          itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
+    val showPhoneNumbers = activity.config.showPhoneNumbers
 
     init {
         setupDragListener(true)
@@ -65,7 +67,7 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
             }
 
             recent_call_number.apply {
-                beVisibleIf(recentCall.name != null)
+                beVisibleIf(showPhoneNumbers && recentCall.name != null)
                 text = recentCall.number
                 setTextColor(textColor)
             }

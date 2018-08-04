@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recent_call_frame"
     android:layout_width="match_parent"
@@ -10,7 +11,7 @@
     android:focusable="true"
     android:foreground="@drawable/selector">
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/recent_call_holder"
         android:layout_width="match_parent"
         android:layout_height="@dimen/contact_item_height"
@@ -20,33 +21,42 @@
 
         <TextView
             android:id="@+id/recent_call_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
+            android:paddingRight="@dimen/activity_margin"
             android:textSize="@dimen/big_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/recent_call_number"
+            app:layout_constraintEnd_toStartOf="@+id/recent_call_date_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="John Doe"/>
 
         <TextView
             android:id="@+id/recent_call_number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recent_call_name"
-            android:layout_toLeftOf="@+id/recent_call_date_time"
             android:maxLines="1"
             android:textSize="@dimen/bigger_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/recent_call_date_time"
+            app:layout_constraintStart_toStartOf="parent"
             tools:text="0123 456 789"/>
 
         <TextView
             android:id="@+id/recent_call_date_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/recent_call_name"
-            android:gravity="right"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:maxLines="1"
             android:textSize="@dimen/normal_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteY="0dp"
             tools:text="Yesterday, 17:00"/>
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 </FrameLayout>
