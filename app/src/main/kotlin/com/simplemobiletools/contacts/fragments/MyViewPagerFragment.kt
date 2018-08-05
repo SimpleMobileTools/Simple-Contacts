@@ -15,6 +15,7 @@ import com.simplemobiletools.contacts.activities.MainActivity
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.adapters.GroupsAdapter
+import com.simplemobiletools.contacts.adapters.RecentCallsAdapter
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.contactClicked
 import com.simplemobiletools.contacts.extensions.getVisibleContactSources
@@ -67,10 +68,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun textColorChanged(color: Int) {
-        if (this is GroupsFragment) {
-            (fragment_list.adapter as GroupsAdapter).updateTextColor(color)
-        } else {
-            (fragment_list.adapter as ContactsAdapter).apply {
+        when {
+            this is GroupsFragment -> (fragment_list.adapter as GroupsAdapter).updateTextColor(color)
+            this is RecentsFragment -> (fragment_list.adapter as RecentCallsAdapter).updateTextColor(color)
+            else -> (fragment_list.adapter as ContactsAdapter).apply {
                 updateTextColor(color)
                 initDrawables()
             }
@@ -86,7 +87,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
-        if (this !is GroupsFragment) {
+        if (this !is GroupsFragment && this !is RecentsFragment) {
             (fragment_list.adapter as ContactsAdapter).apply {
                 config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
                 this@MyViewPagerFragment.activity!!.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
@@ -217,7 +218,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 showContactThumbnails = showThumbnails
                 notifyDataSetChanged()
             }
-        } else {
+        } else if (this !is RecentsFragment) {
             (fragment_list.adapter as? ContactsAdapter)?.apply {
                 showContactThumbnails = showThumbnails
                 notifyDataSetChanged()
