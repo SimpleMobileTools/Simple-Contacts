@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 4.2.1 *(2018-08-05)*
+----------------------------
+
+ * Added some stability and light theme UX fixes
+
 Version 4.2.0 *(2018-08-04)*
 ----------------------------
 
