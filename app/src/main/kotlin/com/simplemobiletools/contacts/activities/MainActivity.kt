@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -369,12 +370,16 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         invalidateOptionsMenu()
     }
 
-    private fun getTabIcon(position: Int) = resources.getDrawable(when (position) {
-        LOCATION_CONTACTS_TAB -> R.drawable.ic_person
-        LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on
-        LOCATION_RECENTS_TAB -> R.drawable.ic_clock
-        else -> R.drawable.ic_group
-    })
+    private fun getTabIcon(position: Int): Drawable {
+        val drawableId = when (position) {
+            LOCATION_CONTACTS_TAB -> R.drawable.ic_person
+            LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on
+            LOCATION_RECENTS_TAB -> R.drawable.ic_clock
+            else -> R.drawable.ic_group
+        }
+
+        return resources.getColoredDrawableWithColor(drawableId, config.textColor)
+    }
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
