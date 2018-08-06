@@ -13,8 +13,8 @@
     <string name="send_email_to_contacts">Kontaktlara e-poçt göndər</string>
     <string name="send_sms_to_group">Grupa SMS göndər</string>
     <string name="send_email_to_group">Grupa e-poçt göndər</string>
-    <string name="call_person">Call %s</string>
-    <string name="request_the_required_permissions">Request the required permissions</string>
+    <string name="call_person">%s şəxsinə zng et</string>
+    <string name="request_the_required_permissions">Lazım olan icazələri istə</string>
 
     <string name="new_contact">Yeni kontakt</string>
     <string name="edit_contact">Redaktə et</string>
@@ -49,11 +49,11 @@
     <string name="view_contact">Kontakt detallarına bax</string>
     <string name="manage_shown_contact_fields">Göstərilən kontakt sahəsini idarə et</string>
     <string name="filter_duplicates">Təkrarlanmış kontaktları filtrləməyə çalış</string>
-    <string name="manage_shown_tabs">Manage shown tabs</string>
-    <string name="contacts">Contacts</string>
-    <string name="favorites">Favorites</string>
-    <string name="recent_calls">Recent calls</string>
-    <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
+    <string name="manage_shown_tabs">Göstərilən nişanları idarə et</string>
+    <string name="contacts">Kontaktlar</string>
+    <string name="favorites">Sevimlilər</string>
+    <string name="recent_calls">Hazırki zənglər</string>
+    <string name="show_call_confirmation_dialog">Zəngə başlamazdan əvvəl zəng təsdiq pəncərəsi göstər</string>
 
     <!-- Emails -->
     <string name="email">E-poçt</string>
@@ -76,7 +76,7 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Görünür, hələlik heçbir sevimli kontakt əlavə etməmisiniz.</string>
-    <string name="add_favorites">Sevimlilər əlavlə et</string>
+    <string name="add_favorites">Sevimlilər əlavə et</string>
     <string name="add_to_favorites">Sevimlilərə əlavə et</string>
     <string name="remove_from_favorites">Sevimlilərdən sil</string>
     <string name="must_be_at_edit">Kontaktı dəyişmək üçün İdarə et ekranında olmalısınız</string>
@@ -104,7 +104,7 @@
     <string name="events">Hadisələr (ad günləri, il dönümləri)</string>
     <string name="notes">Qeydlər</string>
     <string name="organization">Təşkilat</string>
-    <string name="websites">Vebsayatlar</string>
+    <string name="websites">Vebsaytlar</string>
     <string name="groups">Qruplar </string>
     <string name="contact_source">Kontakt kökü</string>
 
