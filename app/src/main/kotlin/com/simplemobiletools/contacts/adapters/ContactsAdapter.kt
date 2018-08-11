@@ -160,7 +160,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             finishActMode()
         } else {
             removeSelectedItems()
-            refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
+            refreshListener?.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
         }
     }
 

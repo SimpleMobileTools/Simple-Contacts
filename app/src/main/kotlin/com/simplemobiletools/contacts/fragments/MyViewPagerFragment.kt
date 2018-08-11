@@ -138,6 +138,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         } else if (this !is RecentsFragment) {
             setupContactsFavoritesAdapter(contacts)
         }
+
+        if (this is ContactsFragment || this is FavoritesFragment) {
+            contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
+        }
     }
 
     private fun setupGroupsAdapter(contacts: ArrayList<Contact>) {
