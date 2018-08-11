@@ -282,7 +282,7 @@ class VcfImporter(val activity: SimpleActivity) {
         if (website.startsWith(";")) {
             curWebsites.add(website.substringAfter(":"))
         } else {
-            curWebsites.add(website)
+            curWebsites.add(website.trimStart(':'))
         }
     }
 
