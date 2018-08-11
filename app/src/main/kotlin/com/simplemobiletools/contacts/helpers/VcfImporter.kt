@@ -47,6 +47,10 @@ class VcfImporter(val activity: SimpleActivity) {
     private var isGettingNotes = false
     private var currentNotesSB = StringBuilder()
 
+    private var isGettingCompany = false
+    private var currentCompanyIsANSI = false
+    private var currentCompany = StringBuilder()
+
     private var contactsImported = 0
     private var contactsFailed = 0
 
@@ -60,9 +64,9 @@ class VcfImporter(val activity: SimpleActivity) {
 
             inputStream.bufferedReader().use {
                 while (true) {
-                    var line = it.readLine() ?: break
-                    line = line.trim()
-                    if (line.trim().isEmpty()) {
+                    val originalLine = it.readLine() ?: break
+                    val line = originalLine.trim()
+                    if (line.isEmpty()) {
                         if (isGettingPhoto) {
                             savePhoto()
                             isGettingPhoto = false
@@ -73,12 +77,16 @@ class VcfImporter(val activity: SimpleActivity) {
                         isGettingName = false
                         parseNames()
                     } else if (isGettingNotes) {
-                        if (line.startsWith(' ')) {
+                        if (originalLine.startsWith(' ')) {
                             currentNotesSB.append(line.substring(1))
                         } else {
                             curNotes = currentNotesSB.toString().replace("\\n", "\n").replace("\\,", ",")
                             isGettingNotes = false
                         }
+                    } else if (isGettingCompany && currentCompanyIsANSI && line.startsWith("=")) {
+                        currentCompany.append(line)
+                        curCompany = QuotedPrintable.decode(currentCompany.toString().replace("==", "="))
+                        continue
                     }
 
                     when {
@@ -273,6 +281,10 @@ class VcfImporter(val activity: SimpleActivity) {
         } else {
             company.trimStart(':')
         }
+
+        currentCompanyIsANSI = company.toUpperCase().contains("QUOTED-PRINTABLE")
+        currentCompany.append(curCompany)
+        isGettingCompany = true
     }
 
     private fun addJobPosition(jobPosition: String) {
@@ -328,5 +340,9 @@ class VcfImporter(val activity: SimpleActivity) {
 
         isGettingNotes = false
         currentNotesSB = StringBuilder()
+
+        isGettingCompany = false
+        currentCompanyIsANSI = false
+        currentCompany = StringBuilder()
     }
 }
