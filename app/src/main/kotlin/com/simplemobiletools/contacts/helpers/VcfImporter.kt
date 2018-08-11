@@ -196,12 +196,17 @@ class VcfImporter(val activity: SimpleActivity) {
         val type = getAddressTypeId(rawType.toUpperCase())
         val addresses = addressParts[1].split(";")
         if (addresses.size == 7) {
-            if (address.contains(";CHARSET=UTF-8:")) {
-                val fullAddress = TextUtils.join(", ", addresses.filter { it.trim().isNotEmpty() })
-                curAddresses.add(Address(fullAddress, type))
+            var parsedAddress = if (address.contains(";CHARSET=UTF-8:")) {
+                TextUtils.join(", ", addresses.filter { it.trim().isNotEmpty() })
             } else {
-                curAddresses.add(Address(addresses[2].replace("\\n", "\n"), type))
+                addresses[2].replace("\\n", "\n")
             }
+
+            if (address.contains("QUOTED-PRINTABLE")) {
+                parsedAddress = QuotedPrintable.decode(parsedAddress)
+            }
+
+            curAddresses.add(Address(parsedAddress, type))
         }
     }
 
