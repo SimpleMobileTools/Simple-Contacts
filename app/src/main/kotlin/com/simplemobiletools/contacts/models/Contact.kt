@@ -5,6 +5,7 @@ import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
+import java.text.Normalizer
 
 data class Contact(val id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var photoUri: String,
                    var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>, var events: ArrayList<Event>,
@@ -13,6 +14,7 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
     companion object {
         var sorting = 0
         var startWithSurname = false
+        val regex = "\\p{InCombiningDiacriticalMarks}+".toRegex()
     }
 
     override fun compareTo(other: Contact): Int {
@@ -21,25 +23,25 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
 
         when {
             sorting and SORT_BY_FIRST_NAME != 0 -> {
-                firstString = firstName
-                secondString = other.firstName
+                firstString = normalizeString(firstName)
+                secondString = normalizeString(other.firstName)
             }
             sorting and SORT_BY_MIDDLE_NAME != 0 -> {
-                firstString = middleName
-                secondString = other.middleName
+                firstString = normalizeString(middleName)
+                secondString = normalizeString(other.middleName)
             }
             else -> {
-                firstString = surname
-                secondString = other.surname
+                firstString = normalizeString(surname)
+                secondString = normalizeString(other.surname)
             }
         }
 
         if (firstString.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && organization.company.isNotEmpty()) {
-            firstString = organization.company
+            firstString = normalizeString(organization.company)
         }
 
         if (secondString.isEmpty() && other.firstName.isEmpty() && other.middleName.isEmpty() && other.surname.isEmpty() && other.organization.company.isNotEmpty()) {
-            secondString = other.organization.company
+            secondString = normalizeString(other.organization.company)
         }
 
         var result = if (firstString.firstOrNull()?.isLetter() == true && secondString.firstOrNull()?.isLetter() == false) {
@@ -66,6 +68,8 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
 
         return result
     }
+
+    private fun normalizeString(string: String) = Normalizer.normalize(string, Normalizer.Form.NFD).replace(regex, "")
 
     fun getBubbleText() = when {
         sorting and SORT_BY_FIRST_NAME != 0 -> firstName
