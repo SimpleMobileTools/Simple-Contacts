@@ -178,6 +178,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         val currentFragment = getCurrentFragment()
+
         menu.apply {
             findItem(R.id.search).isVisible = currentFragment != groups_fragment && currentFragment != recents_fragment
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment && currentFragment != recents_fragment
@@ -363,11 +364,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         main_tabs_holder.onGlobalLayout {
             Handler().postDelayed({
                 main_tabs_holder.getTabAt(config.lastUsedViewPagerPage)?.select()
+                invalidateOptionsMenu()
             }, 100L)
         }
 
         main_tabs_holder.beVisibleIf(skippedTabs < 3)
-        invalidateOptionsMenu()
     }
 
     private fun getTabIcon(position: Int): Drawable {
