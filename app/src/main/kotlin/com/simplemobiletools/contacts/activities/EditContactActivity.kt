@@ -279,6 +279,7 @@ class EditContactActivity : ContactActivity() {
         contact_middle_name.beVisibleIf(showFields and SHOW_MIDDLE_NAME_FIELD != 0)
         contact_surname.beVisibleIf(showFields and SHOW_SURNAME_FIELD != 0)
         contact_suffix.beVisibleIf(showFields and SHOW_SUFFIX_FIELD != 0)
+        contact_nickname.beVisibleIf(showFields and SHOW_NICKNAME_FIELD != 0)
 
         contact_source.beVisibleIf(showFields and SHOW_CONTACT_SOURCE_FIELD != 0)
         contact_source_image.beVisibleIf(showFields and SHOW_CONTACT_SOURCE_FIELD != 0)
@@ -346,6 +347,7 @@ class EditContactActivity : ContactActivity() {
             contact_middle_name.setText(middleName)
             contact_surname.setText(surname)
             contact_suffix.setText(suffix)
+            contact_nickname.setText(nickname)
         }
     }
 
@@ -715,6 +717,7 @@ class EditContactActivity : ContactActivity() {
             middleName = contact_middle_name.value
             surname = contact_surname.value
             suffix = contact_suffix.value
+            nickname = contact_nickname.value
             photoUri = currentContactPhotoPath
             phoneNumbers = getFilledPhoneNumbers()
             emails = getFilledEmails()

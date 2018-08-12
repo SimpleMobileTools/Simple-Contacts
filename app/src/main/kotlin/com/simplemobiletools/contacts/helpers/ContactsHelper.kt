@@ -825,6 +825,22 @@ class ContactsHelper(val activity: Activity) {
                 operations.add(build())
             }
 
+            // delete nickname
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), Nickname.CONTENT_ITEM_TYPE)
+                withSelection(selection, selectionArgs)
+                operations.add(build())
+            }
+
+            // add nickname
+            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
+                withValue(ContactsContract.Data.MIMETYPE, Nickname.CONTENT_ITEM_TYPE)
+                withValue(Nickname.NAME, contact.nickname)
+                operations.add(build())
+            }
+
             // delete phone numbers
             ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
                 val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
@@ -1086,6 +1102,14 @@ class ContactsHelper(val activity: Activity) {
                 withValue(CommonDataKinds.StructuredName.MIDDLE_NAME, contact.middleName)
                 withValue(CommonDataKinds.StructuredName.FAMILY_NAME, contact.surname)
                 withValue(CommonDataKinds.StructuredName.SUFFIX, contact.suffix)
+                operations.add(build())
+            }
+
+            // nickname
+            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                withValue(ContactsContract.Data.MIMETYPE, Nickname.CONTENT_ITEM_TYPE)
+                withValue(Nickname.NAME, contact.nickname)
                 operations.add(build())
             }
 
