@@ -917,20 +917,34 @@ class ContactsHelper(val activity: Activity) {
                 }
             }
 
-            // notes
-            ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
+            // delete notes
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
                 val selectionArgs = arrayOf(contact.id.toString(), Note.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
+                operations.add(build())
+            }
+
+            // add notes
+            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
+                withValue(ContactsContract.Data.MIMETYPE, Note.CONTENT_ITEM_TYPE)
                 withValue(Note.NOTE, contact.notes)
                 operations.add(build())
             }
 
-            // organization
-            ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
+            // delete organization
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
                 val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
+                operations.add(build())
+            }
+
+            // add organization
+            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
+                withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
                 withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
                 withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
