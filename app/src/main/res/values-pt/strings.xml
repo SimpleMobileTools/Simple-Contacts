@@ -13,7 +13,7 @@
     <string name="send_email_to_contacts">Enviar e-mail aos contactos</string>
     <string name="send_sms_to_group">Enviar SMS para o grupo</string>
     <string name="send_email_to_group">Enviar e-mail para o grupo</string>
-    <string name="call_person">Call %s</string>
+    <string name="call_person">Ligar a %s</string>
     <string name="request_the_required_permissions">Request the required permissions</string>
 
     <string name="new_contact">Novo contacto</string>
@@ -23,7 +23,7 @@
     <string name="first_name">Primeiro nome</string>
     <string name="middle_name">Segundo nome</string>
     <string name="surname">Apelido</string>
-    <string name="nickname">Nickname</string>
+    <string name="nickname">Alcunha</string>
 
     <!-- Groups -->
     <string name="no_groups">Não há grupos</string>
@@ -51,10 +51,10 @@
     <string name="manage_shown_contact_fields">Gerir campos a exibir</string>
     <string name="filter_duplicates">Tentar filtrar contactos duplicados</string>
     <string name="manage_shown_tabs">Manage shown tabs</string>
-    <string name="contacts">Contacts</string>
-    <string name="favorites">Favorites</string>
-    <string name="recent_calls">Recent calls</string>
-    <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
+    <string name="contacts">Contactos</string>
+    <string name="favorites">Favoritos</string>
+    <string name="recent_calls">Chamadas recentes</string>
+    <string name="show_call_confirmation_dialog">Mostrar diálogo para confirmar a chamada</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>
