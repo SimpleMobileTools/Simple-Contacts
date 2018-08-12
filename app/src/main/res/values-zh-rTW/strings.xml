@@ -23,6 +23,7 @@
     <string name="first_name">名字</string>
     <string name="middle_name">中間名</string>
     <string name="surname">姓氏</string>
+    <string name="nickname">Nickname</string>
 
     <!-- Groups -->
     <string name="no_groups">沒有群組</string>

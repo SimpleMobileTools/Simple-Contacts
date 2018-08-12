@@ -23,6 +23,7 @@
     <string name="first_name">이름</string>
     <string name="middle_name">중간 이름</string>
     <string name="surname">성</string>
+    <string name="nickname">Nickname</string>
 
     <!-- Groups -->
     <string name="no_groups">No groups</string>

@@ -23,6 +23,7 @@
     <string name="first_name">Ad</string>
     <string name="middle_name">Orta Ad</string>
     <string name="surname">Soyad</string>
+    <string name="nickname">Nickname</string>
 
     <!-- Groups -->
     <string name="no_groups">Qruplar yoxdur</string>

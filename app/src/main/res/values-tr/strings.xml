@@ -23,6 +23,7 @@
     <string name="first_name">Adı</string>
     <string name="middle_name">Göbek adı</string>
     <string name="surname">Soyadı</string>
+    <string name="nickname">Nickname</string>
 
     <!-- Groups -->
     <string name="no_groups">Grup yok</string>

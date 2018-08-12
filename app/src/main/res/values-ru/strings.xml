@@ -23,6 +23,7 @@
     <string name="first_name">Имя</string>
     <string name="middle_name">Отчество</string>
     <string name="surname">Фамилия</string>
+    <string name="nickname">Nickname</string>
 
     <!-- Groups -->
     <string name="no_groups">Нет групп</string>

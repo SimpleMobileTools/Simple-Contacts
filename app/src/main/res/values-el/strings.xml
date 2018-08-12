@@ -23,6 +23,7 @@
     <string name="first_name">Όνομα</string>
     <string name="middle_name">Μεσαίο όνομα</string>
     <string name="surname">Επώνυμο</string>
+    <string name="nickname">Nickname</string>
 
     <!-- Groups -->
     <string name="no_groups">Δεν υπάρχουν ομάδες</string>

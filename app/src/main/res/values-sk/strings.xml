@@ -23,6 +23,7 @@
     <string name="first_name">Krstné meno</string>
     <string name="middle_name">Stredné meno</string>
     <string name="surname">Priezvisko</string>
+    <string name="nickname">Prezývka</string>
 
     <!-- Groups -->
     <string name="no_groups">Žiadne skupiny</string>

@@ -23,6 +23,7 @@
     <string name="first_name">Vorname</string>
     <string name="middle_name">Zweiter Vorname</string>
     <string name="surname">Nachname</string>
+    <string name="nickname">Nickname</string>
 
     <!-- Groups -->
     <string name="no_groups">Keine Gruppen</string>

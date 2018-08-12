@@ -23,6 +23,7 @@
     <string name="first_name">Vardas</string>
     <string name="middle_name">Antras vardas</string>
     <string name="surname">Pavardė</string>
+    <string name="nickname">Nickname</string>
 
     <!-- Groups -->
     <string name="no_groups">Nėra grupių</string>

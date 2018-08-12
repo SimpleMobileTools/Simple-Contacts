@@ -23,6 +23,7 @@
     <string name="first_name">Förnamn</string>
     <string name="middle_name">Mellannamn</string>
     <string name="surname">Efternamn</string>
+    <string name="nickname">Nickname</string>
 
     <!-- Groups -->
     <string name="no_groups">Inga grupper</string>
