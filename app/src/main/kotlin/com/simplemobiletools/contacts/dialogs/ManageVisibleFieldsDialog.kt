@@ -19,6 +19,7 @@ class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity) {
             put(SHOW_MIDDLE_NAME_FIELD, R.id.manage_visible_fields_middle_name)
             put(SHOW_SURNAME_FIELD, R.id.manage_visible_fields_surname)
             put(SHOW_SUFFIX_FIELD, R.id.manage_visible_fields_suffix)
+            put(SHOW_NICKNAME_FIELD, R.id.manage_visible_fields_nickname)
             put(SHOW_PHONE_NUMBERS_FIELD, R.id.manage_visible_fields_phone_numbers)
             put(SHOW_EMAILS_FIELD, R.id.manage_visible_fields_emails)
             put(SHOW_ADDRESSES_FIELD, R.id.manage_visible_fields_addresses)

@@ -55,6 +55,14 @@
             android:text="@string/suffix"/>
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/nickname"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_phone_numbers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
