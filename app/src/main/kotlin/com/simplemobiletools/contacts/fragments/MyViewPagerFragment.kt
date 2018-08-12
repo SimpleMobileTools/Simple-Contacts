@@ -186,10 +186,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     private fun setupContactsFavoritesAdapter(contacts: ArrayList<Contact>) {
-        fragment_placeholder_2.beVisibleIf(contacts.isEmpty())
-        fragment_placeholder.beVisibleIf(contacts.isEmpty())
-        fragment_list.beVisibleIf(contacts.isNotEmpty())
-
+        setupViewVisibility(contacts)
         val currAdapter = fragment_list.adapter
         if (currAdapter == null || forceListRedraw) {
             forceListRedraw = false
@@ -271,6 +268,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun onSearchClosed() {
         (fragment_list.adapter as? ContactsAdapter)?.updateItems(contactsIgnoringSearch)
+        setupViewVisibility(contactsIgnoringSearch)
+
         if (this is FavoritesFragment) {
             fragment_placeholder.text = activity?.getString(R.string.no_favorites)
         }
@@ -281,6 +280,12 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         fragment_fastscroller.updateBubbleColors()
         fragment_fastscroller.allowBubbleDisplay = config.showInfoBubble
         fragment_placeholder_2.setTextColor(context.getAdjustedPrimaryColor())
+    }
+
+    private fun setupViewVisibility(contacts: ArrayList<Contact>) {
+        fragment_placeholder_2.beVisibleIf(contacts.isEmpty())
+        fragment_placeholder.beVisibleIf(contacts.isEmpty())
+        fragment_list.beVisibleIf(contacts.isNotEmpty())
     }
 
     abstract fun fabClicked()
