@@ -11,6 +11,7 @@ import android.net.Uri
 import android.provider.CallLog
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
+import android.provider.ContactsContract.CommonDataKinds.Nickname
 import android.provider.ContactsContract.CommonDataKinds.Note
 import android.provider.MediaStore
 import android.text.TextUtils
@@ -112,6 +113,7 @@ class ContactsHelper(val activity: Activity) {
                     val middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
                     val surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
                     val suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
+                    val nickname = ""
                     val photoUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
                     val number = ArrayList<PhoneNumber>()       // proper value is obtained below
                     val emails = ArrayList<Email>()
@@ -125,8 +127,8 @@ class ContactsHelper(val activity: Activity) {
                     val groups = ArrayList<Group>()
                     val organization = Organization("", "")
                     val websites = ArrayList<String>()
-                    val contact = Contact(id, prefix, firstName, middleName, surname, suffix, photoUri, number, emails, addresses, events,
-                            accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites)
+                    val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses,
+                            events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites)
 
                     contacts.put(id, contact)
                 } while (cursor.moveToNext())
@@ -142,6 +144,13 @@ class ContactsHelper(val activity: Activity) {
         for (i in 0 until size) {
             val key = phoneNumbers.keyAt(i)
             contacts[key]?.phoneNumbers = phoneNumbers.valueAt(i)
+        }
+
+        val nicknames = getNicknames()
+        size = nicknames.size()
+        for (i in 0 until size) {
+            val key = nicknames.keyAt(i)
+            contacts[key]?.nickname = nicknames.valueAt(i)
         }
 
         val emails = getEmails()
@@ -223,6 +232,36 @@ class ContactsHelper(val activity: Activity) {
         }
 
         return phoneNumbers
+    }
+
+    private fun getNicknames(contactId: Int? = null): SparseArray<String> {
+        val nicknames = SparseArray<String>()
+        val uri = ContactsContract.Data.CONTENT_URI
+        val projection = arrayOf(
+                ContactsContract.Data.RAW_CONTACT_ID,
+                Nickname.NAME
+        )
+
+        val selection = getSourcesSelection(true, contactId != null)
+        val selectionArgs = getSourcesSelectionArgs(Nickname.CONTENT_ITEM_TYPE, contactId)
+
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                do {
+                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
+                    val nickname = cursor.getStringValue(Nickname.NAME) ?: continue
+                    nicknames.put(id, nickname)
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        } finally {
+            cursor?.close()
+        }
+
+        return nicknames
     }
 
     private fun getEmails(contactId: Int? = null): SparseArray<ArrayList<Email>> {
@@ -353,7 +392,7 @@ class ContactsHelper(val activity: Activity) {
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val note = cursor.getStringValue(CommonDataKinds.Note.NOTE) ?: continue
+                    val note = cursor.getStringValue(Note.NOTE) ?: continue
                     notes.put(id, note)
                 } while (cursor.moveToNext())
             }
@@ -654,6 +693,7 @@ class ContactsHelper(val activity: Activity) {
                 val middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
                 val surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
                 val suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
+                val nickname = getNicknames(id)[id] ?: ""
                 val photoUri = cursor.getStringValue(CommonDataKinds.Phone.PHOTO_URI) ?: ""
                 val number = getPhoneNumbers(id)[id] ?: ArrayList()
                 val emails = getEmails(id)[id] ?: ArrayList()
@@ -667,8 +707,8 @@ class ContactsHelper(val activity: Activity) {
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
                 val organization = getOrganizations(id)[id] ?: Organization("", "")
                 val websites = getWebsites(id)[id] ?: ArrayList()
-                return Contact(id, prefix, firstName, middleName, surname, suffix, photoUri, number, emails, addresses, events, accountName,
-                        starred, contactId, thumbnailUri, null, notes, groups, organization, websites)
+                return Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
+                        accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites)
             }
         } finally {
             cursor?.close()
