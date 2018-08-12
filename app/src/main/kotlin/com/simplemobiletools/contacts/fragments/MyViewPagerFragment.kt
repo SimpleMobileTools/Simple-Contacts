@@ -236,31 +236,34 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun onSearchQueryChanged(text: String) {
+        val shouldNormalize = text.normalizeString() == text
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             val filtered = contactsIgnoringSearch.filter {
-                it.getFullName().contains(text, true) ||
+                getProperText(it.getFullName(), shouldNormalize).contains(text, true) ||
                         it.phoneNumbers.any { it.value.contains(text, true) } ||
                         it.emails.any { it.value.contains(text, true) } ||
-                        it.addresses.any { it.value.contains(text, true) } ||
-                        it.notes.contains(text, true) ||
-                        it.organization.company.contains(text, true) ||
-                        it.organization.jobPosition.contains(text, true) ||
+                        it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
+                        getProperText(it.notes, shouldNormalize).contains(text, true) ||
+                        getProperText(it.organization.company, shouldNormalize).contains(text, true) ||
+                        getProperText(it.organization.jobPosition, shouldNormalize).contains(text, true) ||
                         it.websites.any { it.contains(text, true) }
             } as ArrayList
 
             Contact.sorting = config.sorting
             Contact.startWithSurname = config.startNameWithSurname
             filtered.sort()
-            filtered.sortBy { !it.getFullName().startsWith(text, true) }
+            filtered.sortBy { !getProperText(it.getFullName(), shouldNormalize).startsWith(text, true) }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
                 fragment_placeholder.text = activity.getString(R.string.no_items_found)
             }
 
             fragment_placeholder.beVisibleIf(filtered.isEmpty())
-            updateItems(filtered, text)
+            updateItems(filtered, text.normalizeString())
         }
     }
+
+    private fun getProperText(text: String, shouldNormalize: Boolean) = if (shouldNormalize) text.normalizeString() else text
 
     fun onSearchOpened() {
         contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()

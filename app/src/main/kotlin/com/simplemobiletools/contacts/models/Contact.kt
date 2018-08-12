@@ -1,10 +1,10 @@
 package com.simplemobiletools.contacts.models
 
 import android.graphics.Bitmap
+import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
-import com.simplemobiletools.contacts.extensions.normalizeString
 import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
 
 data class Contact(val id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var photoUri: String,

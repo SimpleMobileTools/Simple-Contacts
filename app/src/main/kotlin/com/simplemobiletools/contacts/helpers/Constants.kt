@@ -122,5 +122,3 @@ val localAccountTypes = arrayListOf("vnd.sec.contact.phone",
         "com.android.huawei.phone",
         "Local Phone Account"
 )
-
-val normalizeRegex = "\\p{InCombiningDiacriticalMarks}+".toRegex()
