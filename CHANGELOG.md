@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 4.2.2 *(2018-08-13)*
+----------------------------
+
+ * Added an optional Nickname field
+ * Improved searching and sorting UTF8 characters
+ * Fixed updating Notes and Organization fields
+
 Version 4.2.1 *(2018-08-05)*
 ----------------------------
 
