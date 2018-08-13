@@ -42,6 +42,10 @@ class VcfExporter {
                         out.writeLn(VERSION_2_1)
                         out.writeLn("$N${getNames(contact)}")
 
+                        if (contact.nickname.isNotEmpty()) {
+                            out.writeLn("$NICKNAME:${contact.nickname}")
+                        }
+
                         contact.phoneNumbers.forEach {
                             out.writeLn("$TEL;${getPhoneNumberLabel(it.type)}:${it.value}")
                         }

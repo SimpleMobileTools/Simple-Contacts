@@ -93,7 +93,7 @@ class VcfImporter(val activity: SimpleActivity) {
                     when {
                         line.toUpperCase() == BEGIN_VCARD -> resetValues()
                         line.toUpperCase().startsWith(NOTE) -> addNotes(line.substring(NOTE.length))
-                        line.toUpperCase().startsWith(NICKNAME) -> { }
+                        line.toUpperCase().startsWith(NICKNAME) -> addNickname(line.substring(NICKNAME.length))
                         line.toUpperCase().startsWith(N) -> addNames(line.substring(N.length))
                         line.toUpperCase().startsWith(TEL) -> addPhoneNumber(line.substring(TEL.length))
                         line.toUpperCase().startsWith(EMAIL) -> addEmail(line.substring(EMAIL.length))
@@ -145,6 +145,14 @@ class VcfImporter(val activity: SimpleActivity) {
             curMiddleName = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[2]) else nameParts[2]
             curPrefix = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[3]) else nameParts[3]
             curSuffix = if (currentNameIsANSI) QuotedPrintable.decode(nameParts[4]) else nameParts[4]
+        }
+    }
+
+    private fun addNickname(nickname: String) {
+        curNickname = if (nickname.startsWith(";CHARSET", true)) {
+            nickname.substringAfter(":")
+        } else {
+            nickname.substring(1)
         }
     }
 
