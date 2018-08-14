@@ -6,15 +6,15 @@
     <string name="updating">Ενημέρωση…</string>
     <string name="phone_storage">Μνήμη τηλεφώνου</string>
     <string name="phone_storage_hidden">Μνήμη τηλεφώνου (δεν είναι ορατή από άλλες εφαρμογές)</string>
-    <string name="company">Company</string>
-    <string name="job_position">Job position</string>
-    <string name="website">Website</string>
-    <string name="send_sms_to_contacts">Send SMS to contacts</string>
-    <string name="send_email_to_contacts">Send email to contacts</string>
-    <string name="send_sms_to_group">Send SMS to group</string>
-    <string name="send_email_to_group">Send email to group</string>
-    <string name="call_person">Call %s</string>
-    <string name="request_the_required_permissions">Request the required permissions</string>
+    <string name="company">Εταιρεία</string>
+    <string name="job_position">Θέση Εργασίας</string>
+    <string name="website">Ιστοσελίδα</string>
+    <string name="send_sms_to_contacts">Αποστολή SMS σε επαφές</string>
+    <string name="send_email_to_contacts">Αποστολή email σε επαφές</string>
+    <string name="send_sms_to_group">Αποστολή SMS σε ομάδες</string>
+    <string name="send_email_to_group">Αποστολή email σε ομάδες</string>
+    <string name="call_person">Κλήση %s</string>
+    <string name="request_the_required_permissions">Ζητήστε τα απαιτούμενα δικαιώματα</string>
 
     <string name="new_contact">Νέα επαφή</string>
     <string name="edit_contact">Επεξεργασία επαφής</string>
@@ -23,7 +23,7 @@
     <string name="first_name">Όνομα</string>
     <string name="middle_name">Μεσαίο όνομα</string>
     <string name="surname">Επώνυμο</string>
-    <string name="nickname">Nickname</string>
+    <string name="nickname">Ψευδώνυμο</string>
 
     <!-- Groups -->
     <string name="no_groups">Δεν υπάρχουν ομάδες</string>
@@ -34,7 +34,7 @@
     <string name="no_group_created">Δεν υπάρχουν ομάδες επαφών στη συσκευή</string>
     <string name="create_group">Δημιουργία ομάδας</string>
     <string name="add_to_group">Προσθήκη σε ομάδα</string>
-    <string name="create_group_under_account">Δημιουργία ομάδας κάτω από λογαριασμό</string>
+    <string name="create_group_under_account">Δημιουργία ομάδας υπο ενός λογαριασμού</string>
 
     <!-- Photo -->
     <string name="take_photo">Λήψη φωτογραφίας</string>
@@ -42,23 +42,23 @@
     <string name="remove_photo">Αφαίρεση φωτογραφίας</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Το όνομα ξεκινά με το επώνυμο</string>
+    <string name="start_name_with_surname">Εμφάνιση πρώτα το επώνυμο</string>
     <string name="show_phone_numbers">Εμφάνιση τηλεφωνικών αριθμών στην κύρια οθόνη</string>
     <string name="show_contact_thumbnails">Εμφάνιση μικρογραφιών επαφής</string>
     <string name="on_contact_click">Στην επιλογή επαφής</string>
     <string name="call_contact">Κλήση επαφής</string>
     <string name="view_contact">Εμφάνιση λεπτομερειών επαφής</string>
-    <string name="manage_shown_contact_fields">Manage shown contact fields</string>
-    <string name="filter_duplicates">Try filtering out duplicate contacts</string>
-    <string name="manage_shown_tabs">Manage shown tabs</string>
-    <string name="contacts">Contacts</string>
-    <string name="favorites">Favorites</string>
-    <string name="recent_calls">Recent calls</string>
-    <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
+    <string name="manage_shown_contact_fields">Διαχείρηση εμφανιζόμενων πεδίων επαφής</string>
+    <string name="filter_duplicates">Δοκιμάστε το φιλτράρισμα διπλών επαφών</string>
+    <string name="manage_shown_tabs">Διαχείριση εμφανιζόμενων καρτελών</string>
+    <string name="contacts">Επαφές</string>
+    <string name="favorites">Αγαπημένες</string>
+    <string name="recent_calls">Πρόσφατες Κλήσεις</string>
+    <string name="show_call_confirmation_dialog">Εμφάνιση διαλόγου επιβεβαίωσης πριν από την έναρξη μιας κλήσης</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
-    <string name="home">Σπίτι</string>
+    <string name="home">Οικία</string>
     <string name="work">Εργασία</string>
     <string name="other">Άλλο</string>
 
@@ -66,8 +66,8 @@
     <string name="number">Αριθμός</string>
     <string name="mobile">Κινητό</string>
     <string name="main_number">Κύριο</string>
-    <string name="work_fax">Φαξ εργασίας</string>
-    <string name="home_fax">Φαξ σπιτιού</string>
+    <string name="work_fax">Φαξ Εργασίας</string>
+    <string name="home_fax">Φαξ Οικίας</string>
     <string name="pager">Βομβητής</string>
     <string name="no_phone_number_found">Δεν βρέθηκε τηλεφωνικός αριθμός</string>
 
@@ -76,11 +76,11 @@
     <string name="anniversary">Επέτειος</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Φαίνεται ότι δεν έχεις προσθέσει αγαπημένες επαφές ακόμα.</string>
+    <string name="no_favorites">Φαίνεται ότι δεν έχετε προσθέσει αγαπημένες επαφές ακόμη.</string>
     <string name="add_favorites">Προσθήκη αγαπημένων</string>
-    <string name="add_to_favorites">Προσθήκη στα αγαπημένα</string>
+    <string name="add_to_favorites">Προσθήκη στις αγαπημένες</string>
     <string name="remove_from_favorites">Αφαίρεση από τα αγαπημένα</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
+    <string name="must_be_at_edit">Πρέπει να είστε στην οθόνη "Επεξεργασία" για να τροποποιήσετε μια επαφή</string>
 
     <!-- Search -->
     <string name="search_contacts">Αναζήτηση επαφών</string>
@@ -96,34 +96,34 @@
     <string name="filename_without_vcf">Όνομα αρχείου (χωρίς .vcf)</string>
 
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Select fields to show</string>
-    <string name="prefix">Prefix</string>
-    <string name="suffix">Suffix</string>
-    <string name="phone_numbers">Phone numbers</string>
+    <string name="select_fields_to_show">Επιλογή εμφάνισης πεδίων</string>
+    <string name="prefix">Πρόθεμα</string>
+    <string name="suffix">Κατάληξη</string>
+    <string name="phone_numbers">Αριθμοί Τηλεφώνων</string>
     <string name="emails">Emails</string>
-    <string name="addresses">Addresses</string>
-    <string name="events">Events (birthdays, anniversaries)</string>
-    <string name="notes">Notes</string>
-    <string name="organization">Organization</string>
-    <string name="websites">Websites</string>
-    <string name="groups">Groups</string>
-    <string name="contact_source">Contact source</string>
+    <string name="addresses">Διευθύνσεις</string>
+    <string name="events">Εκδηλώσεις (γενέθλια, επετείους)</string>
+    <string name="notes">Σημειώσεις</string>
+    <string name="organization">Εταιρεία</string>
+    <string name="websites">Ιστοσελίδα</string>
+    <string name="groups">Ομάδες</string>
+    <string name="contact_source">Προέλευση επαφής</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_title">Θέλω να αλλάξω τα πεδία που θα είναι ορατά στις επαφές. Μπορώ να το κάνω?</string>
+    <string name="faq_1_text">Ναι, το μόνο που έχετε να κάνετε είναι να μεταβείτε στις Ρυθμίσεις -> Διαχείριση εμφανιζόμενων πεδίων επαφής. Εκεί μπορείτε να επιλέξετε ποια πεδία θα πρέπει να είναι ορατά. Κάποια από αυτά είναι ακόμη και απενεργοποιημένα από προεπιλογή, επομένως ίσως βρείτε κάποια νέα εκεί.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Μια εφαρμογή επαφών για να διαχειρίζεσαι τις επαφές σου χωρίς διαφημίσεις.</string>
+    <string name="app_short_description">Μια εφαρμογή για την διαχείρηση των επαφών σου χωρίς διαφημίσεις.</string>
     <string name="app_long_description">
         Μια απλή εφαρμογή για δημιουργία και διαχείριση των επαφών σου από κάθε πηγή. Οι επαφές μπορεί να είναι αποθηκευμένες μόνο στη συσκευή σου, αλλά μπορούν να συγχρονίζονται στο Google, ή σε κάποιο άλλο λογαριασμό. Μπορείς να εμφανίσεις τις αγαπημένες σου επαφές σε ξεχωριστή λίστα.
 
-        Μπορείς να τη χρησιμοποιήσεις για τη διαχείριση των email των χρηστών και τα γεγονότα. Έχει τη δυνατότητα ταξινόμησης/φιλτραρίσματος με διάφορες παραμέτρους, προαιρετικά να εμφανίζεται το επώνυμο σαν όνομα.
+        Μπορείτε να τη χρησιμοποιήσετε για τη διαχείριση των email και εκδηλώσεων επίσης. Έχει τη δυνατότητα ταξινόμησης/φιλτραρίσματος με διάφορες παραμέτρους, προαιρετικά να εμφανίζεται το επώνυμο πρώτα ή το όνομα.
 
-        Δεν περιέχει διαφημίσεις ή περιττές άδειες. Είναι πλήρως ανοικτού κώδικα, παρέχει δυνατότητα προσαρμογής των χρωμάτων.
+        Δεν περιέχει διαφημίσεις ή περιττές άδειες. Έιναι όλη ανοιχτού κώδικα και παρέχει προσαρμόσιμα χρώματα για την εφαρμογή.
 
-        Αυτή η εφαρμογή είναι ένα μικρό κομμάτι μιας μεγαλύτερης συλλογής εφαρμογών. Μπορείς να βρεις τις υπόλοιπες στο https://www.simplemobiletools.com
+        Αυτή η εφαρμογή είναι μέρος μιας σειράς εφαρμογών. Μπορείτε να βρείτε τις υπόλοιπες στο https://www.simplemobiletools.com
     </string>
 
     <!--
