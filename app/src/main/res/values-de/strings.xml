@@ -13,8 +13,8 @@
     <string name="send_email_to_contacts">Sende E-Mail an Kontakte</string>
     <string name="send_sms_to_group">Sende SMS an Gruppe</string>
     <string name="send_email_to_group">Sende E-Mail an Gruppe</string>
-    <string name="call_person">Call %s</string>
-    <string name="request_the_required_permissions">Request the required permissions</string>
+    <string name="call_person">%s anrufen</string>
+    <string name="request_the_required_permissions">Benötigte Berechtigungen anfordern</string>
 
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
@@ -23,7 +23,7 @@
     <string name="first_name">Vorname</string>
     <string name="middle_name">Zweiter Vorname</string>
     <string name="surname">Nachname</string>
-    <string name="nickname">Nickname</string>
+    <string name="nickname">Spitzname</string>
 
     <!-- Groups -->
     <string name="no_groups">Keine Gruppen</string>
@@ -50,11 +50,11 @@
     <string name="view_contact">Kontaktdetails anzeigen</string>
     <string name="manage_shown_contact_fields">Bearbeite sichtbare Kontaktfelder</string>
     <string name="filter_duplicates">Versuche Kontaktduplikate herauszufiltern</string>
-    <string name="manage_shown_tabs">Manage shown tabs</string>
-    <string name="contacts">Contacts</string>
-    <string name="favorites">Favorites</string>
-    <string name="recent_calls">Recent calls</string>
-    <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
+    <string name="manage_shown_tabs">Anzuzeigende Tabs festlegen</string>
+    <string name="contacts">Kontakte</string>
+    <string name="favorites">Favoriten</string>
+    <string name="recent_calls">Anrufliste</string>
+    <string name="show_call_confirmation_dialog">Bestätigungsdialog zeigen, bevor ein Anruf durchgeführt wird</string>
 
     <!-- Emails -->
     <string name="email">E-Mail</string>
