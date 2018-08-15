@@ -5,7 +5,7 @@
     <string name="inserting">Εισαγωγή…</string>
     <string name="updating">Ενημέρωση…</string>
     <string name="phone_storage">Μνήμη τηλεφώνου</string>
-    <string name="phone_storage_hidden">Μνήμη τηλεφώνου (δεν είναι ορατή από άλλες εφαρμογές)</string>
+    <string name="phone_storage_hidden">Μνήμη τηλεφώνου (κρυφές από άλλες εφαρμογές)</string>
     <string name="company">Εταιρεία</string>
     <string name="job_position">Θέση Εργασίας</string>
     <string name="website">Ιστοσελίδα</string>
@@ -14,7 +14,7 @@
     <string name="send_sms_to_group">Αποστολή SMS σε ομάδες</string>
     <string name="send_email_to_group">Αποστολή email σε ομάδες</string>
     <string name="call_person">Κλήση %s</string>
-    <string name="request_the_required_permissions">Ζητήστε τα απαιτούμενα δικαιώματα</string>
+    <string name="request_the_required_permissions">Ζητούνται τα απαιτούμενα δικαιώματα</string>
 
     <string name="new_contact">Νέα επαφή</string>
     <string name="edit_contact">Επεξεργασία επαφής</string>
@@ -48,7 +48,7 @@
     <string name="on_contact_click">Στην επιλογή επαφής</string>
     <string name="call_contact">Κλήση επαφής</string>
     <string name="view_contact">Εμφάνιση λεπτομερειών επαφής</string>
-    <string name="manage_shown_contact_fields">Διαχείρηση εμφανιζόμενων πεδίων επαφής</string>
+    <string name="manage_shown_contact_fields">Διαχείριση εμφανιζόμενων πεδίων επαφής</string>
     <string name="filter_duplicates">Δοκιμάστε το φιλτράρισμα διπλών επαφών</string>
     <string name="manage_shown_tabs">Διαχείριση εμφανιζόμενων καρτελών</string>
     <string name="contacts">Επαφές</string>
