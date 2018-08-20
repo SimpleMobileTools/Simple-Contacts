@@ -73,6 +73,9 @@ class VcfImporter(val activity: SimpleActivity) {
                             isGettingPhoto = false
                         }
                         continue
+                    } else if (isGettingPhoto) {
+                        currentPhotoString.append(line)
+                        continue
                     } else if (line.startsWith('\t') && isGettingName) {
                         currentNameString.append(line.trimStart('\t'))
                         isGettingName = false
@@ -105,7 +108,6 @@ class VcfImporter(val activity: SimpleActivity) {
                         line.toUpperCase().startsWith(TITLE) -> addJobPosition(line.substring(TITLE.length))
                         line.toUpperCase().startsWith(URL) -> addWebsite(line.substring(URL.length))
                         line.toUpperCase() == END_VCARD -> saveContact(targetContactSource)
-                        isGettingPhoto -> currentPhotoString.append(line.trim())
                     }
                 }
             }
