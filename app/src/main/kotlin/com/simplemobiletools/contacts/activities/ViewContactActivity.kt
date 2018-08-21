@@ -165,7 +165,11 @@ class ViewContactActivity : ContactActivity() {
         Intent().apply {
             action = ContactsContract.QuickContact.ACTION_QUICK_CONTACT
             data = getContactPublicUri(contact!!)
-            startActivity(this)
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
+            }
         }
     }
 
