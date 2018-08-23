@@ -293,7 +293,7 @@ class ViewContactActivity : ContactActivity() {
                 layoutInflater.inflate(R.layout.item_event, contact_events_holder, false).apply {
                     contact_events_holder.addView(this)
                     contact_event.alpha = 1f
-                    getDateTime(it.value, contact_event)
+                    it.value.getDateTimeFromDateString(contact_event)
                     contact_event_type.setText(getEventTextId(it.type))
                     contact_event_remove.beGone()
                 }

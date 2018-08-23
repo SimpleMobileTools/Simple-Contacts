@@ -52,26 +52,6 @@ const val PHOTO_REMOVED = 2
 const val PHOTO_CHANGED = 3
 const val PHOTO_UNCHANGED = 4
 
-// export/import
-const val BEGIN_VCARD = "BEGIN:VCARD"
-const val END_VCARD = "END:VCARD"
-const val N = "N"
-const val NICKNAME = "NICKNAME"
-const val TEL = "TEL"
-const val BDAY = "BDAY:"
-const val ANNIVERSARY = "ANNIVERSARY:"
-const val PHOTO = "PHOTO"
-const val EMAIL = "EMAIL"
-const val ADR = "ADR"
-const val NOTE = "NOTE"
-const val ORG = "ORG"
-const val TITLE = "TITLE"
-const val URL = "URL"
-const val ENCODING = "ENCODING"
-const val BASE64 = "BASE64"
-const val JPEG = "JPEG"
-const val VERSION_2_1 = "VERSION:2.1"
-
 // phone number/email types
 const val CELL = "CELL"
 const val WORK = "WORK"
@@ -83,7 +63,6 @@ const val WORK_FAX = "WORK;FAX"
 const val HOME_FAX = "HOME;FAX"
 const val PAGER = "PAGER"
 const val MOBILE = "MOBILE"
-const val VOICE = "VOICE"
 
 const val ON_CLICK_CALL_CONTACT = 1
 const val ON_CLICK_VIEW_CONTACT = 2

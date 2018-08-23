@@ -73,8 +73,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             } else {
                 checkContactPermissions()
             }
-
         }
+
         storeStateVariables()
         checkWhatsNewDialog()
     }
