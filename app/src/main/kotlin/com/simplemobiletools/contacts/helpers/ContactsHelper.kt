@@ -319,7 +319,7 @@ class ContactsHelper(val activity: Activity) {
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val address = cursor.getStringValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS) ?: ""
+                    val address = cursor.getStringValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS) ?: continue
                     val type = cursor.getIntValue(CommonDataKinds.StructuredPostal.TYPE)
 
                     if (addresses[id] == null) {
