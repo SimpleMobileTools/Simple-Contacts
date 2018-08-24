@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Απλές Επαφές</string>
+    <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Επαφές</string>
     <string name="address">Διεύθυνση</string>
     <string name="inserting">Εισαγωγή…</string>
