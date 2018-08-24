@@ -48,4 +48,12 @@ class Config(context: Context) : BaseConfig(context) {
     var filterDuplicates: Boolean
         get() = prefs.getBoolean(FILTER_DUPLICATES, true)
         set(filterDuplicates) = prefs.edit().putBoolean(FILTER_DUPLICATES, filterDuplicates).apply()
+
+    var showTabs: Int
+        get() = prefs.getInt(SHOW_TABS, ALL_TABS_MASK)
+        set(showTabs) = prefs.edit().putInt(SHOW_TABS, showTabs).apply()
+
+    var showCallConfirmation: Boolean
+        get() = prefs.getBoolean(SHOW_CALL_CONFIRMATION, false)
+        set(showCallConfirmation) = prefs.edit().putBoolean(SHOW_CALL_CONFIRMATION, showCallConfirmation).apply()
 }

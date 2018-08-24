@@ -13,6 +13,8 @@
     <string name="send_email_to_contacts">Poslať kontaktom email</string>
     <string name="send_sms_to_group">Poslať skupine SMS</string>
     <string name="send_email_to_group">Poslať skupine email</string>
+    <string name="call_person">Zavolať %s</string>
+    <string name="request_the_required_permissions">Vyžiadať potrebné oprávnenia</string>
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
@@ -21,6 +23,7 @@
     <string name="first_name">Krstné meno</string>
     <string name="middle_name">Stredné meno</string>
     <string name="surname">Priezvisko</string>
+    <string name="nickname">Prezývka</string>
 
     <!-- Groups -->
     <string name="no_groups">Žiadne skupiny</string>
@@ -45,10 +48,13 @@
     <string name="on_contact_click">Po kliknutí na kontakt</string>
     <string name="call_contact">Zavolať kontakt</string>
     <string name="view_contact">Zobraziť údaje kontaktu</string>
-    <string name="show_favorites_tab">Zobraziť okno s obľúbenými</string>
-    <string name="show_groups_tab">Zobraziť okno so skupinami</string>
     <string name="manage_shown_contact_fields">Spravovať zobrazené polia kontaktov</string>
     <string name="filter_duplicates">Pokúsiť sa vyfiltrovať duplicitné kontakty</string>
+    <string name="manage_shown_tabs">Spravovať zobrazené karty</string>
+    <string name="contacts">Kontakty</string>
+    <string name="favorites">Obľúbené</string>
+    <string name="recent_calls">Predošlé hovory</string>
+    <string name="show_call_confirmation_dialog">Zobraziť pred spustením hovoru okno na jeho potvrdenie</string>
 
     <!-- Emails -->
     <string name="email">Email</string>

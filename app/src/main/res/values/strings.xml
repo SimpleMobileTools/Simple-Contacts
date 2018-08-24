@@ -13,6 +13,8 @@
     <string name="send_email_to_contacts">Send email to contacts</string>
     <string name="send_sms_to_group">Send SMS to group</string>
     <string name="send_email_to_group">Send email to group</string>
+    <string name="call_person">Call %s</string>
+    <string name="request_the_required_permissions">Request the required permissions</string>
 
     <string name="new_contact">New contact</string>
     <string name="edit_contact">Edit contact</string>
@@ -21,6 +23,7 @@
     <string name="first_name">First name</string>
     <string name="middle_name">Middle name</string>
     <string name="surname">Surname</string>
+    <string name="nickname">Nickname</string>
 
     <!-- Groups -->
     <string name="no_groups">No groups</string>
@@ -45,10 +48,13 @@
     <string name="on_contact_click">On contact click</string>
     <string name="call_contact">Call contact</string>
     <string name="view_contact">View contact details</string>
-    <string name="show_favorites_tab">Show favorites tab</string>
-    <string name="show_groups_tab">Show groups tab</string>
     <string name="manage_shown_contact_fields">Manage shown contact fields</string>
     <string name="filter_duplicates">Try filtering out duplicate contacts</string>
+    <string name="manage_shown_tabs">Manage shown tabs</string>
+    <string name="contacts">Contacts</string>
+    <string name="favorites">Favorites</string>
+    <string name="recent_calls">Recent calls</string>
+    <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
 
     <!-- Emails -->
     <string name="email">Email</string>

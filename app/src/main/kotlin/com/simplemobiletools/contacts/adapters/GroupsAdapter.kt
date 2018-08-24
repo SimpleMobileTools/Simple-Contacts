@@ -37,14 +37,14 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     override fun prepareActionMode(menu: Menu) {
         menu.apply {
-            findItem(R.id.cab_edit).isVisible = isOneItemSelected()
+            findItem(R.id.cab_rename).isVisible = isOneItemSelected()
         }
     }
 
-    override fun prepareItemSelection(view: View) {}
+    override fun prepareItemSelection(viewHolder: ViewHolder) {}
 
-    override fun markItemSelection(select: Boolean, view: View?) {
-        view?.group_frame?.isSelected = select
+    override fun markViewHolderSelection(select: Boolean, viewHolder: ViewHolder?) {
+        viewHolder?.itemView?.group_frame?.isSelected = select
     }
 
     override fun actionItemPressed(id: Int) {
@@ -53,7 +53,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
         }
 
         when (id) {
-            R.id.cab_edit -> editGroup()
+            R.id.cab_rename -> renameGroup()
             R.id.cab_select_all -> selectAll()
             R.id.cab_delete -> askConfirmDelete()
         }
@@ -61,11 +61,13 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     override fun getSelectableItemCount() = groups.size
 
+    override fun getIsItemSelectable(position: Int) = true
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.item_group, parent)
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val group = groups[position]
-        val view = holder.bindView(group, true) { itemView, layoutPosition ->
+        val view = holder.bindView(group, true, true) { itemView, layoutPosition ->
             setupView(itemView, group)
         }
         bindViewHolder(holder, position, view)
@@ -80,7 +82,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
         fastScroller?.measureRecyclerView()
     }
 
-    private fun editGroup() {
+    private fun renameGroup() {
         RenameGroupDialog(activity, groups[selectedPositions.first()]) {
             finishActMode()
             refreshListener?.refreshContacts(GROUPS_TAB_MASK)
@@ -89,11 +91,11 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     private fun askConfirmDelete() {
         ConfirmationDialog(activity) {
-            deleteContacts()
+            deleteGroups()
         }
     }
 
-    private fun deleteContacts() {
+    private fun deleteGroups() {
         if (selectedPositions.isEmpty()) {
             return
         }

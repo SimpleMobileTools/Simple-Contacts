@@ -170,6 +170,22 @@
             android:textCursorDrawable="@null"
             android:textSize="@dimen/bigger_text_size"/>
 
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/contact_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_suffix"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:layout_toRightOf="@+id/contact_name_image"
+            android:hint="@string/nickname"
+            android:inputType="textCapWords"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/bigger_text_size"/>
+
         <ImageView
             android:id="@+id/contact_numbers_image"
             android:layout_width="@dimen/contact_icons_size"
@@ -185,7 +201,7 @@
             android:id="@+id/contact_numbers_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_suffix"
+            android:layout_below="@+id/contact_nickname"
             android:layout_marginBottom="@dimen/small_margin"
             android:layout_toRightOf="@+id/contact_numbers_image"
             android:orientation="vertical">

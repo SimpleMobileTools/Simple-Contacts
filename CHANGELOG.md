@@ -1,6 +1,57 @@
 Changelog
 ==========
 
+Version 4.2.2 *(2018-08-13)*
+----------------------------
+
+ * Added an optional Nickname field
+ * Improved searching and sorting UTF8 characters
+ * Fixed updating Notes and Organization fields
+
+Version 4.2.1 *(2018-08-05)*
+----------------------------
+
+ * Added some stability and light theme UX fixes
+
+Version 4.2.0 *(2018-08-04)*
+----------------------------
+
+ * Added a Recent Calls tab
+ * Allow customizing which tabs are visible
+ * Added an optional call confirmation dialog
+ * Fixed some glitches related to company contacts
+ * Some other performance and stability improvements
+
+Version 4.1.0 *(2018-07-16)*
+----------------------------
+
+ * Fixed a couple issues related to importing contacts from .vcf files
+ * Couple other UX and stability improvements
+
+Version 4.0.5 *(2018-07-05)*
+----------------------------
+
+ * Make duplicate contact filtering more agressive
+ * Couple UX and stability improvements
+
+Version 4.0.4 *(2018-06-19)*
+----------------------------
+
+ * Make "Try filtering out duplicate contacts" more agressive
+ * Ignore hidden contact fields, do not wipe them
+ * Prefer the contacts Mobile number at sending batch SMS
+ * Added a couple stability improvements
+
+Version 4.0.3 *(2018-05-13)*
+----------------------------
+
+ * Show a couple additional contact sources
+
+Version 4.0.2 *(2018-05-12)*
+----------------------------
+
+ * Make sure all relevant contact sources are visible
+
 Version 4.0.1 *(2018-05-09)*
 ----------------------------
 

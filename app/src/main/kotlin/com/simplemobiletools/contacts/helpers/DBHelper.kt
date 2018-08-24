@@ -28,6 +28,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     private val COL_MIDDLE_NAME = "middle_name"
     private val COL_SURNAME = "surname"
     private val COL_SUFFIX = "suffix"
+    private val COL_NICKNAME = "nickname"
     private val COL_PHOTO = "photo"
     private val COL_PHONE_NUMBERS = "phone_numbers"
     private val COL_EMAILS = "emails"
@@ -48,9 +49,9 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     private val mDb = writableDatabase
 
     companion object {
-        private const val DB_VERSION = 5
         const val DB_NAME = "contacts.db"
-        var dbInstance: DBHelper? = null
+        private const val DB_VERSION = 6
+        private var dbInstance: DBHelper? = null
         var gson = Gson()
 
         fun newInstance(context: Context): DBHelper {
@@ -65,7 +66,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         db.execSQL("CREATE TABLE $CONTACTS_TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_FIRST_NAME TEXT, $COL_MIDDLE_NAME TEXT, " +
                 "$COL_SURNAME TEXT, $COL_PHOTO BLOB, $COL_PHONE_NUMBERS TEXT, $COL_EMAILS TEXT, $COL_EVENTS TEXT, $COL_STARRED INTEGER, " +
                 "$COL_ADDRESSES TEXT, $COL_NOTES TEXT, $COL_GROUPS TEXT, $COL_PREFIX TEXT, $COL_SUFFIX TEXT, $COL_COMPANY TEXT, $COL_JOB_POSITION TEXT," +
-                "$COL_WEBSITES TEXT)")
+                "$COL_WEBSITES TEXT, $COL_NICKNAME TEXT)")
 
         // start autoincrement ID from FIRST_CONTACT_ID to avoid conflicts
         db.execSQL("REPLACE INTO sqlite_sequence (name, seq) VALUES ('$CONTACTS_TABLE_NAME', $FIRST_CONTACT_ID)")
@@ -93,6 +94,10 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
         if (oldVersion < 5) {
             db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_WEBSITES TEXT DEFAULT ''")
+        }
+
+        if (oldVersion < 6) {
+            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_NICKNAME TEXT DEFAULT ''")
         }
     }
 
@@ -135,6 +140,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
             put(COL_MIDDLE_NAME, contact.middleName)
             put(COL_SURNAME, contact.surname)
             put(COL_SUFFIX, contact.suffix)
+            put(COL_NICKNAME, contact.nickname)
             put(COL_PHONE_NUMBERS, gson.toJson(contact.phoneNumbers))
             put(COL_EMAILS, gson.toJson(contact.emails))
             put(COL_ADDRESSES, gson.toJson(contact.addresses))
@@ -252,8 +258,8 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     fun getContacts(activity: Activity, selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
         val storedGroups = ContactsHelper(activity).getStoredGroups()
         val contacts = ArrayList<Contact>()
-        val projection = arrayOf(COL_ID, COL_PREFIX, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_SUFFIX, COL_PHONE_NUMBERS, COL_EMAILS,
-                COL_EVENTS, COL_STARRED, COL_PHOTO, COL_ADDRESSES, COL_NOTES, COL_GROUPS, COL_COMPANY, COL_JOB_POSITION, COL_WEBSITES)
+        val projection = arrayOf(COL_ID, COL_PREFIX, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_SUFFIX, COL_NICKNAME, COL_PHONE_NUMBERS,
+                COL_EMAILS, COL_EVENTS, COL_STARRED, COL_PHOTO, COL_ADDRESSES, COL_NOTES, COL_GROUPS, COL_COMPANY, COL_JOB_POSITION, COL_WEBSITES)
 
         val phoneNumbersToken = object : TypeToken<List<PhoneNumber>>() {}.type
         val emailsToken = object : TypeToken<List<Email>>() {}.type
@@ -271,6 +277,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val middleName = cursor.getStringValue(COL_MIDDLE_NAME)
                 val surname = cursor.getStringValue(COL_SURNAME)
                 val suffix = cursor.getStringValue(COL_SUFFIX)
+                val nickname = cursor.getStringValue(COL_NICKNAME)
 
                 val phoneNumbersJson = cursor.getStringValue(COL_PHONE_NUMBERS)
                 val phoneNumbers = if (phoneNumbersJson == "[]") ArrayList() else gson.fromJson<ArrayList<PhoneNumber>>(phoneNumbersJson, phoneNumbersToken)
@@ -290,7 +297,11 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
                 val photoByteArray = cursor.getBlobValue(COL_PHOTO) ?: null
                 val photo = if (photoByteArray?.isNotEmpty() == true) {
-                    BitmapFactory.decodeByteArray(photoByteArray, 0, photoByteArray.size)
+                    try {
+                        BitmapFactory.decodeByteArray(photoByteArray, 0, photoByteArray.size)
+                    } catch (e: OutOfMemoryError) {
+                        null
+                    }
                 } else {
                     null
                 }
@@ -311,8 +322,8 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val websites = if (websitesJson == "[]") ArrayList() else gson.fromJson<ArrayList<String>>(websitesJson, websitesToken)
                         ?: ArrayList(1)
 
-                val contact = Contact(id, prefix, firstName, middleName, surname, suffix, "", phoneNumbers, emails, addresses, events,
-                        SMT_PRIVATE, starred, id, "", photo, notes, groups, organization, websites)
+                val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, "", phoneNumbers, emails, addresses,
+                        events, SMT_PRIVATE, starred, id, "", photo, notes, groups, organization, websites)
                 contacts.add(contact)
             }
         }

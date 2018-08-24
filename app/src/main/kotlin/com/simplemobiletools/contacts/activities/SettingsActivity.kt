@@ -3,10 +3,13 @@ package com.simplemobiletools.contacts.activities
 import android.os.Bundle
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.isThankYouInstalled
+import com.simplemobiletools.commons.extensions.launchPurchaseThankYouIntent
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.dialogs.ManageVisibleFieldsDialog
+import com.simplemobiletools.contacts.dialogs.ManageVisibleTabsDialog
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ON_CLICK_CALL_CONTACT
 import com.simplemobiletools.contacts.helpers.ON_CLICK_EDIT_CONTACT
@@ -23,8 +26,10 @@ class SettingsActivity : SimpleActivity() {
     override fun onResume() {
         super.onResume()
 
+        setupPurchaseThankYou()
         setupCustomizeColors()
         setupManageShownContactFields()
+        setupManageShownTabs()
         setupUseEnglish()
         setupAvoidWhatsNew()
         setupShowInfoBubble()
@@ -32,8 +37,16 @@ class SettingsActivity : SimpleActivity() {
         setupShowPhoneNumbers()
         setupStartNameWithSurname()
         setupFilterDuplicates()
+        setupShowCallConfirmation()
         setupOnContactClick()
         updateTextColors(settings_holder)
+    }
+
+    private fun setupPurchaseThankYou() {
+        settings_purchase_thank_you_holder.beVisibleIf(config.appRunCount > 10 && !isThankYouInstalled())
+        settings_purchase_thank_you_holder.setOnClickListener {
+            launchPurchaseThankYouIntent()
+        }
     }
 
     private fun setupCustomizeColors() {
@@ -45,6 +58,12 @@ class SettingsActivity : SimpleActivity() {
     private fun setupManageShownContactFields() {
         settings_manage_contact_fields_holder.setOnClickListener {
             ManageVisibleFieldsDialog(this)
+        }
+    }
+
+    private fun setupManageShownTabs() {
+        settings_manage_tabs_holder.setOnClickListener {
+            ManageVisibleTabsDialog(this)
         }
     }
 
@@ -126,4 +145,12 @@ class SettingsActivity : SimpleActivity() {
         ON_CLICK_VIEW_CONTACT -> R.string.view_contact
         else -> R.string.edit_contact
     })
+
+    private fun setupShowCallConfirmation() {
+        settings_show_call_confirmation.isChecked = config.showCallConfirmation
+        settings_show_call_confirmation_holder.setOnClickListener {
+            settings_show_call_confirmation.toggle()
+            config.showCallConfirmation = settings_show_call_confirmation.isChecked
+        }
+    }
 }

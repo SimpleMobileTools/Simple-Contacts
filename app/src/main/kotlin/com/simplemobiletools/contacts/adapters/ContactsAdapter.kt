@@ -70,10 +70,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         }
     }
 
-    override fun prepareItemSelection(view: View) {}
+    override fun prepareItemSelection(viewHolder: ViewHolder) {}
 
-    override fun markItemSelection(select: Boolean, view: View?) {
-        view?.contact_frame?.isSelected = select
+    override fun markViewHolderSelection(select: Boolean, viewHolder: ViewHolder?) {
+        viewHolder?.itemView?.contact_frame?.isSelected = select
     }
 
     override fun actionItemPressed(id: Int) {
@@ -96,6 +96,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun getSelectableItemCount() = contactItems.size
 
+    override fun getIsItemSelectable(position: Int) = true
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
         return createViewHolder(layout, parent)
@@ -103,7 +105,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val contact = contactItems[position]
-        val view = holder.bindView(contact, true) { itemView, layoutPosition ->
+        val view = holder.bindView(contact, true, true) { itemView, layoutPosition ->
             setupView(itemView, contact)
         }
         bindViewHolder(holder, position, view)
@@ -145,7 +147,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
         val contactsToRemove = ArrayList<Contact>()
         selectedPositions.sortedDescending().forEach {
-            contactsToRemove.add(contactItems[it])
+            val contact = contactItems.getOrNull(it)
+            if (contact != null) {
+                contactsToRemove.add(contact)
+            }
         }
         contactItems.removeAll(contactsToRemove)
 
@@ -155,7 +160,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             finishActMode()
         } else {
             removeSelectedItems()
-            refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
+            refreshListener?.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
         }
     }
 
@@ -250,8 +255,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     private fun setupView(view: View, contact: Contact) {
         view.apply {
             val fullName = contact.getFullName()
-            val nameText = if (textToHighlight.isEmpty()) fullName else fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
-            contact_name.text = nameText
+            contact_name.text = if (textToHighlight.isEmpty()) fullName else fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
             contact_name.setTextColor(textColor)
             contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
 

@@ -13,6 +13,8 @@
     <string name="send_email_to_contacts">Skicka e-post till kontakter</string>
     <string name="send_sms_to_group">Skicka sms till grupp</string>
     <string name="send_email_to_group">Skicka e-post till grupp</string>
+    <string name="call_person">Ring %s</string>
+    <string name="request_the_required_permissions">Begär de behörigheter som krävs</string>
 
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>
@@ -21,6 +23,7 @@
     <string name="first_name">Förnamn</string>
     <string name="middle_name">Mellannamn</string>
     <string name="surname">Efternamn</string>
+    <string name="nickname">Smeknamn</string>
 
     <!-- Groups -->
     <string name="no_groups">Inga grupper</string>
@@ -45,10 +48,13 @@
     <string name="on_contact_click">Vid kontakttryckning</string>
     <string name="call_contact">Ring kontakt</string>
     <string name="view_contact">Visa kontaktuppgifter</string>
-    <string name="show_favorites_tab">Visa fliken Favoriter</string>
-    <string name="show_groups_tab">Visa fliken Grupper</string>
     <string name="manage_shown_contact_fields">Hantera visade kontaktfält</string>
-    <string name="filter_duplicates">Try filtering out duplicate contacts</string>
+    <string name="filter_duplicates">Försök filtrera bort dubblettkontakter</string>
+    <string name="manage_shown_tabs">Hantera visade flikar</string>
+    <string name="contacts">Kontakter</string>
+    <string name="favorites">Favoriter</string>
+    <string name="recent_calls">Senaste samtal</string>
+    <string name="show_call_confirmation_dialog">Visa en bekräftelsedialogruta före uppringning</string>
 
     <!-- Emails -->
     <string name="email">E-post</string>
@@ -74,7 +80,7 @@
     <string name="add_favorites">Lägg till favoriter</string>
     <string name="add_to_favorites">Lägg till i favoriter</string>
     <string name="remove_from_favorites">Ta bort från favoriter</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
+    <string name="must_be_at_edit">Kontakter kan bara redigeras i redigeringsvyn</string>
 
     <!-- Search -->
     <string name="search_contacts">Sök efter kontakter</string>

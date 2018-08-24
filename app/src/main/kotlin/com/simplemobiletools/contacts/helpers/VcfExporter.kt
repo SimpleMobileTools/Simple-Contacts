@@ -1,22 +1,30 @@
 package com.simplemobiletools.contacts.helpers
 
-import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.MediaStore
-import android.util.Base64
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.getFileOutputStream
+import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.commons.extensions.toFileDirItem
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.extensions.getByteArray
+import com.simplemobiletools.contacts.extensions.getDateTimeFromDateString
 import com.simplemobiletools.contacts.helpers.VcfExporter.ExportResult.EXPORT_FAIL
 import com.simplemobiletools.contacts.models.Contact
-import java.io.BufferedWriter
-import java.io.ByteArrayOutputStream
+import ezvcard.Ezvcard
+import ezvcard.VCard
+import ezvcard.parameter.AddressType
+import ezvcard.parameter.EmailType
+import ezvcard.parameter.ImageType
+import ezvcard.parameter.TelephoneType
+import ezvcard.property.*
+import ezvcard.util.PartialDate
 import java.io.File
+import java.util.*
 
 class VcfExporter {
-    private val ENCODED_PHOTO_LINE_LENGTH = 74
-
     enum class ExportResult {
         EXPORT_FAIL, EXPORT_OK, EXPORT_PARTIAL
     }
@@ -36,61 +44,93 @@ class VcfExporter {
                     activity.toast(R.string.exporting)
                 }
 
-                it.bufferedWriter().use { out ->
-                    for (contact in contacts) {
-                        out.writeLn(BEGIN_VCARD)
-                        out.writeLn(VERSION_2_1)
-                        out.writeLn("$N${getNames(contact)}")
+                val cards = ArrayList<VCard>()
+                for (contact in contacts) {
+                    val card = VCard()
+                    StructuredName().apply {
+                        prefixes.add(contact.prefix)
+                        given = contact.firstName
+                        additionalNames.add(contact.middleName)
+                        family = contact.surname
+                        suffixes.add(contact.suffix)
+                        card.structuredName = this
+                    }
 
-                        contact.phoneNumbers.forEach {
-                            out.writeLn("$TEL;${getPhoneNumberLabel(it.type)}:${it.value}")
-                        }
+                    if (contact.nickname.isNotEmpty()) {
+                        card.setNickname(contact.nickname)
+                    }
 
-                        contact.emails.forEach {
-                            val type = getEmailTypeLabel(it.type)
-                            val delimiterType = if (type.isEmpty()) "" else ";$type"
-                            out.writeLn("$EMAIL$delimiterType:${it.value}")
-                        }
+                    contact.phoneNumbers.forEach {
+                        val phoneNumber = Telephone(it.value)
+                        phoneNumber.types.add(TelephoneType.find(getPhoneNumberLabel(it.type)))
+                        card.addTelephoneNumber(phoneNumber)
+                    }
 
-                        contact.addresses.forEach {
-                            val type = getAddressTypeLabel(it.type)
-                            val delimiterType = if (type.isEmpty()) "" else ";$type"
-                            out.writeLn("$ADR$delimiterType:;;${it.value.replace("\n", "\\n")};;;;")
-                        }
+                    contact.emails.forEach {
+                        val email = Email(it.value)
+                        email.types.add(EmailType.find(getEmailTypeLabel(it.type)))
+                        card.addEmail(email)
+                    }
 
-                        contact.events.forEach {
-                            if (it.type == CommonDataKinds.Event.TYPE_BIRTHDAY) {
-                                out.writeLn("$BDAY${it.value}")
+                    contact.events.forEach {
+                        if (it.type == CommonDataKinds.Event.TYPE_BIRTHDAY || it.type == CommonDataKinds.Event.TYPE_ANNIVERSARY) {
+                            val dateTime = it.value.getDateTimeFromDateString()
+                            if (it.value.startsWith("--")) {
+                                val partialDate = PartialDate.builder().year(null).month(dateTime.monthOfYear - 1).date(dateTime.dayOfMonth).build()
+                                if (it.type == CommonDataKinds.Event.TYPE_BIRTHDAY) {
+                                    card.birthdays.add(Birthday(partialDate))
+                                } else {
+                                    card.anniversaries.add(Anniversary(partialDate))
+                                }
+                            } else {
+                                Calendar.getInstance().apply {
+                                    clear()
+                                    set(Calendar.YEAR, dateTime.year)
+                                    set(Calendar.MONTH, dateTime.monthOfYear - 1)
+                                    set(Calendar.DAY_OF_MONTH, dateTime.dayOfMonth)
+                                    if (it.type == CommonDataKinds.Event.TYPE_BIRTHDAY) {
+                                        card.birthdays.add(Birthday(time))
+                                    } else {
+                                        card.anniversaries.add(Anniversary(time))
+                                    }
+                                }
                             }
                         }
-
-                        if (contact.notes.isNotEmpty()) {
-                            out.writeLn("$NOTE${contact.notes.replace("\n", "\\n")}")
-                        }
-
-                        if (!contact.organization.isEmpty()) {
-                            out.writeLn("$ORG${contact.organization.company.replace("\n", "\\n")}")
-                            out.writeLn("$TITLE${contact.organization.jobPosition.replace("\n", "\\n")}")
-                        }
-
-                        contact.websites.forEach {
-                            out.writeLn("$URL$it")
-                        }
-
-                        if (contact.thumbnailUri.isNotEmpty()) {
-                            val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, Uri.parse(contact.thumbnailUri))
-                            addBitmap(bitmap, out)
-                        }
-
-                        if (contact.photo != null) {
-                            addBitmap(contact.photo!!, out)
-                        }
-
-                        out.writeLn(END_VCARD)
-                        contactsExported++
                     }
+
+                    contact.addresses.forEach {
+                        val address = Address()
+                        address.streetAddress = it.value
+                        address.types.add(AddressType.find(getAddressTypeLabel(it.type)))
+                        card.addAddress(address)
+                    }
+
+                    if (contact.notes.isNotEmpty()) {
+                        card.addNote(contact.notes)
+                    }
+
+                    if (!contact.organization.isEmpty()) {
+                        val organization = Organization()
+                        organization.values.add(contact.organization.company)
+                        card.organization = organization
+                        card.titles.add(Title(contact.organization.jobPosition))
+                    }
+
+                    contact.websites.forEach {
+                        card.addUrl(it)
+                    }
+
+                    if (contact.thumbnailUri.isNotEmpty()) {
+                        val photoByteArray = MediaStore.Images.Media.getBitmap(activity.contentResolver, Uri.parse(contact.thumbnailUri)).getByteArray()
+                        val photo = Photo(photoByteArray, ImageType.JPEG)
+                        card.addPhoto(photo)
+                    }
+
+                    cards.add(card)
+                    contactsExported++
                 }
 
+                Ezvcard.write(cards).go(file)
             } catch (e: Exception) {
                 activity.showErrorToast(e)
             }
@@ -103,71 +143,24 @@ class VcfExporter {
         }
     }
 
-    private fun addBitmap(bitmap: Bitmap, out: BufferedWriter) {
-        val firstLine = "$PHOTO;$ENCODING=$BASE64;$JPEG:"
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, byteArrayOutputStream)
-        bitmap.recycle()
-        val byteArray = byteArrayOutputStream.toByteArray()
-        val encoded = Base64.encodeToString(byteArray, Base64.NO_WRAP)
-
-        val encodedFirstLineSection = encoded.substring(0, ENCODED_PHOTO_LINE_LENGTH - firstLine.length)
-        out.writeLn(firstLine + encodedFirstLineSection)
-        var curStartIndex = encodedFirstLineSection.length
-        do {
-            val part = encoded.substring(curStartIndex, Math.min(curStartIndex + ENCODED_PHOTO_LINE_LENGTH - 1, encoded.length))
-            out.writeLn(" $part")
-            curStartIndex += ENCODED_PHOTO_LINE_LENGTH - 1
-        } while (curStartIndex < encoded.length)
-
-        out.writeLn("")
-    }
-
-    private fun getNames(contact: Contact): String {
-        var result = ""
-        var firstName = contact.firstName
-        var surName = contact.surname
-        var middleName = contact.middleName
-        var prefix = contact.prefix
-        var suffix = contact.suffix
-
-        if (QuotedPrintable.urlEncode(firstName) != firstName
-                || QuotedPrintable.urlEncode(surName) != surName
-                || QuotedPrintable.urlEncode(middleName) != middleName
-                || QuotedPrintable.urlEncode(prefix) != prefix
-                || QuotedPrintable.urlEncode(suffix) != suffix) {
-            firstName = QuotedPrintable.encode(firstName)
-            surName = QuotedPrintable.encode(surName)
-            middleName = QuotedPrintable.encode(middleName)
-            prefix = QuotedPrintable.encode(prefix)
-            suffix = QuotedPrintable.encode(suffix)
-            result += ";CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE"
-        }
-
-        return "$result:$surName;$firstName;$middleName;$prefix;$suffix"
-    }
-
     private fun getPhoneNumberLabel(type: Int) = when (type) {
         CommonDataKinds.Phone.TYPE_MOBILE -> CELL
-        CommonDataKinds.Phone.TYPE_HOME -> HOME
         CommonDataKinds.Phone.TYPE_WORK -> WORK
         CommonDataKinds.Phone.TYPE_MAIN -> PREF
         CommonDataKinds.Phone.TYPE_FAX_WORK -> WORK_FAX
         CommonDataKinds.Phone.TYPE_FAX_HOME -> HOME_FAX
         CommonDataKinds.Phone.TYPE_PAGER -> PAGER
-        else -> VOICE
+        else -> HOME
     }
 
     private fun getEmailTypeLabel(type: Int) = when (type) {
-        CommonDataKinds.Email.TYPE_HOME -> HOME
         CommonDataKinds.Email.TYPE_WORK -> WORK
         CommonDataKinds.Email.TYPE_MOBILE -> MOBILE
-        else -> ""
+        else -> HOME
     }
 
     private fun getAddressTypeLabel(type: Int) = when (type) {
-        CommonDataKinds.StructuredPostal.TYPE_HOME -> HOME
         CommonDataKinds.StructuredPostal.TYPE_WORK -> WORK
-        else -> ""
+        else -> HOME
     }
 }

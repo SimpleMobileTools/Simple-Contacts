@@ -8,11 +8,13 @@
     <string name="phone_storage_hidden">手機空間 (其他程式不可見)</string>
     <string name="company">公司</string>
     <string name="job_position">職位</string>
-    <string name="website">Website</string>
-    <string name="send_sms_to_contacts">Send SMS to contacts</string>
-    <string name="send_email_to_contacts">Send email to contacts</string>
-    <string name="send_sms_to_group">Send SMS to group</string>
-    <string name="send_email_to_group">Send email to group</string>
+    <string name="website">網站</string>
+    <string name="send_sms_to_contacts">發送簡訊給聯絡人</string>
+    <string name="send_email_to_contacts">發送電子郵件給聯絡人</string>
+    <string name="send_sms_to_group">發送簡訊給群組</string>
+    <string name="send_email_to_group">發送電子郵件給群組</string>
+    <string name="call_person">打電話給 %s</string>
+    <string name="request_the_required_permissions">請求必要的權限</string>
 
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>
@@ -21,6 +23,7 @@
     <string name="first_name">名字</string>
     <string name="middle_name">中間名</string>
     <string name="surname">姓氏</string>
+    <string name="nickname">Nickname</string>
 
     <!-- Groups -->
     <string name="no_groups">沒有群組</string>
@@ -45,10 +48,13 @@
     <string name="on_contact_click">點擊聯絡人</string>
     <string name="call_contact">打電話給聯絡人</string>
     <string name="view_contact">顯示聯絡人資料</string>
-    <string name="show_favorites_tab">顯示我的最愛頁面</string>
-    <string name="show_groups_tab">顯示群組頁面</string>
     <string name="manage_shown_contact_fields">管理顯示的聯絡人欄位</string>
-    <string name="filter_duplicates">Try filtering out duplicate contacts</string>
+    <string name="filter_duplicates">試著過濾重複的聯絡人</string>
+    <string name="manage_shown_tabs">管理顯示的頁面</string>
+    <string name="contacts">聯絡人</string>
+    <string name="favorites">我的最愛</string>
+    <string name="recent_calls">通話紀錄</string>
+    <string name="show_call_confirmation_dialog">開始通話前顯示通話確認框</string>
 
     <!-- Emails -->
     <string name="email">電子信箱</string>
@@ -74,7 +80,7 @@
     <string name="add_favorites">添加我的最愛</string>
     <string name="add_to_favorites">加入我的最愛</string>
     <string name="remove_from_favorites">從我的最愛移除</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
+    <string name="must_be_at_edit">你必須在編輯畫面去修改聯絡人</string>
 
     <!-- Search -->
     <string name="search_contacts">搜尋聯絡人</string>
@@ -99,7 +105,7 @@
     <string name="events">活動 (生日、紀念日)</string>
     <string name="notes">筆記</string>
     <string name="organization">組織</string>
-    <string name="websites">Websites</string>
+    <string name="websites">網站</string>
     <string name="groups">群組</string>
     <string name="contact_source">聯絡人來源</string>
 

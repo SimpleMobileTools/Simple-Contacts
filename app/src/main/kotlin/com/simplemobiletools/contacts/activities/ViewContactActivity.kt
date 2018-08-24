@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.item_website.view.*
 
 class ViewContactActivity : ContactActivity() {
     private var isViewIntent = false
+    private var showFields = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +58,10 @@ class ViewContactActivity : ContactActivity() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (contact == null) {
+            return true
+        }
+
         when (item.itemId) {
             R.id.edit -> editContact(contact!!)
             R.id.share -> shareContact()
@@ -160,7 +165,11 @@ class ViewContactActivity : ContactActivity() {
         Intent().apply {
             action = ContactsContract.QuickContact.ACTION_QUICK_CONTACT
             data = getContactPublicUri(contact!!)
-            startActivity(this)
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
+            }
         }
     }
 
@@ -193,7 +202,11 @@ class ViewContactActivity : ContactActivity() {
             contact_suffix.text = suffix
             contact_suffix.beVisibleIf(suffix.isNotEmpty() && showFields and SHOW_SUFFIX_FIELD != 0)
 
-            if (contact_prefix.isGone() && contact_first_name.isGone() && contact_middle_name.isGone() && contact_surname.isGone() && contact_suffix.isGone()) {
+            contact_nickname.text = nickname
+            contact_nickname.beVisibleIf(nickname.isNotEmpty() && showFields and SHOW_NICKNAME_FIELD != 0)
+
+            if (contact_prefix.isGone() && contact_first_name.isGone() && contact_middle_name.isGone() && contact_surname.isGone() && contact_suffix.isGone()
+                    && contact_nickname.isGone()) {
                 contact_name_image.beInvisible()
                 (contact_photo.layoutParams as RelativeLayout.LayoutParams).bottomMargin = resources.getDimension(R.dimen.medium_margin).toInt()
             }
@@ -280,7 +293,7 @@ class ViewContactActivity : ContactActivity() {
                 layoutInflater.inflate(R.layout.item_event, contact_events_holder, false).apply {
                     contact_events_holder.addView(this)
                     contact_event.alpha = 1f
-                    getDateTime(it.value, contact_event)
+                    it.value.getDateTimeFromDateString(contact_event)
                     contact_event_type.setText(getEventTextId(it.type))
                     contact_event_remove.beGone()
                 }

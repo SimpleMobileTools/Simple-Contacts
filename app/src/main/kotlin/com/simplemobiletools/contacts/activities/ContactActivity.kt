@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.provider.ContactsContract
 import android.widget.ImageView
-import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -17,7 +16,6 @@ import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.getColoredBitmap
 import com.simplemobiletools.commons.extensions.getContrastColor
-import com.simplemobiletools.commons.helpers.getDateFormats
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
@@ -26,16 +24,11 @@ import com.simplemobiletools.contacts.extensions.sendSMSIntent
 import com.simplemobiletools.contacts.extensions.shareContacts
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.models.Contact
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 abstract class ContactActivity : SimpleActivity() {
     protected var contact: Contact? = null
     protected var currentContactPhotoPath = ""
-    protected var showFields = 0
 
     fun showPhotoPlaceholder(photoView: ImageView) {
         val placeholder = resources.getColoredBitmap(R.drawable.ic_person, config.primaryColor.getContrastColor())
@@ -69,31 +62,6 @@ abstract class ContactActivity : SimpleActivity() {
                 }).into(photoView)
     }
 
-    fun getDateTime(dateString: String, viewToUpdate: TextView? = null): DateTime {
-        val dateFormats = getDateFormats()
-        var date = DateTime()
-        for (format in dateFormats) {
-            try {
-                date = DateTime.parse(dateString, DateTimeFormat.forPattern(format))
-
-                val formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-                var localPattern = (formatter as SimpleDateFormat).toLocalizedPattern()
-
-                val hasYear = format.contains("y")
-                if (!hasYear) {
-                    localPattern = localPattern.replace("y", "").trim()
-                    date = date.withYear(DateTime().year)
-                }
-
-                val formattedString = date.toString(localPattern)
-                viewToUpdate?.text = formattedString
-                break
-            } catch (ignored: Exception) {
-            }
-        }
-        return date
-    }
-
     fun deleteContact() {
         ConfirmationDialog(this) {
             if (contact != null) {
@@ -104,9 +72,7 @@ abstract class ContactActivity : SimpleActivity() {
     }
 
     fun shareContact() {
-        if (contact != null) {
-            shareContacts(arrayListOf(contact!!))
-        }
+        shareContacts(arrayListOf(contact!!))
     }
 
     fun trySendSMS() {

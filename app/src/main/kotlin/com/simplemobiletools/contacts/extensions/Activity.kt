@@ -14,9 +14,8 @@ import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
-import com.simplemobiletools.contacts.helpers.ContactsHelper
-import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
-import com.simplemobiletools.contacts.helpers.VcfExporter
+import com.simplemobiletools.contacts.dialogs.CallConfirmationDialog
+import com.simplemobiletools.contacts.helpers.*
 import com.simplemobiletools.contacts.models.Contact
 import com.simplemobiletools.contacts.models.ContactSource
 import java.io.File
@@ -36,6 +35,16 @@ fun SimpleActivity.startCallIntent(recipient: String) {
 }
 
 fun SimpleActivity.tryStartCall(contact: Contact) {
+    if (config.showCallConfirmation) {
+        CallConfirmationDialog(this, contact) {
+            startCall(contact)
+        }
+    } else {
+        startCall(contact)
+    }
+}
+
+fun SimpleActivity.startCall(contact: Contact) {
     val numbers = contact.phoneNumbers
     if (numbers.size == 1) {
         startCallIntent(numbers.first().value)
@@ -105,10 +114,10 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
 fun BaseSimpleActivity.sendSMSToContacts(contacts: ArrayList<Contact>) {
     val numbers = StringBuilder()
     contacts.forEach {
-        it.phoneNumbers.forEach {
-            if (it.value.isNotEmpty()) {
-                numbers.append("${it.value};")
-            }
+        val number = it.phoneNumbers.firstOrNull { it.type == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE }
+                ?: it.phoneNumbers.firstOrNull()
+        if (number != null) {
+            numbers.append("${number.value};")
         }
 
         val uriString = "smsto:${numbers.toString().trimEnd(';')}"
@@ -190,4 +199,18 @@ fun Activity.getVisibleContactSources(): ArrayList<String> {
     val sourceNames = ArrayList(sources).map { if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name }.toMutableList() as ArrayList<String>
     sourceNames.removeAll(config.ignoredContactSources)
     return sourceNames
+}
+
+fun SimpleActivity.contactClicked(contact: Contact) {
+    when (config.onContactClick) {
+        ON_CLICK_CALL_CONTACT -> {
+            if (contact.phoneNumbers.isNotEmpty()) {
+                tryStartCall(contact)
+            } else {
+                toast(R.string.no_phone_number_found)
+            }
+        }
+        ON_CLICK_VIEW_CONTACT -> viewContact(contact)
+        ON_CLICK_EDIT_CONTACT -> editContact(contact)
+    }
 }

@@ -12,48 +12,45 @@ const val LOCAL_ACCOUNT_NAME = "local_account_name"
 const val LOCAL_ACCOUNT_TYPE = "local_account_type"
 const val ON_CONTACT_CLICK = "on_contact_click"
 const val SHOW_CONTACT_FIELDS = "show_contact_fields"
+const val SHOW_TABS = "show_tabs"
 const val FILTER_DUPLICATES = "filter_duplicates"
+const val SHOW_CALL_CONFIRMATION = "show_call_confirmation"
 
 const val CONTACT_ID = "contact_id"
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
 const val IS_PRIVATE = "is_private"
 const val GROUP = "group"
 const val FIRST_GROUP_ID = 10000
+const val PHONE_NUMBER_PATTERN = "\\D+"
+const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"
+
+// extras used at third party intents
+const val KEY_PHONE = "phone"
+const val KEY_NAME = "name"
 
 const val LOCATION_CONTACTS_TAB = 0
 const val LOCATION_FAVORITES_TAB = 1
-const val LOCATION_GROUPS_TAB = 2
-const val LOCATION_GROUP_CONTACTS = 3
+const val LOCATION_RECENTS_TAB = 2
+const val LOCATION_GROUPS_TAB = 3
+const val LOCATION_GROUP_CONTACTS = 4
 
 const val CONTACTS_TAB_MASK = 1
 const val FAVORITES_TAB_MASK = 2
-const val GROUPS_TAB_MASK = 4
-const val ALL_TABS_MASK = 7
+const val RECENTS_TAB_MASK = 4
+const val GROUPS_TAB_MASK = 8
+const val ALL_TABS_MASK = 15
+
+val tabsList = arrayListOf(CONTACTS_TAB_MASK,
+        FAVORITES_TAB_MASK,
+        RECENTS_TAB_MASK,
+        GROUPS_TAB_MASK
+)
 
 // contact photo changes
 const val PHOTO_ADDED = 1
 const val PHOTO_REMOVED = 2
 const val PHOTO_CHANGED = 3
 const val PHOTO_UNCHANGED = 4
-
-// export/import
-const val BEGIN_VCARD = "BEGIN:VCARD"
-const val END_VCARD = "END:VCARD"
-const val N = "N"
-const val TEL = "TEL"
-const val BDAY = "BDAY:"
-const val ANNIVERSARY = "ANNIVERSARY:"
-const val PHOTO = "PHOTO"
-const val EMAIL = "EMAIL"
-const val ADR = "ADR"
-const val NOTE = "NOTE:"
-const val ORG = "ORG:"
-const val TITLE = "TITLE:"
-const val URL = "URL:"
-const val ENCODING = "ENCODING"
-const val BASE64 = "BASE64"
-const val JPEG = "JPEG"
-const val VERSION_2_1 = "VERSION:2.1"
 
 // phone number/email types
 const val CELL = "CELL"
@@ -66,7 +63,6 @@ const val WORK_FAX = "WORK;FAX"
 const val HOME_FAX = "HOME;FAX"
 const val PAGER = "PAGER"
 const val MOBILE = "MOBILE"
-const val VOICE = "VOICE"
 
 const val ON_CLICK_CALL_CONTACT = 1
 const val ON_CLICK_VIEW_CONTACT = 2
@@ -87,6 +83,7 @@ const val SHOW_ORGANIZATION_FIELD = 1024
 const val SHOW_GROUPS_FIELD = 2048
 const val SHOW_CONTACT_SOURCE_FIELD = 4096
 const val SHOW_WEBSITES_FIELD = 8192
+const val SHOW_NICKNAME_FIELD = 16384
 
 const val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
 const val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
