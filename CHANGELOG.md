@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 4.3.0 *(2018-08-24)*
+----------------------------
+
+ * Reworked contact exporting/importing from scratch, use ez-vcard for parsing files
+ * Couple stability and translation improvements
+
 Version 4.2.2 *(2018-08-13)*
 ----------------------------
 
