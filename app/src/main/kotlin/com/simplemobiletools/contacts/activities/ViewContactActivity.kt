@@ -11,6 +11,7 @@ import android.widget.RelativeLayout
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
 import kotlinx.android.synthetic.main.activity_view_contact.*
@@ -225,7 +226,13 @@ class ViewContactActivity : ContactActivity() {
                     contact_number_type.setText(getPhoneNumberTextId(phoneNumber.type))
 
                     setOnClickListener {
-                        startCallIntent(phoneNumber.value)
+                        if (config.showCallConfirmation) {
+                            CallConfirmationDialog(this@ViewContactActivity, phoneNumber.value) {
+                                startCallIntent(phoneNumber.value)
+                            }
+                        } else {
+                            startCallIntent(phoneNumber.value)
+                        }
                     }
                 }
             }
