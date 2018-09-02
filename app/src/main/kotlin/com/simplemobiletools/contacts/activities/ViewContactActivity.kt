@@ -222,7 +222,7 @@ class ViewContactActivity : ContactActivity() {
                     val phoneNumber = it
                     contact_numbers_holder.addView(this)
                     contact_number.text = phoneNumber.value
-                    contact_number_type.setText(getPhoneNumberTextId(phoneNumber.type))
+                    contact_number_type.text = getPhoneNumberText(phoneNumber.type, phoneNumber.label)
 
                     setOnClickListener {
                         if (config.showCallConfirmation) {

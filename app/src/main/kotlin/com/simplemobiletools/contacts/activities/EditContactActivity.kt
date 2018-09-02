@@ -361,7 +361,7 @@ class EditContactActivity : ContactActivity() {
 
             numberHolder!!.apply {
                 contact_number.setText(number.value)
-                setupPhoneNumberTypePicker(contact_number_type, number.type)
+                setupPhoneNumberTypePicker(contact_number_type, number.type, number.label)
             }
         }
     }
@@ -514,7 +514,7 @@ class EditContactActivity : ContactActivity() {
         if (contact!!.phoneNumbers.isEmpty()) {
             val numberHolder = contact_numbers_holder.getChildAt(0)
             (numberHolder as? ViewGroup)?.contact_number_type?.apply {
-                setupPhoneNumberTypePicker(this)
+                setupPhoneNumberTypePicker(this, DEFAULT_PHONE_NUMBER_TYPE, "")
             }
         }
 
@@ -547,9 +547,9 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
-    private fun setupPhoneNumberTypePicker(numberTypeField: TextView, type: Int = DEFAULT_PHONE_NUMBER_TYPE) {
+    private fun setupPhoneNumberTypePicker(numberTypeField: TextView, type: Int, label: String) {
         numberTypeField.apply {
-            setText(getPhoneNumberTextId(type))
+            text = getPhoneNumberText(type, label)
             setOnClickListener {
                 showNumberTypePicker(it as TextView)
             }
@@ -646,7 +646,7 @@ class EditContactActivity : ContactActivity() {
 
         val currentNumberTypeId = getPhoneNumberTypeId(numberTypeField.value)
         RadioGroupDialog(this, items, currentNumberTypeId) {
-            numberTypeField.setText(getPhoneNumberTextId(it as Int))
+            numberTypeField.text = getPhoneNumberText(it as Int, "")
         }
     }
 
@@ -860,7 +860,7 @@ class EditContactActivity : ContactActivity() {
     private fun addNewPhoneNumberField() {
         val numberHolder = layoutInflater.inflate(R.layout.item_edit_phone_number, contact_numbers_holder, false) as ViewGroup
         updateTextColors(numberHolder)
-        setupPhoneNumberTypePicker(numberHolder.contact_number_type)
+        setupPhoneNumberTypePicker(numberHolder.contact_number_type, DEFAULT_PHONE_NUMBER_TYPE, "")
         contact_numbers_holder.addView(numberHolder)
         contact_numbers_holder.onGlobalLayout {
             numberHolder.contact_number.requestFocus()
