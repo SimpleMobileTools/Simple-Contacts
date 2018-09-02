@@ -57,7 +57,6 @@ class ViewContactActivity : ContactActivity() {
         return true
     }
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (contact == null) {
             return true

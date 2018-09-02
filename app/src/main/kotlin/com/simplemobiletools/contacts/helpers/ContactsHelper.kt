@@ -202,7 +202,8 @@ class ContactsHelper(val activity: Activity) {
         val projection = arrayOf(
                 ContactsContract.Data.RAW_CONTACT_ID,
                 CommonDataKinds.Phone.NUMBER,
-                CommonDataKinds.Phone.TYPE
+                CommonDataKinds.Phone.TYPE,
+                CommonDataKinds.Phone.LABEL
         )
 
         val selection = if (contactId == null) getSourcesSelection() else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
@@ -216,12 +217,13 @@ class ContactsHelper(val activity: Activity) {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
                     val number = cursor.getStringValue(CommonDataKinds.Phone.NUMBER) ?: continue
                     val type = cursor.getIntValue(CommonDataKinds.Phone.TYPE)
+                    val label = cursor.getStringValue(CommonDataKinds.Phone.LABEL) ?: ""
 
                     if (phoneNumbers[id] == null) {
                         phoneNumbers.put(id, ArrayList())
                     }
 
-                    val phoneNumber = PhoneNumber(number, type)
+                    val phoneNumber = PhoneNumber(number, type, label)
                     phoneNumbers[id].add(phoneNumber)
                 } while (cursor.moveToNext())
             }
@@ -270,7 +272,8 @@ class ContactsHelper(val activity: Activity) {
         val projection = arrayOf(
                 ContactsContract.Data.RAW_CONTACT_ID,
                 CommonDataKinds.Email.DATA,
-                CommonDataKinds.Email.TYPE
+                CommonDataKinds.Email.TYPE,
+                CommonDataKinds.Email.LABEL
         )
 
         val selection = if (contactId == null) getSourcesSelection() else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
@@ -284,12 +287,13 @@ class ContactsHelper(val activity: Activity) {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
                     val email = cursor.getStringValue(CommonDataKinds.Email.DATA) ?: continue
                     val type = cursor.getIntValue(CommonDataKinds.Email.TYPE)
+                    val label = cursor.getStringValue(CommonDataKinds.Email.LABEL) ?: ""
 
                     if (emails[id] == null) {
                         emails.put(id, ArrayList())
                     }
 
-                    emails[id]!!.add(Email(email, type))
+                    emails[id]!!.add(Email(email, type, label))
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
@@ -307,7 +311,8 @@ class ContactsHelper(val activity: Activity) {
         val projection = arrayOf(
                 ContactsContract.Data.RAW_CONTACT_ID,
                 CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS,
-                CommonDataKinds.StructuredPostal.TYPE
+                CommonDataKinds.StructuredPostal.TYPE,
+                CommonDataKinds.StructuredPostal.LABEL
         )
 
         val selection = if (contactId == null) getSourcesSelection() else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
@@ -321,12 +326,13 @@ class ContactsHelper(val activity: Activity) {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
                     val address = cursor.getStringValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS) ?: continue
                     val type = cursor.getIntValue(CommonDataKinds.StructuredPostal.TYPE)
+                    val label = cursor.getStringValue(CommonDataKinds.StructuredPostal.LABEL) ?: ""
 
                     if (addresses[id] == null) {
                         addresses.put(id, ArrayList())
                     }
 
-                    addresses[id]!!.add(Address(address, type))
+                    addresses[id]!!.add(Address(address, type, label))
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {

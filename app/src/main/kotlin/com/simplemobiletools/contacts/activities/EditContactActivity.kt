@@ -150,7 +150,7 @@ class EditContactActivity : ContactActivity() {
 
         if (contact!!.id == 0 && intent.extras?.containsKey(KEY_PHONE) == true && (action == Intent.ACTION_INSERT_OR_EDIT || action == Intent.ACTION_INSERT)) {
             val phoneNumber = intent.extras.get(KEY_PHONE)?.toString() ?: ""
-            contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE))
+            contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, ""))
 
             contact!!.firstName = intent.extras.get(KEY_NAME)?.toString() ?: ""
 
@@ -754,7 +754,7 @@ class EditContactActivity : ContactActivity() {
             val numberType = getPhoneNumberTypeId(numberHolder.contact_number_type.value)
 
             if (number.isNotEmpty()) {
-                phoneNumbers.add(PhoneNumber(number, numberType))
+                phoneNumbers.add(PhoneNumber(number, numberType, ""))
             }
         }
         return phoneNumbers
@@ -769,7 +769,7 @@ class EditContactActivity : ContactActivity() {
             val emailType = getEmailTypeId(emailHolder.contact_email_type.value)
 
             if (email.isNotEmpty()) {
-                emails.add(Email(email, emailType))
+                emails.add(Email(email, emailType, ""))
             }
         }
         return emails
@@ -784,7 +784,7 @@ class EditContactActivity : ContactActivity() {
             val addressType = getAddressTypeId(addressHolder.contact_address_type.value)
 
             if (address.isNotEmpty()) {
-                addresses.add(Address(address, addressType))
+                addresses.add(Address(address, addressType, ""))
             }
         }
         return addresses
@@ -955,7 +955,7 @@ class EditContactActivity : ContactActivity() {
     private fun parseEmail(contentValues: ContentValues) {
         val type = contentValues.getAsInteger(CommonDataKinds.Email.DATA2) ?: DEFAULT_EMAIL_TYPE
         val emailValue = contentValues.getAsString(CommonDataKinds.Email.DATA1) ?: return
-        val email = Email(emailValue, type)
+        val email = Email(emailValue, type, "")
         contact!!.emails.add(email)
     }
 
@@ -963,7 +963,7 @@ class EditContactActivity : ContactActivity() {
         val type = contentValues.getAsInteger(CommonDataKinds.StructuredPostal.DATA2) ?: DEFAULT_ADDRESS_TYPE
         val addressValue = contentValues.getAsString(CommonDataKinds.StructuredPostal.DATA4)
                 ?: contentValues.getAsString(CommonDataKinds.StructuredPostal.DATA1) ?: return
-        val address = Address(addressValue, type)
+        val address = Address(addressValue, type, "")
         contact!!.addresses.add(address)
     }
 

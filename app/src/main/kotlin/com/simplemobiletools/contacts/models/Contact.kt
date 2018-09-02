@@ -94,10 +94,10 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
 
     fun getHashToCompare(): Int {
         val newPhoneNumbers = ArrayList<PhoneNumber>()
-        phoneNumbers.mapTo(newPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0) }
+        phoneNumbers.mapTo(newPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0, "") }
 
         val newEmails = ArrayList<Email>()
-        emails.mapTo(newEmails) { Email(it.value, 0) }
+        emails.mapTo(newEmails) { Email(it.value, 0, "") }
 
         return copy(id = 0, prefix = "", firstName = getFullName().toLowerCase(), middleName = "", surname = "", suffix = "", nickname = "", photoUri = "",
                 phoneNumbers = newPhoneNumbers, events = ArrayList(), addresses = ArrayList(), emails = newEmails, source = "", starred = 0,

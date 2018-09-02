@@ -50,14 +50,14 @@ class VcfImporter(val activity: SimpleActivity) {
                 ezContact.telephoneNumbers.forEach {
                     val type = getPhoneNumberTypeId(it.types.firstOrNull()?.value ?: MOBILE)
                     val number = it.text
-                    phoneNumbers.add(PhoneNumber(number, type))
+                    phoneNumbers.add(PhoneNumber(number, type, ""))
                 }
 
                 val emails = ArrayList<Email>()
                 ezContact.emails.forEach {
                     val type = getEmailTypeId(it.types.firstOrNull()?.value ?: HOME)
                     val email = it.value
-                    emails.add(Email(email, type))
+                    emails.add(Email(email, type, ""))
                 }
 
                 val addresses = ArrayList<Address>()
@@ -65,7 +65,7 @@ class VcfImporter(val activity: SimpleActivity) {
                     val type = getAddressTypeId(it.types.firstOrNull()?.value ?: HOME)
                     val address = it.streetAddress
                     if (address?.isNotEmpty() == true) {
-                        addresses.add(Address(address, type))
+                        addresses.add(Address(address, type, ""))
                     }
                 }
 
