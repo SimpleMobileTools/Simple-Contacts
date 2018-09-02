@@ -21,6 +21,7 @@ import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.dialogs.CustomLabelDialog
 import com.simplemobiletools.contacts.dialogs.SelectGroupsDialog
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
@@ -641,12 +642,19 @@ class EditContactActivity : ContactActivity() {
                 RadioItem(CommonDataKinds.Phone.TYPE_FAX_WORK, getString(R.string.work_fax)),
                 RadioItem(CommonDataKinds.Phone.TYPE_FAX_HOME, getString(R.string.home_fax)),
                 RadioItem(CommonDataKinds.Phone.TYPE_PAGER, getString(R.string.pager)),
-                RadioItem(CommonDataKinds.Phone.TYPE_OTHER, getString(R.string.other))
+                RadioItem(CommonDataKinds.Phone.TYPE_OTHER, getString(R.string.other)),
+                RadioItem(CommonDataKinds.Phone.TYPE_CUSTOM, getString(R.string.custom))
         )
 
         val currentNumberTypeId = getPhoneNumberTypeId(numberTypeField.value)
         RadioGroupDialog(this, items, currentNumberTypeId) {
-            numberTypeField.text = getPhoneNumberTypeText(it as Int, "")
+            if (it as Int == CommonDataKinds.Phone.TYPE_CUSTOM) {
+                CustomLabelDialog(this) {
+                    numberTypeField.text = it
+                }
+            } else {
+                numberTypeField.text = getPhoneNumberTypeText(it, "")
+            }
         }
     }
 
@@ -655,12 +663,19 @@ class EditContactActivity : ContactActivity() {
                 RadioItem(CommonDataKinds.Email.TYPE_HOME, getString(R.string.home)),
                 RadioItem(CommonDataKinds.Email.TYPE_WORK, getString(R.string.work)),
                 RadioItem(CommonDataKinds.Email.TYPE_MOBILE, getString(R.string.mobile)),
-                RadioItem(CommonDataKinds.Email.TYPE_OTHER, getString(R.string.other))
+                RadioItem(CommonDataKinds.Email.TYPE_OTHER, getString(R.string.other)),
+                RadioItem(CommonDataKinds.Email.TYPE_CUSTOM, getString(R.string.custom))
         )
 
         val currentEmailTypeId = getEmailTypeId(emailTypeField.value)
         RadioGroupDialog(this, items, currentEmailTypeId) {
-            emailTypeField.text = getEmailTypeText(it as Int, "")
+            if (it as Int == CommonDataKinds.Email.TYPE_CUSTOM) {
+                CustomLabelDialog(this) {
+                    emailTypeField.text = it
+                }
+            } else {
+                emailTypeField.text = getEmailTypeText(it, "")
+            }
         }
     }
 
@@ -668,12 +683,19 @@ class EditContactActivity : ContactActivity() {
         val items = arrayListOf(
                 RadioItem(CommonDataKinds.StructuredPostal.TYPE_HOME, getString(R.string.home)),
                 RadioItem(CommonDataKinds.StructuredPostal.TYPE_WORK, getString(R.string.work)),
-                RadioItem(CommonDataKinds.StructuredPostal.TYPE_OTHER, getString(R.string.other))
+                RadioItem(CommonDataKinds.StructuredPostal.TYPE_OTHER, getString(R.string.other)),
+                RadioItem(CommonDataKinds.StructuredPostal.TYPE_CUSTOM, getString(R.string.custom))
         )
 
         val currentAddressTypeId = getAddressTypeId(addressTypeField.value)
         RadioGroupDialog(this, items, currentAddressTypeId) {
-            addressTypeField.text = getAddressTypeText(it as Int, "")
+            if (it as Int == CommonDataKinds.StructuredPostal.TYPE_CUSTOM) {
+                CustomLabelDialog(this) {
+                    addressTypeField.text = it
+                }
+            } else {
+                addressTypeField.text = getAddressTypeText(it, "")
+            }
         }
     }
 
@@ -752,9 +774,10 @@ class EditContactActivity : ContactActivity() {
             val numberHolder = contact_numbers_holder.getChildAt(i)
             val number = numberHolder.contact_number.value
             val numberType = getPhoneNumberTypeId(numberHolder.contact_number_type.value)
+            val numberLabel = if (numberType == CommonDataKinds.Phone.TYPE_CUSTOM) numberHolder.contact_number_type.value else ""
 
             if (number.isNotEmpty()) {
-                phoneNumbers.add(PhoneNumber(number, numberType, ""))
+                phoneNumbers.add(PhoneNumber(number, numberType, numberLabel))
             }
         }
         return phoneNumbers
@@ -767,9 +790,10 @@ class EditContactActivity : ContactActivity() {
             val emailHolder = contact_emails_holder.getChildAt(i)
             val email = emailHolder.contact_email.value
             val emailType = getEmailTypeId(emailHolder.contact_email_type.value)
+            val emailLabel = if (emailType == CommonDataKinds.Email.TYPE_CUSTOM) emailHolder.contact_email_type.value else ""
 
             if (email.isNotEmpty()) {
-                emails.add(Email(email, emailType, ""))
+                emails.add(Email(email, emailType, emailLabel))
             }
         }
         return emails
@@ -782,9 +806,10 @@ class EditContactActivity : ContactActivity() {
             val addressHolder = contact_addresses_holder.getChildAt(i)
             val address = addressHolder.contact_address.value
             val addressType = getAddressTypeId(addressHolder.contact_address_type.value)
+            val addressLabel = if (addressType == CommonDataKinds.StructuredPostal.TYPE_CUSTOM) addressHolder.contact_address_type.value else ""
 
             if (address.isNotEmpty()) {
-                addresses.add(Address(address, addressType, ""))
+                addresses.add(Address(address, addressType, addressLabel))
             }
         }
         return addresses
@@ -1027,14 +1052,16 @@ class EditContactActivity : ContactActivity() {
         getString(R.string.work_fax) -> CommonDataKinds.Phone.TYPE_FAX_WORK
         getString(R.string.home_fax) -> CommonDataKinds.Phone.TYPE_FAX_HOME
         getString(R.string.pager) -> CommonDataKinds.Phone.TYPE_PAGER
-        else -> CommonDataKinds.Phone.TYPE_OTHER
+        getString(R.string.other) -> CommonDataKinds.Phone.TYPE_OTHER
+        else -> CommonDataKinds.Phone.TYPE_CUSTOM
     }
 
     private fun getEmailTypeId(value: String) = when (value) {
         getString(R.string.home) -> CommonDataKinds.Email.TYPE_HOME
         getString(R.string.work) -> CommonDataKinds.Email.TYPE_WORK
         getString(R.string.mobile) -> CommonDataKinds.Email.TYPE_MOBILE
-        else -> CommonDataKinds.Email.TYPE_OTHER
+        getString(R.string.other) -> CommonDataKinds.Email.TYPE_OTHER
+        else -> CommonDataKinds.Email.TYPE_CUSTOM
     }
 
     private fun getEventTypeId(value: String) = when (value) {
@@ -1046,6 +1073,7 @@ class EditContactActivity : ContactActivity() {
     private fun getAddressTypeId(value: String) = when (value) {
         getString(R.string.home) -> CommonDataKinds.StructuredPostal.TYPE_HOME
         getString(R.string.work) -> CommonDataKinds.StructuredPostal.TYPE_WORK
-        else -> CommonDataKinds.StructuredPostal.TYPE_OTHER
+        getString(R.string.other) -> CommonDataKinds.StructuredPostal.TYPE_OTHER
+        else -> CommonDataKinds.StructuredPostal.TYPE_CUSTOM
     }
 }

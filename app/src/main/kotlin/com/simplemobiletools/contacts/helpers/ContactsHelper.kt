@@ -862,6 +862,7 @@ class ContactsHelper(val activity: Activity) {
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Phone.NUMBER, it.value)
                     withValue(CommonDataKinds.Phone.TYPE, it.type)
+                    withValue(CommonDataKinds.Phone.LABEL, it.label)
                     operations.add(build())
                 }
             }
@@ -881,6 +882,7 @@ class ContactsHelper(val activity: Activity) {
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Email.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Email.DATA, it.value)
                     withValue(CommonDataKinds.Email.TYPE, it.type)
+                    withValue(CommonDataKinds.Email.LABEL, it.label)
                     operations.add(build())
                 }
             }
@@ -900,6 +902,7 @@ class ContactsHelper(val activity: Activity) {
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, it.value)
                     withValue(CommonDataKinds.StructuredPostal.TYPE, it.type)
+                    withValue(CommonDataKinds.StructuredPostal.LABEL, it.label)
                     operations.add(build())
                 }
             }
@@ -1140,6 +1143,7 @@ class ContactsHelper(val activity: Activity) {
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Phone.NUMBER, it.value)
                     withValue(CommonDataKinds.Phone.TYPE, it.type)
+                    withValue(CommonDataKinds.Phone.LABEL, it.label)
                     operations.add(build())
                 }
             }
@@ -1151,6 +1155,7 @@ class ContactsHelper(val activity: Activity) {
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Email.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Email.DATA, it.value)
                     withValue(CommonDataKinds.Email.TYPE, it.type)
+                    withValue(CommonDataKinds.Email.LABEL, it.label)
                     operations.add(build())
                 }
             }
@@ -1162,6 +1167,7 @@ class ContactsHelper(val activity: Activity) {
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, it.value)
                     withValue(CommonDataKinds.StructuredPostal.TYPE, it.type)
+                    withValue(CommonDataKinds.StructuredPostal.LABEL, it.label)
                     operations.add(build())
                 }
             }
