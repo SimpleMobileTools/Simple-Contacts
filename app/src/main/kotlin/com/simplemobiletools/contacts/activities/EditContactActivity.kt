@@ -391,7 +391,7 @@ class EditContactActivity : ContactActivity() {
 
             addressHolder!!.apply {
                 contact_address.setText(address.value)
-                setupAddressTypePicker(contact_address_type, address.type)
+                setupAddressTypePicker(contact_address_type, address.type, address.label)
             }
         }
     }
@@ -528,7 +528,7 @@ class EditContactActivity : ContactActivity() {
         if (contact!!.addresses.isEmpty()) {
             val addressHolder = contact_addresses_holder.getChildAt(0)
             (addressHolder as? ViewGroup)?.contact_address_type?.apply {
-                setupAddressTypePicker(this)
+                setupAddressTypePicker(this, DEFAULT_ADDRESS_TYPE, "")
             }
         }
 
@@ -565,9 +565,9 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
-    private fun setupAddressTypePicker(addressTypeField: TextView, type: Int = DEFAULT_ADDRESS_TYPE) {
+    private fun setupAddressTypePicker(addressTypeField: TextView, type: Int, label: String) {
         addressTypeField.apply {
-            setText(getAddressTypeText(type))
+            text = getAddressTypeText(type, label)
             setOnClickListener {
                 showAddressTypePicker(it as TextView)
             }
@@ -660,7 +660,7 @@ class EditContactActivity : ContactActivity() {
 
         val currentEmailTypeId = getEmailTypeId(emailTypeField.value)
         RadioGroupDialog(this, items, currentEmailTypeId) {
-            emailTypeField.setText(getEmailTypeText(it as Int, ""))
+            emailTypeField.text = getEmailTypeText(it as Int, "")
         }
     }
 
@@ -673,7 +673,7 @@ class EditContactActivity : ContactActivity() {
 
         val currentAddressTypeId = getAddressTypeId(addressTypeField.value)
         RadioGroupDialog(this, items, currentAddressTypeId) {
-            addressTypeField.setText(getAddressTypeText(it as Int))
+            addressTypeField.text = getAddressTypeText(it as Int, "")
         }
     }
 
@@ -882,7 +882,7 @@ class EditContactActivity : ContactActivity() {
     private fun addNewAddressField() {
         val addressHolder = layoutInflater.inflate(R.layout.item_edit_address, contact_addresses_holder, false) as ViewGroup
         updateTextColors(addressHolder)
-        setupAddressTypePicker(addressHolder.contact_address_type)
+        setupAddressTypePicker(addressHolder.contact_address_type, DEFAULT_ADDRESS_TYPE, "")
         contact_addresses_holder.addView(addressHolder)
         contact_addresses_holder.onGlobalLayout {
             addressHolder.contact_address.requestFocus()

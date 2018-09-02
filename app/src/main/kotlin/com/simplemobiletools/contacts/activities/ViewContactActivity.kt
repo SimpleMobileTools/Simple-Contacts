@@ -276,7 +276,7 @@ class ViewContactActivity : ContactActivity() {
                     val address = it
                     contact_addresses_holder.addView(this)
                     contact_address.text = address.value
-                    contact_address_type.setText(getAddressTypeText(address.type))
+                    contact_address_type.text = getAddressTypeText(address.type, address.label)
 
                     setOnClickListener {
                         sendAddressIntent(address.value)
