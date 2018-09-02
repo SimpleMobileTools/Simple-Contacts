@@ -107,7 +107,7 @@ abstract class ContactActivity : SimpleActivity() {
         }
     }
 
-    fun getPhoneNumberText(type: Int, label: String): String {
+    fun getPhoneNumberTypeText(type: Int, label: String): String {
         return if (type == ContactsContract.CommonDataKinds.BaseTypes.TYPE_CUSTOM) {
             label
         } else {
@@ -124,14 +124,20 @@ abstract class ContactActivity : SimpleActivity() {
         }
     }
 
-    fun getEmailTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Email.TYPE_HOME -> R.string.home
-        ContactsContract.CommonDataKinds.Email.TYPE_WORK -> R.string.work
-        ContactsContract.CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
-        else -> R.string.other
+    fun getEmailTypeText(type: Int, label: String): String {
+        return if (type == ContactsContract.CommonDataKinds.BaseTypes.TYPE_CUSTOM) {
+            label
+        } else {
+            getString(when (type) {
+                ContactsContract.CommonDataKinds.Email.TYPE_HOME -> R.string.home
+                ContactsContract.CommonDataKinds.Email.TYPE_WORK -> R.string.work
+                ContactsContract.CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
+                else -> R.string.other
+            })
+        }
     }
 
-    fun getAddressTextId(type: Int) = when (type) {
+    fun getAddressTypeText(type: Int) = when (type) {
         ContactsContract.CommonDataKinds.StructuredPostal.TYPE_HOME -> R.string.home
         ContactsContract.CommonDataKinds.StructuredPostal.TYPE_WORK -> R.string.work
         else -> R.string.other

@@ -222,7 +222,7 @@ class ViewContactActivity : ContactActivity() {
                     val phoneNumber = it
                     contact_numbers_holder.addView(this)
                     contact_number.text = phoneNumber.value
-                    contact_number_type.text = getPhoneNumberText(phoneNumber.type, phoneNumber.label)
+                    contact_number_type.text = getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)
 
                     setOnClickListener {
                         if (config.showCallConfirmation) {
@@ -252,7 +252,7 @@ class ViewContactActivity : ContactActivity() {
                     val email = it
                     contact_emails_holder.addView(this)
                     contact_email.text = email.value
-                    contact_email_type.setText(getEmailTextId(email.type))
+                    contact_email_type.text = getEmailTypeText(email.type, email.label)
 
                     setOnClickListener {
                         sendEmailIntent(email.value)
@@ -276,7 +276,7 @@ class ViewContactActivity : ContactActivity() {
                     val address = it
                     contact_addresses_holder.addView(this)
                     contact_address.text = address.value
-                    contact_address_type.setText(getAddressTextId(address.type))
+                    contact_address_type.setText(getAddressTypeText(address.type))
 
                     setOnClickListener {
                         sendAddressIntent(address.value)

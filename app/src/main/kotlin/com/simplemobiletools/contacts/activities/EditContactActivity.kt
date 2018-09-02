@@ -376,7 +376,7 @@ class EditContactActivity : ContactActivity() {
 
             emailHolder!!.apply {
                 contact_email.setText(email.value)
-                setupEmailTypePicker(contact_email_type, email.type)
+                setupEmailTypePicker(contact_email_type, email.type, email.label)
             }
         }
     }
@@ -521,7 +521,7 @@ class EditContactActivity : ContactActivity() {
         if (contact!!.emails.isEmpty()) {
             val emailHolder = contact_emails_holder.getChildAt(0)
             (emailHolder as? ViewGroup)?.contact_email_type?.apply {
-                setupEmailTypePicker(this)
+                setupEmailTypePicker(this, DEFAULT_EMAIL_TYPE, "")
             }
         }
 
@@ -549,16 +549,16 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupPhoneNumberTypePicker(numberTypeField: TextView, type: Int, label: String) {
         numberTypeField.apply {
-            text = getPhoneNumberText(type, label)
+            text = getPhoneNumberTypeText(type, label)
             setOnClickListener {
                 showNumberTypePicker(it as TextView)
             }
         }
     }
 
-    private fun setupEmailTypePicker(emailTypeField: TextView, type: Int = DEFAULT_EMAIL_TYPE) {
+    private fun setupEmailTypePicker(emailTypeField: TextView, type: Int, label: String) {
         emailTypeField.apply {
-            setText(getEmailTextId(type))
+            text = getEmailTypeText(type, label)
             setOnClickListener {
                 showEmailTypePicker(it as TextView)
             }
@@ -567,7 +567,7 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupAddressTypePicker(addressTypeField: TextView, type: Int = DEFAULT_ADDRESS_TYPE) {
         addressTypeField.apply {
-            setText(getAddressTextId(type))
+            setText(getAddressTypeText(type))
             setOnClickListener {
                 showAddressTypePicker(it as TextView)
             }
@@ -646,7 +646,7 @@ class EditContactActivity : ContactActivity() {
 
         val currentNumberTypeId = getPhoneNumberTypeId(numberTypeField.value)
         RadioGroupDialog(this, items, currentNumberTypeId) {
-            numberTypeField.text = getPhoneNumberText(it as Int, "")
+            numberTypeField.text = getPhoneNumberTypeText(it as Int, "")
         }
     }
 
@@ -660,7 +660,7 @@ class EditContactActivity : ContactActivity() {
 
         val currentEmailTypeId = getEmailTypeId(emailTypeField.value)
         RadioGroupDialog(this, items, currentEmailTypeId) {
-            emailTypeField.setText(getEmailTextId(it as Int))
+            emailTypeField.setText(getEmailTypeText(it as Int, ""))
         }
     }
 
@@ -673,7 +673,7 @@ class EditContactActivity : ContactActivity() {
 
         val currentAddressTypeId = getAddressTypeId(addressTypeField.value)
         RadioGroupDialog(this, items, currentAddressTypeId) {
-            addressTypeField.setText(getAddressTextId(it as Int))
+            addressTypeField.setText(getAddressTypeText(it as Int))
         }
     }
 
@@ -871,7 +871,7 @@ class EditContactActivity : ContactActivity() {
     private fun addNewEmailField() {
         val emailHolder = layoutInflater.inflate(R.layout.item_edit_email, contact_emails_holder, false) as ViewGroup
         updateTextColors(emailHolder)
-        setupEmailTypePicker(emailHolder.contact_email_type)
+        setupEmailTypePicker(emailHolder.contact_email_type, DEFAULT_EMAIL_TYPE, "")
         contact_emails_holder.addView(emailHolder)
         contact_emails_holder.onGlobalLayout {
             emailHolder.contact_email.requestFocus()
