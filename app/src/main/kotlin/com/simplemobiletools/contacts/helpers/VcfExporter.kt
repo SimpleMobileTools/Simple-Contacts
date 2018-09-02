@@ -76,7 +76,7 @@ class VcfExporter {
                         if (it.type == CommonDataKinds.Event.TYPE_BIRTHDAY || it.type == CommonDataKinds.Event.TYPE_ANNIVERSARY) {
                             val dateTime = it.value.getDateTimeFromDateString()
                             if (it.value.startsWith("--")) {
-                                val partialDate = PartialDate.builder().year(null).month(dateTime.monthOfYear - 1).date(dateTime.dayOfMonth).build()
+                                val partialDate = PartialDate.builder().year(null).month(dateTime.monthOfYear).date(dateTime.dayOfMonth).build()
                                 if (it.type == CommonDataKinds.Event.TYPE_BIRTHDAY) {
                                     card.birthdays.add(Birthday(partialDate))
                                 } else {
