@@ -14,6 +14,10 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
     <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
 
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false"/>
+
     <uses-permission
         android:name="android.permission.USE_FINGERPRINT"
         tools:node="remove"/>
