@@ -15,10 +15,7 @@ import com.simplemobiletools.contacts.helpers.VcfExporter.ExportResult.EXPORT_FA
 import com.simplemobiletools.contacts.models.Contact
 import ezvcard.Ezvcard
 import ezvcard.VCard
-import ezvcard.parameter.AddressType
-import ezvcard.parameter.EmailType
 import ezvcard.parameter.ImageType
-import ezvcard.parameter.TelephoneType
 import ezvcard.property.*
 import ezvcard.util.PartialDate
 import java.io.File
@@ -62,13 +59,13 @@ class VcfExporter {
 
                     contact.phoneNumbers.forEach {
                         val phoneNumber = Telephone(it.value)
-                        phoneNumber.types.add(TelephoneType.find(getPhoneNumberLabel(it.type)))
+                        phoneNumber.parameters.addType(getPhoneNumberTypeLabel(it.type, it.label))
                         card.addTelephoneNumber(phoneNumber)
                     }
 
                     contact.emails.forEach {
                         val email = Email(it.value)
-                        email.types.add(EmailType.find(getEmailTypeLabel(it.type)))
+                        email.parameters.addType(getEmailTypeLabel(it.type, it.label))
                         card.addEmail(email)
                     }
 
@@ -101,7 +98,7 @@ class VcfExporter {
                     contact.addresses.forEach {
                         val address = Address()
                         address.streetAddress = it.value
-                        address.types.add(AddressType.find(getAddressTypeLabel(it.type)))
+                        address.parameters.addType(getAddressTypeLabel(it.type, it.label))
                         card.addAddress(address)
                     }
 
@@ -143,24 +140,30 @@ class VcfExporter {
         }
     }
 
-    private fun getPhoneNumberLabel(type: Int) = when (type) {
+    private fun getPhoneNumberTypeLabel(type: Int, label: String) = when (type) {
         CommonDataKinds.Phone.TYPE_MOBILE -> CELL
+        CommonDataKinds.Phone.TYPE_HOME -> HOME
         CommonDataKinds.Phone.TYPE_WORK -> WORK
         CommonDataKinds.Phone.TYPE_MAIN -> PREF
         CommonDataKinds.Phone.TYPE_FAX_WORK -> WORK_FAX
         CommonDataKinds.Phone.TYPE_FAX_HOME -> HOME_FAX
         CommonDataKinds.Phone.TYPE_PAGER -> PAGER
-        else -> HOME
+        CommonDataKinds.Phone.TYPE_OTHER -> OTHER
+        else -> label
     }
 
-    private fun getEmailTypeLabel(type: Int) = when (type) {
+    private fun getEmailTypeLabel(type: Int, label: String) = when (type) {
+        CommonDataKinds.Email.TYPE_HOME -> HOME
         CommonDataKinds.Email.TYPE_WORK -> WORK
         CommonDataKinds.Email.TYPE_MOBILE -> MOBILE
-        else -> HOME
+        CommonDataKinds.Email.TYPE_OTHER -> OTHER
+        else -> label
     }
 
-    private fun getAddressTypeLabel(type: Int) = when (type) {
+    private fun getAddressTypeLabel(type: Int, label: String) = when (type) {
+        CommonDataKinds.StructuredPostal.TYPE_HOME -> HOME
         CommonDataKinds.StructuredPostal.TYPE_WORK -> WORK
-        else -> HOME
+        CommonDataKinds.StructuredPostal.TYPE_OTHER -> OTHER
+        else -> label
     }
 }

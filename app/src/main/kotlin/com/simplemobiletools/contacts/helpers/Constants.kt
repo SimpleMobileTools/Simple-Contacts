@@ -56,6 +56,7 @@ const val PHOTO_UNCHANGED = 4
 const val CELL = "CELL"
 const val WORK = "WORK"
 const val HOME = "HOME"
+const val OTHER = "OTHER"
 const val PREF = "PREF"
 const val MAIN = "MAIN"
 const val FAX = "FAX"
