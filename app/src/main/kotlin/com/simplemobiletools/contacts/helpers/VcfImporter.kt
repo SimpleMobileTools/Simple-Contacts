@@ -49,7 +49,7 @@ class VcfImporter(val activity: SimpleActivity) {
                 val phoneNumbers = ArrayList<PhoneNumber>()
                 ezContact.telephoneNumbers.forEach {
                     val number = it.text
-                    val type = getPhoneNumberTypeId(it.types.firstOrNull()?.value ?: MOBILE)
+                    val type = getPhoneNumberTypeId(it.types.firstOrNull()?.value ?: MOBILE, it.types.getOrNull(1)?.value)
                     val label = if (type == CommonDataKinds.Phone.TYPE_CUSTOM) {
                         it.types.firstOrNull()?.value ?: ""
                     } else {
@@ -135,10 +135,22 @@ class VcfImporter(val activity: SimpleActivity) {
         return dateTime.toString("yyyy-MM-dd")
     }
 
-    private fun getPhoneNumberTypeId(type: String) = when (type.toUpperCase()) {
+    private fun getPhoneNumberTypeId(type: String, subtype: String?) = when (type.toUpperCase()) {
         CELL -> CommonDataKinds.Phone.TYPE_MOBILE
-        HOME -> CommonDataKinds.Phone.TYPE_HOME
-        WORK -> CommonDataKinds.Phone.TYPE_WORK
+        HOME -> {
+            if (subtype?.toUpperCase() == FAX) {
+                CommonDataKinds.Phone.TYPE_FAX_HOME
+            } else {
+                CommonDataKinds.Phone.TYPE_HOME
+            }
+        }
+        WORK -> {
+            if (subtype?.toUpperCase() == FAX) {
+                CommonDataKinds.Phone.TYPE_FAX_WORK
+            } else {
+                CommonDataKinds.Phone.TYPE_WORK
+            }
+        }
         PREF, MAIN -> CommonDataKinds.Phone.TYPE_MAIN
         WORK_FAX -> CommonDataKinds.Phone.TYPE_FAX_WORK
         HOME_FAX -> CommonDataKinds.Phone.TYPE_FAX_HOME
