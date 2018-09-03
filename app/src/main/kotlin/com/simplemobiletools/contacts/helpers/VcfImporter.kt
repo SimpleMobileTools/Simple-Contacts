@@ -5,7 +5,9 @@ import android.graphics.BitmapFactory
 import android.provider.ContactsContract.CommonDataKinds
 import android.widget.Toast
 import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
+import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.extensions.getCachePhoto
 import com.simplemobiletools.contacts.extensions.getCachePhotoUri
 import com.simplemobiletools.contacts.helpers.VcfImporter.ImportResult.*
@@ -102,6 +104,36 @@ class VcfImporter(val activity: SimpleActivity) {
                 val contactId = 0
                 val notes = ezContact.notes.firstOrNull()?.value ?: ""
                 val groups = ArrayList<Group>()
+
+                if (ezContact.categories != null){  // Iterate through categories of this contact (if any)
+
+                    // Iterate through group names for this contact
+                    // Check if group already exist and create it if not
+                    // Associate group with this user
+                    val groupNames = ezContact.categories.getParameters("GROUP");
+
+                    if (groupNames != null){                  // Resolve group references for this contact
+
+                        val storedGroups = ContactsHelper(activity).getStoredGroups();
+                        groupNames.forEach {
+
+                            val groupName = it;
+                            val storedGroup = storedGroups.firstOrNull { it.title == groupName }
+
+                            if (storedGroup != null){
+                                groups.add(storedGroup); // Group is already present on this device
+                            }
+                            else {
+                                // Group is not present on this device, yet so we create a new one
+                                val newcontactGroup = activity.dbHelper.insertGroup(Group(0, groupName));
+
+                                if (newcontactGroup != null)     // and associate it with this contact
+                                    groups.add(newcontactGroup);
+                            }
+                        }
+                    }
+                }
+				
                 val company = ezContact.organization?.values?.firstOrNull() ?: ""
                 val jobPosition = ezContact.titles?.firstOrNull()?.value ?: ""
                 val organization = Organization(company, jobPosition)
