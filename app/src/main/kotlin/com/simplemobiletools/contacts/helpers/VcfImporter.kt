@@ -48,24 +48,42 @@ class VcfImporter(val activity: SimpleActivity) {
 
                 val phoneNumbers = ArrayList<PhoneNumber>()
                 ezContact.telephoneNumbers.forEach {
-                    val type = getPhoneNumberTypeId(it.types.firstOrNull()?.value ?: MOBILE)
                     val number = it.text
-                    phoneNumbers.add(PhoneNumber(number, type, ""))
+                    val type = getPhoneNumberTypeId(it.types.firstOrNull()?.value ?: MOBILE)
+                    val label = if (type == CommonDataKinds.Phone.TYPE_CUSTOM) {
+                        it.types.firstOrNull()?.value ?: ""
+                    } else {
+                        ""
+                    }
+
+                    phoneNumbers.add(PhoneNumber(number, type, label))
                 }
 
                 val emails = ArrayList<Email>()
                 ezContact.emails.forEach {
-                    val type = getEmailTypeId(it.types.firstOrNull()?.value ?: HOME)
                     val email = it.value
-                    emails.add(Email(email, type, ""))
+                    val type = getEmailTypeId(it.types.firstOrNull()?.value ?: HOME)
+                    val label = if (type == CommonDataKinds.Email.TYPE_CUSTOM) {
+                        it.types.firstOrNull()?.value ?: ""
+                    } else {
+                        ""
+                    }
+
+                    emails.add(Email(email, type, label))
                 }
 
                 val addresses = ArrayList<Address>()
                 ezContact.addresses.forEach {
-                    val type = getAddressTypeId(it.types.firstOrNull()?.value ?: HOME)
                     val address = it.streetAddress
+                    val type = getAddressTypeId(it.types.firstOrNull()?.value ?: HOME)
+                    val label = if (type == CommonDataKinds.StructuredPostal.TYPE_CUSTOM) {
+                        it.types.firstOrNull()?.value ?: ""
+                    } else {
+                        ""
+                    }
+
                     if (address?.isNotEmpty() == true) {
-                        addresses.add(Address(address, type, ""))
+                        addresses.add(Address(address, type, label))
                     }
                 }
 
@@ -126,20 +144,23 @@ class VcfImporter(val activity: SimpleActivity) {
         HOME_FAX -> CommonDataKinds.Phone.TYPE_FAX_HOME
         FAX -> CommonDataKinds.Phone.TYPE_FAX_WORK
         PAGER -> CommonDataKinds.Phone.TYPE_PAGER
-        else -> CommonDataKinds.Phone.TYPE_OTHER
+        OTHER -> CommonDataKinds.Phone.TYPE_OTHER
+        else -> CommonDataKinds.Phone.TYPE_CUSTOM
     }
 
     private fun getEmailTypeId(type: String) = when (type.toUpperCase()) {
         HOME -> CommonDataKinds.Email.TYPE_HOME
         WORK -> CommonDataKinds.Email.TYPE_WORK
         MOBILE -> CommonDataKinds.Email.TYPE_MOBILE
-        else -> CommonDataKinds.Email.TYPE_OTHER
+        OTHER -> CommonDataKinds.Email.TYPE_OTHER
+        else -> CommonDataKinds.Email.TYPE_CUSTOM
     }
 
     private fun getAddressTypeId(type: String) = when (type.toUpperCase()) {
-        HOME -> CommonDataKinds.Email.TYPE_HOME
-        WORK -> CommonDataKinds.Email.TYPE_WORK
-        else -> CommonDataKinds.Email.TYPE_OTHER
+        HOME -> CommonDataKinds.StructuredPostal.TYPE_HOME
+        WORK -> CommonDataKinds.StructuredPostal.TYPE_WORK
+        OTHER -> CommonDataKinds.StructuredPostal.TYPE_OTHER
+        else -> CommonDataKinds.StructuredPostal.TYPE_CUSTOM
     }
 
     private fun savePhoto(byteArray: ByteArray?): String {
