@@ -283,13 +283,26 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val phoneNumbers = if (phoneNumbersJson == "[]") ArrayList() else gson.fromJson<ArrayList<PhoneNumber>>(phoneNumbersJson, phoneNumbersToken)
                         ?: ArrayList(1)
 
+                // labels can be null at upgrading from older app versions, when the label wasn't available at all yet
+                phoneNumbers.filter { it.label == null }.forEach {
+                    it.label = ""
+                }
+
                 val emailsJson = cursor.getStringValue(COL_EMAILS)
                 val emails = if (emailsJson == "[]") ArrayList() else gson.fromJson<ArrayList<Email>>(emailsJson, emailsToken)
                         ?: ArrayList(1)
 
+                emails.filter { it.label == null }.forEach {
+                    it.label = ""
+                }
+
                 val addressesJson = cursor.getStringValue(COL_ADDRESSES)
                 val addresses = if (addressesJson == "[]") ArrayList() else gson.fromJson<ArrayList<Address>>(addressesJson, addressesToken)
                         ?: ArrayList(1)
+
+                addresses.filter { it.label == null }.forEach {
+                    it.label = ""
+                }
 
                 val eventsJson = cursor.getStringValue(COL_EVENTS)
                 val events = if (eventsJson == "[]") ArrayList() else gson.fromJson<ArrayList<Event>>(eventsJson, eventsToken)
