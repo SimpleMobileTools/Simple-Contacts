@@ -42,12 +42,22 @@ class ContactsHelper(val activity: Activity) {
             }
 
             val contactsSize = contacts.size()
-            var resultContacts = ArrayList<Contact>(contactsSize)
-            (0 until contactsSize).mapTo(resultContacts) { contacts.valueAt(it) }
+            var tempContacts = ArrayList<Contact>(contactsSize)
+            val resultContacts = ArrayList<Contact>(contactsSize)
+            (0 until contactsSize).mapTo(tempContacts) { contacts.valueAt(it) }
             if (activity.config.filterDuplicates) {
-                resultContacts = resultContacts.distinctBy {
+                tempContacts = tempContacts.distinctBy {
                     it.getHashToCompare()
                 } as ArrayList<Contact>
+
+                tempContacts.groupBy { "${it.getFullName().toLowerCase()}${it.emails}" }.values.forEach {
+                    if (it.size == 1) {
+                        resultContacts.add(it.first())
+                    } else {
+                        val sorted = it.sortedByDescending { it.getStringToCompare().length }
+                        resultContacts.add(sorted.first())
+                    }
+                }
             }
 
             // groups are obtained with contactID, not rawID, so assign them to proper contacts like this
