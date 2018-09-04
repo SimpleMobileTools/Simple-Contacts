@@ -16,6 +16,7 @@ import com.simplemobiletools.commons.extensions.getBlobValue
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.getLongValue
 import com.simplemobiletools.commons.extensions.getStringValue
+import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.getByteArray
 import com.simplemobiletools.contacts.extensions.getPhotoThumbnailSize
 import com.simplemobiletools.contacts.models.*
@@ -257,6 +258,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
     fun getContacts(activity: Activity, selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
         val storedGroups = ContactsHelper(activity).getStoredGroups()
+        val filterDuplicates = activity.config.filterDuplicates
         val contacts = ArrayList<Contact>()
         val projection = arrayOf(COL_ID, COL_PREFIX, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_SUFFIX, COL_NICKNAME, COL_PHONE_NUMBERS,
                 COL_EMAILS, COL_EVENTS, COL_STARRED, COL_PHOTO, COL_ADDRESSES, COL_NOTES, COL_GROUPS, COL_COMPANY, COL_JOB_POSITION, COL_WEBSITES)
@@ -336,7 +338,9 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                         ?: ArrayList(1)
 
                 val cleanPhoneNumbers = ArrayList<PhoneNumber>()
-                phoneNumbers.mapTo(cleanPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0, "") }
+                if (filterDuplicates) {
+                    phoneNumbers.mapTo(cleanPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0, "") }
+                }
 
                 val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, "", phoneNumbers, emails, addresses,
                         events, SMT_PRIVATE, starred, id, "", photo, notes, groups, organization, websites, cleanPhoneNumbers)

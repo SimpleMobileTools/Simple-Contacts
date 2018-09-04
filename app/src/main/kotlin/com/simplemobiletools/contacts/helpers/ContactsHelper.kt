@@ -153,6 +153,7 @@ class ContactsHelper(val activity: Activity) {
             cursor?.close()
         }
 
+        val filterDuplicates = activity.config.filterDuplicates
         val phoneNumbers = getPhoneNumbers(null)
         var size = phoneNumbers.size()
         for (i in 0 until size) {
@@ -161,9 +162,11 @@ class ContactsHelper(val activity: Activity) {
                 val numbers = phoneNumbers.valueAt(i)
                 contacts[key].phoneNumbers = numbers
 
-                // remove all spaces, dashes etc from numbers for easier comparing, used only at list views
-                numbers.forEach {
-                    numbers.mapTo(contacts[key].cleanPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0, "") }
+                if (filterDuplicates) {
+                    // remove all spaces, dashes etc from numbers for easier comparing, used only at list views
+                    numbers.forEach {
+                        numbers.mapTo(contacts[key].cleanPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0, "") }
+                    }
                 }
             }
         }
