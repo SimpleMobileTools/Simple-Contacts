@@ -981,6 +981,26 @@ class ContactsHelper(val activity: Activity) {
                 }
             }
 
+            // delete IMs
+            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Im.CONTENT_ITEM_TYPE)
+                withSelection(selection, selectionArgs)
+                operations.add(build())
+            }
+
+            // add IMs
+            contact.IMs.forEach {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
+                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Im.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.Im.DATA, it.value)
+                    withValue(CommonDataKinds.Im.PROTOCOL, it.type)
+                    withValue(CommonDataKinds.Im.CUSTOM_PROTOCOL, it.label)
+                    operations.add(build())
+                }
+            }
+
             // delete events
             ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
                 val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
@@ -1242,6 +1262,18 @@ class ContactsHelper(val activity: Activity) {
                     withValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, it.value)
                     withValue(CommonDataKinds.StructuredPostal.TYPE, it.type)
                     withValue(CommonDataKinds.StructuredPostal.LABEL, it.label)
+                    operations.add(build())
+                }
+            }
+
+            // IMs
+            contact.IMs.forEach {
+                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
+                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Im.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.Im.DATA, it.value)
+                    withValue(CommonDataKinds.Im.PROTOCOL, it.type)
+                    withValue(CommonDataKinds.Im.CUSTOM_PROTOCOL, it.label)
                     operations.add(build())
                 }
             }
