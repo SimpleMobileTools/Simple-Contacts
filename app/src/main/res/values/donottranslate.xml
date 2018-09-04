@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="aim">AIM</string>
+    <string name="windows_live">Windows Live</string>
+    <string name="yahoo">Yahoo</string>
+    <string name="skype">Skype</string>
+    <string name="qq">QQ</string>
+    <string name="hangouts">Hangouts</string>
+    <string name="icq">ICQ</string>
+    <string name="jabber">Jabber</string>
+
     <!-- Release notes -->
     <string name="release_29">Added an optional Nickname field</string>
     <string name="release_27">

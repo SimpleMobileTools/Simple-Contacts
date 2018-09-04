@@ -108,6 +108,7 @@
     <string name="websites">Interneto puslapiai</string>
     <string name="groups">Grupės</string>
     <string name="contact_source">Kontakto šaltinis</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Noriu pakeisti, kokie laukai yra matomi kontaktuose. Ar galiu tai padaryti?</string>

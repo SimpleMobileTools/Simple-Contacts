@@ -108,6 +108,7 @@
     <string name="websites">Webstránky</string>
     <string name="groups">Skupiny</string>
     <string name="contact_source">Zdroje kontaktov</string>
+    <string name="instant_messaging">Rýchle správy (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Chcem upraviť viditeľné polia kontaktov. Dá sa to?</string>

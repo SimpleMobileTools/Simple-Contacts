@@ -108,6 +108,7 @@
     <string name="websites">網站</string>
     <string name="groups">群組</string>
     <string name="contact_source">聯絡人來源</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">我想要更改在通訊錄會看到哪些欄位。我能這麼做嗎?</string>

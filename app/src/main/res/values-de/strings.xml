@@ -108,6 +108,7 @@
     <string name="websites">Webseiten</string>
     <string name="groups">Gruppen</string>
     <string name="contact_source">Kontaktquelle</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Ich möchte die sichtbaren Kontaktfelder ändern. Kann ich das machen?</string>

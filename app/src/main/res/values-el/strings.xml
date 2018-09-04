@@ -108,6 +108,7 @@
     <string name="websites">Ιστοσελίδα</string>
     <string name="groups">Ομάδες</string>
     <string name="contact_source">Προέλευση επαφής</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Θέλω να αλλάξω τα πεδία που θα είναι ορατά στις επαφές. Μπορώ να το κάνω?</string>

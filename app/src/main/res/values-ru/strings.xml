@@ -108,6 +108,7 @@
     <string name="websites">Сайты</string>
     <string name="groups">Группы</string>
     <string name="contact_source">Источник контакта</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Я хочу изменить поля, отображаемые у контактов. Могу ли я это сделать?</string>

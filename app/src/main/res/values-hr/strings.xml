@@ -108,6 +108,7 @@
     <string name="websites">Web stranice</string>
     <string name="groups">Grupe</string>
     <string name="contact_source">Izvori kontakata</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Želim promijeniti polja koja su vidljiva na kontaktima. Mogu li to napraviti?</string>

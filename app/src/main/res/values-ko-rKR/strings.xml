@@ -108,6 +108,7 @@
     <string name="websites">Websites</string>
     <string name="groups">Groups</string>
     <string name="contact_source">Contact source</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>

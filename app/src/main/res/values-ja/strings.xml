@@ -108,6 +108,7 @@
     <string name="websites">ウェブサイト</string>
     <string name="groups">グループ</string>
     <string name="contact_source">インポート元</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">連絡先に表示される項目(フィールド)を変更することはできますか？</string>

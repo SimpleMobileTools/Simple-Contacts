@@ -108,6 +108,7 @@
     <string name="websites">Web siteleri</string>
     <string name="groups">Gruplar</string>
     <string name="contact_source">Kişi kaynağı</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Rehberde görüntülenecek alanları değiştirmek istiyorum. Bunu yapabilir miyim?</string>
