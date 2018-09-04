@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 4.4.0 *(2018-09-04)*
+----------------------------
+
+ * Added support for custom phone number/email/address types
+ * Added IM field
+ * Fixed some exporting/importing issues
+ * Improved duplicate filtering
+
 Version 4.3.0 *(2018-08-24)*
 ----------------------------
 
