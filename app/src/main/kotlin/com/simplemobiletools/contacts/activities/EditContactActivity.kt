@@ -507,7 +507,7 @@ class EditContactActivity : ContactActivity() {
         originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
         val organization = Organization("", "")
         contact = Contact(0, "", "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), originalContactSource, 0, 0, "",
-                null, "", ArrayList(), organization, ArrayList())
+                null, "", ArrayList(), organization, ArrayList(), ArrayList())
         contact_source.text = getPublicContactSource(contact!!.source)
     }
 

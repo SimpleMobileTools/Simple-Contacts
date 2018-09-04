@@ -5,12 +5,12 @@ import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
-import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
 
 data class Contact(val id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var nickname: String,
                    var photoUri: String, var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>,
                    var events: ArrayList<Event>, var source: String, var starred: Int, val contactId: Int, val thumbnailUri: String, var photo: Bitmap?, var notes: String,
-                   var groups: ArrayList<Group>, var organization: Organization, var websites: ArrayList<String>) : Comparable<Contact> {
+                   var groups: ArrayList<Group>, var organization: Organization, var websites: ArrayList<String>, var cleanPhoneNumbers: ArrayList<PhoneNumber>) :
+        Comparable<Contact> {
     companion object {
         var sorting = 0
         var startWithSurname = false
@@ -93,14 +93,11 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
     }
 
     fun getStringToCompare(): String {
-        val newPhoneNumbers = ArrayList<PhoneNumber>()
-        phoneNumbers.mapTo(newPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0, "") }
-
         val newEmails = ArrayList<Email>()
         emails.mapTo(newEmails) { Email(it.value, 0, "") }
 
         return copy(id = 0, prefix = "", firstName = getFullName().toLowerCase(), middleName = "", surname = "", suffix = "", nickname = "", photoUri = "",
-                phoneNumbers = phoneNumbers, events = ArrayList(), addresses = ArrayList(), emails = newEmails, source = "", starred = 0,
+                phoneNumbers = ArrayList(), events = ArrayList(), addresses = ArrayList(), emails = newEmails, source = "", starred = 0,
                 contactId = 0, thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", "")).toString()
     }
 

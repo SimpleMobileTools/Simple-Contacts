@@ -335,8 +335,11 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                 val websites = if (websitesJson == "[]") ArrayList() else gson.fromJson<ArrayList<String>>(websitesJson, websitesToken)
                         ?: ArrayList(1)
 
+                val cleanPhoneNumbers = ArrayList<PhoneNumber>()
+                phoneNumbers.mapTo(cleanPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0, "") }
+
                 val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, "", phoneNumbers, emails, addresses,
-                        events, SMT_PRIVATE, starred, id, "", photo, notes, groups, organization, websites)
+                        events, SMT_PRIVATE, starred, id, "", photo, notes, groups, organization, websites, cleanPhoneNumbers)
                 contacts.add(contact)
             }
         }

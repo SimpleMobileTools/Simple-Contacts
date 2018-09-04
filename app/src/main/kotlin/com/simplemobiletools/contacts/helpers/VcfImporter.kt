@@ -110,9 +110,10 @@ class VcfImporter(val activity: SimpleActivity) {
                 val photoData = ezContact.photos.firstOrNull()?.data
                 val photo = null
                 val thumbnailUri = savePhoto(photoData)
+                val cleanPhoneNumbers = ArrayList<PhoneNumber>()
 
                 val contact = Contact(0, prefix, firstName, middleName, surname, suffix, nickname, photoUri, phoneNumbers, emails, addresses, events,
-                        targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites)
+                        targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, cleanPhoneNumbers)
 
                 if (ContactsHelper(activity).insertContact(contact)) {
                     contactsImported++

@@ -24,6 +24,7 @@ import com.simplemobiletools.contacts.models.*
 import com.simplemobiletools.contacts.overloads.times
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ContactsHelper(val activity: Activity) {
     private val BATCH_SIZE = 100
@@ -127,7 +128,7 @@ class ContactsHelper(val activity: Activity) {
                     val suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
                     val nickname = ""
                     val photoUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
-                    val number = ArrayList<PhoneNumber>()       // proper value is obtained below
+                    val numbers = ArrayList<PhoneNumber>()          // proper value is obtained below
                     val emails = ArrayList<Email>()
                     val addresses = ArrayList<Address>()
                     val events = ArrayList<Event>()
@@ -139,8 +140,9 @@ class ContactsHelper(val activity: Activity) {
                     val groups = ArrayList<Group>()
                     val organization = Organization("", "")
                     val websites = ArrayList<String>()
-                    val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses,
-                            events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites)
+                    val cleanNumbers = ArrayList<PhoneNumber>()
+                    val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
+                            events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, cleanNumbers)
 
                     contacts.put(id, contact)
                 } while (cursor.moveToNext())
@@ -155,7 +157,15 @@ class ContactsHelper(val activity: Activity) {
         var size = phoneNumbers.size()
         for (i in 0 until size) {
             val key = phoneNumbers.keyAt(i)
-            contacts[key]?.phoneNumbers = phoneNumbers.valueAt(i)
+            if (contacts[key] != null) {
+                val numbers = phoneNumbers.valueAt(i)
+                contacts[key].phoneNumbers = numbers
+
+                // remove all spaces, dashes etc from numbers for easier comparing, used only at list views
+                numbers.forEach {
+                    numbers.mapTo(contacts[key].cleanPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0, "") }
+                }
+            }
         }
 
         val nicknames = getNicknames()
@@ -726,7 +736,7 @@ class ContactsHelper(val activity: Activity) {
                 val organization = getOrganizations(id)[id] ?: Organization("", "")
                 val websites = getWebsites(id)[id] ?: ArrayList()
                 return Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
-                        accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites)
+                        accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ArrayList())
             }
         } finally {
             cursor?.close()
