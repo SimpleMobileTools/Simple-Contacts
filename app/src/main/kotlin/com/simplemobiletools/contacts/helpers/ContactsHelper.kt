@@ -194,6 +194,11 @@ class ContactsHelper(val activity: Activity) {
         }
 
         val IMs = getIMs()
+        size = IMs.size()
+        for (i in 0 until size) {
+            val key = IMs.keyAt(i)
+            contacts[key]?.IMs = IMs.valueAt(i)
+        }
 
         val events = getEvents()
         size = events.size()

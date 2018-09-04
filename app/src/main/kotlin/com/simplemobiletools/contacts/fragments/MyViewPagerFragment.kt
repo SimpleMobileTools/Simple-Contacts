@@ -244,6 +244,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                         it.phoneNumbers.any { it.value.contains(text, true) } ||
                         it.emails.any { it.value.contains(text, true) } ||
                         it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
+                        it.IMs.any { it.value.contains(text, true) } ||
                         getProperText(it.notes, shouldNormalize).contains(text, true) ||
                         getProperText(it.organization.company, shouldNormalize).contains(text, true) ||
                         getProperText(it.organization.jobPosition, shouldNormalize).contains(text, true) ||
