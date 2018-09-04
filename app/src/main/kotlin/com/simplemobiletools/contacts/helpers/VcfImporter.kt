@@ -105,29 +105,23 @@ class VcfImporter(val activity: SimpleActivity) {
                 val notes = ezContact.notes.firstOrNull()?.value ?: ""
                 val groups = ArrayList<Group>()
 
-                if (ezContact.categories != null){  // Iterate through categories of this contact (if any)
+                if (ezContact.categories != null) {
+                    val groupNames = ezContact.categories.getValues();
 
-                    // Iterate through group names for this contact
-                    // Check if group already exist and create it if not
-                    // Associate group with this user
-                    val groupNames = ezContact.categories.getParameters("GROUP");
-
-                    if (groupNames != null){                  // Resolve group references for this contact
-
+                    if (groupNames != null) {
                         val storedGroups = ContactsHelper(activity).getStoredGroups();
-                        groupNames.forEach {
 
+                        groupNames.forEach {
                             val groupName = it;
                             val storedGroup = storedGroups.firstOrNull { it.title == groupName }
 
-                            if (storedGroup != null){
-                                groups.add(storedGroup); // Group is already present on this device
+                            if (storedGroup != null) {
+                                groups.add(storedGroup);
                             }
                             else {
-                                // Group is not present on this device, yet so we create a new one
                                 val newcontactGroup = activity.dbHelper.insertGroup(Group(0, groupName));
 
-                                if (newcontactGroup != null)     // and associate it with this contact
+                                if (newcontactGroup != null)
                                     groups.add(newcontactGroup);
                             }
                         }

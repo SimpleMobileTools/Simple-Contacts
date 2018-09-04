@@ -123,16 +123,13 @@ class VcfExporter {
                         card.addPhoto(photo)
                     }
 
-                    // Export a list of groups where this contact is a member of
-                    if (contact.groups.size > 0){
-
-                        // Copy groups into a categorized list and add this category into VCard
+                    if (contact.groups.size > 0) {
                         val groupList = Categories();
-                        contact.groups.forEach{
-                            groupList.addParameter("GROUP", it.title);
+                        contact.groups.forEach {
+                            groupList.getValues().add(it.title);
                         }
 
-                        card.addCategories(groupList);
+                        card.setCategories(groupList);
                     }
 
                     cards.add(card)
