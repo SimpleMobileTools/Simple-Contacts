@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_edit_contact.*
 import kotlinx.android.synthetic.main.item_edit_address.view.*
 import kotlinx.android.synthetic.main.item_edit_email.view.*
 import kotlinx.android.synthetic.main.item_edit_group.view.*
+import kotlinx.android.synthetic.main.item_edit_im.view.*
 import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
 import kotlinx.android.synthetic.main.item_edit_website.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
@@ -407,7 +408,18 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupIMs() {
+        contact!!.IMs.forEachIndexed { index, IM ->
+            var imHolder = contact_ims_holder.getChildAt(index)
+            if (imHolder == null) {
+                imHolder = layoutInflater.inflate(R.layout.item_edit_im, contact_ims_holder, false)
+                contact_ims_holder.addView(imHolder)
+            }
 
+            imHolder!!.apply {
+                contact_im.setText(IM.value)
+                setupIMTypePicker(contact_im_type, IM.type, IM.label)
+            }
+        }
     }
 
     private fun setupNotes() {
@@ -546,6 +558,13 @@ class EditContactActivity : ContactActivity() {
             }
         }
 
+        if (contact!!.IMs.isEmpty()) {
+            val IMHolder = contact_ims_holder.getChildAt(0)
+            (IMHolder as? ViewGroup)?.contact_im_type?.apply {
+                setupIMTypePicker(this, DEFAULT_IM_TYPE, "")
+            }
+        }
+
         if (contact!!.events.isEmpty()) {
             val eventHolder = contact_events_holder.getChildAt(0)
             (eventHolder as? ViewGroup)?.apply {
@@ -584,6 +603,15 @@ class EditContactActivity : ContactActivity() {
             text = getAddressTypeText(type, label)
             setOnClickListener {
                 showAddressTypePicker(it as TextView)
+            }
+        }
+    }
+
+    private fun setupIMTypePicker(imTypeField: TextView, type: Int, label: String) {
+        imTypeField.apply {
+            text = getIMTypeText(type, label)
+            setOnClickListener {
+                showIMTypePicker(it as TextView)
             }
         }
     }
@@ -712,6 +740,31 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
+    private fun showIMTypePicker(imTypeField: TextView) {
+        val items = arrayListOf(
+                RadioItem(CommonDataKinds.Im.PROTOCOL_AIM, getString(R.string.aim)),
+                RadioItem(CommonDataKinds.Im.PROTOCOL_MSN, getString(R.string.windows_live)),
+                RadioItem(CommonDataKinds.Im.PROTOCOL_YAHOO, getString(R.string.yahoo)),
+                RadioItem(CommonDataKinds.Im.PROTOCOL_SKYPE, getString(R.string.skype)),
+                RadioItem(CommonDataKinds.Im.PROTOCOL_QQ, getString(R.string.qq)),
+                RadioItem(CommonDataKinds.Im.PROTOCOL_GOOGLE_TALK, getString(R.string.hangouts)),
+                RadioItem(CommonDataKinds.Im.PROTOCOL_ICQ, getString(R.string.icq)),
+                RadioItem(CommonDataKinds.Im.PROTOCOL_JABBER, getString(R.string.jabber)),
+                RadioItem(CommonDataKinds.Im.PROTOCOL_CUSTOM, getString(R.string.custom))
+        )
+
+        val currentIMTypeId = getIMTypeId(imTypeField.value)
+        RadioGroupDialog(this, items, currentIMTypeId) {
+            if (it as Int == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
+                CustomLabelDialog(this) {
+                    imTypeField.text = it
+                }
+            } else {
+                imTypeField.text = getIMTypeText(it, "")
+            }
+        }
+    }
+
     private fun showEventTypePicker(eventTypeField: TextView) {
         val items = arrayListOf(
                 RadioItem(CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
@@ -757,6 +810,7 @@ class EditContactActivity : ContactActivity() {
             phoneNumbers = getFilledPhoneNumbers()
             emails = getFilledEmails()
             addresses = getFilledAddresses()
+            IMs = getFilledIMs()
             events = getFilledEvents()
             starred = if (isContactStarred()) 1 else 0
             notes = contact_notes.value
@@ -828,8 +882,20 @@ class EditContactActivity : ContactActivity() {
         return addresses
     }
 
-    private fun getFilledIMs() {
+    private fun getFilledIMs(): ArrayList<IM> {
+        val IMs = ArrayList<IM>()
+        val IMsCount = contact_ims_holder.childCount
+        for (i in 0 until IMsCount) {
+            val IMsHolder = contact_ims_holder.getChildAt(i)
+            val IM = IMsHolder.contact_im.value
+            val IMType = getIMTypeId(IMsHolder.contact_im_type.value)
+            val IMLabel = if (IMType == CommonDataKinds.Im.PROTOCOL_CUSTOM) IMsHolder.contact_im_type.value else ""
 
+            if (IM.isNotEmpty()) {
+                IMs.add(IM(IM, IMType, IMLabel))
+            }
+        }
+        return IMs
     }
 
     private fun getFilledEvents(): ArrayList<Event> {
@@ -933,7 +999,14 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun addNewIMField() {
-
+        val IMHolder = layoutInflater.inflate(R.layout.item_edit_im, contact_ims_holder, false) as ViewGroup
+        updateTextColors(IMHolder)
+        setupIMTypePicker(IMHolder.contact_im_type, DEFAULT_IM_TYPE, "")
+        contact_ims_holder.addView(IMHolder)
+        contact_ims_holder.onGlobalLayout {
+            IMHolder.contact_im.requestFocus()
+            showKeyboard(IMHolder.contact_im)
+        }
     }
 
     private fun addNewEventField() {
@@ -1096,5 +1169,17 @@ class EditContactActivity : ContactActivity() {
         getString(R.string.work) -> CommonDataKinds.StructuredPostal.TYPE_WORK
         getString(R.string.other) -> CommonDataKinds.StructuredPostal.TYPE_OTHER
         else -> CommonDataKinds.StructuredPostal.TYPE_CUSTOM
+    }
+
+    private fun getIMTypeId(value: String) = when (value) {
+        getString(R.string.aim) -> CommonDataKinds.Im.PROTOCOL_AIM
+        getString(R.string.windows_live) -> CommonDataKinds.Im.PROTOCOL_MSN
+        getString(R.string.yahoo) -> CommonDataKinds.Im.PROTOCOL_YAHOO
+        getString(R.string.skype) -> CommonDataKinds.Im.PROTOCOL_SKYPE
+        getString(R.string.qq) -> CommonDataKinds.Im.PROTOCOL_QQ
+        getString(R.string.hangouts) -> CommonDataKinds.Im.PROTOCOL_GOOGLE_TALK
+        getString(R.string.icq) -> CommonDataKinds.Im.PROTOCOL_ICQ
+        getString(R.string.jabber) -> CommonDataKinds.Im.PROTOCOL_JABBER
+        else -> CommonDataKinds.Im.PROTOCOL_CUSTOM
     }
 }
