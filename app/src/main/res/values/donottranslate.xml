@@ -12,6 +12,10 @@
     <string name="jabber">Jabber</string>
 
     <!-- Release notes -->
+    <string name="release_31">
+        Added an optional IM field\n
+        Added support for custom phone number/email/address types
+    </string>
     <string name="release_29">Added an optional Nickname field</string>
     <string name="release_27">
         Allow customizing which tabs are visible\n
