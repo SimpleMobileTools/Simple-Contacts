@@ -102,6 +102,22 @@ class VcfExporter {
                         card.addAddress(address)
                     }
 
+                    contact.IMs.forEach {
+                        val impp = when (it.type) {
+                            CommonDataKinds.Im.PROTOCOL_AIM -> Impp.aim(it.value)
+                            CommonDataKinds.Im.PROTOCOL_YAHOO -> Impp.yahoo(it.value)
+                            CommonDataKinds.Im.PROTOCOL_MSN -> Impp.msn(it.value)
+                            CommonDataKinds.Im.PROTOCOL_ICQ -> Impp.icq(it.value)
+                            CommonDataKinds.Im.PROTOCOL_SKYPE -> Impp.skype(it.value)
+                            CommonDataKinds.Im.PROTOCOL_GOOGLE_TALK -> Impp(HANGOUTS, it.value)
+                            CommonDataKinds.Im.PROTOCOL_QQ -> Impp(QQ, it.value)
+                            CommonDataKinds.Im.PROTOCOL_JABBER -> Impp(JABBER, it.value)
+                            else -> Impp(it.label, it.value)
+                        }
+
+                        card.addImpp(impp)
+                    }
+
                     if (contact.notes.isNotEmpty()) {
                         card.addNote(contact.notes)
                     }

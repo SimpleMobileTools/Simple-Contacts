@@ -15,6 +15,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.io.File
 import java.io.FileOutputStream
+import java.net.URLDecoder
 import java.util.*
 
 class VcfImporter(val activity: SimpleActivity) {
@@ -111,7 +112,27 @@ class VcfImporter(val activity: SimpleActivity) {
                 val photo = null
                 val thumbnailUri = savePhoto(photoData)
                 val cleanPhoneNumbers = ArrayList<PhoneNumber>()
+
                 val IMs = ArrayList<IM>()
+                ezContact.impps.forEach {
+                    val typeString = it.uri.scheme
+                    val value = URLDecoder.decode(it.uri.toString().substring(it.uri.scheme.length + 1), "UTF-8")
+                    val type = when {
+                        it.isAim -> CommonDataKinds.Im.PROTOCOL_AIM
+                        it.isYahoo -> CommonDataKinds.Im.PROTOCOL_YAHOO
+                        it.isMsn -> CommonDataKinds.Im.PROTOCOL_MSN
+                        it.isIcq -> CommonDataKinds.Im.PROTOCOL_ICQ
+                        it.isSkype -> CommonDataKinds.Im.PROTOCOL_SKYPE
+                        typeString == HANGOUTS -> CommonDataKinds.Im.PROTOCOL_GOOGLE_TALK
+                        typeString == QQ -> CommonDataKinds.Im.PROTOCOL_QQ
+                        typeString == JABBER -> CommonDataKinds.Im.PROTOCOL_JABBER
+                        else -> CommonDataKinds.Im.PROTOCOL_CUSTOM
+                    }
+
+                    val label = if (type == CommonDataKinds.Im.PROTOCOL_CUSTOM) URLDecoder.decode(typeString, "UTF-8") else ""
+                    val IM = IM(value, type, label)
+                    IMs.add(IM)
+                }
 
                 val contact = Contact(0, prefix, firstName, middleName, surname, suffix, nickname, photoUri, phoneNumbers, emails, addresses, events,
                         targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, cleanPhoneNumbers, IMs)
