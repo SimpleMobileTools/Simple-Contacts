@@ -342,8 +342,10 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
                     phoneNumbers.mapTo(cleanPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0, "") }
                 }
 
+                val IMs = ArrayList<IM>()
+
                 val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, "", phoneNumbers, emails, addresses,
-                        events, SMT_PRIVATE, starred, id, "", photo, notes, groups, organization, websites, cleanPhoneNumbers)
+                        events, SMT_PRIVATE, starred, id, "", photo, notes, groups, organization, websites, cleanPhoneNumbers, IMs)
                 contacts.add(contact)
             }
         }

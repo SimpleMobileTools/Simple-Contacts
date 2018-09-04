@@ -111,9 +111,10 @@ class VcfImporter(val activity: SimpleActivity) {
                 val photo = null
                 val thumbnailUri = savePhoto(photoData)
                 val cleanPhoneNumbers = ArrayList<PhoneNumber>()
+                val IMs = ArrayList<IM>()
 
                 val contact = Contact(0, prefix, firstName, middleName, surname, suffix, nickname, photoUri, phoneNumbers, emails, addresses, events,
-                        targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, cleanPhoneNumbers)
+                        targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, cleanPhoneNumbers, IMs)
 
                 if (ContactsHelper(activity).insertContact(contact)) {
                     contactsImported++

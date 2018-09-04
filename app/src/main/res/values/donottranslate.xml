@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="im">IM</string>
     <string name="aim">AIM</string>
     <string name="windows_live">Windows Live</string>
     <string name="yahoo">Yahoo</string>

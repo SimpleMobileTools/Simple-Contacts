@@ -9,7 +9,8 @@ import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 data class Contact(val id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var nickname: String,
                    var photoUri: String, var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>,
                    var events: ArrayList<Event>, var source: String, var starred: Int, val contactId: Int, val thumbnailUri: String, var photo: Bitmap?, var notes: String,
-                   var groups: ArrayList<Group>, var organization: Organization, var websites: ArrayList<String>, var cleanPhoneNumbers: ArrayList<PhoneNumber>) :
+                   var groups: ArrayList<Group>, var organization: Organization, var websites: ArrayList<String>, var cleanPhoneNumbers: ArrayList<PhoneNumber>,
+                   var IMs: ArrayList<IM>) :
         Comparable<Contact> {
     companion object {
         var sorting = 0
@@ -98,7 +99,8 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
 
         return copy(id = 0, prefix = "", firstName = getFullName().toLowerCase(), middleName = "", surname = "", suffix = "", nickname = "", photoUri = "",
                 phoneNumbers = ArrayList(), events = ArrayList(), addresses = ArrayList(), emails = newEmails, source = "", starred = 0,
-                contactId = 0, thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", "")).toString()
+                contactId = 0, thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", ""),
+                IMs = ArrayList()).toString()
     }
 
     fun getHashToCompare() = getStringToCompare().hashCode()

@@ -300,6 +300,44 @@
             android:src="@drawable/ic_plus"/>
 
         <ImageView
+            android:id="@+id/contact_ims_image"
+            android:layout_width="@dimen/contact_icons_size"
+            android:layout_height="@dimen/contact_icons_size"
+            android:layout_alignTop="@+id/contact_ims_holder"
+            android:paddingBottom="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
+            android:paddingRight="@dimen/small_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@drawable/ic_im"/>
+
+        <LinearLayout
+            android:id="@+id/contact_ims_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_addresses_add_new"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_toRightOf="@+id/contact_name_image"
+            android:orientation="vertical">
+
+            <include layout="@layout/item_edit_im"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/contact_ims_add_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_ims_holder"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/small_margin"
+            android:background="@drawable/button_background"
+            android:paddingBottom="@dimen/medium_margin"
+            android:paddingLeft="@dimen/activity_margin"
+            android:paddingRight="@dimen/activity_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@drawable/ic_plus"/>
+
+        <ImageView
             android:id="@+id/contact_events_image"
             android:layout_width="@dimen/contact_icons_size"
             android:layout_height="@dimen/contact_icons_size"
@@ -314,7 +352,7 @@
             android:id="@+id/contact_events_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_addresses_add_new"
+            android:layout_below="@+id/contact_ims_add_new"
             android:layout_marginTop="@dimen/medium_margin"
             android:layout_toRightOf="@+id/contact_name_image"
             android:orientation="vertical">

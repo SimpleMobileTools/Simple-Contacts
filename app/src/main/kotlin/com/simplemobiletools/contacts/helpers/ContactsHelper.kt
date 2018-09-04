@@ -141,8 +141,9 @@ class ContactsHelper(val activity: Activity) {
                     val organization = Organization("", "")
                     val websites = ArrayList<String>()
                     val cleanNumbers = ArrayList<PhoneNumber>()
+                    val ims = ArrayList<IM>()
                     val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
-                            events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, cleanNumbers)
+                            events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, cleanNumbers, ims)
 
                     contacts.put(id, contact)
                 } while (cursor.moveToNext())
@@ -191,6 +192,8 @@ class ContactsHelper(val activity: Activity) {
             val key = addresses.keyAt(i)
             contacts[key]?.addresses = addresses.valueAt(i)
         }
+
+        val IMs = getIMs()
 
         val events = getEvents()
         size = events.size()
@@ -367,6 +370,45 @@ class ContactsHelper(val activity: Activity) {
         }
 
         return addresses
+    }
+
+    private fun getIMs(contactId: Int? = null): SparseArray<ArrayList<IM>> {
+        val IMs = SparseArray<ArrayList<IM>>()
+        val uri = ContactsContract.Data.CONTENT_URI
+        val projection = arrayOf(
+                ContactsContract.Data.RAW_CONTACT_ID,
+                CommonDataKinds.Im.DATA,
+                CommonDataKinds.Im.PROTOCOL,
+                CommonDataKinds.Im.CUSTOM_PROTOCOL
+        )
+
+        val selection = getSourcesSelection(true, contactId != null)
+        val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.Im.CONTENT_ITEM_TYPE, contactId)
+
+        var cursor: Cursor? = null
+        try {
+            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            if (cursor?.moveToFirst() == true) {
+                do {
+                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
+                    val IM = cursor.getStringValue(CommonDataKinds.Im.DATA) ?: continue
+                    val type = cursor.getIntValue(CommonDataKinds.Im.PROTOCOL)
+                    val label = cursor.getStringValue(CommonDataKinds.Im.CUSTOM_PROTOCOL) ?: ""
+
+                    if (IMs[id] == null) {
+                        IMs.put(id, ArrayList())
+                    }
+
+                    IMs[id]!!.add(IM(IM, type, label))
+                } while (cursor.moveToNext())
+            }
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        } finally {
+            cursor?.close()
+        }
+
+        return IMs
     }
 
     private fun getEvents(contactId: Int? = null): SparseArray<ArrayList<Event>> {
@@ -738,8 +780,10 @@ class ContactsHelper(val activity: Activity) {
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
                 val organization = getOrganizations(id)[id] ?: Organization("", "")
                 val websites = getWebsites(id)[id] ?: ArrayList()
+                val cleanNumbers = ArrayList<PhoneNumber>()
+                val ims = getIMs(id)[id] ?: ArrayList()
                 return Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
-                        accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ArrayList())
+                        accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, cleanNumbers, ims)
             }
         } finally {
             cursor?.close()

@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_view_address.view.*
 import kotlinx.android.synthetic.main.item_view_email.view.*
 import kotlinx.android.synthetic.main.item_view_group.view.*
+import kotlinx.android.synthetic.main.item_view_im.view.*
 import kotlinx.android.synthetic.main.item_view_phone_number.view.*
 import kotlinx.android.synthetic.main.item_website.view.*
 
@@ -153,6 +154,7 @@ class ViewContactActivity : ContactActivity() {
         setupPhoneNumbers()
         setupEmails()
         setupAddresses()
+        setupIMs()
         setupEvents()
         setupNotes()
         setupOrganization()
@@ -288,6 +290,26 @@ class ViewContactActivity : ContactActivity() {
         } else {
             contact_addresses_image.beGone()
             contact_addresses_holder.beGone()
+        }
+    }
+
+    private fun setupIMs() {
+        contact_ims_holder.removeAllViews()
+        val IMs = contact!!.IMs
+        if (IMs.isNotEmpty() && showFields and SHOW_IMS_FIELD != 0) {
+            IMs.forEach {
+                layoutInflater.inflate(R.layout.item_view_im, contact_ims_holder, false).apply {
+                    val IM = it
+                    contact_ims_holder.addView(this)
+                    contact_im.text = IM.value
+                    contact_im_type.text = getIMTypeText(IM.type, IM.label)
+                }
+            }
+            contact_ims_image.beVisible()
+            contact_ims_holder.beVisible()
+        } else {
+            contact_ims_image.beGone()
+            contact_ims_holder.beGone()
         }
     }
 

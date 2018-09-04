@@ -149,6 +149,23 @@ abstract class ContactActivity : SimpleActivity() {
         }
     }
 
+    fun getIMTypeText(type: Int, label: String): String {
+        return if (type == ContactsContract.CommonDataKinds.Im.PROTOCOL_CUSTOM) {
+            label
+        } else {
+            getString(when (type) {
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_AIM -> R.string.aim
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_MSN -> R.string.windows_live
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_YAHOO -> R.string.yahoo
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_SKYPE -> R.string.skype
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_QQ -> R.string.qq
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_GOOGLE_TALK -> R.string.hangouts
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_ICQ -> R.string.icq
+                else -> R.string.jabber
+            })
+        }
+    }
+
     fun getEventTextId(type: Int) = when (type) {
         ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
         ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary

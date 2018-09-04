@@ -35,7 +35,6 @@ import kotlinx.android.synthetic.main.item_edit_website.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import java.util.*
 
 class EditContactActivity : ContactActivity() {
     private val INTENT_TAKE_PHOTO = 1
@@ -183,6 +182,7 @@ class EditContactActivity : ContactActivity() {
         contact_numbers_image.applyColorFilter(textColor)
         contact_emails_image.applyColorFilter(textColor)
         contact_addresses_image.applyColorFilter(textColor)
+        contact_ims_image.applyColorFilter(textColor)
         contact_events_image.applyColorFilter(textColor)
         contact_notes_image.applyColorFilter(textColor)
         contact_organization_image.applyColorFilter(textColor)
@@ -197,6 +197,8 @@ class EditContactActivity : ContactActivity() {
         contact_emails_add_new.background.applyColorFilter(textColor)
         contact_addresses_add_new.applyColorFilter(adjustedPrimaryColor)
         contact_addresses_add_new.background.applyColorFilter(textColor)
+        contact_ims_add_new.applyColorFilter(adjustedPrimaryColor)
+        contact_ims_add_new.background.applyColorFilter(textColor)
         contact_events_add_new.applyColorFilter(adjustedPrimaryColor)
         contact_events_add_new.background.applyColorFilter(textColor)
         contact_websites_add_new.applyColorFilter(adjustedPrimaryColor)
@@ -212,6 +214,7 @@ class EditContactActivity : ContactActivity() {
         contact_numbers_add_new.setOnClickListener { addNewPhoneNumberField() }
         contact_emails_add_new.setOnClickListener { addNewEmailField() }
         contact_addresses_add_new.setOnClickListener { addNewAddressField() }
+        contact_ims_add_new.setOnClickListener { addNewIMField() }
         contact_events_add_new.setOnClickListener { addNewEventField() }
         contact_websites_add_new.setOnClickListener { addNewWebsiteField() }
         contact_groups_add_new.setOnClickListener { showSelectGroupsDialog() }
@@ -300,6 +303,11 @@ class EditContactActivity : ContactActivity() {
         contact_addresses_holder.beVisibleIf(areAddressesVisible)
         contact_addresses_add_new.beVisibleIf(areAddressesVisible)
 
+        val areIMsVisible = showFields and SHOW_IMS_FIELD != 0
+        contact_ims_image.beVisibleIf(areIMsVisible)
+        contact_ims_holder.beVisibleIf(areIMsVisible)
+        contact_ims_add_new.beVisibleIf(areIMsVisible)
+
         val isOrganizationVisible = showFields and SHOW_ORGANIZATION_FIELD != 0
         contact_organization_company.beVisibleIf(isOrganizationVisible)
         contact_organization_job_position.beVisibleIf(isOrganizationVisible)
@@ -333,6 +341,7 @@ class EditContactActivity : ContactActivity() {
         setupPhoneNumbers()
         setupEmails()
         setupAddresses()
+        setupIMs()
         setupNotes()
         setupOrganization()
         setupWebsites()
@@ -395,6 +404,10 @@ class EditContactActivity : ContactActivity() {
                 setupAddressTypePicker(contact_address_type, address.type, address.label)
             }
         }
+    }
+
+    private fun setupIMs() {
+
     }
 
     private fun setupNotes() {
@@ -507,7 +520,7 @@ class EditContactActivity : ContactActivity() {
         originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
         val organization = Organization("", "")
         contact = Contact(0, "", "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), originalContactSource, 0, 0, "",
-                null, "", ArrayList(), organization, ArrayList(), ArrayList())
+                null, "", ArrayList(), organization, ArrayList(), ArrayList(), ArrayList())
         contact_source.text = getPublicContactSource(contact!!.source)
     }
 
@@ -815,6 +828,10 @@ class EditContactActivity : ContactActivity() {
         return addresses
     }
 
+    private fun getFilledIMs() {
+
+    }
+
     private fun getFilledEvents(): ArrayList<Event> {
         val unknown = getString(R.string.unknown)
         val events = ArrayList<Event>()
@@ -913,6 +930,10 @@ class EditContactActivity : ContactActivity() {
             addressHolder.contact_address.requestFocus()
             showKeyboard(addressHolder.contact_address)
         }
+    }
+
+    private fun addNewIMField() {
+
     }
 
     private fun addNewEventField() {
