@@ -58,6 +58,8 @@ class ContactsHelper(val activity: Activity) {
                         resultContacts.add(sorted.first())
                     }
                 }
+            } else {
+                resultContacts.addAll(tempContacts)
             }
 
             // groups are obtained with contactID, not rawID, so assign them to proper contacts like this
