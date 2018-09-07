@@ -106,23 +106,23 @@ class VcfImporter(val activity: SimpleActivity) {
                 val groups = ArrayList<Group>()
 
                 if (ezContact.categories != null) {
-                    val groupNames = ezContact.categories.getValues();
+                    val groupNames = ezContact.categories.values
 
                     if (groupNames != null) {
-                        val storedGroups = ContactsHelper(activity).getStoredGroups();
+                        val storedGroups = ContactsHelper(activity).getStoredGroups()
 
                         groupNames.forEach {
-                            val groupName = it;
+                            val groupName = it
                             val storedGroup = storedGroups.firstOrNull { it.title == groupName }
 
                             if (storedGroup != null) {
-                                groups.add(storedGroup);
+                                groups.add(storedGroup)
                             }
                             else {
-                                val newcontactGroup = activity.dbHelper.insertGroup(Group(0, groupName));
+                                val newcontactGroup = activity.dbHelper.insertGroup(Group(0, groupName))
 
                                 if (newcontactGroup != null)
-                                    groups.add(newcontactGroup);
+                                    groups.add(newcontactGroup)
                             }
                         }
                     }

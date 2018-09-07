@@ -124,12 +124,12 @@ class VcfExporter {
                     }
 
                     if (contact.groups.size > 0) {
-                        val groupList = Categories();
+                        val groupList = Categories()
                         contact.groups.forEach {
-                            groupList.getValues().add(it.title);
+                            groupList.values.add(it.title)
                         }
 
-                        card.setCategories(groupList);
+                        card.categories = groupList
                     }
 
                     cards.add(card)
