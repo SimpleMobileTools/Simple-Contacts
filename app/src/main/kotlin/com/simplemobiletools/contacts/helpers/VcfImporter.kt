@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory
 import android.provider.ContactsContract.CommonDataKinds
 import android.widget.Toast
 import com.simplemobiletools.commons.extensions.showErrorToast
-import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.extensions.getCachePhoto
@@ -13,6 +12,7 @@ import com.simplemobiletools.contacts.extensions.getCachePhotoUri
 import com.simplemobiletools.contacts.helpers.VcfImporter.ImportResult.*
 import com.simplemobiletools.contacts.models.*
 import ezvcard.Ezvcard
+import ezvcard.VCard
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.io.File
@@ -104,36 +104,11 @@ class VcfImporter(val activity: SimpleActivity) {
                 val starred = 0
                 val contactId = 0
                 val notes = ezContact.notes.firstOrNull()?.value ?: ""
-                val groups = ArrayList<Group>()
-
-                if (ezContact.categories != null) {
-                    val groupNames = ezContact.categories.values
-
-                    if (groupNames != null) {
-                        val storedGroups = ContactsHelper(activity).getStoredGroups()
-
-                        groupNames.forEach {
-                            val groupName = it
-                            val storedGroup = storedGroups.firstOrNull { it.title == groupName }
-
-                            if (storedGroup != null) {
-                                groups.add(storedGroup)
-                            }
-                            else {
-                                val newcontactGroup = activity.dbHelper.insertGroup(Group(0, groupName))
-
-                                if (newcontactGroup != null)
-                                    groups.add(newcontactGroup)
-                            }
-                        }
-                    }
-                }
-				
+                val groups = getContactGroups(ezContact)
                 val company = ezContact.organization?.values?.firstOrNull() ?: ""
                 val jobPosition = ezContact.titles?.firstOrNull()?.value ?: ""
                 val organization = Organization(company, jobPosition)
                 val websites = ezContact.urls.map { it.value } as ArrayList<String>
-
                 val photoData = ezContact.photos.firstOrNull()?.data
                 val photo = null
                 val thumbnailUri = savePhoto(photoData)
@@ -182,6 +157,33 @@ class VcfImporter(val activity: SimpleActivity) {
     private fun formatDateToDayCode(date: Date): String {
         val dateTime = DateTime.parse(date.toString(), DateTimeFormat.forPattern(PATTERN))
         return dateTime.toString("yyyy-MM-dd")
+    }
+
+    private fun getContactGroups(ezContact: VCard): ArrayList<Group> {
+        val groups = ArrayList<Group>()
+        if (ezContact.categories != null) {
+            val groupNames = ezContact.categories.values
+
+            if (groupNames != null) {
+                val storedGroups = ContactsHelper(activity).getStoredGroups()
+
+                groupNames.forEach {
+                    val groupName = it
+                    val storedGroup = storedGroups.firstOrNull { it.title == groupName }
+
+                    if (storedGroup != null) {
+                        groups.add(storedGroup)
+                    } else {
+                        val newContactGroup = activity.dbHelper.insertGroup(Group(0, groupName))
+
+                        if (newContactGroup != null) {
+                            groups.add(newContactGroup)
+                        }
+                    }
+                }
+            }
+        }
+        return groups
     }
 
     private fun getPhoneNumberTypeId(type: String, subtype: String?) = when (type.toUpperCase()) {

@@ -139,7 +139,7 @@ class VcfExporter {
                         card.addPhoto(photo)
                     }
 
-                    if (contact.groups.size > 0) {
+                    if (contact.groups.isNotEmpty()) {
                         val groupList = Categories()
                         contact.groups.forEach {
                             groupList.values.add(it.title)
