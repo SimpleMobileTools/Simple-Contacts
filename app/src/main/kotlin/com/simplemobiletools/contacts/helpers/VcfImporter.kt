@@ -5,7 +5,9 @@ import android.graphics.BitmapFactory
 import android.provider.ContactsContract.CommonDataKinds
 import android.widget.Toast
 import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
+import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.extensions.getCachePhoto
 import com.simplemobiletools.contacts.extensions.getCachePhotoUri
 import com.simplemobiletools.contacts.helpers.VcfImporter.ImportResult.*
@@ -103,6 +105,30 @@ class VcfImporter(val activity: SimpleActivity) {
                 val contactId = 0
                 val notes = ezContact.notes.firstOrNull()?.value ?: ""
                 val groups = ArrayList<Group>()
+
+                if (ezContact.categories != null) {
+                    val groupNames = ezContact.categories.values
+
+                    if (groupNames != null) {
+                        val storedGroups = ContactsHelper(activity).getStoredGroups()
+
+                        groupNames.forEach {
+                            val groupName = it
+                            val storedGroup = storedGroups.firstOrNull { it.title == groupName }
+
+                            if (storedGroup != null) {
+                                groups.add(storedGroup)
+                            }
+                            else {
+                                val newcontactGroup = activity.dbHelper.insertGroup(Group(0, groupName))
+
+                                if (newcontactGroup != null)
+                                    groups.add(newcontactGroup)
+                            }
+                        }
+                    }
+                }
+				
                 val company = ezContact.organization?.values?.firstOrNull() ?: ""
                 val jobPosition = ezContact.titles?.firstOrNull()?.value ?: ""
                 val organization = Organization(company, jobPosition)
