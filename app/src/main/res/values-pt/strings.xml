@@ -14,7 +14,7 @@
     <string name="send_sms_to_group">Enviar SMS para o grupo</string>
     <string name="send_email_to_group">Enviar e-mail para o grupo</string>
     <string name="call_person">Ligar a %s</string>
-    <string name="request_the_required_permissions">Request the required permissions</string>
+    <string name="request_the_required_permissions">Pedir a permissão necessária</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
@@ -50,7 +50,7 @@
     <string name="view_contact">Ver detalhes</string>
     <string name="manage_shown_contact_fields">Gerir campos a exibir</string>
     <string name="filter_duplicates">Tentar filtrar contactos duplicados</string>
-    <string name="manage_shown_tabs">Manage shown tabs</string>
+    <string name="manage_shown_tabs">Gerir separadores a exibir</string>
     <string name="contacts">Contactos</string>
     <string name="favorites">Favoritos</string>
     <string name="recent_calls">Chamadas recentes</string>
@@ -76,7 +76,7 @@
     <string name="anniversary">Aniversário</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Parece que ainda não adicionou contactos como favoritos</string>
+    <string name="no_favorites">Parece que ainda não adicionou contactos aos favoritos</string>
     <string name="add_favorites">Adicionar favoritos</string>
     <string name="add_to_favorites">Adicionar aos favoritos</string>
     <string name="remove_from_favorites">Remover dos favoritos</string>
@@ -108,7 +108,7 @@
     <string name="websites">Site</string>
     <string name="groups">Grupos</string>
     <string name="contact_source">Origem do contacto</string>
-    <string name="instant_messaging">Instant messaging (IM)</string>
+    <string name="instant_messaging">Mensagem instantânea (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
