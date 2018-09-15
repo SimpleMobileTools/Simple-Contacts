@@ -9,12 +9,12 @@
     <string name="company">Tvrtka</string>
     <string name="job_position">Radno mjesto</string>
     <string name="website">Web stranica</string>
-    <string name="send_sms_to_contacts">Send SMS to contacts</string>
-    <string name="send_email_to_contacts">Send email to contacts</string>
-    <string name="send_sms_to_group">Send SMS to group</string>
-    <string name="send_email_to_group">Send email to group</string>
-    <string name="call_person">Call %s</string>
-    <string name="request_the_required_permissions">Request the required permissions</string>
+    <string name="send_sms_to_contacts">Pošalji SMS kontaktima</string>
+    <string name="send_email_to_contacts">Pošalji e-poštu kontaktima</string>
+    <string name="send_sms_to_group">Pošalji SMS grupi</string>
+    <string name="send_email_to_group">Pošalji e-poštu grupi</string>
+    <string name="call_person">Nazovi %s</string>
+    <string name="request_the_required_permissions">Zatraži potrebna dopuštenja</string>
 
     <string name="new_contact">Novi kontakt</string>
     <string name="edit_contact">Uredi kontakt</string>
@@ -48,13 +48,13 @@
     <string name="on_contact_click">Prilikom dodira kontakta</string>
     <string name="call_contact">Nazovi kontakt</string>
     <string name="view_contact">Prikaži pojedinosti o kontaktu</string>
-    <string name="manage_shown_contact_fields">Manage shown contact fields</string>
-    <string name="filter_duplicates">Try filtering out duplicate contacts</string>
-    <string name="manage_shown_tabs">Manage shown tabs</string>
-    <string name="contacts">Contacts</string>
-    <string name="favorites">Favorites</string>
-    <string name="recent_calls">Recent calls</string>
-    <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
+    <string name="manage_shown_contact_fields">Upravljaj prikazanim poljima kontakta</string>
+    <string name="filter_duplicates">Pokušaj filtrirati duple kontakte</string>
+    <string name="manage_shown_tabs">Upravljaj prikazanim karticama</string>
+    <string name="contacts">Kontakti</string>
+    <string name="favorites">Favoriti</string>
+    <string name="recent_calls">Nedavni pozivi</string>
+    <string name="show_call_confirmation_dialog">Pokažite dijaloški okvir za potvrdu poziva prije pokretanja poziva</string>
 
     <!-- Emails -->
     <string name="email">E-pošta</string>
@@ -80,7 +80,7 @@
     <string name="add_favorites">Dodaj favorite</string>
     <string name="add_to_favorites">Dodaj u favorite</string>
     <string name="remove_from_favorites">Ukloni iz favorita</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
+    <string name="must_be_at_edit">Morate biti na zaslonu Uređivanje da biste izmijenili kontakt</string>
 
     <!-- Search -->
     <string name="search_contacts">Pretraži kontakte</string>
@@ -108,7 +108,7 @@
     <string name="websites">Web stranice</string>
     <string name="groups">Grupe</string>
     <string name="contact_source">Izvori kontakata</string>
-    <string name="instant_messaging">Instant messaging (IM)</string>
+    <string name="instant_messaging">Brzo slanje poruka (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Želim promijeniti polja koja su vidljiva na kontaktima. Mogu li to napraviti?</string>
