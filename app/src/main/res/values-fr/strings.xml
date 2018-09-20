@@ -117,7 +117,15 @@
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Une appli de contacts pour gérer vos contacts sans pubs.</string>
-    <string name="app_long_description">Une appli simple pour créer et gérer vos contacts depuis n\'importe quelle source. Les contacts peuvent être stockés sur votre appareil mais aussi synchronisés via Google ou d\'autres comptes. Vous pouvez afficher vos contacts favoris dans une liste séparée.          Vous pouvez l\'utiliser pour gérer les e-mail et événements de vos contacts. Elle permet de trier/filter via de multiples paramètres, et même afficher le surnom en premier.          Aucune publicité ni de permission inutile. Elle est entièrement open source et vous permet de personnaliser les couleurs.          Cette application fait parti d\'un groupe d\'applications. Vous pouvez trouver le reste des applis sur https://www.simplemobiletools.com</string>
+    <string name="app_long_description">
+        Une appli simple pour créer et gérer vos contacts depuis n\'importe quelle source. Les contacts peuvent être stockés sur votre appareil mais aussi synchronisés via Google ou d\'autres comptes. Vous pouvez afficher vos contacts favoris dans une liste séparée.
+
+        Vous pouvez l\'utiliser pour gérer les e-mail et événements de vos contacts. Elle permet de trier/filter via de multiples paramètres, et même afficher le surnom en premier.
+
+        Aucune publicité ni de permission inutile. Elle est entièrement open source et vous permet de personnaliser les couleurs.
+
+        Cette application fait parti d\'un groupe d\'applications. Vous pouvez trouver le reste des applis sur https://www.simplemobiletools.com
+    </string>
 
     <!--
         Haven't found some strings? There's more at
