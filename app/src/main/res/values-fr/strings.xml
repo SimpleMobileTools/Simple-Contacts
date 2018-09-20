@@ -14,7 +14,7 @@
     <string name="send_sms_to_group">Envoyer un SMS au groupe</string>
     <string name="send_email_to_group">Envoyer un e-mail au groupe</string>
     <string name="call_person">Call %s</string>
-    <string name="request_the_required_permissions">Request the required permissions</string>
+    <string name="request_the_required_permissions">Demander les autorisations requises</string>
 
     <string name="new_contact">Nouveau contact</string>
     <string name="edit_contact">Modifier contact</string>
@@ -23,7 +23,7 @@
     <string name="first_name">Prénom</string>
     <string name="middle_name">Deuxième prénom</string>
     <string name="surname">Nom</string>
-    <string name="nickname">Nickname</string>
+    <string name="nickname">Surnom</string>
 
     <!-- Groups -->
     <string name="no_groups">Pas de groupe</string>
@@ -49,12 +49,12 @@
     <string name="call_contact">Appeler le contact</string>
     <string name="view_contact">Voir les détails du contact</string>
     <string name="manage_shown_contact_fields">Configurer l\'affichage des champs des contacts</string>
-    <string name="filter_duplicates">Try filtering out duplicate contacts</string>
-    <string name="manage_shown_tabs">Manage shown tabs</string>
+    <string name="filter_duplicates">Essayez de filtrer les contacts en double</string>
+    <string name="manage_shown_tabs">Gérer les onglets affichés</string>
     <string name="contacts">Contacts</string>
     <string name="favorites">Favorites</string>
-    <string name="recent_calls">Recent calls</string>
-    <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
+    <string name="recent_calls">Appels récents</string>
+    <string name="show_call_confirmation_dialog">Afficher une boîte de dialogue de confirmation d\'appel avant de lancer un appel</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>
@@ -80,7 +80,7 @@
     <string name="add_favorites">Ajouter des favoris</string>
     <string name="add_to_favorites">Ajouter aux favoris</string>
     <string name="remove_from_favorites">Retirer des favoris</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
+    <string name="must_be_at_edit">Vous devez être sur l\'écran Modifier pour modifier un contact</string>
 
     <!-- Search -->
     <string name="search_contacts">Rechercher des contacts</string>
@@ -108,7 +108,7 @@
     <string name="websites">Sites web</string>
     <string name="groups">Groupe</string>
     <string name="contact_source">Source du contact</string>
-    <string name="instant_messaging">Instant messaging (IM)</string>
+    <string name="instant_messaging">Messagerie instantanée (MI)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Je veux changer quelles champs sont visibles. Est-ce que je peux ?</string>
