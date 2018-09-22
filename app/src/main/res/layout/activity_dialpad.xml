@@ -1,8 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dialpad_holder"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialpad_wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/dialpad_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin">
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_1"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="1"
+            app:layout_constraintBottom_toTopOf="@+id/dialpad_4"
+            app:layout_constraintEnd_toStartOf="@+id/dialpad_2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_2"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="2"
+            app:layout_constraintBottom_toTopOf="@+id/dialpad_5"
+            app:layout_constraintEnd_toStartOf="@+id/dialpad_3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dialpad_1"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_3"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="3"
+            app:layout_constraintBottom_toTopOf="@+id/dialpad_6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dialpad_2"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_4"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="4"
+            app:layout_constraintBottom_toTopOf="@+id/dialpad_7"
+            app:layout_constraintEnd_toStartOf="@+id/dialpad_5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_5"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="5"
+            app:layout_constraintBottom_toTopOf="@+id/dialpad_8"
+            app:layout_constraintEnd_toStartOf="@+id/dialpad_6"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dialpad_4"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_6"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="6"
+            app:layout_constraintBottom_toTopOf="@+id/dialpad_9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dialpad_5"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_7"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="7"
+            app:layout_constraintBottom_toTopOf="@+id/dialpad_asterisk"
+            app:layout_constraintEnd_toStartOf="@+id/dialpad_8"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_8"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="8"
+            app:layout_constraintBottom_toTopOf="@+id/dialpad_0"
+            app:layout_constraintEnd_toStartOf="@+id/dialpad_9"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dialpad_7"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_9"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="9"
+            app:layout_constraintBottom_toTopOf="@+id/dialpad_hashtag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dialpad_8"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_asterisk"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="*"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/dialpad_0"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="0dp"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_0"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/dialpad_hashtag"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dialpad_asterisk"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_hashtag"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="#"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dialpad_0"/>
+
+    </android.support.constraint.ConstraintLayout>
 </RelativeLayout>
