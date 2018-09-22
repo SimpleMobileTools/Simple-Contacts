@@ -22,4 +22,15 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/main_tabs_holder"/>
 
+    <ImageView
+        android:id="@+id/main_dialer_button"
+        android:layout_width="@dimen/dialer_button_size"
+        android:layout_height="@dimen/dialer_button_size"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:background="@drawable/circle_background"
+        android:padding="@dimen/normal_margin"
+        android:src="@drawable/ic_phone_big"/>
+
 </RelativeLayout>

@@ -4,4 +4,5 @@
     <dimen name="contact_actions_size">45dp</dimen>
     <dimen name="contact_icons_size">40dp</dimen>
     <dimen name="contact_item_height">52dp</dimen>
+    <dimen name="dialer_button_size">60dp</dimen>
 </resources>

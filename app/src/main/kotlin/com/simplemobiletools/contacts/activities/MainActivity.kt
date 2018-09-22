@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.activities
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -163,6 +164,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         }
         isFirstResume = false
+
+        val blackIcon = resources.getColoredDrawableWithColor(R.drawable.ic_phone_big, if (isBlackAndWhiteTheme()) Color.BLACK else Color.WHITE)
+        main_dialer_button.setImageDrawable(blackIcon)
+        main_dialer_button.background.applyColorFilter(getAdjustedPrimaryColor())
     }
 
     override fun onPause() {
@@ -369,6 +374,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         main_tabs_holder.beVisibleIf(skippedTabs < 3)
+
+        main_dialer_button.setOnClickListener {
+
+        }
     }
 
     private fun getTabIcon(position: Int): Drawable {
