@@ -23,9 +23,9 @@
         android:layout_below="@+id/main_tabs_holder"/>
 
     <ImageView
-        android:id="@+id/main_dialer_button"
-        android:layout_width="@dimen/dialer_button_size"
-        android:layout_height="@dimen/dialer_button_size"
+        android:id="@+id/main_dialpad_button"
+        android:layout_width="@dimen/dialpad_button_size"
+        android:layout_height="@dimen/dialpad_button_size"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/activity_margin"

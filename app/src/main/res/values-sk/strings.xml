@@ -95,6 +95,9 @@
     <string name="include_contact_sources">Zahrnúť zdroje kontaktov</string>
     <string name="filename_without_vcf">Názov súboru (bez .vcf)</string>
 
+    <!-- Dialpad -->
+    <string name="dialpad">Číselník</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Zvoľte polia na zobrazenie</string>
     <string name="prefix">Titul pred menom</string>

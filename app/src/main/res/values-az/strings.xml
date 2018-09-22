@@ -95,6 +95,9 @@
     <string name="include_contact_sources">Kontakt köklərini daxil et</string>
     <string name="filename_without_vcf">Fayl adı (.vcf olmadan)</string>
 
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Göstərmək üçün sahəni seç</string>
     <string name="prefix">Ön şəkilçi</string>

@@ -183,6 +183,11 @@
             android:label="@string/frequently_asked_questions"
             android:parentActivityName="com.simplemobiletools.commons.activities.AboutActivity"/>
 
+        <activity
+            android:name=".activities.DialpadActivity"
+            android:label="@string/dialpad"
+            android:parentActivityName=".activities.MainActivity"/>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"

@@ -95,6 +95,9 @@
     <string name="include_contact_sources">Включить источники контактов</string>
     <string name="filename_without_vcf">Имя файла (без .vcf)</string>
 
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Выберите отображаемые поля</string>
     <string name="prefix">Префикс</string>

@@ -95,6 +95,9 @@
     <string name="include_contact_sources">Uključi izvore kontakta</string>
     <string name="filename_without_vcf">Naziv datoteke (bez .vcf)</string>
 
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Odaberi polja za prikaz</string>
     <string name="prefix">Prefiks</string>

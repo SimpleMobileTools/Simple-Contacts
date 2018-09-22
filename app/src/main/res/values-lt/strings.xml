@@ -95,6 +95,9 @@
     <string name="include_contact_sources">Įtraukti kontaktų šaltinius</string>
     <string name="filename_without_vcf">Bylos vardas (be .vcf)</string>
 
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Pasirinkti rodomus laukelius</string>
     <string name="prefix">Priešdėlis</string>

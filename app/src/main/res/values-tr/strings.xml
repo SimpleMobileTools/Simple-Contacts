@@ -95,6 +95,9 @@
     <string name="include_contact_sources">Kişi kaynaklarını dahil et</string>
     <string name="filename_without_vcf">Dosya adı (.vcf olmadan)</string>
 
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Görüntülenecek alanları seç</string>
     <string name="prefix">Önek</string>

@@ -95,6 +95,9 @@
     <string name="include_contact_sources">Include contact sources</string>
     <string name="filename_without_vcf">ファイル名 (.vcfを含めない)</string>
 
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">表示する項目を選択</string>
     <string name="prefix">敬称（名前の前）</string>

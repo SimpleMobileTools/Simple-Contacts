@@ -166,8 +166,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         isFirstResume = false
 
         val blackIcon = resources.getColoredDrawableWithColor(R.drawable.ic_phone_big, if (isBlackAndWhiteTheme()) Color.BLACK else Color.WHITE)
-        main_dialer_button.setImageDrawable(blackIcon)
-        main_dialer_button.background.applyColorFilter(getAdjustedPrimaryColor())
+        main_dialpad_button.setImageDrawable(blackIcon)
+        main_dialpad_button.background.applyColorFilter(getAdjustedPrimaryColor())
     }
 
     override fun onPause() {
@@ -375,8 +375,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         main_tabs_holder.beVisibleIf(skippedTabs < 3)
 
-        main_dialer_button.setOnClickListener {
-
+        main_dialpad_button.setOnClickListener {
+            val intent = Intent(applicationContext, DialpadActivity::class.java)
+            startActivity(intent)
         }
     }
 
