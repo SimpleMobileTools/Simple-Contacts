@@ -30,6 +30,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/activity_margin"
         android:background="@drawable/circle_background"
+        android:elevation="@dimen/medium_margin"
         android:padding="@dimen/normal_margin"
         android:src="@drawable/ic_phone_big"/>
 
