@@ -14,7 +14,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/activity_margin"
         android:layout_marginLeft="@dimen/activity_margin"
-        android:layout_marginRight="@dimen/activity_margin">
+        android:layout_marginRight="@dimen/activity_margin"
+        android:focusableInTouchMode="true">
 
         <com.simplemobiletools.commons.views.MyEditText
             android:id="@+id/dialpad_input"
