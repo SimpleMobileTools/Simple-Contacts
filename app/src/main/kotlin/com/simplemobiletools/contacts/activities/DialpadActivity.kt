@@ -1,7 +1,7 @@
 package com.simplemobiletools.contacts.activities
 
 import android.os.Bundle
-import android.text.SpannableStringBuilder
+import android.view.KeyEvent
 import com.simplemobiletools.commons.extensions.applyColorFilter
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.contacts.R
@@ -36,19 +36,31 @@ class DialpadActivity : SimpleActivity() {
     }
 
     private fun dialpadPressed(char: String) {
-        dialpad_input.append(char)
+        dialpad_input.dispatchKeyEvent(getKeyEvent(getCharKeyCode(char)))
     }
 
     private fun clearChar() {
-        val curPostion = dialpad_input.selectionEnd
-        val reducedPos = Math.max(curPostion - 1, 0)
-        val selectedString = SpannableStringBuilder(dialpad_input.text)
-        selectedString.replace(reducedPos, curPostion, "")
-        dialpad_input.text = selectedString
-        dialpad_input.setSelection(reducedPos)
+        dialpad_input.dispatchKeyEvent(getKeyEvent(KeyEvent.KEYCODE_DEL))
     }
 
     private fun clearInput() {
         dialpad_input.setText("")
+    }
+
+    private fun getKeyEvent(keyCode: Int) = KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyCode, 0)
+
+    private fun getCharKeyCode(char: String) = when (char) {
+        "0" -> KeyEvent.KEYCODE_0
+        "1" -> KeyEvent.KEYCODE_1
+        "2" -> KeyEvent.KEYCODE_2
+        "3" -> KeyEvent.KEYCODE_3
+        "4" -> KeyEvent.KEYCODE_4
+        "5" -> KeyEvent.KEYCODE_5
+        "6" -> KeyEvent.KEYCODE_6
+        "7" -> KeyEvent.KEYCODE_7
+        "8" -> KeyEvent.KEYCODE_8
+        "9" -> KeyEvent.KEYCODE_9
+        "*" -> KeyEvent.KEYCODE_STAR
+        else -> KeyEvent.KEYCODE_POUND
     }
 }
