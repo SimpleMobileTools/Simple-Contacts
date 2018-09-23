@@ -1,9 +1,13 @@
 package com.simplemobiletools.contacts.activities
 
+import android.annotation.TargetApi
+import android.os.Build
 import android.os.Bundle
+import android.text.InputType
 import android.view.KeyEvent
 import com.simplemobiletools.commons.extensions.applyColorFilter
 import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.config
 import kotlinx.android.synthetic.main.activity_dialpad.*
@@ -27,6 +31,7 @@ class DialpadActivity : SimpleActivity() {
         dialpad_hashtag.setOnClickListener { dialpadPressed("#") }
         dialpad_clear_char.setOnClickListener { clearChar() }
         dialpad_clear_char.setOnLongClickListener { clearInput(); true }
+        disableKeyboardPopping()
     }
 
     override fun onResume() {
@@ -62,5 +67,14 @@ class DialpadActivity : SimpleActivity() {
         "9" -> KeyEvent.KEYCODE_9
         "*" -> KeyEvent.KEYCODE_STAR
         else -> KeyEvent.KEYCODE_POUND
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun disableKeyboardPopping() {
+        if (isLollipopPlus()) {
+            dialpad_input.showSoftInputOnFocus = false
+        } else {
+            dialpad_input.inputType = InputType.TYPE_NULL
+        }
     }
 }
