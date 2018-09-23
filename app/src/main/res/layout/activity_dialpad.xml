@@ -16,6 +16,16 @@
         android:layout_marginLeft="@dimen/activity_margin"
         android:layout_marginRight="@dimen/activity_margin">
 
+        <com.simplemobiletools.commons.views.MyEditText
+            android:id="@+id/dialpad_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="phone"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/dialpad_input_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/dialpad_2"/>
+
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/dialpad_1"
             style="@style/DialpadNumberStyle"

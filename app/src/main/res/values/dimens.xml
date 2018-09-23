@@ -6,4 +6,5 @@
     <dimen name="contact_item_height">52dp</dimen>
     <dimen name="dialpad_button_size">60dp</dimen>
     <dimen name="dialpad_text_size">44sp</dimen>
+    <dimen name="dialpad_input_text_size">40sp</dimen>
 </resources>
