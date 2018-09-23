@@ -1,8 +1,11 @@
 package com.simplemobiletools.contacts.activities
 
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import com.simplemobiletools.commons.extensions.applyColorFilter
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.extensions.config
 import kotlinx.android.synthetic.main.activity_dialpad.*
 
 class DialpadActivity : SimpleActivity() {
@@ -22,14 +25,30 @@ class DialpadActivity : SimpleActivity() {
         dialpad_9.setOnClickListener { dialpadPressed("9") }
         dialpad_asterisk.setOnClickListener { dialpadPressed("*") }
         dialpad_hashtag.setOnClickListener { dialpadPressed("#") }
+        dialpad_clear_char.setOnClickListener { clearChar() }
+        dialpad_clear_char.setOnLongClickListener { clearInput(); true }
     }
 
     override fun onResume() {
         super.onResume()
         updateTextColors(dialpad_wrapper)
+        dialpad_clear_char.applyColorFilter(config.textColor)
     }
 
     private fun dialpadPressed(char: String) {
         dialpad_input.append(char)
+    }
+
+    private fun clearChar() {
+        val curPostion = dialpad_input.selectionEnd
+        val reducedPos = Math.max(curPostion - 1, 0)
+        val selectedString = SpannableStringBuilder(dialpad_input.text)
+        selectedString.replace(reducedPos, curPostion, "")
+        dialpad_input.text = selectedString
+        dialpad_input.setSelection(reducedPos)
+    }
+
+    private fun clearInput() {
+        dialpad_input.setText("")
     }
 }
