@@ -11,8 +11,8 @@ import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.extensions.afterTextChanged
+import com.simplemobiletools.contacts.extensions.callContact
 import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.contactClicked
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.LOCATION_DIALPAD
 import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
@@ -103,7 +103,7 @@ class DialpadActivity : SimpleActivity() {
         } as ArrayList<Contact>
 
         ContactsAdapter(this, filtered, null, LOCATION_DIALPAD, null, dialpad_list, dialpad_fastscroller) {
-            contactClicked(it as Contact)
+            callContact(it as Contact)
         }.apply {
             addVerticalDividers(true)
             dialpad_list.adapter = this
