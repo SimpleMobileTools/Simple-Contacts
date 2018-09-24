@@ -9,6 +9,7 @@ import com.simplemobiletools.commons.extensions.applyColorFilter
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.extensions.afterTextChanged
 import com.simplemobiletools.contacts.extensions.config
 import kotlinx.android.synthetic.main.activity_dialpad.*
 
@@ -31,6 +32,7 @@ class DialpadActivity : SimpleActivity() {
         dialpad_hashtag.setOnClickListener { dialpadPressed("#") }
         dialpad_clear_char.setOnClickListener { clearChar() }
         dialpad_clear_char.setOnLongClickListener { clearInput(); true }
+        dialpad_input.afterTextChanged { dialpadValueChanged(it) }
         disableKeyboardPopping()
     }
 
@@ -76,5 +78,9 @@ class DialpadActivity : SimpleActivity() {
         } else {
             dialpad_input.inputType = InputType.TYPE_NULL
         }
+    }
+
+    private fun dialpadValueChanged(text: String) {
+
     }
 }
