@@ -9,9 +9,12 @@ import com.simplemobiletools.commons.extensions.applyColorFilter
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.extensions.afterTextChanged
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.contactClicked
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.LOCATION_DIALPAD
 import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_dialpad.*
@@ -95,8 +98,21 @@ class DialpadActivity : SimpleActivity() {
     private fun dialpadValueChanged(text: String) {
         val numericOnly = text.replace(PHONE_NUMBER_PATTERN.toRegex(), "")
         val filtered = contacts.filter {
-            it.phoneNumbers.any { it.value.contains(text) || it.value.contains(numericOnly) } ||
-                    it.cleanPhoneNumbers.any { it.value.contains(text) || it.value.contains(numericOnly) }
+            it.phoneNumbers.any { (text.isNotEmpty() && it.value.contains(text)) || (numericOnly.isNotEmpty() && it.value.contains(numericOnly)) } ||
+                    it.cleanPhoneNumbers.any { (text.isNotEmpty() && it.value.contains(text)) || (numericOnly.isNotEmpty() && it.value.contains(numericOnly)) }
+        } as ArrayList<Contact>
+
+        ContactsAdapter(this, filtered, null, LOCATION_DIALPAD, null, dialpad_list, dialpad_fastscroller) {
+            contactClicked(it as Contact)
+        }.apply {
+            addVerticalDividers(true)
+            dialpad_list.adapter = this
+        }
+
+        dialpad_fastscroller.setScrollToY(0)
+        dialpad_fastscroller.setViews(dialpad_list) {
+            val item = (dialpad_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
+            dialpad_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
         }
     }
 }
