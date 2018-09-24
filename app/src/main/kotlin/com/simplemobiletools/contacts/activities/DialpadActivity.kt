@@ -11,9 +11,13 @@ import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.extensions.afterTextChanged
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
+import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_dialpad.*
 
 class DialpadActivity : SimpleActivity() {
+    var contacts = ArrayList<Contact>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dialpad)
@@ -33,6 +37,7 @@ class DialpadActivity : SimpleActivity() {
         dialpad_clear_char.setOnClickListener { clearChar() }
         dialpad_clear_char.setOnLongClickListener { clearInput(); true }
         dialpad_input.afterTextChanged { dialpadValueChanged(it) }
+        ContactsHelper(this).getContacts { gotContacts(it) }
         disableKeyboardPopping()
     }
 
@@ -80,7 +85,15 @@ class DialpadActivity : SimpleActivity() {
         }
     }
 
-    private fun dialpadValueChanged(text: String) {
+    private fun gotContacts(newContacts: ArrayList<Contact>) {
+        contacts = newContacts
+        Contact.sorting = config.sorting
+        Contact.startWithSurname = config.startNameWithSurname
+        contacts.sort()
+    }
 
+    private fun dialpadValueChanged(text: String) {
+        val numericOnly = text.replace(PHONE_NUMBER_PATTERN.toRegex(), "")
+        val filtered = contacts.filter { it.cleanPhoneNumbers.any { it.value.contains(text) || it.value.contains(numericOnly) } }
     }
 }
