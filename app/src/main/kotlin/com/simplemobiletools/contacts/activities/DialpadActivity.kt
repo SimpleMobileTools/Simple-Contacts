@@ -96,6 +96,7 @@ class DialpadActivity : SimpleActivity() {
     }
 
     private fun dialpadValueChanged(text: String) {
+        (dialpad_list.adapter as? ContactsAdapter)?.finishActMode()
         val numericOnly = text.replace(PHONE_NUMBER_PATTERN.toRegex(), "")
         val filtered = contacts.filter {
             it.phoneNumbers.any { (text.isNotEmpty() && it.value.contains(text)) || (numericOnly.isNotEmpty() && it.value.contains(numericOnly)) } ||
