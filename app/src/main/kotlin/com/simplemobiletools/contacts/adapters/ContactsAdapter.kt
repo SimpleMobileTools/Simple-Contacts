@@ -262,7 +262,12 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
 
             if (contact_number != null) {
-                val numberText = contact.phoneNumbers.firstOrNull()?.value ?: ""
+                val numberText = if (textToHighlight.isEmpty()) {
+                    contact.phoneNumbers.firstOrNull()?.value ?: ""
+                } else {
+                    contact.phoneNumbers.firstOrNull { it.value.contains(textToHighlight) }?.value ?: ""
+                }
+
                 contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor)
                 contact_number.setTextColor(textColor)
                 contact_number.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
