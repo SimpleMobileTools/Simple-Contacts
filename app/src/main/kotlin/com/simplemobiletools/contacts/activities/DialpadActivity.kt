@@ -1,12 +1,17 @@
 package com.simplemobiletools.contacts.activities
 
 import android.annotation.TargetApi
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.applyColorFilter
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.extensions.value
 import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
@@ -14,6 +19,7 @@ import com.simplemobiletools.contacts.extensions.afterTextChanged
 import com.simplemobiletools.contacts.extensions.callContact
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
+import com.simplemobiletools.contacts.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.helpers.LOCATION_DIALPAD
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_dialpad.*
@@ -47,6 +53,32 @@ class DialpadActivity : SimpleActivity() {
         super.onResume()
         updateTextColors(dialpad_holder)
         dialpad_clear_char.applyColorFilter(config.textColor)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_dialpad, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.create_new_contact -> createNewContact()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
+    private fun createNewContact() {
+        Intent().apply {
+            action = Intent.ACTION_INSERT_OR_EDIT
+            type = "vnd.android.cursor.item/contact"
+            putExtra(KEY_PHONE, dialpad_input.value)
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
+            }
+        }
     }
 
     private fun dialpadPressed(char: String) {

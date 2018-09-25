@@ -97,6 +97,7 @@
 
     <!-- Dialpad -->
     <string name="dialpad">Dialpad</string>
+    <string name="create_new_contact_from_number">Create new contact from number</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Välj vilka fält som ska visas</string>
