@@ -29,12 +29,12 @@ import java.util.*
 
 class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val refreshListener: RefreshContactsListener?,
                       private val location: Int, private val removeListener: RemoveFromGroupListener?, recyclerView: MyRecyclerView,
-                      fastScroller: FastScroller, itemClick: (Any) -> Unit) :
+                      fastScroller: FastScroller, highlightText: String = "", itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private lateinit var contactDrawable: Drawable
     private var config = activity.config
-    private var textToHighlight = ""
+    private var textToHighlight = highlightText
 
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
     var startNameWithSurname: Boolean

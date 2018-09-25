@@ -103,7 +103,7 @@ class DialpadActivity : SimpleActivity() {
                     it.cleanPhoneNumbers.any { (text.isNotEmpty() && it.value.contains(text)) || (numericOnly.isNotEmpty() && it.value.contains(numericOnly)) }
         } as ArrayList<Contact>
 
-        ContactsAdapter(this, filtered, null, LOCATION_DIALPAD, null, dialpad_list, dialpad_fastscroller) {
+        ContactsAdapter(this, filtered, null, LOCATION_DIALPAD, null, dialpad_list, dialpad_fastscroller, text) {
             callContact(it as Contact)
         }.apply {
             addVerticalDividers(true)
