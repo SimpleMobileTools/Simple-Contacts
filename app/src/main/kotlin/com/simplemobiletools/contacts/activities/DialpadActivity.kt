@@ -46,7 +46,7 @@ class DialpadActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
-        updateTextColors(dialpad_wrapper)
+        updateTextColors(dialpad_holder)
         dialpad_clear_char.applyColorFilter(config.textColor)
     }
 
