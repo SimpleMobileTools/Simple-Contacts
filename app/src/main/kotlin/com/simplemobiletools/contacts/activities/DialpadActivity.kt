@@ -15,7 +15,6 @@ import com.simplemobiletools.contacts.extensions.callContact
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.LOCATION_DIALPAD
-import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
 import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_dialpad.*
 
@@ -97,11 +96,7 @@ class DialpadActivity : SimpleActivity() {
 
     private fun dialpadValueChanged(text: String) {
         (dialpad_list.adapter as? ContactsAdapter)?.finishActMode()
-        val numericOnly = text.replace(PHONE_NUMBER_PATTERN.toRegex(), "")
-        val filtered = contacts.filter {
-            it.phoneNumbers.any { (text.isNotEmpty() && it.value.contains(text)) || (numericOnly.isNotEmpty() && it.value.contains(numericOnly)) } ||
-                    it.cleanPhoneNumbers.any { (text.isNotEmpty() && it.value.contains(text)) || (numericOnly.isNotEmpty() && it.value.contains(numericOnly)) }
-        } as ArrayList<Contact>
+        val filtered = contacts.filter { it.doesContainPhoneNumber(text) } as ArrayList<Contact>
 
         ContactsAdapter(this, filtered, null, LOCATION_DIALPAD, null, dialpad_list, dialpad_fastscroller, text) {
             callContact(it as Contact)

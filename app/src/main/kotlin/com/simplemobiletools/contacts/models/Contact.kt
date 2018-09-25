@@ -5,6 +5,7 @@ import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
+import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
 
 data class Contact(val id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var nickname: String,
                    var photoUri: String, var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>,
@@ -104,4 +105,22 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
     }
 
     fun getHashToCompare() = getStringToCompare().hashCode()
+
+    // do a more advanced phone number check here, compare numbers and and search query with dashes, spaces and everything but numbers removed
+    fun doesContainPhoneNumber(text: String): Boolean {
+        if (text.isNotEmpty()) {
+            if (phoneNumbers.any { it.value.contains(text) } || cleanPhoneNumbers.any { it.value.contains(text) }) {
+                return true
+            }
+        }
+
+        val numericOnly = text.replace(PHONE_NUMBER_PATTERN.toRegex(), "")
+        if (numericOnly.isNotEmpty()) {
+            if (phoneNumbers.any { it.value.contains(numericOnly) } || cleanPhoneNumbers.any { it.value.contains(numericOnly) }) {
+                return true
+            }
+        }
+
+        return false
+    }
 }
