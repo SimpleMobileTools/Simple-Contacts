@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.activities
 import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract
+import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.extensions.updateTextColors
@@ -17,15 +18,15 @@ class InsertOrEditContactActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insert_edit_contact)
         title = getString(R.string.select_contact)
-        updateTextColors(insert_edit_contact_holder)
+        setupViews()
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             // we do not really care about the permission request result. Even if it was denied, load private contacts
-            setupViews()
         }
     }
 
     private fun setupViews() {
+        updateTextColors(insert_edit_contact_holder)
         new_contact_tmb.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_new_contact, config.textColor))
         new_contact_holder.setOnClickListener {
             Intent().apply {
@@ -39,5 +40,7 @@ class InsertOrEditContactActivity : SimpleActivity() {
                 }
             }
         }
+
+        existing_contact_label.setTextColor(getAdjustedPrimaryColor())
     }
 }
