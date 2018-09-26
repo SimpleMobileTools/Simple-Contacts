@@ -15,6 +15,8 @@
     <string name="send_email_to_group">Poslať skupine email</string>
     <string name="call_person">Zavolať %s</string>
     <string name="request_the_required_permissions">Vyžiadať potrebné oprávnenia</string>
+    <string name="create_new_contact">Vytvoriť nový kontakt</string>
+    <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>

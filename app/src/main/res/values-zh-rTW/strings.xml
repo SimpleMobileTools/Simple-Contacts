@@ -15,6 +15,8 @@
     <string name="send_email_to_group">發送電子郵件給群組</string>
     <string name="call_person">打電話給 %s</string>
     <string name="request_the_required_permissions">請求必要的權限</string>
+    <string name="create_new_contact">Create new contact</string>
+    <string name="add_to_existing_contact">Add to an existing contact</string>
 
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>

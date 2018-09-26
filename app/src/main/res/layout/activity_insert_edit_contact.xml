@@ -5,4 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <RelativeLayout
+        android:id="@+id/new_contact_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingRight="@dimen/activity_margin">
+
+        <ImageView
+            android:id="@+id/new_contact_tmb"
+            android:layout_width="@dimen/normal_icon_size"
+            android:layout_height="@dimen/normal_icon_size"
+            android:layout_alignTop="@+id/new_contact_name"
+            android:layout_alignBottom="@+id/new_contact_name"
+            android:padding="@dimen/medium_margin"
+            android:src="@drawable/ic_new_contact"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/new_contact_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/create_new_contact_height"
+            android:layout_toRightOf="@+id/new_contact_tmb"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="@string/create_new_contact"
+            android:textSize="@dimen/big_text_size"/>
+
+    </RelativeLayout>
 </RelativeLayout>
