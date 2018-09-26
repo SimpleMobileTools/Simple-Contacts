@@ -96,8 +96,8 @@
     <string name="filename_without_vcf">ファイル名 (.vcfを含めない)</string>
 
     <!-- Dialpad -->
-    <string name="dialpad">Dialpad</string>
-    <string name="create_new_contact_from_number">Create new contact from number</string>
+    <string name="dialpad">ダイヤルパッド</string>
+    <string name="create_new_contact_from_number">番号から新しい連絡先を作成</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">表示する項目を選択</string>
