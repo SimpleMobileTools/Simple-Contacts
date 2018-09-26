@@ -11,6 +11,8 @@ import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.getContactPublicUri
+import com.simplemobiletools.contacts.helpers.ADD_NEW_CONTACT_NUMBER
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.helpers.LOCATION_INSERT_OR_EDIT
@@ -57,7 +59,12 @@ class InsertOrEditContactActivity : SimpleActivity() {
         contacts.sort()
 
         ContactsAdapter(this, contacts, null, LOCATION_INSERT_OR_EDIT, null, existing_contact_list, existing_contact_fastscroller) {
-
+            Intent(applicationContext, EditContactActivity::class.java).apply {
+                data = getContactPublicUri(it as Contact)
+                action = ADD_NEW_CONTACT_NUMBER
+                putExtra(KEY_PHONE, intent.getStringExtra(KEY_PHONE))
+                startActivity(this)
+            }
         }.apply {
             addVerticalDividers(true)
             existing_contact_list.adapter = this
