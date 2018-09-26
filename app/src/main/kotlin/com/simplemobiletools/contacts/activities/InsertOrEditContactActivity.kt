@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -20,6 +21,9 @@ import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_insert_edit_contact.*
 
 class InsertOrEditContactActivity : SimpleActivity() {
+    private val START_INSERT_ACTIVITY = 1
+    private val START_EDIT_ACTIVITY = 2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insert_edit_contact)
@@ -43,7 +47,7 @@ class InsertOrEditContactActivity : SimpleActivity() {
                 data = ContactsContract.Contacts.CONTENT_URI
                 putExtra(KEY_PHONE, intent.getStringExtra(KEY_PHONE))
                 if (resolveActivity(packageManager) != null) {
-                    startActivity(this)
+                    startActivityForResult(this, START_INSERT_ACTIVITY)
                 } else {
                     toast(R.string.no_app_found)
                 }
@@ -63,7 +67,7 @@ class InsertOrEditContactActivity : SimpleActivity() {
                 data = getContactPublicUri(it as Contact)
                 action = ADD_NEW_CONTACT_NUMBER
                 putExtra(KEY_PHONE, intent.getStringExtra(KEY_PHONE))
-                startActivity(this)
+                startActivityForResult(this, START_EDIT_ACTIVITY)
             }
         }.apply {
             addVerticalDividers(true)
@@ -74,6 +78,13 @@ class InsertOrEditContactActivity : SimpleActivity() {
         existing_contact_fastscroller.setViews(existing_contact_list) {
             val item = (existing_contact_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
             existing_contact_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (resultCode == Activity.RESULT_OK) {
+            finish()
         }
     }
 }

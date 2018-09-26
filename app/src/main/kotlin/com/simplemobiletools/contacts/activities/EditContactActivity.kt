@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.activities
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.ClipData
 import android.content.ContentValues
@@ -938,6 +939,7 @@ class EditContactActivity : ContactActivity() {
                 contact!!.source = originalContactSource
                 ContactsHelper(this).deleteContact(contact!!)
             }
+            setResult(Activity.RESULT_OK)
             finish()
         } else {
             toast(R.string.unknown_error_occurred)
@@ -947,6 +949,7 @@ class EditContactActivity : ContactActivity() {
     private fun updateContact(photoUpdateStatus: Int) {
         isSaving = true
         if (ContactsHelper(this@EditContactActivity).updateContact(contact!!, photoUpdateStatus)) {
+            setResult(Activity.RESULT_OK)
             finish()
         } else {
             toast(R.string.unknown_error_occurred)
