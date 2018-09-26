@@ -58,7 +58,7 @@ class EditContactActivity : ContactActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross)
 
         val action = intent.action
-        isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT_OR_EDIT || action == Intent.ACTION_INSERT
+        isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT
         val isFromSimpleContacts = intent.getBooleanExtra(IS_FROM_SIMPLE_CONTACTS, false)
         if (isThirdPartyIntent && !isFromSimpleContacts) {
             handlePermission(PERMISSION_READ_CONTACTS) {
@@ -149,7 +149,7 @@ class EditContactActivity : ContactActivity() {
             setupEditContact()
         }
 
-        if (contact!!.id == 0 && intent.extras?.containsKey(KEY_PHONE) == true && (action == Intent.ACTION_INSERT_OR_EDIT || action == Intent.ACTION_INSERT)) {
+        if (contact!!.id == 0 && intent.extras?.containsKey(KEY_PHONE) == true && action == Intent.ACTION_INSERT) {
             val phoneNumber = intent.extras.get(KEY_PHONE)?.toString() ?: ""
             contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, ""))
 

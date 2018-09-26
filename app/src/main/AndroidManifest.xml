@@ -119,15 +119,6 @@
             android:parentActivityName=".activities.MainActivity">
 
             <intent-filter>
-                <action android:name="android.intent.action.INSERT_OR_EDIT"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="vnd.android.cursor.item/person"/>
-                <data android:mimeType="vnd.android.cursor.item/contact"/>
-                <data android:mimeType="vnd.android.cursor.item/raw_contact"/>
-            </intent-filter>
-
-            <intent-filter>
                 <action android:name="android.intent.action.EDIT"/>
                 <category android:name="android.intent.category.DEFAULT"/>
 
@@ -160,6 +151,21 @@
                 <action android:name="android.intent.action.INSERT"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:mimeType="vnd.android.cursor.dir/group"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.InsertOrEditContactActivity"
+            android:label="@string/select_contact"
+            android:parentActivityName=".activities.MainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.INSERT_OR_EDIT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:mimeType="vnd.android.cursor.item/person"/>
+                <data android:mimeType="vnd.android.cursor.item/contact"/>
+                <data android:mimeType="vnd.android.cursor.item/raw_contact"/>
             </intent-filter>
         </activity>
 
