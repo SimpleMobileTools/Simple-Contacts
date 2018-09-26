@@ -9,8 +9,12 @@ import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.KEY_PHONE
+import com.simplemobiletools.contacts.helpers.LOCATION_INSERT_OR_EDIT
+import com.simplemobiletools.contacts.models.Contact
 import kotlinx.android.synthetic.main.activity_insert_edit_contact.*
 
 class InsertOrEditContactActivity : SimpleActivity() {
@@ -22,6 +26,9 @@ class InsertOrEditContactActivity : SimpleActivity() {
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             // we do not really care about the permission request result. Even if it was denied, load private contacts
+            ContactsHelper(this).getContacts {
+                gotContacts(it)
+            }
         }
     }
 
@@ -42,5 +49,24 @@ class InsertOrEditContactActivity : SimpleActivity() {
         }
 
         existing_contact_label.setTextColor(getAdjustedPrimaryColor())
+    }
+
+    private fun gotContacts(contacts: ArrayList<Contact>) {
+        Contact.sorting = config.sorting
+        Contact.startWithSurname = config.startNameWithSurname
+        contacts.sort()
+
+        ContactsAdapter(this, contacts, null, LOCATION_INSERT_OR_EDIT, null, existing_contact_list, existing_contact_fastscroller) {
+
+        }.apply {
+            addVerticalDividers(true)
+            existing_contact_list.adapter = this
+        }
+
+        existing_contact_fastscroller.setScrollToY(0)
+        existing_contact_fastscroller.setViews(existing_contact_list) {
+            val item = (existing_contact_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
+            existing_contact_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
+        }
     }
 }

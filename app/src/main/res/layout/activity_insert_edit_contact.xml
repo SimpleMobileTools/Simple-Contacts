@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/insert_edit_contact_holder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -41,8 +42,31 @@
         android:layout_below="@+id/new_contact_holder"
         android:layout_marginStart="@dimen/bigger_margin"
         android:layout_marginLeft="@dimen/bigger_margin"
+        android:layout_marginBottom="@dimen/activity_margin"
         android:text="@string/add_to_existing_contact"
         android:textAllCaps="true"
         android:textSize="@dimen/smaller_text_size"/>
 
+    <com.simplemobiletools.commons.views.MyRecyclerView
+        android:id="@+id/existing_contact_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/existing_contact_label"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager"/>
+
+    <com.simplemobiletools.commons.views.FastScroller
+        android:id="@+id/existing_contact_fastscroller"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/existing_contact_label"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:paddingStart="@dimen/normal_margin"
+        android:paddingLeft="@dimen/normal_margin">
+
+        <include layout="@layout/fastscroller_handle_vertical"/>
+
+    </com.simplemobiletools.commons.views.FastScroller>
 </RelativeLayout>

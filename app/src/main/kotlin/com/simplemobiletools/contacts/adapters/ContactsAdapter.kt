@@ -107,7 +107,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val contact = contactItems[position]
-        val view = holder.bindView(contact, true, true) { itemView, layoutPosition ->
+        val allowLongClick = location != LOCATION_INSERT_OR_EDIT
+        val view = holder.bindView(contact, true, allowLongClick) { itemView, layoutPosition ->
             setupView(itemView, contact)
         }
         bindViewHolder(holder, position, view)
