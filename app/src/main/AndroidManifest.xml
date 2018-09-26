@@ -156,7 +156,6 @@
 
         <activity
             android:name=".activities.InsertOrEditContactActivity"
-            android:label="@string/select_contact"
             android:parentActivityName=".activities.MainActivity">
 
             <intent-filter>

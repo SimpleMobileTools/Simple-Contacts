@@ -8,6 +8,7 @@ class InsertOrEditContactActivity : ContactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insert_edit_contact)
+        title = getString(R.string.select_contact)
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             // we do not really care about the permission request result. Even if it was denied, load private contacts
