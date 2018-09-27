@@ -153,14 +153,20 @@ class EditContactActivity : ContactActivity() {
             setupEditContact()
         }
 
-        if ((contact!!.id == 0 && intent.extras?.containsKey(KEY_PHONE) == true && action == Intent.ACTION_INSERT) || action == ADD_NEW_CONTACT_NUMBER) {
-            val phoneNumber = intent.extras.get(KEY_PHONE)?.toString() ?: ""
-            contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, ""))
-            if (phoneNumber.isNotEmpty() && action == ADD_NEW_CONTACT_NUMBER) {
-                highlightLastPhoneNumber = true
+        if ((contact!!.id == 0 && intent.extras != null && intent.extras.containsKey(KEY_PHONE) && action == Intent.ACTION_INSERT) || action == ADD_NEW_CONTACT_NUMBER) {
+            val phone = intent.extras.get(KEY_PHONE)
+            if (phone != null) {
+                val phoneNumber = phone.toString()
+                contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, ""))
+                if (phoneNumber.isNotEmpty() && action == ADD_NEW_CONTACT_NUMBER) {
+                    highlightLastPhoneNumber = true
+                }
             }
 
-            contact!!.firstName = intent.extras.get(KEY_NAME)?.toString() ?: ""
+            val firstName = intent.extras.get(KEY_NAME)
+            if (firstName != null) {
+                contact!!.firstName = firstName.toString()
+            }
 
             val data = intent.extras.getParcelableArrayList<ContentValues>("data")
             if (data != null) {
