@@ -165,7 +165,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
         isFirstResume = false
 
-        val blackIcon = resources.getColoredDrawableWithColor(R.drawable.ic_phone_big, if (isBlackAndWhiteTheme()) Color.BLACK else Color.WHITE)
+        val blackIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad, if (isBlackAndWhiteTheme()) Color.BLACK else Color.WHITE)
         main_dialpad_button.setImageDrawable(blackIcon)
         main_dialpad_button.background.applyColorFilter(getAdjustedPrimaryColor())
     }
