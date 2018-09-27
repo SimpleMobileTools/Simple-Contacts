@@ -4,8 +4,8 @@
 
     <style name="DialpadNumberStyle.Base">
         <item name="android:gravity">center</item>
-        <item name="android:paddingBottom">@dimen/activity_margin</item>
-        <item name="android:paddingTop">@dimen/activity_margin</item>
+        <item name="android:paddingBottom">@dimen/medium_margin</item>
+        <item name="android:paddingTop">@dimen/normal_margin</item>
         <item name="android:textSize">@dimen/dialpad_text_size</item>
     </style>
 
