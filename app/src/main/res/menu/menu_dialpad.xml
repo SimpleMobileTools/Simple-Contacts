@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/create_new_contact"
+        android:id="@+id/add_number_to_contact"
         android:icon="@drawable/ic_plus"
-        android:title="@string/create_new_contact_from_number"
+        android:title="@string/add_number_to_contact"
         app:showAsAction="ifRoom"/>
 </menu>

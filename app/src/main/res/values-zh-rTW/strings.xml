@@ -99,7 +99,7 @@
 
     <!-- Dialpad -->
     <string name="dialpad">Dialpad</string>
-    <string name="create_new_contact_from_number">Create new contact from number</string>
+    <string name="add_number_to_contact">Add number to contact</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">選擇要顯示的欄位</string>

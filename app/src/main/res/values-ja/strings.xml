@@ -99,7 +99,7 @@
 
     <!-- Dialpad -->
     <string name="dialpad">ダイヤルパッド</string>
-    <string name="create_new_contact_from_number">番号から新しい連絡先を作成</string>
+    <string name="add_number_to_contact">Add number to contact</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">表示する項目を選択</string>

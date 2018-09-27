@@ -99,7 +99,7 @@
 
     <!-- Dialpad -->
     <string name="dialpad">Číselník</string>
-    <string name="create_new_contact_from_number">Vytvoriť nový kontakt z čísla</string>
+    <string name="add_number_to_contact">Pridať číslo kontaktu</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Zvoľte polia na zobrazenie</string>

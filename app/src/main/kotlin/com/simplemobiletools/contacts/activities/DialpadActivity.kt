@@ -60,13 +60,13 @@ class DialpadActivity : SimpleActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.create_new_contact -> createNewContact()
+            R.id.add_number_to_contact -> addNumberToContact()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
     }
 
-    private fun createNewContact() {
+    private fun addNumberToContact() {
         Intent().apply {
             action = Intent.ACTION_INSERT_OR_EDIT
             type = "vnd.android.cursor.item/contact"
