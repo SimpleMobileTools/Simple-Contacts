@@ -8,5 +8,4 @@
     <dimen name="create_new_contact_height">68dp</dimen>
     <dimen name="dialpad_button_size">60dp</dimen>
     <dimen name="dialpad_text_size">34sp</dimen>
-    <dimen name="dialpad_input_text_size">40sp</dimen>
 </resources>

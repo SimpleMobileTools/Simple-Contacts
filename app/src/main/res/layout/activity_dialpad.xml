@@ -51,7 +51,7 @@
         android:gravity="center"
         android:inputType="phone"
         android:textCursorDrawable="@null"
-        android:textSize="@dimen/dialpad_input_text_size"
+        android:textSize="@dimen/dialpad_text_size"
         app:layout_constraintBottom_toTopOf="@+id/dialpad_2"
         app:layout_constraintEnd_toStartOf="@+id/dialpad_clear_char"
         app:layout_constraintStart_toStartOf="parent"/>
