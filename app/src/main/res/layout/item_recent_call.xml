@@ -14,16 +14,16 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/recent_call_holder"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/contact_item_height"
-        android:gravity="center_vertical"
+        android:layout_height="@dimen/contact_item_with_number_height"
         android:paddingLeft="@dimen/activity_margin"
         android:paddingRight="@dimen/activity_margin">
 
         <TextView
             android:id="@+id/recent_call_name"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:ellipsize="end"
+            android:gravity="center_vertical"
             android:maxLines="1"
             android:paddingRight="@dimen/activity_margin"
             android:textSize="@dimen/big_text_size"
@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/recent_call_name"
             android:maxLines="1"
+            android:paddingBottom="@dimen/tiny_margin"
             android:textSize="@dimen/bigger_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/recent_call_date_time"
