@@ -36,6 +36,13 @@
 
     </com.simplemobiletools.commons.views.FastScroller>
 
+    <TextView
+        android:id="@+id/dialpad_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider"
+        app:layout_constraintBottom_toTopOf="@+id/dialpad_input"/>
+
     <com.simplemobiletools.commons.views.MyEditText
         android:id="@+id/dialpad_input"
         android:layout_width="0dp"
