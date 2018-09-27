@@ -40,6 +40,7 @@ class DialpadActivity : SimpleActivity() {
         dialpad_7.setOnClickListener { dialpadPressed("7", it) }
         dialpad_8.setOnClickListener { dialpadPressed("8", it) }
         dialpad_9.setOnClickListener { dialpadPressed("9", it) }
+        dialpad_0.setOnLongClickListener { dialpadPressed("+", null); true }
         dialpad_asterisk.setOnClickListener { dialpadPressed("*", it) }
         dialpad_hashtag.setOnClickListener { dialpadPressed("#", it) }
         dialpad_clear_char.setOnClickListener { clearChar(it) }
@@ -82,9 +83,9 @@ class DialpadActivity : SimpleActivity() {
         }
     }
 
-    private fun dialpadPressed(char: String, view: View) {
+    private fun dialpadPressed(char: String, view: View?) {
         dialpad_input.dispatchKeyEvent(getKeyEvent(getCharKeyCode(char)))
-        view.performHapticFeedback()
+        view?.performHapticFeedback()
     }
 
     private fun clearChar(view: View) {
@@ -110,6 +111,7 @@ class DialpadActivity : SimpleActivity() {
         "8" -> KeyEvent.KEYCODE_8
         "9" -> KeyEvent.KEYCODE_9
         "*" -> KeyEvent.KEYCODE_STAR
+        "+" -> KeyEvent.KEYCODE_PLUS
         else -> KeyEvent.KEYCODE_POUND
     }
 
