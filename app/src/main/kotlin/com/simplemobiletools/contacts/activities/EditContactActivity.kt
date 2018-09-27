@@ -14,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -51,6 +52,8 @@ class EditContactActivity : ContactActivity() {
     private var lastPhotoIntentUri: Uri? = null
     private var isSaving = false
     private var isThirdPartyIntent = false
+    private var highlightLastPhoneNumber = false
+    private var numberViewToColor: EditText? = null
     private var originalContactSource = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -153,6 +156,9 @@ class EditContactActivity : ContactActivity() {
         if ((contact!!.id == 0 && intent.extras?.containsKey(KEY_PHONE) == true && action == Intent.ACTION_INSERT) || action == ADD_NEW_CONTACT_NUMBER) {
             val phoneNumber = intent.extras.get(KEY_PHONE)?.toString() ?: ""
             contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, ""))
+            if (phoneNumber.isNotEmpty() && action == ADD_NEW_CONTACT_NUMBER) {
+                highlightLastPhoneNumber = true
+            }
 
             contact!!.firstName = intent.extras.get(KEY_NAME)?.toString() ?: ""
 
@@ -231,6 +237,7 @@ class EditContactActivity : ContactActivity() {
         }
 
         updateTextColors(contact_scrollview)
+        numberViewToColor?.setTextColor(getAdjustedPrimaryColor())
         wasActivityInitialized = true
         invalidateOptionsMenu()
     }
@@ -374,6 +381,9 @@ class EditContactActivity : ContactActivity() {
             numberHolder!!.apply {
                 contact_number.setText(number.value)
                 setupPhoneNumberTypePicker(contact_number_type, number.type, number.label)
+                if (highlightLastPhoneNumber && index == contact!!.phoneNumbers.size - 1) {
+                    numberViewToColor = contact_number
+                }
             }
         }
     }
