@@ -2,12 +2,10 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialpad_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentBottom="true"
-    android:layout_marginBottom="@dimen/activity_margin"
     android:focusableInTouchMode="true">
 
     <com.simplemobiletools.commons.views.MyRecyclerView
@@ -181,11 +179,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_margin"
         android:text="*"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/dialpad_call_button"
         app:layout_constraintEnd_toStartOf="@+id/dialpad_0"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="0dp"/>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/dialpad_0"
@@ -193,7 +190,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="0"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/dialpad_call_button"
         app:layout_constraintEnd_toStartOf="@+id/dialpad_hashtag"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/dialpad_asterisk"/>
@@ -205,9 +202,22 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/activity_margin"
         android:text="#"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/dialpad_call_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/dialpad_0"/>
+
+    <ImageView
+        android:id="@+id/dialpad_call_button"
+        android:layout_width="@dimen/dialpad_button_size"
+        android:layout_height="@dimen/dialpad_button_size"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:background="@drawable/circle_background"
+        android:elevation="@dimen/medium_margin"
+        android:padding="@dimen/normal_margin"
+        android:src="@drawable/ic_phone_big"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

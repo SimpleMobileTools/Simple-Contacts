@@ -13,9 +13,11 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
+import com.simplemobiletools.contacts.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.extensions.afterTextChanged
 import com.simplemobiletools.contacts.extensions.callContact
 import com.simplemobiletools.contacts.extensions.config
+import com.simplemobiletools.contacts.extensions.startCallIntent
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.helpers.LOCATION_DIALPAD
@@ -42,6 +44,7 @@ class DialpadActivity : SimpleActivity() {
         dialpad_hashtag.setOnClickListener { dialpadPressed("#", it) }
         dialpad_clear_char.setOnClickListener { clearChar(it) }
         dialpad_clear_char.setOnLongClickListener { clearInput(); true }
+        dialpad_call_button.setOnClickListener { initCall() }
         dialpad_input.afterTextChanged { dialpadValueChanged(it) }
         ContactsHelper(this).getContacts { gotContacts(it) }
         disableKeyboardPopping()
@@ -141,6 +144,19 @@ class DialpadActivity : SimpleActivity() {
         dialpad_fastscroller.setViews(dialpad_list) {
             val item = (dialpad_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
             dialpad_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
+        }
+    }
+
+    private fun initCall() {
+        val number = dialpad_input.value
+        if (number.isNotEmpty()) {
+            if (config.showCallConfirmation) {
+                CallConfirmationDialog(this, number) {
+                    startCallIntent(number)
+                }
+            } else {
+                startCallIntent(number)
+            }
         }
     }
 }
