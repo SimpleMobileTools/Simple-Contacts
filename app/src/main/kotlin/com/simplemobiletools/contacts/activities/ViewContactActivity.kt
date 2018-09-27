@@ -235,6 +235,12 @@ class ViewContactActivity : ContactActivity() {
                             startCallIntent(phoneNumber.value)
                         }
                     }
+
+                    setOnLongClickListener {
+                        copyToClipboard(phoneNumber.value)
+                        toast(R.string.value_copied_to_clipboard)
+                        true
+                    }
                 }
             }
             contact_numbers_image.beVisible()
