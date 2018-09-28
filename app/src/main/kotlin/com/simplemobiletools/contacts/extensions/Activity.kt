@@ -62,8 +62,13 @@ fun SimpleActivity.startCall(contact: Contact) {
 
 fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (newSource: String) -> Unit) {
     ContactsHelper(this).getContactSources {
+        val ignoredTypes = arrayListOf(
+                "org.thoughtcrime.securesms",   // Signal
+                "org.telegram.messenger"        // Telegram
+        )
+
         val items = ArrayList<RadioItem>()
-        val sources = it.map { it.name }
+        val sources = it.filter { !ignoredTypes.contains(it.type) }.map { it.name }
         var currentSourceIndex = -1
         sources.forEachIndexed { index, account ->
             var publicAccount = account
