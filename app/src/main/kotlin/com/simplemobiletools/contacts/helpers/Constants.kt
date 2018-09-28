@@ -21,7 +21,7 @@ const val SMT_PRIVATE = "smt_private"   // used at the contact source of local c
 const val IS_PRIVATE = "is_private"
 const val GROUP = "group"
 const val FIRST_GROUP_ID = 10000
-const val PHONE_NUMBER_PATTERN = "\\D+"
+const val PHONE_NUMBER_PATTERN = "[^0-9#*+]"
 const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"
 const val ADD_NEW_CONTACT_NUMBER = "add_new_contact_number"
 
