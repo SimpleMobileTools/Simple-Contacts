@@ -155,7 +155,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="8"
-        app:layout_constraintBottom_toTopOf="@+id/dialpad_0"
+        app:layout_constraintBottom_toTopOf="@+id/dialpad_0_holder"
         app:layout_constraintEnd_toStartOf="@+id/dialpad_9"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/dialpad_7"/>
@@ -180,20 +180,43 @@
         android:layout_marginLeft="@dimen/activity_margin"
         android:text="*"
         app:layout_constraintBottom_toTopOf="@+id/dialpad_call_button"
-        app:layout_constraintEnd_toStartOf="@+id/dialpad_0"
+        app:layout_constraintEnd_toStartOf="@+id/dialpad_0_holder"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <com.simplemobiletools.commons.views.MyTextView
-        android:id="@+id/dialpad_0"
-        style="@style/DialpadNumberStyle"
+    <RelativeLayout
+        android:id="@+id/dialpad_0_holder"
+        style="@style/MyBorderlessBackgroundStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="0"
         app:layout_constraintBottom_toTopOf="@+id/dialpad_call_button"
         app:layout_constraintEnd_toStartOf="@+id/dialpad_hashtag"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/dialpad_asterisk"/>
+        app:layout_constraintStart_toEndOf="@+id/dialpad_asterisk">
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_0"
+            style="@style/DialpadNumberStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="0"/>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/dialpad_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/dialpad_0"
+            android:layout_alignBottom="@+id/dialpad_0"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/dialpad_0"
+            android:gravity="center"
+            android:paddingLeft="@dimen/small_margin"
+            android:paddingTop="@dimen/small_margin"
+            android:text="+"
+            android:textSize="@dimen/actionbar_text_size"/>
+
+    </RelativeLayout>
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/dialpad_hashtag"
@@ -205,7 +228,7 @@
         app:layout_constraintBottom_toTopOf="@+id/dialpad_call_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/dialpad_0"/>
+        app:layout_constraintStart_toEndOf="@+id/dialpad_0_holder"/>
 
     <ImageView
         android:id="@+id/dialpad_call_button"

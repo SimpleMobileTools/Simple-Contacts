@@ -30,7 +30,7 @@ class DialpadActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dialpad)
 
-        dialpad_0.setOnClickListener { dialpadPressed("0", it) }
+        dialpad_0_holder.setOnClickListener { dialpadPressed("0", it) }
         dialpad_1.setOnClickListener { dialpadPressed("1", it) }
         dialpad_2.setOnClickListener { dialpadPressed("2", it) }
         dialpad_3.setOnClickListener { dialpadPressed("3", it) }
@@ -40,7 +40,7 @@ class DialpadActivity : SimpleActivity() {
         dialpad_7.setOnClickListener { dialpadPressed("7", it) }
         dialpad_8.setOnClickListener { dialpadPressed("8", it) }
         dialpad_9.setOnClickListener { dialpadPressed("9", it) }
-        dialpad_0.setOnLongClickListener { dialpadPressed("+", null); true }
+        dialpad_0_holder.setOnLongClickListener { dialpadPressed("+", null); true }
         dialpad_asterisk.setOnClickListener { dialpadPressed("*", it) }
         dialpad_hashtag.setOnClickListener { dialpadPressed("#", it) }
         dialpad_clear_char.setOnClickListener { clearChar(it) }
