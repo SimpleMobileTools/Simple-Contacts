@@ -5,7 +5,7 @@ import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
-import com.simplemobiletools.contacts.helpers.PHONE_NUMBER_PATTERN
+import com.simplemobiletools.contacts.extensions.applyRegexFiltering
 
 data class Contact(val id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var nickname: String,
                    var photoUri: String, var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>,
@@ -114,9 +114,9 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
             }
         }
 
-        val numericOnly = text.replace(PHONE_NUMBER_PATTERN.toRegex(), "")
-        if (numericOnly.isNotEmpty()) {
-            if (phoneNumbers.any { it.value.contains(numericOnly) } || cleanPhoneNumbers.any { it.value.contains(numericOnly) }) {
+        val filteredNumber = text.applyRegexFiltering()
+        if (filteredNumber.isNotEmpty()) {
+            if (phoneNumbers.any { it.value.contains(filteredNumber) } || cleanPhoneNumbers.any { it.value.contains(filteredNumber) }) {
                 return true
             }
         }
