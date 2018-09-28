@@ -12,6 +12,7 @@
     <string name="jabber">Jabber</string>
 
     <!-- Release notes -->
+    <string name="release_32">Added a simple dialpad, dialer will come soon</string>
     <string name="release_31">
         Added an optional IM field\n
         Added support for custom phone number/email/address types
