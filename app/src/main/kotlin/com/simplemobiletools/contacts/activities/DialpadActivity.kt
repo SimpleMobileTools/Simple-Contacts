@@ -2,6 +2,7 @@ package com.simplemobiletools.contacts.activities
 
 import android.annotation.TargetApi
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
@@ -49,6 +50,10 @@ class DialpadActivity : SimpleActivity() {
         dialpad_input.afterTextChanged { dialpadValueChanged(it) }
         ContactsHelper(this).getContacts { gotContacts(it) }
         disableKeyboardPopping()
+
+        val callIcon = resources.getColoredDrawableWithColor(R.drawable.ic_phone_big, if (isBlackAndWhiteTheme()) Color.BLACK else Color.WHITE)
+        dialpad_call_button.setImageDrawable(callIcon)
+        dialpad_call_button.background.applyColorFilter(getAdjustedPrimaryColor())
     }
 
     override fun onResume() {
