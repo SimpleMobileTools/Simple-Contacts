@@ -15,8 +15,8 @@
     <string name="send_email_to_group">Отправить письмо группе</string>
     <string name="call_person">Вызов %s</string>
     <string name="request_the_required_permissions">Запрос необходимых разрешений</string>
-    <string name="create_new_contact">Create new contact</string>
-    <string name="add_to_existing_contact">Add to an existing contact</string>
+    <string name="create_new_contact">Создать новый контакт</string>
+    <string name="add_to_existing_contact">Добавить к существующему контакту</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
@@ -98,8 +98,8 @@
     <string name="filename_without_vcf">Имя файла (без .vcf)</string>
 
     <!-- Dialpad -->
-    <string name="dialpad">Dialpad</string>
-    <string name="add_number_to_contact">Add number to contact</string>
+    <string name="dialpad">Набор номера</string>
+    <string name="add_number_to_contact">Добавить номер к контакту</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Выберите отображаемые поля</string>
