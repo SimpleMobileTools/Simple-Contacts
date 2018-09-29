@@ -87,6 +87,14 @@
             android:text="@string/addresses"/>
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_visible_fields_ims"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/instant_messaging"/>
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

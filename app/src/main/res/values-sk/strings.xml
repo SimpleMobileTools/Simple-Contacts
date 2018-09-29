@@ -15,6 +15,8 @@
     <string name="send_email_to_group">Poslať skupine email</string>
     <string name="call_person">Zavolať %s</string>
     <string name="request_the_required_permissions">Vyžiadať potrebné oprávnenia</string>
+    <string name="create_new_contact">Vytvoriť nový kontakt</string>
+    <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
@@ -95,6 +97,10 @@
     <string name="include_contact_sources">Zahrnúť zdroje kontaktov</string>
     <string name="filename_without_vcf">Názov súboru (bez .vcf)</string>
 
+    <!-- Dialpad -->
+    <string name="dialpad">Číselník</string>
+    <string name="add_number_to_contact">Pridať číslo kontaktu</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Zvoľte polia na zobrazenie</string>
     <string name="prefix">Titul pred menom</string>
@@ -108,6 +114,7 @@
     <string name="websites">Webstránky</string>
     <string name="groups">Skupiny</string>
     <string name="contact_source">Zdroje kontaktov</string>
+    <string name="instant_messaging">Rýchle správy (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Chcem upraviť viditeľné polia kontaktov. Dá sa to?</string>

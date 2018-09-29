@@ -15,6 +15,8 @@
     <string name="send_email_to_group">發送電子郵件給群組</string>
     <string name="call_person">打電話給 %s</string>
     <string name="request_the_required_permissions">請求必要的權限</string>
+    <string name="create_new_contact">Create new contact</string>
+    <string name="add_to_existing_contact">Add to an existing contact</string>
 
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>
@@ -95,6 +97,10 @@
     <string name="include_contact_sources">包含聯絡人來源</string>
     <string name="filename_without_vcf">檔案名稱 (不含.vcf)</string>
 
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+    <string name="add_number_to_contact">Add number to contact</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">選擇要顯示的欄位</string>
     <string name="prefix">前缀</string>
@@ -108,6 +114,7 @@
     <string name="websites">網站</string>
     <string name="groups">群組</string>
     <string name="contact_source">聯絡人來源</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">我想要更改在通訊錄會看到哪些欄位。我能這麼做嗎?</string>

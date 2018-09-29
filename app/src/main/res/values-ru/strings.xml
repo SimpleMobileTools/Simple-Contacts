@@ -15,6 +15,8 @@
     <string name="send_email_to_group">Отправить письмо группе</string>
     <string name="call_person">Вызов %s</string>
     <string name="request_the_required_permissions">Запрос необходимых разрешений</string>
+    <string name="create_new_contact">Create new contact</string>
+    <string name="add_to_existing_contact">Add to an existing contact</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
@@ -95,6 +97,10 @@
     <string name="include_contact_sources">Включить источники контактов</string>
     <string name="filename_without_vcf">Имя файла (без .vcf)</string>
 
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+    <string name="add_number_to_contact">Add number to contact</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Выберите отображаемые поля</string>
     <string name="prefix">Префикс</string>
@@ -108,6 +114,7 @@
     <string name="websites">Сайты</string>
     <string name="groups">Группы</string>
     <string name="contact_source">Источник контакта</string>
+    <string name="instant_messaging">Мессенджеры (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Я хочу изменить поля, отображаемые у контактов. Могу ли я это сделать?</string>

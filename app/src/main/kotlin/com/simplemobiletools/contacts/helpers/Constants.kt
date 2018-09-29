@@ -21,8 +21,9 @@ const val SMT_PRIVATE = "smt_private"   // used at the contact source of local c
 const val IS_PRIVATE = "is_private"
 const val GROUP = "group"
 const val FIRST_GROUP_ID = 10000
-const val PHONE_NUMBER_PATTERN = "\\D+"
+const val PHONE_NUMBER_PATTERN = "[^0-9#*+]"
 const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"
+const val ADD_NEW_CONTACT_NUMBER = "add_new_contact_number"
 
 // extras used at third party intents
 const val KEY_PHONE = "phone"
@@ -33,6 +34,8 @@ const val LOCATION_FAVORITES_TAB = 1
 const val LOCATION_RECENTS_TAB = 2
 const val LOCATION_GROUPS_TAB = 3
 const val LOCATION_GROUP_CONTACTS = 4
+const val LOCATION_DIALPAD = 5
+const val LOCATION_INSERT_OR_EDIT = 6
 
 const val CONTACTS_TAB_MASK = 1
 const val FAVORITES_TAB_MASK = 2
@@ -56,6 +59,7 @@ const val PHOTO_UNCHANGED = 4
 const val CELL = "CELL"
 const val WORK = "WORK"
 const val HOME = "HOME"
+const val OTHER = "OTHER"
 const val PREF = "PREF"
 const val MAIN = "MAIN"
 const val FAX = "FAX"
@@ -63,6 +67,11 @@ const val WORK_FAX = "WORK;FAX"
 const val HOME_FAX = "HOME;FAX"
 const val PAGER = "PAGER"
 const val MOBILE = "MOBILE"
+
+// IMs not supported by Ez-vcard
+const val HANGOUTS = "Hangouts"
+const val QQ = "QQ"
+const val JABBER = "Jabber"
 
 const val ON_CLICK_CALL_CONTACT = 1
 const val ON_CLICK_VIEW_CONTACT = 2
@@ -84,6 +93,7 @@ const val SHOW_GROUPS_FIELD = 2048
 const val SHOW_CONTACT_SOURCE_FIELD = 4096
 const val SHOW_WEBSITES_FIELD = 8192
 const val SHOW_NICKNAME_FIELD = 16384
+const val SHOW_IMS_FIELD = 32768
 
 const val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
 const val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
@@ -91,6 +101,7 @@ const val DEFAULT_ADDRESS_TYPE = CommonDataKinds.StructuredPostal.TYPE_HOME
 const val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
 const val DEFAULT_ORGANIZATION_TYPE = CommonDataKinds.Organization.TYPE_WORK
 const val DEFAULT_WEBSITE_TYPE = CommonDataKinds.Website.TYPE_HOMEPAGE
+const val DEFAULT_IM_TYPE = CommonDataKinds.Im.PROTOCOL_SKYPE
 
 // some manufacturer contact account types from https://stackoverflow.com/a/44802016/1967672
 val localAccountTypes = arrayListOf("vnd.sec.contact.phone",

@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="im">IM</string>
+    <string name="aim">AIM</string>
+    <string name="windows_live">Windows Live</string>
+    <string name="yahoo">Yahoo</string>
+    <string name="skype">Skype</string>
+    <string name="qq">QQ</string>
+    <string name="hangouts">Hangouts</string>
+    <string name="icq">ICQ</string>
+    <string name="jabber">Jabber</string>
+
     <!-- Release notes -->
+    <string name="release_32">Added a simple dialpad, dialer will come soon</string>
+    <string name="release_31">
+        Added an optional IM field\n
+        Added support for custom phone number/email/address types
+    </string>
     <string name="release_29">Added an optional Nickname field</string>
     <string name="release_27">
         Allow customizing which tabs are visible\n

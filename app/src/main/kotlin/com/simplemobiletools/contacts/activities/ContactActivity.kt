@@ -107,28 +107,63 @@ abstract class ContactActivity : SimpleActivity() {
         }
     }
 
-    fun getPhoneNumberTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE -> R.string.mobile
-        ContactsContract.CommonDataKinds.Phone.TYPE_HOME -> R.string.home
-        ContactsContract.CommonDataKinds.Phone.TYPE_WORK -> R.string.work
-        ContactsContract.CommonDataKinds.Phone.TYPE_MAIN -> R.string.main_number
-        ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK -> R.string.work_fax
-        ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME -> R.string.home_fax
-        ContactsContract.CommonDataKinds.Phone.TYPE_PAGER -> R.string.pager
-        else -> R.string.other
+    fun getPhoneNumberTypeText(type: Int, label: String): String {
+        return if (type == ContactsContract.CommonDataKinds.BaseTypes.TYPE_CUSTOM) {
+            label
+        } else {
+            getString(when (type) {
+                ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE -> R.string.mobile
+                ContactsContract.CommonDataKinds.Phone.TYPE_HOME -> R.string.home
+                ContactsContract.CommonDataKinds.Phone.TYPE_WORK -> R.string.work
+                ContactsContract.CommonDataKinds.Phone.TYPE_MAIN -> R.string.main_number
+                ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK -> R.string.work_fax
+                ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME -> R.string.home_fax
+                ContactsContract.CommonDataKinds.Phone.TYPE_PAGER -> R.string.pager
+                else -> R.string.other
+            })
+        }
     }
 
-    fun getEmailTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Email.TYPE_HOME -> R.string.home
-        ContactsContract.CommonDataKinds.Email.TYPE_WORK -> R.string.work
-        ContactsContract.CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
-        else -> R.string.other
+    fun getEmailTypeText(type: Int, label: String): String {
+        return if (type == ContactsContract.CommonDataKinds.BaseTypes.TYPE_CUSTOM) {
+            label
+        } else {
+            getString(when (type) {
+                ContactsContract.CommonDataKinds.Email.TYPE_HOME -> R.string.home
+                ContactsContract.CommonDataKinds.Email.TYPE_WORK -> R.string.work
+                ContactsContract.CommonDataKinds.Email.TYPE_MOBILE -> R.string.mobile
+                else -> R.string.other
+            })
+        }
     }
 
-    fun getAddressTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.StructuredPostal.TYPE_HOME -> R.string.home
-        ContactsContract.CommonDataKinds.StructuredPostal.TYPE_WORK -> R.string.work
-        else -> R.string.other
+    fun getAddressTypeText(type: Int, label: String): String {
+        return if (type == ContactsContract.CommonDataKinds.BaseTypes.TYPE_CUSTOM) {
+            label
+        } else {
+            getString(when (type) {
+                ContactsContract.CommonDataKinds.StructuredPostal.TYPE_HOME -> R.string.home
+                ContactsContract.CommonDataKinds.StructuredPostal.TYPE_WORK -> R.string.work
+                else -> R.string.other
+            })
+        }
+    }
+
+    fun getIMTypeText(type: Int, label: String): String {
+        return if (type == ContactsContract.CommonDataKinds.Im.PROTOCOL_CUSTOM) {
+            label
+        } else {
+            getString(when (type) {
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_AIM -> R.string.aim
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_MSN -> R.string.windows_live
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_YAHOO -> R.string.yahoo
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_SKYPE -> R.string.skype
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_QQ -> R.string.qq
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_GOOGLE_TALK -> R.string.hangouts
+                ContactsContract.CommonDataKinds.Im.PROTOCOL_ICQ -> R.string.icq
+                else -> R.string.jabber
+            })
+        }
     }
 
     fun getEventTextId(type: Int) = when (type) {

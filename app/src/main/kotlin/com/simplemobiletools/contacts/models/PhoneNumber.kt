@@ -1,3 +1,3 @@
 package com.simplemobiletools.contacts.models
 
-data class PhoneNumber(var value: String, var type: Int)
+data class PhoneNumber(var value: String, var type: Int, var label: String)

@@ -15,6 +15,8 @@
     <string name="send_email_to_group">Grupa e-poçt göndər</string>
     <string name="call_person">%s şəxsinə zng et</string>
     <string name="request_the_required_permissions">Lazım olan icazələri istə</string>
+    <string name="create_new_contact">Create new contact</string>
+    <string name="add_to_existing_contact">Add to an existing contact</string>
 
     <string name="new_contact">Yeni kontakt</string>
     <string name="edit_contact">Redaktə et</string>
@@ -95,6 +97,10 @@
     <string name="include_contact_sources">Kontakt köklərini daxil et</string>
     <string name="filename_without_vcf">Fayl adı (.vcf olmadan)</string>
 
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+    <string name="add_number_to_contact">Add number to contact</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Göstərmək üçün sahəni seç</string>
     <string name="prefix">Ön şəkilçi</string>
@@ -108,6 +114,7 @@
     <string name="websites">Vebsaytlar</string>
     <string name="groups">Qruplar </string>
     <string name="contact_source">Kontakt kökü</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>

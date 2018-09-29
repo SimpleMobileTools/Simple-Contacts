@@ -11,6 +11,7 @@ import android.widget.RelativeLayout
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.contacts.R
+import com.simplemobiletools.contacts.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.extensions.*
 import com.simplemobiletools.contacts.helpers.*
 import kotlinx.android.synthetic.main.activity_view_contact.*
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_view_address.view.*
 import kotlinx.android.synthetic.main.item_view_email.view.*
 import kotlinx.android.synthetic.main.item_view_group.view.*
+import kotlinx.android.synthetic.main.item_view_im.view.*
 import kotlinx.android.synthetic.main.item_view_phone_number.view.*
 import kotlinx.android.synthetic.main.item_website.view.*
 
@@ -55,7 +57,6 @@ class ViewContactActivity : ContactActivity() {
         }
         return true
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (contact == null) {
@@ -153,6 +154,7 @@ class ViewContactActivity : ContactActivity() {
         setupPhoneNumbers()
         setupEmails()
         setupAddresses()
+        setupIMs()
         setupEvents()
         setupNotes()
         setupOrganization()
@@ -222,10 +224,22 @@ class ViewContactActivity : ContactActivity() {
                     val phoneNumber = it
                     contact_numbers_holder.addView(this)
                     contact_number.text = phoneNumber.value
-                    contact_number_type.setText(getPhoneNumberTextId(phoneNumber.type))
+                    contact_number_type.text = getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)
 
                     setOnClickListener {
-                        startCallIntent(phoneNumber.value)
+                        if (config.showCallConfirmation) {
+                            CallConfirmationDialog(this@ViewContactActivity, phoneNumber.value) {
+                                startCallIntent(phoneNumber.value)
+                            }
+                        } else {
+                            startCallIntent(phoneNumber.value)
+                        }
+                    }
+
+                    setOnLongClickListener {
+                        copyToClipboard(phoneNumber.value)
+                        toast(R.string.value_copied_to_clipboard)
+                        true
                     }
                 }
             }
@@ -246,7 +260,7 @@ class ViewContactActivity : ContactActivity() {
                     val email = it
                     contact_emails_holder.addView(this)
                     contact_email.text = email.value
-                    contact_email_type.setText(getEmailTextId(email.type))
+                    contact_email_type.text = getEmailTypeText(email.type, email.label)
 
                     setOnClickListener {
                         sendEmailIntent(email.value)
@@ -270,7 +284,7 @@ class ViewContactActivity : ContactActivity() {
                     val address = it
                     contact_addresses_holder.addView(this)
                     contact_address.text = address.value
-                    contact_address_type.setText(getAddressTextId(address.type))
+                    contact_address_type.text = getAddressTypeText(address.type, address.label)
 
                     setOnClickListener {
                         sendAddressIntent(address.value)
@@ -282,6 +296,26 @@ class ViewContactActivity : ContactActivity() {
         } else {
             contact_addresses_image.beGone()
             contact_addresses_holder.beGone()
+        }
+    }
+
+    private fun setupIMs() {
+        contact_ims_holder.removeAllViews()
+        val IMs = contact!!.IMs
+        if (IMs.isNotEmpty() && showFields and SHOW_IMS_FIELD != 0) {
+            IMs.forEach {
+                layoutInflater.inflate(R.layout.item_view_im, contact_ims_holder, false).apply {
+                    val IM = it
+                    contact_ims_holder.addView(this)
+                    contact_im.text = IM.value
+                    contact_im_type.text = getIMTypeText(IM.type, IM.label)
+                }
+            }
+            contact_ims_image.beVisible()
+            contact_ims_holder.beVisible()
+        } else {
+            contact_ims_image.beGone()
+            contact_ims_holder.beGone()
         }
     }
 

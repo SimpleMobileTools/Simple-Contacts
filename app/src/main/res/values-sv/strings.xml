@@ -15,6 +15,8 @@
     <string name="send_email_to_group">Skicka e-post till grupp</string>
     <string name="call_person">Ring %s</string>
     <string name="request_the_required_permissions">Begär de behörigheter som krävs</string>
+    <string name="create_new_contact">Create new contact</string>
+    <string name="add_to_existing_contact">Add to an existing contact</string>
 
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>
@@ -95,6 +97,10 @@
     <string name="include_contact_sources">Inkludera kontaktkällor</string>
     <string name="filename_without_vcf">Filnamn (utan .vcf)</string>
 
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+    <string name="add_number_to_contact">Add number to contact</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Välj vilka fält som ska visas</string>
     <string name="prefix">Prefix</string>
@@ -108,6 +114,7 @@
     <string name="websites">Webbplatser</string>
     <string name="groups">Grupper</string>
     <string name="contact_source">Kontaktkälla</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>

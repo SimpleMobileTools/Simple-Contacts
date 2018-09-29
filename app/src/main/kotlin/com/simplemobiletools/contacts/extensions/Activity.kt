@@ -36,7 +36,7 @@ fun SimpleActivity.startCallIntent(recipient: String) {
 
 fun SimpleActivity.tryStartCall(contact: Contact) {
     if (config.showCallConfirmation) {
-        CallConfirmationDialog(this, contact) {
+        CallConfirmationDialog(this, contact.getFullName()) {
             startCall(contact)
         }
     } else {
@@ -62,8 +62,13 @@ fun SimpleActivity.startCall(contact: Contact) {
 
 fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (newSource: String) -> Unit) {
     ContactsHelper(this).getContactSources {
+        val ignoredTypes = arrayListOf(
+                "org.thoughtcrime.securesms",   // Signal
+                "org.telegram.messenger"        // Telegram
+        )
+
         val items = ArrayList<RadioItem>()
-        val sources = it.map { it.name }
+        val sources = it.filter { !ignoredTypes.contains(it.type) }.map { it.name }
         var currentSourceIndex = -1
         sources.forEachIndexed { index, account ->
             var publicAccount = account
@@ -203,14 +208,16 @@ fun Activity.getVisibleContactSources(): ArrayList<String> {
 
 fun SimpleActivity.contactClicked(contact: Contact) {
     when (config.onContactClick) {
-        ON_CLICK_CALL_CONTACT -> {
-            if (contact.phoneNumbers.isNotEmpty()) {
-                tryStartCall(contact)
-            } else {
-                toast(R.string.no_phone_number_found)
-            }
-        }
+        ON_CLICK_CALL_CONTACT -> callContact(contact)
         ON_CLICK_VIEW_CONTACT -> viewContact(contact)
         ON_CLICK_EDIT_CONTACT -> editContact(contact)
+    }
+}
+
+fun SimpleActivity.callContact(contact: Contact) {
+    if (contact.phoneNumbers.isNotEmpty()) {
+        tryStartCall(contact)
+    } else {
+        toast(R.string.no_phone_number_found)
     }
 }
