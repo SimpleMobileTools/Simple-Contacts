@@ -36,7 +36,7 @@
     <string name="no_group_created">На устройстве нет групп контактов</string>
     <string name="create_group">Создать группу</string>
     <string name="add_to_group">Добавить в группу</string>
-    <string name="create_group_under_account">Создать группу под учётной записью</string>
+    <string name="create_group_under_account">Создать группу в учётной записи</string>
 
     <!-- Photo -->
     <string name="take_photo">Снять фото</string>
@@ -91,8 +91,8 @@
     <!-- Export / Import -->
     <string name="import_contacts">Импортировать контакты</string>
     <string name="export_contacts">Экспортировать контакты</string>
-    <string name="import_contacts_from_vcf">Импортировать контакты из vcf-файла</string>
-    <string name="export_contacts_to_vcf">Экспортировать контакты в vcf-файл</string>
+    <string name="import_contacts_from_vcf">Импортировать из vcf-файла</string>
+    <string name="export_contacts_to_vcf">Экспортировать в vcf-файл</string>
     <string name="target_contact_source">Назначенный к обновлению источник контактов</string>
     <string name="include_contact_sources">Включить источники контактов</string>
     <string name="filename_without_vcf">Имя файла (без .vcf)</string>
