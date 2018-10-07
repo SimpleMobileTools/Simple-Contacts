@@ -1,0 +1,140 @@
+<resources>
+    <string name="app_name">Simple Contacts</string>
+    <string name="app_launcher_name">Contatti</string>
+    <string name="address">Indirizzo</string>
+    <string name="inserting">Inserimento in corso…</string>
+    <string name="updating">Aggiornamento in corso…</string>
+    <string name="phone_storage">Memoria del telefono</string>
+    <string name="phone_storage_hidden">Memoria del telfono (non visibile alle altre applicazioni)</string>
+    <string name="company">Compagnia</string>
+    <string name="job_position">Posizione lavorativa</string>
+    <string name="website">Sito web</string>
+    <string name="send_sms_to_contacts">Invia un SMS ai contatti</string>
+    <string name="send_email_to_contacts">Invia un\'email ai contatti</string>
+    <string name="send_sms_to_group">Invia un SMS al gruppo</string>
+    <string name="send_email_to_group">Invia un\'email al gruppo</string>
+    <string name="call_person">Chiama %s</string>
+    <string name="request_the_required_permissions">Richiedi le permissioni necessarie</string>
+    <string name="create_new_contact">Crea un nuovo contatto</string>
+    <string name="add_to_existing_contact">Aggiungi ad un contatto esistente</string>
+
+    <string name="new_contact">Nuovo contatto</string>
+    <string name="edit_contact">Modifica contatto</string>
+    <string name="select_contact">Seleziona contatto</string>
+    <string name="select_contacts">Seleziona contatti</string>
+    <string name="first_name">Nome</string>
+    <string name="middle_name">Secondo nome</string>
+    <string name="surname">Cognome</string>
+    <string name="nickname">Soprannome</string>
+
+    <!-- Groups -->
+    <string name="no_groups">Nessun gruppo</string>
+    <string name="create_new_group">Crea un nuovo gruppo</string>
+    <string name="remove_from_group">Rimuovi dal gruppo</string>
+    <string name="no_group_participants">Questo gruppo è vuoto</string>
+    <string name="add_contacts">Aggiungi contatti</string>
+    <string name="no_group_created">Non ci sono gruppi con contatti nel dispositivo</string>
+    <string name="create_group">Crea gruppo</string>
+    <string name="add_to_group">Aggiungi al gruppo</string>
+    <string name="create_group_under_account">Crea un gruppo con un account</string>
+
+    <!-- Photo -->
+    <string name="take_photo">Scatta un foto</string>
+    <string name="choose_photo">Scegli una foto</string>
+    <string name="remove_photo">Rimuovi foto</string>
+
+    <!-- Settings -->
+    <string name="start_name_with_surname">Prima il nome poi il cognome</string>
+    <string name="show_phone_numbers">Mostra i numeri di telefono nella schermata principale</string>
+    <string name="show_contact_thumbnails">Mostra le anteprime dei contatti</string>
+    <string name="on_contact_click">Al click sul contatto</string>
+    <string name="call_contact">Chiama contatto</string>
+    <string name="view_contact">Visualizza i dettagli del contatto</string>
+    <string name="manage_shown_contact_fields">Gestisci i campi mostrati</string>
+    <string name="filter_duplicates">Prova a filetrare i contatti duplicati</string>
+    <string name="manage_shown_tabs">Gestisci le schede mostrate</string>
+    <string name="contacts">Contatti</string>
+    <string name="favorites">Preferiti</string>
+    <string name="recent_calls">Chiamate recenti</string>
+    <string name="show_call_confirmation_dialog">Mostra un dialogo di conferma prima di iniziare una chiamata</string>
+
+    <!-- Emails -->
+    <string name="email">Email</string>
+    <string name="home">Casa</string>
+    <string name="work">Lavoro</string>
+    <string name="other">Altro</string>
+
+    <!-- Phone numbers -->
+    <string name="number">Numero</string>
+    <string name="mobile">Cellulare</string>
+    <string name="main_number">Principale</string>
+    <string name="work_fax">Fax di lavoro</string>
+    <string name="home_fax">Fax di casa</string>
+    <string name="pager">Cercapersone</string>
+    <string name="no_phone_number_found">Non è stato trovato alcun numero di telefono</string>
+
+    <!-- Events -->
+    <string name="birthday">Compleanno</string>
+    <string name="anniversary">Anniversario</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">Sembra che ancora non si ha nessun contatto preferito.</string>
+    <string name="add_favorites">Aggiungi preferito</string>
+    <string name="add_to_favorites">Aggiungi ai preferiti</string>
+    <string name="remove_from_favorites">Rimuovi dai preferiti</string>
+    <string name="must_be_at_edit">Devi stare nella schermata di modifica per modificare un contatto</string>
+
+    <!-- Search -->
+    <string name="search_contacts">Cerca contatti</string>
+    <string name="search_favorites">Cerca preferiti</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">Importa contatti</string>
+    <string name="export_contacts">Esporta contatti</string>
+    <string name="import_contacts_from_vcf">Importa contatti da un file .vcf</string>
+    <string name="export_contacts_to_vcf">Esporta contatti in un file .vcf</string>
+    <string name="target_contact_source">Individua la provenienza del contatto</string>
+    <string name="include_contact_sources">Includi la provenienza del contatto</string>
+    <string name="filename_without_vcf">Nome del file (senza .vcf)</string>
+
+    <!-- Dialpad -->
+    <string name="dialpad">Tastiera</string>
+    <string name="add_number_to_contact">Aggiungi numero ai contatti</string>
+
+    <!-- Visible fields -->
+    <string name="select_fields_to_show">Seleziona i campi da mostrare</string>
+    <string name="prefix">Prefisso</string>
+    <string name="suffix">Suffisso</string>
+    <string name="phone_numbers">Numeri di telefono</string>
+    <string name="emails">Email</string>
+    <string name="addresses">Indirizzi</string>
+    <string name="events">Eventi (compleanni, anniversari)</string>
+    <string name="notes">Note</string>
+    <string name="organization">Organizazione</string>
+    <string name="websites">Siti web</string>
+    <string name="groups">Gruppi</string>
+    <string name="contact_source">Provenienza del contatto</string>
+    <string name="instant_messaging">Messaggistica istantanea (IM)</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Voglio cambiare i campi visibili ai contatti. Come posso fare?</string>
+    <string name="faq_1_text">Puoi farlo andando in Impostazioni -> Gestisci i campi mostrati. Qui puoi selezionare i campi che saranno visibili. Alcuni sono anche disabilitati in maniera predefinita, quindi potresti trovare qualche nuovo campo.</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Un\'applicazioni contatti per gestire i propri contatti senza pubblicità.</string>
+    <string name="app_long_description">
+        Una semplice applicazione per creare o gestire i propri contatti da qualsiasi provenienza. I contatti saranno salvati solamente nel dispositivo, ma possono essere sincronizzati con Google, o con altri servizi. Si possono visualizzare i contatti preferiti in una list separata.
+
+        Si può utilizzare l\'applicazione anche per gestire le email e gli eventi. Può ordinare e filtrare per parametri multipli, ed opzionalmente visualizzare il cognome come nome
+
+        Non contiene pubblicità nè chiede permessi non necessari. È completamente open source ed offre colori personalizzabili.
+
+        Quest\'app fa parte di una serie più grande. Puoi trovare le altre su https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
