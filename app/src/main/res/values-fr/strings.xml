@@ -15,8 +15,8 @@
     <string name="send_email_to_group">Envoyer un e-mail au groupe</string>
     <string name="call_person">Call %s</string>
     <string name="request_the_required_permissions">Demander les autorisations requises</string>
-    <string name="create_new_contact">Create new contact</string>
-    <string name="add_to_existing_contact">Add to an existing contact</string>
+    <string name="create_new_contact">Créer un nouveau contact</string>
+    <string name="add_to_existing_contact">Ajouter à un contact existant</string>
 
     <string name="new_contact">Nouveau contact</string>
     <string name="edit_contact">Modifier contact</string>
@@ -99,7 +99,7 @@
 
     <!-- Dialpad -->
     <string name="dialpad">Dialpad</string>
-    <string name="add_number_to_contact">Add number to contact</string>
+    <string name="add_number_to_contact">Ajouter un numéro au contact</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Sélectionner les champs à afficher</string>
@@ -124,12 +124,12 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Une appli de contacts pour gérer vos contacts sans pubs.</string>
     <string name="app_long_description">
-        Une appli simple pour créer et gérer vos contacts depuis n\'importe quelle source. Les contacts peuvent être stockés sur votre appareil mais aussi synchronisés via Google ou d\'autres comptes. Vous pouvez afficher vos contacts favoris dans une liste séparée.
-
-        Vous pouvez l\'utiliser pour gérer les e-mail et événements de vos contacts. Elle permet de trier/filter via de multiples paramètres, et même afficher le surnom en premier.
-
-        Aucune publicité ni de permission inutile. Elle est entièrement open source et vous permet de personnaliser les couleurs.
-
+        Une appli simple pour créer et gérer vos contacts depuis n\'importe quelle source. Les contacts peuvent être stockés sur votre appareil mais aussi synchronisés via Google ou d\'autres comptes. Vous pouvez afficher vos contacts favoris dans une liste séparée.          
+      
+        Vous pouvez l\'utiliser pour gérer les e-mail et événements de vos contacts. Elle permet de trier/filter via de multiples paramètres, et même afficher le surnom en premier.          
+      
+        Aucune publicité ni de permission inutile. Elle est entièrement open source et vous permet de personnaliser les couleurs.          
+      
         Cette application fait parti d\'un groupe d\'applications. Vous pouvez trouver le reste des applis sur https://www.simplemobiletools.com
     </string>
 
