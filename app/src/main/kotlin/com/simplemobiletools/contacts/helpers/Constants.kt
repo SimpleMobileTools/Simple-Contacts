@@ -21,8 +21,9 @@ const val SMT_PRIVATE = "smt_private"   // used at the contact source of local c
 const val IS_PRIVATE = "is_private"
 const val GROUP = "group"
 const val FIRST_GROUP_ID = 10000
-const val PHONE_NUMBER_PATTERN = "\\D+"
+const val PHONE_NUMBER_PATTERN = "[^0-9#*+]"
 const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"
+const val ADD_NEW_CONTACT_NUMBER = "add_new_contact_number"
 
 // extras used at third party intents
 const val KEY_PHONE = "phone"
@@ -33,6 +34,8 @@ const val LOCATION_FAVORITES_TAB = 1
 const val LOCATION_RECENTS_TAB = 2
 const val LOCATION_GROUPS_TAB = 3
 const val LOCATION_GROUP_CONTACTS = 4
+const val LOCATION_DIALPAD = 5
+const val LOCATION_INSERT_OR_EDIT = 6
 
 const val CONTACTS_TAB_MASK = 1
 const val FAVORITES_TAB_MASK = 2

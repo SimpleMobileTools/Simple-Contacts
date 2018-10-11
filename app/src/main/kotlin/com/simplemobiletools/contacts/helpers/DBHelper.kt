@@ -16,6 +16,7 @@ import com.simplemobiletools.commons.extensions.getBlobValue
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.getLongValue
 import com.simplemobiletools.commons.extensions.getStringValue
+import com.simplemobiletools.contacts.extensions.applyRegexFiltering
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.getByteArray
 import com.simplemobiletools.contacts.extensions.getPhotoThumbnailSize
@@ -349,7 +350,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
                 val cleanPhoneNumbers = ArrayList<PhoneNumber>()
                 if (filterDuplicates) {
-                    phoneNumbers.mapTo(cleanPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0, "") }
+                    phoneNumbers.mapTo(cleanPhoneNumbers) { PhoneNumber(it.value.applyRegexFiltering(), 0, "") }
                 }
 
                 val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, "", phoneNumbers, emails, addresses,

@@ -138,6 +138,11 @@ class VcfImporter(val activity: SimpleActivity) {
                 val contact = Contact(0, prefix, firstName, middleName, surname, suffix, nickname, photoUri, phoneNumbers, emails, addresses, events,
                         targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, cleanPhoneNumbers, IMs)
 
+                // if there is no N and ORG fields at the given contact, only FN, treat it as an organization
+                if (contact.getFullName().isEmpty() && contact.organization.isEmpty() && ezContact.formattedName.value.isNotEmpty()) {
+                    contact.organization.company = ezContact.formattedName.value
+                }
+
                 if (ContactsHelper(activity).insertContact(contact)) {
                     contactsImported++
                 }

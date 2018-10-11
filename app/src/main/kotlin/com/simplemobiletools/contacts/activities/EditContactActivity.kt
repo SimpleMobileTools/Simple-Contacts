@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.activities
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.ClipData
 import android.content.ContentValues
@@ -13,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -50,6 +52,8 @@ class EditContactActivity : ContactActivity() {
     private var lastPhotoIntentUri: Uri? = null
     private var isSaving = false
     private var isThirdPartyIntent = false
+    private var highlightLastPhoneNumber = false
+    private var numberViewToColor: EditText? = null
     private var originalContactSource = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +62,7 @@ class EditContactActivity : ContactActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross)
 
         val action = intent.action
-        isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT_OR_EDIT || action == Intent.ACTION_INSERT
+        isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT || action == ADD_NEW_CONTACT_NUMBER
         val isFromSimpleContacts = intent.getBooleanExtra(IS_FROM_SIMPLE_CONTACTS, false)
         if (isThirdPartyIntent && !isFromSimpleContacts) {
             handlePermission(PERMISSION_READ_CONTACTS) {
@@ -119,7 +123,7 @@ class EditContactActivity : ContactActivity() {
     private fun initContact() {
         var contactId = intent.getIntExtra(CONTACT_ID, 0)
         val action = intent.action
-        if (contactId == 0 && action == Intent.ACTION_EDIT) {
+        if (contactId == 0 && (action == Intent.ACTION_EDIT || action == ADD_NEW_CONTACT_NUMBER)) {
             val data = intent.data
             if (data != null) {
                 val rawId = if (data.path.contains("lookup")) {
@@ -149,11 +153,20 @@ class EditContactActivity : ContactActivity() {
             setupEditContact()
         }
 
-        if (contact!!.id == 0 && intent.extras?.containsKey(KEY_PHONE) == true && (action == Intent.ACTION_INSERT_OR_EDIT || action == Intent.ACTION_INSERT)) {
-            val phoneNumber = intent.extras.get(KEY_PHONE)?.toString() ?: ""
-            contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, ""))
+        if ((contact!!.id == 0 && intent.extras != null && intent.extras.containsKey(KEY_PHONE) && action == Intent.ACTION_INSERT) || action == ADD_NEW_CONTACT_NUMBER) {
+            val phone = intent.extras.get(KEY_PHONE)
+            if (phone != null) {
+                val phoneNumber = phone.toString()
+                contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, ""))
+                if (phoneNumber.isNotEmpty() && action == ADD_NEW_CONTACT_NUMBER) {
+                    highlightLastPhoneNumber = true
+                }
+            }
 
-            contact!!.firstName = intent.extras.get(KEY_NAME)?.toString() ?: ""
+            val firstName = intent.extras.get(KEY_NAME)
+            if (firstName != null) {
+                contact!!.firstName = firstName.toString()
+            }
 
             val data = intent.extras.getParcelableArrayList<ContentValues>("data")
             if (data != null) {
@@ -230,6 +243,7 @@ class EditContactActivity : ContactActivity() {
         }
 
         updateTextColors(contact_scrollview)
+        numberViewToColor?.setTextColor(getAdjustedPrimaryColor())
         wasActivityInitialized = true
         invalidateOptionsMenu()
     }
@@ -373,6 +387,9 @@ class EditContactActivity : ContactActivity() {
             numberHolder!!.apply {
                 contact_number.setText(number.value)
                 setupPhoneNumberTypePicker(contact_number_type, number.type, number.label)
+                if (highlightLastPhoneNumber && index == contact!!.phoneNumbers.size - 1) {
+                    numberViewToColor = contact_number
+                }
             }
         }
     }
@@ -938,6 +955,7 @@ class EditContactActivity : ContactActivity() {
                 contact!!.source = originalContactSource
                 ContactsHelper(this).deleteContact(contact!!)
             }
+            setResult(Activity.RESULT_OK)
             finish()
         } else {
             toast(R.string.unknown_error_occurred)
@@ -947,6 +965,7 @@ class EditContactActivity : ContactActivity() {
     private fun updateContact(photoUpdateStatus: Int) {
         isSaving = true
         if (ContactsHelper(this@EditContactActivity).updateContact(contact!!, photoUpdateStatus)) {
+            setResult(Activity.RESULT_OK)
             finish()
         } else {
             toast(R.string.unknown_error_occurred)

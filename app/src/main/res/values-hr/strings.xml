@@ -15,6 +15,8 @@
     <string name="send_email_to_group">Pošalji e-poštu grupi</string>
     <string name="call_person">Nazovi %s</string>
     <string name="request_the_required_permissions">Zatraži potrebna dopuštenja</string>
+    <string name="create_new_contact">Create new contact</string>
+    <string name="add_to_existing_contact">Add to an existing contact</string>
 
     <string name="new_contact">Novi kontakt</string>
     <string name="edit_contact">Uredi kontakt</string>
@@ -94,6 +96,10 @@
     <string name="target_contact_source">Ciljani izvor kontakta</string>
     <string name="include_contact_sources">Uključi izvore kontakta</string>
     <string name="filename_without_vcf">Naziv datoteke (bez .vcf)</string>
+
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+    <string name="add_number_to_contact">Add number to contact</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Odaberi polja za prikaz</string>

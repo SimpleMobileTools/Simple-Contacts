@@ -241,7 +241,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             val filtered = contactsIgnoringSearch.filter {
                 getProperText(it.getFullName(), shouldNormalize).contains(text, true) ||
                         getProperText(it.nickname, shouldNormalize).contains(text, true) ||
-                        it.phoneNumbers.any { it.value.contains(text, true) } ||
+                        it.doesContainPhoneNumber(text) ||
                         it.emails.any { it.value.contains(text, true) } ||
                         it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
                         it.IMs.any { it.value.contains(text, true) } ||

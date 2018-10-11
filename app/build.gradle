@@ -4,14 +4,14 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "28.0.2"
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId "com.simplemobiletools.contacts"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 31
-        versionName "4.4.0"
+        versionCode 32
+        versionName "4.5.0"
         setProperty("archivesBaseName", "contacts")
     }
 
@@ -41,7 +41,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:4.7.3'
+    implementation 'com.simplemobiletools:commons:4.8.0'
     implementation 'joda-time:joda-time:2.9.9'
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'

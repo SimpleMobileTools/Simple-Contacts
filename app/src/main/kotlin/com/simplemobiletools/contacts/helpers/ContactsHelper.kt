@@ -166,7 +166,7 @@ class ContactsHelper(val activity: Activity) {
                 if (filterDuplicates) {
                     // remove all spaces, dashes etc from numbers for easier comparing, used only at list views
                     numbers.forEach {
-                        numbers.mapTo(contacts[key].cleanPhoneNumbers) { PhoneNumber(it.value.replace(PHONE_NUMBER_PATTERN.toRegex(), ""), 0, "") }
+                        numbers.mapTo(contacts[key].cleanPhoneNumbers) { PhoneNumber(it.value.applyRegexFiltering(), 0, "") }
                     }
                 }
             }

@@ -15,6 +15,8 @@
     <string name="send_email_to_group">Gruba e-posta gönder</string>
     <string name="call_person">Call %s</string>
     <string name="request_the_required_permissions">Request the required permissions</string>
+    <string name="create_new_contact">Create new contact</string>
+    <string name="add_to_existing_contact">Add to an existing contact</string>
 
     <string name="new_contact">Yeni kişi</string>
     <string name="edit_contact">Kişiyi düzenle</string>
@@ -94,6 +96,10 @@
     <string name="target_contact_source">Hedef kişi kaynağı</string>
     <string name="include_contact_sources">Kişi kaynaklarını dahil et</string>
     <string name="filename_without_vcf">Dosya adı (.vcf olmadan)</string>
+
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+    <string name="add_number_to_contact">Add number to contact</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Görüntülenecek alanları seç</string>

@@ -15,6 +15,8 @@
     <string name="send_email_to_group">Отправить письмо группе</string>
     <string name="call_person">Вызов %s</string>
     <string name="request_the_required_permissions">Запрос необходимых разрешений</string>
+    <string name="create_new_contact">Создать новый контакт</string>
+    <string name="add_to_existing_contact">Добавить к существующему контакту</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
@@ -34,7 +36,7 @@
     <string name="no_group_created">На устройстве нет групп контактов</string>
     <string name="create_group">Создать группу</string>
     <string name="add_to_group">Добавить в группу</string>
-    <string name="create_group_under_account">Создать группу под учётной записью</string>
+    <string name="create_group_under_account">Создать группу в учётной записи</string>
 
     <!-- Photo -->
     <string name="take_photo">Снять фото</string>
@@ -89,11 +91,15 @@
     <!-- Export / Import -->
     <string name="import_contacts">Импортировать контакты</string>
     <string name="export_contacts">Экспортировать контакты</string>
-    <string name="import_contacts_from_vcf">Импортировать контакты из vcf-файла</string>
-    <string name="export_contacts_to_vcf">Экспортировать контакты в vcf-файл</string>
+    <string name="import_contacts_from_vcf">Импортировать из vcf-файла</string>
+    <string name="export_contacts_to_vcf">Экспортировать в vcf-файл</string>
     <string name="target_contact_source">Назначенный к обновлению источник контактов</string>
     <string name="include_contact_sources">Включить источники контактов</string>
     <string name="filename_without_vcf">Имя файла (без .vcf)</string>
+
+    <!-- Dialpad -->
+    <string name="dialpad">Набор номера</string>
+    <string name="add_number_to_contact">Добавить номер к контакту</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Выберите отображаемые поля</string>

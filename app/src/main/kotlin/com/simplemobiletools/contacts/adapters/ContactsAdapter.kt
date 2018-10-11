@@ -29,12 +29,12 @@ import java.util.*
 
 class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val refreshListener: RefreshContactsListener?,
                       private val location: Int, private val removeListener: RemoveFromGroupListener?, recyclerView: MyRecyclerView,
-                      fastScroller: FastScroller, itemClick: (Any) -> Unit) :
+                      fastScroller: FastScroller, highlightText: String = "", itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private lateinit var contactDrawable: Drawable
     private var config = activity.config
-    private var textToHighlight = ""
+    private var textToHighlight = highlightText
 
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
     var startNameWithSurname: Boolean
@@ -63,6 +63,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             findItem(R.id.cab_send_sms_to_contacts).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
             findItem(R.id.cab_send_email_to_contacts).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
             findItem(R.id.cab_delete).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_GROUP_CONTACTS
+            findItem(R.id.cab_select_all).isVisible = location != LOCATION_DIALPAD
+            findItem(R.id.cab_share).isVisible = location != LOCATION_DIALPAD
 
             if (location == LOCATION_GROUP_CONTACTS) {
                 findItem(R.id.cab_remove).title = activity.getString(R.string.remove_from_group)
@@ -105,7 +107,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val contact = contactItems[position]
-        val view = holder.bindView(contact, true, true) { itemView, layoutPosition ->
+        val allowLongClick = location != LOCATION_INSERT_OR_EDIT
+        val view = holder.bindView(contact, true, allowLongClick) { itemView, layoutPosition ->
             setupView(itemView, contact)
         }
         bindViewHolder(holder, position, view)
@@ -260,7 +263,13 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
 
             if (contact_number != null) {
-                val numberText = contact.phoneNumbers.firstOrNull()?.value ?: ""
+                val phoneNumberToUse = if (textToHighlight.isEmpty()) {
+                    contact.phoneNumbers.firstOrNull()
+                } else {
+                    contact.phoneNumbers.firstOrNull { it.value.contains(textToHighlight) } ?: contact.phoneNumbers.firstOrNull()
+                }
+
+                val numberText = phoneNumberToUse?.value ?: ""
                 contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor)
                 contact_number.setTextColor(textColor)
                 contact_number.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)

@@ -4,4 +4,8 @@
     <dimen name="contact_actions_size">45dp</dimen>
     <dimen name="contact_icons_size">40dp</dimen>
     <dimen name="contact_item_height">52dp</dimen>
+    <dimen name="contact_item_with_number_height">56dp</dimen>
+    <dimen name="create_new_contact_height">68dp</dimen>
+    <dimen name="dialpad_button_size">60dp</dimen>
+    <dimen name="dialpad_text_size">34sp</dimen>
 </resources>

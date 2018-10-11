@@ -1,6 +1,15 @@
 Changelog
 ==========
 
+Version 4.5.0 *(2018-09-28)*
+----------------------------
+
+ * Added a simple dialpad
+ * Do not allow creating contacts under Signal or Telegram contact source
+ * Allow copying phone numbers into clipboard by long pressing them on the View screen
+ * Properly handle intents adding numbers to existing contacts
+ * Many other smaller improvements and bugfixes
+
 Version 4.4.0 *(2018-09-04)*
 ----------------------------
 
