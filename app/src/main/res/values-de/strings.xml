@@ -15,8 +15,8 @@
     <string name="send_email_to_group">Sende E-Mail an Gruppe</string>
     <string name="call_person">%s anrufen</string>
     <string name="request_the_required_permissions">Benötigte Berechtigungen anfordern</string>
-    <string name="create_new_contact">Create new contact</string>
-    <string name="add_to_existing_contact">Add to an existing contact</string>
+    <string name="create_new_contact">Erstelle neuen Kontakt</string>
+    <string name="add_to_existing_contact">Zu einem existierenden Kontakt hinzufügen</string>
 
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
@@ -98,8 +98,8 @@
     <string name="filename_without_vcf">Dateiname (ohne .vcf)</string>
 
     <!-- Dialpad -->
-    <string name="dialpad">Dialpad</string>
-    <string name="add_number_to_contact">Add number to contact</string>
+    <string name="dialpad">Wählfeld</string>
+    <string name="add_number_to_contact">Nummer zu Kontakt hinzufügen</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Sichtbare Felder auswählen</string>
