@@ -153,7 +153,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         }
 
         val contactsToRemove = getSelectedItems()
-        val positions = getSelectedItemPositions(contactsToRemove)
+        val positions = getSelectedItemPositions(contactsToRemove.map { it.id })
         contactItems.removeAll(contactsToRemove)
 
         ContactsHelper(activity).deleteContacts(contactsToRemove)
@@ -169,7 +169,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     // used for removing contacts from groups or favorites, not deleting actual contacts
     private fun removeContacts() {
         val contactsToRemove = getSelectedItems()
-        val positions = getSelectedItemPositions(contactsToRemove)
+        val positions = getSelectedItemPositions(contactsToRemove.map { it.id })
         contactItems.removeAll(contactsToRemove)
 
         if (location == LOCATION_FAVORITES_TAB) {
@@ -233,19 +233,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     }
 
     private fun getSelectedItems() = contactItems.filter { selectedKeys.contains(it.id) } as ArrayList<Contact>
-
-    private fun getSelectedItemPositions(contacts: ArrayList<Contact>): ArrayList<Int> {
-        val positions = ArrayList<Int>()
-        contacts.forEach {
-            val position = getItemKeyPosition(it.id)
-            if (position != -1) {
-                positions.add(position)
-            }
-        }
-
-        positions.sortDescending()
-        return positions
-    }
 
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)

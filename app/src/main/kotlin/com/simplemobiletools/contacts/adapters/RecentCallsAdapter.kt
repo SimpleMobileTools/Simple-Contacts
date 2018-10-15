@@ -80,7 +80,7 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
         }
 
         val callsToRemove = getSelectedItems()
-        val positions = getSelectedItemPositions(callsToRemove)
+        val positions = getSelectedItemPositions(callsToRemove.map { it.id })
         ContactsHelper(activity).removeRecentCalls(callsToRemove.map { it.id } as ArrayList<Int>)
         recentCalls.removeAll(callsToRemove)
 
@@ -93,19 +93,6 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
     }
 
     private fun getSelectedItems() = recentCalls.filter { selectedKeys.contains(it.id) } as ArrayList<RecentCall>
-
-    private fun getSelectedItemPositions(callsToRemove: ArrayList<RecentCall>): ArrayList<Int> {
-        val positions = ArrayList<Int>()
-        callsToRemove.forEach {
-            val position = getItemKeyPosition(it.id)
-            if (position != -1) {
-                positions.add(position)
-            }
-        }
-
-        positions.sortDescending()
-        return positions
-    }
 
     private fun setupView(view: View, recentCall: RecentCall) {
         view.apply {

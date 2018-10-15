@@ -102,7 +102,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
         }
 
         val groupsToRemove = groups.filter { selectedKeys.contains(it.id.toInt()) } as ArrayList<Group>
-        val positions = getSelectedItemPositions(groupsToRemove)
+        val positions = getSelectedItemPositions(groupsToRemove.map { it.id.toInt() })
         groupsToRemove.forEach {
             if (it.isPrivateSecretGroup()) {
                 activity.dbHelper.deleteGroup(it.id)
@@ -118,19 +118,6 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
         } else {
             removeSelectedItems(positions)
         }
-    }
-
-    private fun getSelectedItemPositions(groups: ArrayList<Group>): ArrayList<Int> {
-        val positions = ArrayList<Int>()
-        groups.forEach {
-            val position = getItemKeyPosition(it.id.toInt())
-            if (position != -1) {
-                positions.add(position)
-            }
-        }
-
-        positions.sortDescending()
-        return positions
     }
 
     private fun setupView(view: View, group: Group) {
