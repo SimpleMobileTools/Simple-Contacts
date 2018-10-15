@@ -1,10 +1,10 @@
 package com.simplemobiletools.contacts.adapters
 
 import android.graphics.drawable.Drawable
-import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -13,8 +13,6 @@ import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.isActivityDestroyed
-import com.simplemobiletools.commons.interfaces.MyAdapterListener
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
@@ -56,16 +54,6 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
         itemViews[pos]?.contact_checkbox?.isChecked = select
     }
 
-    private val adapterListener = object : MyAdapterListener {
-        override fun toggleItemSelectionAdapter(select: Boolean, position: Int) {
-            toggleItemSelection(select, position)
-        }
-
-        override fun getSelectedPositions() = selectedPositions
-
-        override fun itemLongClicked(position: Int) {}
-    }
-
     fun getSelectedItemsSet(): HashSet<Contact> {
         val selectedItemsSet = HashSet<Contact>(selectedPositions.size)
         selectedPositions.forEach { selectedItemsSet.add(contacts[it]) }
@@ -74,7 +62,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = activity.layoutInflater.inflate(itemLayout, parent, false)
-        return ViewHolder(view, adapterListener, activity, allowPickMultiple, itemClick)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -85,12 +73,11 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
     override fun getItemCount() = contacts.size
 
-    class ViewHolder(view: View, private val adapterListener: MyAdapterListener, val activity: SimpleActivity, private val showCheckbox: Boolean,
-                     private val itemClick: ((Contact) -> Unit)?) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(contact: Contact, contactDrawable: Drawable, config: Config, showContactThumbnails: Boolean,
                      smallPadding: Int, bigPadding: Int): View {
             itemView.apply {
-                contact_checkbox.beVisibleIf(showCheckbox)
+                contact_checkbox.beVisibleIf(allowPickMultiple)
                 contact_checkbox.setColors(config.textColor, context.getAdjustedPrimaryColor(), config.backgroundColor)
                 val textColor = config.textColor
 
@@ -119,7 +106,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
                                 .error(contactDrawable)
                                 .centerCrop()
 
-                        if (activity.isActivityDestroyed()) {
+                        if (activity.isDestroyed) {
                             Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
                         }
                     } else {
@@ -132,14 +119,14 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
         }
 
         private fun viewClicked(select: Boolean) {
-            adapterListener.toggleItemSelectionAdapter(select, adapterPosition)
+            toggleItemSelection(select, adapterPosition)
         }
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
-        if (!activity.isActivityDestroyed()) {
-            Glide.with(activity).clear(holder.itemView?.contact_tmb!!)
+        if (!activity.isDestroyed) {
+            Glide.with(activity).clear(holder.itemView.contact_tmb)
         }
     }
 }

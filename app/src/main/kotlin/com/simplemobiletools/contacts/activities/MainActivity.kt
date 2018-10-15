@@ -9,11 +9,11 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.view.MenuItemCompat
-import android.support.v4.view.ViewPager
-import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
+import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
@@ -401,7 +401,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
             contacts_fragment?.forceListRedraw = true
-            refreshContacts(CONTACTS_TAB_MASK)
+            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
         }
     }
 
@@ -484,7 +484,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchAbout() {
-        val licenses = LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_STETHO
+        val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_STETHO
 
         val faqItems = arrayListOf(
                 FAQItem(R.string.faq_1_title, R.string.faq_1_text),
@@ -495,9 +495,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     override fun refreshContacts(refreshTabsMask: Int) {
-        if (isActivityDestroyed() || isGettingContacts) {
+        if (isDestroyed || isGettingContacts) {
             return
         }
+
         isGettingContacts = true
 
         if (viewpager.adapter == null) {
@@ -507,7 +508,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         ContactsHelper(this).getContacts {
             isGettingContacts = false
-            if (isActivityDestroyed()) {
+            if (isDestroyed) {
                 return@getContacts
             }
 

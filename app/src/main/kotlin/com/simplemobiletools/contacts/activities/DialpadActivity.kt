@@ -1,17 +1,13 @@
 package com.simplemobiletools.contacts.activities
 
-import android.annotation.TargetApi
 import android.content.Intent
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.text.InputType
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.dialogs.CallConfirmationDialog
@@ -120,13 +116,8 @@ class DialpadActivity : SimpleActivity() {
         else -> KeyEvent.KEYCODE_POUND
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun disableKeyboardPopping() {
-        if (isLollipopPlus()) {
-            dialpad_input.showSoftInputOnFocus = false
-        } else {
-            dialpad_input.inputType = InputType.TYPE_NULL
-        }
+        dialpad_input.showSoftInputOnFocus = false
     }
 
     private fun gotContacts(newContacts: ArrayList<Contact>) {

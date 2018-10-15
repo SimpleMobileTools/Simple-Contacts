@@ -7,7 +7,6 @@ import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.baseConfig
-import com.simplemobiletools.commons.extensions.isActivityDestroyed
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
@@ -80,7 +79,7 @@ class SelectContactActivity : SimpleActivity() {
 
     private fun initContacts() {
         ContactsHelper(this).getContacts {
-            if (isActivityDestroyed()) {
+            if (isDestroyed) {
                 return@getContacts
             }
 

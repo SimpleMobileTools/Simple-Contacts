@@ -2,7 +2,7 @@ package com.simplemobiletools.contacts.fragments
 
 import android.content.Context
 import android.content.Intent
-import android.support.design.widget.CoordinatorLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter

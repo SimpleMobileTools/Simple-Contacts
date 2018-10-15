@@ -1,19 +1,16 @@
 package com.simplemobiletools.contacts.extensions
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
-import android.os.Build
 import android.provider.ContactsContract
-import android.support.v4.content.FileProvider
+import androidx.core.content.FileProvider
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.hasPermission
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
-import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.contacts.BuildConfig
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.EditContactActivity
@@ -88,10 +85,9 @@ fun Context.openWebsiteIntent(url: String) {
     }
 }
 
-@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 fun Context.getLookupUriRawId(dataUri: Uri): Int {
     val lookupKey = getLookupKeyFromUri(dataUri)
-    if (lookupKey != null && isLollipopPlus()) {
+    if (lookupKey != null) {
         val uri = lookupContactUri(lookupKey, this)
         if (uri != null) {
             return getContactUriRawId(uri)
@@ -100,7 +96,6 @@ fun Context.getLookupUriRawId(dataUri: Uri): Int {
     return -1
 }
 
-@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 fun Context.getContactUriRawId(uri: Uri): Int {
     val projection = arrayOf(ContactsContract.Contacts.NAME_RAW_CONTACT_ID)
     var cursor: Cursor? = null
