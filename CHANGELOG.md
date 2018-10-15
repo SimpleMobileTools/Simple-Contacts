@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 5.0.0 *(2018-10-15)*
+----------------------------
+
+ * Increased the minimal required Android OS version to 5
+ * Try fixing the issue with disappearing fresh contacts
+
 Version 4.5.0 *(2018-09-28)*
 ----------------------------
 
