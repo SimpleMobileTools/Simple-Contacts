@@ -1207,6 +1207,7 @@ class ContactsHelper(val activity: Activity) {
             ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI).apply {
                 withValue(ContactsContract.RawContacts.ACCOUNT_NAME, contact.source)
                 withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, getContactSourceType(contact.source))
+                withValue(ContactsContract.RawContacts.DIRTY, true)
                 operations.add(build())
             }
 
