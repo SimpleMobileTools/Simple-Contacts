@@ -9,13 +9,13 @@
     <string name="company">Unternehmen</string>
     <string name="job_position">Arbeitsstelle</string>
     <string name="website">Webseite</string>
-    <string name="send_sms_to_contacts">Sende SMS an Kontakte</string>
-    <string name="send_email_to_contacts">Sende E-Mail an Kontakte</string>
-    <string name="send_sms_to_group">Sende SMS an Gruppe</string>
-    <string name="send_email_to_group">Sende E-Mail an Gruppe</string>
+    <string name="send_sms_to_contacts">SMS an Kontakte senden</string>
+    <string name="send_email_to_contacts">E-Mail an Kontakte senden</string>
+    <string name="send_sms_to_group">SMS an Gruppe senden</string>
+    <string name="send_email_to_group">E-Mail an Gruppe senden</string>
     <string name="call_person">%s anrufen</string>
     <string name="request_the_required_permissions">Benötigte Berechtigungen anfordern</string>
-    <string name="create_new_contact">Erstelle neuen Kontakt</string>
+    <string name="create_new_contact">Neuen Kontakt erstellen</string>
     <string name="add_to_existing_contact">Zu einem existierenden Kontakt hinzufügen</string>
 
     <string name="new_contact">Neuer Kontakt</string>
@@ -34,7 +34,7 @@
     <string name="no_group_participants">Diese Gruppe ist leer</string>
     <string name="add_contacts">Kontakte hinzufügen</string>
     <string name="no_group_created">Es sind keine Kontaktgruppen auf diesem Gerät vorhanden</string>
-    <string name="create_group">Erstelle Gruppe</string>
+    <string name="create_group">Gruppe erstellen</string>
     <string name="add_to_group">Zu Gruppe hinzufügen</string>
     <string name="create_group_under_account">Gruppe in diesem Konto erstellen</string>
 
@@ -45,13 +45,13 @@
 
     <!-- Settings -->
     <string name="start_name_with_surname">Namen mit Nachnamen beginnen</string>
-    <string name="show_phone_numbers">Zeige Telefonnummern im Hauptmenü</string>
-    <string name="show_contact_thumbnails">Zeige Vorschaubilder der Kontakte</string>
+    <string name="show_phone_numbers">Telefonnummern im Hauptmenü zeigen</string>
+    <string name="show_contact_thumbnails">Vorschaubilder der Kontakte zeigen</string>
     <string name="on_contact_click">Beim Klicken auf den Kontakt</string>
     <string name="call_contact">Kontakt anrufen</string>
     <string name="view_contact">Kontaktdetails anzeigen</string>
-    <string name="manage_shown_contact_fields">Bearbeite sichtbare Kontaktfelder</string>
-    <string name="filter_duplicates">Versuche Kontaktduplikate herauszufiltern</string>
+    <string name="manage_shown_contact_fields">Sichtbare Kontaktfelder bearbeiten</string>
+    <string name="filter_duplicates">Versucht Kontaktduplikate herauszufiltern</string>
     <string name="manage_shown_tabs">Anzuzeigende Tabs festlegen</string>
     <string name="contacts">Kontakte</string>
     <string name="favorites">Favoriten</string>
@@ -78,11 +78,11 @@
     <string name="anniversary">Jahrestag</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Sieht so aus, als ob du keine Kontakte zu den Favoriten hinzugefügt hast.</string>
+    <string name="no_favorites">Anscheinend haben Sie bisher keine Kontakte zu den Favoriten hinzugefügt.</string>
     <string name="add_favorites">Favoriten hinzufügen</string>
     <string name="add_to_favorites">Zu Favoriten hinzufügen</string>
     <string name="remove_from_favorites">Aus Favoriten entfernen</string>
-    <string name="must_be_at_edit">Sie müssen sich im Bearbeitungsmodus befinden, um einen Kontakt zu bearbeiten</string>
+    <string name="must_be_at_edit">Sie müssen sich im Bearbeitungsmodus befinden, um einen Kontakt zu bearbeiten.</string>
 
     <!-- Search -->
     <string name="search_contacts">Kontakte durchsuchen</string>
