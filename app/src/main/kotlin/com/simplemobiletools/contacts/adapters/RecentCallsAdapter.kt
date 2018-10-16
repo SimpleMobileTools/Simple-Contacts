@@ -80,7 +80,7 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
         }
 
         val callsToRemove = getSelectedItems()
-        val positions = getSelectedItemPositions(callsToRemove.map { it.id })
+        val positions = getSelectedItemPositions()
         ContactsHelper(activity).removeRecentCalls(callsToRemove.map { it.id } as ArrayList<Int>)
         recentCalls.removeAll(callsToRemove)
 

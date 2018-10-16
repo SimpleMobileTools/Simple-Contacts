@@ -153,7 +153,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         }
 
         val contactsToRemove = getSelectedItems()
-        val positions = getSelectedItemPositions(contactsToRemove.map { it.id })
+        val positions = getSelectedItemPositions()
         contactItems.removeAll(contactsToRemove)
 
         ContactsHelper(activity).deleteContacts(contactsToRemove)
@@ -169,7 +169,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     // used for removing contacts from groups or favorites, not deleting actual contacts
     private fun removeContacts() {
         val contactsToRemove = getSelectedItems()
-        val positions = getSelectedItemPositions(contactsToRemove.map { it.id })
+        val positions = getSelectedItemPositions()
         contactItems.removeAll(contactsToRemove)
 
         if (location == LOCATION_FAVORITES_TAB) {

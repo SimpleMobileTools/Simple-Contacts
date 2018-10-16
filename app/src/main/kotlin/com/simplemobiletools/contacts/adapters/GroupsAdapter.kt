@@ -102,7 +102,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
         }
 
         val groupsToRemove = groups.filter { selectedKeys.contains(it.id.toInt()) } as ArrayList<Group>
-        val positions = getSelectedItemPositions(groupsToRemove.map { it.id.toInt() })
+        val positions = getSelectedItemPositions()
         groupsToRemove.forEach {
             if (it.isPrivateSecretGroup()) {
                 activity.dbHelper.deleteGroup(it.id)
