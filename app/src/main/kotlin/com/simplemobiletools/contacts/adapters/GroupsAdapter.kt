@@ -122,7 +122,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     private fun setupView(view: View, group: Group) {
         view.apply {
-            group_frame?.isSelected = isKeySelected(group.id.toInt())
+            group_frame?.isSelected = selectedKeys.contains(group.id.toInt())
             group_name.apply {
                 setTextColor(textColor)
                 text = String.format(activity.getString(R.string.groups_placeholder), group.title, group.contactsCount.toString())

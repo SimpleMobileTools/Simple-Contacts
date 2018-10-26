@@ -2,9 +2,9 @@ package com.simplemobiletools.contacts.fragments
 
 import android.content.Context
 import android.content.Intent
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import android.util.AttributeSet
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
@@ -88,7 +88,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
         if (this !is GroupsFragment && this !is RecentsFragment) {
-            (fragment_list.adapter as ContactsAdapter).apply {
+            (fragment_list.adapter as? ContactsAdapter)?.apply {
                 config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
                 this@MyViewPagerFragment.activity!!.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
             }
