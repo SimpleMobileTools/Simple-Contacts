@@ -304,10 +304,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(0, 1, 2, 3).filter { it != activeIndex }
+    private fun getInactiveTabIndexes(activeIndex: Int) = (0 until tabsList.size).filter { it != activeIndex }
 
     private fun initFragments() {
-        viewpager.offscreenPageLimit = 3
+        viewpager.offscreenPageLimit = tabsList.size - 1
         viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
@@ -368,7 +368,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }, 100L)
         }
 
-        main_tabs_holder.beVisibleIf(skippedTabs < 3)
+        main_tabs_holder.beVisibleIf(skippedTabs < tabsList.size - 1)
 
         main_dialpad_button.setOnClickListener {
             val intent = Intent(applicationContext, DialpadActivity::class.java)
