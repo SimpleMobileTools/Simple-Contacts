@@ -1,7 +1,0 @@
-<resources>
-
-    <style name="DialpadNumberStyle" parent="DialpadNumberStyle.Base">
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-    </style>
-
-</resources>

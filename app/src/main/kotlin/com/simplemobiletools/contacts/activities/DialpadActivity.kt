@@ -11,7 +11,6 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.dialogs.CallConfirmationDialog
-import com.simplemobiletools.contacts.extensions.afterTextChanged
 import com.simplemobiletools.contacts.extensions.callContact
 import com.simplemobiletools.contacts.extensions.config
 import com.simplemobiletools.contacts.extensions.startCallIntent
@@ -43,7 +42,7 @@ class DialpadActivity : SimpleActivity() {
         dialpad_clear_char.setOnClickListener { clearChar(it) }
         dialpad_clear_char.setOnLongClickListener { clearInput(); true }
         dialpad_call_button.setOnClickListener { initCall() }
-        dialpad_input.afterTextChanged { dialpadValueChanged(it) }
+        dialpad_input.onTextChangeListener { dialpadValueChanged(it) }
         ContactsHelper(this).getContacts { gotContacts(it) }
         disableKeyboardPopping()
 

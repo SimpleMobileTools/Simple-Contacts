@@ -27,7 +27,6 @@ import com.simplemobiletools.contacts.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.extensions.getTempFile
 import com.simplemobiletools.contacts.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.helpers.*
@@ -62,9 +61,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
         setupTabColors()
-
-        // just get a reference to the database to make sure it is created properly
-        dbHelper
 
         handlePermission(PERMISSION_READ_CALL_LOG) {
             if (it) {
@@ -320,8 +316,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 }
             }
 
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
                 main_tabs_holder.getTabAt(position)?.select()
