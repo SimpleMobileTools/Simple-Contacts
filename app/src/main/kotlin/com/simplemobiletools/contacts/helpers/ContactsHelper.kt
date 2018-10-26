@@ -819,6 +819,9 @@ class ContactsHelper(val activity: Activity) {
         accounts.forEach {
             if (ContentResolver.getIsSyncable(it, ContactsContract.AUTHORITY) == 1) {
                 val contactSource = ContactSource(it.name, it.type)
+                if (it.type == TELEGRAM_PACKAGE) {
+                    contactSource.name += " (${activity.getString(R.string.telegram)})"
+                }
                 sources.add(contactSource)
             }
         }
