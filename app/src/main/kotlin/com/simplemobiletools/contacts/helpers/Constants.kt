@@ -113,3 +113,8 @@ val localAccountTypes = arrayListOf("vnd.sec.contact.phone",
         "com.android.huawei.phone",
         "Local Phone Account"
 )
+
+// apps with special handling
+const val TELEGRAM_PACKAGE = "org.telegram.messenger"
+const val SIGNAL_PACKAGE = "org.thoughtcrime.securesms"
+const val WHATSAPP_PACKAGE = "com.whatsapp"

@@ -63,9 +63,9 @@ fun SimpleActivity.startCall(contact: Contact) {
 fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (newSource: String) -> Unit) {
     ContactsHelper(this).getContactSources {
         val ignoredTypes = arrayListOf(
-                "org.thoughtcrime.securesms",   // Signal
-                "org.telegram.messenger",       // Telegram
-                "com.whatsapp"                  // WhatsApp
+                SIGNAL_PACKAGE,
+                TELEGRAM_PACKAGE,
+                WHATSAPP_PACKAGE
         )
 
         val items = ArrayList<RadioItem>()
