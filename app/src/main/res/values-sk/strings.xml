@@ -17,6 +17,9 @@
     <string name="request_the_required_permissions">Vyžiadať potrebné oprávnenia</string>
     <string name="create_new_contact">Vytvoriť nový kontakt</string>
     <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
+
+    <!-- Placeholders -->
+    <string name="no_contacts_found">Nenašli sa žiadne kontakty</string>
     <string name="no_contacts_with_emails">Nemáte žiadne kontakty s emailmi</string>
     <string name="no_contacts_with_phone_numbers">Nemáte žiadne kontakty s telefónnymi číslami</string>
 
