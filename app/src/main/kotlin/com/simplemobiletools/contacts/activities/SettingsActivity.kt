@@ -35,6 +35,7 @@ class SettingsActivity : SimpleActivity() {
         setupShowInfoBubble()
         setupShowContactThumbnails()
         setupShowPhoneNumbers()
+        setupShowContactsWithNumbers()
         setupStartNameWithSurname()
         setupUse24HourTimeFormat()
         setupFilterDuplicates()
@@ -107,6 +108,14 @@ class SettingsActivity : SimpleActivity() {
         settings_show_phone_numbers_holder.setOnClickListener {
             settings_show_phone_numbers.toggle()
             config.showPhoneNumbers = settings_show_phone_numbers.isChecked
+        }
+    }
+
+    private fun setupShowContactsWithNumbers() {
+        settings_show_only_contacts_with_numbers.isChecked = config.showOnlyContactsWithNumbers
+        settings_show_only_contacts_with_numbers_holder.setOnClickListener {
+            settings_show_only_contacts_with_numbers.toggle()
+            config.showOnlyContactsWithNumbers = settings_show_only_contacts_with_numbers.isChecked
         }
     }
 

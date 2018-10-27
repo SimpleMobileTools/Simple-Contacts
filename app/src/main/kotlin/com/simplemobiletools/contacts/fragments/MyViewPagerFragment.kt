@@ -104,7 +104,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
 
         if (config.lastUsedContactSource.isEmpty()) {
-            val grouped = contacts.groupBy { it.source }.maxWith(compareBy { it.value.size })
+            val grouped = contacts.asSequence().groupBy { it.source }.maxWith(compareBy { it.value.size })
             config.lastUsedContactSource = grouped?.key ?: ""
         }
 
@@ -154,7 +154,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
         }
 
-        storedGroups = storedGroups.sortedWith(compareBy { it.title }).toMutableList() as ArrayList<Group>
+        storedGroups = storedGroups.asSequence().sortedWith(compareBy { it.title }).toMutableList() as ArrayList<Group>
 
         fragment_placeholder_2.beVisibleIf(storedGroups.isEmpty())
         fragment_placeholder.beVisibleIf(storedGroups.isEmpty())

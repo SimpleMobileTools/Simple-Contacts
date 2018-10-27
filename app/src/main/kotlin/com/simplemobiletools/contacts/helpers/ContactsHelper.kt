@@ -43,9 +43,20 @@ class ContactsHelper(val activity: Activity) {
             }
 
             val contactsSize = contacts.size()
+            val showOnlyContactsWithNumbers = activity.config.showOnlyContactsWithNumbers
             var tempContacts = ArrayList<Contact>(contactsSize)
             val resultContacts = ArrayList<Contact>(contactsSize)
-            (0 until contactsSize).mapTo(tempContacts) { contacts.valueAt(it) }
+
+            (0 until contactsSize).filter {
+                if (showOnlyContactsWithNumbers) {
+                    contacts.valueAt(it).phoneNumbers.isNotEmpty()
+                } else {
+                    true
+                }
+            }.mapTo(tempContacts) {
+                contacts.valueAt(it)
+            }
+
             if (activity.config.filterDuplicates) {
                 tempContacts = tempContacts.distinctBy {
                     it.getHashToCompare()
