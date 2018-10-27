@@ -1537,6 +1537,7 @@ class ContactsHelper(val activity: Activity) {
             val todayDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(currentDate)
             val yesterdayDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(System.currentTimeMillis() - DAY_SECONDS * 1000))
             val yesterday = activity.getString(R.string.yesterday)
+            val timeFormat = if (activity.config.use24HourFormat) "HH:mm" else "h:mm a"
             var prevNumber = ""
 
             var cursor: Cursor? = null
@@ -1552,7 +1553,7 @@ class ContactsHelper(val activity: Activity) {
                             continue
                         }
 
-                        var formattedDate = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault()).format(Date(date))
+                        var formattedDate = SimpleDateFormat("dd MMM yyyy, $timeFormat", Locale.getDefault()).format(Date(date))
                         val datePart = formattedDate.substring(0, 11)
                         when {
                             datePart == todayDate -> formattedDate = formattedDate.substring(12)
