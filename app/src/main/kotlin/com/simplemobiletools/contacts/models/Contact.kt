@@ -87,7 +87,7 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
         val fullName = "$prefix $firstPart $lastPart$suffixComma".trim()
         return if (fullName.isEmpty()) {
             if (organization.isEmpty()) {
-                emails.firstOrNull()?.value ?: ""
+                emails.firstOrNull()?.value?.trim() ?: ""
             } else {
                 var fullOrganization = if (organization.jobPosition.isEmpty()) "" else "${organization.jobPosition}, "
                 fullOrganization += organization.company
