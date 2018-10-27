@@ -57,7 +57,7 @@
     <string name="favorites">Favoriti</string>
     <string name="recent_calls">Nedavni pozivi</string>
     <string name="show_call_confirmation_dialog">Pokažite dijaloški okvir za potvrdu poziva prije pokretanja poziva</string>
-    <string name="show_only_contacts_with_phone_numbers">Show only contacts with phone numbers</string>
+    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
 
     <!-- Emails -->
     <string name="email">E-pošta</string>

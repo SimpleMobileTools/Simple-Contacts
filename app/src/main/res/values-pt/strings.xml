@@ -57,7 +57,7 @@
     <string name="favorites">Favoritos</string>
     <string name="recent_calls">Chamadas recentes</string>
     <string name="show_call_confirmation_dialog">Mostrar diálogo para confirmar a chamada</string>
-    <string name="show_only_contacts_with_phone_numbers">Show only contacts with phone numbers</string>
+    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>

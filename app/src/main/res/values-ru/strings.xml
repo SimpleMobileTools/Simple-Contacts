@@ -57,7 +57,7 @@
     <string name="favorites">Избранное</string>
     <string name="recent_calls">Недавние вызовы</string>
     <string name="show_call_confirmation_dialog">Показывать диалог подтверждения вызова</string>
-    <string name="show_only_contacts_with_phone_numbers">Show only contacts with phone numbers</string>
+    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
 
     <!-- Emails -->
     <string name="email">Эл. почта</string>
