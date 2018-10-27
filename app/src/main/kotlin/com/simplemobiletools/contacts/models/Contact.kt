@@ -37,12 +37,20 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
             }
         }
 
-        if (firstString.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && organization.company.isNotEmpty()) {
-            firstString = organization.company.normalizeString()
+        if (firstString.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty()) {
+            if (organization.company.isNotEmpty()) {
+                firstString = organization.company.normalizeString()
+            } else if (emails.isNotEmpty()) {
+                firstString = emails.first().value
+            }
         }
 
-        if (secondString.isEmpty() && other.firstName.isEmpty() && other.middleName.isEmpty() && other.surname.isEmpty() && other.organization.company.isNotEmpty()) {
-            secondString = other.organization.company.normalizeString()
+        if (secondString.isEmpty() && other.firstName.isEmpty() && other.middleName.isEmpty() && other.surname.isEmpty()) {
+            if (other.organization.company.isNotEmpty()) {
+                secondString = other.organization.company.normalizeString()
+            } else if (other.emails.isNotEmpty()) {
+                secondString = other.emails.first().value
+            }
         }
 
         var result = if (firstString.firstOrNull()?.isLetter() == true && secondString.firstOrNull()?.isLetter() == false) {
