@@ -17,6 +17,7 @@
     <string name="request_the_required_permissions">Richiedi le permissioni necessarie</string>
     <string name="create_new_contact">Crea un nuovo contatto</string>
     <string name="add_to_existing_contact">Aggiungi ad un contatto esistente</string>
+    <string name="no_contacts_with_emails">You don\'t seem to have any contacts with emails</string>
 
     <string name="new_contact">Nuovo contatto</string>
     <string name="edit_contact">Modifica contatto</string>

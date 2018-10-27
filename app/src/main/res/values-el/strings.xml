@@ -17,6 +17,7 @@
     <string name="request_the_required_permissions">Ζητούνται τα απαιτούμενα δικαιώματα</string>
     <string name="create_new_contact">Δημιουργία νέας Επαφής</string>
     <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
+    <string name="no_contacts_with_emails">You don\'t seem to have any contacts with emails</string>
 
     <string name="new_contact">Νέα επαφή</string>
     <string name="edit_contact">Επεξεργασία επαφής</string>

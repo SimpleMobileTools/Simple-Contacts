@@ -17,6 +17,7 @@
     <string name="request_the_required_permissions">請求必要的權限</string>
     <string name="create_new_contact">建立新聯絡人</string>
     <string name="add_to_existing_contact">添加至已存在的聯絡人</string>
+    <string name="no_contacts_with_emails">You don\'t seem to have any contacts with emails</string>
 
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>
