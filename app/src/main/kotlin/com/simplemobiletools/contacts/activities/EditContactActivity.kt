@@ -114,7 +114,7 @@ class EditContactActivity : ContactActivity() {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (resultCode == RESULT_OK) {
             when (requestCode) {
-                INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri)
+                INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri, resultData?.data)
                 INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString(), contact_photo)
             }
         }
@@ -260,15 +260,21 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
-    private fun startCropPhotoIntent(uri: Uri?) {
-        if (uri == null) {
+    private fun startCropPhotoIntent(primaryUri: Uri?, backupUri: Uri?) {
+        if (primaryUri == null) {
             toast(R.string.unknown_error_occurred)
             return
         }
 
+        var imageUri = primaryUri
+        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, primaryUri)
+        if (bitmap == null) {
+            imageUri = backupUri
+        }
+
         lastPhotoIntentUri = getCachePhotoUri()
         Intent("com.android.camera.action.CROP").apply {
-            setDataAndType(uri, "image/*")
+            setDataAndType(imageUri, "image/*")
             putExtra(MediaStore.EXTRA_OUTPUT, lastPhotoIntentUri)
             putExtra("outputX", 720)
             putExtra("outputY", 720)
@@ -277,7 +283,7 @@ class EditContactActivity : ContactActivity() {
             putExtra("crop", "true")
             putExtra("scale", "true")
             putExtra("scaleUpIfNeeded", "true")
-            clipData = ClipData("Attachment", arrayOf("text/uri-list"), ClipData.Item(lastPhotoIntentUri))
+            clipData = ClipData("Attachment", arrayOf("text/primaryUri-list"), ClipData.Item(lastPhotoIntentUri))
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             if (resolveActivity(packageManager) != null) {
                 startActivityForResult(this, INTENT_CROP_PHOTO)
