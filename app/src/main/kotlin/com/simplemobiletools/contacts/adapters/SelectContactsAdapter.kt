@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -13,6 +14,7 @@ import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
+import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
 import com.simplemobiletools.contacts.extensions.config
@@ -22,7 +24,7 @@ import kotlinx.android.synthetic.main.item_add_favorite_with_number.view.*
 import java.util.*
 
 class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Contact>, private val selectedContacts: ArrayList<Contact>, private val allowPickMultiple: Boolean,
-                            private val itemClick: ((Contact) -> Unit)? = null) : RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
+                            private val recyclerView: MyRecyclerView, private val itemClick: ((Contact) -> Unit)? = null) : RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
     private val itemViews = SparseArray<View>()
     private val selectedPositions = HashSet<Int>()
     private val config = activity.config
@@ -36,9 +38,18 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
     init {
         contacts.forEachIndexed { index, contact ->
-            if (selectedContacts.map { it.id }.contains(contact.id)) {
+            if (selectedContacts.asSequence().map { it.id }.contains(contact.id)) {
                 selectedPositions.add(index)
             }
+        }
+
+        if (recyclerView.itemDecorationCount > 0) {
+            recyclerView.removeItemDecorationAt(0)
+        }
+
+        DividerItemDecoration(activity, DividerItemDecoration.VERTICAL).apply {
+            setDrawable(activity.resources.getDrawable(R.drawable.divider))
+            recyclerView.addItemDecoration(this)
         }
     }
 

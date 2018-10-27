@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
-import com.simplemobiletools.commons.extensions.baseConfig
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.contacts.R
@@ -28,6 +27,7 @@ class SelectContactActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_contact)
+        setupPlaceholders()
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {
@@ -104,8 +104,11 @@ class SelectContactActivity : SimpleActivity() {
             contacts.sort()
 
             runOnUiThread {
-                select_contact_list.adapter = SelectContactsAdapter(this, contacts, ArrayList(), false) {
+                updatePlaceholderVisibility(contacts)
+                SelectContactsAdapter(this, contacts, ArrayList(), false, select_contact_list) {
                     confirmSelection(it)
+                }.apply {
+                    select_contact_list.adapter = this
                 }
 
                 select_contact_fastscroller.allowBubbleDisplay = baseConfig.showInfoBubble
@@ -131,9 +134,29 @@ class SelectContactActivity : SimpleActivity() {
                 val contactId = ContactsHelper(this).getContactMimeTypeId(contact.id.toString(), specialMimeType!!)
                 Uri.withAppendedPath(ContactsContract.Data.CONTENT_URI, contactId)
             }
-            else -> {
-                getContactPublicUri(contact)
+            else -> getContactPublicUri(contact)
+        }
+    }
+
+    private fun setupPlaceholders() {
+        select_contact_placeholder.setTextColor(config.textColor)
+        select_contact_placeholder_2.setTextColor(getAdjustedPrimaryColor())
+        select_contact_placeholder_2.underlineText()
+        select_contact_placeholder_2.setOnClickListener {
+            FilterContactSourcesDialog(this) {
+                initContacts()
             }
         }
+    }
+
+    private fun updatePlaceholderVisibility(contacts: ArrayList<Contact>) {
+        select_contact_list.beVisibleIf(contacts.isNotEmpty())
+        select_contact_placeholder_2.beVisibleIf(contacts.isEmpty())
+        select_contact_placeholder.beVisibleIf(contacts.isEmpty())
+        select_contact_placeholder.setText(when (specialMimeType) {
+            ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE -> R.string.no_contacts_with_emails
+            ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE -> R.string.no_contacts_with_phone_numbers
+            else -> R.string.no_contacts_found
+        })
     }
 }
