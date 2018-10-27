@@ -57,6 +57,7 @@
     <string name="favorites">Obľúbené</string>
     <string name="recent_calls">Predošlé hovory</string>
     <string name="show_call_confirmation_dialog">Zobraziť pred spustením hovoru okno na jeho potvrdenie</string>
+    <string name="show_only_contacts_with_phone_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
 
     <!-- Emails -->
     <string name="email">Email</string>

@@ -57,6 +57,7 @@
     <string name="favorites">Αγαπημένες</string>
     <string name="recent_calls">Πρόσφατες Κλήσεις</string>
     <string name="show_call_confirmation_dialog">Εμφάνιση διαλόγου επιβεβαίωσης πριν από την έναρξη μιας κλήσης</string>
+    <string name="show_only_contacts_with_phone_numbers">Show only contacts with phone numbers</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
