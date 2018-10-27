@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.content.ClipData
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -267,9 +268,16 @@ class EditContactActivity : ContactActivity() {
         }
 
         var imageUri = primaryUri
-        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, primaryUri)
+        var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, primaryUri)
         if (bitmap == null) {
             imageUri = backupUri
+            bitmap = MediaStore.Images.Media.getBitmap(contentResolver, backupUri) ?: return
+
+            // we might have received an URI which we have no permission to send further, so just copy the received image in a new uri (for example from Google Photos)
+            val newFile = getCachePhoto()
+            val fos = newFile.outputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            imageUri = getCachePhotoUri(newFile)
         }
 
         lastPhotoIntentUri = getCachePhotoUri()
