@@ -20,14 +20,14 @@ import com.simplemobiletools.contacts.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.helpers.ContactsHelper
 import com.simplemobiletools.contacts.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.models.Contact
-import kotlinx.android.synthetic.main.layout_select_contact.*
+import kotlinx.android.synthetic.main.activity_select_contact.*
 
 class SelectContactActivity : SimpleActivity() {
     private var specialMimeType: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_select_contact)
+        setContentView(R.layout.activity_select_contact)
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {
