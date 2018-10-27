@@ -18,6 +18,7 @@
     <string name="create_new_contact">Create new contact</string>
     <string name="add_to_existing_contact">Add to an existing contact</string>
     <string name="no_contacts_with_emails">You don\'t seem to have any contacts with emails</string>
+    <string name="no_contacts_with_phone_numbers">You don\'t seem to have any contacts with phone numbers</string>
 
     <string name="new_contact">Yeni kişi</string>
     <string name="edit_contact">Kişiyi düzenle</string>

@@ -18,6 +18,7 @@
     <string name="create_new_contact">Neuen Kontakt erstellen</string>
     <string name="add_to_existing_contact">Zu einem existierenden Kontakt hinzufügen</string>
     <string name="no_contacts_with_emails">You don\'t seem to have any contacts with emails</string>
+    <string name="no_contacts_with_phone_numbers">You don\'t seem to have any contacts with phone numbers</string>
 
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
