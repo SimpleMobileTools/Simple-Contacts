@@ -17,7 +17,7 @@
     <string name="request_the_required_permissions">Richiedi le permissioni necessarie</string>
     <string name="create_new_contact">Crea un nuovo contatto</string>
     <string name="add_to_existing_contact">Aggiungi ad un contatto esistente</string>
-    <string name="no_contacts_with_emails">You don\'t seem to have any contacts with emails</string>
+    <string name="no_contacts_with_emails">Non si ha alcun contatto con almeno un indirizzo l'email</string>
 
     <string name="new_contact">Nuovo contatto</string>
     <string name="edit_contact">Modifica contatto</string>
@@ -58,7 +58,7 @@
     <string name="favorites">Preferiti</string>
     <string name="recent_calls">Chiamate recenti</string>
     <string name="show_call_confirmation_dialog">Mostra un dialogo di conferma prima di iniziare una chiamata</string>
-    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
+    <string name="show_only_contacts_with_numbers">Mostra solamente i contatti con almeno un numero telefonico</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
