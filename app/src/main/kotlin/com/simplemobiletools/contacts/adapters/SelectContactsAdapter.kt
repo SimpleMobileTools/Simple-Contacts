@@ -92,7 +92,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
                 contact_checkbox.setColors(config.textColor, context.getAdjustedPrimaryColor(), config.backgroundColor)
                 val textColor = config.textColor
 
-                contact_name.text = contact.getFullName()
+                contact_name.text = contact.getNameToDisplay()
                 contact_name.setTextColor(textColor)
                 contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
 

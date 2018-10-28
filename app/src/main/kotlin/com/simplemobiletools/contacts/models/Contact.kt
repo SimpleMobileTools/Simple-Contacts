@@ -64,7 +64,7 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
                 -1
             } else {
                 if (firstString.toLowerCase() == secondString.toLowerCase()) {
-                    getFullName().compareTo(other.getFullName(), true)
+                    getNameToDisplay().compareTo(other.getNameToDisplay(), true)
                 } else {
                     firstString.compareTo(secondString, true)
                 }
@@ -84,7 +84,7 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
         else -> surname
     }
 
-    fun getFullName(): String {
+    fun getNameToDisplay(): String {
         var firstPart = if (startWithSurname) surname else firstName
         if (middleName.isNotEmpty()) {
             firstPart += " $middleName"
@@ -110,7 +110,7 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
         val newEmails = ArrayList<Email>()
         emails.mapTo(newEmails) { Email(it.value, 0, "") }
 
-        return copy(id = 0, prefix = "", firstName = getFullName().toLowerCase(), middleName = "", surname = "", suffix = "", nickname = "", photoUri = "",
+        return copy(id = 0, prefix = "", firstName = getNameToDisplay().toLowerCase(), middleName = "", surname = "", suffix = "", nickname = "", photoUri = "",
                 phoneNumbers = ArrayList(), events = ArrayList(), addresses = ArrayList(), emails = newEmails, source = "", starred = 0,
                 contactId = 0, thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", ""),
                 IMs = ArrayList()).toString()

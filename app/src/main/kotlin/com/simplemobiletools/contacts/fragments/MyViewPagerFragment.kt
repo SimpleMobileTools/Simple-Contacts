@@ -239,7 +239,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         val shouldNormalize = text.normalizeString() == text
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             val filtered = contactsIgnoringSearch.filter {
-                getProperText(it.getFullName(), shouldNormalize).contains(text, true) ||
+                getProperText(it.getNameToDisplay(), shouldNormalize).contains(text, true) ||
                         getProperText(it.nickname, shouldNormalize).contains(text, true) ||
                         it.doesContainPhoneNumber(text) ||
                         it.emails.any { it.value.contains(text, true) } ||
@@ -254,7 +254,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             Contact.sorting = config.sorting
             Contact.startWithSurname = config.startNameWithSurname
             filtered.sort()
-            filtered.sortBy { !getProperText(it.getFullName(), shouldNormalize).startsWith(text, true) }
+            filtered.sortBy { !getProperText(it.getNameToDisplay(), shouldNormalize).startsWith(text, true) }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
                 fragment_placeholder.text = activity.getString(R.string.no_items_found)

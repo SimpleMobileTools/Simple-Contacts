@@ -36,7 +36,7 @@ fun SimpleActivity.startCallIntent(recipient: String) {
 
 fun SimpleActivity.tryStartCall(contact: Contact) {
     if (config.showCallConfirmation) {
-        CallConfirmationDialog(this, contact.getFullName()) {
+        CallConfirmationDialog(this, contact.getNameToDisplay()) {
             startCall(contact)
         }
     } else {

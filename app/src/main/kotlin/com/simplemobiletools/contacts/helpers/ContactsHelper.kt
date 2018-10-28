@@ -62,7 +62,7 @@ class ContactsHelper(val activity: Activity) {
                     it.getHashToCompare()
                 } as ArrayList<Contact>
 
-                tempContacts.groupBy { "${it.getFullName().toLowerCase()}${it.emails}" }.values.forEach {
+                tempContacts.groupBy { "${it.getNameToDisplay().toLowerCase()}${it.emails}" }.values.forEach {
                     if (it.size == 1) {
                         resultContacts.add(it.first())
                     } else {

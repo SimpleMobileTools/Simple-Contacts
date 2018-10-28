@@ -244,7 +244,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     private fun setupView(view: View, contact: Contact) {
         view.apply {
             contact_frame?.isSelected = selectedKeys.contains(contact.id)
-            val fullName = contact.getFullName()
+            val fullName = contact.getNameToDisplay()
             contact_name.text = if (textToHighlight.isEmpty()) fullName else fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
             contact_name.setTextColor(textColor)
             contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
