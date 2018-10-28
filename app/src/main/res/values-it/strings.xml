@@ -19,9 +19,9 @@
     <string name="add_to_existing_contact">Aggiungi ad un contatto esistente</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">No contacts found</string>
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+    <string name="no_contacts_found">Nessun contatto trovato</string>
+    <string name="no_contacts_with_emails">Nessun contatto trovato con un\'email</string>
+    <string name="no_contacts_with_phone_numbers">Nessun contatto trovato con un numero di telefono</string>
 
     <string name="new_contact">Nuovo contatto</string>
     <string name="edit_contact">Modifica contatto</string>
