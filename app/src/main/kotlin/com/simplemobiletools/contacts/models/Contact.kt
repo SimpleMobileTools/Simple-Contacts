@@ -38,16 +38,18 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
         }
 
         if (firstString.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty()) {
-            if (organization.company.isNotEmpty()) {
-                firstString = organization.company.normalizeString()
+            val fullCompany = getFullCompany()
+            if (fullCompany.isNotEmpty()) {
+                firstString = fullCompany.normalizeString()
             } else if (emails.isNotEmpty()) {
                 firstString = emails.first().value
             }
         }
 
         if (secondString.isEmpty() && other.firstName.isEmpty() && other.middleName.isEmpty() && other.surname.isEmpty()) {
-            if (other.organization.company.isNotEmpty()) {
-                secondString = other.organization.company.normalizeString()
+            val otherFullCompany = other.getFullCompany()
+            if (otherFullCompany.isNotEmpty()) {
+                secondString = otherFullCompany.normalizeString()
             } else if (other.emails.isNotEmpty()) {
                 secondString = other.emails.first().value
             }
@@ -95,9 +97,7 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
         val fullName = "$prefix $firstPart $lastPart$suffixComma".trim()
         return if (fullName.isEmpty()) {
             if (organization.isNotEmpty()) {
-                var fullOrganization = if (organization.jobPosition.isEmpty()) "" else "${organization.jobPosition}, "
-                fullOrganization += organization.company
-                fullOrganization.trim().trimEnd(',')
+                getFullCompany()
             } else {
                 emails.firstOrNull()?.value?.trim() ?: ""
             }
@@ -117,6 +117,12 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
     }
 
     fun getHashToCompare() = getStringToCompare().hashCode()
+
+    fun getFullCompany(): String {
+        var fullOrganization = if (organization.company.isEmpty()) "" else "${organization.company}, "
+        fullOrganization += organization.jobPosition
+        return fullOrganization.trim().trimEnd(',')
+    }
 
     fun isABusinessContact() = prefix.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && suffix.isEmpty() && organization.isNotEmpty()
 
