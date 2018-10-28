@@ -154,7 +154,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
         }
 
-        storedGroups = storedGroups.asSequence().sortedWith(compareBy { it.title }).toMutableList() as ArrayList<Group>
+        storedGroups = storedGroups.asSequence().sortedWith(compareBy { it.title.normalizeString() }).toMutableList() as ArrayList<Group>
 
         fragment_placeholder_2.beVisibleIf(storedGroups.isEmpty())
         fragment_placeholder.beVisibleIf(storedGroups.isEmpty())
