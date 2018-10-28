@@ -13,6 +13,7 @@
     <string name="telegram">Telegram</string>
 
     <!-- Release notes -->
+    <string name="release_34">Added new options for toggling 24 hour time format and showing only contacts with phone numbers</string>
     <string name="release_32">Added a simple dialpad, dialer will come soon</string>
     <string name="release_31">
         Added an optional IM field\n
