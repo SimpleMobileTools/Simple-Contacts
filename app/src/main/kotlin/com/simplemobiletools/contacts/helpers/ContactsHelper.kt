@@ -1313,7 +1313,7 @@ class ContactsHelper(val activity: Activity) {
             }
 
             // organization
-            if (!contact.organization.isEmpty()) {
+            if (contact.organization.isNotEmpty()) {
                 ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
                     withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)

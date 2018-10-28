@@ -354,12 +354,16 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupOrganization() {
         val organization = contact!!.organization
-        if (!organization.isEmpty() && showFields and SHOW_ORGANIZATION_FIELD != 0) {
+        if (organization.isNotEmpty() && showFields and SHOW_ORGANIZATION_FIELD != 0) {
             contact_organization_company.text = organization.company
             contact_organization_job_position.text = organization.jobPosition
             contact_organization_image.beGoneIf(organization.isEmpty())
             contact_organization_company.beGoneIf(organization.company.isEmpty())
             contact_organization_job_position.beGoneIf(organization.jobPosition.isEmpty())
+
+            if (organization.company.isEmpty() && organization.jobPosition.isNotEmpty()) {
+                (contact_organization_image.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.ALIGN_TOP, contact_organization_job_position.id)
+            }
         } else {
             contact_organization_image.beGone()
             contact_organization_company.beGone()
