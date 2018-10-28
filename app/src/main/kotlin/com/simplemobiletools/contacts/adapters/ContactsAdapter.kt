@@ -36,6 +36,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private lateinit var contactDrawable: Drawable
+    private lateinit var businessContactDrawable: Drawable
     private var config = activity.config
     private var textToHighlight = highlightText
 
@@ -121,6 +122,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     fun initDrawables() {
         contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person, textColor)
+        businessContactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_business, textColor)
     }
 
     fun updateItems(newItems: ArrayList<Contact>, highlightText: String = "") {
@@ -265,12 +267,13 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             contact_tmb.beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {
+                val placeholderImage = if (contact.isABusinessContact()) businessContactDrawable else contactDrawable
                 when {
                     contact.photoUri.isNotEmpty() -> {
                         val options = RequestOptions()
                                 .signature(ObjectKey(contact.photoUri))
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .error(contactDrawable)
+                                .error(placeholderImage)
                                 .centerCrop()
 
                         Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
@@ -279,12 +282,12 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                         val options = RequestOptions()
                                 .signature(ObjectKey(contact.photo!!))
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .error(contactDrawable)
+                                .error(placeholderImage)
                                 .centerCrop()
 
                         Glide.with(activity).load(contact.photo).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
                     }
-                    else -> contact_tmb.setImageDrawable(contactDrawable)
+                    else -> contact_tmb.setImageDrawable(placeholderImage)
                 }
             }
         }

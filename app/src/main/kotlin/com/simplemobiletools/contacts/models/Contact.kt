@@ -118,6 +118,8 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
 
     fun getHashToCompare() = getStringToCompare().hashCode()
 
+    fun isABusinessContact() = prefix.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && suffix.isEmpty() && organization.isNotEmpty()
+
     // do a more advanced phone number check here, compare numbers and and search query with dashes, spaces and everything but numbers removed
     fun doesContainPhoneNumber(text: String): Boolean {
         if (text.isNotEmpty()) {
