@@ -94,12 +94,12 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
         val suffixComma = if (suffix.isEmpty()) "" else ", $suffix"
         val fullName = "$prefix $firstPart $lastPart$suffixComma".trim()
         return if (fullName.isEmpty()) {
-            if (organization.isEmpty()) {
-                emails.firstOrNull()?.value?.trim() ?: ""
-            } else {
+            if (organization.isNotEmpty()) {
                 var fullOrganization = if (organization.jobPosition.isEmpty()) "" else "${organization.jobPosition}, "
                 fullOrganization += organization.company
                 fullOrganization.trim().trimEnd(',')
+            } else {
+                emails.firstOrNull()?.value?.trim() ?: ""
             }
         } else {
             fullName
