@@ -19,9 +19,9 @@
     <string name="add_to_existing_contact">Добавить к существующему контакту</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">No contacts found</string>
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+    <string name="no_contacts_found">Контакты не найдены</string>
+    <string name="no_contacts_with_emails">Контакты с адресами электронной почты не найдены</string>
+    <string name="no_contacts_with_phone_numbers">Контакты с номерами телефонов не найдены</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
@@ -62,7 +62,7 @@
     <string name="favorites">Избранное</string>
     <string name="recent_calls">Недавние вызовы</string>
     <string name="show_call_confirmation_dialog">Показывать диалог подтверждения вызова</string>
-    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
+    <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
 
     <!-- Emails -->
     <string name="email">Эл. почта</string>
