@@ -18,6 +18,11 @@
     <string name="create_new_contact">Create new contact</string>
     <string name="add_to_existing_contact">Add to an existing contact</string>
 
+    <!-- Placeholders -->
+    <string name="no_contacts_found">No contacts found</string>
+    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
+    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+
     <string name="new_contact">Yeni kontakt</string>
     <string name="edit_contact">Redaktə et</string>
     <string name="select_contact">Kontakt seç</string>
@@ -57,6 +62,7 @@
     <string name="favorites">Sevimlilər</string>
     <string name="recent_calls">Hazırki zənglər</string>
     <string name="show_call_confirmation_dialog">Zəngə başlamazdan əvvəl zəng təsdiq pəncərəsi göstər</string>
+    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
 
     <!-- Emails -->
     <string name="email">E-poçt</string>

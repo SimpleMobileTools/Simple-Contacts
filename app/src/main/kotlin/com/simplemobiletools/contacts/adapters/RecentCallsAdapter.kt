@@ -30,14 +30,8 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
 
     override fun prepareActionMode(menu: Menu) {}
 
-    override fun prepareItemSelection(viewHolder: ViewHolder) {}
-
-    override fun markViewHolderSelection(select: Boolean, viewHolder: ViewHolder?) {
-        viewHolder?.itemView?.recent_call_frame?.isSelected = select
-    }
-
     override fun actionItemPressed(id: Int) {
-        if (selectedPositions.isEmpty()) {
+        if (selectedKeys.isEmpty()) {
             return
         }
 
@@ -51,14 +45,18 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
 
     override fun getIsItemSelectable(position: Int) = true
 
+    override fun getItemSelectionKey(position: Int) = recentCalls.getOrNull(position)?.id
+
+    override fun getItemKeyPosition(key: Int) = recentCalls.indexOfFirst { it.id == key }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.item_recent_call, parent)
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val recentCall = recentCalls[position]
-        val view = holder.bindView(recentCall, true, true) { itemView, layoutPosition ->
+        holder.bindView(recentCall, true, true) { itemView, layoutPosition ->
             setupView(itemView, recentCall)
         }
-        bindViewHolder(holder, position, view)
+        bindViewHolder(holder)
     }
 
     override fun getItemCount() = recentCalls.size
@@ -77,15 +75,12 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
     }
 
     private fun deleteRecentCalls() {
-        if (selectedPositions.isEmpty()) {
+        if (selectedKeys.isEmpty()) {
             return
         }
 
-        val callsToRemove = ArrayList<RecentCall>()
-        selectedPositions.sortedDescending().forEach {
-            val call = recentCalls[it]
-            callsToRemove.add(call)
-        }
+        val callsToRemove = getSelectedItems()
+        val positions = getSelectedItemPositions()
         ContactsHelper(activity).removeRecentCalls(callsToRemove.map { it.id } as ArrayList<Int>)
         recentCalls.removeAll(callsToRemove)
 
@@ -93,12 +88,15 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
             refreshListener?.refreshContacts(RECENTS_TAB_MASK)
             finishActMode()
         } else {
-            removeSelectedItems()
+            removeSelectedItems(positions)
         }
     }
 
+    private fun getSelectedItems() = recentCalls.filter { selectedKeys.contains(it.id) } as ArrayList<RecentCall>
+
     private fun setupView(view: View, recentCall: RecentCall) {
         view.apply {
+            recent_call_frame?.isSelected = selectedKeys.contains(recentCall.id)
             recent_call_name.apply {
                 text = recentCall.name ?: recentCall.number
                 setTextColor(textColor)

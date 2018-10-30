@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.content.ClipData
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -114,7 +115,7 @@ class EditContactActivity : ContactActivity() {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (resultCode == RESULT_OK) {
             when (requestCode) {
-                INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri)
+                INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri, resultData?.data)
                 INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString(), contact_photo)
             }
         }
@@ -260,15 +261,28 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
-    private fun startCropPhotoIntent(uri: Uri?) {
-        if (uri == null) {
+    private fun startCropPhotoIntent(primaryUri: Uri?, backupUri: Uri?) {
+        if (primaryUri == null) {
             toast(R.string.unknown_error_occurred)
             return
         }
 
+        var imageUri = primaryUri
+        var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, primaryUri)
+        if (bitmap == null) {
+            imageUri = backupUri
+            bitmap = MediaStore.Images.Media.getBitmap(contentResolver, backupUri) ?: return
+
+            // we might have received an URI which we have no permission to send further, so just copy the received image in a new uri (for example from Google Photos)
+            val newFile = getCachePhoto()
+            val fos = newFile.outputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            imageUri = getCachePhotoUri(newFile)
+        }
+
         lastPhotoIntentUri = getCachePhotoUri()
         Intent("com.android.camera.action.CROP").apply {
-            setDataAndType(uri, "image/*")
+            setDataAndType(imageUri, "image/*")
             putExtra(MediaStore.EXTRA_OUTPUT, lastPhotoIntentUri)
             putExtra("outputX", 720)
             putExtra("outputY", 720)
@@ -277,7 +291,7 @@ class EditContactActivity : ContactActivity() {
             putExtra("crop", "true")
             putExtra("scale", "true")
             putExtra("scaleUpIfNeeded", "true")
-            clipData = ClipData("Attachment", arrayOf("text/uri-list"), ClipData.Item(lastPhotoIntentUri))
+            clipData = ClipData("Attachment", arrayOf("text/primaryUri-list"), ClipData.Item(lastPhotoIntentUri))
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             if (resolveActivity(packageManager) != null) {
                 startActivityForResult(this, INTENT_CROP_PHOTO)

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.util.AttributeSet
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.hasPermission
-import com.simplemobiletools.commons.extensions.isActivityDestroyed
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CALL_LOG
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CALL_LOG
 import com.simplemobiletools.contacts.activities.EditContactActivity
@@ -33,7 +32,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     fun updateRecentCalls(recentCalls: ArrayList<RecentCall>) {
-        if (activity == null || activity!!.isActivityDestroyed()) {
+        if (activity == null || activity!!.isDestroyed) {
             return
         }
 

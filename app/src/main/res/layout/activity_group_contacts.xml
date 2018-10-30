@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/group_contacts_coordinator"
@@ -26,13 +26,13 @@
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/group_contacts_placeholder_2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/group_contacts_placeholder"
             android:layout_centerHorizontal="true"
+            android:background="?attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="@dimen/medium_margin"
-            android:paddingTop="@dimen/medium_margin"
+            android:padding="@dimen/activity_margin"
             android:text="@string/add_contacts"
             android:textSize="@dimen/bigger_text_size"
             android:visibility="gone"/>
@@ -51,8 +51,8 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:paddingLeft="@dimen/normal_margin"
-            android:paddingStart="@dimen/normal_margin">
+            android:paddingStart="@dimen/normal_margin"
+            android:paddingLeft="@dimen/normal_margin">
 
             <include layout="@layout/fastscroller_handle_vertical"/>
 
@@ -67,4 +67,4 @@
         android:layout_margin="@dimen/activity_margin"
         android:src="@drawable/ic_plus"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

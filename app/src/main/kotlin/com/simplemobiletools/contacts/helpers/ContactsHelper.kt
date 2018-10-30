@@ -43,15 +43,26 @@ class ContactsHelper(val activity: Activity) {
             }
 
             val contactsSize = contacts.size()
+            val showOnlyContactsWithNumbers = activity.config.showOnlyContactsWithNumbers
             var tempContacts = ArrayList<Contact>(contactsSize)
             val resultContacts = ArrayList<Contact>(contactsSize)
-            (0 until contactsSize).mapTo(tempContacts) { contacts.valueAt(it) }
+
+            (0 until contactsSize).filter {
+                if (showOnlyContactsWithNumbers) {
+                    contacts.valueAt(it).phoneNumbers.isNotEmpty()
+                } else {
+                    true
+                }
+            }.mapTo(tempContacts) {
+                contacts.valueAt(it)
+            }
+
             if (activity.config.filterDuplicates) {
                 tempContacts = tempContacts.distinctBy {
                     it.getHashToCompare()
                 } as ArrayList<Contact>
 
-                tempContacts.groupBy { "${it.getFullName().toLowerCase()}${it.emails}" }.values.forEach {
+                tempContacts.groupBy { "${it.getNameToDisplay().toLowerCase()}${it.emails}" }.values.forEach {
                     if (it.size == 1) {
                         resultContacts.add(it.first())
                     } else {
@@ -819,6 +830,9 @@ class ContactsHelper(val activity: Activity) {
         accounts.forEach {
             if (ContentResolver.getIsSyncable(it, ContactsContract.AUTHORITY) == 1) {
                 val contactSource = ContactSource(it.name, it.type)
+                if (it.type == TELEGRAM_PACKAGE) {
+                    contactSource.name += " (${activity.getString(R.string.telegram)})"
+                }
                 sources.add(contactSource)
             }
         }
@@ -1207,6 +1221,7 @@ class ContactsHelper(val activity: Activity) {
             ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI).apply {
                 withValue(ContactsContract.RawContacts.ACCOUNT_NAME, contact.source)
                 withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, getContactSourceType(contact.source))
+                withValue(ContactsContract.RawContacts.DIRTY, false)
                 operations.add(build())
             }
 
@@ -1298,7 +1313,7 @@ class ContactsHelper(val activity: Activity) {
             }
 
             // organization
-            if (!contact.organization.isEmpty()) {
+            if (contact.organization.isNotEmpty()) {
                 ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
                     withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
@@ -1533,6 +1548,7 @@ class ContactsHelper(val activity: Activity) {
             val todayDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(currentDate)
             val yesterdayDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(System.currentTimeMillis() - DAY_SECONDS * 1000))
             val yesterday = activity.getString(R.string.yesterday)
+            val timeFormat = if (activity.config.use24HourFormat) "HH:mm" else "h:mm a"
             var prevNumber = ""
 
             var cursor: Cursor? = null
@@ -1548,7 +1564,7 @@ class ContactsHelper(val activity: Activity) {
                             continue
                         }
 
-                        var formattedDate = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault()).format(Date(date))
+                        var formattedDate = SimpleDateFormat("dd MMM yyyy, $timeFormat", Locale.getDefault()).format(Date(date))
                         val datePart = formattedDate.substring(0, 11)
                         when {
                             datePart == todayDate -> formattedDate = formattedDate.substring(12)

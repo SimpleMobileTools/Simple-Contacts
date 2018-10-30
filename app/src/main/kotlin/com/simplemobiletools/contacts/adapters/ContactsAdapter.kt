@@ -12,7 +12,10 @@ import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
+import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
+import com.simplemobiletools.commons.extensions.highlightTextPart
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -33,6 +36,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private lateinit var contactDrawable: Drawable
+    private lateinit var businessContactDrawable: Drawable
     private var config = activity.config
     private var textToHighlight = highlightText
 
@@ -72,14 +76,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         }
     }
 
-    override fun prepareItemSelection(viewHolder: ViewHolder) {}
-
-    override fun markViewHolderSelection(select: Boolean, viewHolder: ViewHolder?) {
-        viewHolder?.itemView?.contact_frame?.isSelected = select
-    }
-
     override fun actionItemPressed(id: Int) {
-        if (selectedPositions.isEmpty()) {
+        if (selectedKeys.isEmpty()) {
             return
         }
 
@@ -100,6 +98,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun getIsItemSelectable(position: Int) = true
 
+    override fun getItemSelectionKey(position: Int) = contactItems.getOrNull(position)?.id
+
+    override fun getItemKeyPosition(key: Int) = contactItems.indexOfFirst { it.id == key }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
         return createViewHolder(layout, parent)
@@ -108,16 +110,19 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val contact = contactItems[position]
         val allowLongClick = location != LOCATION_INSERT_OR_EDIT
-        val view = holder.bindView(contact, true, allowLongClick) { itemView, layoutPosition ->
+        holder.bindView(contact, true, allowLongClick) { itemView, layoutPosition ->
             setupView(itemView, contact)
         }
-        bindViewHolder(holder, position, view)
+        bindViewHolder(holder)
     }
 
     override fun getItemCount() = contactItems.size
 
+    private fun getItemWithKey(key: Int): Contact? = contactItems.firstOrNull { it.id == key }
+
     fun initDrawables() {
         contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person, textColor)
+        businessContactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_business, textColor)
     }
 
     fun updateItems(newItems: ArrayList<Contact>, highlightText: String = "") {
@@ -134,7 +139,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     }
 
     private fun editContact() {
-        activity.editContact(contactItems[selectedPositions.first()])
+        val contact = getItemWithKey(selectedKeys.first()) ?: return
+        activity.editContact(contact)
     }
 
     private fun askConfirmDelete() {
@@ -144,17 +150,12 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     }
 
     private fun deleteContacts() {
-        if (selectedPositions.isEmpty()) {
+        if (selectedKeys.isEmpty()) {
             return
         }
 
-        val contactsToRemove = ArrayList<Contact>()
-        selectedPositions.sortedDescending().forEach {
-            val contact = contactItems.getOrNull(it)
-            if (contact != null) {
-                contactsToRemove.add(contact)
-            }
-        }
+        val contactsToRemove = getSelectedItems()
+        val positions = getSelectedItemPositions()
         contactItems.removeAll(contactsToRemove)
 
         ContactsHelper(activity).deleteContacts(contactsToRemove)
@@ -162,16 +163,15 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             refreshListener?.refreshContacts(ALL_TABS_MASK)
             finishActMode()
         } else {
-            removeSelectedItems()
+            removeSelectedItems(positions)
             refreshListener?.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
         }
     }
 
+    // used for removing contacts from groups or favorites, not deleting actual contacts
     private fun removeContacts() {
-        val contactsToRemove = ArrayList<Contact>()
-        selectedPositions.sortedDescending().forEach {
-            contactsToRemove.add(contactItems[it])
-        }
+        val contactsToRemove = getSelectedItems()
+        val positions = getSelectedItemPositions()
         contactItems.removeAll(contactsToRemove)
 
         if (location == LOCATION_FAVORITES_TAB) {
@@ -180,22 +180,22 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                 refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
                 finishActMode()
             } else {
-                removeSelectedItems()
+                removeSelectedItems(positions)
             }
         } else if (location == LOCATION_GROUP_CONTACTS) {
             removeListener?.removeFromGroup(contactsToRemove)
-            removeSelectedItems()
+            removeSelectedItems(positions)
         }
     }
 
     private fun addToFavorites() {
-        ContactsHelper(activity).addFavorites(getSelectedContacts())
+        ContactsHelper(activity).addFavorites(getSelectedItems())
         refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
         finishActMode()
     }
 
     private fun addToGroup() {
-        val selectedContacts = getSelectedContacts()
+        val selectedContacts = getSelectedItems()
         val NEW_GROUP_ID = -1
         val items = ArrayList<RadioItem>()
         ContactsHelper(activity).getStoredGroups().forEach {
@@ -223,41 +223,30 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     }
 
     private fun shareContacts() {
-        val contactsIDs = ArrayList<Int>()
-        selectedPositions.forEach {
-            contactsIDs.add(contactItems[it].id)
-        }
-
-        val filtered = contactItems.filter { contactsIDs.contains(it.id) } as ArrayList<Contact>
-        activity.shareContacts(filtered)
+        activity.shareContacts(getSelectedItems())
     }
 
     private fun sendSMSToContacts() {
-        activity.sendSMSToContacts(getSelectedContacts())
+        activity.sendSMSToContacts(getSelectedItems())
     }
 
     private fun sendEmailToContacts() {
-        activity.sendEmailToContacts(getSelectedContacts())
+        activity.sendEmailToContacts(getSelectedItems())
     }
 
-    private fun getSelectedContacts(): ArrayList<Contact> {
-        val contacts = ArrayList<Contact>()
-        selectedPositions.forEach {
-            contacts.add(contactItems[it])
-        }
-        return contacts
-    }
+    private fun getSelectedItems() = contactItems.filter { selectedKeys.contains(it.id) } as ArrayList<Contact>
 
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
-        if (!activity.isActivityDestroyed()) {
-            Glide.with(activity).clear(holder.itemView?.contact_tmb!!)
+        if (!activity.isDestroyed) {
+            Glide.with(activity).clear(holder.itemView.contact_tmb)
         }
     }
 
     private fun setupView(view: View, contact: Contact) {
         view.apply {
-            val fullName = contact.getFullName()
+            contact_frame?.isSelected = selectedKeys.contains(contact.id)
+            val fullName = contact.getNameToDisplay()
             contact_name.text = if (textToHighlight.isEmpty()) fullName else fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
             contact_name.setTextColor(textColor)
             contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
@@ -278,12 +267,13 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             contact_tmb.beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {
+                val placeholderImage = if (contact.isABusinessContact()) businessContactDrawable else contactDrawable
                 when {
                     contact.photoUri.isNotEmpty() -> {
                         val options = RequestOptions()
                                 .signature(ObjectKey(contact.photoUri))
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .error(contactDrawable)
+                                .error(placeholderImage)
                                 .centerCrop()
 
                         Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
@@ -292,12 +282,12 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                         val options = RequestOptions()
                                 .signature(ObjectKey(contact.photo!!))
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .error(contactDrawable)
+                                .error(placeholderImage)
                                 .centerCrop()
 
                         Glide.with(activity).load(contact.photo).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
                     }
-                    else -> contact_tmb.setImageDrawable(contactDrawable)
+                    else -> contact_tmb.setImageDrawable(placeholderImage)
                 }
             }
         }

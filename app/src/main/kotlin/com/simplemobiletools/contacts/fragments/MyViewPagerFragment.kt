@@ -2,9 +2,9 @@ package com.simplemobiletools.contacts.fragments
 
 import android.content.Context
 import android.content.Intent
-import android.support.design.widget.CoordinatorLayout
 import android.util.AttributeSet
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
@@ -88,7 +88,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
         if (this !is GroupsFragment && this !is RecentsFragment) {
-            (fragment_list.adapter as ContactsAdapter).apply {
+            (fragment_list.adapter as? ContactsAdapter)?.apply {
                 config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
                 this@MyViewPagerFragment.activity!!.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
             }
@@ -104,7 +104,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
 
         if (config.lastUsedContactSource.isEmpty()) {
-            val grouped = contacts.groupBy { it.source }.maxWith(compareBy { it.value.size })
+            val grouped = contacts.asSequence().groupBy { it.source }.maxWith(compareBy { it.value.size })
             config.lastUsedContactSource = grouped?.key ?: ""
         }
 
@@ -154,7 +154,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
         }
 
-        storedGroups = storedGroups.sortedWith(compareBy { it.title }).toMutableList() as ArrayList<Group>
+        storedGroups = storedGroups.asSequence().sortedWith(compareBy { it.title.normalizeString() }).toMutableList() as ArrayList<Group>
 
         fragment_placeholder_2.beVisibleIf(storedGroups.isEmpty())
         fragment_placeholder.beVisibleIf(storedGroups.isEmpty())
@@ -239,7 +239,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         val shouldNormalize = text.normalizeString() == text
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             val filtered = contactsIgnoringSearch.filter {
-                getProperText(it.getFullName(), shouldNormalize).contains(text, true) ||
+                getProperText(it.getNameToDisplay(), shouldNormalize).contains(text, true) ||
                         getProperText(it.nickname, shouldNormalize).contains(text, true) ||
                         it.doesContainPhoneNumber(text) ||
                         it.emails.any { it.value.contains(text, true) } ||
@@ -254,7 +254,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             Contact.sorting = config.sorting
             Contact.startWithSurname = config.startNameWithSurname
             filtered.sort()
-            filtered.sortBy { !getProperText(it.getFullName(), shouldNormalize).startsWith(text, true) }
+            filtered.sortBy { !getProperText(it.getNameToDisplay(), shouldNormalize).startsWith(text, true) }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
                 fragment_placeholder.text = activity.getString(R.string.no_items_found)

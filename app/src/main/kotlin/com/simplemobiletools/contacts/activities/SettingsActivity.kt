@@ -35,7 +35,9 @@ class SettingsActivity : SimpleActivity() {
         setupShowInfoBubble()
         setupShowContactThumbnails()
         setupShowPhoneNumbers()
+        setupShowContactsWithNumbers()
         setupStartNameWithSurname()
+        setupUse24HourTimeFormat()
         setupFilterDuplicates()
         setupShowCallConfirmation()
         setupOnContactClick()
@@ -109,11 +111,27 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
+    private fun setupShowContactsWithNumbers() {
+        settings_show_only_contacts_with_numbers.isChecked = config.showOnlyContactsWithNumbers
+        settings_show_only_contacts_with_numbers_holder.setOnClickListener {
+            settings_show_only_contacts_with_numbers.toggle()
+            config.showOnlyContactsWithNumbers = settings_show_only_contacts_with_numbers.isChecked
+        }
+    }
+
     private fun setupStartNameWithSurname() {
         settings_start_with_surname.isChecked = config.startNameWithSurname
         settings_start_with_surname_holder.setOnClickListener {
             settings_start_with_surname.toggle()
             config.startNameWithSurname = settings_start_with_surname.isChecked
+        }
+    }
+
+    private fun setupUse24HourTimeFormat() {
+        settings_use_24_hour_time_format.isChecked = config.use24HourFormat
+        settings_use_24_hour_time_format_holder.setOnClickListener {
+            settings_use_24_hour_time_format.toggle()
+            config.use24HourFormat = settings_use_24_hour_time_format.isChecked
         }
     }
 

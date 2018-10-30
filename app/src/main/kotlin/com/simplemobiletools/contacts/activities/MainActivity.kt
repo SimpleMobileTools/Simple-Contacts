@@ -9,11 +9,11 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.view.MenuItemCompat
-import android.support.v4.view.ViewPager
-import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
+import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
@@ -27,7 +27,6 @@ import com.simplemobiletools.contacts.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.extensions.config
-import com.simplemobiletools.contacts.extensions.dbHelper
 import com.simplemobiletools.contacts.extensions.getTempFile
 import com.simplemobiletools.contacts.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.helpers.*
@@ -62,9 +61,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
         setupTabColors()
-
-        // just get a reference to the database to make sure it is created properly
-        dbHelper
 
         handlePermission(PERMISSION_READ_CALL_LOG) {
             if (it) {
@@ -308,10 +304,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(0, 1, 2, 3).filter { it != activeIndex }
+    private fun getInactiveTabIndexes(activeIndex: Int) = (0 until tabsList.size).filter { it != activeIndex }
 
     private fun initFragments() {
-        viewpager.offscreenPageLimit = 3
+        viewpager.offscreenPageLimit = tabsList.size - 1
         viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
@@ -320,8 +316,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 }
             }
 
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
                 main_tabs_holder.getTabAt(position)?.select()
@@ -373,7 +368,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }, 100L)
         }
 
-        main_tabs_holder.beVisibleIf(skippedTabs < 3)
+        main_tabs_holder.beVisibleIf(skippedTabs < tabsList.size - 1)
 
         main_dialpad_button.setOnClickListener {
             val intent = Intent(applicationContext, DialpadActivity::class.java)
@@ -401,7 +396,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
             contacts_fragment?.forceListRedraw = true
-            refreshContacts(CONTACTS_TAB_MASK)
+            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
         }
     }
 
@@ -484,7 +479,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchAbout() {
-        val licenses = LICENSE_MULTISELECT or LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_STETHO
+        val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_STETHO
 
         val faqItems = arrayListOf(
                 FAQItem(R.string.faq_1_title, R.string.faq_1_text),
@@ -495,9 +490,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     override fun refreshContacts(refreshTabsMask: Int) {
-        if (isActivityDestroyed() || isGettingContacts) {
+        if (isDestroyed || isGettingContacts) {
             return
         }
+
         isGettingContacts = true
 
         if (viewpager.adapter == null) {
@@ -507,7 +503,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         ContactsHelper(this).getContacts {
             isGettingContacts = false
-            if (isActivityDestroyed()) {
+            if (isDestroyed) {
                 return@getContacts
             }
 
@@ -551,6 +547,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             add(Release(29, R.string.release_29))
             add(Release(31, R.string.release_31))
             add(Release(32, R.string.release_32))
+            add(Release(34, R.string.release_34))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }

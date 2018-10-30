@@ -41,14 +41,8 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
         }
     }
 
-    override fun prepareItemSelection(viewHolder: ViewHolder) {}
-
-    override fun markViewHolderSelection(select: Boolean, viewHolder: ViewHolder?) {
-        viewHolder?.itemView?.group_frame?.isSelected = select
-    }
-
     override fun actionItemPressed(id: Int) {
-        if (selectedPositions.isEmpty()) {
+        if (selectedKeys.isEmpty()) {
             return
         }
 
@@ -63,17 +57,23 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     override fun getIsItemSelectable(position: Int) = true
 
+    override fun getItemSelectionKey(position: Int) = groups.getOrNull(position)?.id?.toInt()
+
+    override fun getItemKeyPosition(key: Int) = groups.indexOfFirst { it.id.toInt() == key }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.item_group, parent)
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val group = groups[position]
-        val view = holder.bindView(group, true, true) { itemView, layoutPosition ->
+        holder.bindView(group, true, true) { itemView, layoutPosition ->
             setupView(itemView, group)
         }
-        bindViewHolder(holder, position, view)
+        bindViewHolder(holder)
     }
 
     override fun getItemCount() = groups.size
+
+    private fun getItemWithKey(key: Int): Group? = groups.firstOrNull { it.id.toInt() == key }
 
     fun updateItems(newItems: ArrayList<Group>) {
         groups = newItems
@@ -83,7 +83,8 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
     }
 
     private fun renameGroup() {
-        RenameGroupDialog(activity, groups[selectedPositions.first()]) {
+        val group = getItemWithKey(selectedKeys.first()) ?: return
+        RenameGroupDialog(activity, group) {
             finishActMode()
             refreshListener?.refreshContacts(GROUPS_TAB_MASK)
         }
@@ -96,18 +97,17 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
     }
 
     private fun deleteGroups() {
-        if (selectedPositions.isEmpty()) {
+        if (selectedKeys.isEmpty()) {
             return
         }
 
-        val groupsToRemove = ArrayList<Group>()
-        selectedPositions.sortedDescending().forEach {
-            val group = groups[it]
-            groupsToRemove.add(group)
-            if (group.isPrivateSecretGroup()) {
-                activity.dbHelper.deleteGroup(group.id)
+        val groupsToRemove = groups.filter { selectedKeys.contains(it.id.toInt()) } as ArrayList<Group>
+        val positions = getSelectedItemPositions()
+        groupsToRemove.forEach {
+            if (it.isPrivateSecretGroup()) {
+                activity.dbHelper.deleteGroup(it.id)
             } else {
-                ContactsHelper(activity).deleteGroup(group.id)
+                ContactsHelper(activity).deleteGroup(it.id)
             }
         }
         groups.removeAll(groupsToRemove)
@@ -116,12 +116,13 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
             refreshListener?.refreshContacts(GROUPS_TAB_MASK)
             finishActMode()
         } else {
-            removeSelectedItems()
+            removeSelectedItems(positions)
         }
     }
 
     private fun setupView(view: View, group: Group) {
         view.apply {
+            group_frame?.isSelected = selectedKeys.contains(group.id.toInt())
             group_name.apply {
                 setTextColor(textColor)
                 text = String.format(activity.getString(R.string.groups_placeholder), group.title, group.contactsCount.toString())

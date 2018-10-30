@@ -1,8 +1,8 @@
 package com.simplemobiletools.contacts.adapters
 
-import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.PagerAdapter
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.MainActivity
 import com.simplemobiletools.contacts.extensions.config

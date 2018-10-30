@@ -15,8 +15,13 @@
     <string name="send_email_to_group">Skicka e-post till grupp</string>
     <string name="call_person">Ring %s</string>
     <string name="request_the_required_permissions">Begär de behörigheter som krävs</string>
-    <string name="create_new_contact">Create new contact</string>
-    <string name="add_to_existing_contact">Add to an existing contact</string>
+    <string name="create_new_contact">Skapa ny kontakt</string>
+    <string name="add_to_existing_contact">Lägg till i en befintlig kontakt</string>
+
+    <!-- Placeholders -->
+    <string name="no_contacts_found">Inga kontakter hittades</string>
+    <string name="no_contacts_with_emails">Inga kontakter med e-postadresser hittades</string>
+    <string name="no_contacts_with_phone_numbers">Inga kontakter med telefonnummer hittades</string>
 
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>
@@ -57,6 +62,7 @@
     <string name="favorites">Favoriter</string>
     <string name="recent_calls">Senaste samtal</string>
     <string name="show_call_confirmation_dialog">Visa en bekräftelsedialogruta före uppringning</string>
+    <string name="show_only_contacts_with_numbers">Visa bara kontakter med telefonnummer</string>
 
     <!-- Emails -->
     <string name="email">E-post</string>
@@ -98,8 +104,8 @@
     <string name="filename_without_vcf">Filnamn (utan .vcf)</string>
 
     <!-- Dialpad -->
-    <string name="dialpad">Dialpad</string>
-    <string name="add_number_to_contact">Add number to contact</string>
+    <string name="dialpad">Knappsats</string>
+    <string name="add_number_to_contact">Lägg till nummer i kontakt</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Välj vilka fält som ska visas</string>
@@ -114,7 +120,7 @@
     <string name="websites">Webbplatser</string>
     <string name="groups">Grupper</string>
     <string name="contact_source">Kontaktkälla</string>
-    <string name="instant_messaging">Instant messaging (IM)</string>
+    <string name="instant_messaging">Snabbmeddelanden (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>

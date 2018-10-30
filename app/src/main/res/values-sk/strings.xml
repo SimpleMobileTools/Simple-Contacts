@@ -18,6 +18,11 @@
     <string name="create_new_contact">Vytvoriť nový kontakt</string>
     <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
 
+    <!-- Placeholders -->
+    <string name="no_contacts_found">Nenašli sa žiadne kontakty</string>
+    <string name="no_contacts_with_emails">Nenašli sa žiadne kontakty s emailami</string>
+    <string name="no_contacts_with_phone_numbers">Nenašli sa žiadne kontakty s telefónnymi číslami</string>
+
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
     <string name="select_contact">Zvoľte kontakt</string>
@@ -57,6 +62,7 @@
     <string name="favorites">Obľúbené</string>
     <string name="recent_calls">Predošlé hovory</string>
     <string name="show_call_confirmation_dialog">Zobraziť pred spustením hovoru okno na jeho potvrdenie</string>
+    <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
 
     <!-- Emails -->
     <string name="email">Email</string>

@@ -5,6 +5,7 @@ import android.provider.ContactsContract.CommonDataKinds
 // shared prefs
 const val SHOW_CONTACT_THUMBNAILS = "show_contact_thumbnails"
 const val SHOW_PHONE_NUMBERS = "show_phone_numbers"
+const val SHOW_ONLY_CONTACTS_WITH_NUMBERS = "show_only_contacts_with_numbers"
 const val IGNORED_CONTACT_SOURCES = "ignored_contact_sources"
 const val START_NAME_WITH_SURNAME = "start_name_with_surname"
 const val LAST_USED_CONTACT_SOURCE = "last_used_contact_source"
@@ -113,3 +114,8 @@ val localAccountTypes = arrayListOf("vnd.sec.contact.phone",
         "com.android.huawei.phone",
         "Local Phone Account"
 )
+
+// apps with special handling
+const val TELEGRAM_PACKAGE = "org.telegram.messenger"
+const val SIGNAL_PACKAGE = "org.thoughtcrime.securesms"
+const val WHATSAPP_PACKAGE = "com.whatsapp"

@@ -15,8 +15,13 @@
     <string name="send_email_to_group">Αποστολή email σε ομάδες</string>
     <string name="call_person">Κλήση %s</string>
     <string name="request_the_required_permissions">Ζητούνται τα απαιτούμενα δικαιώματα</string>
-    <string name="create_new_contact">Create new contact</string>
-    <string name="add_to_existing_contact">Add to an existing contact</string>
+    <string name="create_new_contact">Δημιουργία νέας Επαφής</string>
+    <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
+
+    <!-- Placeholders -->
+    <string name="no_contacts_found">No contacts found</string>
+    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
+    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
 
     <string name="new_contact">Νέα επαφή</string>
     <string name="edit_contact">Επεξεργασία επαφής</string>
@@ -57,6 +62,7 @@
     <string name="favorites">Αγαπημένες</string>
     <string name="recent_calls">Πρόσφατες Κλήσεις</string>
     <string name="show_call_confirmation_dialog">Εμφάνιση διαλόγου επιβεβαίωσης πριν από την έναρξη μιας κλήσης</string>
+    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
@@ -98,8 +104,8 @@
     <string name="filename_without_vcf">Όνομα αρχείου (χωρίς .vcf)</string>
 
     <!-- Dialpad -->
-    <string name="dialpad">Dialpad</string>
-    <string name="add_number_to_contact">Add number to contact</string>
+    <string name="dialpad">Πληκτρολόγιο</string>
+    <string name="add_number_to_contact">Προσθήκη αριθμού σε επαφή</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Επιλογή εμφάνισης πεδίων</string>
@@ -114,7 +120,7 @@
     <string name="websites">Ιστοσελίδα</string>
     <string name="groups">Ομάδες</string>
     <string name="contact_source">Προέλευση επαφής</string>
-    <string name="instant_messaging">Instant messaging (IM)</string>
+    <string name="instant_messaging">Αμεσο μήνυμα (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Θέλω να αλλάξω τα πεδία που θα είναι ορατά στις επαφές. Μπορώ να το κάνω?</string>

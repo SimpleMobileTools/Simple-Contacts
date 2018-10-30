@@ -1,6 +1,24 @@
 Changelog
 ==========
 
+Version 5.1.0 *(2018-10-28)*
+----------------------------
+
+ * Added an option for toggling 24 hour time format
+ * Added an option to show only contacts with phone numbers
+ * Do not allow creating contacts under WhatsApp contact source
+ * Try fixing the issue with disappearing contacts under some circumstances
+ * Fix some bugs related to selecting contact photo from the device storage
+ * Show the contact email at the list, if name and organization are empty
+ * Properly sort groups containing UTF-8 characters at title
+ * Use a different placeholder image for business contacts
+
+Version 5.0.0 *(2018-10-15)*
+----------------------------
+
+ * Increased the minimal required Android OS version to 5
+ * Try fixing the issue with disappearing fresh contacts
+
 Version 4.5.0 *(2018-09-28)*
 ----------------------------
 

@@ -1,6 +1,6 @@
 package com.simplemobiletools.contacts.dialogs
 
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.contacts.R
 import com.simplemobiletools.contacts.activities.SimpleActivity
@@ -24,13 +24,13 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
                 return@getContactSources
             }
 
-            it.mapTo(contactSources, { it.copy() })
+            it.mapTo(contactSources) { it.copy() }
             val selectedSources = activity.getVisibleContactSources()
             activity.runOnUiThread {
                 view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, it, selectedSources)
 
                 dialog = AlertDialog.Builder(activity)
-                        .setPositiveButton(R.string.ok, { dialogInterface, i -> confirmEventTypes() })
+                        .setPositiveButton(R.string.ok) { dialogInterface, i -> confirmEventTypes() }
                         .setNegativeButton(R.string.cancel, null)
                         .create().apply {
                             activity.setupDialogStuff(view, this)
@@ -40,21 +40,13 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
     }
 
     private fun confirmEventTypes() {
-        val selectedIndexes = (view.filter_contact_sources_list.adapter as FilterContactSourcesAdapter).getSelectedItemsSet()
-        val ignoredIndexes = ArrayList<Int>()
-        for (i in 0 until contactSources.size) {
-            if (!selectedIndexes.contains(i)) {
-                ignoredIndexes.add(i)
-            }
-        }
+        val selectedContactSources = (view.filter_contact_sources_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
+        val ignoredContactSourceNames = contactSources.filter { !selectedContactSources.contains(it) }.map {
+            if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name
+        }.toHashSet()
 
-        val ignoredContactSources = HashSet<String>()
-        ignoredIndexes.forEach {
-            ignoredContactSources.add(if (contactSources[it].type == SMT_PRIVATE) SMT_PRIVATE else contactSources[it].name)
-        }
-
-        if (activity.getVisibleContactSources() != ignoredContactSources) {
-            activity.config.ignoredContactSources = ignoredContactSources
+        if (activity.getVisibleContactSources() != ignoredContactSourceNames) {
+            activity.config.ignoredContactSources = ignoredContactSourceNames
             callback()
         }
         dialog?.dismiss()

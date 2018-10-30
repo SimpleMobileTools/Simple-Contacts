@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/call_confirm_phone"
-        style="@style/MyBorderlessBackgroundStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/activity_margin"
         android:src="@drawable/ic_phone_big"/>
 

@@ -122,7 +122,7 @@ class VcfExporter {
                         card.addNote(contact.notes)
                     }
 
-                    if (!contact.organization.isEmpty()) {
+                    if (contact.organization.isNotEmpty()) {
                         val organization = Organization()
                         organization.values.add(contact.organization.company)
                         card.organization = organization

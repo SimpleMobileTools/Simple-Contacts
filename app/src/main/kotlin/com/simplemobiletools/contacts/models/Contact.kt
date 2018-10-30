@@ -37,12 +37,22 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
             }
         }
 
-        if (firstString.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && organization.company.isNotEmpty()) {
-            firstString = organization.company.normalizeString()
+        if (firstString.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty()) {
+            val fullCompany = getFullCompany()
+            if (fullCompany.isNotEmpty()) {
+                firstString = fullCompany.normalizeString()
+            } else if (emails.isNotEmpty()) {
+                firstString = emails.first().value
+            }
         }
 
-        if (secondString.isEmpty() && other.firstName.isEmpty() && other.middleName.isEmpty() && other.surname.isEmpty() && other.organization.company.isNotEmpty()) {
-            secondString = other.organization.company.normalizeString()
+        if (secondString.isEmpty() && other.firstName.isEmpty() && other.middleName.isEmpty() && other.surname.isEmpty()) {
+            val otherFullCompany = other.getFullCompany()
+            if (otherFullCompany.isNotEmpty()) {
+                secondString = otherFullCompany.normalizeString()
+            } else if (other.emails.isNotEmpty()) {
+                secondString = other.emails.first().value
+            }
         }
 
         var result = if (firstString.firstOrNull()?.isLetter() == true && secondString.firstOrNull()?.isLetter() == false) {
@@ -56,7 +66,7 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
                 -1
             } else {
                 if (firstString.toLowerCase() == secondString.toLowerCase()) {
-                    getFullName().compareTo(other.getFullName(), true)
+                    getNameToDisplay().compareTo(other.getNameToDisplay(), true)
                 } else {
                     firstString.compareTo(secondString, true)
                 }
@@ -76,7 +86,7 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
         else -> surname
     }
 
-    fun getFullName(): String {
+    fun getNameToDisplay(): String {
         var firstPart = if (startWithSurname) surname else firstName
         if (middleName.isNotEmpty()) {
             firstPart += " $middleName"
@@ -86,9 +96,11 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
         val suffixComma = if (suffix.isEmpty()) "" else ", $suffix"
         val fullName = "$prefix $firstPart $lastPart$suffixComma".trim()
         return if (fullName.isEmpty()) {
-            var fullOrganization = if (organization.jobPosition.isEmpty()) "" else "${organization.jobPosition}, "
-            fullOrganization += organization.company
-            fullOrganization.trim().trimEnd(',')
+            if (organization.isNotEmpty()) {
+                getFullCompany()
+            } else {
+                emails.firstOrNull()?.value?.trim() ?: ""
+            }
         } else {
             fullName
         }
@@ -98,13 +110,21 @@ data class Contact(val id: Int, var prefix: String, var firstName: String, var m
         val newEmails = ArrayList<Email>()
         emails.mapTo(newEmails) { Email(it.value, 0, "") }
 
-        return copy(id = 0, prefix = "", firstName = getFullName().toLowerCase(), middleName = "", surname = "", suffix = "", nickname = "", photoUri = "",
+        return copy(id = 0, prefix = "", firstName = getNameToDisplay().toLowerCase(), middleName = "", surname = "", suffix = "", nickname = "", photoUri = "",
                 phoneNumbers = ArrayList(), events = ArrayList(), addresses = ArrayList(), emails = newEmails, source = "", starred = 0,
                 contactId = 0, thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", ""),
                 IMs = ArrayList()).toString()
     }
 
     fun getHashToCompare() = getStringToCompare().hashCode()
+
+    fun getFullCompany(): String {
+        var fullOrganization = if (organization.company.isEmpty()) "" else "${organization.company}, "
+        fullOrganization += organization.jobPosition
+        return fullOrganization.trim().trimEnd(',')
+    }
+
+    fun isABusinessContact() = prefix.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && suffix.isEmpty() && organization.isNotEmpty()
 
     // do a more advanced phone number check here, compare numbers and and search query with dashes, spaces and everything but numbers removed
     fun doesContainPhoneNumber(text: String): Boolean {
