@@ -13,15 +13,15 @@
     <string name="send_email_to_contacts">Kişilere e-posta gönder</string>
     <string name="send_sms_to_group">Gruba SMS gönder</string>
     <string name="send_email_to_group">Gruba e-posta gönder</string>
-    <string name="call_person">Call %s</string>
-    <string name="request_the_required_permissions">Request the required permissions</string>
-    <string name="create_new_contact">Create new contact</string>
-    <string name="add_to_existing_contact">Add to an existing contact</string>
+    <string name="call_person">%s kişisini ara</string>
+    <string name="request_the_required_permissions">Gerekli izinleri iste</string>
+    <string name="create_new_contact">Yeni kişi oluştur</string>
+    <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">No contacts found</string>
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+    <string name="no_contacts_found">Kişi bulunamadı</string>
+    <string name="no_contacts_with_emails">E-posta ile hiç bağlantı bulunamadı</string>
+    <string name="no_contacts_with_phone_numbers">Telefon numaralarını içeren kişi bulunamadı</string>
 
     <string name="new_contact">Yeni kişi</string>
     <string name="edit_contact">Kişiyi düzenle</string>
@@ -30,7 +30,7 @@
     <string name="first_name">Adı</string>
     <string name="middle_name">Göbek adı</string>
     <string name="surname">Soyadı</string>
-    <string name="nickname">Nickname</string>
+    <string name="nickname">Takma adı</string>
 
     <!-- Groups -->
     <string name="no_groups">Grup yok</string>
@@ -57,12 +57,12 @@
     <string name="view_contact">Kişi bilgilerini göster</string>
     <string name="manage_shown_contact_fields">Görüntülenecek kişi alanlarını yönet</string>
     <string name="filter_duplicates">Çift kişileri filtrelemeyi dene</string>
-    <string name="manage_shown_tabs">Manage shown tabs</string>
-    <string name="contacts">Contacts</string>
-    <string name="favorites">Favorites</string>
-    <string name="recent_calls">Recent calls</string>
-    <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
-    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
+    <string name="manage_shown_tabs">Gösterilen sekmeleri yönet</string>
+    <string name="contacts">Kişiler</string>
+    <string name="favorites">Favoriler</string>
+    <string name="recent_calls">Son aramalar</string>
+    <string name="show_call_confirmation_dialog">Arama başlatmadan önce arama onayı penceresi göster</string>
+    <string name="show_only_contacts_with_numbers">Sadece telefon numaralarını içeren kişileri göster</string>
 
     <!-- Emails -->
     <string name="email">E-posta</string>
@@ -104,8 +104,8 @@
     <string name="filename_without_vcf">Dosya adı (.vcf olmadan)</string>
 
     <!-- Dialpad -->
-    <string name="dialpad">Dialpad</string>
-    <string name="add_number_to_contact">Add number to contact</string>
+    <string name="dialpad">Tuş takımı</string>
+    <string name="add_number_to_contact">Kişiye numara ekle</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Görüntülenecek alanları seç</string>
@@ -120,7 +120,7 @@
     <string name="websites">Web siteleri</string>
     <string name="groups">Gruplar</string>
     <string name="contact_source">Kişi kaynağı</string>
-    <string name="instant_messaging">Instant messaging (IM)</string>
+    <string name="instant_messaging">Anlık mesajlaşma (IM)</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Rehberde görüntülenecek alanları değiştirmek istiyorum. Bunu yapabilir miyim?</string>
