@@ -478,7 +478,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchAbout() {
-        val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_STETHO
+        val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON
 
         val faqItems = arrayListOf(
                 FAQItem(R.string.faq_1_title, R.string.faq_1_text),

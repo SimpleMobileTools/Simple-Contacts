@@ -43,7 +43,6 @@ android {
 dependencies {
     implementation 'com.simplemobiletools:commons:5.3.11'
     implementation 'joda-time:joda-time:2.9.9'
-    implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.4'
 }
