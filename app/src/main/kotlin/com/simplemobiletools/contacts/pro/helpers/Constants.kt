@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.helpers
 
 import android.provider.ContactsContract.CommonDataKinds
+import com.simplemobiletools.contacts.pro.models.LocalContact
 
 // shared prefs
 const val SHOW_CONTACT_THUMBNAILS = "show_contact_thumbnails"
@@ -119,3 +120,5 @@ val localAccountTypes = arrayListOf("vnd.sec.contact.phone",
 const val TELEGRAM_PACKAGE = "org.telegram.messenger"
 const val SIGNAL_PACKAGE = "org.thoughtcrime.securesms"
 const val WHATSAPP_PACKAGE = "com.whatsapp"
+
+fun getEmptyLocalContact() = LocalContact(0, "", "", "", "", "", "", null, "", "", "", false, "", "", "", "", "", "", "")

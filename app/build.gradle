@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -45,6 +46,10 @@ dependencies {
     implementation 'joda-time:joda-time:2.9.9'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.4'
+
+    kapt "androidx.room:room-compiler:2.0.0"
+    implementation "androidx.room:room-runtime:2.0.0"
+    annotationProcessor "androidx.room:room-compiler:2.0.0"
 }
 
 Properties props = new Properties()
