@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.simplemobiletools.contacts.pro.helpers.Converters
 import com.simplemobiletools.contacts.pro.helpers.getEmptyLocalContact
 import com.simplemobiletools.contacts.pro.interfaces.ContactsDao
 import com.simplemobiletools.contacts.pro.models.LocalContact
@@ -12,12 +14,13 @@ import com.simplemobiletools.contacts.pro.objects.MyExecutor
 import java.util.concurrent.Executors
 
 @Database(entities = [(LocalContact::class)], version = 1)
+@TypeConverters(Converters::class)
 abstract class ContactsDatabase : RoomDatabase() {
 
     abstract fun ContactsDao(): ContactsDao
 
     companion object {
-        private val FIRST_CONTACT_ID = 1000000L
+        private const val FIRST_CONTACT_ID = 1000000
 
         private var db: ContactsDatabase? = null
 

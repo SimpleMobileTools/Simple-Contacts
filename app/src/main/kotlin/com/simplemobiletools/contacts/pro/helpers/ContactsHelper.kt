@@ -1213,7 +1213,7 @@ class ContactsHelper(val activity: Activity) {
 
     fun insertContact(contact: Contact): Boolean {
         if (contact.source == SMT_PRIVATE) {
-            return insertLocalContact(contact)
+            return LocalContactsHelper(activity).insertContact(contact)
         }
 
         try {
@@ -1397,8 +1397,6 @@ class ContactsHelper(val activity: Activity) {
             return false
         }
     }
-
-    private fun insertLocalContact(contact: Contact) = activity.dbHelper.insertContact(contact)
 
     private fun addFullSizePhoto(contactId: Long, fullSizePhotoData: ByteArray) {
         val baseUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, contactId)
