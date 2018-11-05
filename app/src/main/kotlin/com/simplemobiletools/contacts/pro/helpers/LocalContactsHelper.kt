@@ -21,6 +21,13 @@ class LocalContactsHelper(val activity: Activity) {
         return activity.contactsDB.insertOrUpdate(localContact) > 0
     }
 
+    fun toggleFavorites(ids: Array<Int>, addToFavorites: Boolean) {
+        val isStarred = if (addToFavorites) 1 else 0
+        ids.forEach {
+            activity.contactsDB.updateStarred(isStarred, it)
+        }
+    }
+
     private fun getPhotoByteArray(uri: String): ByteArray {
         if (uri.isEmpty()) {
             return ByteArray(0)

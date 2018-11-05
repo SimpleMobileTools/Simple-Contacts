@@ -1446,17 +1446,21 @@ class ContactsHelper(val activity: Activity) {
     }
 
     fun addFavorites(contacts: ArrayList<Contact>) {
-        toggleLocalFavorites(contacts, true)
-        if (activity.hasContactPermissions()) {
-            toggleFavorites(contacts, true)
-        }
+        Thread {
+            toggleLocalFavorites(contacts, true)
+            if (activity.hasContactPermissions()) {
+                toggleFavorites(contacts, true)
+            }
+        }.start()
     }
 
     fun removeFavorites(contacts: ArrayList<Contact>) {
-        toggleLocalFavorites(contacts, false)
-        if (activity.hasContactPermissions()) {
-            toggleFavorites(contacts, false)
-        }
+        Thread {
+            toggleLocalFavorites(contacts, false)
+            if (activity.hasContactPermissions()) {
+                toggleFavorites(contacts, false)
+            }
+        }.start()
     }
 
     private fun toggleFavorites(contacts: ArrayList<Contact>, addToFavorites: Boolean) {
@@ -1481,8 +1485,8 @@ class ContactsHelper(val activity: Activity) {
     }
 
     private fun toggleLocalFavorites(contacts: ArrayList<Contact>, addToFavorites: Boolean) {
-        val localContacts = contacts.filter { it.source == SMT_PRIVATE }.map { it.id.toString() }.toTypedArray()
-        activity.dbHelper.toggleFavorites(localContacts, addToFavorites)
+        val localContacts = contacts.filter { it.source == SMT_PRIVATE }.map { it.id }.toTypedArray()
+        LocalContactsHelper(activity).toggleFavorites(localContacts, addToFavorites)
     }
 
     fun deleteContact(contact: Contact) {

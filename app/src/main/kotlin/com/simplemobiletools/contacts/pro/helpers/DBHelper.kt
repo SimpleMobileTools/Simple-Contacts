@@ -5,10 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
-import android.provider.MediaStore
 import android.text.TextUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -18,8 +15,6 @@ import com.simplemobiletools.commons.extensions.getLongValue
 import com.simplemobiletools.commons.extensions.getStringValue
 import com.simplemobiletools.contacts.pro.extensions.applyRegexFiltering
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.getByteArray
-import com.simplemobiletools.contacts.pro.extensions.getPhotoThumbnailSize
 import com.simplemobiletools.contacts.pro.models.*
 
 class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
@@ -96,15 +91,6 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         val args = TextUtils.join(", ", ids)
         val selection = "$CONTACTS_TABLE_NAME.$COL_ID IN ($args)"
         mDb.delete(CONTACTS_TABLE_NAME, selection, null)
-    }
-
-    fun toggleFavorites(ids: Array<String>, addToFavorites: Boolean) {
-        val contactValues = ContentValues()
-        contactValues.put(COL_STARRED, if (addToFavorites) 1 else 0)
-
-        val args = TextUtils.join(", ", ids)
-        val selection = "$COL_ID IN ($args)"
-        mDb.update(CONTACTS_TABLE_NAME, contactValues, selection, null)
     }
 
     fun insertGroup(group: Group): Group? {

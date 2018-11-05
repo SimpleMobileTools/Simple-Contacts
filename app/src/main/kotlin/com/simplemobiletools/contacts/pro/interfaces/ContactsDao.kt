@@ -14,6 +14,9 @@ interface ContactsDao {
     @Query("SELECT * FROM contacts WHERE id = :id")
     fun getContactWithId(id: Int): LocalContact
 
+    @Query("UPDATE contacts SET starred = :isStarred WHERE id = :id")
+    fun updateStarred(isStarred: Int, id: Int)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrUpdate(contact: LocalContact): Long
 
