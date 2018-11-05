@@ -16,10 +16,9 @@ class LocalContactsHelper(val activity: Activity) {
 
     fun getContactWithId(id: Int) = convertLocalContactToContact(activity.contactsDB.getContactWithId(id))
 
-    fun insertContact(contact: Contact): Boolean {
+    fun insertOrUpdateContact(contact: Contact): Boolean {
         val localContact = convertContactToLocalContact(contact)
-        activity.contactsDB.insertOrUpdate(localContact)
-        return true
+        return activity.contactsDB.insertOrUpdate(localContact) > 0
     }
 
     private fun getPhotoByteArray(uri: String): ByteArray {

@@ -15,7 +15,7 @@ interface ContactsDao {
     fun getContactWithId(id: Int): LocalContact
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrUpdate(contact: LocalContact)
+    fun insertOrUpdate(contact: LocalContact): Long
 
     @Query("DELETE FROM contacts WHERE id IN (:ids)")
     fun deleteContactIds(ids: String)

@@ -902,7 +902,7 @@ class ContactsHelper(val activity: Activity) {
     fun updateContact(contact: Contact, photoUpdateStatus: Int): Boolean {
         activity.toast(R.string.updating)
         if (contact.source == SMT_PRIVATE) {
-            return activity.dbHelper.updateContact(contact)
+            return LocalContactsHelper(activity).insertOrUpdateContact(contact)
         }
 
         try {
@@ -1213,7 +1213,7 @@ class ContactsHelper(val activity: Activity) {
 
     fun insertContact(contact: Contact): Boolean {
         if (contact.source == SMT_PRIVATE) {
-            return LocalContactsHelper(activity).insertContact(contact)
+            return LocalContactsHelper(activity).insertOrUpdateContact(contact)
         }
 
         try {
