@@ -1,10 +1,11 @@
 package com.simplemobiletools.contacts.pro.helpers
 
 import android.app.Activity
-import com.simplemobiletools.contacts.pro.extensions.applyRegexFiltering
-import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.contactsDB
-import com.simplemobiletools.contacts.pro.extensions.getEmptyContact
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.provider.MediaStore
+import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.LocalContact
 import com.simplemobiletools.contacts.pro.models.Organization
@@ -21,11 +22,36 @@ class LocalContactsHelper(val activity: Activity) {
         return true
     }
 
+    private fun getPhotoByteArray(uri: String): ByteArray {
+        if (uri.isEmpty()) {
+            return ByteArray(0)
+        }
+
+        val photoUri = Uri.parse(uri)
+        val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, photoUri)
+
+        val thumbnailSize = activity.getPhotoThumbnailSize()
+        val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize * 2, thumbnailSize * 2, false)
+        val scaledSizePhotoData = scaledPhoto.getByteArray()
+        scaledPhoto.recycle()
+        return scaledSizePhotoData
+    }
+
     private fun convertLocalContactToContact(localContact: LocalContact): Contact {
         val filterDuplicates = activity.config.filterDuplicates
         val filteredPhoneNumbers = ArrayList<PhoneNumber>()
         if (filterDuplicates) {
             localContact.phoneNumbers.mapTo(filteredPhoneNumbers) { PhoneNumber(it.value.applyRegexFiltering(), 0, "") }
+        }
+
+        val contactPhoto = if (localContact.photo == null) {
+            null
+        } else {
+            try {
+                BitmapFactory.decodeByteArray(localContact.photo, 0, localContact.photo!!.size)
+            } catch (e: OutOfMemoryError) {
+                null
+            }
         }
 
         return activity.getEmptyContact().apply {
@@ -45,6 +71,7 @@ class LocalContactsHelper(val activity: Activity) {
             starred = localContact.starred
             contactId = localContact.id!!
             thumbnailUri = ""
+            photo = contactPhoto
             notes = localContact.notes
             groups = localContact.groups
             organization = Organization(localContact.company, localContact.jobPosition)
@@ -63,6 +90,7 @@ class LocalContactsHelper(val activity: Activity) {
             surname = contact.surname
             suffix = contact.suffix
             nickname = contact.nickname
+            photo = getPhotoByteArray(contact.photoUri)
             phoneNumbers = contact.phoneNumbers
             emails = contact.emails
             events = contact.events
