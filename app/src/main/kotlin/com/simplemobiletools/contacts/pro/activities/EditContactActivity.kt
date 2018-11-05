@@ -140,20 +140,30 @@ class EditContactActivity : ContactActivity() {
         }
 
         if (contactId != 0) {
-            contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
-            if (contact == null) {
-                toast(R.string.unknown_error_occurred)
-                finish()
-                return
-            }
+            Thread {
+                contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
+                if (contact == null) {
+                    toast(R.string.unknown_error_occurred)
+                    finish()
+                } else {
+                    runOnUiThread {
+                        gotContact()
+                    }
+                }
+            }.start()
+        } else {
+            gotContact()
         }
+    }
 
+    private fun gotContact() {
         if (contact == null) {
             setupNewContact()
         } else {
             setupEditContact()
         }
 
+        val action = intent.action
         if ((contact!!.id == 0 && intent.extras != null && intent.extras.containsKey(KEY_PHONE) && action == Intent.ACTION_INSERT) || action == ADD_NEW_CONTACT_NUMBER) {
             val phone = intent.extras.get(KEY_PHONE)
             if (phone != null) {

@@ -98,21 +98,28 @@ class ViewContactActivity : ContactActivity() {
         }
 
         if (contactId != 0 && !wasLookupKeyUsed) {
-            contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
+            Thread {
+                contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
+                if (contact == null) {
+                    toast(R.string.unknown_error_occurred)
+                    finish()
+                } else {
+                    runOnUiThread {
+                        gotContact()
+                    }
+                }
+            }.start()
+        } else {
             if (contact == null) {
-                toast(R.string.unknown_error_occurred)
                 finish()
-                return
+            } else {
+                gotContact()
             }
         }
+    }
 
-        if (contact == null) {
-            finish()
-            return
-        }
-
+    private fun gotContact() {
         setupViewContact()
-
         contact_send_sms.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
         contact_start_call.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
         contact_send_email.beVisibleIf(contact!!.emails.isNotEmpty())
