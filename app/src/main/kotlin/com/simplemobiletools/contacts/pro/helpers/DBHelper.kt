@@ -86,19 +86,6 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         db.execSQL("REPLACE INTO sqlite_sequence (name, seq) VALUES ('$GROUPS_TABLE_NAME', $FIRST_GROUP_ID)")
     }
 
-    fun insertContact(contact: Contact): Boolean {
-        val contactValues = fillContactValues(contact)
-        val id = mDb.insert(CONTACTS_TABLE_NAME, null, contactValues).toInt()
-        return id != -1
-    }
-
-    fun updateContact(contact: Contact): Boolean {
-        val contactValues = fillContactValues(contact)
-        val selection = "$COL_ID = ?"
-        val selectionArgs = arrayOf(contact.id.toString())
-        return mDb.update(CONTACTS_TABLE_NAME, contactValues, selection, selectionArgs) == 1
-    }
-
     fun deleteContact(id: Int) = deleteContacts(arrayOf(id.toString()))
 
     fun deleteContacts(ids: Array<String>) {
@@ -109,45 +96,6 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         val args = TextUtils.join(", ", ids)
         val selection = "$CONTACTS_TABLE_NAME.$COL_ID IN ($args)"
         mDb.delete(CONTACTS_TABLE_NAME, selection, null)
-    }
-
-    private fun fillContactValues(contact: Contact): ContentValues {
-        return ContentValues().apply {
-            put(COL_PREFIX, contact.prefix)
-            put(COL_FIRST_NAME, contact.firstName)
-            put(COL_MIDDLE_NAME, contact.middleName)
-            put(COL_SURNAME, contact.surname)
-            put(COL_SUFFIX, contact.suffix)
-            put(COL_NICKNAME, contact.nickname)
-            put(COL_PHONE_NUMBERS, gson.toJson(contact.phoneNumbers))
-            put(COL_EMAILS, gson.toJson(contact.emails))
-            put(COL_ADDRESSES, gson.toJson(contact.addresses))
-            put(COL_IMS, gson.toJson(contact.IMs))
-            put(COL_EVENTS, gson.toJson(contact.events))
-            put(COL_STARRED, contact.starred)
-            put(COL_NOTES, contact.notes)
-            put(COL_GROUPS, gson.toJson(contact.groups.map { it.id }))
-            put(COL_COMPANY, contact.organization.company)
-            put(COL_JOB_POSITION, contact.organization.jobPosition)
-            put(COL_WEBSITES, gson.toJson(contact.websites))
-
-            if (contact.photoUri.isNotEmpty()) {
-                put(COL_PHOTO, getPhotoByteArray(contact.photoUri))
-            } else if (contact.photo == null) {
-                putNull(COL_PHOTO)
-            }
-        }
-    }
-
-    private fun getPhotoByteArray(uri: String): ByteArray {
-        val photoUri = Uri.parse(uri)
-        val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, photoUri)
-
-        val thumbnailSize = context.getPhotoThumbnailSize()
-        val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize * 2, thumbnailSize * 2, false)
-        val scaledSizePhotoData = scaledPhoto.getByteArray()
-        scaledPhoto.recycle()
-        return scaledSizePhotoData
     }
 
     fun toggleFavorites(ids: Array<String>, addToFavorites: Boolean) {
@@ -330,11 +278,5 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
             }
         }
         return contacts
-    }
-
-    fun getContactWithId(activity: Activity, id: Int): Contact? {
-        val selection = "$COL_ID = ?"
-        val selectionArgs = arrayOf(id.toString())
-        return getContacts(activity, selection, selectionArgs).firstOrNull()
     }
 }
