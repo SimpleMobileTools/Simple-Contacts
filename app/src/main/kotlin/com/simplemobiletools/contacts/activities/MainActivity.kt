@@ -15,6 +15,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
+import com.simplemobiletools.commons.dialogs.UpgradeToProDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
@@ -74,6 +75,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         storeStateVariables()
         checkWhatsNewDialog()
+
+        if (!config.wasInitialUpgradeToProShown) {
+            UpgradeToProDialog(this)
+            config.wasInitialUpgradeToProShown = true
+        }
     }
 
     private fun checkContactPermissions() {
