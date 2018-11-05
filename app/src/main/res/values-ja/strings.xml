@@ -19,9 +19,9 @@
     <string name="add_to_existing_contact">既存の連絡先に追加</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">No contacts found</string>
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+    <string name="no_contacts_found">連絡先が見つかりません</string>
+    <string name="no_contacts_with_emails">メールアドレスが登録された連絡先が見つかりません</string>
+    <string name="no_contacts_with_phone_numbers">電話番号が登録された連絡先が見つかりません</string>
 
     <string name="new_contact">新しい連絡先</string>
     <string name="edit_contact">連絡先を編集</string>
@@ -30,7 +30,7 @@
     <string name="first_name">名</string>
     <string name="middle_name">ミドルネーム</string>
     <string name="surname">姓</string>
-    <string name="nickname">Nickname</string>
+    <string name="nickname">ニックネーム</string>
 
     <!-- Groups -->
     <string name="no_groups">グループなし</string>
@@ -62,7 +62,7 @@
     <string name="favorites">お気に入り</string>
     <string name="recent_calls">Recent calls</string>
     <string name="show_call_confirmation_dialog">発信する前に確認ダイアログを表示する</string>
-    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
+    <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
 
     <!-- Emails -->
     <string name="email">メール</string>
