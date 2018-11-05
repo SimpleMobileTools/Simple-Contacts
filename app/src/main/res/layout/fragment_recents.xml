@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.simplemobiletools.contacts.fragments.RecentsFragment
+<com.simplemobiletools.contacts.pro.fragments.RecentsFragment
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recents_fragment"
     android:layout_width="match_parent"
@@ -7,4 +7,4 @@
 
     <include layout="@layout/fragment_layout"/>
 
-</com.simplemobiletools.contacts.fragments.RecentsFragment>
+</com.simplemobiletools.contacts.pro.fragments.RecentsFragment>
