@@ -37,7 +37,7 @@ class ContactsHelper(val activity: Activity) {
             getDeviceContacts(contacts)
 
             if (displayContactSources.contains(SMT_PRIVATE)) {
-                activity.dbHelper.getContacts(activity).forEach {
+                LocalContactsHelper(activity).getAllContacts().forEach {
                     contacts.put(it.id, it)
                 }
             }
@@ -754,7 +754,7 @@ class ContactsHelper(val activity: Activity) {
         if (id == 0) {
             return null
         } else if (isLocalPrivate) {
-            return activity.dbHelper.getContactWithId(activity, id)
+            return LocalContactsHelper(activity).getContactWithId(id)
         }
 
         val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"

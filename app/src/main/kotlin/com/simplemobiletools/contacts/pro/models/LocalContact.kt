@@ -25,9 +25,4 @@ data class LocalContact(
         @ColumnInfo(name = "company") var company: String,
         @ColumnInfo(name = "job_position") var jobPosition: String,
         @ColumnInfo(name = "websites") var websites: ArrayList<String>,
-        @ColumnInfo(name = "ims") var ims: ArrayList<IM>) {
-
-    companion object {
-        private const val serialVersionUID = -655314977575622L
-    }
-}
+        @ColumnInfo(name = "ims") var IMs: ArrayList<IM>)

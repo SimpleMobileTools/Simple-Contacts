@@ -12,7 +12,7 @@ interface ContactsDao {
     fun getContacts(): List<LocalContact>
 
     @Query("SELECT * FROM contacts WHERE id = :id")
-    fun getContactWithId(id: Long): LocalContact
+    fun getContactWithId(id: Int): LocalContact
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrUpdate(contact: LocalContact)
