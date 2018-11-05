@@ -77,36 +77,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         createGroupsTable(db)
     }
 
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        if (oldVersion == 1) {
-            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_ADDRESSES TEXT DEFAULT ''")
-            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_NOTES TEXT DEFAULT ''")
-        }
-
-        if (oldVersion < 3) {
-            createGroupsTable(db)
-            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_GROUPS TEXT DEFAULT ''")
-        }
-
-        if (oldVersion < 4) {
-            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_PREFIX TEXT DEFAULT ''")
-            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_SUFFIX TEXT DEFAULT ''")
-            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_COMPANY TEXT DEFAULT ''")
-            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_JOB_POSITION TEXT DEFAULT ''")
-        }
-
-        if (oldVersion < 5) {
-            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_WEBSITES TEXT DEFAULT ''")
-        }
-
-        if (oldVersion < 6) {
-            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_NICKNAME TEXT DEFAULT ''")
-        }
-
-        if (oldVersion < 7) {
-            db.execSQL("ALTER TABLE $CONTACTS_TABLE_NAME ADD COLUMN $COL_IMS TEXT DEFAULT ''")
-        }
-    }
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {}
 
     private fun createGroupsTable(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE $GROUPS_TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_TITLE TEXT)")
