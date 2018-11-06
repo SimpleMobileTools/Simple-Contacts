@@ -40,14 +40,18 @@ class ViewContactActivity : ContactActivity() {
         if (isViewIntent) {
             handlePermission(PERMISSION_READ_CONTACTS) {
                 if (it) {
-                    initContact()
+                    Thread {
+                        initContact()
+                    }.start()
                 } else {
                     toast(R.string.no_contacts_permission)
                     finish()
                 }
             }
         } else {
-            initContact()
+            Thread {
+                initContact()
+            }.start()
         }
     }
 
@@ -99,24 +103,24 @@ class ViewContactActivity : ContactActivity() {
         }
 
         if (contactId != 0 && !wasLookupKeyUsed) {
-            Thread {
-                contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
-                if (contact == null) {
-                    if (!wasEditLaunched) {
-                        toast(R.string.unknown_error_occurred)
-                    }
-                    finish()
-                } else {
-                    runOnUiThread {
-                        gotContact()
-                    }
+            contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
+            if (contact == null) {
+                if (!wasEditLaunched) {
+                    toast(R.string.unknown_error_occurred)
                 }
-            }.start()
+                finish()
+            } else {
+                runOnUiThread {
+                    gotContact()
+                }
+            }
         } else {
             if (contact == null) {
                 finish()
             } else {
-                gotContact()
+                runOnUiThread {
+                    gotContact()
+                }
             }
         }
     }

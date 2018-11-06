@@ -18,6 +18,7 @@ import com.simplemobiletools.contacts.pro.activities.ViewContactActivity
 import com.simplemobiletools.contacts.pro.databases.ContactsDatabase
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.ContactsDao
+import com.simplemobiletools.contacts.pro.interfaces.GroupsDao
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.Organization
 import java.io.File
@@ -27,6 +28,8 @@ val Context.config: Config get() = Config.newInstance(applicationContext)
 val Context.dbHelper: DBHelper get() = DBHelper.newInstance(applicationContext)
 
 val Context.contactsDB: ContactsDao get() = ContactsDatabase.getInstance(applicationContext).ContactsDao()
+
+val Context.groupsDB: GroupsDao get() = ContactsDatabase.getInstance(applicationContext).GroupsDao()
 
 fun Context.getEmptyContact(): Contact {
     val originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE

@@ -11,7 +11,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.simplemobiletools.commons.extensions.getBlobValue
 import com.simplemobiletools.commons.extensions.getIntValue
-import com.simplemobiletools.commons.extensions.getLongValue
 import com.simplemobiletools.commons.extensions.getStringValue
 import com.simplemobiletools.contacts.pro.extensions.applyRegexFiltering
 import com.simplemobiletools.contacts.pro.extensions.config
@@ -81,16 +80,6 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         db.execSQL("REPLACE INTO sqlite_sequence (name, seq) VALUES ('$GROUPS_TABLE_NAME', $FIRST_GROUP_ID)")
     }
 
-    fun insertGroup(group: Group): Group? {
-        val contactValues = fillGroupValues(group)
-        val id = mDb.insert(GROUPS_TABLE_NAME, null, contactValues)
-        return if (id == -1L) {
-            null
-        } else {
-            Group(id, group.title)
-        }
-    }
-
     fun renameGroup(group: Group): Boolean {
         val contactValues = fillGroupValues(group)
         val selection = "$COL_ID = ?"
@@ -104,21 +93,6 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         val args = TextUtils.join(", ", ids)
         val selection = "$GROUPS_TABLE_NAME.$COL_ID IN ($args)"
         mDb.delete(GROUPS_TABLE_NAME, selection, null)
-    }
-
-    fun getGroups(): ArrayList<Group> {
-        val groups = ArrayList<Group>()
-        val projection = arrayOf(COL_ID, COL_TITLE)
-        val cursor = mDb.query(GROUPS_TABLE_NAME, projection, null, null, null, null, null)
-        cursor.use {
-            while (cursor.moveToNext()) {
-                val id = cursor.getLongValue(COL_ID)
-                val title = cursor.getStringValue(COL_TITLE)
-                val group = Group(id, title)
-                groups.add(group)
-            }
-        }
-        return groups
     }
 
     private fun fillGroupValues(group: Group): ContentValues {
@@ -157,7 +131,7 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
     }
 
     fun getContacts(activity: Activity, selection: String? = null, selectionArgs: Array<String>? = null): ArrayList<Contact> {
-        val storedGroups = ContactsHelper(activity).getStoredGroups()
+        val storedGroups = ContactsHelper(activity).getStoredGroupsSync()
         val filterDuplicates = activity.config.filterDuplicates
         val contacts = ArrayList<Contact>()
         val projection = arrayOf(COL_ID, COL_PREFIX, COL_FIRST_NAME, COL_MIDDLE_NAME, COL_SURNAME, COL_SUFFIX, COL_NICKNAME, COL_PHONE_NUMBERS,

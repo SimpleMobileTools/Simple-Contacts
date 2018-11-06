@@ -540,7 +540,7 @@ class EditContactActivity : ContactActivity() {
                     applyColorFilter(getAdjustedPrimaryColor())
                     background.applyColorFilter(config.textColor)
                     setOnClickListener {
-                        removeGroup(group.id)
+                        removeGroup(group.id!!)
                     }
                 }
             }

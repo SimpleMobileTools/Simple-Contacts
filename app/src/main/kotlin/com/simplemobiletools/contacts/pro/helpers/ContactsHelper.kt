@@ -75,7 +75,7 @@ class ContactsHelper(val activity: Activity) {
             }
 
             // groups are obtained with contactID, not rawID, so assign them to proper contacts like this
-            val groups = getContactGroups(getStoredGroups())
+            val groups = getContactGroups(getStoredGroupsSync())
             val size = groups.size()
             for (i in 0 until size) {
                 val key = groups.keyAt(i)
@@ -648,9 +648,18 @@ class ContactsHelper(val activity: Activity) {
         return args.toTypedArray()
     }
 
-    fun getStoredGroups(): ArrayList<Group> {
+    fun getStoredGroups(callback: (ArrayList<Group>) -> Unit) {
+        Thread {
+            val groups = getStoredGroupsSync()
+            activity.runOnUiThread {
+                callback(groups)
+            }
+        }.start()
+    }
+
+    fun getStoredGroupsSync(): ArrayList<Group> {
         val groups = getDeviceStoredGroups()
-        groups.addAll(activity.dbHelper.getGroups())
+        groups.addAll(activity.groupsDB.getGroups())
         return groups
     }
 
@@ -696,7 +705,10 @@ class ContactsHelper(val activity: Activity) {
 
     fun createNewGroup(title: String, accountName: String, accountType: String): Group? {
         if (accountType == SMT_PRIVATE) {
-            return activity.dbHelper.insertGroup(Group(0, title))
+            val newGroup = Group(null, title)
+            val id = activity.groupsDB.insertOrUpdate(newGroup)
+            newGroup.id = id
+            return newGroup
         }
 
         val operations = ArrayList<ContentProviderOperation>()
@@ -769,7 +781,7 @@ class ContactsHelper(val activity: Activity) {
     }
 
     private fun parseContactCursor(selection: String, selectionArgs: Array<String>): Contact? {
-        val storedGroups = getStoredGroups()
+        val storedGroups = getStoredGroupsSync()
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = getContactProjection()
         var cursor: Cursor? = null
@@ -1089,7 +1101,7 @@ class ContactsHelper(val activity: Activity) {
             }
 
             // delete groups
-            val relevantGroupIDs = getStoredGroups().map { it.id }
+            val relevantGroupIDs = getStoredGroupsSync().map { it.id }
             if (relevantGroupIDs.isNotEmpty()) {
                 val IDsString = TextUtils.join(",", relevantGroupIDs)
                 ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {

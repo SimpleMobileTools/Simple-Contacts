@@ -6,9 +6,9 @@ import android.provider.ContactsContract.CommonDataKinds
 import android.widget.Toast
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
-import com.simplemobiletools.contacts.pro.extensions.dbHelper
 import com.simplemobiletools.contacts.pro.extensions.getCachePhoto
 import com.simplemobiletools.contacts.pro.extensions.getCachePhotoUri
+import com.simplemobiletools.contacts.pro.extensions.groupsDB
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.*
 import com.simplemobiletools.contacts.pro.models.*
 import ezvcard.Ezvcard
@@ -170,7 +170,7 @@ class VcfImporter(val activity: SimpleActivity) {
             val groupNames = ezContact.categories.values
 
             if (groupNames != null) {
-                val storedGroups = ContactsHelper(activity).getStoredGroups()
+                val storedGroups = ContactsHelper(activity).getStoredGroupsSync()
 
                 groupNames.forEach {
                     val groupName = it
@@ -179,11 +179,10 @@ class VcfImporter(val activity: SimpleActivity) {
                     if (storedGroup != null) {
                         groups.add(storedGroup)
                     } else {
-                        val newContactGroup = activity.dbHelper.insertGroup(Group(0, groupName))
-
-                        if (newContactGroup != null) {
-                            groups.add(newContactGroup)
-                        }
+                        val newGroup = Group(null, groupName)
+                        val id = activity.groupsDB.insertOrUpdate(newGroup)
+                        newGroup.id = id
+                        groups.add(newGroup)
                     }
                 }
             }
