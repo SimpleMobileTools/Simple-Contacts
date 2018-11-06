@@ -6,7 +6,6 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.graphics.BitmapFactory
-import android.text.TextUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.simplemobiletools.commons.extensions.getBlobValue
@@ -78,14 +77,6 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
 
         // start autoincrement ID from FIRST_GROUP_ID to avoid conflicts
         db.execSQL("REPLACE INTO sqlite_sequence (name, seq) VALUES ('$GROUPS_TABLE_NAME', $FIRST_GROUP_ID)")
-    }
-
-    fun deleteGroup(id: Long) = deleteGroups(arrayOf(id.toString()))
-
-    private fun deleteGroups(ids: Array<String>) {
-        val args = TextUtils.join(", ", ids)
-        val selection = "$GROUPS_TABLE_NAME.$COL_ID IN ($args)"
-        mDb.delete(GROUPS_TABLE_NAME, selection, null)
     }
 
     fun addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {

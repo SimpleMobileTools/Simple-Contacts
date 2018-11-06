@@ -13,7 +13,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.dialogs.RenameGroupDialog
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.dbHelper
+import com.simplemobiletools.contacts.pro.extensions.groupsDB
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.GROUPS_TAB_MASK
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
@@ -92,7 +92,9 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     private fun askConfirmDelete() {
         ConfirmationDialog(activity) {
-            deleteGroups()
+            Thread {
+                deleteGroups()
+            }.start()
         }
     }
 
@@ -105,18 +107,20 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
         val positions = getSelectedItemPositions()
         groupsToRemove.forEach {
             if (it.isPrivateSecretGroup()) {
-                activity.dbHelper.deleteGroup(it.id!!)
+                activity.groupsDB.deleteGroupId(it.id!!)
             } else {
                 ContactsHelper(activity).deleteGroup(it.id!!)
             }
         }
         groups.removeAll(groupsToRemove)
 
-        if (groups.isEmpty()) {
-            refreshListener?.refreshContacts(GROUPS_TAB_MASK)
-            finishActMode()
-        } else {
-            removeSelectedItems(positions)
+        activity.runOnUiThread {
+            if (groups.isEmpty()) {
+                refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+                finishActMode()
+            } else {
+                removeSelectedItems(positions)
+            }
         }
     }
 
