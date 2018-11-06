@@ -22,6 +22,7 @@ import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
+import com.simplemobiletools.contacts.pro.databases.ContactsDatabase
 import com.simplemobiletools.contacts.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.pro.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
@@ -173,6 +174,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     override fun onDestroy() {
         super.onDestroy()
         config.lastUsedViewPagerPage = viewpager.currentItem
+        if (!isChangingConfigurations) {
+            ContactsDatabase.destroyInstance()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
