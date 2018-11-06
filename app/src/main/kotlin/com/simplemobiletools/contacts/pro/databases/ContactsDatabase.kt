@@ -56,7 +56,7 @@ abstract class ContactsDatabase : RoomDatabase() {
                 emptyContact.id = FIRST_CONTACT_ID
                 db!!.ContactsDao().apply {
                     insertOrUpdate(emptyContact)
-                    deleteContactIds(FIRST_CONTACT_ID.toString())
+                    deleteContactId(FIRST_CONTACT_ID)
                 }
             }
         }

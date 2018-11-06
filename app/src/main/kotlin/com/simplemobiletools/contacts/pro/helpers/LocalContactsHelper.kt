@@ -21,6 +21,12 @@ class LocalContactsHelper(val activity: Activity) {
         return activity.contactsDB.insertOrUpdate(localContact) > 0
     }
 
+    fun deleteContactIds(ids: Array<Int>) {
+        ids.forEach {
+            activity.contactsDB.deleteContactId(it)
+        }
+    }
+
     fun toggleFavorites(ids: Array<Int>, addToFavorites: Boolean) {
         val isStarred = if (addToFavorites) 1 else 0
         ids.forEach {
@@ -43,7 +49,11 @@ class LocalContactsHelper(val activity: Activity) {
         return scaledSizePhotoData
     }
 
-    private fun convertLocalContactToContact(localContact: LocalContact): Contact {
+    private fun convertLocalContactToContact(localContact: LocalContact?): Contact? {
+        if (localContact == null) {
+            return null
+        }
+
         val filterDuplicates = activity.config.filterDuplicates
         val filteredPhoneNumbers = ArrayList<PhoneNumber>()
         if (filterDuplicates) {

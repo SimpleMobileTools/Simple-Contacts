@@ -1490,41 +1490,41 @@ class ContactsHelper(val activity: Activity) {
     }
 
     fun deleteContact(contact: Contact) {
-        if (contact.source == SMT_PRIVATE) {
-            activity.dbHelper.deleteContact(contact.id)
-        } else {
-            deleteContacts(arrayListOf(contact))
-        }
+        Thread {
+            if (contact.source == SMT_PRIVATE) {
+                activity.contactsDB.deleteContactId(contact.id)
+            } else {
+                deleteContacts(arrayListOf(contact))
+            }
+        }.start()
     }
 
     fun deleteContacts(contacts: ArrayList<Contact>) {
-        Thread {
-            val localContacts = contacts.filter { it.source == SMT_PRIVATE }.map { it.id.toString() }.toTypedArray()
-            activity.dbHelper.deleteContacts(localContacts)
+        val localContacts = contacts.filter { it.source == SMT_PRIVATE }.map { it.id }.toTypedArray()
+        LocalContactsHelper(activity).deleteContactIds(localContacts)
 
-            try {
-                val operations = ArrayList<ContentProviderOperation>()
-                val selection = "${ContactsContract.RawContacts._ID} = ?"
-                contacts.filter { it.source != SMT_PRIVATE }.forEach {
-                    ContentProviderOperation.newDelete(ContactsContract.RawContacts.CONTENT_URI).apply {
-                        val selectionArgs = arrayOf(it.id.toString())
-                        withSelection(selection, selectionArgs)
-                        operations.add(build())
-                    }
-
-                    if (operations.size % BATCH_SIZE == 0) {
-                        activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
-                        operations.clear()
-                    }
+        try {
+            val operations = ArrayList<ContentProviderOperation>()
+            val selection = "${ContactsContract.RawContacts._ID} = ?"
+            contacts.filter { it.source != SMT_PRIVATE }.forEach {
+                ContentProviderOperation.newDelete(ContactsContract.RawContacts.CONTENT_URI).apply {
+                    val selectionArgs = arrayOf(it.id.toString())
+                    withSelection(selection, selectionArgs)
+                    operations.add(build())
                 }
 
-                if (activity.hasPermission(PERMISSION_WRITE_CONTACTS)) {
+                if (operations.size % BATCH_SIZE == 0) {
                     activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                    operations.clear()
                 }
-            } catch (e: Exception) {
-                activity.showErrorToast(e)
             }
-        }.start()
+
+            if (activity.hasPermission(PERMISSION_WRITE_CONTACTS)) {
+                activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            }
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        }
     }
 
     @SuppressLint("MissingPermission")

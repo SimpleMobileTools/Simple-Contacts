@@ -12,7 +12,7 @@ interface ContactsDao {
     fun getContacts(): List<LocalContact>
 
     @Query("SELECT * FROM contacts WHERE id = :id")
-    fun getContactWithId(id: Int): LocalContact
+    fun getContactWithId(id: Int): LocalContact?
 
     @Query("UPDATE contacts SET starred = :isStarred WHERE id = :id")
     fun updateStarred(isStarred: Int, id: Int)
@@ -20,6 +20,6 @@ interface ContactsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrUpdate(contact: LocalContact): Long
 
-    @Query("DELETE FROM contacts WHERE id IN (:ids)")
-    fun deleteContactIds(ids: String)
+    @Query("DELETE FROM contacts WHERE id = :id")
+    fun deleteContactId(id: Int)
 }

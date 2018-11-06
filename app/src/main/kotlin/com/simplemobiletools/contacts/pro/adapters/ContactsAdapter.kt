@@ -158,7 +158,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         val positions = getSelectedItemPositions()
         contactItems.removeAll(contactsToRemove)
 
-        ContactsHelper(activity).deleteContacts(contactsToRemove)
+        Thread {
+            ContactsHelper(activity).deleteContacts(contactsToRemove)
+        }.start()
+
         if (contactItems.isEmpty()) {
             refreshListener?.refreshContacts(ALL_TABS_MASK)
             finishActMode()

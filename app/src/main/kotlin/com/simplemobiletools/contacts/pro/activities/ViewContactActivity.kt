@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.item_website.view.*
 
 class ViewContactActivity : ContactActivity() {
     private var isViewIntent = false
+    private var wasEditLaunched = false
     private var showFields = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +65,7 @@ class ViewContactActivity : ContactActivity() {
         }
 
         when (item.itemId) {
-            R.id.edit -> editContact(contact!!)
+            R.id.edit -> editContact()
             R.id.share -> shareContact()
             R.id.open_with -> openWith()
             R.id.delete -> deleteContact()
@@ -101,7 +102,9 @@ class ViewContactActivity : ContactActivity() {
             Thread {
                 contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
                 if (contact == null) {
-                    toast(R.string.unknown_error_occurred)
+                    if (!wasEditLaunched) {
+                        toast(R.string.unknown_error_occurred)
+                    }
                     finish()
                 } else {
                     runOnUiThread {
@@ -168,6 +171,11 @@ class ViewContactActivity : ContactActivity() {
         setupWebsites()
         setupGroups()
         setupContactSource()
+    }
+
+    private fun editContact() {
+        wasEditLaunched = true
+        editContact(contact!!)
     }
 
     private fun openWith() {
