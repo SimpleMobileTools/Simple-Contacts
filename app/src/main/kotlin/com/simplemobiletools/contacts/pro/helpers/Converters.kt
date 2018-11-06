@@ -7,12 +7,12 @@ import com.simplemobiletools.contacts.pro.models.*
 
 class Converters {
     private val gson = Gson()
+    private val longType = object : TypeToken<List<Long>>() {}.type
     private val stringType = object : TypeToken<List<String>>() {}.type
     private val numberType = object : TypeToken<List<PhoneNumber>>() {}.type
     private val emailType = object : TypeToken<List<Email>>() {}.type
     private val addressType = object : TypeToken<List<Address>>() {}.type
     private val eventType = object : TypeToken<List<Event>>() {}.type
-    private val groupType = object : TypeToken<List<Group>>() {}.type
     private val imType = object : TypeToken<List<IM>>() {}.type
 
     @TypeConverter
@@ -20,6 +20,12 @@ class Converters {
 
     @TypeConverter
     fun stringListToJson(list: ArrayList<String>) = gson.toJson(list)
+
+    @TypeConverter
+    fun jsonToLongList(value: String) = gson.fromJson<ArrayList<Long>>(value, longType)
+
+    @TypeConverter
+    fun longListToJson(list: ArrayList<Long>) = gson.toJson(list)
 
     @TypeConverter
     fun jsonToPhoneNumberList(value: String) = gson.fromJson<ArrayList<PhoneNumber>>(value, numberType)
@@ -44,12 +50,6 @@ class Converters {
 
     @TypeConverter
     fun eventListToJson(list: ArrayList<Event>) = gson.toJson(list)
-
-    @TypeConverter
-    fun jsonToGroupList(value: String) = gson.fromJson<ArrayList<Group>>(value, groupType)
-
-    @TypeConverter
-    fun groupListToJson(list: ArrayList<Group>) = gson.toJson(list)
 
     @TypeConverter
     fun jsonToIMsList(value: String) = gson.fromJson<ArrayList<IM>>(value, imType)

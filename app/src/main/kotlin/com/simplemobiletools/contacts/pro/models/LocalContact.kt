@@ -21,7 +21,7 @@ data class LocalContact(
         @ColumnInfo(name = "starred") var starred: Int,
         @ColumnInfo(name = "addresses") var addresses: ArrayList<Address>,
         @ColumnInfo(name = "notes") var notes: String,
-        @ColumnInfo(name = "groups") var groups: ArrayList<Group>,
+        @ColumnInfo(name = "groups") var groups: ArrayList<Long>,
         @ColumnInfo(name = "company") var company: String,
         @ColumnInfo(name = "job_position") var jobPosition: String,
         @ColumnInfo(name = "websites") var websites: ArrayList<String>,

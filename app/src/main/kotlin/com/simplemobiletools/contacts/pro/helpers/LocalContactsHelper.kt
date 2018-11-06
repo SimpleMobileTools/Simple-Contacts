@@ -6,10 +6,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
 import com.simplemobiletools.contacts.pro.extensions.*
-import com.simplemobiletools.contacts.pro.models.Contact
-import com.simplemobiletools.contacts.pro.models.LocalContact
-import com.simplemobiletools.contacts.pro.models.Organization
-import com.simplemobiletools.contacts.pro.models.PhoneNumber
+import com.simplemobiletools.contacts.pro.models.*
 
 class LocalContactsHelper(val activity: Activity) {
     fun getAllContacts() = activity.contactsDB.getContacts().map { convertLocalContactToContact(it) }.toMutableList() as ArrayList<Contact>
@@ -19,6 +16,27 @@ class LocalContactsHelper(val activity: Activity) {
     fun insertOrUpdateContact(contact: Contact): Boolean {
         val localContact = convertContactToLocalContact(contact)
         return activity.contactsDB.insertOrUpdate(localContact) > 0
+    }
+
+    fun addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
+        contacts.forEach {
+            val localContact = convertContactToLocalContact(it)
+            val newGroups = localContact.groups
+            newGroups.add(groupId)
+            newGroups.distinct()
+            localContact.groups = newGroups
+            activity.contactsDB.insertOrUpdate(localContact)
+        }
+    }
+
+    fun removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
+        contacts.forEach {
+            val localContact = convertContactToLocalContact(it)
+            val newGroups = localContact.groups
+            newGroups.remove(groupId)
+            localContact.groups = newGroups
+            activity.contactsDB.insertOrUpdate(localContact)
+        }
     }
 
     fun deleteContactIds(ids: Array<Int>) {
@@ -70,6 +88,8 @@ class LocalContactsHelper(val activity: Activity) {
             }
         }
 
+        val storedGroups = ContactsHelper(activity).getStoredGroupsSync()
+
         return activity.getEmptyContact().apply {
             id = localContact.id!!
             prefix = localContact.prefix
@@ -89,7 +109,7 @@ class LocalContactsHelper(val activity: Activity) {
             thumbnailUri = ""
             photo = contactPhoto
             notes = localContact.notes
-            groups = localContact.groups
+            groups = storedGroups.filter { localContact.groups.contains(it.id) } as ArrayList<Group>
             organization = Organization(localContact.company, localContact.jobPosition)
             websites = localContact.websites
             cleanPhoneNumbers = filteredPhoneNumbers
@@ -113,7 +133,7 @@ class LocalContactsHelper(val activity: Activity) {
             starred = contact.starred
             addresses = contact.addresses
             notes = contact.notes
-            groups = contact.groups
+            groups = contact.groups.map { it.id }.toMutableList() as ArrayList<Long>
             company = contact.organization.company
             jobPosition = contact.organization.jobPosition
             websites = contact.websites

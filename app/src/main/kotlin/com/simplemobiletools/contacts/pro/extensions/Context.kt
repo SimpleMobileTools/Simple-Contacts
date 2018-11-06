@@ -16,7 +16,10 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
 import com.simplemobiletools.contacts.pro.activities.ViewContactActivity
 import com.simplemobiletools.contacts.pro.databases.ContactsDatabase
-import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.helpers.CONTACT_ID
+import com.simplemobiletools.contacts.pro.helpers.Config
+import com.simplemobiletools.contacts.pro.helpers.IS_PRIVATE
+import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.pro.interfaces.ContactsDao
 import com.simplemobiletools.contacts.pro.interfaces.GroupsDao
 import com.simplemobiletools.contacts.pro.models.Contact
@@ -24,8 +27,6 @@ import com.simplemobiletools.contacts.pro.models.Organization
 import java.io.File
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
-
-val Context.dbHelper: DBHelper get() = DBHelper.newInstance(applicationContext)
 
 val Context.contactsDB: ContactsDao get() = ContactsDatabase.getInstance(applicationContext).ContactsDao()
 

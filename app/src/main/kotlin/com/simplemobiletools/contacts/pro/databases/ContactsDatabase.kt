@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.simplemobiletools.contacts.pro.helpers.Converters
+import com.simplemobiletools.contacts.pro.helpers.FIRST_CONTACT_ID
 import com.simplemobiletools.contacts.pro.helpers.FIRST_GROUP_ID
 import com.simplemobiletools.contacts.pro.helpers.getEmptyLocalContact
 import com.simplemobiletools.contacts.pro.interfaces.ContactsDao
@@ -25,8 +26,6 @@ abstract class ContactsDatabase : RoomDatabase() {
     abstract fun GroupsDao(): GroupsDao
 
     companion object {
-        private const val FIRST_CONTACT_ID = 1000000
-
         private var db: ContactsDatabase? = null
 
         fun getInstance(context: Context): ContactsDatabase {

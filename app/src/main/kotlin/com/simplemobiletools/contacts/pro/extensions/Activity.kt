@@ -171,26 +171,26 @@ fun BaseSimpleActivity.getTempFile(): File? {
 }
 
 fun BaseSimpleActivity.addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
-    val publicContacts = contacts.filter { it.source != SMT_PRIVATE }
-    val privateContacts = contacts.filter { it.source == SMT_PRIVATE }
+    val publicContacts = contacts.filter { it.source != SMT_PRIVATE }.toMutableList() as ArrayList<Contact>
+    val privateContacts = contacts.filter { it.source == SMT_PRIVATE }.toMutableList() as ArrayList<Contact>
     if (publicContacts.isNotEmpty()) {
-        ContactsHelper(this).addContactsToGroup(contacts, groupId)
+        ContactsHelper(this).addContactsToGroup(publicContacts, groupId)
     }
 
     if (privateContacts.isNotEmpty()) {
-        dbHelper.addContactsToGroup(contacts, groupId)
+        LocalContactsHelper(this).addContactsToGroup(privateContacts, groupId)
     }
 }
 
 fun BaseSimpleActivity.removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
-    val publicContacts = contacts.filter { it.source != SMT_PRIVATE }
-    val privateContacts = contacts.filter { it.source == SMT_PRIVATE }
+    val publicContacts = contacts.filter { it.source != SMT_PRIVATE }.toMutableList() as ArrayList<Contact>
+    val privateContacts = contacts.filter { it.source == SMT_PRIVATE }.toMutableList() as ArrayList<Contact>
     if (publicContacts.isNotEmpty() && hasContactPermissions()) {
-        ContactsHelper(this).removeContactsFromGroup(contacts, groupId)
+        ContactsHelper(this).removeContactsFromGroup(publicContacts, groupId)
     }
 
     if (privateContacts.isNotEmpty()) {
-        dbHelper.removeContactsFromGroup(contacts, groupId)
+        LocalContactsHelper(this).removeContactsFromGroup(privateContacts, groupId)
     }
 }
 
