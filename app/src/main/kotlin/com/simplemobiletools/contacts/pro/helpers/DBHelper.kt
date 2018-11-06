@@ -80,25 +80,12 @@ class DBHelper private constructor(val context: Context) : SQLiteOpenHelper(cont
         db.execSQL("REPLACE INTO sqlite_sequence (name, seq) VALUES ('$GROUPS_TABLE_NAME', $FIRST_GROUP_ID)")
     }
 
-    fun renameGroup(group: Group): Boolean {
-        val contactValues = fillGroupValues(group)
-        val selection = "$COL_ID = ?"
-        val selectionArgs = arrayOf(group.id.toString())
-        return mDb.update(GROUPS_TABLE_NAME, contactValues, selection, selectionArgs) == 1
-    }
-
     fun deleteGroup(id: Long) = deleteGroups(arrayOf(id.toString()))
 
     private fun deleteGroups(ids: Array<String>) {
         val args = TextUtils.join(", ", ids)
         val selection = "$GROUPS_TABLE_NAME.$COL_ID IN ($args)"
         mDb.delete(GROUPS_TABLE_NAME, selection, null)
-    }
-
-    private fun fillGroupValues(group: Group): ContentValues {
-        return ContentValues().apply {
-            put(COL_TITLE, group.title)
-        }
     }
 
     fun addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
