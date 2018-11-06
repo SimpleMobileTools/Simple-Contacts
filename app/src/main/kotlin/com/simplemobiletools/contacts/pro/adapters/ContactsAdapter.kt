@@ -203,8 +203,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         ContactsHelper(activity).getStoredGroups {
             it.forEach {
                 items.add(RadioItem(it.id!!.toInt(), it.title))
-                items.add(RadioItem(NEW_GROUP_ID, activity.getString(R.string.create_new_group)))
             }
+            items.add(RadioItem(NEW_GROUP_ID, activity.getString(R.string.create_new_group)))
             showGroupsPicker(items)
         }
     }
