@@ -19,9 +19,9 @@
     <string name="add_to_existing_contact">Zu einem existierenden Kontakt hinzufügen</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">No contacts found</string>
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+    <string name="no_contacts_found">Keine Kontakte gefunden</string>
+    <string name="no_contacts_with_emails">Keine Kontakte mit E-Mailadressen gefunden</string>
+    <string name="no_contacts_with_phone_numbers">Keine Kontakte mit Telefonnummern gefunden</string>
 
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
@@ -62,7 +62,7 @@
     <string name="favorites">Favoriten</string>
     <string name="recent_calls">Anrufliste</string>
     <string name="show_call_confirmation_dialog">Bestätigungsdialog zeigen, bevor ein Anruf durchgeführt wird</string>
-    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
+    <string name="show_only_contacts_with_numbers">Nur Kontakte mit Telefonnummern anzeigen</string>
 
     <!-- Emails -->
     <string name="email">E-Mail</string>
