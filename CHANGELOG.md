@@ -9,7 +9,7 @@ Version 6.0.0 *(2018-11-06)*
 Version 5.1.1 *(2018-11-05)*
 ----------------------------
 
- * This version of the app is no longer maintained. Please upgrade to the Pro version. It is free till Nov 13 2018. You can find the Upgrade button at the top of the app Settings.
+ * This version of the app is no longer maintained. Please upgrade to the Pro version. It is free till Nov 14 2018. You can find the Upgrade button at the top of the app Settings.
 
 Version 5.1.0 *(2018-10-28)*
 ----------------------------
