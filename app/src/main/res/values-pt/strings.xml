@@ -19,9 +19,9 @@
     <string name="add_to_existing_contact">Adicionar a contacto existente</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">No contacts found</string>
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+    <string name="no_contacts_found">Não existem contactos</string>
+    <string name="no_contacts_with_emails">Não existem contactos com endereço de e-mail</string>
+    <string name="no_contacts_with_phone_numbers">Não existem contactos com número de telefone</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
@@ -33,7 +33,7 @@
     <string name="nickname">Alcunha</string>
 
     <!-- Groups -->
-    <string name="no_groups">Não há grupos</string>
+    <string name="no_groups">Não existem grupos</string>
     <string name="create_new_group">Criar um novo grupo</string>
     <string name="remove_from_group">Remover do grupo</string>
     <string name="no_group_participants">Este grupo está vazio</string>
@@ -62,7 +62,7 @@
     <string name="favorites">Favoritos</string>
     <string name="recent_calls">Chamadas recentes</string>
     <string name="show_call_confirmation_dialog">Mostrar diálogo para confirmar a chamada</string>
-    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
+    <string name="show_only_contacts_with_numbers">Mostrar apenas contactos com número de telefone</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>
