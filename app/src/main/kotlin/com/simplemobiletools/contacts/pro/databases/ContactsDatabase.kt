@@ -14,7 +14,6 @@ import com.simplemobiletools.contacts.pro.interfaces.ContactsDao
 import com.simplemobiletools.contacts.pro.interfaces.GroupsDao
 import com.simplemobiletools.contacts.pro.models.Group
 import com.simplemobiletools.contacts.pro.models.LocalContact
-import com.simplemobiletools.contacts.pro.objects.MyExecutor
 import java.util.concurrent.Executors
 
 @Database(entities = [LocalContact::class, Group::class], version = 1)
@@ -33,7 +32,6 @@ abstract class ContactsDatabase : RoomDatabase() {
                 synchronized(ContactsDatabase::class) {
                     if (db == null) {
                         db = Room.databaseBuilder(context.applicationContext, ContactsDatabase::class.java, "local_contacts.db")
-                                .setQueryExecutor(MyExecutor.myExecutor)
                                 .addCallback(object : Callback() {
                                     override fun onCreate(db: SupportSQLiteDatabase) {
                                         super.onCreate(db)
@@ -41,7 +39,6 @@ abstract class ContactsDatabase : RoomDatabase() {
                                     }
                                 })
                                 .build()
-                        db!!.openHelper.setWriteAheadLoggingEnabled(true)
                     }
                 }
             }
