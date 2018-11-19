@@ -191,7 +191,15 @@
         <activity
             android:name=".activities.DialpadActivity"
             android:label="@string/dialpad"
-            android:parentActivityName=".activities.MainActivity"/>
+            android:parentActivityName=".activities.MainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.DIAL"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:scheme="tel"/>
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".activities.DialerActivity"
