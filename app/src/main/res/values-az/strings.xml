@@ -108,6 +108,10 @@
     <string name="dialpad">Dialpad</string>
     <string name="add_number_to_contact">Add number to contact</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Calling…</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Göstərmək üçün sahəni seç</string>
     <string name="prefix">Ön şəkilçi</string>

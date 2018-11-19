@@ -108,6 +108,10 @@
     <string name="dialpad">ダイヤルパッド</string>
     <string name="add_number_to_contact">連絡先に番号を追加</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Calling…</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">表示する項目を選択</string>
     <string name="prefix">敬称（名前の前）</string>

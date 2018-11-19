@@ -108,6 +108,10 @@
     <string name="dialpad">Knappsats</string>
     <string name="add_number_to_contact">Lägg till nummer i kontakt</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Calling…</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Välj vilka fält som ska visas</string>
     <string name="prefix">Prefix</string>

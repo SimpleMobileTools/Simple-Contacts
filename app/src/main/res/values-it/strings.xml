@@ -108,6 +108,10 @@
     <string name="dialpad">Tastiera</string>
     <string name="add_number_to_contact">Aggiungi numero ai contatti</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Calling…</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Seleziona i campi da mostrare</string>
     <string name="prefix">Prefisso</string>

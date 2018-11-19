@@ -108,6 +108,10 @@
     <string name="dialpad">Číselník</string>
     <string name="add_number_to_contact">Pridať číslo kontaktu</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Telefón</string>
+    <string name="calling">Vytáčanie…</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Zvoľte polia na zobrazenie</string>
     <string name="prefix">Titul pred menom</string>

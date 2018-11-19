@@ -108,6 +108,10 @@
     <string name="dialpad">撥號畫面</string>
     <string name="add_number_to_contact">添加號碼至通訊錄</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Calling…</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">選擇要顯示的欄位</string>
     <string name="prefix">前缀</string>

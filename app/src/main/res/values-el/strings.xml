@@ -108,6 +108,10 @@
     <string name="dialpad">Πληκτρολόγιο</string>
     <string name="add_number_to_contact">Προσθήκη αριθμού σε επαφή</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Calling…</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Επιλογή εμφάνισης πεδίων</string>
     <string name="prefix">Πρόθεμα</string>

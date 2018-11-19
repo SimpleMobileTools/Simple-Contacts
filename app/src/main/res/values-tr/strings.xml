@@ -108,6 +108,10 @@
     <string name="dialpad">Tuş takımı</string>
     <string name="add_number_to_contact">Kişiye numara ekle</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Calling…</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Görüntülenecek alanları seç</string>
     <string name="prefix">Önek</string>

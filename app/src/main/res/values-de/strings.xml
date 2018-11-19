@@ -108,6 +108,10 @@
     <string name="dialpad">Wählfeld</string>
     <string name="add_number_to_contact">Nummer zu Kontakt hinzufügen</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Calling…</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Sichtbare Felder auswählen</string>
     <string name="prefix">Titel</string>
