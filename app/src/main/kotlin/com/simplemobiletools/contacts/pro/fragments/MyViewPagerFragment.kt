@@ -108,9 +108,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             config.lastUsedContactSource = grouped?.key ?: ""
         }
 
-        Contact.sorting = config.sorting
-        Contact.startWithSurname = config.startNameWithSurname
-        contacts.sort()
         allContacts = contacts
 
         val filtered = when {
@@ -253,9 +250,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                         it.websites.any { it.contains(text, true) }
             } as ArrayList
 
-            Contact.sorting = config.sorting
-            Contact.startWithSurname = config.startNameWithSurname
-            filtered.sort()
             filtered.sortBy { !getProperText(it.getNameToDisplay(), shouldNormalize).startsWith(text, true) }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {

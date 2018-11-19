@@ -86,11 +86,6 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
             group_contacts_placeholder_2.beVisibleIf(groupContacts.isEmpty())
             group_contacts_placeholder.beVisibleIf(groupContacts.isEmpty())
             group_contacts_list.beVisibleIf(groupContacts.isNotEmpty())
-
-            Contact.sorting = config.sorting
-            Contact.startWithSurname = config.startNameWithSurname
-            groupContacts.sort()
-
             updateContacts(groupContacts)
         }
     }

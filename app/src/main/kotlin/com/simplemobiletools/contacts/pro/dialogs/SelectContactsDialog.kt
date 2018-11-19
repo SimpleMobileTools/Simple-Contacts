@@ -6,12 +6,11 @@ import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.SelectContactsAdapter
-import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.layout_select_contact.view.*
 
-class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayList<Contact>, val selectContacts: ArrayList<Contact>? = null,
+class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayList<Contact>, selectContacts: ArrayList<Contact>? = null,
                            val callback: (addedContacts: ArrayList<Contact>, removedContacts: ArrayList<Contact>) -> Unit) {
     private var view = activity.layoutInflater.inflate(R.layout.layout_select_contact, null)
     private var initiallySelectedContacts = ArrayList<Contact>()
@@ -26,10 +25,6 @@ class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayL
         } else {
             initiallySelectedContacts = selectContacts
         }
-
-        Contact.sorting = activity.config.sorting
-        Contact.startWithSurname = activity.config.startNameWithSurname
-        allContacts.sort()
 
         activity.runOnUiThread {
             view.apply {

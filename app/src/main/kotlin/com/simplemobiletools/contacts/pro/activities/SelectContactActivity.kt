@@ -99,10 +99,6 @@ class SelectContactActivity : SimpleActivity() {
             val contactSources = getVisibleContactSources()
             contacts = contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
 
-            Contact.sorting = config.sorting
-            Contact.startWithSurname = config.startNameWithSurname
-            contacts.sort()
-
             runOnUiThread {
                 updatePlaceholderVisibility(contacts)
                 SelectContactsAdapter(this, contacts, ArrayList(), false, select_contact_list) {

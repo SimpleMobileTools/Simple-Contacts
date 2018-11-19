@@ -58,10 +58,6 @@ class InsertOrEditContactActivity : SimpleActivity() {
     }
 
     private fun gotContacts(contacts: ArrayList<Contact>) {
-        Contact.sorting = config.sorting
-        Contact.startWithSurname = config.startNameWithSurname
-        contacts.sort()
-
         ContactsAdapter(this, contacts, null, LOCATION_INSERT_OR_EDIT, null, existing_contact_list, existing_contact_fastscroller) {
             Intent(applicationContext, EditContactActivity::class.java).apply {
                 data = getContactPublicUri(it as Contact)

@@ -82,6 +82,10 @@ class ContactsHelper(val activity: Activity) {
                 resultContacts.firstOrNull { it.contactId == key }?.groups = groups.valueAt(i)
             }
 
+            Contact.sorting = activity.config.sorting
+            Contact.startWithSurname = activity.config.startNameWithSurname
+            resultContacts.sort()
+
             activity.runOnUiThread {
                 callback(resultContacts)
             }
