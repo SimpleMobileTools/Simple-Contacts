@@ -52,6 +52,7 @@
     <string name="start_name_with_surname">성을 먼저 표시</string>
     <string name="show_phone_numbers">메인 스크린에 전화번호 표시</string>
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">On contact click</string>
     <string name="call_contact">Call contact</string>
     <string name="view_contact">View contact details</string>

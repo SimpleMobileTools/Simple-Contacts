@@ -17,6 +17,7 @@ const val SHOW_CONTACT_FIELDS = "show_contact_fields"
 const val SHOW_TABS = "show_tabs"
 const val FILTER_DUPLICATES = "filter_duplicates"
 const val SHOW_CALL_CONFIRMATION = "show_call_confirmation"
+const val SHOW_DIALPAD_BUTTON = "show_dialpad_button"
 
 const val CONTACT_ID = "contact_id"
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps

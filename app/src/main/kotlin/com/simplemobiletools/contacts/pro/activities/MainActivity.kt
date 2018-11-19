@@ -159,11 +159,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 }
             }
         }
-        isFirstResume = false
 
         val dialpadIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad, if (isBlackAndWhiteTheme()) Color.BLACK else Color.WHITE)
-        main_dialpad_button.setImageDrawable(dialpadIcon)
-        main_dialpad_button.background.applyColorFilter(getAdjustedPrimaryColor())
+        main_dialpad_button.apply {
+            setImageDrawable(dialpadIcon)
+            background.applyColorFilter(getAdjustedPrimaryColor())
+            beVisibleIf(config.showDialpadButton)
+        }
+
+        isFirstResume = false
     }
 
     override fun onPause() {

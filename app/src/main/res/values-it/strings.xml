@@ -52,6 +52,7 @@
     <string name="start_name_with_surname">Prima il nome poi il cognome</string>
     <string name="show_phone_numbers">Mostra i numeri di telefono nella schermata principale</string>
     <string name="show_contact_thumbnails">Mostra le anteprime dei contatti</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">Al click sul contatto</string>
     <string name="call_contact">Chiama contatto</string>
     <string name="view_contact">Visualizza i dettagli del contatto</string>

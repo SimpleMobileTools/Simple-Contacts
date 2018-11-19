@@ -52,6 +52,7 @@
     <string name="start_name_with_surname">Start name with surname</string>
     <string name="show_phone_numbers">Show phone numbers on the main screen</string>
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">On contact click</string>
     <string name="call_contact">Call contact</string>
     <string name="view_contact">View contact details</string>

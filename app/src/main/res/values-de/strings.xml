@@ -52,6 +52,7 @@
     <string name="start_name_with_surname">Namen mit Nachnamen beginnen</string>
     <string name="show_phone_numbers">Telefonnummern im Hauptmenü zeigen</string>
     <string name="show_contact_thumbnails">Vorschaubilder der Kontakte zeigen</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">Beim Klicken auf den Kontakt</string>
     <string name="call_contact">Kontakt anrufen</string>
     <string name="view_contact">Kontaktdetails anzeigen</string>

@@ -52,6 +52,7 @@
     <string name="start_name_with_surname">姓を先に表示</string>
     <string name="show_phone_numbers">メイン画面に電話番号を表示</string>
     <string name="show_contact_thumbnails">連絡先のサムネイルを表示</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">連絡先をタップ</string>
     <string name="call_contact">連絡先に発信</string>
     <string name="view_contact">連絡先の詳細を表示</string>

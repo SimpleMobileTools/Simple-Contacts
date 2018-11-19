@@ -52,6 +52,7 @@
     <string name="start_name_with_surname">Ordenar por apelido</string>
     <string name="show_phone_numbers">Mostrar número de telefone no ecrã principal</string>
     <string name="show_contact_thumbnails">Mostrar miniatura do contacto</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">Ao tocar no contacto</string>
     <string name="call_contact">Ligar</string>
     <string name="view_contact">Ver detalhes</string>

@@ -52,6 +52,7 @@
     <string name="start_name_with_surname">Soyadı ile başla</string>
     <string name="show_phone_numbers">Ana ekranda telefon numaralarını göster</string>
     <string name="show_contact_thumbnails">Kişi küçük resimlerini göster</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">Kişi tıklandığında</string>
     <string name="call_contact">Kişiyi ara</string>
     <string name="view_contact">Kişi bilgilerini göster</string>

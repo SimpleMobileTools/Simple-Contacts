@@ -52,6 +52,7 @@
     <string name="start_name_with_surname">Pavardė rodoma pirma</string>
     <string name="show_phone_numbers">Rodyti telefono numerius pagrindiniame programos ekrane</string>
     <string name="show_contact_thumbnails">Rodyti kontaktų miniatiūras</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">Ant kontakto paspaudimo</string>
     <string name="call_contact">Skambinti kontaktui</string>
     <string name="view_contact">Žiūrėti kontakto detales</string>

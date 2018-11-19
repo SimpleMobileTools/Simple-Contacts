@@ -60,4 +60,8 @@ class Config(context: Context) : BaseConfig(context) {
     var showCallConfirmation: Boolean
         get() = prefs.getBoolean(SHOW_CALL_CONFIRMATION, false)
         set(showCallConfirmation) = prefs.edit().putBoolean(SHOW_CALL_CONFIRMATION, showCallConfirmation).apply()
+
+    var showDialpadButton: Boolean
+        get() = prefs.getBoolean(SHOW_DIALPAD_BUTTON, true)
+        set(showDialpadButton) = prefs.edit().putBoolean(SHOW_DIALPAD_BUTTON, showDialpadButton).apply()
 }

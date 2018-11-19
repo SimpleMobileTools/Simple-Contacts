@@ -52,6 +52,7 @@
     <string name="start_name_with_surname">Показывать сначала фамилию</string>
     <string name="show_phone_numbers">Показывать номера телефонов на главном экране</string>
     <string name="show_contact_thumbnails">Показывать фото контакта</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">При нажатии на контакт</string>
     <string name="call_contact">Позвонить контакту</string>
     <string name="view_contact">Просмотреть подробности о контакте</string>
