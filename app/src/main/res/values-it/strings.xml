@@ -5,7 +5,7 @@
     <string name="inserting">Inserimento in corso…</string>
     <string name="updating">Aggiornamento in corso…</string>
     <string name="phone_storage">Memoria del telefono</string>
-    <string name="phone_storage_hidden">Memoria del telfono (non visibile alle altre applicazioni)</string>
+    <string name="phone_storage_hidden">Memoria del telefono (non visibile alle altre applicazioni)</string>
     <string name="company">Compagnia</string>
     <string name="job_position">Posizione lavorativa</string>
     <string name="website">Sito web</string>
@@ -22,7 +22,7 @@
     <string name="no_contacts_found">Nessun contatto trovato</string>
     <string name="no_contacts_with_emails">Nessun contatto trovato con un\'email</string>
     <string name="no_contacts_with_phone_numbers">Nessun contatto trovato con un numero di telefono</string>
-    <string name="no_recent_calls_found">No recent calls found</string>
+    <string name="no_recent_calls_found">Nessuna chiamata recente trovata</string>
 
     <string name="new_contact">Nuovo contatto</string>
     <string name="edit_contact">Modifica contatto</string>
