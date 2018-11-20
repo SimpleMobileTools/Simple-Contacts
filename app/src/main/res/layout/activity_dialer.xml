@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <com.simplemobiletools.commons.views.MyTextView
-        android:id="@+id/calling_label"
+        android:id="@+id/dialer_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dialer_top_margin"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.simplemobiletools.commons.views.MyTextView
-        android:id="@+id/callee_big_name_number"
+        android:id="@+id/dialer_big_name_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/medium_margin"
@@ -30,11 +30,11 @@
         android:textSize="@dimen/dialpad_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calling_label"
+        app:layout_constraintTop_toBottomOf="@+id/dialer_label"
         tools:text="John"/>
 
     <com.simplemobiletools.commons.views.MyTextView
-        android:id="@+id/callee_number"
+        android:id="@+id/dialer_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/medium_margin"
@@ -44,7 +44,7 @@
         android:textSize="@dimen/big_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/callee_big_name_number"
+        app:layout_constraintTop_toBottomOf="@+id/dialer_big_name_number"
         tools:text="123 456 789"/>
 
     <ImageView
