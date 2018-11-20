@@ -47,4 +47,17 @@
         app:layout_constraintTop_toBottomOf="@+id/callee_big_name_number"
         tools:text="123 456 789"/>
 
+    <ImageView
+        android:id="@+id/dialer_hangup_button"
+        android:layout_width="@dimen/dialer_hangup_button_size"
+        android:layout_height="@dimen/dialer_hangup_button_size"
+        android:layout_marginBottom="@dimen/dialer_bottom_margin"
+        android:background="@drawable/circle_red_background"
+        android:elevation="@dimen/medium_margin"
+        android:padding="@dimen/activity_margin"
+        android:src="@drawable/ic_phone_down"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

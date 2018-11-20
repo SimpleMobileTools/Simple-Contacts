@@ -7,7 +7,9 @@
     <dimen name="contact_item_with_number_height">56dp</dimen>
     <dimen name="create_new_contact_height">68dp</dimen>
     <dimen name="dialpad_button_size">60dp</dimen>
-    <dimen name="dialer_top_margin">150dp</dimen>
+    <dimen name="dialer_hangup_button_size">70dp</dimen>
+    <dimen name="dialer_top_margin">140dp</dimen>
+    <dimen name="dialer_bottom_margin">40dp</dimen>
 
     <dimen name="dialpad_text_size">34sp</dimen>
 </resources>

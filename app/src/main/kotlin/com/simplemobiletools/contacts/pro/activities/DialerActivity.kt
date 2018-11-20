@@ -25,6 +25,8 @@ class DialerActivity : SimpleActivity() {
                 }
             }
         }
+
+        dialer_hangup_button.setOnClickListener { finish() }
     }
 
     override fun onResume() {
