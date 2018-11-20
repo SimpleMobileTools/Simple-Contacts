@@ -22,6 +22,7 @@
     <string name="no_contacts_found">Não existem contactos</string>
     <string name="no_contacts_with_emails">Não existem contactos com endereço de e-mail</string>
     <string name="no_contacts_with_phone_numbers">Não existem contactos com número de telefone</string>
+    <string name="no_recent_calls_found">No recent calls found</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>

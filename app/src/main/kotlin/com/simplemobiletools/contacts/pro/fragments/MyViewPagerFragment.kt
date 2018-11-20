@@ -61,6 +61,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 }
                 this is RecentsFragment -> {
                     fragment_fab.beGone()
+                    fragment_placeholder.text = activity.getString(R.string.no_recent_calls_found)
                     fragment_placeholder_2.text = activity.getString(R.string.request_the_required_permissions)
                 }
             }

@@ -22,6 +22,7 @@
     <string name="no_contacts_found">Inga kontakter hittades</string>
     <string name="no_contacts_with_emails">Inga kontakter med e-postadresser hittades</string>
     <string name="no_contacts_with_phone_numbers">Inga kontakter med telefonnummer hittades</string>
+    <string name="no_recent_calls_found">No recent calls found</string>
 
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>

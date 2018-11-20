@@ -22,6 +22,7 @@
     <string name="no_contacts_found">Контакты не найдены</string>
     <string name="no_contacts_with_emails">Контакты с адресами электронной почты не найдены</string>
     <string name="no_contacts_with_phone_numbers">Контакты с номерами телефонов не найдены</string>
+    <string name="no_recent_calls_found">No recent calls found</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>

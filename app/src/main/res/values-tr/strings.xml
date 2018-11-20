@@ -22,6 +22,7 @@
     <string name="no_contacts_found">Kişi bulunamadı</string>
     <string name="no_contacts_with_emails">E-posta ile hiç bağlantı bulunamadı</string>
     <string name="no_contacts_with_phone_numbers">Telefon numaralarını içeren kişi bulunamadı</string>
+    <string name="no_recent_calls_found">No recent calls found</string>
 
     <string name="new_contact">Yeni kişi</string>
     <string name="edit_contact">Kişiyi düzenle</string>

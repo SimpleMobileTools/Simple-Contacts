@@ -22,6 +22,7 @@
     <string name="no_contacts_found">Nenašli sa žiadne kontakty</string>
     <string name="no_contacts_with_emails">Nenašli sa žiadne kontakty s emailami</string>
     <string name="no_contacts_with_phone_numbers">Nenašli sa žiadne kontakty s telefónnymi číslami</string>
+    <string name="no_recent_calls_found">Nenašli sa žiadne posledné hovory</string>
 
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
