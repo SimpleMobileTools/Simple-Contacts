@@ -13,6 +13,15 @@ class LocalContactsHelper(val activity: Activity) {
 
     fun getContactWithId(id: Int) = convertLocalContactToContact(activity.contactsDB.getContactWithId(id))
 
+    fun getContactWithNumber(number: String): Contact? {
+        activity.contactsDB.getContacts().forEach {
+            if (it.phoneNumbers.map { it.value }.contains(number)) {
+                return convertLocalContactToContact(it)
+            }
+        }
+        return null
+    }
+
     fun insertOrUpdateContact(contact: Contact): Boolean {
         val localContact = convertContactToLocalContact(contact)
         return activity.contactsDB.insertOrUpdate(localContact) > 0

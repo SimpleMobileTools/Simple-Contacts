@@ -27,7 +27,7 @@ data class LocalContact(
         @ColumnInfo(name = "websites") var websites: ArrayList<String>,
         @ColumnInfo(name = "ims") var IMs: ArrayList<IM>) {
 
-    override fun equals(other: Any?) = this.id == (other as? LocalContact?)?.id
+    override fun equals(other: Any?) = id == (other as? LocalContact?)?.id
 
     override fun hashCode() = id ?: 0
 }

@@ -92,6 +92,31 @@ class ContactsHelper(val activity: Activity) {
         }.start()
     }
 
+    fun getContactWithNumber(number: String, callback: (contact: Contact?) -> Unit) {
+        Thread {
+            val uri = CommonDataKinds.Phone.CONTENT_URI
+            val projection = arrayOf(ContactsContract.Data.RAW_CONTACT_ID)
+            val selection = "${CommonDataKinds.Phone.NUMBER} = ?"
+            val selectionArgs = arrayOf(number)
+
+            var cursor: Cursor? = null
+            try {
+                cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+                if (cursor?.moveToFirst() == true) {
+                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
+                    callback(getContactWithId(id, false))
+                    return@Thread
+                }
+            } catch (e: Exception) {
+                activity.showErrorToast(e)
+            } finally {
+                cursor?.close()
+            }
+
+            callback(LocalContactsHelper(activity).getContactWithNumber(number))
+        }.start()
+    }
+
     private fun getContentResolverAccounts(): HashSet<ContactSource> {
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = arrayOf(
