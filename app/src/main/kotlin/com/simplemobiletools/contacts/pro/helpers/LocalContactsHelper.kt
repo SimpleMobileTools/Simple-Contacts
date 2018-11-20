@@ -5,8 +5,14 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
-import com.simplemobiletools.contacts.pro.extensions.*
-import com.simplemobiletools.contacts.pro.models.*
+import com.simplemobiletools.contacts.pro.extensions.contactsDB
+import com.simplemobiletools.contacts.pro.extensions.getByteArray
+import com.simplemobiletools.contacts.pro.extensions.getEmptyContact
+import com.simplemobiletools.contacts.pro.extensions.getPhotoThumbnailSize
+import com.simplemobiletools.contacts.pro.models.Contact
+import com.simplemobiletools.contacts.pro.models.Group
+import com.simplemobiletools.contacts.pro.models.LocalContact
+import com.simplemobiletools.contacts.pro.models.Organization
 
 class LocalContactsHelper(val activity: Activity) {
     fun getAllContacts() = activity.contactsDB.getContacts().map { convertLocalContactToContact(it) }.toMutableList() as ArrayList<Contact>
@@ -81,12 +87,6 @@ class LocalContactsHelper(val activity: Activity) {
             return null
         }
 
-        val filterDuplicates = activity.config.filterDuplicates
-        val filteredPhoneNumbers = ArrayList<PhoneNumber>()
-        if (filterDuplicates) {
-            localContact.phoneNumbers.mapTo(filteredPhoneNumbers) { PhoneNumber(it.value.applyRegexFiltering(), 0, "") }
-        }
-
         val contactPhoto = if (localContact.photo == null) {
             null
         } else {
@@ -121,7 +121,6 @@ class LocalContactsHelper(val activity: Activity) {
             groups = storedGroups.filter { localContact.groups.contains(it.id) } as ArrayList<Group>
             organization = Organization(localContact.company, localContact.jobPosition)
             websites = localContact.websites
-            cleanPhoneNumbers = filteredPhoneNumbers
             IMs = localContact.IMs
         }
     }

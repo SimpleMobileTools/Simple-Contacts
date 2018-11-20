@@ -23,7 +23,6 @@ const val CONTACT_ID = "contact_id"
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
 const val IS_PRIVATE = "is_private"
 const val GROUP = "group"
-const val PHONE_NUMBER_PATTERN = "[^0-9#*+]"
 const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"
 const val ADD_NEW_CONTACT_NUMBER = "add_new_contact_number"
 const val FIRST_CONTACT_ID = 1000000

@@ -96,8 +96,8 @@ class ContactsHelper(val activity: Activity) {
         Thread {
             val uri = CommonDataKinds.Phone.CONTENT_URI
             val projection = arrayOf(ContactsContract.Data.RAW_CONTACT_ID)
-            val selection = "${CommonDataKinds.Phone.NUMBER} = ?"
-            val selectionArgs = arrayOf(number)
+            val selection = "${CommonDataKinds.Phone.NORMALIZED_NUMBER} = ?"
+            val selectionArgs = arrayOf(number.normalizeNumber())
 
             var cursor: Cursor? = null
             try {
@@ -180,10 +180,9 @@ class ContactsHelper(val activity: Activity) {
                     val groups = ArrayList<Group>()
                     val organization = Organization("", "")
                     val websites = ArrayList<String>()
-                    val cleanNumbers = ArrayList<PhoneNumber>()
                     val ims = ArrayList<IM>()
                     val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
-                            events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, cleanNumbers, ims)
+                            events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
 
                     contacts.put(id, contact)
                 } while (cursor.moveToNext())
@@ -194,7 +193,6 @@ class ContactsHelper(val activity: Activity) {
             cursor?.close()
         }
 
-        val filterDuplicates = activity.config.filterDuplicates
         val phoneNumbers = getPhoneNumbers(null)
         var size = phoneNumbers.size()
         for (i in 0 until size) {
@@ -202,13 +200,6 @@ class ContactsHelper(val activity: Activity) {
             if (contacts[key] != null) {
                 val numbers = phoneNumbers.valueAt(i)
                 contacts[key].phoneNumbers = numbers
-
-                if (filterDuplicates) {
-                    // remove all spaces, dashes etc from numbers for easier comparing, used only at list views
-                    numbers.forEach {
-                        numbers.mapTo(contacts[key].cleanPhoneNumbers) { PhoneNumber(it.value.applyRegexFiltering(), 0, "") }
-                    }
-                }
             }
         }
 
@@ -275,6 +266,7 @@ class ContactsHelper(val activity: Activity) {
         val projection = arrayOf(
                 ContactsContract.Data.RAW_CONTACT_ID,
                 CommonDataKinds.Phone.NUMBER,
+                CommonDataKinds.Phone.NORMALIZED_NUMBER,
                 CommonDataKinds.Phone.TYPE,
                 CommonDataKinds.Phone.LABEL
         )
@@ -289,6 +281,7 @@ class ContactsHelper(val activity: Activity) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
                     val number = cursor.getStringValue(CommonDataKinds.Phone.NUMBER) ?: continue
+                    val normalizedNumber = cursor.getStringValue(CommonDataKinds.Phone.NORMALIZED_NUMBER) ?: ""
                     val type = cursor.getIntValue(CommonDataKinds.Phone.TYPE)
                     val label = cursor.getStringValue(CommonDataKinds.Phone.LABEL) ?: ""
 
@@ -296,7 +289,7 @@ class ContactsHelper(val activity: Activity) {
                         phoneNumbers.put(id, ArrayList())
                     }
 
-                    val phoneNumber = PhoneNumber(number, type, label)
+                    val phoneNumber = PhoneNumber(number, type, label, normalizedNumber)
                     phoneNumbers[id].add(phoneNumber)
                 } while (cursor.moveToNext())
             }
@@ -837,10 +830,9 @@ class ContactsHelper(val activity: Activity) {
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
                 val organization = getOrganizations(id)[id] ?: Organization("", "")
                 val websites = getWebsites(id)[id] ?: ArrayList()
-                val cleanNumbers = ArrayList<PhoneNumber>()
                 val ims = getIMs(id)[id] ?: ArrayList()
                 return Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
-                        accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, cleanNumbers, ims)
+                        accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
             }
         } finally {
             cursor?.close()
@@ -990,6 +982,7 @@ class ContactsHelper(val activity: Activity) {
                     withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Phone.NUMBER, it.value)
+                    withValue(CommonDataKinds.Phone.NORMALIZED_NUMBER, it.normalizedNumber)
                     withValue(CommonDataKinds.Phone.TYPE, it.type)
                     withValue(CommonDataKinds.Phone.LABEL, it.label)
                     operations.add(build())
@@ -1292,6 +1285,7 @@ class ContactsHelper(val activity: Activity) {
                     withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Phone.NUMBER, it.value)
+                    withValue(CommonDataKinds.Phone.NORMALIZED_NUMBER, it.normalizedNumber)
                     withValue(CommonDataKinds.Phone.TYPE, it.type)
                     withValue(CommonDataKinds.Phone.LABEL, it.label)
                     operations.add(build())

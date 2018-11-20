@@ -168,7 +168,7 @@ class EditContactActivity : ContactActivity() {
             val phone = intent.extras.get(KEY_PHONE)
             if (phone != null) {
                 val phoneNumber = phone.toString()
-                contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, ""))
+                contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, "", phoneNumber.normalizeNumber()))
                 if (phoneNumber.isNotEmpty() && action == ADD_NEW_CONTACT_NUMBER) {
                     highlightLastPhoneNumber = true
                 }
@@ -883,7 +883,7 @@ class EditContactActivity : ContactActivity() {
             val numberLabel = if (numberType == CommonDataKinds.Phone.TYPE_CUSTOM) numberHolder.contact_number_type.value else ""
 
             if (number.isNotEmpty()) {
-                phoneNumbers.add(PhoneNumber(number, numberType, numberLabel))
+                phoneNumbers.add(PhoneNumber(number, numberType, numberLabel, number.normalizeNumber()))
             }
         }
         return phoneNumbers

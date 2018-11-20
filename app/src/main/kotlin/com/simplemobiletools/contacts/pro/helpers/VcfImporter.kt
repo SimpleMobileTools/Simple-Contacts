@@ -9,6 +9,7 @@ import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.getCachePhoto
 import com.simplemobiletools.contacts.pro.extensions.getCachePhotoUri
 import com.simplemobiletools.contacts.pro.extensions.groupsDB
+import com.simplemobiletools.contacts.pro.extensions.normalizeNumber
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.*
 import com.simplemobiletools.contacts.pro.models.*
 import ezvcard.Ezvcard
@@ -59,7 +60,7 @@ class VcfImporter(val activity: SimpleActivity) {
                         ""
                     }
 
-                    phoneNumbers.add(PhoneNumber(number, type, label))
+                    phoneNumbers.add(PhoneNumber(number, type, label, number.normalizeNumber()))
                 }
 
                 val emails = ArrayList<Email>()
@@ -112,7 +113,6 @@ class VcfImporter(val activity: SimpleActivity) {
                 val photoData = ezContact.photos.firstOrNull()?.data
                 val photo = null
                 val thumbnailUri = savePhoto(photoData)
-                val cleanPhoneNumbers = ArrayList<PhoneNumber>()
 
                 val IMs = ArrayList<IM>()
                 ezContact.impps.forEach {
@@ -136,7 +136,7 @@ class VcfImporter(val activity: SimpleActivity) {
                 }
 
                 val contact = Contact(0, prefix, firstName, middleName, surname, suffix, nickname, photoUri, phoneNumbers, emails, addresses, events,
-                        targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, cleanPhoneNumbers, IMs)
+                        targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, IMs)
 
                 // if there is no N and ORG fields at the given contact, only FN, treat it as an organization
                 if (contact.getNameToDisplay().isEmpty() && contact.organization.isEmpty() && ezContact.formattedName.value.isNotEmpty()) {

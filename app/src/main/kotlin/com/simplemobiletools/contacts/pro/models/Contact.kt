@@ -5,13 +5,12 @@ import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
-import com.simplemobiletools.contacts.pro.extensions.applyRegexFiltering
+import com.simplemobiletools.contacts.pro.extensions.normalizeNumber
 
 data class Contact(var id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var nickname: String,
                    var photoUri: String, var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>,
                    var events: ArrayList<Event>, var source: String, var starred: Int, var contactId: Int, var thumbnailUri: String, var photo: Bitmap?, var notes: String,
-                   var groups: ArrayList<Group>, var organization: Organization, var websites: ArrayList<String>, var cleanPhoneNumbers: ArrayList<PhoneNumber>,
-                   var IMs: ArrayList<IM>) :
+                   var groups: ArrayList<Group>, var organization: Organization, var websites: ArrayList<String>, var IMs: ArrayList<IM>) :
         Comparable<Contact> {
     companion object {
         var sorting = 0
@@ -126,21 +125,11 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
 
     fun isABusinessContact() = prefix.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && suffix.isEmpty() && organization.isNotEmpty()
 
-    // do a more advanced phone number check here, compare numbers and and search query with dashes, spaces and everything but numbers removed
     fun doesContainPhoneNumber(text: String): Boolean {
-        if (text.isNotEmpty()) {
-            if (phoneNumbers.any { it.value.contains(text) } || cleanPhoneNumbers.any { it.value.contains(text) }) {
-                return true
-            }
+        return if (text.isNotEmpty()) {
+            phoneNumbers.any { it.value.contains(text) || it.normalizedNumber?.contains(text.normalizeNumber()) == true || it.value.normalizeNumber().contains(text.normalizeNumber()) }
+        } else {
+            false
         }
-
-        val filteredNumber = text.applyRegexFiltering()
-        if (filteredNumber.isNotEmpty()) {
-            if (phoneNumbers.any { it.value.contains(filteredNumber) } || cleanPhoneNumbers.any { it.value.contains(filteredNumber) }) {
-                return true
-            }
-        }
-
-        return false
     }
 }

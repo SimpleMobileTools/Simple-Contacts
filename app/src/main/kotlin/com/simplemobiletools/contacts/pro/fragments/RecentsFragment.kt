@@ -9,8 +9,8 @@ import com.simplemobiletools.commons.helpers.PERMISSION_READ_CALL_LOG
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CALL_LOG
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
 import com.simplemobiletools.contacts.pro.adapters.RecentCallsAdapter
-import com.simplemobiletools.contacts.pro.extensions.applyRegexFiltering
 import com.simplemobiletools.contacts.pro.extensions.contactClicked
+import com.simplemobiletools.contacts.pro.extensions.normalizeNumber
 import com.simplemobiletools.contacts.pro.helpers.IS_FROM_SIMPLE_CONTACTS
 import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.pro.helpers.RECENTS_TAB_MASK
@@ -43,10 +43,10 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         val currAdapter = fragment_list.adapter
         if (currAdapter == null) {
             RecentCallsAdapter(activity!!, recentCalls, activity, fragment_list, fragment_fastscroller) {
-                val recentCall = (it as RecentCall).number.applyRegexFiltering()
+                val recentCall = (it as RecentCall).number.normalizeNumber()
                 var selectedContact: Contact? = null
                 for (contact in allContacts) {
-                    if (contact.phoneNumbers.any { it.value.applyRegexFiltering() == recentCall }) {
+                    if (contact.phoneNumbers.any { it.normalizedNumber == recentCall }) {
                         selectedContact = contact
                         break
                     }
