@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.PowerManager
 import com.simplemobiletools.commons.extensions.beGone
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
@@ -36,6 +37,9 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
                     updateCallee(it)
                 }
             }
+        } else {
+            toast(R.string.unknown_error_occurred)
+            finish()
         }
     }
 
