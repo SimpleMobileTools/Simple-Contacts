@@ -111,7 +111,8 @@
 
     <!-- Dialer -->
     <string name="dialer">Telefón</string>
-    <string name="calling">Vytáčanie…</string>
+    <string name="calling">Vytáča sa…</string>
+    <string name="incoming_call">Prichádzajúci hovor od…</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Zvoľte polia na zobrazenie</string>

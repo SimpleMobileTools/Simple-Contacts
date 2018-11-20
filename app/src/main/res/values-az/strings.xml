@@ -112,6 +112,7 @@
     <!-- Dialer -->
     <string name="dialer">Dialer</string>
     <string name="calling">Calling…</string>
+    <string name="incoming_call">Incoming call from…</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Göstərmək üçün sahəni seç</string>

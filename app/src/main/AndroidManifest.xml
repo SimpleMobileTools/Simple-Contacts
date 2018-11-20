@@ -235,11 +235,14 @@
         </provider>
 
         <service
-            android:name=".helpers.MyConnectionService"
-            android:label="SimpleContacts ConnectionService"
-            android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE">
+            android:name=".services.MyCallService"
+            android:permission="android.permission.BIND_INCALL_SERVICE">
+            <meta-data
+                android:name="android.telecom.IN_CALL_SERVICE_UI"
+                android:value="true"/>
+
             <intent-filter>
-                <action android:name="android.telecom.ConnectionService"/>
+                <action android:name="android.telecom.InCallService"/>
             </intent-filter>
         </service>
 

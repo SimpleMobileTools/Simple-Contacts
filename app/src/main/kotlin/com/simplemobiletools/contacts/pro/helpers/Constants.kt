@@ -33,6 +33,12 @@ const val FIRST_GROUP_ID = 10000L
 const val KEY_PHONE = "phone"
 const val KEY_NAME = "name"
 
+// Dialer
+const val INCOMING_CALL = "incoming_call"
+const val CALLER_NUMBER = "caller_number"
+const val CALL_STATUS = "call_status"
+const val DIALER_INTENT_FILTER = "dialer_intent_filter"
+
 const val LOCATION_CONTACTS_TAB = 0
 const val LOCATION_FAVORITES_TAB = 1
 const val LOCATION_RECENTS_TAB = 2
