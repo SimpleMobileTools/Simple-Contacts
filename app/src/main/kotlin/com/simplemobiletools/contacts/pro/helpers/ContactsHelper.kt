@@ -96,8 +96,8 @@ class ContactsHelper(val activity: Activity) {
         Thread {
             val uri = CommonDataKinds.Phone.CONTENT_URI
             val projection = arrayOf(ContactsContract.Data.RAW_CONTACT_ID)
-            val selection = "${CommonDataKinds.Phone.NORMALIZED_NUMBER} = ?"
-            val selectionArgs = arrayOf(number.normalizeNumber())
+            val selection = "${CommonDataKinds.Phone.NUMBER} = ? OR ${CommonDataKinds.Phone.NORMALIZED_NUMBER} = ?"
+            val selectionArgs = arrayOf(number, number.normalizeNumber())
 
             var cursor: Cursor? = null
             try {
