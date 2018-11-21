@@ -151,12 +151,16 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     }
 
     private fun statusDisconnected() {
-        isCallActive = false
         timerHandler.removeCallbacksAndMessages(null)
         dialer_hangup_button.beGone()
-        dialer_hangup_button.postDelayed({
+        if (isCallActive) {
+            dialer_hangup_button.postDelayed({
+                finish()
+            }, DISCONNECT_DELAY)
+        } else {
             finish()
-        }, DISCONNECT_DELAY)
+        }
+        isCallActive = false
     }
 
     private fun updateOtherParticipant(contact: Contact?) {
