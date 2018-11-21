@@ -213,8 +213,7 @@
 
         <activity
             android:name=".activities.DialerActivity"
-            android:label="@string/dialer"
-            android:parentActivityName=".activities.MainActivity">
+            android:label="@string/dialer">
 
             <intent-filter>
                 <action android:name="android.intent.action.CALL"/>
