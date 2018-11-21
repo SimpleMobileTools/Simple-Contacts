@@ -370,7 +370,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         // selecting the proper tab sometimes glitches, add an extra selector to make sure we have it right
         main_tabs_holder.onGlobalLayout {
             Handler().postDelayed({
-                main_tabs_holder.getTabAt(config.lastUsedViewPagerPage)?.select()
+                if (intent?.action == Intent.ACTION_VIEW && intent.type == "vnd.android.cursor.dir/calls") {
+                    main_tabs_holder.getTabAt(getRecentsTabIndex())?.select()
+                } else {
+                    main_tabs_holder.getTabAt(config.lastUsedViewPagerPage)?.select()
+                }
                 invalidateOptionsMenu()
             }, 100L)
         }
@@ -544,6 +548,22 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, recents_fragment, groups_fragment)
+
+    private fun getRecentsTabIndex(): Int {
+        var index = 0
+        if (config.showTabs and RECENTS_TAB_MASK == 0) {
+            return index
+        }
+
+        if (config.showTabs and CONTACTS_TAB_MASK != 0) {
+            index++
+        }
+
+        if (config.showTabs and FAVORITES_TAB_MASK != 0) {
+            index++
+        }
+        return index
+    }
 
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {
