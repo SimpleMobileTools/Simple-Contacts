@@ -95,6 +95,13 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (!isCallActive) {
+            hangUp()
+        }
+    }
+
     private fun initProximityWakeLock() {
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         proximity = sensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
