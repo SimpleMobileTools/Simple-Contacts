@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -253,6 +254,10 @@
                 <action android:name="android.telecom.InCallService"/>
             </intent-filter>
         </service>
+
+        <service
+            android:name=".services.DialerCallService"
+            android:exported="false"/>
 
         <activity-alias
             android:name=".activities.SplashActivity.Red"

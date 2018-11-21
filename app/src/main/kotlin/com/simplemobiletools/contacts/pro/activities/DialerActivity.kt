@@ -19,6 +19,7 @@ import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.GsmCall
 import com.simplemobiletools.contacts.pro.objects.CallManager
+import com.simplemobiletools.contacts.pro.services.DialerCallService
 import kotlinx.android.synthetic.main.activity_dialer.*
 
 // incoming call handling inspired by https://github.com/mbarrben/android_dialer_replacement
@@ -45,12 +46,14 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
             number = Uri.decode(intent.dataString).substringAfter("tel:")
             initViews()
             tryFillingOtherEndsName()
+            startNotificationService()
         } else if (intent.action == INCOMING_CALL && intent.extras?.containsKey(CALLER_NUMBER) == true && intent.extras?.containsKey(CALL_STATUS) == true) {
             isIncomingCall = true
             number = intent.getStringExtra(CALLER_NUMBER)
             initViews()
             updateUI(intent.getSerializableExtra(CALL_STATUS) as GsmCall.Status)
             tryFillingOtherEndsName()
+            startNotificationService()
         } else {
             toast(R.string.unknown_error_occurred)
             finish()
@@ -93,25 +96,34 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     }
 
     private fun initViews() {
-        dialer_hangup_button.setOnClickListener {
-            CallManager.declineCall()
-            finish()
-        }
-
-        dialer_incoming_accept.setOnClickListener {
-            CallManager.acceptCall()
-        }
-
-        dialer_incoming_decline.setOnClickListener {
-            CallManager.declineCall()
-            finish()
-        }
+        dialer_hangup_button.setOnClickListener { hangUp() }
+        dialer_incoming_accept.setOnClickListener { CallManager.acceptCall() }
+        dialer_incoming_decline.setOnClickListener { hangUp() }
 
         dialer_hangup_button.beVisibleIf(!isIncomingCall)
         dialer_incoming_decline.beVisibleIf(isIncomingCall)
         dialer_incoming_accept.beVisibleIf(isIncomingCall)
 
         dialer_label.setText(if (isIncomingCall) R.string.incoming_call else R.string.calling)
+    }
+
+    private fun startNotificationService() {
+        Intent(this, DialerCallService::class.java).apply {
+            putExtra(CALLER_NUMBER, number)
+            startService(this)
+        }
+    }
+
+    private fun stopNotificationService() {
+        Intent(this, DialerCallService::class.java).apply {
+            stopService(this)
+        }
+    }
+
+    private fun hangUp() {
+        stopNotificationService()
+        CallManager.declineCall()
+        finish()
     }
 
     private fun tryFillingOtherEndsName() {
@@ -151,6 +163,7 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     }
 
     private fun statusDisconnected() {
+        stopNotificationService()
         timerHandler.removeCallbacksAndMessages(null)
         dialer_hangup_button.beGone()
         if (isCallActive) {
