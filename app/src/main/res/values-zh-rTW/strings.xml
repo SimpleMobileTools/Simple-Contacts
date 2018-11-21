@@ -113,6 +113,8 @@
     <string name="dialer">Dialer</string>
     <string name="calling">Calling…</string>
     <string name="incoming_call">Incoming call from…</string>
+    <string name="ongoing_call">Ongoing call</string>
+    <string name="disconnected">Disconnected</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">選擇要顯示的欄位</string>

@@ -34,8 +34,9 @@ const val KEY_NAME = "name"
 
 // Dialer
 const val INCOMING_CALL = "incoming_call"
-const val CALLER_NUMBER = "caller_number"
+const val CALL_NUMBER = "call_number"
 const val CALL_STATUS = "call_status"
+const val IS_INCOMING_CALL = "is_incoming_call"
 const val DIALER_INTENT_FILTER = "dialer_intent_filter"
 
 const val LOCATION_CONTACTS_TAB = 0

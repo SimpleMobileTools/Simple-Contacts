@@ -113,6 +113,8 @@
     <string name="dialer">Telefón</string>
     <string name="calling">Vytáča sa…</string>
     <string name="incoming_call">Prichádzajúci hovor od…</string>
+    <string name="ongoing_call">Prebiehajúci hovor</string>
+    <string name="disconnected">Ukončený hovor</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Zvoľte polia na zobrazenie</string>

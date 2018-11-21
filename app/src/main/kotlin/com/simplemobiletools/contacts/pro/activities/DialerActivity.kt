@@ -27,7 +27,8 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     private val SENSOR_SENSITIVITY = 4
     private val DISCONNECT_DELAY = 3000L
 
-    private var number = ""
+    private var callNumber = ""
+    private var callStatus = Call.STATE_NEW
     private var isIncomingCall = false
     private var isCallActive = false
     private var callDuration = 0
@@ -43,17 +44,15 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         LocalBroadcastManager.getInstance(applicationContext).registerReceiver(messageReceiver, IntentFilter(DIALER_INTENT_FILTER))
 
         if (intent.action == Intent.ACTION_CALL && intent.data != null && intent.dataString?.contains("tel:") == true) {
-            number = Uri.decode(intent.dataString).substringAfter("tel:")
+            callNumber = Uri.decode(intent.dataString).substringAfter("tel:")
             initViews()
             tryFillingOtherEndsName()
-            startNotificationService()
-        } else if (intent.action == INCOMING_CALL && intent.extras?.containsKey(CALLER_NUMBER) == true && intent.extras?.containsKey(CALL_STATUS) == true) {
+        } else if (intent.action == INCOMING_CALL && intent.extras?.containsKey(CALL_NUMBER) == true && intent.extras?.containsKey(CALL_STATUS) == true) {
             isIncomingCall = true
-            number = intent.getStringExtra(CALLER_NUMBER)
+            callNumber = intent.getStringExtra(CALL_NUMBER)
             initViews()
-            updateUI(intent.getIntExtra(CALL_STATUS, 0))
+            updateUI(intent.getIntExtra(CALL_STATUS, Call.STATE_NEW))
             tryFillingOtherEndsName()
-            startNotificationService()
         } else {
             toast(R.string.unknown_error_occurred)
             finish()
@@ -69,6 +68,9 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     override fun onPause() {
         super.onPause()
         sensorManager!!.unregisterListener(this)
+        if (!isCallActive && callStatus != Call.STATE_DISCONNECTED) {
+            startNotificationService()
+        }
     }
 
     override fun onDestroy() {
@@ -79,7 +81,7 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     private val messageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.extras?.containsKey(CALL_STATUS) == true) {
-                updateUI(intent.getIntExtra(CALL_STATUS, 0))
+                updateUI(intent.getIntExtra(CALL_STATUS, Call.STATE_NEW))
             }
         }
     }
@@ -109,7 +111,9 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
 
     private fun startNotificationService() {
         Intent(this, DialerCallService::class.java).apply {
-            putExtra(CALLER_NUMBER, number)
+            putExtra(CALL_NUMBER, callNumber)
+            putExtra(CALL_STATUS, callStatus)
+            putExtra(IS_INCOMING_CALL, isIncomingCall)
             startService(this)
         }
     }
@@ -121,13 +125,14 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     }
 
     private fun hangUp() {
+        callStatus = Call.STATE_DISCONNECTED
         stopNotificationService()
         CallManager.declineCall()
         finish()
     }
 
     private fun tryFillingOtherEndsName() {
-        ContactsHelper(this).getContactWithNumber(number) {
+        ContactsHelper(this).getContactWithNumber(callNumber) {
             runOnUiThread {
                 updateOtherParticipant(it)
             }
@@ -135,6 +140,7 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     }
 
     private fun updateUI(status: Int) {
+        callStatus = status
         when (status) {
             Call.STATE_ACTIVE -> statusActive()
             Call.STATE_DISCONNECTED -> statusDisconnected()
@@ -142,11 +148,12 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     }
 
     private fun statusActive() {
+        startNotificationService()
         isCallActive = true
         dialer_call_duration.beVisible()
         updateCallDuration()
 
-        dialer_label.text = ""
+        dialer_label.setText(R.string.ongoing_call)
         dialer_hangup_button.beVisible()
         dialer_incoming_accept.beGone()
         dialer_incoming_decline.beGone()
@@ -166,6 +173,7 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         stopNotificationService()
         timerHandler.removeCallbacksAndMessages(null)
         dialer_hangup_button.beGone()
+        dialer_label.setText(R.string.disconnected)
         if (isCallActive) {
             dialer_hangup_button.postDelayed({
                 finish()
@@ -179,9 +187,9 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     private fun updateOtherParticipant(contact: Contact?) {
         if (contact != null) {
             dialer_big_name_number.text = contact.getNameToDisplay()
-            dialer_number.text = number
+            dialer_number.text = callNumber
         } else {
-            dialer_big_name_number.text = number
+            dialer_big_name_number.text = callNumber
             dialer_number.beGone()
         }
     }

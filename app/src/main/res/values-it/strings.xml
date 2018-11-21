@@ -113,6 +113,8 @@
     <string name="dialer">Compositore</string>
     <string name="calling">Chiamata in corso…</string>
     <string name="incoming_call">Incoming call from…</string>
+    <string name="ongoing_call">Ongoing call</string>
+    <string name="disconnected">Disconnected</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Seleziona i campi da mostrare</string>

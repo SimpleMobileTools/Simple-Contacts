@@ -7,7 +7,7 @@ import android.telecom.Call
 import android.telecom.InCallService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.simplemobiletools.contacts.pro.activities.DialerActivity
-import com.simplemobiletools.contacts.pro.helpers.CALLER_NUMBER
+import com.simplemobiletools.contacts.pro.helpers.CALL_NUMBER
 import com.simplemobiletools.contacts.pro.helpers.CALL_STATUS
 import com.simplemobiletools.contacts.pro.helpers.DIALER_INTENT_FILTER
 import com.simplemobiletools.contacts.pro.helpers.INCOMING_CALL
@@ -30,7 +30,7 @@ class MyCallService : InCallService() {
         Intent(this, DialerActivity::class.java).apply {
             action = INCOMING_CALL
             putExtra(CALL_STATUS, call.state)
-            putExtra(CALLER_NUMBER, callerNumber)
+            putExtra(CALL_NUMBER, callerNumber)
             startActivity(this)
         }
         CallManager.updateCall(call)
