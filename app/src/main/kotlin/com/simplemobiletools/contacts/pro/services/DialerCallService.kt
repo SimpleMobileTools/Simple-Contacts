@@ -76,7 +76,7 @@ class DialerCallService : Service() {
             putExtra(CALL_STATUS, callStatus)
             putExtra(IS_INCOMING_CALL, isIncomingCall)
         }
-        return PendingIntent.getActivity(this, 0, intent, 0)
+        return PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun getCallStatusString(): String {
