@@ -245,7 +245,7 @@
         </provider>
 
         <service
-            android:name=".services.MyCallService"
+            android:name=".services.MyIncomingCallService"
             android:permission="android.permission.BIND_INCALL_SERVICE">
             <meta-data
                 android:name="android.telecom.IN_CALL_SERVICE_UI"
@@ -253,6 +253,16 @@
 
             <intent-filter>
                 <action android:name="android.telecom.InCallService"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".services.MyOutgoingCallService"
+            android:exported="true"
+            android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE">
+
+            <intent-filter>
+                <action android:name="android.telecomm.ConnectionService"/>
             </intent-filter>
         </service>
 

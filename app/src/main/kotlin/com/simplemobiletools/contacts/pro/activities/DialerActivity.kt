@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -13,6 +14,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
 import android.telecom.Call
+import android.telecom.TelecomManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.contacts.pro.R
@@ -49,6 +51,7 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
             callNumber = Uri.decode(intent.dataString).substringAfter("tel:")
             initViews()
             tryFillingOtherEndsName()
+            initOutgoingCall()
         } else if (action == INCOMING_CALL && extras?.containsKey(CALL_NUMBER) == true && extras.containsKey(CALL_STATUS)) {
             isIncomingCall = true
             callNumber = intent.getStringExtra(CALL_NUMBER)
@@ -123,6 +126,13 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         dialer_incoming_accept.beVisibleIf(isIncomingCall)
 
         dialer_label.setText(if (isIncomingCall) R.string.incoming_call else R.string.calling)
+    }
+
+    private fun initOutgoingCall() {
+        val telecomManager = getSystemService(Context.TELECOM_SERVICE) as TelecomManager
+        val uri = Uri.fromParts("tel:", callNumber, null)
+        val extras = Bundle()
+        telecomManager.placeCall(uri, extras)
     }
 
     private fun startNotificationService() {
@@ -222,6 +232,7 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         }
     }
 
+    @SuppressLint("WakelockTimeout")
     private fun turnOffScreen() {
         if (proximityWakeLock?.isHeld == false) {
             proximityWakeLock!!.acquire()

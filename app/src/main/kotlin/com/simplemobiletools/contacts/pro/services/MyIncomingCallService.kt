@@ -14,7 +14,7 @@ import com.simplemobiletools.contacts.pro.helpers.INCOMING_CALL
 import com.simplemobiletools.contacts.pro.objects.CallManager
 
 @TargetApi(Build.VERSION_CODES.M)
-class MyCallService : InCallService() {
+class MyIncomingCallService : InCallService() {
 
     override fun onCallAdded(call: Call) {
         super.onCallAdded(call)
