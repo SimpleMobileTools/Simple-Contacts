@@ -223,7 +223,8 @@
 
         <activity
             android:name=".activities.DialerActivity"
-            android:label="@string/dialer">
+            android:label="@string/dialer"
+            android:launchMode="singleTask">
 
             <intent-filter>
                 <action android:name="android.intent.action.CALL"/>

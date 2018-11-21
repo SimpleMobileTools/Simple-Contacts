@@ -16,6 +16,7 @@ import com.simplemobiletools.contacts.pro.activities.DialerActivity
 import com.simplemobiletools.contacts.pro.helpers.CALL_NUMBER
 import com.simplemobiletools.contacts.pro.helpers.CALL_STATUS
 import com.simplemobiletools.contacts.pro.helpers.IS_INCOMING_CALL
+import com.simplemobiletools.contacts.pro.helpers.RESUME_DIALER
 
 class DialerCallService : Service() {
     private val CALL_NOTIFICATION_ID = 1
@@ -69,9 +70,12 @@ class DialerCallService : Service() {
     }
 
     private fun getLaunchDialerIntent(): PendingIntent {
-        val intent = Intent(this, DialerActivity::class.java)
-        intent.action = Intent.ACTION_MAIN
-        intent.addCategory(Intent.CATEGORY_LAUNCHER)
+        val intent = Intent(this, DialerActivity::class.java).apply {
+            action = RESUME_DIALER
+            putExtra(CALL_NUMBER, callNumber)
+            putExtra(CALL_STATUS, callStatus)
+            putExtra(IS_INCOMING_CALL, isIncomingCall)
+        }
         return PendingIntent.getActivity(this, 0, intent, 0)
     }
 

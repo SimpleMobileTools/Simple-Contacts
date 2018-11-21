@@ -43,15 +43,24 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         initProximityWakeLock()
         LocalBroadcastManager.getInstance(applicationContext).registerReceiver(messageReceiver, IntentFilter(DIALER_INTENT_FILTER))
 
-        if (intent.action == Intent.ACTION_CALL && intent.data != null && intent.dataString?.contains("tel:") == true) {
+        val action = intent.action
+        val extras = intent.extras
+        if (action == Intent.ACTION_CALL && intent.data != null && intent.dataString?.contains("tel:") == true) {
             callNumber = Uri.decode(intent.dataString).substringAfter("tel:")
             initViews()
             tryFillingOtherEndsName()
-        } else if (intent.action == INCOMING_CALL && intent.extras?.containsKey(CALL_NUMBER) == true && intent.extras?.containsKey(CALL_STATUS) == true) {
+        } else if (action == INCOMING_CALL && extras?.containsKey(CALL_NUMBER) == true && extras.containsKey(CALL_STATUS)) {
             isIncomingCall = true
             callNumber = intent.getStringExtra(CALL_NUMBER)
             initViews()
             updateUI(intent.getIntExtra(CALL_STATUS, Call.STATE_NEW))
+            tryFillingOtherEndsName()
+        } else if (action == RESUME_DIALER && extras?.containsKey(CALL_NUMBER) == true && extras.containsKey(CALL_STATUS) && extras.containsKey(IS_INCOMING_CALL)) {
+            callNumber = intent.getStringExtra(CALL_NUMBER)
+            callStatus = intent.getIntExtra(CALL_STATUS, Call.STATE_NEW)
+            isIncomingCall = intent.getBooleanExtra(IS_INCOMING_CALL, false)
+            initViews()
+            updateUI(callStatus)
             tryFillingOtherEndsName()
         } else {
             toast(R.string.unknown_error_occurred)

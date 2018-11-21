@@ -34,6 +34,7 @@ const val KEY_NAME = "name"
 
 // Dialer
 const val INCOMING_CALL = "incoming_call"
+const val RESUME_DIALER = "resume_dialer"
 const val CALL_NUMBER = "call_number"
 const val CALL_STATUS = "call_status"
 const val IS_INCOMING_CALL = "is_incoming_call"
