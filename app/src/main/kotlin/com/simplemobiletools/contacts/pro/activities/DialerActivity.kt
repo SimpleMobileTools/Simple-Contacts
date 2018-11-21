@@ -12,12 +12,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
+import android.telecom.Call
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
-import com.simplemobiletools.contacts.pro.models.GsmCall
 import com.simplemobiletools.contacts.pro.objects.CallManager
 import com.simplemobiletools.contacts.pro.services.DialerCallService
 import kotlinx.android.synthetic.main.activity_dialer.*
@@ -51,7 +51,7 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
             isIncomingCall = true
             number = intent.getStringExtra(CALLER_NUMBER)
             initViews()
-            updateUI(intent.getSerializableExtra(CALL_STATUS) as GsmCall.Status)
+            updateUI(intent.getIntExtra(CALL_STATUS, 0))
             tryFillingOtherEndsName()
             startNotificationService()
         } else {
@@ -79,7 +79,7 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     private val messageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.extras?.containsKey(CALL_STATUS) == true) {
-                updateUI(intent.getSerializableExtra(CALL_STATUS) as GsmCall.Status)
+                updateUI(intent.getIntExtra(CALL_STATUS, 0))
             }
         }
     }
@@ -134,10 +134,10 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         }
     }
 
-    private fun updateUI(status: GsmCall.Status) {
+    private fun updateUI(status: Int) {
         when (status) {
-            GsmCall.Status.ACTIVE -> statusActive()
-            GsmCall.Status.DISCONNECTED -> statusDisconnected()
+            Call.STATE_ACTIVE -> statusActive()
+            Call.STATE_DISCONNECTED -> statusDisconnected()
         }
     }
 

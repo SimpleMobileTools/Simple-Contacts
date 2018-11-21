@@ -7,7 +7,6 @@ import android.telecom.Call
 import android.telecom.InCallService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.simplemobiletools.contacts.pro.activities.DialerActivity
-import com.simplemobiletools.contacts.pro.extensions.toGsmCallStatus
 import com.simplemobiletools.contacts.pro.helpers.CALLER_NUMBER
 import com.simplemobiletools.contacts.pro.helpers.CALL_STATUS
 import com.simplemobiletools.contacts.pro.helpers.DIALER_INTENT_FILTER
@@ -30,7 +29,7 @@ class MyCallService : InCallService() {
 
         Intent(this, DialerActivity::class.java).apply {
             action = INCOMING_CALL
-            putExtra(CALL_STATUS, call.state.toGsmCallStatus())
+            putExtra(CALL_STATUS, call.state)
             putExtra(CALLER_NUMBER, callerNumber)
             startActivity(this)
         }
@@ -52,7 +51,7 @@ class MyCallService : InCallService() {
 
     private fun sendCallToActivity(call: Call) {
         Intent(DIALER_INTENT_FILTER).apply {
-            putExtra(CALL_STATUS, call.state.toGsmCallStatus())
+            putExtra(CALL_STATUS, call.state)
             LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(this)
         }
     }
