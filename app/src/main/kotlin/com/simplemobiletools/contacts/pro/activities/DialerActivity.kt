@@ -97,7 +97,7 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        if (!isCallActive) {
+        if (!isCallActive && !isIncomingCall) {
             hangUp()
         }
     }
