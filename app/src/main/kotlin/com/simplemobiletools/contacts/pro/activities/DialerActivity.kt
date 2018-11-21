@@ -10,6 +10,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.os.PowerManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.simplemobiletools.commons.extensions.*
@@ -27,9 +28,12 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
 
     private var number = ""
     private var isIncomingCall = false
+    private var isCallActive = false
+    private var callDuration = 0
     private var sensorManager: SensorManager? = null
     private var proximity: Sensor? = null
     private var proximityWakeLock: PowerManager.WakeLock? = null
+    private var timerHandler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +66,11 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     override fun onPause() {
         super.onPause()
         sensorManager!!.unregisterListener(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timerHandler.removeCallbacksAndMessages(null)
     }
 
     private val messageReceiver = object : BroadcastReceiver() {
@@ -121,13 +130,29 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     }
 
     private fun statusActive() {
+        isCallActive = true
+        dialer_call_duration.beVisible()
+        updateCallDuration()
+
         dialer_label.text = ""
         dialer_hangup_button.beVisible()
         dialer_incoming_accept.beGone()
         dialer_incoming_decline.beGone()
     }
 
+    private fun updateCallDuration() {
+        dialer_call_duration.text = callDuration.getFormattedDuration()
+        timerHandler.postDelayed({
+            if (isCallActive) {
+                callDuration++
+                updateCallDuration()
+            }
+        }, 1000)
+    }
+
     private fun statusDisconnected() {
+        isCallActive = false
+        timerHandler.removeCallbacksAndMessages(null)
         dialer_hangup_button.beGone()
         dialer_hangup_button.postDelayed({
             finish()
