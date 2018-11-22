@@ -18,6 +18,7 @@
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS"/>
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -246,9 +247,21 @@
 
         <service
             android:name=".services.MyIncomingCallService"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="true"
             android:permission="android.permission.BIND_INCALL_SERVICE">
+
             <meta-data
                 android:name="android.telecom.IN_CALL_SERVICE_UI"
+                android:value="true"/>
+
+            <meta-data
+                android:name="android.telecom.IN_CALL_SERVICE_RINGING"
+                android:value="false"/>
+
+            <meta-data
+                android:name="android.telecom.INCLUDE_EXTERNAL_CALLS"
                 android:value="true"/>
 
             <intent-filter>
@@ -260,9 +273,8 @@
             android:name=".services.MyOutgoingCallService"
             android:exported="true"
             android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE">
-
             <intent-filter>
-                <action android:name="android.telecomm.ConnectionService"/>
+                <action android:name="android.telecom.ConnectionService"/>
             </intent-filter>
         </service>
 

@@ -6,11 +6,10 @@ import android.os.Build
 import android.telecom.Call
 import android.telecom.InCallService
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.simplemobiletools.contacts.pro.activities.DialerActivity
 import com.simplemobiletools.contacts.pro.helpers.CALL_NUMBER
 import com.simplemobiletools.contacts.pro.helpers.CALL_STATUS
 import com.simplemobiletools.contacts.pro.helpers.DIALER_INTENT_FILTER
-import com.simplemobiletools.contacts.pro.helpers.INCOMING_CALL
+import com.simplemobiletools.contacts.pro.helpers.IS_INCOMING_CALL
 import com.simplemobiletools.contacts.pro.objects.CallManager
 
 @TargetApi(Build.VERSION_CODES.M)
@@ -27,12 +26,13 @@ class MyIncomingCallService : InCallService() {
             handle
         }
 
-        Intent(this, DialerActivity::class.java).apply {
-            action = INCOMING_CALL
+        Intent(this, DialerCallService::class.java).apply {
             putExtra(CALL_STATUS, call.state)
             putExtra(CALL_NUMBER, callerNumber)
-            startActivity(this)
+            putExtra(IS_INCOMING_CALL, true)
+            startService(this)
         }
+
         CallManager.updateCall(call)
     }
 
@@ -46,6 +46,11 @@ class MyIncomingCallService : InCallService() {
         override fun onStateChanged(call: Call, state: Int) {
             CallManager.updateCall(call)
             sendCallToActivity(call)
+            if (state == Call.STATE_DISCONNECTED) {
+                Intent(applicationContext, DialerCallService::class.java).apply {
+                    stopService(this)
+                }
+            }
         }
     }
 
