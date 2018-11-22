@@ -22,7 +22,7 @@
     <string name="no_contacts_found">連絡先が見つかりません</string>
     <string name="no_contacts_with_emails">メールアドレスが登録された連絡先が見つかりません</string>
     <string name="no_contacts_with_phone_numbers">電話番号が登録された連絡先が見つかりません</string>
-    <string name="no_recent_calls_found">No recent calls found</string>
+    <string name="no_recent_calls_found">通話履歴はありません</string>
 
     <string name="new_contact">新しい連絡先</string>
     <string name="edit_contact">連絡先を編集</string>
@@ -53,7 +53,7 @@
     <string name="start_name_with_surname">姓を先に表示</string>
     <string name="show_phone_numbers">メイン画面に電話番号を表示</string>
     <string name="show_contact_thumbnails">連絡先のサムネイルを表示</string>
-    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
+    <string name="show_dialpad_button">メイン画面にダイヤルパッドを表示</string>
     <string name="on_contact_click">連絡先をタップ</string>
     <string name="call_contact">連絡先に発信</string>
     <string name="view_contact">連絡先の詳細を表示</string>
@@ -62,7 +62,7 @@
     <string name="manage_shown_tabs">表示するタブを管理</string>
     <string name="contacts">連絡先</string>
     <string name="favorites">お気に入り</string>
-    <string name="recent_calls">Recent calls</string>
+    <string name="recent_calls">通話履歴</string>
     <string name="show_call_confirmation_dialog">発信する前に確認ダイアログを表示する</string>
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
 
@@ -110,11 +110,11 @@
     <string name="add_number_to_contact">連絡先に番号を追加</string>
 
     <!-- Dialer -->
-    <string name="dialer">Dialer</string>
-    <string name="calling">Calling…</string>
-    <string name="incoming_call">Incoming call from…</string>
-    <string name="ongoing_call">Ongoing call</string>
-    <string name="disconnected">Disconnected</string>
+    <string name="dialer">電話</string>
+    <string name="calling">発信中…</string>
+    <string name="incoming_call">着信中…</string>
+    <string name="ongoing_call">通話中</string>
+    <string name="disconnected">切断されました</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">表示する項目を選択</string>
