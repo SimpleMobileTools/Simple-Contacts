@@ -80,10 +80,13 @@ class DialerCallService : Service() {
     }
 
     private fun getCallStatusString(): String {
-        return when (callStatus) {
-            Call.STATE_NEW -> applicationContext.getString(if (isIncomingCall) R.string.incoming_call else R.string.calling)
-            Call.STATE_ACTIVE -> applicationContext.getString(R.string.ongoing_call)
-            else -> ""
+        val id = when (callStatus) {
+            Call.STATE_DIALING -> R.string.calling
+            Call.STATE_RINGING -> R.string.incoming_call
+            Call.STATE_ACTIVE -> R.string.ongoing_call
+            else -> if (isIncomingCall) R.string.incoming_call else R.string.calling
         }
+
+        return applicationContext.getString(id)
     }
 }
