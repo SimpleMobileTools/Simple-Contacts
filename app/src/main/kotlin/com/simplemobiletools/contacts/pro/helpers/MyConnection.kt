@@ -15,7 +15,7 @@ class MyConnection(val context: Context) : Connection() {
 
     override fun onReject() {
         super.onReject()
-        setDisconnected(DisconnectCause(DisconnectCause.LOCAL))
+        setDisconnected(DisconnectCause(DisconnectCause.REJECTED))
         destroy()
     }
 

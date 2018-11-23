@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -10,6 +11,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
@@ -25,6 +27,7 @@ import com.simplemobiletools.contacts.pro.services.DialerCallService
 import kotlinx.android.synthetic.main.activity_dialer.*
 
 // incoming call handling inspired by https://github.com/mbarrben/android_dialer_replacement
+@TargetApi(Build.VERSION_CODES.M)
 class DialerActivity : SimpleActivity(), SensorEventListener {
     private val SENSOR_SENSITIVITY = 4
     private val DISCONNECT_DELAY = 3000L
@@ -47,7 +50,12 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
 
         val action = intent.action
         val extras = intent.extras
-        if (action == Intent.ACTION_CALL && intent.data != null && intent.dataString?.contains("tel:") == true) {
+        if (extras?.getBoolean(ANSWER_CALL, false) == true) {
+            callNumber = intent.getStringExtra(CALL_NUMBER)
+            initViews()
+            CallManager.answerCall()
+            tryFillingOtherEndsName()
+        } else if (action == Intent.ACTION_CALL && intent.data != null && intent.dataString?.contains("tel:") == true) {
             callNumber = Uri.decode(intent.dataString).substringAfter("tel:")
             initViews()
             tryFillingOtherEndsName()
@@ -118,14 +126,14 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
 
     private fun initViews() {
         dialer_hangup_button.setOnClickListener { hangUp() }
-        dialer_incoming_accept.setOnClickListener { CallManager.acceptCall() }
+        dialer_incoming_accept.setOnClickListener { CallManager.answerCall() }
         dialer_incoming_decline.setOnClickListener { hangUp() }
 
         dialer_hangup_button.beVisibleIf(!isIncomingCall)
         dialer_incoming_decline.beVisibleIf(isIncomingCall)
         dialer_incoming_accept.beVisibleIf(isIncomingCall)
 
-        dialer_label.setText(if (isIncomingCall) R.string.incoming_call else R.string.calling)
+        dialer_label.setText(if (isIncomingCall) R.string.incoming_call_from else R.string.calling)
     }
 
     private fun initOutgoingCall() {

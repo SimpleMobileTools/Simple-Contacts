@@ -13,13 +13,15 @@ import androidx.core.app.NotificationCompat
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.DialerActivity
-import com.simplemobiletools.contacts.pro.helpers.CALL_NUMBER
-import com.simplemobiletools.contacts.pro.helpers.CALL_STATUS
-import com.simplemobiletools.contacts.pro.helpers.IS_INCOMING_CALL
-import com.simplemobiletools.contacts.pro.helpers.RESUME_DIALER
+import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.objects.CallManager
 
 class DialerCallService : Service() {
     private val CALL_NOTIFICATION_ID = 1
+    private val LAUNCH_DIALER_INTENT_ID = 1
+    private val DISMISS_CALL_INTENT_ID = 2
+    private val ANSWER_CALL_INTENT_ID = 3
+
     private var callNumber = ""
     private var callStatus = Call.STATE_NEW
     private var isIncomingCall = false
@@ -28,11 +30,16 @@ class DialerCallService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-        callNumber = intent.getStringExtra(CALL_NUMBER)
-        callStatus = intent.getIntExtra(CALL_STATUS, Call.STATE_NEW)
-        isIncomingCall = intent.getBooleanExtra(IS_INCOMING_CALL, false)
-
-        setupNotification()
+        if (intent.getBooleanExtra(DECLINE_CALL, false)) {
+            CallManager.declineCall()
+            stopForeground(true)
+            stopSelf()
+        } else {
+            callNumber = intent.getStringExtra(CALL_NUMBER)
+            callStatus = intent.getIntExtra(CALL_STATUS, Call.STATE_NEW)
+            isIncomingCall = intent.getBooleanExtra(IS_INCOMING_CALL, false)
+            setupNotification()
+        }
         return START_STICKY
     }
 
@@ -47,7 +54,7 @@ class DialerCallService : Service() {
         if (isOreoPlus()) {
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val name = resources.getString(R.string.app_name)
-            val importance = NotificationManager.IMPORTANCE_HIGH
+            val importance = if (callStatus == Call.STATE_RINGING) NotificationManager.IMPORTANCE_HIGH else NotificationManager.IMPORTANCE_DEFAULT
             NotificationChannel(channelId, name, importance).apply {
                 enableLights(false)
                 enableVibration(false)
@@ -65,6 +72,8 @@ class DialerCallService : Service() {
                 .setOngoing(true)
                 .setChannelId(channelId)
                 .setUsesChronometer(callStatus == Call.STATE_ACTIVE)
+                .addAction(0, getString(R.string.decline_call), getDeclineCallIntent())
+                .addAction(0, getString(R.string.answer_call), getAnswerCallIntent())
 
         startForeground(CALL_NOTIFICATION_ID, notification.build())
     }
@@ -76,7 +85,25 @@ class DialerCallService : Service() {
             putExtra(CALL_STATUS, callStatus)
             putExtra(IS_INCOMING_CALL, isIncomingCall)
         }
-        return PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getActivity(this, LAUNCH_DIALER_INTENT_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
+
+    private fun getDeclineCallIntent(): PendingIntent {
+        Intent(this, DialerCallService::class.java).apply {
+            putExtra(DECLINE_CALL, true)
+            return PendingIntent.getService(this@DialerCallService, DISMISS_CALL_INTENT_ID, this, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
+    }
+
+    private fun getAnswerCallIntent(): PendingIntent {
+        val intent = Intent(this, DialerActivity::class.java).apply {
+            action = RESUME_DIALER
+            putExtra(CALL_NUMBER, callNumber)
+            putExtra(CALL_STATUS, callStatus)
+            putExtra(IS_INCOMING_CALL, isIncomingCall)
+            putExtra(ANSWER_CALL, true)
+        }
+        return PendingIntent.getActivity(this, ANSWER_CALL_INTENT_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun getCallStatusString(): String {

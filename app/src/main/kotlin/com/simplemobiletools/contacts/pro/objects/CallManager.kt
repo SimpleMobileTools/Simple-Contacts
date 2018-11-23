@@ -21,7 +21,7 @@ object CallManager {
         }
     }
 
-    fun acceptCall() {
+    fun answerCall() {
         currentCall?.apply {
             answer(details.videoState)
         }

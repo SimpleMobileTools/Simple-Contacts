@@ -39,6 +39,8 @@ const val CALL_NUMBER = "call_number"
 const val CALL_STATUS = "call_status"
 const val IS_INCOMING_CALL = "is_incoming_call"
 const val DIALER_INTENT_FILTER = "dialer_intent_filter"
+const val DECLINE_CALL = "decline_call"
+const val ANSWER_CALL = "answer_call"
 
 const val LOCATION_CONTACTS_TAB = 0
 const val LOCATION_FAVORITES_TAB = 1
