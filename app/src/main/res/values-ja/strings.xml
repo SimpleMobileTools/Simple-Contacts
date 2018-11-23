@@ -116,6 +116,8 @@
     <string name="incoming_call_from">着信中…</string>
     <string name="ongoing_call">通話中</string>
     <string name="disconnected">切断されました</string>
+    <string name="decline_call">Decline</string>
+    <string name="answer_call">Answer</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">表示する項目を選択</string>

@@ -116,6 +116,8 @@
     <string name="incoming_call_from">Prichádzajúci hovor od…</string>
     <string name="ongoing_call">Prebiehajúci hovor</string>
     <string name="disconnected">Ukončený hovor</string>
+    <string name="decline_call">Odmietnuť</string>
+    <string name="answer_call">Prijať</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Zvoľte polia na zobrazenie</string>

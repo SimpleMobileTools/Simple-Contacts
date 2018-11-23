@@ -116,6 +116,8 @@
     <string name="incoming_call_from">Incoming call from…</string>
     <string name="ongoing_call">Ongoing call</string>
     <string name="disconnected">Disconnected</string>
+    <string name="decline_call">Decline</string>
+    <string name="answer_call">Answer</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Sélectionner les champs à afficher</string>
