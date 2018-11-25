@@ -112,12 +112,12 @@
     <!-- Dialer -->
     <string name="dialer">Compositore</string>
     <string name="calling">Chiamata in corso…</string>
-    <string name="incoming_call">Incoming call</string>
+    <string name="incoming_call">Chiamata in arrivo</string>
     <string name="incoming_call_from">Chiamata in arrivo da…</string>
     <string name="ongoing_call">Chiamata in corso</string>
     <string name="disconnected">Disconnesso</string>
-    <string name="decline_call">Decline</string>
-    <string name="answer_call">Answer</string>
+    <string name="decline_call">Rifiuta</string>
+    <string name="answer_call">Rispondi</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Seleziona i campi da mostrare</string>
