@@ -58,6 +58,7 @@ class DialerCallService : Service() {
             NotificationChannel(channelId, name, importance).apply {
                 enableLights(false)
                 enableVibration(false)
+                setSound(null, null)
                 notificationManager.createNotificationChannel(this)
             }
         }
@@ -71,6 +72,7 @@ class DialerCallService : Service() {
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setOngoing(true)
                 .setChannelId(channelId)
+                .setSound(null)
                 .setUsesChronometer(callStatus == Call.STATE_ACTIVE)
                 .addAction(0, getString(R.string.decline_call), getDeclineCallIntent())
                 .addAction(0, getString(R.string.answer_call), getAnswerCallIntent())
