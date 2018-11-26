@@ -8,6 +8,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.Handler
 import android.telecom.Call
 import androidx.core.app.NotificationCompat
 import com.simplemobiletools.commons.helpers.isOreoPlus
@@ -17,6 +18,7 @@ import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.objects.CallManager
 
 class DialerCallService : Service() {
+    private val REFRESH_REMINDER_PERIOD = 3000L
     private val CALL_NOTIFICATION_ID = 1
     private val LAUNCH_DIALER_INTENT_ID = 1
     private val DISMISS_CALL_INTENT_ID = 2
@@ -25,6 +27,7 @@ class DialerCallService : Service() {
     private var callNumber = ""
     private var callStatus = Call.STATE_NEW
     private var isIncomingCall = false
+    private var reminderRefreshHandler = Handler()
 
     override fun onBind(intent: Intent?) = null
 
@@ -46,6 +49,7 @@ class DialerCallService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         stopForeground(true)
+        reminderRefreshHandler.removeCallbacksAndMessages(null)
     }
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -78,6 +82,12 @@ class DialerCallService : Service() {
                 .addAction(0, getString(R.string.answer_call), getAnswerCallIntent())
 
         startForeground(CALL_NOTIFICATION_ID, notification.build())
+
+        reminderRefreshHandler.postDelayed({
+            if (callStatus == Call.STATE_RINGING) {
+                setupNotification()
+            }
+        }, REFRESH_REMINDER_PERIOD)
     }
 
     private fun getLaunchDialerIntent(): PendingIntent {
