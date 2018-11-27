@@ -57,7 +57,7 @@ class DialerCallService : Service() {
 
     @TargetApi(Build.VERSION_CODES.O)
     private fun setupNotification() {
-        val channelId = "simple_contacts_channel"
+        val channelId = "incoming_call"
         if (isOreoPlus()) {
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val name = resources.getString(R.string.app_name)
@@ -94,7 +94,7 @@ class DialerCallService : Service() {
                 .setCategory(NotificationCompat.CATEGORY_CALL)
                 .setChannelId(channelId)
                 .setSound(null)
-                .setOnlyAlertOnce(true)
+                .setOnlyAlertOnce(false)
                 .setUsesChronometer(callStatus == Call.STATE_ACTIVE)
 
         startForeground(CALL_NOTIFICATION_ID, notification.build())
