@@ -10,7 +10,10 @@ import android.content.Intent
 import android.os.Build
 import android.os.Handler
 import android.telecom.Call
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
+import com.simplemobiletools.commons.extensions.getColoredBitmap
+import com.simplemobiletools.commons.extensions.setText
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.DialerActivity
@@ -67,19 +70,32 @@ class DialerCallService : Service() {
             }
         }
 
+        val notificationLayout = RemoteViews(packageName, R.layout.incoming_call_notification).apply {
+            setText(R.id.incoming_call_caller, callNumber)
+            setText(R.id.incoming_call_status, getCallStatusString())
+
+            val resources = applicationContext.resources
+            setImageViewBitmap(R.id.call_decline, resources.getColoredBitmap(R.drawable.ic_phone_down, resources.getColor(R.color.theme_dark_red_primary_color)))
+            setImageViewBitmap(R.id.call_answer, resources.getColoredBitmap(R.drawable.ic_phone, resources.getColor(R.color.md_green_700)))
+
+            setOnClickPendingIntent(R.id.call_decline, getDeclineCallIntent())
+            setOnClickPendingIntent(R.id.call_answer, getAnswerCallIntent())
+        }
+
         val notification = NotificationCompat.Builder(applicationContext, channelId)
                 .setSmallIcon(R.drawable.ic_phone)
-                .setContentTitle(callNumber)
-                .setContentText(getCallStatusString())
                 .setContentIntent(getLaunchDialerIntent())
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setCustomContentView(notificationLayout)
+                .setCustomHeadsUpContentView(notificationLayout)
+                .setCustomBigContentView(notificationLayout)
                 .setOngoing(true)
+                .setCategory(NotificationCompat.CATEGORY_CALL)
                 .setChannelId(channelId)
                 .setSound(null)
+                .setOnlyAlertOnce(true)
                 .setUsesChronometer(callStatus == Call.STATE_ACTIVE)
-                .addAction(0, getString(R.string.decline_call), getDeclineCallIntent())
-                .addAction(0, getString(R.string.answer_call), getAnswerCallIntent())
 
         startForeground(CALL_NOTIFICATION_ID, notification.build())
 
