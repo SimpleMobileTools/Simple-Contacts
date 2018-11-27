@@ -78,6 +78,8 @@ class DialerCallService : Service() {
             setImageViewBitmap(R.id.call_decline, resources.getColoredBitmap(R.drawable.ic_phone_down, resources.getColor(R.color.theme_dark_red_primary_color)))
             setImageViewBitmap(R.id.call_answer, resources.getColoredBitmap(R.drawable.ic_phone, resources.getColor(R.color.md_green_700)))
 
+            setVisibleIf(R.id.call_answer, callStatus == Call.STATE_RINGING)
+
             setOnClickPendingIntent(R.id.call_decline, getDeclineCallIntent())
             setOnClickPendingIntent(R.id.call_answer, getAnswerCallIntent())
         }
