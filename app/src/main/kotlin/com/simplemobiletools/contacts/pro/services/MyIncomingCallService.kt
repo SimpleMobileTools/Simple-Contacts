@@ -14,12 +14,11 @@ import com.simplemobiletools.contacts.pro.objects.CallManager
 
 @TargetApi(Build.VERSION_CODES.M)
 class MyIncomingCallService : InCallService() {
-
     override fun onCallAdded(call: Call) {
         super.onCallAdded(call)
         call.registerCallback(callCallback)
 
-        val handle = call.details.handle.toString()
+        val handle = Uri.decode(call.details.handle.toString())
         val callerNumber = if (handle.contains("tel:")) {
             handle.substringAfter("tel:")
         } else {
