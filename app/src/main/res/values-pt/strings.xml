@@ -111,7 +111,7 @@
 
     <!-- Dialer -->
     <string name="dialer">Marcador</string>
-    <string name="calling">A chamar…</string>
+    <string name="calling">A chamar</string>
     <string name="incoming_call">Chamada recebida</string>
     <string name="incoming_call_from">Chamada recebida de…</string>
     <string name="ongoing_call">Chamada efetuada</string>

@@ -25,6 +25,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.objects.CallManager
+import com.simplemobiletools.contacts.pro.overloads.times
 import com.simplemobiletools.contacts.pro.services.DialerCallService
 import kotlinx.android.synthetic.main.activity_dialer.*
 
@@ -33,16 +34,19 @@ import kotlinx.android.synthetic.main.activity_dialer.*
 class DialerActivity : SimpleActivity(), SensorEventListener {
     private val SENSOR_SENSITIVITY = 4
     private val DISCONNECT_DELAY = 3000L
+    private val CALLING_DOT_ANIMATION_DELAY = 500L
 
     private var callNumber = ""
     private var callStatus = Call.STATE_NEW
     private var isIncomingCall = false
     private var isCallActive = false
     private var callDuration = 0
+    private var callingDotsCnt = 0
     private var sensorManager: SensorManager? = null
     private var proximity: Sensor? = null
     private var proximityWakeLock: PowerManager.WakeLock? = null
     private var timerHandler = Handler()
+    private var callingDotsHandler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,27 +63,27 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         val extras = intent.extras
         if (extras?.getBoolean(ANSWER_CALL, false) == true) {
             callNumber = intent.getStringExtra(CALL_NUMBER)
-            initViews()
             CallManager.answerCall()
-            tryFillingOtherEndsName()
+            tryFillingOtherParticipantsName()
+            initViews()
         } else if (action == Intent.ACTION_CALL && intent.data != null && intent.dataString?.contains("tel:") == true) {
             callNumber = Uri.decode(intent.dataString).substringAfter("tel:")
-            initViews()
-            tryFillingOtherEndsName()
+            tryFillingOtherParticipantsName()
             initOutgoingCall()
+            initViews()
         } else if (action == INCOMING_CALL && extras?.containsKey(CALL_NUMBER) == true && extras.containsKey(CALL_STATUS)) {
             isIncomingCall = true
             callNumber = intent.getStringExtra(CALL_NUMBER)
             initViews()
             updateUI(intent.getIntExtra(CALL_STATUS, Call.STATE_NEW))
-            tryFillingOtherEndsName()
+            tryFillingOtherParticipantsName()
         } else if (action == RESUME_DIALER && extras?.containsKey(CALL_NUMBER) == true && extras.containsKey(CALL_STATUS) && extras.containsKey(IS_INCOMING_CALL)) {
             callNumber = intent.getStringExtra(CALL_NUMBER)
             callStatus = intent.getIntExtra(CALL_STATUS, Call.STATE_NEW)
             isIncomingCall = intent.getBooleanExtra(IS_INCOMING_CALL, false)
-            initViews()
             updateUI(callStatus)
-            tryFillingOtherEndsName()
+            tryFillingOtherParticipantsName()
+            initViews()
         } else {
             toast(R.string.unknown_error_occurred)
             finish()
@@ -103,6 +107,7 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     override fun onDestroy() {
         super.onDestroy()
         timerHandler.removeCallbacksAndMessages(null)
+        callingDotsHandler.removeCallbacksAndMessages(null)
     }
 
     private val messageReceiver = object : BroadcastReceiver() {
@@ -118,6 +123,17 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         if (!isCallActive && !isIncomingCall) {
             hangUp()
         }
+    }
+
+    // animate the dots after Calling... from 0 to 3
+    private fun handleDotsAnimation() {
+        callingDotsHandler.postDelayed({
+            if (callStatus == Call.STATE_DIALING) {
+                callingDotsCnt = ++callingDotsCnt % 4
+                dialer_label_dots.text = ".".times(callingDotsCnt)
+                handleDotsAnimation()
+            }
+        }, CALLING_DOT_ANIMATION_DELAY)
     }
 
     private fun initProximityWakeLock() {
@@ -141,6 +157,9 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         dialer_incoming_accept.beVisibleIf(isIncomingCall)
 
         dialer_label.setText(if (isIncomingCall) R.string.incoming_call_from else R.string.calling)
+        if (!isIncomingCall) {
+            handleDotsAnimation()
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -183,7 +202,7 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         finish()
     }
 
-    private fun tryFillingOtherEndsName() {
+    private fun tryFillingOtherParticipantsName() {
         ContactsHelper(this).getContactWithNumber(callNumber) {
             runOnUiThread {
                 updateOtherParticipant(it)
@@ -200,6 +219,8 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     }
 
     private fun statusActive() {
+        callingDotsHandler.removeCallbacksAndMessages(null)
+        dialer_label_dots.beGone()
         startNotificationService()
         isCallActive = true
         dialer_call_duration.beVisible()
@@ -222,8 +243,10 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
     }
 
     private fun statusDisconnected() {
-        stopNotificationService()
+        callingDotsHandler.removeCallbacksAndMessages(null)
         timerHandler.removeCallbacksAndMessages(null)
+        dialer_label_dots.beGone()
+        stopNotificationService()
         dialer_hangup_button.beGone()
         dialer_label.setText(R.string.disconnected)
         if (isCallActive) {

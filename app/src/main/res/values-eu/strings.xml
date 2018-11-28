@@ -111,7 +111,7 @@
 
     <!-- Dialer -->
     <string name="dialer">Dialer</string>
-    <string name="calling">Calling…</string>
+    <string name="calling">Calling</string>
     <string name="incoming_call">Incoming call</string>
     <string name="incoming_call_from">Incoming call from…</string>
     <string name="ongoing_call">Ongoing call</string>

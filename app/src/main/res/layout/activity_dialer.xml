@@ -9,7 +9,7 @@
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/dialer_label"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dialer_top_margin"
         android:gravity="center_horizontal"
@@ -18,6 +18,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/dialer_label_dots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/big_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/dialer_label"
+        app:layout_constraintStart_toEndOf="@+id/dialer_label"
+        app:layout_constraintTop_toTopOf="@+id/dialer_label"
+        tools:text="..."/>
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/dialer_big_name_number"

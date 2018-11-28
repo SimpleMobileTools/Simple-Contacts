@@ -111,7 +111,7 @@
 
     <!-- Dialer -->
     <string name="dialer">電話</string>
-    <string name="calling">発信中…</string>
+    <string name="calling">発信中</string>
     <string name="incoming_call">Incoming call</string>
     <string name="incoming_call_from">着信中…</string>
     <string name="ongoing_call">通話中</string>

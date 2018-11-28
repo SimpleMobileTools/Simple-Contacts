@@ -111,7 +111,7 @@
 
     <!-- Dialer -->
     <string name="dialer">Numéroteur</string>
-    <string name="calling">Appel en cours…</string>
+    <string name="calling">Appel en cours</string>
     <string name="incoming_call">Appel entrant</string>
     <string name="incoming_call_from">Appel entrant de…</string>
     <string name="ongoing_call">Appel en cours</string>

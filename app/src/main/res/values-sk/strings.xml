@@ -111,7 +111,7 @@
 
     <!-- Dialer -->
     <string name="dialer">Telefón</string>
-    <string name="calling">Vytáča sa…</string>
+    <string name="calling">Vytáča sa</string>
     <string name="incoming_call">Prichádzajúci hovor</string>
     <string name="incoming_call_from">Prichádzajúci hovor od…</string>
     <string name="ongoing_call">Prebiehajúci hovor</string>

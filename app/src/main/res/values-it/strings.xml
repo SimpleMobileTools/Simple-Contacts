@@ -111,7 +111,7 @@
 
     <!-- Dialer -->
     <string name="dialer">Compositore</string>
-    <string name="calling">Chiamata in corso…</string>
+    <string name="calling">Chiamata in corso</string>
     <string name="incoming_call">Chiamata in arrivo</string>
     <string name="incoming_call_from">Chiamata in arrivo da…</string>
     <string name="ongoing_call">Chiamata in corso</string>
