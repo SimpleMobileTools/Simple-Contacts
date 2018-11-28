@@ -37,15 +37,22 @@ class DialerCallService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-        if (intent.getBooleanExtra(DECLINE_CALL, false)) {
-            CallManager.declineCall()
-            stopForeground(true)
-            stopSelf()
-        } else if (intent.getBooleanExtra(IS_INCOMING_CALL, false)) {
-            callNumber = intent.getStringExtra(CALL_NUMBER)
-            callStatus = intent.getIntExtra(CALL_STATUS, Call.STATE_NEW)
-            isIncomingCall = intent.getBooleanExtra(IS_INCOMING_CALL, false)
-            setupNotification()
+        when {
+            intent.getBooleanExtra(DECLINE_CALL, false) -> {
+                CallManager.declineCall()
+                stopForeground(true)
+                stopSelf()
+            }
+            intent.getBooleanExtra(IS_INCOMING_CALL, false) -> {
+                callNumber = intent.getStringExtra(CALL_NUMBER)
+                callStatus = intent.getIntExtra(CALL_STATUS, Call.STATE_NEW)
+                isIncomingCall = intent.getBooleanExtra(IS_INCOMING_CALL, false)
+                setupNotification()
+            }
+            intent.extras?.containsKey(CALL_STATUS) == true -> {
+                callStatus = intent.getIntExtra(CALL_STATUS, Call.STATE_NEW)
+                setupNotification()
+            }
         }
         return START_STICKY
     }
@@ -58,7 +65,7 @@ class DialerCallService : Service() {
 
     @TargetApi(Build.VERSION_CODES.O)
     private fun setupNotification() {
-        val channelId = "incoming_call"
+        val channelId = "call_channel"
         if (isOreoPlus()) {
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val name = resources.getString(R.string.app_name)
