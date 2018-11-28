@@ -19,10 +19,10 @@
     <string name="add_to_existing_contact">添加至已存在的聯絡人</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">No contacts found</string>
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
-    <string name="no_recent_calls_found">No recent calls found</string>
+    <string name="no_contacts_found">未發現聯絡人</string>
+    <string name="no_contacts_with_emails">未發現含有電子信箱的聯絡人</string>
+    <string name="no_contacts_with_phone_numbers">未發現含有電話號碼的聯絡人</string>
+    <string name="no_recent_calls_found">未發現通話紀錄</string>
 
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>
@@ -53,7 +53,7 @@
     <string name="start_name_with_surname">姓氏在前</string>
     <string name="show_phone_numbers">主畫面顯示電話號碼</string>
     <string name="show_contact_thumbnails">顯示聯絡人縮圖</string>
-    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
+    <string name="show_dialpad_button">在主畫面顯示撥號按鈕</string>
     <string name="on_contact_click">點擊聯絡人</string>
     <string name="call_contact">打電話給聯絡人</string>
     <string name="view_contact">顯示聯絡人資料</string>
@@ -64,7 +64,7 @@
     <string name="favorites">我的最愛</string>
     <string name="recent_calls">通話紀錄</string>
     <string name="show_call_confirmation_dialog">開始通話前顯示通話確認框</string>
-    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
+    <string name="show_only_contacts_with_numbers">只顯示含有電話話碼的聯絡人</string>
 
     <!-- Emails -->
     <string name="email">電子信箱</string>
@@ -110,14 +110,14 @@
     <string name="add_number_to_contact">添加號碼至通訊錄</string>
 
     <!-- Dialer -->
-    <string name="dialer">Dialer</string>
-    <string name="calling">Calling…</string>
-    <string name="incoming_call">Incoming call</string>
-    <string name="incoming_call_from">Incoming call from…</string>
-    <string name="ongoing_call">Ongoing call</string>
-    <string name="disconnected">Disconnected</string>
-    <string name="decline_call">Decline</string>
-    <string name="answer_call">Answer</string>
+    <string name="dialer">撥號器</string>
+    <string name="calling">撥號中…</string>
+    <string name="incoming_call">來電</string>
+    <string name="incoming_call_from">通話來自於…</string>
+    <string name="ongoing_call">持續通話</string>
+    <string name="disconnected">未接電話</string>
+    <string name="decline_call">掛斷電話</string>
+    <string name="answer_call">回撥</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">選擇要顯示的欄位</string>
