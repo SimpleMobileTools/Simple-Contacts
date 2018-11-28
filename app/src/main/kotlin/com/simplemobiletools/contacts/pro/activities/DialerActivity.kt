@@ -137,11 +137,22 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         dialer_label.setText(if (isIncomingCall) R.string.incoming_call_from else R.string.calling)
     }
 
+    @SuppressLint("MissingPermission")
     private fun initOutgoingCall() {
-        val telecomManager = getSystemService(Context.TELECOM_SERVICE) as TelecomManager
-        val uri = Uri.fromParts(PhoneAccount.SCHEME_TEL, callNumber, null)
-        val extras = Bundle()
-        telecomManager.placeCall(uri, extras)
+        try {
+            val telecomManager = getSystemService(Context.TELECOM_SERVICE) as TelecomManager
+            val uri = Uri.fromParts(PhoneAccount.SCHEME_TEL, callNumber, null)
+            Bundle().apply {
+                putParcelable(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE, telecomManager.getDefaultOutgoingPhoneAccount(PhoneAccount.SCHEME_TEL))
+                putBoolean(TelecomManager.EXTRA_START_CALL_WITH_VIDEO_STATE, false)
+                putBoolean(TelecomManager.EXTRA_START_CALL_WITH_SPEAKERPHONE, false)
+                telecomManager.placeCall(uri, this)
+            }
+            callStatus = Call.STATE_DIALING
+        } catch (e: Exception) {
+            showErrorToast(e)
+            finish()
+        }
     }
 
     private fun startNotificationService() {
