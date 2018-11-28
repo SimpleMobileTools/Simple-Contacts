@@ -16,6 +16,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
 import android.telecom.Call
+import android.telecom.PhoneAccount
 import android.telecom.TelecomManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.simplemobiletools.commons.extensions.*
@@ -138,7 +139,7 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
 
     private fun initOutgoingCall() {
         val telecomManager = getSystemService(Context.TELECOM_SERVICE) as TelecomManager
-        val uri = Uri.fromParts("tel:", callNumber, null)
+        val uri = Uri.fromParts(PhoneAccount.SCHEME_TEL, callNumber, null)
         val extras = Bundle()
         telecomManager.placeCall(uri, extras)
     }

@@ -14,6 +14,7 @@ import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.simplemobiletools.commons.extensions.getColoredBitmap
 import com.simplemobiletools.commons.extensions.setText
+import com.simplemobiletools.commons.extensions.setVisibleIf
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.DialerActivity
@@ -40,7 +41,7 @@ class DialerCallService : Service() {
             CallManager.declineCall()
             stopForeground(true)
             stopSelf()
-        } else {
+        } else if (intent.getBooleanExtra(IS_INCOMING_CALL, false)) {
             callNumber = intent.getStringExtra(CALL_NUMBER)
             callStatus = intent.getIntExtra(CALL_STATUS, Call.STATE_NEW)
             isIncomingCall = intent.getBooleanExtra(IS_INCOMING_CALL, false)
