@@ -1,6 +1,6 @@
 package com.simplemobiletools.contacts.pro.helpers
 
-import android.app.Activity
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -14,13 +14,13 @@ import com.simplemobiletools.contacts.pro.models.Group
 import com.simplemobiletools.contacts.pro.models.LocalContact
 import com.simplemobiletools.contacts.pro.models.Organization
 
-class LocalContactsHelper(val activity: Activity) {
-    fun getAllContacts() = activity.contactsDB.getContacts().map { convertLocalContactToContact(it) }.toMutableList() as ArrayList<Contact>
+class LocalContactsHelper(val context: Context) {
+    fun getAllContacts() = context.contactsDB.getContacts().map { convertLocalContactToContact(it) }.toMutableList() as ArrayList<Contact>
 
-    fun getContactWithId(id: Int) = convertLocalContactToContact(activity.contactsDB.getContactWithId(id))
+    fun getContactWithId(id: Int) = convertLocalContactToContact(context.contactsDB.getContactWithId(id))
 
     fun getContactWithNumber(number: String): Contact? {
-        activity.contactsDB.getContacts().forEach {
+        context.contactsDB.getContacts().forEach {
             if (it.phoneNumbers.map { it.value }.contains(number)) {
                 return convertLocalContactToContact(it)
             }
@@ -30,7 +30,7 @@ class LocalContactsHelper(val activity: Activity) {
 
     fun insertOrUpdateContact(contact: Contact): Boolean {
         val localContact = convertContactToLocalContact(contact)
-        return activity.contactsDB.insertOrUpdate(localContact) > 0
+        return context.contactsDB.insertOrUpdate(localContact) > 0
     }
 
     fun addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
@@ -40,7 +40,7 @@ class LocalContactsHelper(val activity: Activity) {
             newGroups.add(groupId)
             newGroups.distinct()
             localContact.groups = newGroups
-            activity.contactsDB.insertOrUpdate(localContact)
+            context.contactsDB.insertOrUpdate(localContact)
         }
     }
 
@@ -50,20 +50,20 @@ class LocalContactsHelper(val activity: Activity) {
             val newGroups = localContact.groups
             newGroups.remove(groupId)
             localContact.groups = newGroups
-            activity.contactsDB.insertOrUpdate(localContact)
+            context.contactsDB.insertOrUpdate(localContact)
         }
     }
 
     fun deleteContactIds(ids: Array<Int>) {
         ids.forEach {
-            activity.contactsDB.deleteContactId(it)
+            context.contactsDB.deleteContactId(it)
         }
     }
 
     fun toggleFavorites(ids: Array<Int>, addToFavorites: Boolean) {
         val isStarred = if (addToFavorites) 1 else 0
         ids.forEach {
-            activity.contactsDB.updateStarred(isStarred, it)
+            context.contactsDB.updateStarred(isStarred, it)
         }
     }
 
@@ -73,9 +73,9 @@ class LocalContactsHelper(val activity: Activity) {
         }
 
         val photoUri = Uri.parse(uri)
-        val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, photoUri)
+        val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, photoUri)
 
-        val thumbnailSize = activity.getPhotoThumbnailSize()
+        val thumbnailSize = context.getPhotoThumbnailSize()
         val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize * 2, thumbnailSize * 2, false)
         val scaledSizePhotoData = scaledPhoto.getByteArray()
         scaledPhoto.recycle()
@@ -97,9 +97,9 @@ class LocalContactsHelper(val activity: Activity) {
             }
         }
 
-        val storedGroups = ContactsHelper(activity).getStoredGroupsSync()
+        val storedGroups = ContactsHelper(context).getStoredGroupsSync()
 
-        return activity.getEmptyContact().apply {
+        return context.getEmptyContact().apply {
             id = localContact.id!!
             prefix = localContact.prefix
             firstName = localContact.firstName

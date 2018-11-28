@@ -16,13 +16,11 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
 import com.simplemobiletools.contacts.pro.activities.ViewContactActivity
 import com.simplemobiletools.contacts.pro.databases.ContactsDatabase
-import com.simplemobiletools.contacts.pro.helpers.CONTACT_ID
-import com.simplemobiletools.contacts.pro.helpers.Config
-import com.simplemobiletools.contacts.pro.helpers.IS_PRIVATE
-import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
+import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.ContactsDao
 import com.simplemobiletools.contacts.pro.interfaces.GroupsDao
 import com.simplemobiletools.contacts.pro.models.Contact
+import com.simplemobiletools.contacts.pro.models.ContactSource
 import com.simplemobiletools.contacts.pro.models.Organization
 import java.io.File
 
@@ -184,3 +182,101 @@ fun Context.getPhotoThumbnailSize(): Int {
 }
 
 fun Context.hasContactPermissions() = hasPermission(PERMISSION_READ_CONTACTS) && hasPermission(PERMISSION_WRITE_CONTACTS)
+
+fun Context.getPublicContactSource(source: String): String {
+    return when (source) {
+        config.localAccountName -> getString(R.string.phone_storage)
+        SMT_PRIVATE -> getString(R.string.phone_storage_hidden)
+        else -> source
+    }
+}
+
+fun Context.sendSMSToContacts(contacts: ArrayList<Contact>) {
+    val numbers = StringBuilder()
+    contacts.forEach {
+        val number = it.phoneNumbers.firstOrNull { it.type == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE }
+                ?: it.phoneNumbers.firstOrNull()
+        if (number != null) {
+            numbers.append("${number.value};")
+        }
+
+        val uriString = "smsto:${numbers.toString().trimEnd(';')}"
+        Intent(Intent.ACTION_SENDTO, Uri.parse(uriString)).apply {
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
+            }
+        }
+    }
+}
+
+fun Context.sendEmailToContacts(contacts: ArrayList<Contact>) {
+    val emails = ArrayList<String>()
+    contacts.forEach {
+        it.emails.forEach {
+            if (it.value.isNotEmpty()) {
+                emails.add(it.value)
+            }
+        }
+    }
+
+    Intent(Intent.ACTION_SEND_MULTIPLE).apply {
+        type = "message/rfc822"
+        putExtra(Intent.EXTRA_EMAIL, emails.toTypedArray())
+        if (resolveActivity(packageManager) != null) {
+            startActivity(this)
+        } else {
+            toast(R.string.no_app_found)
+        }
+    }
+}
+
+fun Context.getTempFile(): File? {
+    val folder = File(cacheDir, "contacts")
+    if (!folder.exists()) {
+        if (!folder.mkdir()) {
+            toast(R.string.unknown_error_occurred)
+            return null
+        }
+    }
+
+    return File(folder, "contacts.vcf")
+}
+
+fun Context.addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
+    val publicContacts = contacts.filter { it.source != SMT_PRIVATE }.toMutableList() as ArrayList<Contact>
+    val privateContacts = contacts.filter { it.source == SMT_PRIVATE }.toMutableList() as ArrayList<Contact>
+    if (publicContacts.isNotEmpty()) {
+        ContactsHelper(this).addContactsToGroup(publicContacts, groupId)
+    }
+
+    if (privateContacts.isNotEmpty()) {
+        LocalContactsHelper(this).addContactsToGroup(privateContacts, groupId)
+    }
+}
+
+fun Context.removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
+    val publicContacts = contacts.filter { it.source != SMT_PRIVATE }.toMutableList() as ArrayList<Contact>
+    val privateContacts = contacts.filter { it.source == SMT_PRIVATE }.toMutableList() as ArrayList<Contact>
+    if (publicContacts.isNotEmpty() && hasContactPermissions()) {
+        ContactsHelper(this).removeContactsFromGroup(publicContacts, groupId)
+    }
+
+    if (privateContacts.isNotEmpty()) {
+        LocalContactsHelper(this).removeContactsFromGroup(privateContacts, groupId)
+    }
+}
+
+fun Context.getContactPublicUri(contact: Contact): Uri {
+    val lookupKey = ContactsHelper(this).getContactLookupKey(contact.id.toString())
+    return Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey)
+}
+
+fun Context.getVisibleContactSources(): ArrayList<String> {
+    val sources = ContactsHelper(this).getDeviceContactSources()
+    sources.add(ContactSource(getString(R.string.phone_storage_hidden), SMT_PRIVATE))
+    val sourceNames = ArrayList(sources).map { if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name }.toMutableList() as ArrayList<String>
+    sourceNames.removeAll(config.ignoredContactSources)
+    return sourceNames
+}
