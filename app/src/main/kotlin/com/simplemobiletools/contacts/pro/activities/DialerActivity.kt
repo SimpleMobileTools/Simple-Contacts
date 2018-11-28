@@ -18,6 +18,7 @@ import android.os.PowerManager
 import android.telecom.Call
 import android.telecom.PhoneAccount
 import android.telecom.TelecomManager
+import android.view.WindowManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.contacts.pro.R
@@ -48,6 +49,11 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
         setContentView(R.layout.activity_dialer)
         initProximityWakeLock()
         LocalBroadcastManager.getInstance(applicationContext).registerReceiver(messageReceiver, IntentFilter(DIALER_INTENT_FILTER))
+        window.apply {
+            addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+            addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
+            addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
 
         val action = intent.action
         val extras = intent.extras
