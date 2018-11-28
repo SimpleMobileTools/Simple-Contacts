@@ -22,7 +22,7 @@
     <string name="no_contacts_found">Não existem contactos</string>
     <string name="no_contacts_with_emails">Não existem contactos com endereço de e-mail</string>
     <string name="no_contacts_with_phone_numbers">Não existem contactos com número de telefone</string>
-    <string name="no_recent_calls_found">No recent calls found</string>
+    <string name="no_recent_calls_found">Não existem chamadas recentes</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
@@ -53,11 +53,11 @@
     <string name="start_name_with_surname">Ordenar por apelido</string>
     <string name="show_phone_numbers">Mostrar número de telefone no ecrã principal</string>
     <string name="show_contact_thumbnails">Mostrar miniatura do contacto</string>
-    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
+    <string name="show_dialpad_button">Mostrar botão Marcador no ecrã principal</string>
     <string name="on_contact_click">Ao tocar no contacto</string>
     <string name="call_contact">Ligar</string>
     <string name="view_contact">Ver detalhes</string>
-    <string name="manage_shown_contact_fields">Gerir campos a exibir</string>
+    <string name="manage_shown_contact_fields">Gerir campos a mostrar</string>
     <string name="filter_duplicates">Tentar filtrar contactos duplicados</string>
     <string name="manage_shown_tabs">Gerir separadores a exibir</string>
     <string name="contacts">Contactos</string>
@@ -106,18 +106,18 @@
     <string name="filename_without_vcf">Nome do ficheiro (sem .vcf)</string>
 
     <!-- Dialpad -->
-    <string name="dialpad">Teclado</string>
+    <string name="dialpad">Marcador</string>
     <string name="add_number_to_contact">Adicionar número a um contacto</string>
 
     <!-- Dialer -->
-    <string name="dialer">Dialer</string>
-    <string name="calling">Calling…</string>
-    <string name="incoming_call">Incoming call</string>
-    <string name="incoming_call_from">Incoming call from…</string>
-    <string name="ongoing_call">Ongoing call</string>
-    <string name="disconnected">Disconnected</string>
-    <string name="decline_call">Decline</string>
-    <string name="answer_call">Answer</string>
+    <string name="dialer">Marcador</string>
+    <string name="calling">A chamar…</string>
+    <string name="incoming_call">Chamada recebida</string>
+    <string name="incoming_call_from">Chamada recebida de…</string>
+    <string name="ongoing_call">Chamada efetuada</string>
+    <string name="disconnected">Desligada</string>
+    <string name="decline_call">Recusar</string>
+    <string name="answer_call">Atender</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Selecione os campos a mostrar</string>
