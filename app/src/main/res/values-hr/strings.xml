@@ -134,6 +134,11 @@
     <string name="contact_source">Izvori kontakata</string>
     <string name="instant_messaging">Brzo slanje poruka (IM)</string>
 
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Manage blocked numbers</string>
+    <string name="not_blocking_anyone">You are not blocking anyone</string>
+    <string name="add_a_blocked_number">Add a blocked number</string>
+
     <!-- FAQ -->
     <string name="faq_1_title">Želim promijeniti polja koja su vidljiva na kontaktima. Mogu li to napraviti?</string>
     <string name="faq_1_text">Da, sve što morate učiniti je otići u Postavke -> Upravljanje poljima za prikaz. Tamo možete odabrati polja koja bi trebala biti vidljiva. Neka od njih su čak i onemogućena prema zadanim postavkama, tako da možete pronaći neke nove.</string>

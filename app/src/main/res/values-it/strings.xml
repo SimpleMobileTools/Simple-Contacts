@@ -134,6 +134,11 @@
     <string name="contact_source">Provenienza del contatto</string>
     <string name="instant_messaging">Messaggistica istantanea (IM)</string>
 
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Manage blocked numbers</string>
+    <string name="not_blocking_anyone">You are not blocking anyone</string>
+    <string name="add_a_blocked_number">Add a blocked number</string>
+
     <!-- FAQ -->
     <string name="faq_1_title">Voglio cambiare i campi visibili ai contatti. Come posso fare?</string>
     <string name="faq_1_text">Puoi farlo andando in Impostazioni -> Gestisci i campi mostrati. Qui puoi selezionare i campi che saranno visibili. Alcuni sono anche disabilitati in maniera predefinita, quindi potresti trovare qualche nuovo campo.</string>

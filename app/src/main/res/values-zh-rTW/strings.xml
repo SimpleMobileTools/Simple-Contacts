@@ -134,6 +134,11 @@
     <string name="contact_source">聯絡人來源</string>
     <string name="instant_messaging">即時通訊 (IM)</string>
 
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Manage blocked numbers</string>
+    <string name="not_blocking_anyone">You are not blocking anyone</string>
+    <string name="add_a_blocked_number">Add a blocked number</string>
+
     <!-- FAQ -->
     <string name="faq_1_title">我想要更改在通訊錄會看到哪些欄位。我能這麼做嗎?</string>
     <string name="faq_1_text">可以，你要做的是到[設定] -> [管理顯示的聯絡人欄位]。在那裡，你可以選擇應該看到什麼欄位。其中有些甚至預設是關閉的，所以你可能會在那裡發現一些新的。</string>

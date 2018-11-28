@@ -134,6 +134,11 @@
     <string name="contact_source">Compte pour le contact</string>
     <string name="instant_messaging">Messagerie instantanée (MI)</string>
 
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Manage blocked numbers</string>
+    <string name="not_blocking_anyone">You are not blocking anyone</string>
+    <string name="add_a_blocked_number">Add a blocked number</string>
+
     <!-- FAQ -->
     <string name="faq_1_title">Je veux modifier les champs affichés sur les fiches de mes contacts. Puis-je le faire ?</string>
     <string name="faq_1_text">Oui, tout ce que vous avez à faire c\'est d\'aller dans \"Paramètres\" -> \"Configurer l\'affichage des champs de contact\". Sélectionnez les champs à afficher. Certains champs sont désactivés par défaut.</string>

@@ -134,6 +134,11 @@
     <string name="contact_source">Источник контакта</string>
     <string name="instant_messaging">Мессенджеры (IM)</string>
 
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Manage blocked numbers</string>
+    <string name="not_blocking_anyone">You are not blocking anyone</string>
+    <string name="add_a_blocked_number">Add a blocked number</string>
+
     <!-- FAQ -->
     <string name="faq_1_title">Я хочу изменить поля, отображаемые у контактов. Могу ли я это сделать?</string>
     <string name="faq_1_text">Да, всё, что вам нужно сделать, это зайти в \"Настройки\" -> \"Управление отображаемыми полями контактов\". Там вы сможете выбрать, какие поля должны быть видимы. Некоторые из них даже отключены по умолчанию, так что вы можете найти некоторые новые.</string>

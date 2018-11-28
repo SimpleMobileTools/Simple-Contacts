@@ -134,6 +134,11 @@
     <string name="contact_source">Προέλευση επαφής</string>
     <string name="instant_messaging">Αμεσο μήνυμα (IM)</string>
 
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Manage blocked numbers</string>
+    <string name="not_blocking_anyone">You are not blocking anyone</string>
+    <string name="add_a_blocked_number">Add a blocked number</string>
+
     <!-- FAQ -->
     <string name="faq_1_title">Θέλω να αλλάξω τα πεδία που θα είναι ορατά στις επαφές. Μπορώ να το κάνω?</string>
     <string name="faq_1_text">Ναι, το μόνο που έχετε να κάνετε είναι να μεταβείτε στις Ρυθμίσεις -> Διαχείριση εμφανιζόμενων πεδίων επαφής. Εκεί μπορείτε να επιλέξετε ποια πεδία θα πρέπει να είναι ορατά. Κάποια από αυτά είναι ακόμη και απενεργοποιημένα από προεπιλογή, επομένως ίσως βρείτε κάποια νέα εκεί.</string>

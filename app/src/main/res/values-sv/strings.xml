@@ -134,6 +134,11 @@
     <string name="contact_source">Kontaktkälla</string>
     <string name="instant_messaging">Snabbmeddelanden (IM)</string>
 
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Manage blocked numbers</string>
+    <string name="not_blocking_anyone">You are not blocking anyone</string>
+    <string name="add_a_blocked_number">Add a blocked number</string>
+
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
     <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
