@@ -1,12 +1,16 @@
 package com.simplemobiletools.contacts.pro.fragments
 
+import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.telecom.TelecomManager
 import android.util.AttributeSet
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.hasPermission
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CALL_LOG
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CALL_LOG
+import com.simplemobiletools.commons.helpers.isMarshmallowPlus
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
 import com.simplemobiletools.contacts.pro.adapters.RecentCallsAdapter
 import com.simplemobiletools.contacts.pro.extensions.contactClicked
@@ -21,13 +25,20 @@ import kotlinx.android.synthetic.main.fragment_layout.view.*
 class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun fabClicked() {}
 
+    @TargetApi(Build.VERSION_CODES.M)
     override fun placeholderClicked() {
-        activity!!.handlePermission(PERMISSION_WRITE_CALL_LOG) {
-            if (it) {
-                activity!!.handlePermission(PERMISSION_READ_CALL_LOG) {
-                    activity?.refreshContacts(RECENTS_TAB_MASK)
+        val telecomManager = context.getSystemService(Context.TELECOM_SERVICE) as TelecomManager
+        if (!isMarshmallowPlus() || (isMarshmallowPlus() && telecomManager.defaultDialerPackage == context.packageName)) {
+            activity!!.handlePermission(PERMISSION_WRITE_CALL_LOG) {
+                if (it) {
+                    activity!!.handlePermission(PERMISSION_READ_CALL_LOG) {
+                        activity?.refreshContacts(RECENTS_TAB_MASK)
+                    }
                 }
             }
+        } else {
+            val intent = Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, context.packageName)
+            context.startActivity(intent)
         }
     }
 
