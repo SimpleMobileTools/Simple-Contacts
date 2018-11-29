@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.simplemobiletools.commons.extensions.*
@@ -210,21 +211,27 @@ class ViewContactActivity : ContactActivity() {
         contact!!.apply {
             contact_prefix.text = prefix
             contact_prefix.beVisibleIf(prefix.isNotEmpty() && showFields and SHOW_PREFIX_FIELD != 0)
+            contact_prefix.copyOnLongClick(prefix)
 
             contact_first_name.text = firstName
             contact_first_name.beVisibleIf(firstName.isNotEmpty() && showFields and SHOW_FIRST_NAME_FIELD != 0)
+            contact_first_name.copyOnLongClick(firstName)
 
             contact_middle_name.text = middleName
             contact_middle_name.beVisibleIf(middleName.isNotEmpty() && showFields and SHOW_MIDDLE_NAME_FIELD != 0)
+            contact_middle_name.copyOnLongClick(middleName)
 
             contact_surname.text = surname
             contact_surname.beVisibleIf(surname.isNotEmpty() && showFields and SHOW_SURNAME_FIELD != 0)
+            contact_surname.copyOnLongClick(surname)
 
             contact_suffix.text = suffix
             contact_suffix.beVisibleIf(suffix.isNotEmpty() && showFields and SHOW_SUFFIX_FIELD != 0)
+            contact_suffix.copyOnLongClick(suffix)
 
             contact_nickname.text = nickname
             contact_nickname.beVisibleIf(nickname.isNotEmpty() && showFields and SHOW_NICKNAME_FIELD != 0)
+            contact_nickname.copyOnLongClick(nickname)
 
             if (contact_prefix.isGone() && contact_first_name.isGone() && contact_middle_name.isGone() && contact_surname.isGone() && contact_suffix.isGone()
                     && contact_nickname.isGone()) {
@@ -244,6 +251,7 @@ class ViewContactActivity : ContactActivity() {
                     contact_numbers_holder.addView(this)
                     contact_number.text = phoneNumber.value
                     contact_number_type.text = getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)
+                    copyOnLongClick(phoneNumber.value)
 
                     setOnClickListener {
                         if (config.showCallConfirmation) {
@@ -253,12 +261,6 @@ class ViewContactActivity : ContactActivity() {
                         } else {
                             startCallIntent(phoneNumber.value)
                         }
-                    }
-
-                    setOnLongClickListener {
-                        copyToClipboard(phoneNumber.value)
-                        toast(R.string.value_copied_to_clipboard)
-                        true
                     }
                 }
             }
@@ -280,6 +282,7 @@ class ViewContactActivity : ContactActivity() {
                     contact_emails_holder.addView(this)
                     contact_email.text = email.value
                     contact_email_type.text = getEmailTypeText(email.type, email.label)
+                    copyOnLongClick(email.value)
 
                     setOnClickListener {
                         sendEmailIntent(email.value)
@@ -304,6 +307,7 @@ class ViewContactActivity : ContactActivity() {
                     contact_addresses_holder.addView(this)
                     contact_address.text = address.value
                     contact_address_type.text = getAddressTypeText(address.type, address.label)
+                    copyOnLongClick(address.value)
 
                     setOnClickListener {
                         sendAddressIntent(address.value)
@@ -328,6 +332,7 @@ class ViewContactActivity : ContactActivity() {
                     contact_ims_holder.addView(this)
                     contact_im.text = IM.value
                     contact_im_type.text = getIMTypeText(IM.type, IM.label)
+                    copyOnLongClick(IM.value)
                 }
             }
             contact_ims_image.beVisible()
@@ -349,6 +354,7 @@ class ViewContactActivity : ContactActivity() {
                     it.value.getDateTimeFromDateString(contact_event)
                     contact_event_type.setText(getEventTextId(it.type))
                     contact_event_remove.beGone()
+                    copyOnLongClick(it.value)
                 }
             }
             contact_events_image.beVisible()
@@ -365,6 +371,7 @@ class ViewContactActivity : ContactActivity() {
             contact_notes.text = notes
             contact_notes_image.beVisible()
             contact_notes.beVisible()
+            contact_notes.copyOnLongClick(notes)
         } else {
             contact_notes_image.beGone()
             contact_notes.beGone()
@@ -379,6 +386,8 @@ class ViewContactActivity : ContactActivity() {
             contact_organization_image.beGoneIf(organization.isEmpty())
             contact_organization_company.beGoneIf(organization.company.isEmpty())
             contact_organization_job_position.beGoneIf(organization.jobPosition.isEmpty())
+            contact_organization_company.copyOnLongClick(contact_organization_company.value)
+            contact_organization_job_position.copyOnLongClick(contact_organization_job_position.value)
 
             if (organization.company.isEmpty() && organization.jobPosition.isNotEmpty()) {
                 (contact_organization_image.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.ALIGN_TOP, contact_organization_job_position.id)
@@ -399,6 +408,7 @@ class ViewContactActivity : ContactActivity() {
                 layoutInflater.inflate(R.layout.item_website, contact_websites_holder, false).apply {
                     contact_websites_holder.addView(this)
                     contact_website.text = url
+                    copyOnLongClick(url)
 
                     setOnClickListener {
                         openWebsiteIntent(url)
@@ -422,6 +432,7 @@ class ViewContactActivity : ContactActivity() {
                     val group = it
                     contact_groups_holder.addView(this)
                     contact_group.text = group.title
+                    copyOnLongClick(group.title)
                 }
             }
             contact_groups_image.beVisible()
@@ -434,9 +445,11 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupContactSource() {
         if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
-            contact_source.text = getPublicContactSource(contact!!.source)
+            val contactSourceValue = getPublicContactSource(contact!!.source)
+            contact_source.text = contactSourceValue
             contact_source_image.beVisible()
             contact_source.beVisible()
+            contact_source.copyOnLongClick(contactSourceValue)
         } else {
             contact_source_image.beGone()
             contact_source.beGone()
@@ -444,4 +457,12 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_big else R.drawable.ic_star_off_big)
+
+    private fun View.copyOnLongClick(value: String) {
+        setOnLongClickListener {
+            copyToClipboard(value)
+            toast(R.string.value_copied_to_clipboard)
+            true
+        }
+    }
 }
