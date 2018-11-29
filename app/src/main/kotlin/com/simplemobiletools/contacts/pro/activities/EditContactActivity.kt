@@ -164,13 +164,27 @@ class EditContactActivity : ContactActivity() {
         }
 
         val action = intent.action
-        if ((contact!!.id == 0 && intent.extras != null && intent.extras.containsKey(KEY_PHONE) && action == Intent.ACTION_INSERT) || action == ADD_NEW_CONTACT_NUMBER) {
+        if ((contact!!.id == 0 && intent.extras != null && action == Intent.ACTION_INSERT) || action == ADD_NEW_CONTACT_NUMBER) {
             val phone = intent.extras.get(KEY_PHONE)
             if (phone != null) {
                 val phoneNumber = phone.toString()
                 contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, "", phoneNumber.normalizeNumber()))
                 if (phoneNumber.isNotEmpty() && action == ADD_NEW_CONTACT_NUMBER) {
                     highlightLastPhoneNumber = true
+                }
+            } else {
+                // sample contact number from Google Contacts:
+                // data: [data1=+123 456 789 mimetype=vnd.android.cursor.item/phone_v2 _id=-1 data2=0]
+                val data = intent.extras.get("data")
+                if (data != null) {
+                    val contentValues = (data as? ArrayList<Any>)?.firstOrNull() as? ContentValues
+                    if (contentValues != null && contentValues.containsKey("data1")) {
+                        val phoneNumber = contentValues.getAsString("data1")
+                        contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, "", phoneNumber.normalizeNumber()))
+                        if (phoneNumber.isNotEmpty() && action == ADD_NEW_CONTACT_NUMBER) {
+                            highlightLastPhoneNumber = true
+                        }
+                    }
                 }
             }
 
