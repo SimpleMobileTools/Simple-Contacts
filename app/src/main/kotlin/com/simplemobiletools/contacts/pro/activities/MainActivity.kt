@@ -540,6 +540,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
             ContactsHelper(this).getRecents {
+                val localContacts = LocalContactsHelper(applicationContext).getAllContacts()
+                it.filter { it.name == null }.forEach {
+                    val namelessCall = it
+                    val localContact = localContacts.firstOrNull { it.doesContainPhoneNumber(namelessCall.number) }
+                    if (localContact != null) {
+                        it.name = localContact.getNameToDisplay()
+                    }
+                }
+
                 runOnUiThread {
                     recents_fragment?.updateRecentCalls(it)
                 }
