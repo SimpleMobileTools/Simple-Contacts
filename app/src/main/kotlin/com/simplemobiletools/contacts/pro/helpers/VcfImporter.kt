@@ -14,8 +14,6 @@ import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.*
 import com.simplemobiletools.contacts.pro.models.*
 import ezvcard.Ezvcard
 import ezvcard.VCard
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URLDecoder
@@ -25,8 +23,6 @@ class VcfImporter(val activity: SimpleActivity) {
     enum class ImportResult {
         IMPORT_FAIL, IMPORT_OK, IMPORT_PARTIAL
     }
-
-    private val PATTERN = "EEE MMM dd HH:mm:ss 'GMT'ZZ YYYY"
 
     private var contactsImported = 0
     private var contactsFailed = 0
@@ -160,8 +156,10 @@ class VcfImporter(val activity: SimpleActivity) {
     }
 
     private fun formatDateToDayCode(date: Date): String {
-        val dateTime = DateTime.parse(date.toString(), DateTimeFormat.forPattern(PATTERN))
-        return dateTime.toString("yyyy-MM-dd")
+        val year = 1900 + date.year
+        val month = String.format("%02d", date.month + 1)
+        val day = String.format("%02d", date.date)
+        return "$year-$month-$day"
     }
 
     private fun getContactGroups(ezContact: VCard): ArrayList<Group> {
