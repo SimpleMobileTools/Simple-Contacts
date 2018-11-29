@@ -93,31 +93,6 @@ class ContactsHelper(val context: Context) {
         }.start()
     }
 
-    fun getContactWithNumber(number: String, callback: (contact: Contact?) -> Unit) {
-        Thread {
-            val uri = CommonDataKinds.Phone.CONTENT_URI
-            val projection = arrayOf(ContactsContract.Data.RAW_CONTACT_ID)
-            val selection = "${CommonDataKinds.Phone.NUMBER} = ? OR ${CommonDataKinds.Phone.NORMALIZED_NUMBER} = ?"
-            val selectionArgs = arrayOf(number, number.normalizeNumber())
-
-            var cursor: Cursor? = null
-            try {
-                cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-                if (cursor?.moveToFirst() == true) {
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    callback(getContactWithId(id, false))
-                    return@Thread
-                }
-            } catch (e: Exception) {
-                context.showErrorToast(e)
-            } finally {
-                cursor?.close()
-            }
-
-            callback(LocalContactsHelper(context).getContactWithNumber(number))
-        }.start()
-    }
-
     private fun getContentResolverAccounts(): HashSet<ContactSource> {
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = arrayOf(

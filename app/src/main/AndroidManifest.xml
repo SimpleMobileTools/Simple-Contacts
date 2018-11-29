@@ -224,9 +224,7 @@
 
         <activity
             android:name=".activities.DialerActivity"
-            android:label="@string/dialer"
-            android:launchMode="singleTask"
-            android:showOnLockScreen="true">
+            android:label="@string/dialer">
 
             <intent-filter>
                 <action android:name="android.intent.action.CALL"/>
@@ -245,32 +243,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
-
-        <service
-            android:name=".services.MyIncomingCallService"
-            android:permission="android.permission.BIND_INCALL_SERVICE">
-
-            <meta-data
-                android:name="android.telecom.IN_CALL_SERVICE_UI"
-                android:value="true"/>
-
-            <intent-filter>
-                <action android:name="android.telecom.InCallService"/>
-            </intent-filter>
-        </service>
-
-        <service
-            android:name=".services.MyOutgoingCallService"
-            android:exported="true"
-            android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE">
-            <intent-filter>
-                <action android:name="android.telecom.ConnectionService"/>
-            </intent-filter>
-        </service>
-
-        <service
-            android:name=".services.DialerCallService"
-            android:exported="false"/>
 
         <activity-alias
             android:name=".activities.SplashActivity.Red"

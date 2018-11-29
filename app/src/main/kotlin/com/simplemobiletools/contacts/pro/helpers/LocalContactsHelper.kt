@@ -19,15 +19,6 @@ class LocalContactsHelper(val context: Context) {
 
     fun getContactWithId(id: Int) = convertLocalContactToContact(context.contactsDB.getContactWithId(id))
 
-    fun getContactWithNumber(number: String): Contact? {
-        context.contactsDB.getContacts().forEach {
-            if (it.phoneNumbers.map { it.value }.contains(number)) {
-                return convertLocalContactToContact(it)
-            }
-        }
-        return null
-    }
-
     fun insertOrUpdateContact(contact: Contact): Boolean {
         val localContact = convertContactToLocalContact(contact)
         return context.contactsDB.insertOrUpdate(localContact) > 0
