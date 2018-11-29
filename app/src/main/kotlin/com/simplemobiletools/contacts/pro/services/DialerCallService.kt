@@ -44,15 +44,10 @@ class DialerCallService : Service() {
                 stopForeground(true)
                 stopSelf()
             }
-            intent.getBooleanExtra(IS_INCOMING_CALL, false) -> {
+            intent.extras?.containsKey(CALL_STATUS) == true -> {
                 callNumber = intent.getStringExtra(CALL_NUMBER)
                 callStatus = intent.getIntExtra(CALL_STATUS, Call.STATE_NEW)
                 isIncomingCall = intent.getBooleanExtra(IS_INCOMING_CALL, false)
-                getOtherParticipantsName()
-            }
-            intent.extras?.containsKey(CALL_STATUS) == true -> {
-                callStatus = intent.getIntExtra(CALL_STATUS, Call.STATE_NEW)
-                callNumber = intent.getStringExtra(CALL_NUMBER)
                 getOtherParticipantsName()
             }
         }
