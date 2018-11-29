@@ -2,7 +2,6 @@ package com.simplemobiletools.contacts.pro.activities
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -12,6 +11,7 @@ import android.telecom.TelecomManager
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.extensions.telecomManager
 
 @TargetApi(Build.VERSION_CODES.M)
 class DialerActivity : SimpleActivity() {
@@ -25,7 +25,6 @@ class DialerActivity : SimpleActivity() {
             callNumber = intent.data
 
             // make sure Simple Contacts is the default Phone app before initiating an outgoing call
-            val telecomManager = getSystemService(Context.TELECOM_SERVICE) as TelecomManager
             if (telecomManager.defaultDialerPackage != packageName) {
                 val intent = Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, packageName)
                 startActivityForResult(intent, REQUEST_CODE_SET_DEFAULT_DIALER)
@@ -41,7 +40,6 @@ class DialerActivity : SimpleActivity() {
     @SuppressLint("MissingPermission")
     private fun initOutgoingCall() {
         try {
-            val telecomManager = getSystemService(Context.TELECOM_SERVICE) as TelecomManager
             Bundle().apply {
                 putParcelable(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE, telecomManager.getDefaultOutgoingPhoneAccount(PhoneAccount.SCHEME_TEL))
                 putBoolean(TelecomManager.EXTRA_START_CALL_WITH_VIDEO_STATE, false)
@@ -58,7 +56,6 @@ class DialerActivity : SimpleActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (requestCode == REQUEST_CODE_SET_DEFAULT_DIALER) {
-            val telecomManager = getSystemService(Context.TELECOM_SERVICE) as TelecomManager
             if (telecomManager.defaultDialerPackage != packageName) {
                 finish()
             } else {

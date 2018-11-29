@@ -15,6 +15,7 @@ import com.simplemobiletools.contacts.pro.activities.EditContactActivity
 import com.simplemobiletools.contacts.pro.adapters.RecentCallsAdapter
 import com.simplemobiletools.contacts.pro.extensions.contactClicked
 import com.simplemobiletools.contacts.pro.extensions.normalizeNumber
+import com.simplemobiletools.contacts.pro.extensions.telecomManager
 import com.simplemobiletools.contacts.pro.helpers.IS_FROM_SIMPLE_CONTACTS
 import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.pro.helpers.RECENTS_TAB_MASK
@@ -27,8 +28,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     @TargetApi(Build.VERSION_CODES.M)
     override fun placeholderClicked() {
-        val telecomManager = context.getSystemService(Context.TELECOM_SERVICE) as TelecomManager
-        if (!isMarshmallowPlus() || (isMarshmallowPlus() && telecomManager.defaultDialerPackage == context.packageName)) {
+        if (!isMarshmallowPlus() || (isMarshmallowPlus() && context.telecomManager.defaultDialerPackage == context.packageName)) {
             activity!!.handlePermission(PERMISSION_WRITE_CALL_LOG) {
                 if (it) {
                     activity!!.handlePermission(PERMISSION_READ_CALL_LOG) {
