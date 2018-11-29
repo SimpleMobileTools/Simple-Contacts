@@ -224,7 +224,8 @@
 
         <activity
             android:name=".activities.DialerActivity"
-            android:label="@string/dialer">
+            android:label="@string/dialer"
+            android:theme="@style/Theme.Transparent">
 
             <intent-filter>
                 <action android:name="android.intent.action.CALL"/>
