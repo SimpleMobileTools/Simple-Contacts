@@ -152,7 +152,7 @@ class VcfExporter {
                     contactsExported++
                 }
 
-                Ezvcard.write(cards).go(file)
+                Ezvcard.write(cards).go(it)
             } catch (e: Exception) {
                 activity.showErrorToast(e)
             }
