@@ -32,6 +32,7 @@ import kotlinx.android.synthetic.main.activity_dialer.*
 // incoming call handling inspired by https://github.com/mbarrben/android_dialer_replacement
 @TargetApi(Build.VERSION_CODES.M)
 class DialerActivity : SimpleActivity(), SensorEventListener {
+    private val REQUEST_CODE_SET_DEFAULT_DIALER = 1
     private val SENSOR_SENSITIVITY = 4
     private val DISCONNECT_DELAY = 3000L
     private val CALLING_DOT_ANIMATION_DELAY = 500L
@@ -175,8 +176,26 @@ class DialerActivity : SimpleActivity(), SensorEventListener {
             }
             callStatus = Call.STATE_DIALING
         } catch (e: Exception) {
-            showErrorToast(e)
-            finish()
+            // only default Phone apps can initiate outgoing calls. So if we got here and Simple Contacts isnt the default phone app, ask the user to set so
+            if (e is SecurityException) {
+                val intent = Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, packageName)
+                startActivityForResult(intent, REQUEST_CODE_SET_DEFAULT_DIALER)
+            } else {
+                showErrorToast(e)
+                finish()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == REQUEST_CODE_SET_DEFAULT_DIALER) {
+            val telecomManager = getSystemService(Context.TELECOM_SERVICE) as TelecomManager
+            if (telecomManager.defaultDialerPackage != packageName) {
+                finish()
+            } else {
+                initOutgoingCall()
+            }
         }
     }
 
