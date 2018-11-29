@@ -1,7 +1,10 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.content.ContentValues
+import android.content.Intent
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
 
 open class SimpleActivity : BaseSimpleActivity() {
     override fun getAppIconIDs() = arrayListOf(
@@ -27,4 +30,21 @@ open class SimpleActivity : BaseSimpleActivity() {
     )
 
     override fun getAppLauncherName() = getString(R.string.app_launcher_name)
+
+    protected fun getPhoneNumberFromIntent(intent: Intent): String? {
+        if (intent.extras?.containsKey(KEY_PHONE) == true) {
+            return intent.getStringExtra(KEY_PHONE)
+        } else if (intent.extras?.containsKey("data") == true) {
+            // sample contact number from Google Contacts:
+            // data: [data1=+123 456 789 mimetype=vnd.android.cursor.item/phone_v2 _id=-1 data2=0]
+            val data = intent.extras!!.get("data")
+            if (data != null) {
+                val contentValues = (data as? ArrayList<Any>)?.firstOrNull() as? ContentValues
+                if (contentValues != null && contentValues.containsKey("data1")) {
+                    return contentValues.getAsString("data1")
+                }
+            }
+        }
+        return null
+    }
 }

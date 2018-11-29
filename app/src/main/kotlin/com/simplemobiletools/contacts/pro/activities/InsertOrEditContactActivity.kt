@@ -45,7 +45,7 @@ class InsertOrEditContactActivity : SimpleActivity() {
             Intent().apply {
                 action = Intent.ACTION_INSERT
                 data = ContactsContract.Contacts.CONTENT_URI
-                putExtra(KEY_PHONE, intent.getStringExtra(KEY_PHONE))
+                putExtra(KEY_PHONE, getPhoneNumberFromIntent(intent))
                 if (resolveActivity(packageManager) != null) {
                     startActivityForResult(this, START_INSERT_ACTIVITY)
                 } else {
@@ -62,7 +62,7 @@ class InsertOrEditContactActivity : SimpleActivity() {
             Intent(applicationContext, EditContactActivity::class.java).apply {
                 data = getContactPublicUri(it as Contact)
                 action = ADD_NEW_CONTACT_NUMBER
-                putExtra(KEY_PHONE, intent.getStringExtra(KEY_PHONE))
+                putExtra(KEY_PHONE, getPhoneNumberFromIntent(intent))
                 startActivityForResult(this, START_EDIT_ACTIVITY)
             }
         }.apply {
