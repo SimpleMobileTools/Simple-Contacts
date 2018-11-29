@@ -31,6 +31,7 @@ class DialerCallService : Service() {
     private var callNumber = ""
     private var callStatus = Call.STATE_NEW
     private var isIncomingCall = false
+    private var otherParticipantName: String? = null
     private var reminderRefreshHandler = Handler()
 
     override fun onBind(intent: Intent?) = null
@@ -47,11 +48,12 @@ class DialerCallService : Service() {
                 callNumber = intent.getStringExtra(CALL_NUMBER)
                 callStatus = intent.getIntExtra(CALL_STATUS, Call.STATE_NEW)
                 isIncomingCall = intent.getBooleanExtra(IS_INCOMING_CALL, false)
-                setupNotification()
+                getOtherParticipantsName()
             }
             intent.extras?.containsKey(CALL_STATUS) == true -> {
                 callStatus = intent.getIntExtra(CALL_STATUS, Call.STATE_NEW)
-                setupNotification()
+                callNumber = intent.getStringExtra(CALL_NUMBER)
+                getOtherParticipantsName()
             }
         }
         return START_STICKY
@@ -61,6 +63,13 @@ class DialerCallService : Service() {
         super.onDestroy()
         stopForeground(true)
         reminderRefreshHandler.removeCallbacksAndMessages(null)
+    }
+
+    private fun getOtherParticipantsName() {
+        ContactsHelper(this).getContactWithNumber(callNumber) {
+            otherParticipantName = it?.getNameToDisplay() ?: callNumber
+            setupNotification()
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -79,7 +88,7 @@ class DialerCallService : Service() {
         }
 
         val notificationLayout = RemoteViews(packageName, R.layout.incoming_call_notification).apply {
-            setText(R.id.incoming_call_caller, callNumber)
+            setText(R.id.incoming_call_caller, otherParticipantName!!)
             setText(R.id.incoming_call_status, getCallStatusString())
 
             val resources = applicationContext.resources
