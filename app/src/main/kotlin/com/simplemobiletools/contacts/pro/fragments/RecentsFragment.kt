@@ -11,7 +11,7 @@ import com.simplemobiletools.commons.extensions.hasPermission
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CALL_LOG
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CALL_LOG
 import com.simplemobiletools.commons.helpers.isMarshmallowPlus
-import com.simplemobiletools.contacts.pro.activities.EditContactActivity
+import com.simplemobiletools.contacts.pro.activities.InsertOrEditContactActivity
 import com.simplemobiletools.contacts.pro.adapters.RecentCallsAdapter
 import com.simplemobiletools.contacts.pro.extensions.contactClicked
 import com.simplemobiletools.contacts.pro.extensions.isDefaultDialer
@@ -66,8 +66,8 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 if (selectedContact != null) {
                     activity?.contactClicked(selectedContact)
                 } else {
-                    Intent(context, EditContactActivity::class.java).apply {
-                        action = Intent.ACTION_INSERT
+                    Intent(context, InsertOrEditContactActivity::class.java).apply {
+                        action = Intent.ACTION_INSERT_OR_EDIT
                         putExtra(KEY_PHONE, recentCall)
                         putExtra(IS_FROM_SIMPLE_CONTACTS, true)
                         context.startActivity(this)
