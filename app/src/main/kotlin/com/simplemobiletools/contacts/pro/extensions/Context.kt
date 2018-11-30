@@ -278,7 +278,11 @@ fun Context.removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long)
 }
 
 fun Context.getContactPublicUri(contact: Contact): Uri {
-    val lookupKey = ContactsHelper(this).getContactLookupKey(contact.id.toString())
+    val lookupKey = if (contact.source == SMT_PRIVATE) {
+        "local_${contact.id}"
+    } else {
+        ContactsHelper(this).getContactLookupKey(contact.id.toString())
+    }
     return Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey)
 }
 

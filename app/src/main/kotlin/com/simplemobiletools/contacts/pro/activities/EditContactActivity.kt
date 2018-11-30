@@ -128,7 +128,11 @@ class EditContactActivity : ContactActivity() {
             val data = intent.data
             if (data != null) {
                 val rawId = if (data.path.contains("lookup")) {
-                    getLookupUriRawId(data)
+                    if (data.pathSegments.last().startsWith("local_")) {
+                        data.path.substringAfter("local_").toInt()
+                    } else {
+                        getLookupUriRawId(data)
+                    }
                 } else {
                     getContactUriRawId(data)
                 }
