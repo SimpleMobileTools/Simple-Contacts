@@ -57,7 +57,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 val recentCall = (it as RecentCall).number.normalizeNumber()
                 var selectedContact: Contact? = null
                 for (contact in allContacts) {
-                    if (contact.phoneNumbers.any { it.normalizedNumber == recentCall }) {
+                    if (contact.doesContainPhoneNumber(recentCall)) {
                         selectedContact = contact
                         break
                     }
