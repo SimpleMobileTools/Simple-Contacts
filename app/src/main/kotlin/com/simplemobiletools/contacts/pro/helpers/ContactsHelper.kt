@@ -257,7 +257,7 @@ class ContactsHelper(val context: Context) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
                     val number = cursor.getStringValue(CommonDataKinds.Phone.NUMBER) ?: continue
-                    val normalizedNumber = cursor.getStringValue(CommonDataKinds.Phone.NORMALIZED_NUMBER) ?: ""
+                    val normalizedNumber = cursor.getStringValue(CommonDataKinds.Phone.NORMALIZED_NUMBER) ?: number.normalizeNumber()
                     val type = cursor.getIntValue(CommonDataKinds.Phone.TYPE)
                     val label = cursor.getStringValue(CommonDataKinds.Phone.LABEL) ?: ""
 

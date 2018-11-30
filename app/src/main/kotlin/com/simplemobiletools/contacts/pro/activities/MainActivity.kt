@@ -519,39 +519,39 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 return@getContacts
             }
 
+            val contacts = it
             if (refreshTabsMask and CONTACTS_TAB_MASK != 0) {
-                contacts_fragment?.refreshContacts(it)
+                contacts_fragment?.refreshContacts(contacts)
             }
 
             if (refreshTabsMask and FAVORITES_TAB_MASK != 0) {
-                favorites_fragment?.refreshContacts(it)
+                favorites_fragment?.refreshContacts(contacts)
             }
 
             if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
-                recents_fragment?.refreshContacts(it)
+                recents_fragment?.refreshContacts(contacts)
             }
 
             if (refreshTabsMask and GROUPS_TAB_MASK != 0) {
                 if (refreshTabsMask == GROUPS_TAB_MASK) {
                     groups_fragment.skipHashComparing = true
                 }
-                groups_fragment?.refreshContacts(it)
+                groups_fragment?.refreshContacts(contacts)
             }
-        }
 
-        if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
-            ContactsHelper(this).getRecents {
-                val localContacts = LocalContactsHelper(applicationContext).getAllContacts()
-                it.filter { it.name == null }.forEach {
-                    val namelessCall = it
-                    val localContact = localContacts.firstOrNull { it.doesContainPhoneNumber(namelessCall.number) }
-                    if (localContact != null) {
-                        it.name = localContact.getNameToDisplay()
+            if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
+                ContactsHelper(this).getRecents {
+                    it.filter { it.name == null }.forEach {
+                        val namelessCall = it
+                        val contact = contacts.firstOrNull { it.doesContainPhoneNumber(namelessCall.number) }
+                        if (contact != null) {
+                            it.name = contact.getNameToDisplay()
+                        }
                     }
-                }
 
-                runOnUiThread {
-                    recents_fragment?.updateRecentCalls(it)
+                    runOnUiThread {
+                        recents_fragment?.updateRecentCalls(it)
+                    }
                 }
             }
         }

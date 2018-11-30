@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.models
 
 import android.graphics.Bitmap
+import android.telephony.PhoneNumberUtils
 import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
@@ -128,7 +129,13 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
 
     fun doesContainPhoneNumber(text: String): Boolean {
         return if (text.isNotEmpty()) {
-            phoneNumbers.any { it.value.contains(text) || it.normalizedNumber?.contains(text.normalizeNumber()) == true || it.value.normalizeNumber().contains(text.normalizeNumber()) }
+            val normalizedText = text.normalizeNumber()
+            phoneNumbers.any {
+                PhoneNumberUtils.compare(it.normalizedNumber, normalizedText) ||
+                        it.value.contains(text) ||
+                        it.normalizedNumber?.contains(normalizedText) == true ||
+                        it.value.normalizeNumber().contains(normalizedText)
+            }
         } else {
             false
         }
