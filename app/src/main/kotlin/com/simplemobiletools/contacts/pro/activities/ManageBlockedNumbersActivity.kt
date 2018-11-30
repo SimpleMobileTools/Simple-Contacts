@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,6 +13,8 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ManageBlockedNumbersAdapter
 import com.simplemobiletools.contacts.pro.dialogs.AddBlockedNumberDialog
 import com.simplemobiletools.contacts.pro.extensions.getBlockedNumbers
+import com.simplemobiletools.contacts.pro.extensions.isDefaultDialer
+import com.simplemobiletools.contacts.pro.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 import com.simplemobiletools.contacts.pro.models.BlockedNumber
 import kotlinx.android.synthetic.main.activity_manage_blocked_numbers.*
 
@@ -21,30 +24,19 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
         setContentView(R.layout.activity_manage_blocked_numbers)
         updateBlockedNumbers()
         updateTextColors(manage_blocked_numbers_wrapper)
+        updatePlaceholderTexts()
 
         manage_blocked_numbers_placeholder_2.apply {
             underlineText()
             setTextColor(getAdjustedPrimaryColor())
             setOnClickListener {
-                addOrEditBlockedNumber()
+                if (isDefaultDialer()) {
+                    addOrEditBlockedNumber()
+                } else {
+                    launchSetDefaultDialerIntent()
+                }
             }
         }
-    }
-
-    private fun updateBlockedNumbers() {
-        Thread {
-            val blockedNumbers = getBlockedNumbers()
-            runOnUiThread {
-                ManageBlockedNumbersAdapter(this, blockedNumbers, this, manage_blocked_numbers_list) {
-                    addOrEditBlockedNumber(it as BlockedNumber)
-                }.apply {
-                    manage_blocked_numbers_list.adapter = this
-                }
-
-                manage_blocked_numbers_placeholder.beVisibleIf(blockedNumbers.isEmpty())
-                manage_blocked_numbers_placeholder_2.beVisibleIf(blockedNumbers.isEmpty())
-            }
-        }.start()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -64,8 +56,37 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
         updateBlockedNumbers()
     }
 
+    private fun updatePlaceholderTexts() {
+        manage_blocked_numbers_placeholder.text = getString(if (isDefaultDialer()) R.string.not_blocking_anyone else R.string.must_make_default_dialer)
+        manage_blocked_numbers_placeholder_2.text = getString(if (isDefaultDialer()) R.string.add_a_blocked_number else R.string.set_to_default)
+    }
+
+    private fun updateBlockedNumbers() {
+        Thread {
+            val blockedNumbers = getBlockedNumbers()
+            runOnUiThread {
+                ManageBlockedNumbersAdapter(this, blockedNumbers, this, manage_blocked_numbers_list) {
+                    addOrEditBlockedNumber(it as BlockedNumber)
+                }.apply {
+                    manage_blocked_numbers_list.adapter = this
+                }
+
+                manage_blocked_numbers_placeholder.beVisibleIf(blockedNumbers.isEmpty())
+                manage_blocked_numbers_placeholder_2.beVisibleIf(blockedNumbers.isEmpty())
+            }
+        }.start()
+    }
+
     private fun addOrEditBlockedNumber(currentNumber: BlockedNumber? = null) {
         AddBlockedNumberDialog(this, currentNumber) {
+            updateBlockedNumbers()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == REQUEST_CODE_SET_DEFAULT_DIALER && isDefaultDialer()) {
+            updatePlaceholderTexts()
             updateBlockedNumbers()
         }
     }
