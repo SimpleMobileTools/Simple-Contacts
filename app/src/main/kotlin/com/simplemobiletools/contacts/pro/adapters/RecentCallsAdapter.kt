@@ -105,6 +105,7 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
             getSelectedItems().forEach {
                 activity.addBlockedNumber(it.number)
             }
+
             refreshListener?.refreshContacts(RECENTS_TAB_MASK)
             activity.runOnUiThread {
                 finishActMode()

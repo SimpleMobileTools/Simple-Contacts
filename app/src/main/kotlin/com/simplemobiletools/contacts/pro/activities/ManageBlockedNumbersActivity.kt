@@ -12,6 +12,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ManageBlockedNumbersAdapter
 import com.simplemobiletools.contacts.pro.dialogs.AddBlockedNumberDialog
 import com.simplemobiletools.contacts.pro.extensions.getBlockedNumbers
+import com.simplemobiletools.contacts.pro.models.BlockedNumber
 import kotlinx.android.synthetic.main.activity_manage_blocked_numbers.*
 
 class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListener {
@@ -25,7 +26,7 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
             underlineText()
             setTextColor(getAdjustedPrimaryColor())
             setOnClickListener {
-                addBlockedNumber()
+                addOrEditBlockedNumber()
             }
         }
     }
@@ -35,7 +36,7 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
             val blockedNumbers = getBlockedNumbers()
             runOnUiThread {
                 ManageBlockedNumbersAdapter(this, blockedNumbers, this, manage_blocked_numbers_list) {
-
+                    addOrEditBlockedNumber(it as BlockedNumber)
                 }.apply {
                     manage_blocked_numbers_list.adapter = this
                 }
@@ -53,7 +54,7 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.add_blocked_number -> addBlockedNumber()
+            R.id.add_blocked_number -> addOrEditBlockedNumber()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -63,8 +64,8 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
         updateBlockedNumbers()
     }
 
-    private fun addBlockedNumber() {
-        AddBlockedNumberDialog(this) {
+    private fun addOrEditBlockedNumber(currentNumber: BlockedNumber? = null) {
+        AddBlockedNumberDialog(this, currentNumber) {
             updateBlockedNumbers()
         }
     }
