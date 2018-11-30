@@ -17,6 +17,8 @@
     <string name="request_the_required_permissions">Richiedi le permissioni necessarie</string>
     <string name="create_new_contact">Crea un nuovo contatto</string>
     <string name="add_to_existing_contact">Aggiungi ad un contatto esistente</string>
+    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
+    <string name="set_to_default">Set to default</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nessun contatto trovato</string>
@@ -136,7 +138,7 @@
 
     <!-- Blocked numbers -->
     <string name="manage_blocked_numbers">Manage blocked numbers</string>
-    <string name="not_blocking_anyone">You are not blocking anyone</string>
+    <string name="not_blocking_anyone">You are not blocking anyone.</string>
     <string name="add_a_blocked_number">Add a blocked number</string>
     <string name="block_number">Block number</string>
     <string name="block_numbers">Block numbers</string>

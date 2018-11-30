@@ -17,6 +17,8 @@
     <string name="request_the_required_permissions">Vyžiadať potrebné oprávnenia</string>
     <string name="create_new_contact">Vytvoriť nový kontakt</string>
     <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
+    <string name="must_make_default_dialer">Pre použitie blokovania čísel musíte nastaviť aplikáciu ako predvolenú pre správu hovorov.</string>
+    <string name="set_to_default">Nastaviť ako predvolenú</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nenašli sa žiadne kontakty</string>
@@ -136,7 +138,7 @@
 
     <!-- Blocked numbers -->
     <string name="manage_blocked_numbers">Spravovať blokované čísla</string>
-    <string name="not_blocking_anyone">Neblokujete nikoho</string>
+    <string name="not_blocking_anyone">Neblokujete nikoho.</string>
     <string name="add_a_blocked_number">Pridať blokované číslo</string>
     <string name="block_number">Blokovať číslo</string>
     <string name="block_numbers">Blokovať čísla</string>
