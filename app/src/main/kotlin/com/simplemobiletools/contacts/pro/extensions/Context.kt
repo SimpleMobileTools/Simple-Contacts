@@ -293,7 +293,7 @@ fun Context.getVisibleContactSources(): ArrayList<String> {
 @TargetApi(Build.VERSION_CODES.N)
 fun Context.getBlockedNumbers(): ArrayList<BlockedNumber> {
     val blockedNumbers = ArrayList<BlockedNumber>()
-    if (!isNougatPlus()) {
+    if (!isNougatPlus() || !isDefaultDialer()) {
         return blockedNumbers
     }
 

@@ -1,23 +1,31 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.annotation.TargetApi
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Telephony.Sms.Intents.SECRET_CODE_ACTION
+import android.telecom.TelecomManager
+import android.telephony.TelephonyManager
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.extensions.callContact
 import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.extensions.isDefaultDialer
 import com.simplemobiletools.contacts.pro.extensions.startCallIntent
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.pro.helpers.LOCATION_DIALPAD
+import com.simplemobiletools.contacts.pro.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_dialpad.*
 
@@ -134,7 +142,25 @@ class DialpadActivity : SimpleActivity() {
         checkDialIntent()
     }
 
+    @TargetApi(Build.VERSION_CODES.O)
     private fun dialpadValueChanged(text: String) {
+        val len = text.length
+        if (len > 8 && text.startsWith("*#*#") && text.endsWith("#*#*")) {
+            val secretCode = text.substring(4, text.length - 4)
+            if (isOreoPlus()) {
+                if (isDefaultDialer()) {
+                    getSystemService(TelephonyManager::class.java).sendDialerSpecialCode(secretCode)
+                } else {
+                    val intent = Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, packageName)
+                    startActivityForResult(intent, REQUEST_CODE_SET_DEFAULT_DIALER)
+                }
+            } else {
+                val intent = Intent(SECRET_CODE_ACTION, Uri.parse("android_secret_code://$secretCode"))
+                sendBroadcast(intent)
+            }
+            return
+        }
+
         (dialpad_list.adapter as? ContactsAdapter)?.finishActMode()
         val filtered = contacts.filter { it.doesContainPhoneNumber(text) } as ArrayList<Contact>
 
@@ -149,6 +175,13 @@ class DialpadActivity : SimpleActivity() {
         dialpad_fastscroller.setViews(dialpad_list) {
             val item = (dialpad_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
             dialpad_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == REQUEST_CODE_SET_DEFAULT_DIALER && isDefaultDialer()) {
+            dialpadValueChanged(dialpad_input.value)
         }
     }
 

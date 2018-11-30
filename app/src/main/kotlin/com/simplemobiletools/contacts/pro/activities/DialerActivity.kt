@@ -13,10 +13,10 @@ import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.isDefaultDialer
 import com.simplemobiletools.contacts.pro.extensions.telecomManager
+import com.simplemobiletools.contacts.pro.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 
 @TargetApi(Build.VERSION_CODES.M)
 class DialerActivity : SimpleActivity() {
-    private val REQUEST_CODE_SET_DEFAULT_DIALER = 1
     private var callNumber: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
