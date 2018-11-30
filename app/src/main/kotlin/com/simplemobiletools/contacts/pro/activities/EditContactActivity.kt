@@ -161,6 +161,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun gotContact() {
+        contact_scrollview.beVisible()
         if (contact == null) {
             setupNewContact()
         } else {

@@ -127,6 +127,7 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun gotContact() {
+        contact_scrollview.beVisible()
         setupViewContact()
         contact_send_sms.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
         contact_start_call.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
