@@ -59,7 +59,7 @@ class ViewContactActivity : ContactActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_view_contact, menu)
         menu.apply {
-            findItem(R.id.open_with).isVisible = contact?.source != SMT_PRIVATE
+            findItem(R.id.open_with).isVisible = contact?.isPrivate() == false
         }
         return true
     }

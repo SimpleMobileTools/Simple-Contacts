@@ -49,7 +49,7 @@ fun Context.getEmptyContact(): Contact {
 fun Context.viewContact(contact: Contact) {
     Intent(applicationContext, ViewContactActivity::class.java).apply {
         putExtra(CONTACT_ID, contact.id)
-        putExtra(IS_PRIVATE, contact.source == SMT_PRIVATE)
+        putExtra(IS_PRIVATE, contact.isPrivate())
         startActivity(this)
     }
 }
@@ -57,7 +57,7 @@ fun Context.viewContact(contact: Contact) {
 fun Context.editContact(contact: Contact) {
     Intent(applicationContext, EditContactActivity::class.java).apply {
         putExtra(CONTACT_ID, contact.id)
-        putExtra(IS_PRIVATE, contact.source == SMT_PRIVATE)
+        putExtra(IS_PRIVATE, contact.isPrivate())
         startActivity(this)
     }
 }
@@ -254,8 +254,8 @@ fun Context.getTempFile(): File? {
 }
 
 fun Context.addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
-    val publicContacts = contacts.filter { it.source != SMT_PRIVATE }.toMutableList() as ArrayList<Contact>
-    val privateContacts = contacts.filter { it.source == SMT_PRIVATE }.toMutableList() as ArrayList<Contact>
+    val publicContacts = contacts.filter { !it.isPrivate() }.toMutableList() as ArrayList<Contact>
+    val privateContacts = contacts.filter { it.isPrivate() }.toMutableList() as ArrayList<Contact>
     if (publicContacts.isNotEmpty()) {
         ContactsHelper(this).addContactsToGroup(publicContacts, groupId)
     }
@@ -266,8 +266,8 @@ fun Context.addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
 }
 
 fun Context.removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
-    val publicContacts = contacts.filter { it.source != SMT_PRIVATE }.toMutableList() as ArrayList<Contact>
-    val privateContacts = contacts.filter { it.source == SMT_PRIVATE }.toMutableList() as ArrayList<Contact>
+    val publicContacts = contacts.filter { !it.isPrivate() }.toMutableList() as ArrayList<Contact>
+    val privateContacts = contacts.filter { it.isPrivate() }.toMutableList() as ArrayList<Contact>
     if (publicContacts.isNotEmpty() && hasContactPermissions()) {
         ContactsHelper(this).removeContactsFromGroup(publicContacts, groupId)
     }
@@ -278,7 +278,7 @@ fun Context.removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long)
 }
 
 fun Context.getContactPublicUri(contact: Contact): Uri {
-    val lookupKey = if (contact.source == SMT_PRIVATE) {
+    val lookupKey = if (contact.isPrivate()) {
         "local_${contact.id}"
     } else {
         ContactsHelper(this).getContactLookupKey(contact.id.toString())

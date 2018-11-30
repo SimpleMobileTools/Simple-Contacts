@@ -91,7 +91,7 @@ class EditContactActivity : ContactActivity() {
         if (wasActivityInitialized) {
             menu.findItem(R.id.delete).isVisible = contact?.id != 0
             menu.findItem(R.id.share).isVisible = contact?.id != 0
-            menu.findItem(R.id.open_with).isVisible = contact?.id != 0 && contact?.source != SMT_PRIVATE
+            menu.findItem(R.id.open_with).isVisible = contact?.id != 0 && contact?.isPrivate() == false
         }
         return true
     }

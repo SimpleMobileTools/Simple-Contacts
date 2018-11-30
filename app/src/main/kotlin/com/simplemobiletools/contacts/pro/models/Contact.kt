@@ -6,6 +6,7 @@ import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.pro.extensions.normalizeNumber
+import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 
 data class Contact(var id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var nickname: String,
                    var photoUri: String, var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>,
@@ -132,4 +133,6 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
             false
         }
     }
+
+    fun isPrivate() = source == SMT_PRIVATE
 }

@@ -61,7 +61,7 @@ class InsertOrEditContactActivity : SimpleActivity() {
                 data = getContactPublicUri(contact)
                 action = ADD_NEW_CONTACT_NUMBER
                 putExtra(KEY_PHONE, getPhoneNumberFromIntent(intent))
-                putExtra(IS_PRIVATE, contact.source == SMT_PRIVATE)
+                putExtra(IS_PRIVATE, contact.isPrivate())
                 startActivityForResult(this, START_EDIT_ACTIVITY)
             }
         }.apply {
