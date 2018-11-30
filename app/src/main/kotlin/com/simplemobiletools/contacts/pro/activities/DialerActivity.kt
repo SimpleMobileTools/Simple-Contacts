@@ -11,6 +11,7 @@ import android.telecom.TelecomManager
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.extensions.isDefaultDialer
 import com.simplemobiletools.contacts.pro.extensions.telecomManager
 
 @TargetApi(Build.VERSION_CODES.M)
@@ -25,7 +26,7 @@ class DialerActivity : SimpleActivity() {
             callNumber = intent.data
 
             // make sure Simple Contacts is the default Phone app before initiating an outgoing call
-            if (telecomManager.defaultDialerPackage != packageName) {
+            if (!isDefaultDialer()) {
                 val intent = Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, packageName)
                 startActivityForResult(intent, REQUEST_CODE_SET_DEFAULT_DIALER)
             } else {
@@ -56,7 +57,7 @@ class DialerActivity : SimpleActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (requestCode == REQUEST_CODE_SET_DEFAULT_DIALER) {
-            if (telecomManager.defaultDialerPackage != packageName) {
+            if (!isDefaultDialer()) {
                 finish()
             } else {
                 initOutgoingCall()

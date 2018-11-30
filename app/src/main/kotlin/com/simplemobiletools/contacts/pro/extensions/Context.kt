@@ -338,3 +338,6 @@ fun Context.deleteBlockedNumber(number: String) {
     val uri = contentResolver.insert(BlockedNumbers.CONTENT_URI, values)
     contentResolver.delete(uri, null, null)
 }
+
+@TargetApi(Build.VERSION_CODES.M)
+fun Context.isDefaultDialer() = telecomManager.defaultDialerPackage != packageName
