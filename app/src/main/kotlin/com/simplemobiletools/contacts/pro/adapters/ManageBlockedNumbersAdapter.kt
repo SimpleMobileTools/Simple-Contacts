@@ -71,9 +71,7 @@ class ManageBlockedNumbersAdapter(activity: BaseSimpleActivity, var blockedNumbe
 
         getSelectedItems().forEach {
             removeBlockedNumbers.add(it)
-            Thread {
-                activity.deleteBlockedNumber(it.number)
-            }.start()
+            activity.deleteBlockedNumber(it.number)
         }
 
         blockedNumbers.removeAll(removeBlockedNumbers)
