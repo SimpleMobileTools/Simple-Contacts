@@ -138,6 +138,8 @@
     <string name="manage_blocked_numbers">ブロックした番号を管理</string>
     <string name="not_blocking_anyone">まだ誰もブロックしていません</string>
     <string name="add_a_blocked_number">ブロックする番号を追加</string>
+    <string name="block_number">Block number</string>
+    <string name="block_numbers">Block numbers</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">連絡先に表示される項目(フィールド)を変更することはできますか？</string>
