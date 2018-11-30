@@ -1,14 +1,18 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.annotation.TargetApi
+import android.os.Build
 import android.os.Bundle
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.helpers.isNougatPlus
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleTabsDialog
 import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.extensions.telecomManager
 import com.simplemobiletools.contacts.pro.helpers.ON_CLICK_CALL_CONTACT
 import com.simplemobiletools.contacts.pro.helpers.ON_CLICK_EDIT_CONTACT
 import com.simplemobiletools.contacts.pro.helpers.ON_CLICK_VIEW_CONTACT
@@ -27,6 +31,7 @@ class SettingsActivity : SimpleActivity() {
         setupCustomizeColors()
         setupManageShownContactFields()
         setupManageShownTabs()
+        setupManageBlockedNumbers()
         setupUseEnglish()
         setupShowInfoBubble()
         setupShowContactThumbnails()
@@ -56,6 +61,14 @@ class SettingsActivity : SimpleActivity() {
     private fun setupManageShownTabs() {
         settings_manage_tabs_holder.setOnClickListener {
             ManageVisibleTabsDialog(this)
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private fun setupManageBlockedNumbers() {
+        settings_manage_blocked_numbers.beVisibleIf(isNougatPlus())
+        settings_manage_blocked_numbers.setOnClickListener {
+            startActivity(telecomManager.createManageBlockedNumbersIntent())
         }
     }
 
