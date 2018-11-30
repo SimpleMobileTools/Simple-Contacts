@@ -1,18 +1,14 @@
 package com.simplemobiletools.contacts.pro.activities
 
-import android.annotation.TargetApi
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.provider.BlockedNumberContract.BlockedNumbers
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
@@ -36,9 +32,7 @@ import com.simplemobiletools.contacts.pro.extensions.getTempFile
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
-import com.simplemobiletools.contacts.pro.models.BlockedNumber
 import com.simplemobiletools.contacts.pro.models.Contact
-import com.simplemobiletools.contacts.pro.models.RecentCall
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
@@ -547,14 +541,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
             ContactsHelper(this).getRecents {
-                val numbers = getBlockedNumbers()
-                val recents = it.filter {
-                    val recentCall = it
-                    numbers.none { it.number == recentCall.number || it.normalizedNumber == recentCall.number }
-                }.toMutableList() as ArrayList<RecentCall>
-
                 val localContacts = LocalContactsHelper(applicationContext).getAllContacts()
-                recents.filter { it.name == null }.forEach {
+                it.filter { it.name == null }.forEach {
                     val namelessCall = it
                     val localContact = localContacts.firstOrNull { it.doesContainPhoneNumber(namelessCall.number) }
                     if (localContact != null) {
@@ -563,39 +551,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 }
 
                 runOnUiThread {
-                    recents_fragment?.updateRecentCalls(recents)
+                    recents_fragment?.updateRecentCalls(it)
                 }
             }
         }
-    }
-
-    @TargetApi(Build.VERSION_CODES.N)
-    private fun getBlockedNumbers(): ArrayList<BlockedNumber> {
-        val blockedNumbers = ArrayList<BlockedNumber>()
-        if (!isNougatPlus()) {
-            return blockedNumbers
-        }
-
-        val uri = BlockedNumbers.CONTENT_URI
-        val projection = arrayOf(BlockedNumbers.COLUMN_ID, BlockedNumbers.COLUMN_ORIGINAL_NUMBER, BlockedNumbers.COLUMN_E164_NUMBER)
-
-        var cursor: Cursor? = null
-        try {
-            cursor = contentResolver.query(uri, projection, null, null, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getLongValue(BlockedNumbers.COLUMN_ID)
-                    val number = cursor.getStringValue(BlockedNumbers.COLUMN_ORIGINAL_NUMBER) ?: ""
-                    val normalizedNumber = cursor.getStringValue(BlockedNumbers.COLUMN_E164_NUMBER) ?: ""
-                    val blockedNumber = BlockedNumber(id, number, normalizedNumber)
-                    blockedNumbers.add(blockedNumber)
-                } while (cursor.moveToNext())
-            }
-        } finally {
-            cursor?.close()
-        }
-
-        return blockedNumbers
     }
 
     private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, recents_fragment, groups_fragment)
