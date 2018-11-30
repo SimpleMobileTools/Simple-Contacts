@@ -9,6 +9,7 @@ import com.simplemobiletools.commons.extensions.underlineText
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.adapters.ManageBlockedNumbersAdapter
 import com.simplemobiletools.contacts.pro.extensions.getBlockedNumbers
 import kotlinx.android.synthetic.main.activity_manage_blocked_numbers.*
 
@@ -31,6 +32,12 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
     private fun updateBlockedNumbers() {
         Thread {
             val blockedNumbers = getBlockedNumbers()
+            ManageBlockedNumbersAdapter(this, blockedNumbers, this, manage_blocked_numbers_list) {
+
+            }.apply {
+                manage_blocked_numbers_list.adapter = this
+            }
+
             runOnUiThread {
                 manage_blocked_numbers_placeholder.beVisibleIf(blockedNumbers.isEmpty())
                 manage_blocked_numbers_placeholder_2.beVisibleIf(blockedNumbers.isEmpty())
