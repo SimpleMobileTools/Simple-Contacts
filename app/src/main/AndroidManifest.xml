@@ -204,6 +204,11 @@
             android:parentActivityName="com.simplemobiletools.commons.activities.AboutActivity"/>
 
         <activity
+            android:name=".activities.ManageBlockedNumbersActivity"
+            android:label="@string/blocked_numbers"
+            android:parentActivityName=".activities.SettingsActivity"/>
+
+        <activity
             android:name=".activities.DialpadActivity"
             android:label="@string/dialpad"
             android:parentActivityName=".activities.MainActivity">

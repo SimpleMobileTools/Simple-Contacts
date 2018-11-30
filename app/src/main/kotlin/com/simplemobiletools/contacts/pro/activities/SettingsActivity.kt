@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.annotation.TargetApi
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -12,7 +13,6 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleTabsDialog
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.telecomManager
 import com.simplemobiletools.contacts.pro.helpers.ON_CLICK_CALL_CONTACT
 import com.simplemobiletools.contacts.pro.helpers.ON_CLICK_EDIT_CONTACT
 import com.simplemobiletools.contacts.pro.helpers.ON_CLICK_VIEW_CONTACT
@@ -64,11 +64,12 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
+    // support for device-wise blocking came on Android 7, rely only on that
     @TargetApi(Build.VERSION_CODES.N)
     private fun setupManageBlockedNumbers() {
         settings_manage_blocked_numbers_holder.beVisibleIf(isNougatPlus())
         settings_manage_blocked_numbers_holder.setOnClickListener {
-            startActivity(telecomManager.createManageBlockedNumbersIntent())
+            startActivity(Intent(this, ManageBlockedNumbersActivity::class.java))
         }
     }
 

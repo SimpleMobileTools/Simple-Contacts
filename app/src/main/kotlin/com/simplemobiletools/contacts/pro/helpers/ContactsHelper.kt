@@ -3,15 +3,12 @@ package com.simplemobiletools.contacts.pro.helpers
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.content.*
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.provider.BlockedNumberContract
 import android.provider.CallLog
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
@@ -1550,7 +1547,7 @@ class ContactsHelper(val context: Context) {
                 return@Thread
             }
 
-            val blockedNumbers = getBlockedNumbers()
+            val blockedNumbers = context.getBlockedNumbers()
             val uri = CallLog.Calls.CONTENT_URI
             val projection = arrayOf(
                     CallLog.Calls._ID,
@@ -1628,34 +1625,5 @@ class ContactsHelper(val context: Context) {
                 context.showErrorToast(e)
             }
         }.start()
-    }
-
-    @TargetApi(Build.VERSION_CODES.N)
-    private fun getBlockedNumbers(): ArrayList<BlockedNumber> {
-        val blockedNumbers = ArrayList<BlockedNumber>()
-        if (!isNougatPlus()) {
-            return blockedNumbers
-        }
-
-        val uri = BlockedNumberContract.BlockedNumbers.CONTENT_URI
-        val projection = arrayOf(BlockedNumberContract.BlockedNumbers.COLUMN_ID, BlockedNumberContract.BlockedNumbers.COLUMN_ORIGINAL_NUMBER, BlockedNumberContract.BlockedNumbers.COLUMN_E164_NUMBER)
-
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, null, null, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getLongValue(BlockedNumberContract.BlockedNumbers.COLUMN_ID)
-                    val number = cursor.getStringValue(BlockedNumberContract.BlockedNumbers.COLUMN_ORIGINAL_NUMBER) ?: ""
-                    val normalizedNumber = cursor.getStringValue(BlockedNumberContract.BlockedNumbers.COLUMN_E164_NUMBER) ?: ""
-                    val blockedNumber = BlockedNumber(id, number, normalizedNumber)
-                    blockedNumbers.add(blockedNumber)
-                } while (cursor.moveToNext())
-            }
-        } finally {
-            cursor?.close()
-        }
-
-        return blockedNumbers
     }
 }
