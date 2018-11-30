@@ -66,8 +66,8 @@ class SettingsActivity : SimpleActivity() {
 
     @TargetApi(Build.VERSION_CODES.N)
     private fun setupManageBlockedNumbers() {
-        settings_manage_blocked_numbers.beVisibleIf(isNougatPlus())
-        settings_manage_blocked_numbers.setOnClickListener {
+        settings_manage_blocked_numbers_holder.beVisibleIf(isNougatPlus())
+        settings_manage_blocked_numbers_holder.setOnClickListener {
             startActivity(telecomManager.createManageBlockedNumbersIntent())
         }
     }
