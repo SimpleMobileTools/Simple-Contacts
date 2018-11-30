@@ -27,8 +27,7 @@ class DialerActivity : SimpleActivity() {
 
             // make sure Simple Contacts is the default Phone app before initiating an outgoing call
             if (!isDefaultDialer()) {
-                val intent = Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, packageName)
-                startActivityForResult(intent, REQUEST_CODE_SET_DEFAULT_DIALER)
+                launchSetDefaultDialerIntent()
             } else {
                 initOutgoingCall()
             }

@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Telephony.Sms.Intents.SECRET_CODE_ACTION
-import android.telecom.TelecomManager
 import android.telephony.TelephonyManager
 import android.view.KeyEvent
 import android.view.Menu
@@ -151,8 +150,7 @@ class DialpadActivity : SimpleActivity() {
                 if (isDefaultDialer()) {
                     getSystemService(TelephonyManager::class.java).sendDialerSpecialCode(secretCode)
                 } else {
-                    val intent = Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, packageName)
-                    startActivityForResult(intent, REQUEST_CODE_SET_DEFAULT_DIALER)
+                    launchSetDefaultDialerIntent()
                 }
             } else {
                 val intent = Intent(SECRET_CODE_ACTION, Uri.parse("android_secret_code://$secretCode"))
