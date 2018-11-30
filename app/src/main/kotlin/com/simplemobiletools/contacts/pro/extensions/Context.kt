@@ -340,4 +340,4 @@ fun Context.deleteBlockedNumber(number: String) {
 }
 
 @TargetApi(Build.VERSION_CODES.M)
-fun Context.isDefaultDialer() = telecomManager.defaultDialerPackage != packageName
+fun Context.isDefaultDialer() = telecomManager.defaultDialerPackage == packageName
