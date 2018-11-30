@@ -323,6 +323,7 @@ fun Context.getBlockedNumbers(): ArrayList<BlockedNumber> {
     return blockedNumbers
 }
 
+@TargetApi(Build.VERSION_CODES.N)
 fun Context.addBlockedNumber(number: String) {
     ContentValues().apply {
         put(BlockedNumbers.COLUMN_ORIGINAL_NUMBER, number)

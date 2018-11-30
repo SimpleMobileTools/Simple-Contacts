@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.helpers.isNougatPlus
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
@@ -31,6 +32,7 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
 
     override fun prepareActionMode(menu: Menu) {
         menu.apply {
+            findItem(R.id.cab_block_number).isVisible = isNougatPlus()
             findItem(R.id.cab_block_number).title = activity.getString(if (isOneItemSelected()) R.string.block_number else R.string.block_numbers)
         }
     }
