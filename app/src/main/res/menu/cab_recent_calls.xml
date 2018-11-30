@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_select_all"
         android:title="@string/select_all"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/cab_block_number"
+        android:icon="@drawable/ic_block"
+        android:title="@string/block_number"
+        app:showAsAction="ifRoom"/>
 </menu>

@@ -1,9 +1,11 @@
 package com.simplemobiletools.contacts.pro.extensions
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
+import android.provider.BlockedNumberContract.BlockedNumbers
 import android.provider.ContactsContract
 import android.telecom.TelecomManager
 import androidx.core.content.FileProvider
@@ -24,6 +26,7 @@ import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.ContactSource
 import com.simplemobiletools.contacts.pro.models.Organization
 import java.io.File
+
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
 
@@ -282,4 +285,11 @@ fun Context.getVisibleContactSources(): ArrayList<String> {
     val sourceNames = ArrayList(sources).map { if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name }.toMutableList() as ArrayList<String>
     sourceNames.removeAll(config.ignoredContactSources)
     return sourceNames
+}
+
+fun Context.addBlockedNumber(number: String) {
+    ContentValues().apply {
+        put(BlockedNumbers.COLUMN_ORIGINAL_NUMBER, number)
+        contentResolver.insert(BlockedNumbers.CONTENT_URI, this)
+    }
 }

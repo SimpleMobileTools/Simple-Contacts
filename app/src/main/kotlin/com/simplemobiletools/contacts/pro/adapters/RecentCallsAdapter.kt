@@ -10,6 +10,7 @@ import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
+import com.simplemobiletools.contacts.pro.extensions.addBlockedNumber
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.RECENTS_TAB_MASK
@@ -28,7 +29,11 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
 
     override fun getActionMenuId() = R.menu.cab_recent_calls
 
-    override fun prepareActionMode(menu: Menu) {}
+    override fun prepareActionMode(menu: Menu) {
+        menu.apply {
+            findItem(R.id.cab_block_number).title = activity.getString(if (isOneItemSelected()) R.string.block_number else R.string.block_numbers)
+        }
+    }
 
     override fun actionItemPressed(id: Int) {
         if (selectedKeys.isEmpty()) {
@@ -38,6 +43,7 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
         when (id) {
             R.id.cab_select_all -> selectAll()
             R.id.cab_delete -> askConfirmDelete()
+            R.id.cab_block_number -> blockNumber()
         }
     }
 
@@ -90,6 +96,18 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
         } else {
             removeSelectedItems(positions)
         }
+    }
+
+    private fun blockNumber() {
+        Thread {
+            getSelectedItems().forEach {
+                activity.addBlockedNumber(it.number)
+            }
+            refreshListener?.refreshContacts(RECENTS_TAB_MASK)
+            activity.runOnUiThread {
+                finishActMode()
+            }
+        }.start()
     }
 
     private fun getSelectedItems() = recentCalls.filter { selectedKeys.contains(it.id) } as ArrayList<RecentCall>
