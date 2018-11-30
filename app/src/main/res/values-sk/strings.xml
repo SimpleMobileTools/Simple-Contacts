@@ -140,6 +140,7 @@
     <string name="add_a_blocked_number">Pridať blokované číslo</string>
     <string name="block_number">Blokovať číslo</string>
     <string name="block_numbers">Blokovať čísla</string>
+    <string name="blocked_numbers">Blokované čísla</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Chcem upraviť viditeľné polia kontaktov. Dá sa to?</string>

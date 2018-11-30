@@ -140,6 +140,7 @@
     <string name="add_a_blocked_number">ブロックする番号を追加</string>
     <string name="block_number">Block number</string>
     <string name="block_numbers">Block numbers</string>
+    <string name="blocked_numbers">Blocked numbers</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">連絡先に表示される項目(フィールド)を変更することはできますか？</string>
