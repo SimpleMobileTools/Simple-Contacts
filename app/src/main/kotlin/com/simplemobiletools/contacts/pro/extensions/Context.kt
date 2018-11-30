@@ -330,3 +330,11 @@ fun Context.addBlockedNumber(number: String) {
         contentResolver.insert(BlockedNumbers.CONTENT_URI, this)
     }
 }
+
+@TargetApi(Build.VERSION_CODES.N)
+fun Context.deleteBlockedNumber(number: String) {
+    val values = ContentValues()
+    values.put(BlockedNumbers.COLUMN_ORIGINAL_NUMBER, number)
+    val uri = contentResolver.insert(BlockedNumbers.CONTENT_URI, values)
+    contentResolver.delete(uri, null, null)
+}

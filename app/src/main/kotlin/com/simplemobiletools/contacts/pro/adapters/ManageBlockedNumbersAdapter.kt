@@ -9,6 +9,7 @@ import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.extensions.deleteBlockedNumber
 import com.simplemobiletools.contacts.pro.models.BlockedNumber
 import kotlinx.android.synthetic.main.item_manage_blocked_number.view.*
 import java.util.*
@@ -43,9 +44,9 @@ class ManageBlockedNumbersAdapter(activity: BaseSimpleActivity, var blockedNumbe
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.item_manage_blocked_number, parent)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val folder = blockedNumbers[position]
-        holder.bindView(folder, true, true) { itemView, adapterPosition ->
-            setupView(itemView, folder)
+        val blockedNumber = blockedNumbers[position]
+        holder.bindView(blockedNumber, true, true) { itemView, adapterPosition ->
+            setupView(itemView, blockedNumber)
         }
         bindViewHolder(holder)
     }
@@ -65,14 +66,17 @@ class ManageBlockedNumbersAdapter(activity: BaseSimpleActivity, var blockedNumbe
     }
 
     private fun removeSelection() {
-        val removeFolders = ArrayList<BlockedNumber>(selectedKeys.size)
+        val removeBlockedNumbers = ArrayList<BlockedNumber>(selectedKeys.size)
         val positions = getSelectedItemPositions()
 
         getSelectedItems().forEach {
-            removeFolders.add(it)
+            removeBlockedNumbers.add(it)
+            Thread {
+                activity.deleteBlockedNumber(it.number)
+            }.start()
         }
 
-        blockedNumbers.removeAll(removeFolders)
+        blockedNumbers.removeAll(removeBlockedNumbers)
         removeSelectedItems(positions)
         if (blockedNumbers.isEmpty()) {
             listener?.refreshItems()
