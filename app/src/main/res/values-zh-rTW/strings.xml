@@ -17,8 +17,8 @@
     <string name="request_the_required_permissions">請求必要的權限</string>
     <string name="create_new_contact">建立新聯絡人</string>
     <string name="add_to_existing_contact">添加至已存在的聯絡人</string>
-    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_to_default">Set to default</string>
+    <string name="must_make_default_dialer">你必須將這應用程式設為預設的撥號程式來使用黑名單。</string>
+    <string name="set_to_default">設為預設</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">未發現聯絡人</string>
@@ -137,12 +137,12 @@
     <string name="instant_messaging">即時通訊 (IM)</string>
 
     <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Manage blocked numbers</string>
-    <string name="not_blocking_anyone">You are not blocking anyone.</string>
-    <string name="add_a_blocked_number">Add a blocked number</string>
-    <string name="block_number">Block number</string>
-    <string name="block_numbers">Block numbers</string>
-    <string name="blocked_numbers">Blocked numbers</string>
+    <string name="manage_blocked_numbers">管理黑名單</string>
+    <string name="not_blocking_anyone">你沒有封鎖任何人</string>
+    <string name="add_a_blocked_number">添加封鎖的號碼</string>
+    <string name="block_number">封鎖號碼</string>
+    <string name="block_numbers">封鎖號碼</string>
+    <string name="blocked_numbers">黑名單</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">我想要更改在通訊錄會看到哪些欄位。我能這麼做嗎?</string>
