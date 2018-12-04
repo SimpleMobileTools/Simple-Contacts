@@ -60,7 +60,7 @@
     <string name="call_contact">Chiama contatto</string>
     <string name="view_contact">Visualizza i dettagli del contatto</string>
     <string name="manage_shown_contact_fields">Gestisci i campi mostrati</string>
-    <string name="filter_duplicates">Prova a filetrare i contatti duplicati</string>
+    <string name="filter_duplicates">Prova a filtrare i contatti duplicati</string>
     <string name="manage_shown_tabs">Gestisci le schede mostrate</string>
     <string name="contacts">Contatti</string>
     <string name="favorites">Preferiti</string>
