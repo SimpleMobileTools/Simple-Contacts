@@ -5,7 +5,7 @@
     <string name="inserting">Inserimento in corso…</string>
     <string name="updating">Aggiornamento in corso…</string>
     <string name="phone_storage">Memoria del telefono</string>
-    <string name="phone_storage_hidden">Memoria del telfono (non visibile alle altre applicazioni)</string>
+    <string name="phone_storage_hidden">Memoria del telefono (non visibile alle altre applicazioni)</string>
     <string name="company">Compagnia</string>
     <string name="job_position">Posizione lavorativa</string>
     <string name="website">Sito web</string>
@@ -17,11 +17,14 @@
     <string name="request_the_required_permissions">Richiedi le permissioni necessarie</string>
     <string name="create_new_contact">Crea un nuovo contatto</string>
     <string name="add_to_existing_contact">Aggiungi ad un contatto esistente</string>
+    <string name="must_make_default_dialer">È necessario impostare quest\'app come predefinita per utilizzare i numeri bloccati.</string>
+    <string name="set_to_default">Imposta come predefinita</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nessun contatto trovato</string>
     <string name="no_contacts_with_emails">Nessun contatto trovato con un\'email</string>
     <string name="no_contacts_with_phone_numbers">Nessun contatto trovato con un numero di telefono</string>
+    <string name="no_recent_calls_found">Nessuna chiamata recente trovata</string>
 
     <string name="new_contact">Nuovo contatto</string>
     <string name="edit_contact">Modifica contatto</string>
@@ -52,11 +55,12 @@
     <string name="start_name_with_surname">Prima il nome poi il cognome</string>
     <string name="show_phone_numbers">Mostra i numeri di telefono nella schermata principale</string>
     <string name="show_contact_thumbnails">Mostra le anteprime dei contatti</string>
+    <string name="show_dialpad_button">Mostra il pulante per la tastiera nello schermo principale</string>
     <string name="on_contact_click">Al click sul contatto</string>
     <string name="call_contact">Chiama contatto</string>
     <string name="view_contact">Visualizza i dettagli del contatto</string>
     <string name="manage_shown_contact_fields">Gestisci i campi mostrati</string>
-    <string name="filter_duplicates">Prova a filetrare i contatti duplicati</string>
+    <string name="filter_duplicates">Prova a filtrare i contatti duplicati</string>
     <string name="manage_shown_tabs">Gestisci le schede mostrate</string>
     <string name="contacts">Contatti</string>
     <string name="favorites">Preferiti</string>
@@ -107,6 +111,16 @@
     <string name="dialpad">Tastiera</string>
     <string name="add_number_to_contact">Aggiungi numero ai contatti</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Compositore</string>
+    <string name="calling">Chiamata in corso</string>
+    <string name="incoming_call">Chiamata in arrivo</string>
+    <string name="incoming_call_from">Chiamata in arrivo da…</string>
+    <string name="ongoing_call">Chiamata in corso</string>
+    <string name="disconnected">Disconnesso</string>
+    <string name="decline_call">Rifiuta</string>
+    <string name="answer_call">Rispondi</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Seleziona i campi da mostrare</string>
     <string name="prefix">Prefisso</string>
@@ -121,6 +135,14 @@
     <string name="groups">Gruppi</string>
     <string name="contact_source">Provenienza del contatto</string>
     <string name="instant_messaging">Messaggistica istantanea (IM)</string>
+
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Gestisci i numeri bloccati</string>
+    <string name="not_blocking_anyone">Non si sta blocccando alcun numero.</string>
+    <string name="add_a_blocked_number">Aggiungi un numero da bloccare</string>
+    <string name="block_number">Blocca numero</string>
+    <string name="block_numbers">Blocca numeri</string>
+    <string name="blocked_numbers">Numeri bloccati</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Voglio cambiare i campi visibili ai contatti. Come posso fare?</string>

@@ -17,7 +17,6 @@ import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getContactPublicUri
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
-import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_select_contact.*
 
@@ -90,7 +89,7 @@ class SelectContactActivity : SimpleActivity() {
                         ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE -> it.phoneNumbers.isNotEmpty()
                         else -> true
                     }
-                    it.source != SMT_PRIVATE && hasRequiredValues
+                    !it.isPrivate() && hasRequiredValues
                 } else {
                     true
                 }
@@ -98,10 +97,6 @@ class SelectContactActivity : SimpleActivity() {
 
             val contactSources = getVisibleContactSources()
             contacts = contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
-
-            Contact.sorting = config.sorting
-            Contact.startWithSurname = config.startNameWithSurname
-            contacts.sort()
 
             runOnUiThread {
                 updatePlaceholderVisibility(contacts)

@@ -17,11 +17,14 @@
     <string name="request_the_required_permissions">Запрос необходимых разрешений</string>
     <string name="create_new_contact">Создать новый контакт</string>
     <string name="add_to_existing_contact">Добавить к существующему контакту</string>
+    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
+    <string name="set_to_default">Set to default</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Контакты не найдены</string>
     <string name="no_contacts_with_emails">Контакты с адресами электронной почты не найдены</string>
     <string name="no_contacts_with_phone_numbers">Контакты с номерами телефонов не найдены</string>
+    <string name="no_recent_calls_found">No recent calls found</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
@@ -52,6 +55,7 @@
     <string name="start_name_with_surname">Показывать сначала фамилию</string>
     <string name="show_phone_numbers">Показывать номера телефонов на главном экране</string>
     <string name="show_contact_thumbnails">Показывать фото контакта</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">При нажатии на контакт</string>
     <string name="call_contact">Позвонить контакту</string>
     <string name="view_contact">Просмотреть подробности о контакте</string>
@@ -107,6 +111,16 @@
     <string name="dialpad">Набор номера</string>
     <string name="add_number_to_contact">Добавить номер к контакту</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Calling</string>
+    <string name="incoming_call">Incoming call</string>
+    <string name="incoming_call_from">Incoming call from…</string>
+    <string name="ongoing_call">Ongoing call</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="decline_call">Decline</string>
+    <string name="answer_call">Answer</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Выберите отображаемые поля</string>
     <string name="prefix">Префикс</string>
@@ -121,6 +135,14 @@
     <string name="groups">Группы</string>
     <string name="contact_source">Источник контакта</string>
     <string name="instant_messaging">Мессенджеры (IM)</string>
+
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Manage blocked numbers</string>
+    <string name="not_blocking_anyone">You are not blocking anyone.</string>
+    <string name="add_a_blocked_number">Add a blocked number</string>
+    <string name="block_number">Block number</string>
+    <string name="block_numbers">Block numbers</string>
+    <string name="blocked_numbers">Blocked numbers</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Я хочу изменить поля, отображаемые у контактов. Могу ли я это сделать?</string>

@@ -13,7 +13,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.dialogs.RenameGroupDialog
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.dbHelper
+import com.simplemobiletools.contacts.pro.extensions.groupsDB
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.GROUPS_TAB_MASK
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
@@ -59,7 +59,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     override fun getItemSelectionKey(position: Int) = groups.getOrNull(position)?.id?.toInt()
 
-    override fun getItemKeyPosition(key: Int) = groups.indexOfFirst { it.id.toInt() == key }
+    override fun getItemKeyPosition(key: Int) = groups.indexOfFirst { it.id!!.toInt() == key }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.item_group, parent)
 
@@ -73,7 +73,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     override fun getItemCount() = groups.size
 
-    private fun getItemWithKey(key: Int): Group? = groups.firstOrNull { it.id.toInt() == key }
+    private fun getItemWithKey(key: Int): Group? = groups.firstOrNull { it.id!!.toInt() == key }
 
     fun updateItems(newItems: ArrayList<Group>) {
         groups = newItems
@@ -92,7 +92,9 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     private fun askConfirmDelete() {
         ConfirmationDialog(activity) {
-            deleteGroups()
+            Thread {
+                deleteGroups()
+            }.start()
         }
     }
 
@@ -101,28 +103,30 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
             return
         }
 
-        val groupsToRemove = groups.filter { selectedKeys.contains(it.id.toInt()) } as ArrayList<Group>
+        val groupsToRemove = groups.filter { selectedKeys.contains(it.id!!.toInt()) } as ArrayList<Group>
         val positions = getSelectedItemPositions()
         groupsToRemove.forEach {
             if (it.isPrivateSecretGroup()) {
-                activity.dbHelper.deleteGroup(it.id)
+                activity.groupsDB.deleteGroupId(it.id!!)
             } else {
-                ContactsHelper(activity).deleteGroup(it.id)
+                ContactsHelper(activity).deleteGroup(it.id!!)
             }
         }
         groups.removeAll(groupsToRemove)
 
-        if (groups.isEmpty()) {
-            refreshListener?.refreshContacts(GROUPS_TAB_MASK)
-            finishActMode()
-        } else {
-            removeSelectedItems(positions)
+        activity.runOnUiThread {
+            if (groups.isEmpty()) {
+                refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+                finishActMode()
+            } else {
+                removeSelectedItems(positions)
+            }
         }
     }
 
     private fun setupView(view: View, group: Group) {
         view.apply {
-            group_frame?.isSelected = selectedKeys.contains(group.id.toInt())
+            group_frame?.isSelected = selectedKeys.contains(group.id!!.toInt())
             group_name.apply {
                 setTextColor(textColor)
                 text = String.format(activity.getString(R.string.groups_placeholder), group.title, group.contactsCount.toString())

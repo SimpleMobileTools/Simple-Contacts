@@ -17,11 +17,14 @@
     <string name="request_the_required_permissions">Pedir a permissão necessária</string>
     <string name="create_new_contact">Criar novo contacto</string>
     <string name="add_to_existing_contact">Adicionar a contacto existente</string>
+    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
+    <string name="set_to_default">Set to default</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">No contacts found</string>
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+    <string name="no_contacts_found">Não existem contactos</string>
+    <string name="no_contacts_with_emails">Não existem contactos com endereço de e-mail</string>
+    <string name="no_contacts_with_phone_numbers">Não existem contactos com número de telefone</string>
+    <string name="no_recent_calls_found">Não existem chamadas recentes</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
@@ -33,7 +36,7 @@
     <string name="nickname">Alcunha</string>
 
     <!-- Groups -->
-    <string name="no_groups">Não há grupos</string>
+    <string name="no_groups">Não existem grupos</string>
     <string name="create_new_group">Criar um novo grupo</string>
     <string name="remove_from_group">Remover do grupo</string>
     <string name="no_group_participants">Este grupo está vazio</string>
@@ -52,17 +55,18 @@
     <string name="start_name_with_surname">Ordenar por apelido</string>
     <string name="show_phone_numbers">Mostrar número de telefone no ecrã principal</string>
     <string name="show_contact_thumbnails">Mostrar miniatura do contacto</string>
+    <string name="show_dialpad_button">Mostrar botão Marcador no ecrã principal</string>
     <string name="on_contact_click">Ao tocar no contacto</string>
     <string name="call_contact">Ligar</string>
     <string name="view_contact">Ver detalhes</string>
-    <string name="manage_shown_contact_fields">Gerir campos a exibir</string>
+    <string name="manage_shown_contact_fields">Gerir campos a mostrar</string>
     <string name="filter_duplicates">Tentar filtrar contactos duplicados</string>
     <string name="manage_shown_tabs">Gerir separadores a exibir</string>
     <string name="contacts">Contactos</string>
     <string name="favorites">Favoritos</string>
     <string name="recent_calls">Chamadas recentes</string>
     <string name="show_call_confirmation_dialog">Mostrar diálogo para confirmar a chamada</string>
-    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
+    <string name="show_only_contacts_with_numbers">Mostrar apenas contactos com número de telefone</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>
@@ -104,8 +108,18 @@
     <string name="filename_without_vcf">Nome do ficheiro (sem .vcf)</string>
 
     <!-- Dialpad -->
-    <string name="dialpad">Teclado</string>
+    <string name="dialpad">Marcador</string>
     <string name="add_number_to_contact">Adicionar número a um contacto</string>
+
+    <!-- Dialer -->
+    <string name="dialer">Marcador</string>
+    <string name="calling">A chamar</string>
+    <string name="incoming_call">Chamada recebida</string>
+    <string name="incoming_call_from">Chamada recebida de…</string>
+    <string name="ongoing_call">Chamada efetuada</string>
+    <string name="disconnected">Desligada</string>
+    <string name="decline_call">Recusar</string>
+    <string name="answer_call">Atender</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Selecione os campos a mostrar</string>
@@ -121,6 +135,14 @@
     <string name="groups">Grupos</string>
     <string name="contact_source">Origem do contacto</string>
     <string name="instant_messaging">Mensagem instantânea (IM)</string>
+
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Manage blocked numbers</string>
+    <string name="not_blocking_anyone">You are not blocking anyone.</string>
+    <string name="add_a_blocked_number">Add a blocked number</string>
+    <string name="block_number">Block number</string>
+    <string name="block_numbers">Block numbers</string>
+    <string name="blocked_numbers">Blocked numbers</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>

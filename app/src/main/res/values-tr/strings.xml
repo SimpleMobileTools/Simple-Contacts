@@ -17,11 +17,14 @@
     <string name="request_the_required_permissions">Gerekli izinleri iste</string>
     <string name="create_new_contact">Yeni kişi oluştur</string>
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
+    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
+    <string name="set_to_default">Set to default</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Kişi bulunamadı</string>
     <string name="no_contacts_with_emails">E-posta ile hiç bağlantı bulunamadı</string>
     <string name="no_contacts_with_phone_numbers">Telefon numaralarını içeren kişi bulunamadı</string>
+    <string name="no_recent_calls_found">No recent calls found</string>
 
     <string name="new_contact">Yeni kişi</string>
     <string name="edit_contact">Kişiyi düzenle</string>
@@ -52,6 +55,7 @@
     <string name="start_name_with_surname">Soyadı ile başla</string>
     <string name="show_phone_numbers">Ana ekranda telefon numaralarını göster</string>
     <string name="show_contact_thumbnails">Kişi küçük resimlerini göster</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">Kişi tıklandığında</string>
     <string name="call_contact">Kişiyi ara</string>
     <string name="view_contact">Kişi bilgilerini göster</string>
@@ -107,6 +111,16 @@
     <string name="dialpad">Tuş takımı</string>
     <string name="add_number_to_contact">Kişiye numara ekle</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Calling</string>
+    <string name="incoming_call">Incoming call</string>
+    <string name="incoming_call_from">Incoming call from…</string>
+    <string name="ongoing_call">Ongoing call</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="decline_call">Decline</string>
+    <string name="answer_call">Answer</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Görüntülenecek alanları seç</string>
     <string name="prefix">Önek</string>
@@ -121,6 +135,14 @@
     <string name="groups">Gruplar</string>
     <string name="contact_source">Kişi kaynağı</string>
     <string name="instant_messaging">Anlık mesajlaşma (IM)</string>
+
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Manage blocked numbers</string>
+    <string name="not_blocking_anyone">You are not blocking anyone.</string>
+    <string name="add_a_blocked_number">Add a blocked number</string>
+    <string name="block_number">Block number</string>
+    <string name="block_numbers">Block numbers</string>
+    <string name="blocked_numbers">Blocked numbers</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Rehberde görüntülenecek alanları değiştirmek istiyorum. Bunu yapabilir miyim?</string>

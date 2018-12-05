@@ -2,8 +2,8 @@
     <string name="app_name">Kontaktu sinpleak</string>
     <string name="app_launcher_name">Kontaktuak</string>
     <string name="address">Helbidea</string>
-    <string name="inserting">Txertatzen...</string>
-    <string name="updating">Eguneratzen...</string>
+    <string name="inserting">Txertatzen…</string>
+    <string name="updating">Eguneratzen…</string>
     <string name="phone_storage">Telefono memoria</string>
     <string name="phone_storage_hidden">Telefono memoria (beste aplikazioentzat ikustezina)</string>
     <string name="company">Enpresa</string>
@@ -15,6 +15,16 @@
     <string name="send_email_to_group">Bidali emaila taldeari</string>
     <string name="call_person">%s deitu</string>
     <string name="request_the_required_permissions">Eskatu beharrezko baimenak</string>
+    <string name="create_new_contact">Create new contact</string>
+    <string name="add_to_existing_contact">Add to an existing contact</string>
+    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
+    <string name="set_to_default">Set to default</string>
+
+    <!-- Placeholders -->
+    <string name="no_contacts_found">No contacts found</string>
+    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
+    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+    <string name="no_recent_calls_found">No recent calls found</string>
 
     <string name="new_contact">Kontaktu berria</string>
     <string name="edit_contact">Editatu taldea</string>
@@ -23,6 +33,7 @@
     <string name="first_name">Izena</string>
     <string name="middle_name">Erdiko izena</string>
     <string name="surname">Abizena</string>
+    <string name="nickname">Nickname</string>
 
     <!-- Groups -->
     <string name="no_groups">Talderik ez</string>
@@ -43,6 +54,8 @@
     <!-- Settings -->
     <string name="start_name_with_surname">Abizenaren arabera sailkatu</string>
     <string name="show_phone_numbers">Erakutsi telefono zenbakiak pantaila nagusian</string>
+    <string name="show_contact_thumbnails">Show contact thumbnails</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">Kontaktu sakatzean</string>
     <string name="call_contact">Kontaktua deitu</string>
     <string name="view_contact">Ikusi kontaktu detaileak</string>
@@ -53,6 +66,7 @@
     <string name="favorites">Gogokoak</string>
     <string name="recent_calls">Azken deiak</string>
     <string name="show_call_confirmation_dialog">Erakutsi egiaztatze mezua dei bat hasi baino lehen</string>
+    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
 
     <!-- Emails -->
     <string name="email">Emaila</string>
@@ -66,6 +80,7 @@
     <string name="main_number">Nagusia</string>
     <string name="work_fax">Laneko faxa</string>
     <string name="home_fax">Etxeko faxa</string>
+    <string name="pager">Pager</string>
     <string name="no_phone_number_found">Ez da telefono zenbakirik aurkitu</string>
 
     <!-- Events -->
@@ -88,7 +103,23 @@
     <string name="export_contacts">Esportatu kontaktuak</string>
     <string name="import_contacts_from_vcf">Inportatu .vcf fitxategiko kontaktuak</string>
     <string name="export_contacts_to_vcf">Esportatu kontaktua .vcf fitxategi batera</string>
+    <string name="target_contact_source">Target contact source</string>
+    <string name="include_contact_sources">Include contact sources</string>
     <string name="filename_without_vcf">Fitxategi izena (.vcf gabe)</string>
+
+    <!-- Dialpad -->
+    <string name="dialpad">Dialpad</string>
+    <string name="add_number_to_contact">Add number to contact</string>
+
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Calling</string>
+    <string name="incoming_call">Incoming call</string>
+    <string name="incoming_call_from">Incoming call from…</string>
+    <string name="ongoing_call">Ongoing call</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="decline_call">Decline</string>
+    <string name="answer_call">Answer</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Hautatu erakusteko eremuak</string>
@@ -103,6 +134,15 @@
     <string name="websites">Webguneak</string>
     <string name="groups">Taldeak</string>
     <string name="contact_source">Kontaktu jatorria</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
+
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Manage blocked numbers</string>
+    <string name="not_blocking_anyone">You are not blocking anyone.</string>
+    <string name="add_a_blocked_number">Add a blocked number</string>
+    <string name="block_number">Block number</string>
+    <string name="block_numbers">Block numbers</string>
+    <string name="blocked_numbers">Blocked numbers</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Aldatu ditzaket kontaktuetan ikusgarri dauden eremuak?</string>

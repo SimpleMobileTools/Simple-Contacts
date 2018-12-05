@@ -70,8 +70,8 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     private fun fabClicked() {
         SelectContactsDialog(this, allContacts, groupContacts) { addedContacts, removedContacts ->
             Thread {
-                addContactsToGroup(addedContacts, group.id)
-                removeContactsFromGroup(removedContacts, group.id)
+                addContactsToGroup(addedContacts, group.id!!)
+                removeContactsFromGroup(removedContacts, group.id!!)
                 refreshContacts()
             }.start()
         }
@@ -86,11 +86,6 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
             group_contacts_placeholder_2.beVisibleIf(groupContacts.isEmpty())
             group_contacts_placeholder.beVisibleIf(groupContacts.isEmpty())
             group_contacts_list.beVisibleIf(groupContacts.isNotEmpty())
-
-            Contact.sorting = config.sorting
-            Contact.startWithSurname = config.startNameWithSurname
-            groupContacts.sort()
-
             updateContacts(groupContacts)
         }
     }
@@ -129,8 +124,8 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
 
     override fun removeFromGroup(contacts: ArrayList<Contact>) {
         Thread {
-            removeContactsFromGroup(contacts, group.id)
-            if (groupContacts.size == 0) {
+            removeContactsFromGroup(contacts, group.id!!)
+            if (groupContacts.size == contacts.size) {
                 refreshContacts()
             }
         }.start()

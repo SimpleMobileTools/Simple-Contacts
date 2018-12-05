@@ -45,6 +45,10 @@ abstract class ContactActivity : SimpleActivity() {
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .centerCrop()
 
+        if (isDestroyed) {
+            return
+        }
+
         Glide.with(this)
                 .load(bitmap ?: path)
                 .transition(DrawableTransitionOptions.withCrossFade())

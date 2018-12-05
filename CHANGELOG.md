@@ -1,10 +1,33 @@
 Changelog
 ==========
 
+Version 6.1.0 *(2018-11-30)*
+----------------------------
+
+ * Allow setting the app as the default for handling calls
+ * Allow blocking numbers on Android 7+
+ * Improved contact recognition at Recents
+ * Fixed some handling related to creating new contact with a number, or adding a number to an existing contact
+ * Add handling for secret codes like *#*#4636#*#*
+ * Allow copying all contact fields from the view screen by long pressing them
+ * Added an option for hiding the dialpad button on the main screen
+ * Fixed some issues related to importing contacts with birthdays
+
+Version 6.0.0 *(2018-11-06)*
+----------------------------
+
+ * Initial Pro version
+
+Version 5.1.2 *(2018-11-28)*
+----------------------------
+
+ * Had to remove the Recents tab due to the latest Googles' permissions policy. The Pro app will be updated with a Recents tab and a mandatory Dialer soon.
+ * This version of the app is no longer maintained, please upgrade to the Pro version. You can find the Upgrade button at the top of the app Settings.
+
 Version 5.1.1 *(2018-11-05)*
 ----------------------------
 
- * This version of the app is no longer maintained. Please upgrade to the Pro version. It is free till Nov 13 2018. You can find the Upgrade button at the top of the app Settings.
+ * Added some stability and translation improvements
 
 Version 5.1.0 *(2018-10-28)*
 ----------------------------

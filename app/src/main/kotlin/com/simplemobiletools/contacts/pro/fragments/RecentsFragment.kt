@@ -1,16 +1,21 @@
 package com.simplemobiletools.contacts.pro.fragments
 
+import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.telecom.TelecomManager
 import android.util.AttributeSet
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.hasPermission
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CALL_LOG
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CALL_LOG
-import com.simplemobiletools.contacts.pro.activities.EditContactActivity
+import com.simplemobiletools.commons.helpers.isMarshmallowPlus
+import com.simplemobiletools.contacts.pro.activities.InsertOrEditContactActivity
 import com.simplemobiletools.contacts.pro.adapters.RecentCallsAdapter
-import com.simplemobiletools.contacts.pro.extensions.applyRegexFiltering
 import com.simplemobiletools.contacts.pro.extensions.contactClicked
+import com.simplemobiletools.contacts.pro.extensions.isDefaultDialer
+import com.simplemobiletools.contacts.pro.extensions.normalizeNumber
 import com.simplemobiletools.contacts.pro.helpers.IS_FROM_SIMPLE_CONTACTS
 import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.pro.helpers.RECENTS_TAB_MASK
@@ -21,13 +26,19 @@ import kotlinx.android.synthetic.main.fragment_layout.view.*
 class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun fabClicked() {}
 
+    @TargetApi(Build.VERSION_CODES.M)
     override fun placeholderClicked() {
-        activity!!.handlePermission(PERMISSION_WRITE_CALL_LOG) {
-            if (it) {
-                activity!!.handlePermission(PERMISSION_READ_CALL_LOG) {
-                    activity?.refreshContacts(RECENTS_TAB_MASK)
+        if (!isMarshmallowPlus() || (isMarshmallowPlus() && context.isDefaultDialer())) {
+            activity!!.handlePermission(PERMISSION_WRITE_CALL_LOG) {
+                if (it) {
+                    activity!!.handlePermission(PERMISSION_READ_CALL_LOG) {
+                        activity?.refreshContacts(RECENTS_TAB_MASK)
+                    }
                 }
             }
+        } else {
+            val intent = Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, context.packageName)
+            context.startActivity(intent)
         }
     }
 
@@ -43,10 +54,10 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         val currAdapter = fragment_list.adapter
         if (currAdapter == null) {
             RecentCallsAdapter(activity!!, recentCalls, activity, fragment_list, fragment_fastscroller) {
-                val recentCall = (it as RecentCall).number.applyRegexFiltering()
+                val recentCall = (it as RecentCall).number.normalizeNumber()
                 var selectedContact: Contact? = null
                 for (contact in allContacts) {
-                    if (contact.phoneNumbers.any { it.value.applyRegexFiltering() == recentCall }) {
+                    if (contact.doesContainPhoneNumber(recentCall)) {
                         selectedContact = contact
                         break
                     }
@@ -55,8 +66,8 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 if (selectedContact != null) {
                     activity?.contactClicked(selectedContact)
                 } else {
-                    Intent(context, EditContactActivity::class.java).apply {
-                        action = Intent.ACTION_INSERT
+                    Intent(context, InsertOrEditContactActivity::class.java).apply {
+                        action = Intent.ACTION_INSERT_OR_EDIT
                         putExtra(KEY_PHONE, recentCall)
                         putExtra(IS_FROM_SIMPLE_CONTACTS, true)
                         context.startActivity(this)

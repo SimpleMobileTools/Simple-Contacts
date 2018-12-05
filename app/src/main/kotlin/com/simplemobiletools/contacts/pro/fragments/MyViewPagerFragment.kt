@@ -61,6 +61,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 }
                 this is RecentsFragment -> {
                     fragment_fab.beGone()
+                    fragment_placeholder.text = activity.getString(R.string.no_recent_calls_found)
                     fragment_placeholder_2.text = activity.getString(R.string.request_the_required_permissions)
                 }
             }
@@ -108,9 +109,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             config.lastUsedContactSource = grouped?.key ?: ""
         }
 
-        Contact.sorting = config.sorting
-        Contact.startWithSurname = config.startNameWithSurname
-        contacts.sort()
         allContacts = contacts
 
         val filtered = when {
@@ -145,42 +143,44 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     private fun setupGroupsAdapter(contacts: ArrayList<Contact>) {
-        var storedGroups = ContactsHelper(activity!!).getStoredGroups()
-        contacts.forEach {
-            it.groups.forEach {
-                val group = it
-                val storedGroup = storedGroups.firstOrNull { it.id == group.id }
-                storedGroup?.addContact()
-            }
-        }
-
-        storedGroups = storedGroups.asSequence().sortedWith(compareBy { it.title.normalizeString() }).toMutableList() as ArrayList<Group>
-
-        fragment_placeholder_2.beVisibleIf(storedGroups.isEmpty())
-        fragment_placeholder.beVisibleIf(storedGroups.isEmpty())
-        fragment_list.beVisibleIf(storedGroups.isNotEmpty())
-
-        val currAdapter = fragment_list.adapter
-        if (currAdapter == null) {
-            GroupsAdapter(activity as SimpleActivity, storedGroups, activity, fragment_list, fragment_fastscroller) {
-                Intent(activity, GroupContactsActivity::class.java).apply {
-                    putExtra(GROUP, it as Group)
-                    activity!!.startActivity(this)
+        ContactsHelper(activity!!).getStoredGroups {
+            var storedGroups = it
+            contacts.forEach {
+                it.groups.forEach {
+                    val group = it
+                    val storedGroup = storedGroups.firstOrNull { it.id == group.id }
+                    storedGroup?.addContact()
                 }
-            }.apply {
-                addVerticalDividers(true)
-                fragment_list.adapter = this
             }
 
-            fragment_fastscroller.setScrollToY(0)
-            fragment_fastscroller.setViews(fragment_list) {
-                val item = (fragment_list.adapter as GroupsAdapter).groups.getOrNull(it)
-                fragment_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
-            }
-        } else {
-            (currAdapter as GroupsAdapter).apply {
-                showContactThumbnails = activity.config.showContactThumbnails
-                updateItems(storedGroups)
+            storedGroups = storedGroups.asSequence().sortedWith(compareBy { it.title.normalizeString() }).toMutableList() as ArrayList<Group>
+
+            fragment_placeholder_2.beVisibleIf(storedGroups.isEmpty())
+            fragment_placeholder.beVisibleIf(storedGroups.isEmpty())
+            fragment_list.beVisibleIf(storedGroups.isNotEmpty())
+
+            val currAdapter = fragment_list.adapter
+            if (currAdapter == null) {
+                GroupsAdapter(activity as SimpleActivity, storedGroups, activity, fragment_list, fragment_fastscroller) {
+                    Intent(activity, GroupContactsActivity::class.java).apply {
+                        putExtra(GROUP, it as Group)
+                        activity!!.startActivity(this)
+                    }
+                }.apply {
+                    addVerticalDividers(true)
+                    fragment_list.adapter = this
+                }
+
+                fragment_fastscroller.setScrollToY(0)
+                fragment_fastscroller.setViews(fragment_list) {
+                    val item = (fragment_list.adapter as GroupsAdapter).groups.getOrNull(it)
+                    fragment_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
+                }
+            } else {
+                (currAdapter as GroupsAdapter).apply {
+                    showContactThumbnails = activity.config.showContactThumbnails
+                    updateItems(storedGroups)
+                }
             }
         }
     }
@@ -251,9 +251,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                         it.websites.any { it.contains(text, true) }
             } as ArrayList
 
-            Contact.sorting = config.sorting
-            Contact.startWithSurname = config.startNameWithSurname
-            filtered.sort()
             filtered.sortBy { !getProperText(it.getNameToDisplay(), shouldNormalize).startsWith(text, true) }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {

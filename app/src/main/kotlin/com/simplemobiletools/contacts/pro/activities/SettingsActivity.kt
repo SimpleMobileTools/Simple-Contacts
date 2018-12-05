@@ -1,8 +1,13 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.annotation.TargetApi
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.helpers.isNougatPlus
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
@@ -26,6 +31,7 @@ class SettingsActivity : SimpleActivity() {
         setupCustomizeColors()
         setupManageShownContactFields()
         setupManageShownTabs()
+        setupManageBlockedNumbers()
         setupUseEnglish()
         setupShowInfoBubble()
         setupShowContactThumbnails()
@@ -35,6 +41,7 @@ class SettingsActivity : SimpleActivity() {
         setupUse24HourTimeFormat()
         setupFilterDuplicates()
         setupShowCallConfirmation()
+        setupShowDialpadButton()
         setupOnContactClick()
         updateTextColors(settings_holder)
     }
@@ -54,6 +61,15 @@ class SettingsActivity : SimpleActivity() {
     private fun setupManageShownTabs() {
         settings_manage_tabs_holder.setOnClickListener {
             ManageVisibleTabsDialog(this)
+        }
+    }
+
+    // support for device-wise blocking came on Android 7, rely only on that
+    @TargetApi(Build.VERSION_CODES.N)
+    private fun setupManageBlockedNumbers() {
+        settings_manage_blocked_numbers_holder.beVisibleIf(isNougatPlus())
+        settings_manage_blocked_numbers_holder.setOnClickListener {
+            startActivity(Intent(this, ManageBlockedNumbersActivity::class.java))
         }
     }
 
@@ -120,6 +136,14 @@ class SettingsActivity : SimpleActivity() {
         settings_filter_duplicates_holder.setOnClickListener {
             settings_filter_duplicates.toggle()
             config.filterDuplicates = settings_filter_duplicates.isChecked
+        }
+    }
+
+    private fun setupShowDialpadButton() {
+        settings_show_dialpad_button.isChecked = config.showDialpadButton
+        settings_show_dialpad_button_holder.setOnClickListener {
+            settings_show_dialpad_button.toggle()
+            config.showDialpadButton = settings_show_dialpad_button.isChecked
         }
     }
 

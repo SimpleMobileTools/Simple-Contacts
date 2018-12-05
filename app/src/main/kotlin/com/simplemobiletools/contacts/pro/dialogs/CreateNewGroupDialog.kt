@@ -65,10 +65,14 @@ class CreateNewGroupDialog(val activity: BaseSimpleActivity, val callback: (newG
     }
 
     private fun createGroupUnder(name: String, contactSource: ContactSource, dialog: AlertDialog) {
-        val newGroup = ContactsHelper(activity).createNewGroup(name, contactSource.name, contactSource.type)
-        if (newGroup != null) {
-            callback(newGroup)
-        }
-        dialog.dismiss()
+        Thread {
+            val newGroup = ContactsHelper(activity).createNewGroup(name, contactSource.name, contactSource.type)
+            activity.runOnUiThread {
+                if (newGroup != null) {
+                    callback(newGroup)
+                }
+                dialog.dismiss()
+            }
+        }.start()
     }
 }

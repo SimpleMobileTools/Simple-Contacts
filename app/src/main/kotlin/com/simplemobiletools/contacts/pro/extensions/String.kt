@@ -1,8 +1,8 @@
 package com.simplemobiletools.contacts.pro.extensions
 
+import android.telephony.PhoneNumberUtils
 import android.widget.TextView
 import com.simplemobiletools.commons.helpers.getDateFormats
-import com.simplemobiletools.contacts.pro.helpers.PHONE_NUMBER_PATTERN
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.text.DateFormat
@@ -34,4 +34,4 @@ fun String.getDateTimeFromDateString(viewToUpdate: TextView? = null): DateTime {
     return date
 }
 
-fun String.applyRegexFiltering() = replace(PHONE_NUMBER_PATTERN.toRegex(), "")
+fun String.normalizeNumber() = PhoneNumberUtils.normalizeNumber(this)

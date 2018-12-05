@@ -13,10 +13,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getContactPublicUri
-import com.simplemobiletools.contacts.pro.helpers.ADD_NEW_CONTACT_NUMBER
-import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
-import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
-import com.simplemobiletools.contacts.pro.helpers.LOCATION_INSERT_OR_EDIT
+import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_insert_edit_contact.*
 
@@ -45,7 +42,7 @@ class InsertOrEditContactActivity : SimpleActivity() {
             Intent().apply {
                 action = Intent.ACTION_INSERT
                 data = ContactsContract.Contacts.CONTENT_URI
-                putExtra(KEY_PHONE, intent.getStringExtra(KEY_PHONE))
+                putExtra(KEY_PHONE, getPhoneNumberFromIntent(intent))
                 if (resolveActivity(packageManager) != null) {
                     startActivityForResult(this, START_INSERT_ACTIVITY)
                 } else {
@@ -58,15 +55,13 @@ class InsertOrEditContactActivity : SimpleActivity() {
     }
 
     private fun gotContacts(contacts: ArrayList<Contact>) {
-        Contact.sorting = config.sorting
-        Contact.startWithSurname = config.startNameWithSurname
-        contacts.sort()
-
         ContactsAdapter(this, contacts, null, LOCATION_INSERT_OR_EDIT, null, existing_contact_list, existing_contact_fastscroller) {
+            val contact = it as Contact
             Intent(applicationContext, EditContactActivity::class.java).apply {
-                data = getContactPublicUri(it as Contact)
+                data = getContactPublicUri(contact)
                 action = ADD_NEW_CONTACT_NUMBER
-                putExtra(KEY_PHONE, intent.getStringExtra(KEY_PHONE))
+                putExtra(KEY_PHONE, getPhoneNumberFromIntent(intent))
+                putExtra(IS_PRIVATE, contact.isPrivate())
                 startActivityForResult(this, START_EDIT_ACTIVITY)
             }
         }.apply {

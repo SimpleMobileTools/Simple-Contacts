@@ -91,7 +91,7 @@ class EditContactActivity : ContactActivity() {
         if (wasActivityInitialized) {
             menu.findItem(R.id.delete).isVisible = contact?.id != 0
             menu.findItem(R.id.share).isVisible = contact?.id != 0
-            menu.findItem(R.id.open_with).isVisible = contact?.id != 0 && contact?.source != SMT_PRIVATE
+            menu.findItem(R.id.open_with).isVisible = contact?.id != 0 && contact?.isPrivate() == false
         }
         return true
     }
@@ -128,7 +128,11 @@ class EditContactActivity : ContactActivity() {
             val data = intent.data
             if (data != null) {
                 val rawId = if (data.path.contains("lookup")) {
-                    getLookupUriRawId(data)
+                    if (data.pathSegments.last().startsWith("local_")) {
+                        data.path.substringAfter("local_").toInt()
+                    } else {
+                        getLookupUriRawId(data)
+                    }
                 } else {
                     getContactUriRawId(data)
                 }
@@ -140,36 +144,46 @@ class EditContactActivity : ContactActivity() {
         }
 
         if (contactId != 0) {
-            contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
-            if (contact == null) {
-                toast(R.string.unknown_error_occurred)
-                finish()
-                return
-            }
+            Thread {
+                contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
+                if (contact == null) {
+                    toast(R.string.unknown_error_occurred)
+                    finish()
+                } else {
+                    runOnUiThread {
+                        gotContact()
+                    }
+                }
+            }.start()
+        } else {
+            gotContact()
         }
+    }
 
+    private fun gotContact() {
+        contact_scrollview.beVisible()
         if (contact == null) {
             setupNewContact()
         } else {
             setupEditContact()
         }
 
-        if ((contact!!.id == 0 && intent.extras != null && intent.extras.containsKey(KEY_PHONE) && action == Intent.ACTION_INSERT) || action == ADD_NEW_CONTACT_NUMBER) {
-            val phone = intent.extras.get(KEY_PHONE)
-            if (phone != null) {
-                val phoneNumber = phone.toString()
-                contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, ""))
+        val action = intent.action
+        if (((contact!!.id == 0 && action == Intent.ACTION_INSERT) || action == ADD_NEW_CONTACT_NUMBER) && intent.extras != null) {
+            val phoneNumber = getPhoneNumberFromIntent(intent)
+            if (phoneNumber != null) {
+                contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, "", phoneNumber.normalizeNumber()))
                 if (phoneNumber.isNotEmpty() && action == ADD_NEW_CONTACT_NUMBER) {
                     highlightLastPhoneNumber = true
                 }
             }
 
-            val firstName = intent.extras.get(KEY_NAME)
+            val firstName = intent.extras!!.get(KEY_NAME)
             if (firstName != null) {
                 contact!!.firstName = firstName.toString()
             }
 
-            val data = intent.extras.getParcelableArrayList<ContentValues>("data")
+            val data = intent.extras!!.getParcelableArrayList<ContentValues>("data")
             if (data != null) {
                 parseIntentData(data)
             }
@@ -530,7 +544,7 @@ class EditContactActivity : ContactActivity() {
                     applyColorFilter(getAdjustedPrimaryColor())
                     background.applyColorFilter(config.textColor)
                     setOnClickListener {
-                        removeGroup(group.id)
+                        removeGroup(group.id!!)
                     }
                 }
             }
@@ -561,9 +575,7 @@ class EditContactActivity : ContactActivity() {
     private fun setupNewContact() {
         supportActionBar?.title = resources.getString(R.string.new_contact)
         originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
-        val organization = Organization("", "")
-        contact = Contact(0, "", "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), originalContactSource, 0, 0, "",
-                null, "", ArrayList(), organization, ArrayList(), ArrayList(), ArrayList())
+        contact = getEmptyContact()
         contact_source.text = getPublicContactSource(contact!!.source)
     }
 
@@ -875,7 +887,7 @@ class EditContactActivity : ContactActivity() {
             val numberLabel = if (numberType == CommonDataKinds.Phone.TYPE_CUSTOM) numberHolder.contact_number_type.value else ""
 
             if (number.isNotEmpty()) {
-                phoneNumbers.add(PhoneNumber(number, numberType, numberLabel))
+                phoneNumbers.add(PhoneNumber(number, numberType, numberLabel, number.normalizeNumber()))
             }
         }
         return phoneNumbers

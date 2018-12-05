@@ -22,6 +22,7 @@ import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
+import com.simplemobiletools.contacts.pro.databases.ContactsDatabase
 import com.simplemobiletools.contacts.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.pro.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
@@ -38,6 +39,7 @@ import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.android.synthetic.main.fragment_groups.*
 import kotlinx.android.synthetic.main.fragment_recents.*
 import java.io.FileOutputStream
+
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isSearchOpen = false
@@ -158,11 +160,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 }
             }
         }
-        isFirstResume = false
 
         val dialpadIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad, if (isBlackAndWhiteTheme()) Color.BLACK else Color.WHITE)
-        main_dialpad_button.setImageDrawable(dialpadIcon)
-        main_dialpad_button.background.applyColorFilter(getAdjustedPrimaryColor())
+        main_dialpad_button.apply {
+            setImageDrawable(dialpadIcon)
+            background.applyColorFilter(getAdjustedPrimaryColor())
+            beVisibleIf(config.showDialpadButton)
+        }
+
+        isFirstResume = false
     }
 
     override fun onPause() {
@@ -173,6 +179,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     override fun onDestroy() {
         super.onDestroy()
         config.lastUsedViewPagerPage = viewpager.currentItem
+        if (!isChangingConfigurations) {
+            ContactsDatabase.destroyInstance()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -362,7 +371,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         // selecting the proper tab sometimes glitches, add an extra selector to make sure we have it right
         main_tabs_holder.onGlobalLayout {
             Handler().postDelayed({
-                main_tabs_holder.getTabAt(config.lastUsedViewPagerPage)?.select()
+                if (intent?.action == Intent.ACTION_VIEW && intent.type == "vnd.android.cursor.dir/calls") {
+                    main_tabs_holder.getTabAt(getRecentsTabIndex())?.select()
+                } else {
+                    main_tabs_holder.getTabAt(config.lastUsedViewPagerPage)?.select()
+                }
                 invalidateOptionsMenu()
             }, 100L)
         }
@@ -478,7 +491,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchAbout() {
-        val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_STETHO
+        val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON
 
         val faqItems = arrayListOf(
                 FAQItem(R.string.faq_1_title, R.string.faq_1_text),
@@ -506,36 +519,61 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 return@getContacts
             }
 
+            val contacts = it
             if (refreshTabsMask and CONTACTS_TAB_MASK != 0) {
-                contacts_fragment?.refreshContacts(it)
+                contacts_fragment?.refreshContacts(contacts)
             }
 
             if (refreshTabsMask and FAVORITES_TAB_MASK != 0) {
-                favorites_fragment?.refreshContacts(it)
+                favorites_fragment?.refreshContacts(contacts)
             }
 
             if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
-                recents_fragment?.refreshContacts(it)
+                recents_fragment?.refreshContacts(contacts)
             }
 
             if (refreshTabsMask and GROUPS_TAB_MASK != 0) {
                 if (refreshTabsMask == GROUPS_TAB_MASK) {
                     groups_fragment.skipHashComparing = true
                 }
-                groups_fragment?.refreshContacts(it)
+                groups_fragment?.refreshContacts(contacts)
             }
-        }
 
-        if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
-            ContactsHelper(this).getRecents {
-                runOnUiThread {
-                    recents_fragment?.updateRecentCalls(it)
+            if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
+                ContactsHelper(this).getRecents {
+                    it.filter { it.name == null }.forEach {
+                        val namelessCall = it
+                        val contact = contacts.firstOrNull { it.doesContainPhoneNumber(namelessCall.number) }
+                        if (contact != null) {
+                            it.name = contact.getNameToDisplay()
+                        }
+                    }
+
+                    runOnUiThread {
+                        recents_fragment?.updateRecentCalls(it)
+                    }
                 }
             }
         }
     }
 
     private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, recents_fragment, groups_fragment)
+
+    private fun getRecentsTabIndex(): Int {
+        var index = 0
+        if (config.showTabs and RECENTS_TAB_MASK == 0) {
+            return index
+        }
+
+        if (config.showTabs and CONTACTS_TAB_MASK != 0) {
+            index++
+        }
+
+        if (config.showTabs and FAVORITES_TAB_MASK != 0) {
+            index++
+        }
+        return index
+    }
 
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {

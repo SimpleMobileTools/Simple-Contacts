@@ -17,11 +17,14 @@
     <string name="request_the_required_permissions">Begär de behörigheter som krävs</string>
     <string name="create_new_contact">Skapa ny kontakt</string>
     <string name="add_to_existing_contact">Lägg till i en befintlig kontakt</string>
+    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
+    <string name="set_to_default">Set to default</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Inga kontakter hittades</string>
     <string name="no_contacts_with_emails">Inga kontakter med e-postadresser hittades</string>
     <string name="no_contacts_with_phone_numbers">Inga kontakter med telefonnummer hittades</string>
+    <string name="no_recent_calls_found">No recent calls found</string>
 
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>
@@ -52,6 +55,7 @@
     <string name="start_name_with_surname">Visa efternamn först</string>
     <string name="show_phone_numbers">Visa telefonnummer i huvudvyn</string>
     <string name="show_contact_thumbnails">Visa kontaktminiatyrer</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">Vid kontakttryckning</string>
     <string name="call_contact">Ring kontakt</string>
     <string name="view_contact">Visa kontaktuppgifter</string>
@@ -107,6 +111,16 @@
     <string name="dialpad">Knappsats</string>
     <string name="add_number_to_contact">Lägg till nummer i kontakt</string>
 
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Calling</string>
+    <string name="incoming_call">Incoming call</string>
+    <string name="incoming_call_from">Incoming call from…</string>
+    <string name="ongoing_call">Ongoing call</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="decline_call">Decline</string>
+    <string name="answer_call">Answer</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Välj vilka fält som ska visas</string>
     <string name="prefix">Prefix</string>
@@ -121,6 +135,14 @@
     <string name="groups">Grupper</string>
     <string name="contact_source">Kontaktkälla</string>
     <string name="instant_messaging">Snabbmeddelanden (IM)</string>
+
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Manage blocked numbers</string>
+    <string name="not_blocking_anyone">You are not blocking anyone.</string>
+    <string name="add_a_blocked_number">Add a blocked number</string>
+    <string name="block_number">Block number</string>
+    <string name="block_numbers">Block numbers</string>
+    <string name="blocked_numbers">Blocked numbers</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>

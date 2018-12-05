@@ -34,6 +34,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                       private val location: Int, private val removeListener: RemoveFromGroupListener?, recyclerView: MyRecyclerView,
                       fastScroller: FastScroller, highlightText: String = "", itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
+    private val NEW_GROUP_ID = -1
 
     private lateinit var contactDrawable: Drawable
     private lateinit var businessContactDrawable: Drawable
@@ -158,7 +159,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         val positions = getSelectedItemPositions()
         contactItems.removeAll(contactsToRemove)
 
-        ContactsHelper(activity).deleteContacts(contactsToRemove)
+        Thread {
+            ContactsHelper(activity).deleteContacts(contactsToRemove)
+        }.start()
+
         if (contactItems.isEmpty()) {
             refreshListener?.refreshContacts(ALL_TABS_MASK)
             finishActMode()
@@ -195,19 +199,23 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     }
 
     private fun addToGroup() {
-        val selectedContacts = getSelectedItems()
-        val NEW_GROUP_ID = -1
         val items = ArrayList<RadioItem>()
-        ContactsHelper(activity).getStoredGroups().forEach {
-            items.add(RadioItem(it.id.toInt(), it.title))
+        ContactsHelper(activity).getStoredGroups {
+            it.forEach {
+                items.add(RadioItem(it.id!!.toInt(), it.title))
+            }
+            items.add(RadioItem(NEW_GROUP_ID, activity.getString(R.string.create_new_group)))
+            showGroupsPicker(items)
         }
-        items.add(RadioItem(NEW_GROUP_ID, activity.getString(R.string.create_new_group)))
+    }
 
-        RadioGroupDialog(activity, items, 0) {
+    private fun showGroupsPicker(radioItems: ArrayList<RadioItem>) {
+        val selectedContacts = getSelectedItems()
+        RadioGroupDialog(activity, radioItems, 0) {
             if (it as Int == NEW_GROUP_ID) {
                 CreateNewGroupDialog(activity) {
                     Thread {
-                        activity.addContactsToGroup(selectedContacts, it.id)
+                        activity.addContactsToGroup(selectedContacts, it.id!!.toLong())
                         refreshListener?.refreshContacts(GROUPS_TAB_MASK)
                     }.start()
                     finishActMode()

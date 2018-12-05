@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.helpers
 
 import android.provider.ContactsContract.CommonDataKinds
+import com.simplemobiletools.contacts.pro.models.LocalContact
 
 // shared prefs
 const val SHOW_CONTACT_THUMBNAILS = "show_contact_thumbnails"
@@ -16,15 +17,17 @@ const val SHOW_CONTACT_FIELDS = "show_contact_fields"
 const val SHOW_TABS = "show_tabs"
 const val FILTER_DUPLICATES = "filter_duplicates"
 const val SHOW_CALL_CONFIRMATION = "show_call_confirmation"
+const val SHOW_DIALPAD_BUTTON = "show_dialpad_button"
 
 const val CONTACT_ID = "contact_id"
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
 const val IS_PRIVATE = "is_private"
 const val GROUP = "group"
-const val FIRST_GROUP_ID = 10000
-const val PHONE_NUMBER_PATTERN = "[^0-9#*+]"
 const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"
 const val ADD_NEW_CONTACT_NUMBER = "add_new_contact_number"
+const val FIRST_CONTACT_ID = 1000000
+const val FIRST_GROUP_ID = 10000L
+const val REQUEST_CODE_SET_DEFAULT_DIALER = 1
 
 // extras used at third party intents
 const val KEY_PHONE = "phone"
@@ -119,3 +122,5 @@ val localAccountTypes = arrayListOf("vnd.sec.contact.phone",
 const val TELEGRAM_PACKAGE = "org.telegram.messenger"
 const val SIGNAL_PACKAGE = "org.thoughtcrime.securesms"
 const val WHATSAPP_PACKAGE = "com.whatsapp"
+
+fun getEmptyLocalContact() = LocalContact(0, "", "", "", "", "", "", null, ArrayList(), ArrayList(), ArrayList(), 0, ArrayList(), "", ArrayList(), "", "", ArrayList(), ArrayList())

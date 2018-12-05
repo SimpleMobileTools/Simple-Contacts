@@ -3,11 +3,12 @@ package com.simplemobiletools.contacts.pro.helpers
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.*
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.provider.CallLog
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
@@ -26,24 +27,24 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ContactsHelper(val activity: Activity) {
+class ContactsHelper(val context: Context) {
     private val BATCH_SIZE = 100
     private var displayContactSources = ArrayList<String>()
 
     fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
         Thread {
             val contacts = SparseArray<Contact>()
-            displayContactSources = activity.getVisibleContactSources()
+            displayContactSources = context.getVisibleContactSources()
             getDeviceContacts(contacts)
 
             if (displayContactSources.contains(SMT_PRIVATE)) {
-                activity.dbHelper.getContacts(activity).forEach {
+                LocalContactsHelper(context).getAllContacts().forEach {
                     contacts.put(it.id, it)
                 }
             }
 
             val contactsSize = contacts.size()
-            val showOnlyContactsWithNumbers = activity.config.showOnlyContactsWithNumbers
+            val showOnlyContactsWithNumbers = context.config.showOnlyContactsWithNumbers
             var tempContacts = ArrayList<Contact>(contactsSize)
             val resultContacts = ArrayList<Contact>(contactsSize)
 
@@ -57,7 +58,7 @@ class ContactsHelper(val activity: Activity) {
                 contacts.valueAt(it)
             }
 
-            if (activity.config.filterDuplicates) {
+            if (context.config.filterDuplicates) {
                 tempContacts = tempContacts.distinctBy {
                     it.getHashToCompare()
                 } as ArrayList<Contact>
@@ -75,14 +76,18 @@ class ContactsHelper(val activity: Activity) {
             }
 
             // groups are obtained with contactID, not rawID, so assign them to proper contacts like this
-            val groups = getContactGroups(getStoredGroups())
+            val groups = getContactGroups(getStoredGroupsSync())
             val size = groups.size()
             for (i in 0 until size) {
                 val key = groups.keyAt(i)
                 resultContacts.firstOrNull { it.contactId == key }?.groups = groups.valueAt(i)
             }
 
-            activity.runOnUiThread {
+            Contact.sorting = context.config.sorting
+            Contact.startWithSurname = context.config.startNameWithSurname
+            resultContacts.sort()
+
+            Handler(Looper.getMainLooper()).post {
                 callback(resultContacts)
             }
         }.start()
@@ -98,7 +103,7 @@ class ContactsHelper(val activity: Activity) {
         val sources = HashSet<ContactSource>()
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, null, null, null)
+            cursor = context.contentResolver.query(uri, projection, null, null, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
@@ -116,7 +121,7 @@ class ContactsHelper(val activity: Activity) {
     }
 
     private fun getDeviceContacts(contacts: SparseArray<Contact>) {
-        if (!activity.hasContactPermissions()) {
+        if (!context.hasContactPermissions()) {
             return
         }
 
@@ -128,7 +133,7 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, sortOrder)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, sortOrder)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
@@ -151,21 +156,19 @@ class ContactsHelper(val activity: Activity) {
                     val groups = ArrayList<Group>()
                     val organization = Organization("", "")
                     val websites = ArrayList<String>()
-                    val cleanNumbers = ArrayList<PhoneNumber>()
                     val ims = ArrayList<IM>()
                     val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
-                            events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, cleanNumbers, ims)
+                            events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
 
                     contacts.put(id, contact)
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         } finally {
             cursor?.close()
         }
 
-        val filterDuplicates = activity.config.filterDuplicates
         val phoneNumbers = getPhoneNumbers(null)
         var size = phoneNumbers.size()
         for (i in 0 until size) {
@@ -173,13 +176,6 @@ class ContactsHelper(val activity: Activity) {
             if (contacts[key] != null) {
                 val numbers = phoneNumbers.valueAt(i)
                 contacts[key].phoneNumbers = numbers
-
-                if (filterDuplicates) {
-                    // remove all spaces, dashes etc from numbers for easier comparing, used only at list views
-                    numbers.forEach {
-                        numbers.mapTo(contacts[key].cleanPhoneNumbers) { PhoneNumber(it.value.applyRegexFiltering(), 0, "") }
-                    }
-                }
             }
         }
 
@@ -246,6 +242,7 @@ class ContactsHelper(val activity: Activity) {
         val projection = arrayOf(
                 ContactsContract.Data.RAW_CONTACT_ID,
                 CommonDataKinds.Phone.NUMBER,
+                CommonDataKinds.Phone.NORMALIZED_NUMBER,
                 CommonDataKinds.Phone.TYPE,
                 CommonDataKinds.Phone.LABEL
         )
@@ -255,11 +252,12 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
                     val number = cursor.getStringValue(CommonDataKinds.Phone.NUMBER) ?: continue
+                    val normalizedNumber = cursor.getStringValue(CommonDataKinds.Phone.NORMALIZED_NUMBER) ?: number.normalizeNumber()
                     val type = cursor.getIntValue(CommonDataKinds.Phone.TYPE)
                     val label = cursor.getStringValue(CommonDataKinds.Phone.LABEL) ?: ""
 
@@ -267,12 +265,12 @@ class ContactsHelper(val activity: Activity) {
                         phoneNumbers.put(id, ArrayList())
                     }
 
-                    val phoneNumber = PhoneNumber(number, type, label)
+                    val phoneNumber = PhoneNumber(number, type, label, normalizedNumber)
                     phoneNumbers[id].add(phoneNumber)
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         } finally {
             cursor?.close()
         }
@@ -293,7 +291,7 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
@@ -302,7 +300,7 @@ class ContactsHelper(val activity: Activity) {
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         } finally {
             cursor?.close()
         }
@@ -325,7 +323,7 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
@@ -341,7 +339,7 @@ class ContactsHelper(val activity: Activity) {
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         } finally {
             cursor?.close()
         }
@@ -364,7 +362,7 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
@@ -380,7 +378,7 @@ class ContactsHelper(val activity: Activity) {
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         } finally {
             cursor?.close()
         }
@@ -403,7 +401,7 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
@@ -419,7 +417,7 @@ class ContactsHelper(val activity: Activity) {
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         } finally {
             cursor?.close()
         }
@@ -441,7 +439,7 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
@@ -456,7 +454,7 @@ class ContactsHelper(val activity: Activity) {
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         } finally {
             cursor?.close()
         }
@@ -477,7 +475,7 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
@@ -486,7 +484,7 @@ class ContactsHelper(val activity: Activity) {
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         } finally {
             cursor?.close()
         }
@@ -508,7 +506,7 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
@@ -523,7 +521,7 @@ class ContactsHelper(val activity: Activity) {
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         } finally {
             cursor?.close()
         }
@@ -544,7 +542,7 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
@@ -558,7 +556,7 @@ class ContactsHelper(val activity: Activity) {
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         } finally {
             cursor?.close()
         }
@@ -568,7 +566,7 @@ class ContactsHelper(val activity: Activity) {
 
     private fun getContactGroups(storedGroups: ArrayList<Group>, contactId: Int? = null): SparseArray<ArrayList<Group>> {
         val groups = SparseArray<ArrayList<Group>>()
-        if (!activity.hasContactPermissions()) {
+        if (!context.hasContactPermissions()) {
             return groups
         }
 
@@ -583,7 +581,7 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
@@ -598,7 +596,7 @@ class ContactsHelper(val activity: Activity) {
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         } finally {
             cursor?.close()
         }
@@ -648,15 +646,24 @@ class ContactsHelper(val activity: Activity) {
         return args.toTypedArray()
     }
 
-    fun getStoredGroups(): ArrayList<Group> {
+    fun getStoredGroups(callback: (ArrayList<Group>) -> Unit) {
+        Thread {
+            val groups = getStoredGroupsSync()
+            Handler(Looper.getMainLooper()).post {
+                callback(groups)
+            }
+        }.start()
+    }
+
+    fun getStoredGroupsSync(): ArrayList<Group> {
         val groups = getDeviceStoredGroups()
-        groups.addAll(activity.dbHelper.getGroups())
+        groups.addAll(context.groupsDB.getGroups())
         return groups
     }
 
     fun getDeviceStoredGroups(): ArrayList<Group> {
         val groups = ArrayList<Group>()
-        if (!activity.hasContactPermissions()) {
+        if (!context.hasContactPermissions()) {
             return groups
         }
 
@@ -672,7 +679,7 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 do {
                     val id = cursor.getLongValue(ContactsContract.Groups._ID)
@@ -687,7 +694,7 @@ class ContactsHelper(val activity: Activity) {
                 } while (cursor.moveToNext())
             }
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         } finally {
             cursor?.close()
         }
@@ -696,7 +703,10 @@ class ContactsHelper(val activity: Activity) {
 
     fun createNewGroup(title: String, accountName: String, accountType: String): Group? {
         if (accountType == SMT_PRIVATE) {
-            return activity.dbHelper.insertGroup(Group(0, title))
+            val newGroup = Group(null, title)
+            val id = context.groupsDB.insertOrUpdate(newGroup)
+            newGroup.id = id
+            return newGroup
         }
 
         val operations = ArrayList<ContentProviderOperation>()
@@ -709,11 +719,11 @@ class ContactsHelper(val activity: Activity) {
         }
 
         try {
-            val results = activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            val results = context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
             val rawId = ContentUris.parseId(results[0].uri)
             return Group(rawId, title)
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         }
         return null
     }
@@ -729,9 +739,9 @@ class ContactsHelper(val activity: Activity) {
         }
 
         try {
-            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         }
     }
 
@@ -744,9 +754,9 @@ class ContactsHelper(val activity: Activity) {
         operations.add(ContentProviderOperation.newDelete(uri).build())
 
         try {
-            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         }
     }
 
@@ -754,7 +764,7 @@ class ContactsHelper(val activity: Activity) {
         if (id == 0) {
             return null
         } else if (isLocalPrivate) {
-            return activity.dbHelper.getContactWithId(activity, id)
+            return LocalContactsHelper(context).getContactWithId(id)
         }
 
         val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
@@ -769,12 +779,12 @@ class ContactsHelper(val activity: Activity) {
     }
 
     private fun parseContactCursor(selection: String, selectionArgs: Array<String>): Contact? {
-        val storedGroups = getStoredGroups()
+        val storedGroups = getStoredGroupsSync()
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = getContactProjection()
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
                 val prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
@@ -796,10 +806,9 @@ class ContactsHelper(val activity: Activity) {
                 val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
                 val organization = getOrganizations(id)[id] ?: Organization("", "")
                 val websites = getWebsites(id)[id] ?: ArrayList()
-                val cleanNumbers = ArrayList<PhoneNumber>()
                 val ims = getIMs(id)[id] ?: ArrayList()
                 return Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
-                        accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, cleanNumbers, ims)
+                        accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
             }
         } finally {
             cursor?.close()
@@ -816,22 +825,22 @@ class ContactsHelper(val activity: Activity) {
 
     private fun getContactSourcesSync(): ArrayList<ContactSource> {
         val sources = getDeviceContactSources()
-        sources.add(ContactSource(activity.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
+        sources.add(ContactSource(context.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
         return ArrayList(sources)
     }
 
     fun getDeviceContactSources(): LinkedHashSet<ContactSource> {
         val sources = LinkedHashSet<ContactSource>()
-        if (!activity.hasContactPermissions()) {
+        if (!context.hasContactPermissions()) {
             return sources
         }
 
-        val accounts = AccountManager.get(activity).accounts
+        val accounts = AccountManager.get(context).accounts
         accounts.forEach {
             if (ContentResolver.getIsSyncable(it, ContactsContract.AUTHORITY) == 1) {
                 val contactSource = ContactSource(it.name, it.type)
                 if (it.type == TELEGRAM_PACKAGE) {
-                    contactSource.name += " (${activity.getString(R.string.telegram)})"
+                    contactSource.name += " (${context.getString(R.string.telegram)})"
                 }
                 sources.add(contactSource)
             }
@@ -842,7 +851,7 @@ class ContactsHelper(val activity: Activity) {
         }
         sources.addAll(contentResolverAccounts)
 
-        if (sources.isEmpty() && activity.config.localAccountName.isEmpty() && activity.config.localAccountType.isEmpty()) {
+        if (sources.isEmpty() && context.config.localAccountName.isEmpty() && context.config.localAccountType.isEmpty()) {
             sources.add(ContactSource("", ""))
         }
 
@@ -866,7 +875,7 @@ class ContactsHelper(val activity: Activity) {
     )
 
     private fun getSortString(): String {
-        val sorting = activity.config.sorting
+        val sorting = context.config.sorting
         var sort = when {
             sorting and SORT_BY_FIRST_NAME != 0 -> "${CommonDataKinds.StructuredName.GIVEN_NAME} COLLATE NOCASE"
             sorting and SORT_BY_MIDDLE_NAME != 0 -> "${CommonDataKinds.StructuredName.MIDDLE_NAME} COLLATE NOCASE"
@@ -888,7 +897,7 @@ class ContactsHelper(val activity: Activity) {
         val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, id.toString())
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 return cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
             }
@@ -900,9 +909,9 @@ class ContactsHelper(val activity: Activity) {
     }
 
     fun updateContact(contact: Contact, photoUpdateStatus: Int): Boolean {
-        activity.toast(R.string.updating)
-        if (contact.source == SMT_PRIVATE) {
-            return activity.dbHelper.updateContact(contact)
+        context.toast(R.string.updating)
+        if (contact.isPrivate()) {
+            return LocalContactsHelper(context).insertOrUpdateContact(contact)
         }
 
         try {
@@ -949,6 +958,7 @@ class ContactsHelper(val activity: Activity) {
                     withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Phone.NUMBER, it.value)
+                    withValue(CommonDataKinds.Phone.NORMALIZED_NUMBER, it.normalizedNumber)
                     withValue(CommonDataKinds.Phone.TYPE, it.type)
                     withValue(CommonDataKinds.Phone.LABEL, it.label)
                     operations.add(build())
@@ -1089,7 +1099,7 @@ class ContactsHelper(val activity: Activity) {
             }
 
             // delete groups
-            val relevantGroupIDs = getStoredGroups().map { it.id }
+            val relevantGroupIDs = getStoredGroupsSync().map { it.id }
             if (relevantGroupIDs.isNotEmpty()) {
                 val IDsString = TextUtils.join(",", relevantGroupIDs)
                 ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
@@ -1115,9 +1125,9 @@ class ContactsHelper(val activity: Activity) {
                 val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contact.contactId.toString())
                 val contentValues = ContentValues(1)
                 contentValues.put(ContactsContract.Contacts.STARRED, contact.starred)
-                activity.contentResolver.update(uri, contentValues, null, null)
+                context.contentResolver.update(uri, contentValues, null, null)
             } catch (e: Exception) {
-                activity.showErrorToast(e)
+                context.showErrorToast(e)
             }
 
             // photo
@@ -1126,10 +1136,10 @@ class ContactsHelper(val activity: Activity) {
                 PHOTO_REMOVED -> removePhoto(contact, operations)
             }
 
-            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
             return true
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
             return false
         }
     }
@@ -1137,9 +1147,9 @@ class ContactsHelper(val activity: Activity) {
     private fun addPhoto(contact: Contact, operations: ArrayList<ContentProviderOperation>): ArrayList<ContentProviderOperation> {
         if (contact.photoUri.isNotEmpty()) {
             val photoUri = Uri.parse(contact.photoUri)
-            val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, photoUri)
+            val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, photoUri)
 
-            val thumbnailSize = activity.getPhotoThumbnailSize()
+            val thumbnailSize = context.getPhotoThumbnailSize()
             val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize, thumbnailSize, false)
             val scaledSizePhotoData = scaledPhoto.getByteArray()
             scaledPhoto.recycle()
@@ -1181,15 +1191,15 @@ class ContactsHelper(val activity: Activity) {
             }
 
             if (operations.size % BATCH_SIZE == 0) {
-                activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
                 operations.clear()
             }
         }
 
         try {
-            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         }
     }
 
@@ -1204,16 +1214,16 @@ class ContactsHelper(val activity: Activity) {
             }
 
             if (operations.size % BATCH_SIZE == 0) {
-                activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
                 operations.clear()
             }
         }
-        activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+        context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
     }
 
     fun insertContact(contact: Contact): Boolean {
-        if (contact.source == SMT_PRIVATE) {
-            return insertLocalContact(contact)
+        if (contact.isPrivate()) {
+            return LocalContactsHelper(context).insertOrUpdateContact(contact)
         }
 
         try {
@@ -1251,6 +1261,7 @@ class ContactsHelper(val activity: Activity) {
                     withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Phone.NUMBER, it.value)
+                    withValue(CommonDataKinds.Phone.NORMALIZED_NUMBER, it.normalizedNumber)
                     withValue(CommonDataKinds.Phone.TYPE, it.type)
                     withValue(CommonDataKinds.Phone.LABEL, it.label)
                     operations.add(build())
@@ -1351,9 +1362,9 @@ class ContactsHelper(val activity: Activity) {
             var scaledSizePhotoData: ByteArray?
             if (contact.photoUri.isNotEmpty()) {
                 val photoUri = Uri.parse(contact.photoUri)
-                val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, photoUri)
+                val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, photoUri)
 
-                val thumbnailSize = activity.getPhotoThumbnailSize()
+                val thumbnailSize = context.getPhotoThumbnailSize()
                 val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize, thumbnailSize, false)
                 scaledSizePhotoData = scaledPhoto.getByteArray()
 
@@ -1371,7 +1382,7 @@ class ContactsHelper(val activity: Activity) {
 
             val results: Array<ContentProviderResult>
             try {
-                results = activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                results = context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
             } finally {
                 scaledSizePhotoData = null
             }
@@ -1388,22 +1399,20 @@ class ContactsHelper(val activity: Activity) {
                 val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, userId.toString())
                 val contentValues = ContentValues(1)
                 contentValues.put(ContactsContract.Contacts.STARRED, contact.starred)
-                activity.contentResolver.update(uri, contentValues, null, null)
+                context.contentResolver.update(uri, contentValues, null, null)
             }
 
             return true
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
             return false
         }
     }
 
-    private fun insertLocalContact(contact: Contact) = activity.dbHelper.insertContact(contact)
-
     private fun addFullSizePhoto(contactId: Long, fullSizePhotoData: ByteArray) {
         val baseUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, contactId)
         val displayPhotoUri = Uri.withAppendedPath(baseUri, ContactsContract.RawContacts.DisplayPhoto.CONTENT_DIRECTORY)
-        val fileDescriptor = activity.contentResolver.openAssetFileDescriptor(displayPhotoUri, "rw")
+        val fileDescriptor = context.contentResolver.openAssetFileDescriptor(displayPhotoUri, "rw")
         val photoStream = fileDescriptor.createOutputStream()
         photoStream.write(fullSizePhotoData)
         photoStream.close()
@@ -1417,7 +1426,7 @@ class ContactsHelper(val activity: Activity) {
         val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, contactId)
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 val id = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                 val lookupKey = cursor.getStringValue(ContactsContract.Data.LOOKUP_KEY)
@@ -1437,7 +1446,7 @@ class ContactsHelper(val activity: Activity) {
 
         var cursor: Cursor? = null
         try {
-            cursor = activity.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 return cursor.getStringValue(ContactsContract.Data._ID)
             }
@@ -1448,23 +1457,27 @@ class ContactsHelper(val activity: Activity) {
     }
 
     fun addFavorites(contacts: ArrayList<Contact>) {
-        toggleLocalFavorites(contacts, true)
-        if (activity.hasContactPermissions()) {
-            toggleFavorites(contacts, true)
-        }
+        Thread {
+            toggleLocalFavorites(contacts, true)
+            if (context.hasContactPermissions()) {
+                toggleFavorites(contacts, true)
+            }
+        }.start()
     }
 
     fun removeFavorites(contacts: ArrayList<Contact>) {
-        toggleLocalFavorites(contacts, false)
-        if (activity.hasContactPermissions()) {
-            toggleFavorites(contacts, false)
-        }
+        Thread {
+            toggleLocalFavorites(contacts, false)
+            if (context.hasContactPermissions()) {
+                toggleFavorites(contacts, false)
+            }
+        }.start()
     }
 
     private fun toggleFavorites(contacts: ArrayList<Contact>, addToFavorites: Boolean) {
         try {
             val operations = ArrayList<ContentProviderOperation>()
-            contacts.filter { it.source != SMT_PRIVATE }.map { it.contactId.toString() }.forEach {
+            contacts.filter { !it.isPrivate() }.map { it.contactId.toString() }.forEach {
                 val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, it)
                 ContentProviderOperation.newUpdate(uri).apply {
                     withValue(ContactsContract.Contacts.STARRED, if (addToFavorites) 1 else 0)
@@ -1472,68 +1485,69 @@ class ContactsHelper(val activity: Activity) {
                 }
 
                 if (operations.size % BATCH_SIZE == 0) {
-                    activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                    context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
                     operations.clear()
                 }
             }
-            activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
         } catch (e: Exception) {
-            activity.showErrorToast(e)
+            context.showErrorToast(e)
         }
     }
 
     private fun toggleLocalFavorites(contacts: ArrayList<Contact>, addToFavorites: Boolean) {
-        val localContacts = contacts.filter { it.source == SMT_PRIVATE }.map { it.id.toString() }.toTypedArray()
-        activity.dbHelper.toggleFavorites(localContacts, addToFavorites)
+        val localContacts = contacts.filter { it.isPrivate() }.map { it.id }.toTypedArray()
+        LocalContactsHelper(context).toggleFavorites(localContacts, addToFavorites)
     }
 
     fun deleteContact(contact: Contact) {
-        if (contact.source == SMT_PRIVATE) {
-            activity.dbHelper.deleteContact(contact.id)
-        } else {
-            deleteContacts(arrayListOf(contact))
-        }
+        Thread {
+            if (contact.isPrivate()) {
+                context.contactsDB.deleteContactId(contact.id)
+            } else {
+                deleteContacts(arrayListOf(contact))
+            }
+        }.start()
     }
 
     fun deleteContacts(contacts: ArrayList<Contact>) {
-        Thread {
-            val localContacts = contacts.filter { it.source == SMT_PRIVATE }.map { it.id.toString() }.toTypedArray()
-            activity.dbHelper.deleteContacts(localContacts)
+        val localContacts = contacts.filter { it.isPrivate() }.map { it.id }.toTypedArray()
+        LocalContactsHelper(context).deleteContactIds(localContacts)
 
-            try {
-                val operations = ArrayList<ContentProviderOperation>()
-                val selection = "${ContactsContract.RawContacts._ID} = ?"
-                contacts.filter { it.source != SMT_PRIVATE }.forEach {
-                    ContentProviderOperation.newDelete(ContactsContract.RawContacts.CONTENT_URI).apply {
-                        val selectionArgs = arrayOf(it.id.toString())
-                        withSelection(selection, selectionArgs)
-                        operations.add(build())
-                    }
-
-                    if (operations.size % BATCH_SIZE == 0) {
-                        activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
-                        operations.clear()
-                    }
+        try {
+            val operations = ArrayList<ContentProviderOperation>()
+            val selection = "${ContactsContract.RawContacts._ID} = ?"
+            contacts.filter { !it.isPrivate() }.forEach {
+                ContentProviderOperation.newDelete(ContactsContract.RawContacts.CONTENT_URI).apply {
+                    val selectionArgs = arrayOf(it.id.toString())
+                    withSelection(selection, selectionArgs)
+                    operations.add(build())
                 }
 
-                if (activity.hasPermission(PERMISSION_WRITE_CONTACTS)) {
-                    activity.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                if (operations.size % BATCH_SIZE == 0) {
+                    context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                    operations.clear()
                 }
-            } catch (e: Exception) {
-                activity.showErrorToast(e)
             }
-        }.start()
+
+            if (context.hasPermission(PERMISSION_WRITE_CONTACTS)) {
+                context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            }
+        } catch (e: Exception) {
+            context.showErrorToast(e)
+        }
     }
 
     @SuppressLint("MissingPermission")
     fun getRecents(callback: (ArrayList<RecentCall>) -> Unit) {
         Thread {
             val calls = ArrayList<RecentCall>()
-            if (!activity.hasPermission(PERMISSION_WRITE_CALL_LOG) || !activity.hasPermission(PERMISSION_READ_CALL_LOG)) {
+            if (!context.hasPermission(PERMISSION_WRITE_CALL_LOG) || !context.hasPermission(PERMISSION_READ_CALL_LOG)) {
                 callback(calls)
                 return@Thread
             }
 
+            val blockedNumbers = context.getBlockedNumbers()
             val uri = CallLog.Calls.CONTENT_URI
             val projection = arrayOf(
                     CallLog.Calls._ID,
@@ -1547,13 +1561,13 @@ class ContactsHelper(val activity: Activity) {
             val currentYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(currentDate)
             val todayDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(currentDate)
             val yesterdayDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(System.currentTimeMillis() - DAY_SECONDS * 1000))
-            val yesterday = activity.getString(R.string.yesterday)
-            val timeFormat = if (activity.config.use24HourFormat) "HH:mm" else "h:mm a"
+            val yesterday = context.getString(R.string.yesterday)
+            val timeFormat = if (context.config.use24HourFormat) "HH:mm" else "h:mm a"
             var prevNumber = ""
 
             var cursor: Cursor? = null
             try {
-                cursor = activity.contentResolver.query(uri, projection, null, null, sorting)
+                cursor = context.contentResolver.query(uri, projection, null, null, sorting)
                 if (cursor?.moveToFirst() == true) {
                     do {
                         val id = cursor.getIntValue(CallLog.Calls._ID)
@@ -1561,6 +1575,10 @@ class ContactsHelper(val activity: Activity) {
                         val date = cursor.getLongValue(CallLog.Calls.DATE)
                         val name = cursor.getStringValue(CallLog.Calls.CACHED_NAME)
                         if (number == prevNumber) {
+                            continue
+                        }
+
+                        if (blockedNumbers.any { it.number == number || it.normalizedNumber == number }) {
                             continue
                         }
 
@@ -1597,14 +1615,14 @@ class ContactsHelper(val activity: Activity) {
                     }
 
                     if (operations.size % BATCH_SIZE == 0) {
-                        activity.contentResolver.applyBatch(CallLog.AUTHORITY, operations)
+                        context.contentResolver.applyBatch(CallLog.AUTHORITY, operations)
                         operations.clear()
                     }
                 }
 
-                activity.contentResolver.applyBatch(CallLog.AUTHORITY, operations)
+                context.contentResolver.applyBatch(CallLog.AUTHORITY, operations)
             } catch (e: Exception) {
-                activity.showErrorToast(e)
+                context.showErrorToast(e)
             }
         }.start()
     }

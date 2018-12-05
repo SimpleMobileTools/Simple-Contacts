@@ -17,11 +17,20 @@ import java.util.*
 class SelectGroupsDialog(val activity: SimpleActivity, val selectedGroups: ArrayList<Group>, val callback: (newGroups: ArrayList<Group>) -> Unit) {
     private val view = activity.layoutInflater.inflate(R.layout.dialog_select_groups, null) as ViewGroup
     private val checkboxes = ArrayList<MyAppCompatCheckbox>()
-    private val groups = ContactsHelper(activity).getStoredGroups()
+    private var groups = ArrayList<Group>()
     private val config = activity.config
-    private val dialog: AlertDialog?
+    private var dialog: AlertDialog? = null
 
     init {
+        ContactsHelper(activity).getStoredGroups {
+            groups = it
+            activity.runOnUiThread {
+                initDialog()
+            }
+        }
+    }
+
+    private fun initDialog() {
         groups.sortedBy { it.title }.forEach {
             addGroupCheckbox(it)
         }

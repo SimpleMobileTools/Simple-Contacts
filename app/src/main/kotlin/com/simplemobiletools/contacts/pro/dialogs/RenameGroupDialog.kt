@@ -4,7 +4,7 @@ import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.contacts.pro.R
-import com.simplemobiletools.contacts.pro.extensions.dbHelper
+import com.simplemobiletools.contacts.pro.extensions.groupsDB
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.models.Group
 import kotlinx.android.synthetic.main.dialog_rename_group.view.*
@@ -35,13 +35,17 @@ class RenameGroupDialog(val activity: BaseSimpleActivity, val group: Group, val 
                             }
 
                             group.title = newTitle
-                            if (group.isPrivateSecretGroup()) {
-                                activity.dbHelper.renameGroup(group)
-                            } else {
-                                ContactsHelper(activity).renameGroup(group)
-                            }
-                            callback()
-                            dismiss()
+                            Thread {
+                                if (group.isPrivateSecretGroup()) {
+                                    activity.groupsDB.insertOrUpdate(group)
+                                } else {
+                                    ContactsHelper(activity).renameGroup(group)
+                                }
+                                activity.runOnUiThread {
+                                    callback()
+                                    dismiss()
+                                }
+                            }.start()
                         }
                     }
                 }

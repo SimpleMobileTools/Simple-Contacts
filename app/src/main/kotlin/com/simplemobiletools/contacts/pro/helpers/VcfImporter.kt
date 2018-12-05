@@ -6,15 +6,14 @@ import android.provider.ContactsContract.CommonDataKinds
 import android.widget.Toast
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
-import com.simplemobiletools.contacts.pro.extensions.dbHelper
 import com.simplemobiletools.contacts.pro.extensions.getCachePhoto
 import com.simplemobiletools.contacts.pro.extensions.getCachePhotoUri
+import com.simplemobiletools.contacts.pro.extensions.groupsDB
+import com.simplemobiletools.contacts.pro.extensions.normalizeNumber
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.*
 import com.simplemobiletools.contacts.pro.models.*
 import ezvcard.Ezvcard
 import ezvcard.VCard
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URLDecoder
@@ -24,8 +23,6 @@ class VcfImporter(val activity: SimpleActivity) {
     enum class ImportResult {
         IMPORT_FAIL, IMPORT_OK, IMPORT_PARTIAL
     }
-
-    private val PATTERN = "EEE MMM dd HH:mm:ss 'GMT'ZZ YYYY"
 
     private var contactsImported = 0
     private var contactsFailed = 0
@@ -59,7 +56,7 @@ class VcfImporter(val activity: SimpleActivity) {
                         ""
                     }
 
-                    phoneNumbers.add(PhoneNumber(number, type, label))
+                    phoneNumbers.add(PhoneNumber(number, type, label, number.normalizeNumber()))
                 }
 
                 val emails = ArrayList<Email>()
@@ -112,7 +109,6 @@ class VcfImporter(val activity: SimpleActivity) {
                 val photoData = ezContact.photos.firstOrNull()?.data
                 val photo = null
                 val thumbnailUri = savePhoto(photoData)
-                val cleanPhoneNumbers = ArrayList<PhoneNumber>()
 
                 val IMs = ArrayList<IM>()
                 ezContact.impps.forEach {
@@ -136,7 +132,7 @@ class VcfImporter(val activity: SimpleActivity) {
                 }
 
                 val contact = Contact(0, prefix, firstName, middleName, surname, suffix, nickname, photoUri, phoneNumbers, emails, addresses, events,
-                        targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, cleanPhoneNumbers, IMs)
+                        targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, IMs)
 
                 // if there is no N and ORG fields at the given contact, only FN, treat it as an organization
                 if (contact.getNameToDisplay().isEmpty() && contact.organization.isEmpty() && ezContact.formattedName.value.isNotEmpty()) {
@@ -160,8 +156,10 @@ class VcfImporter(val activity: SimpleActivity) {
     }
 
     private fun formatDateToDayCode(date: Date): String {
-        val dateTime = DateTime.parse(date.toString(), DateTimeFormat.forPattern(PATTERN))
-        return dateTime.toString("yyyy-MM-dd")
+        val year = 1900 + date.year
+        val month = String.format("%02d", date.month + 1)
+        val day = String.format("%02d", date.date)
+        return "$year-$month-$day"
     }
 
     private fun getContactGroups(ezContact: VCard): ArrayList<Group> {
@@ -170,7 +168,7 @@ class VcfImporter(val activity: SimpleActivity) {
             val groupNames = ezContact.categories.values
 
             if (groupNames != null) {
-                val storedGroups = ContactsHelper(activity).getStoredGroups()
+                val storedGroups = ContactsHelper(activity).getStoredGroupsSync()
 
                 groupNames.forEach {
                     val groupName = it
@@ -179,11 +177,10 @@ class VcfImporter(val activity: SimpleActivity) {
                     if (storedGroup != null) {
                         groups.add(storedGroup)
                     } else {
-                        val newContactGroup = activity.dbHelper.insertGroup(Group(0, groupName))
-
-                        if (newContactGroup != null) {
-                            groups.add(newContactGroup)
-                        }
+                        val newGroup = Group(null, groupName)
+                        val id = activity.groupsDB.insertOrUpdate(newGroup)
+                        newGroup.id = id
+                        groups.add(newGroup)
                     }
                 }
             }

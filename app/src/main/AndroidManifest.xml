@@ -6,6 +6,7 @@
     android:installLocation="auto">
 
     <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -13,6 +14,11 @@
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
     <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS"/>
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -52,6 +58,15 @@
                 <data android:mimeType="text/x-vcard"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:mimeType="vnd.android.cursor.dir/calls"/>
             </intent-filter>
         </activity>
 
@@ -189,9 +204,41 @@
             android:parentActivityName="com.simplemobiletools.commons.activities.AboutActivity"/>
 
         <activity
+            android:name=".activities.ManageBlockedNumbersActivity"
+            android:label="@string/blocked_numbers"
+            android:parentActivityName=".activities.SettingsActivity"/>
+
+        <activity
             android:name=".activities.DialpadActivity"
             android:label="@string/dialpad"
-            android:parentActivityName=".activities.MainActivity"/>
+            android:parentActivityName=".activities.MainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.DIAL"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:scheme="tel"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.DIAL"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.DialerActivity"
+            android:label="@string/dialer"
+            android:theme="@style/Theme.Transparent">
+
+            <intent-filter>
+                <action android:name="android.intent.action.CALL"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:scheme="tel"/>
+            </intent-filter>
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
