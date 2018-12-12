@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.1.1 *(2018-12-12)*
+----------------------------
+
+ * Fixing a crash on Android Lollipop
+ * Added some translation improvements
+
 Version 6.1.0 *(2018-11-30)*
 ----------------------------
 
