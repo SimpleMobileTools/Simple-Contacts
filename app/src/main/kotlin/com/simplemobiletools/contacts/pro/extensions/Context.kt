@@ -15,6 +15,7 @@ import androidx.core.content.FileProvider
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
+import com.simplemobiletools.commons.helpers.isMarshmallowPlus
 import com.simplemobiletools.commons.helpers.isNougatPlus
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
@@ -344,4 +345,4 @@ fun Context.deleteBlockedNumber(number: String) {
 }
 
 @TargetApi(Build.VERSION_CODES.M)
-fun Context.isDefaultDialer() = telecomManager.defaultDialerPackage == packageName
+fun Context.isDefaultDialer() = isMarshmallowPlus() && telecomManager.defaultDialerPackage == packageName
