@@ -238,7 +238,7 @@
         android:background="@drawable/circle_background"
         android:elevation="@dimen/medium_margin"
         android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_phone_big"
+        android:src="@drawable/ic_phone_huge"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
