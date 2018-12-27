@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.telecom.TelecomManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.pro.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
@@ -54,7 +55,12 @@ open class SimpleActivity : BaseSimpleActivity() {
 
     @TargetApi(Build.VERSION_CODES.M)
     protected fun launchSetDefaultDialerIntent() {
-        val intent = Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, packageName)
-        startActivityForResult(intent, REQUEST_CODE_SET_DEFAULT_DIALER)
+        Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, packageName).apply {
+            if (resolveActivity(packageManager) != null) {
+                startActivityForResult(this, REQUEST_CODE_SET_DEFAULT_DIALER)
+            } else {
+                toast(R.string.no_app_found)
+            }
+        }
     }
 }
