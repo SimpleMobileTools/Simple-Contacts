@@ -19,6 +19,7 @@
     <string name="add_to_existing_contact">Ajouter à un contact existant</string>
     <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
     <string name="set_to_default">Set to default</string>
+    <string name="call_number">Call number</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Aucun contact n\'a été trouvé</string>
