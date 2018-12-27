@@ -332,7 +332,11 @@ fun Context.getBlockedNumbers(): ArrayList<BlockedNumber> {
 fun Context.addBlockedNumber(number: String) {
     ContentValues().apply {
         put(BlockedNumbers.COLUMN_ORIGINAL_NUMBER, number)
-        contentResolver.insert(BlockedNumbers.CONTENT_URI, this)
+        try {
+            contentResolver.insert(BlockedNumbers.CONTENT_URI, this)
+        } catch (e: Exception) {
+            showErrorToast(e)
+        }
     }
 }
 
