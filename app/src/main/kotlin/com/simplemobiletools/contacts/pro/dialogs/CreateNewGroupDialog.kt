@@ -36,12 +36,14 @@ class CreateNewGroupDialog(val activity: BaseSimpleActivity, val callback: (newG
 
                             val contactSources = ArrayList<ContactSource>()
                             if (activity.config.localAccountName.isNotEmpty()) {
-                                contactSources.add(ContactSource(activity.config.localAccountName, activity.config.localAccountType))
+                                val localAccountName = activity.config.localAccountName
+                                contactSources.add(ContactSource(localAccountName, activity.config.localAccountType, localAccountName))
                             }
 
                             ContactsHelper(activity).getContactSources {
-                                it.filter { it.type.contains("google", true) }.mapTo(contactSources, { ContactSource(it.name, it.type) })
-                                contactSources.add(ContactSource(activity.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
+                                it.filter { it.type.contains("google", true) }.mapTo(contactSources) { ContactSource(it.name, it.type, it.name) }
+                                val phoneSecret = activity.getString(R.string.phone_storage_hidden)
+                                contactSources.add(ContactSource(phoneSecret, SMT_PRIVATE, phoneSecret))
 
                                 val items = ArrayList<RadioItem>()
                                 contactSources.forEachIndexed { index, contactSource ->

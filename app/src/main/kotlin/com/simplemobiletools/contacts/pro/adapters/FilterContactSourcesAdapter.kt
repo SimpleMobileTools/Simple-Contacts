@@ -62,7 +62,7 @@ class FilterContactSourcesAdapter(val activity: SimpleActivity, private val cont
             itemView.apply {
                 filter_contact_source_checkbox.isChecked = isSelected
                 filter_contact_source_checkbox.setColors(activity.config.textColor, activity.getAdjustedPrimaryColor(), activity.config.backgroundColor)
-                filter_contact_source_checkbox.text = contactSource.name
+                filter_contact_source_checkbox.text = contactSource.publicName
                 filter_contact_source_holder.setOnClickListener { viewClicked(!isSelected, contactSource) }
             }
 

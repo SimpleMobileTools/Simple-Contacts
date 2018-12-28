@@ -193,12 +193,13 @@ fun Context.getPhotoThumbnailSize(): Int {
 
 fun Context.hasContactPermissions() = hasPermission(PERMISSION_READ_CONTACTS) && hasPermission(PERMISSION_WRITE_CONTACTS)
 
-fun Context.getPublicContactSource(source: String): String {
-    return when (source) {
+fun Context.getPublicContactSource(source: String, callback: (String) -> Unit) {
+    val newSource = when (source) {
         config.localAccountName -> getString(R.string.phone_storage)
         SMT_PRIVATE -> getString(R.string.phone_storage_hidden)
         else -> source
     }
+    callback(newSource)
 }
 
 fun Context.sendSMSToContacts(contacts: ArrayList<Contact>) {
@@ -289,7 +290,8 @@ fun Context.getContactPublicUri(contact: Contact): Uri {
 
 fun Context.getVisibleContactSources(): ArrayList<String> {
     val sources = ContactsHelper(this).getDeviceContactSources()
-    sources.add(ContactSource(getString(R.string.phone_storage_hidden), SMT_PRIVATE))
+    val phoneSecret = getString(R.string.phone_storage_hidden)
+    sources.add(ContactSource(phoneSecret, SMT_PRIVATE, phoneSecret))
     val sourceNames = ArrayList(sources).map { if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name }.toMutableList() as ArrayList<String>
     sourceNames.removeAll(config.ignoredContactSources)
     return sourceNames

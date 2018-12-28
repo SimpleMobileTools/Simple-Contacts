@@ -108,7 +108,12 @@ class ContactsHelper(val context: Context) {
                 do {
                     val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
                     val type = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: ""
-                    val source = ContactSource(name, type)
+                    var publicName = name
+                    if (type == TELEGRAM_PACKAGE) {
+                        publicName += " (${context.getString(R.string.telegram)})"
+                    }
+
+                    val source = ContactSource(name, type, publicName)
                     sources.add(source)
                 } while (cursor.moveToNext())
             }
@@ -831,7 +836,8 @@ class ContactsHelper(val context: Context) {
 
     private fun getContactSourcesSync(): ArrayList<ContactSource> {
         val sources = getDeviceContactSources()
-        sources.add(ContactSource(context.getString(R.string.phone_storage_hidden), SMT_PRIVATE))
+        val phoneSecret = context.getString(R.string.phone_storage_hidden)
+        sources.add(ContactSource(phoneSecret, SMT_PRIVATE, phoneSecret))
         return ArrayList(sources)
     }
 
@@ -844,7 +850,11 @@ class ContactsHelper(val context: Context) {
         val accounts = AccountManager.get(context).accounts
         accounts.forEach {
             if (ContentResolver.getIsSyncable(it, ContactsContract.AUTHORITY) == 1) {
-                val contactSource = ContactSource(it.name, it.type)
+                var publicName = it.name
+                if (it.type == TELEGRAM_PACKAGE) {
+                    publicName += " (${context.getString(R.string.telegram)})"
+                }
+                val contactSource = ContactSource(it.name, it.type, publicName)
                 sources.add(contactSource)
             }
         }
@@ -855,7 +865,7 @@ class ContactsHelper(val context: Context) {
         sources.addAll(contentResolverAccounts)
 
         if (sources.isEmpty() && context.config.localAccountName.isEmpty() && context.config.localAccountType.isEmpty()) {
-            sources.add(ContactSource("", ""))
+            sources.add(ContactSource("", "", ""))
         }
 
         return sources

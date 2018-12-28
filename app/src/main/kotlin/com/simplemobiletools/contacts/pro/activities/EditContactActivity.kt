@@ -568,15 +568,19 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupContactSource() {
-        contact_source.text = getPublicContactSource(contact!!.source)
         originalContactSource = contact!!.source
+        getPublicContactSource(contact!!.source) {
+            contact_source.text = it
+        }
     }
 
     private fun setupNewContact() {
         supportActionBar?.title = resources.getString(R.string.new_contact)
         originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
         contact = getEmptyContact()
-        contact_source.text = getPublicContactSource(contact!!.source)
+        getPublicContactSource(contact!!.source) {
+            contact_source.text = it
+        }
     }
 
     private fun setupTypePickers() {
@@ -831,7 +835,9 @@ class EditContactActivity : ContactActivity() {
     private fun showSelectContactSourceDialog() {
         showContactSourcePicker(contact!!.source) {
             contact!!.source = if (it == getString(R.string.phone_storage_hidden)) SMT_PRIVATE else it
-            contact_source.text = getPublicContactSource(it)
+            getPublicContactSource(it) {
+                contact_source.text = it
+            }
         }
     }
 

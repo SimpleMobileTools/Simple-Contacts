@@ -446,11 +446,12 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupContactSource() {
         if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
-            val contactSourceValue = getPublicContactSource(contact!!.source)
-            contact_source.text = contactSourceValue
+            getPublicContactSource(contact!!.source) {
+                contact_source.text = it
+                contact_source.copyOnLongClick(it)
+            }
             contact_source_image.beVisible()
             contact_source.beVisible()
-            contact_source.copyOnLongClick(contactSourceValue)
         } else {
             contact_source_image.beGone()
             contact_source.beGone()
