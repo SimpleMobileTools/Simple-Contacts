@@ -125,10 +125,12 @@ class ContactsHelper(val context: Context) {
             return
         }
 
+        val ignoredSources = context.config.ignoredContactSources
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = getContactProjection()
-        val selection = getSourcesSelection(true)
-        val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+
+        val selection = "${ContactsContract.Data.MIMETYPE} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
         val sortOrder = getSortString()
 
         var cursor: Cursor? = null
@@ -136,6 +138,11 @@ class ContactsHelper(val context: Context) {
             cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, sortOrder)
             if (cursor?.moveToFirst() == true) {
                 do {
+                    val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
+                    if (ignoredSources.contains(accountName)) {
+                        continue
+                    }
+
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
                     val prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
                     val firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
@@ -148,7 +155,6 @@ class ContactsHelper(val context: Context) {
                     val emails = ArrayList<Email>()
                     val addresses = ArrayList<Address>()
                     val events = ArrayList<Event>()
-                    val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
                     val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
                     val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
                     val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
@@ -839,9 +845,6 @@ class ContactsHelper(val context: Context) {
         accounts.forEach {
             if (ContentResolver.getIsSyncable(it, ContactsContract.AUTHORITY) == 1) {
                 val contactSource = ContactSource(it.name, it.type)
-                if (it.type == TELEGRAM_PACKAGE) {
-                    contactSource.name += " (${context.getString(R.string.telegram)})"
-                }
                 sources.add(contactSource)
             }
         }
