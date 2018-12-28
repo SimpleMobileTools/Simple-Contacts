@@ -41,12 +41,12 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
 
     private fun confirmEventTypes() {
         val selectedContactSources = (view.filter_contact_sources_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
-        val ignoredContactSourceNames = contactSources.filter { !selectedContactSources.contains(it) }.map {
-            if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name
+        val ignoredContactSources = contactSources.filter { !selectedContactSources.contains(it) }.map {
+            if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.getFullIdentifier()
         }.toHashSet()
 
-        if (activity.getVisibleContactSources() != ignoredContactSourceNames) {
-            activity.config.ignoredContactSources = ignoredContactSourceNames
+        if (activity.getVisibleContactSources() != ignoredContactSources) {
+            activity.config.ignoredContactSources = ignoredContactSources
             callback()
         }
         dialog?.dismiss()

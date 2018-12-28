@@ -308,8 +308,9 @@ fun Context.getVisibleContactSources(): ArrayList<String> {
     val sources = ContactsHelper(this).getDeviceContactSources()
     val phoneSecret = getString(R.string.phone_storage_hidden)
     sources.add(ContactSource(phoneSecret, SMT_PRIVATE, phoneSecret))
-    val sourceNames = ArrayList(sources).map { if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name }.toMutableList() as ArrayList<String>
-    sourceNames.removeAll(config.ignoredContactSources)
+    val ignoredContactSources = config.ignoredContactSources
+    val sourceNames = ArrayList(sources).filter { !ignoredContactSources.contains(it.getFullIdentifier()) }
+            .map { if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name }.toMutableList() as ArrayList<String>
     return sourceNames
 }
 

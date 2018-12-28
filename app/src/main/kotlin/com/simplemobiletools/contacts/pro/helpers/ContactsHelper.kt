@@ -144,7 +144,8 @@ class ContactsHelper(val context: Context) {
             if (cursor?.moveToFirst() == true) {
                 do {
                     val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
-                    if (ignoredSources.contains(accountName)) {
+                    val accountType = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: ""
+                    if (ignoredSources.contains("$accountName:$accountType")) {
                         continue
                     }
 
@@ -884,7 +885,8 @@ class ContactsHelper(val context: Context) {
             CommonDataKinds.StructuredName.PHOTO_URI,
             CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI,
             CommonDataKinds.StructuredName.STARRED,
-            ContactsContract.RawContacts.ACCOUNT_NAME
+            ContactsContract.RawContacts.ACCOUNT_NAME,
+            ContactsContract.RawContacts.ACCOUNT_TYPE
     )
 
     private fun getSortString(): String {
