@@ -7,6 +7,8 @@ import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.provider.BlockedNumberContract
 import android.provider.BlockedNumberContract.BlockedNumbers
 import android.provider.ContactsContract
@@ -194,12 +196,26 @@ fun Context.getPhotoThumbnailSize(): Int {
 fun Context.hasContactPermissions() = hasPermission(PERMISSION_READ_CONTACTS) && hasPermission(PERMISSION_WRITE_CONTACTS)
 
 fun Context.getPublicContactSource(source: String, callback: (String) -> Unit) {
-    val newSource = when (source) {
-        config.localAccountName -> getString(R.string.phone_storage)
-        SMT_PRIVATE -> getString(R.string.phone_storage_hidden)
-        else -> source
+    when (source) {
+        config.localAccountName -> callback(getString(R.string.phone_storage))
+        SMT_PRIVATE -> callback(getString(R.string.phone_storage_hidden))
+        else -> {
+            Thread {
+                ContactsHelper(this).getContactSources {
+                    var newSource = source
+                    for (contactSource in it) {
+                        if (contactSource.name == source && contactSource.type == TELEGRAM_PACKAGE) {
+                            newSource += " (${getString(R.string.telegram)})"
+                            break
+                        }
+                    }
+                    Handler(Looper.getMainLooper()).post {
+                        callback(newSource)
+                    }
+                }
+            }.start()
+        }
     }
-    callback(newSource)
 }
 
 fun Context.sendSMSToContacts(contacts: ArrayList<Contact>) {
