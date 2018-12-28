@@ -7,7 +7,7 @@ import com.simplemobiletools.contacts.pro.models.LocalContact
 const val SHOW_CONTACT_THUMBNAILS = "show_contact_thumbnails"
 const val SHOW_PHONE_NUMBERS = "show_phone_numbers"
 const val SHOW_ONLY_CONTACTS_WITH_NUMBERS = "show_only_contacts_with_numbers"
-const val IGNORED_CONTACT_SOURCES = "ignored_contact_sources"
+const val IGNORED_CONTACT_SOURCES = "ignored_contact_sources_2"
 const val START_NAME_WITH_SURNAME = "start_name_with_surname"
 const val LAST_USED_CONTACT_SOURCE = "last_used_contact_source"
 const val LOCAL_ACCOUNT_NAME = "local_account_name"
