@@ -151,7 +151,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">連絡先を管理するシンプルなアプリ (広告表示なし)。</string>
+    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
     <string name="app_long_description">
         連絡先を作成または管理するためのシンプルなアプリです。連絡先はお使いの端末上にのみ保存されますが、Googleや他のアカウントと同期することもできます。お気に入りの連絡先を別のリストとして表示することができます。
 

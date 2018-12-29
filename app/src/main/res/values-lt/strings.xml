@@ -151,7 +151,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Kontaktų programėlė įrenginio kontaktų tvarkymui, be reklamų.</string>
+    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
     <string name="app_long_description">
         Paprasta programėlė įrenginio kontaktų kūrimui ir tvarkymui iš įvairių šaltinių. Kontaktai gali būti saugomi Jūsų įrenginyje, taip pat sinchronizuojami per Google, ar kitas paskyras. Jūs galite matyti mėgiamiausiuosius kontaktus atskirame  sąraše.
 

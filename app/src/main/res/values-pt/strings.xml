@@ -151,7 +151,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Uma aplicação para gerir os seus contactos.</string>
+    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
     <string name="app_long_description">
         Uma aplicação básica para criar e gerir contactos. Pode utilizar a aplicação guardar os contactos localmente, na sua conta Google ou em outro tipo de contas. Pode mostrar os contactos favoritos numa lista distinta.
 
