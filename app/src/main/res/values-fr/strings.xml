@@ -19,6 +19,7 @@
     <string name="add_to_existing_contact">Ajouter à un contact existant</string>
     <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
     <string name="set_to_default">Set to default</string>
+    <string name="call_number">Call number</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Aucun contact n\'a été trouvé</string>
@@ -139,10 +140,10 @@
     <!-- Blocked numbers -->
     <string name="manage_blocked_numbers">Manage blocked numbers</string>
     <string name="not_blocking_anyone">You are not blocking anyone.</string>
-    <string name="add_a_blocked_number">Add a blocked number</string>
-    <string name="block_number">Block number</string>
-    <string name="block_numbers">Block numbers</string>
-    <string name="blocked_numbers">Blocked numbers</string>
+    <string name="add_a_blocked_number">Ajouter un numéro bloqué</string>
+    <string name="block_number">Numéro bloquer</string>
+    <string name="block_numbers">Numéros bloquer</string>
+    <string name="blocked_numbers">Numéros bloquer</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Je veux modifier les champs affichés sur les fiches de mes contacts. Puis-je le faire ?</string>
@@ -152,12 +153,12 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Une application répertoire pour gérer vos contacts sans publicité.</string>
     <string name="app_long_description">
-        Un outil simple pour créer et gérer vos contacts depuis n\'importe quelle source. Les contacts peuvent être stockés sur votre appareil mais aussi synchronisés via votre compte Google ou d\'autres comptes. Vous pouvez afficher vos contacts favoris dans une liste séparée.          
-      
-        Vous pouvez l\'utiliser pour gérer les adresses de courriels et les événements de vos contacts. Cet outil permet de trier/filtrer à l\'aide de multiples paramètres, par exemple : afficher le surnom en premier.          
-      
-        L\'application ne contient ni publicité, ni autorisation inutile. Elle est totalement opensource et est également fournie avec des couleurs personnalisables.         
-      
+        Un outil simple pour créer et gérer vos contacts depuis n\'importe quelle source. Les contacts peuvent être stockés sur votre appareil mais aussi synchronisés via votre compte Google ou d\'autres comptes. Vous pouvez afficher vos contacts favoris dans une liste séparée.
+
+        Vous pouvez l\'utiliser pour gérer les adresses de courriels et les événements de vos contacts. Cet outil permet de trier/filtrer à l\'aide de multiples paramètres, par exemple : afficher le surnom en premier.
+
+        L\'application ne contient ni publicité, ni autorisation inutile. Elle est totalement opensource et est également fournie avec des couleurs personnalisables.
+
         Cette application fait partie d\'une plus grande suite. Vous pouvez trouver les autres applications sur https://www.simplemobiletools.com
     </string>
 

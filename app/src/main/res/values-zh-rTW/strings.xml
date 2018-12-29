@@ -19,6 +19,7 @@
     <string name="add_to_existing_contact">添加至已存在的聯絡人</string>
     <string name="must_make_default_dialer">你必須將這應用程式設為預設的撥號程式來使用黑名單。</string>
     <string name="set_to_default">設為預設</string>
+    <string name="call_number">Call number</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">未發現聯絡人</string>

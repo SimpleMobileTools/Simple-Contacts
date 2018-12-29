@@ -20,11 +20,16 @@ class ImportContactsDialog(val activity: SimpleActivity, val path: String, priva
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_import_contacts, null) as ViewGroup).apply {
             targetContactSource = activity.config.lastUsedContactSource
-            import_contacts_title.text = activity.getPublicContactSource(targetContactSource)
+            activity.getPublicContactSource(targetContactSource) {
+                import_contacts_title.text = it
+            }
+
             import_contacts_title.setOnClickListener {
                 activity.showContactSourcePicker(targetContactSource) {
                     targetContactSource = if (it == activity.getString(R.string.phone_storage_hidden)) SMT_PRIVATE else it
-                    import_contacts_title.text = activity.getPublicContactSource(it)
+                    activity.getPublicContactSource(it) {
+                        import_contacts_title.text = it
+                    }
                 }
             }
         }

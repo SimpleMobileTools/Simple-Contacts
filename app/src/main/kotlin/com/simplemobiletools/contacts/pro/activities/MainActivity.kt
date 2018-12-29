@@ -191,7 +191,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         menu.apply {
             findItem(R.id.search).isVisible = currentFragment != groups_fragment && currentFragment != recents_fragment
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment && currentFragment != recents_fragment
-            findItem(R.id.filter).isVisible = currentFragment != groups_fragment
+            findItem(R.id.filter).isVisible = currentFragment != groups_fragment && currentFragment != recents_fragment
         }
         setupSearch(menu)
         return true
@@ -495,7 +495,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         val faqItems = arrayListOf(
                 FAQItem(R.string.faq_1_title, R.string.faq_1_text),
-                FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons)
+                FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
+                FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons)
         )
 
         startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
@@ -585,6 +586,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             add(Release(31, R.string.release_31))
             add(Release(32, R.string.release_32))
             add(Release(34, R.string.release_34))
+            add(Release(39, R.string.release_39))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }

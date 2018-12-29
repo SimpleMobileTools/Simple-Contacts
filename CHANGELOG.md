@@ -1,6 +1,20 @@
 Changelog
 ==========
 
+Version 6.1.2 *(2018-12-28)*
+----------------------------
+
+ * Improve the way contacts are fetched, more contacts should show up
+ * Improve contact filtering to fix some glitches
+ * Added a Call menu button for calling not stored numbers from Recents
+ * Some stability improvements
+
+Version 6.1.1 *(2018-12-12)*
+----------------------------
+
+ * Fixing a crash on Android Lollipop
+ * Added some translation improvements
+
 Version 6.1.0 *(2018-11-30)*
 ----------------------------
 

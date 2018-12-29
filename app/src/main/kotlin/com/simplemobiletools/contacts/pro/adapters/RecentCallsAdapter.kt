@@ -13,6 +13,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.addBlockedNumber
 import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.extensions.startCallIntent
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.RECENTS_TAB_MASK
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
@@ -31,9 +32,15 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
     override fun getActionMenuId() = R.menu.cab_recent_calls
 
     override fun prepareActionMode(menu: Menu) {
+        val selectedItems = getSelectedItems()
+        if (selectedItems.isEmpty()) {
+            return
+        }
+
         menu.apply {
             findItem(R.id.cab_block_number).isVisible = isNougatPlus()
             findItem(R.id.cab_block_number).title = activity.getString(if (isOneItemSelected()) R.string.block_number else R.string.block_numbers)
+            findItem(R.id.cab_call_number).isVisible = isOneItemSelected() && selectedItems.first().name == null
         }
     }
 
@@ -43,6 +50,7 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
         }
 
         when (id) {
+            R.id.cab_call_number -> callNumber()
             R.id.cab_select_all -> selectAll()
             R.id.cab_delete -> askConfirmDelete()
             R.id.cab_block_number -> blockNumber()
@@ -74,6 +82,10 @@ class RecentCallsAdapter(activity: SimpleActivity, var recentCalls: ArrayList<Re
         notifyDataSetChanged()
         finishActMode()
         fastScroller?.measureRecyclerView()
+    }
+
+    private fun callNumber() {
+        (activity as SimpleActivity).startCallIntent(getSelectedItems().first().number)
     }
 
     private fun askConfirmDelete() {

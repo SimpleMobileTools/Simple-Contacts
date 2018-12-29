@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Simple Contacts</string>
+    <string name="app_name">Semplice Contatti</string>
     <string name="app_launcher_name">Contatti</string>
     <string name="address">Indirizzo</string>
     <string name="inserting">Inserimento in corso…</string>
     <string name="updating">Aggiornamento in corso…</string>
     <string name="phone_storage">Memoria del telefono</string>
     <string name="phone_storage_hidden">Memoria del telefono (non visibile alle altre applicazioni)</string>
-    <string name="company">Compagnia</string>
+    <string name="company">Società</string>
     <string name="job_position">Posizione lavorativa</string>
     <string name="website">Sito web</string>
     <string name="send_sms_to_contacts">Invia un SMS ai contatti</string>
@@ -16,9 +16,10 @@
     <string name="call_person">Chiama %s</string>
     <string name="request_the_required_permissions">Richiedi le permissioni necessarie</string>
     <string name="create_new_contact">Crea un nuovo contatto</string>
-    <string name="add_to_existing_contact">Aggiungi ad un contatto esistente</string>
+    <string name="add_to_existing_contact">Aggiungi a un contatto esistente</string>
     <string name="must_make_default_dialer">È necessario impostare quest\'app come predefinita per utilizzare i numeri bloccati.</string>
     <string name="set_to_default">Imposta come predefinita</string>
+    <string name="call_number">Call number</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nessun contatto trovato</string>
@@ -47,25 +48,25 @@
     <string name="create_group_under_account">Crea un gruppo con un account</string>
 
     <!-- Photo -->
-    <string name="take_photo">Scatta un foto</string>
+    <string name="take_photo">Scatta una foto</string>
     <string name="choose_photo">Scegli una foto</string>
-    <string name="remove_photo">Rimuovi foto</string>
+    <string name="remove_photo">Rimuovi la foto</string>
 
     <!-- Settings -->
     <string name="start_name_with_surname">Prima il nome poi il cognome</string>
     <string name="show_phone_numbers">Mostra i numeri di telefono nella schermata principale</string>
     <string name="show_contact_thumbnails">Mostra le anteprime dei contatti</string>
-    <string name="show_dialpad_button">Mostra il pulante per la tastiera nello schermo principale</string>
-    <string name="on_contact_click">Al click sul contatto</string>
+    <string name="show_dialpad_button">Mostra il pulante per il tastierino nello schermo principale</string>
+    <string name="on_contact_click">Alla pressione sul contatto</string>
     <string name="call_contact">Chiama contatto</string>
     <string name="view_contact">Visualizza i dettagli del contatto</string>
     <string name="manage_shown_contact_fields">Gestisci i campi mostrati</string>
-    <string name="filter_duplicates">Prova a filtrare i contatti duplicati</string>
+    <string name="filter_duplicates">Unisci i contatti duplicati</string>
     <string name="manage_shown_tabs">Gestisci le schede mostrate</string>
     <string name="contacts">Contatti</string>
     <string name="favorites">Preferiti</string>
     <string name="recent_calls">Chiamate recenti</string>
-    <string name="show_call_confirmation_dialog">Mostra un dialogo di conferma prima di iniziare una chiamata</string>
+    <string name="show_call_confirmation_dialog">Mostra un messaggio di conferma prima di iniziare una chiamata</string>
     <string name="show_only_contacts_with_numbers">Mostra solamente i contatti con almeno un numero telefonico</string>
 
     <!-- Emails -->
@@ -88,11 +89,11 @@
     <string name="anniversary">Anniversario</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Sembra che ancora non si ha nessun contatto preferito.</string>
+    <string name="no_favorites">Non si ha ancora nessun contatto preferito.</string>
     <string name="add_favorites">Aggiungi preferito</string>
     <string name="add_to_favorites">Aggiungi ai preferiti</string>
     <string name="remove_from_favorites">Rimuovi dai preferiti</string>
-    <string name="must_be_at_edit">Devi stare nella schermata di modifica per modificare un contatto</string>
+    <string name="must_be_at_edit">Si deve stare nella schermata di modifica per modificare un contatto</string>
 
     <!-- Search -->
     <string name="search_contacts">Cerca contatti</string>
@@ -138,7 +139,7 @@
 
     <!-- Blocked numbers -->
     <string name="manage_blocked_numbers">Gestisci i numeri bloccati</string>
-    <string name="not_blocking_anyone">Non si sta blocccando alcun numero.</string>
+    <string name="not_blocking_anyone">Nessun numero bloccato.</string>
     <string name="add_a_blocked_number">Aggiungi un numero da bloccare</string>
     <string name="block_number">Blocca numero</string>
     <string name="block_numbers">Blocca numeri</string>
@@ -146,19 +147,19 @@
 
     <!-- FAQ -->
     <string name="faq_1_title">Voglio cambiare i campi visibili ai contatti. Come posso fare?</string>
-    <string name="faq_1_text">Puoi farlo andando in Impostazioni -> Gestisci i campi mostrati. Qui puoi selezionare i campi che saranno visibili. Alcuni sono anche disabilitati in maniera predefinita, quindi potresti trovare qualche nuovo campo.</string>
+    <string name="faq_1_text">Si può farlo andando in Impostazioni -> Gestisci i campi mostrati. Qui si possono selezionare i campi che saranno visibili, alcuni sono disabilitati in maniera predefinita, quindi si possono trovare campi aggiuntivi.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Un\'applicazioni contatti per gestire i propri contatti senza pubblicità.</string>
     <string name="app_long_description">
-        Una semplice applicazione per creare o gestire i propri contatti da qualsiasi provenienza. I contatti saranno salvati solamente nel dispositivo, ma possono essere sincronizzati con Google, o con altri servizi. Si possono visualizzare i contatti preferiti in una list separata.
+        Una semplice applicazione per creare o gestire i propri contatti di qualsiasi tipo. I contatti saranno salvati nel dispositivo, ma possono essere eventualmente sincronizzati con Google o con altri servizi. Si possono visualizzare i contatti preferiti in una lista separata.
 
-        Si può utilizzare l\'applicazione anche per gestire le email e gli eventi. Può ordinare e filtrare per parametri multipli, ed opzionalmente visualizzare il cognome come nome
+        Si può utilizzare l\'applicazione anche per gestire l\'email e gli eventi. Si possono ordinare e filtrare per diversi criteri, opzionalmente si può visualizzare il cognome come nome.
 
-        Non contiene pubblicità nè chiede permessi non necessari. È completamente open source ed offre colori personalizzabili.
+        L\'applicazione non contiene pubblicità o permessi non necessari; è completamente opensource e la si può personalizzare con i propri colori preferiti.
 
-        Quest\'app fa parte di una serie più grande. Puoi trovare le altre su https://www.simplemobiletools.com
+        Questa è solamente una delle tante applicazioni della serie Simple Mobile Tools. Si possono trovare le altre su https://www.simplemobiletools.com
     </string>
 
     <!--

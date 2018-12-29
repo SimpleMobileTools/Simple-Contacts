@@ -65,8 +65,11 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
         )
 
         val items = ArrayList<RadioItem>()
-        val sources = it.filter { !ignoredTypes.contains(it.type) }.map { it.name }
-        var currentSourceIndex = -1
+        val filteredSources = it.filter { !ignoredTypes.contains(it.type) }
+        var sources = filteredSources.map { it.name }
+        var currentSourceIndex = sources.indexOfFirst { it == currentSource }
+        sources = filteredSources.map { it.publicName }
+
         sources.forEachIndexed { index, account ->
             var publicAccount = account
             if (account == config.localAccountName) {
@@ -74,16 +77,14 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
             }
 
             items.add(RadioItem(index, publicAccount))
-            if (account == currentSource) {
-                currentSourceIndex = index
-            } else if (currentSource == SMT_PRIVATE && account == getString(R.string.phone_storage_hidden)) {
+            if (currentSource == SMT_PRIVATE && account == getString(R.string.phone_storage_hidden)) {
                 currentSourceIndex = index
             }
         }
 
         runOnUiThread {
             RadioGroupDialog(this, items, currentSourceIndex) {
-                callback(sources[it as Int])
+                callback(filteredSources[it as Int].name)
             }
         }
     }

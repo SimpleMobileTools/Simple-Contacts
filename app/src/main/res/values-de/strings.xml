@@ -17,14 +17,15 @@
     <string name="request_the_required_permissions">Benötigte Berechtigungen anfordern</string>
     <string name="create_new_contact">Neuen Kontakt erstellen</string>
     <string name="add_to_existing_contact">Zu einem existierenden Kontakt hinzufügen</string>
-    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_to_default">Set to default</string>
+    <string name="must_make_default_dialer">Du musst diese App als Standardtelefonie-App einstellen, um Nummern blockieren zu können.</string>
+    <string name="set_to_default">Als Standard auswählen</string>
+    <string name="call_number">Call number</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Keine Kontakte gefunden</string>
     <string name="no_contacts_with_emails">Keine Kontakte mit E-Mailadressen gefunden</string>
     <string name="no_contacts_with_phone_numbers">Keine Kontakte mit Telefonnummern gefunden</string>
-    <string name="no_recent_calls_found">No recent calls found</string>
+    <string name="no_recent_calls_found">Keine kürzlichen Anrufe gefunden</string>
 
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
@@ -55,7 +56,7 @@
     <string name="start_name_with_surname">Namen mit Nachnamen beginnen</string>
     <string name="show_phone_numbers">Telefonnummern im Hauptmenü zeigen</string>
     <string name="show_contact_thumbnails">Vorschaubilder der Kontakte zeigen</string>
-    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
+    <string name="show_dialpad_button">Eine Wählfehldschaltfläche auf dem Hauptbildschirm anzeigen</string>
     <string name="on_contact_click">Beim Klicken auf den Kontakt</string>
     <string name="call_contact">Kontakt anrufen</string>
     <string name="view_contact">Kontaktdetails anzeigen</string>
@@ -113,13 +114,13 @@
 
     <!-- Dialer -->
     <string name="dialer">Dialer</string>
-    <string name="calling">Calling</string>
-    <string name="incoming_call">Incoming call</string>
-    <string name="incoming_call_from">Incoming call from…</string>
-    <string name="ongoing_call">Ongoing call</string>
-    <string name="disconnected">Disconnected</string>
-    <string name="decline_call">Decline</string>
-    <string name="answer_call">Answer</string>
+    <string name="calling">Anrufaufbau</string>
+    <string name="incoming_call">Eingehender Anruf</string>
+    <string name="incoming_call_from">Eingehender Anruf von…</string>
+    <string name="ongoing_call">Laufender Anruf</string>
+    <string name="disconnected">Getrennt</string>
+    <string name="decline_call">Ablehnen</string>
+    <string name="answer_call">Antworten</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Sichtbare Felder auswählen</string>
@@ -137,12 +138,12 @@
     <string name="instant_messaging">Instant messaging (IM)</string>
 
     <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Manage blocked numbers</string>
-    <string name="not_blocking_anyone">You are not blocking anyone.</string>
-    <string name="add_a_blocked_number">Add a blocked number</string>
-    <string name="block_number">Block number</string>
-    <string name="block_numbers">Block numbers</string>
-    <string name="blocked_numbers">Blocked numbers</string>
+    <string name="manage_blocked_numbers">Blockierte Nummern verwalten</string>
+    <string name="not_blocking_anyone">Du blockierst niemanden.</string>
+    <string name="add_a_blocked_number">Eine blockierte Nummer hinzufügen</string>
+    <string name="block_number">Nummer blockieren</string>
+    <string name="block_numbers">Nummern blockieren</string>
+    <string name="blocked_numbers">Blockierte Nummern</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Ich möchte die sichtbaren Kontaktfelder ändern. Kann ich das machen?</string>

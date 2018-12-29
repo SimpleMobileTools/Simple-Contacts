@@ -17,8 +17,9 @@
     <string name="request_the_required_permissions">Pedir a permissão necessária</string>
     <string name="create_new_contact">Criar novo contacto</string>
     <string name="add_to_existing_contact">Adicionar a contacto existente</string>
-    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_to_default">Set to default</string>
+    <string name="must_make_default_dialer">Tem que tornar esta a aplicação padrão para poder bloquear números.</string>
+    <string name="set_to_default">Definir como padrão</string>
+    <string name="call_number">Call number</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Não existem contactos</string>
@@ -104,7 +105,7 @@
     <string name="import_contacts_from_vcf">Importar contactos de um ficheiro .vcf</string>
     <string name="export_contacts_to_vcf">Exportar contactos para um ficheiro .vcf</string>
     <string name="target_contact_source">Destino da origem do contacto</string>
-    <string name="include_contact_sources">Incluir fontes dos contactos</string>
+    <string name="include_contact_sources">Incluir fonte dos contactos</string>
     <string name="filename_without_vcf">Nome do ficheiro (sem .vcf)</string>
 
     <!-- Dialpad -->
@@ -137,12 +138,12 @@
     <string name="instant_messaging">Mensagem instantânea (IM)</string>
 
     <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Manage blocked numbers</string>
-    <string name="not_blocking_anyone">You are not blocking anyone.</string>
-    <string name="add_a_blocked_number">Add a blocked number</string>
-    <string name="block_number">Block number</string>
-    <string name="block_numbers">Block numbers</string>
-    <string name="blocked_numbers">Blocked numbers</string>
+    <string name="manage_blocked_numbers">Gerir números bloqueados</string>
+    <string name="not_blocking_anyone">Não existem números bloqueados</string>
+    <string name="add_a_blocked_number">Adicionar um número a bloquear</string>
+    <string name="block_number">Bloquear número</string>
+    <string name="block_numbers">Bloquear números</string>
+    <string name="blocked_numbers">Números bloqueados</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
