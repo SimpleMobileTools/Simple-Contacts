@@ -19,7 +19,7 @@
     <string name="add_to_existing_contact">Aggiungi a un contatto esistente</string>
     <string name="must_make_default_dialer">È necessario impostare quest\'app come predefinita per utilizzare i numeri bloccati.</string>
     <string name="set_to_default">Imposta come predefinita</string>
-    <string name="call_number">Call number</string>
+    <string name="call_number">Chiama numero</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nessun contatto trovato</string>
