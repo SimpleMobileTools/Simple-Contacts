@@ -151,7 +151,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
+    <string name="app_short_description">Apka na správu vašich kontaktov bez reklám, rešpektujúca vaše súkromie.</string>
     <string name="app_long_description">
         Jednoduchá aplikácia na vytváranie, alebo správu vašich kontaktov z rôznych zdrojov. Môžu byť uložené buď iba vo vašom zariadení, alebo ich môžete aj synchronizovať cez Google, alebo iný účet. Vaše obľúbené položky viete zobraziť vo vlastnom zozname.
 
