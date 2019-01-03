@@ -151,7 +151,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Aplikacija za upravljanje kontaktima bez oglasa.</string>
+    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
     <string name="app_long_description">
         Jednostavna aplikacija za izradu ili upravljanje kontaktima iz bilo kojeg izvora. Kontakti mogu biti pohranjeni samo na Vašem uređaju, ali i sinkronizirani putem Googlea ili drugih računa. Možete prikazati svoje omiljene kontakte na zasebnom popisu.
 

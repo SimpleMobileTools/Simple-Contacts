@@ -151,7 +151,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Μια εφαρμογή για την διαχείρηση των επαφών σου χωρίς διαφημίσεις.</string>
+    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
     <string name="app_long_description">
         Μια απλή εφαρμογή για δημιουργία και διαχείριση των επαφών σου από κάθε πηγή. Οι επαφές μπορεί να είναι αποθηκευμένες μόνο στη συσκευή σου, αλλά μπορούν να συγχρονίζονται στο Google, ή σε κάποιο άλλο λογαριασμό. Μπορείς να εμφανίσεις τις αγαπημένες σου επαφές σε ξεχωριστή λίστα.
 

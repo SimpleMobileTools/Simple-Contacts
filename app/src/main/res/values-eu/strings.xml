@@ -151,7 +151,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Kontaktuak kudeatzeko aplikazio iragarkigabea.</string>
+    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
     <string name="app_long_description">
         Aplikazio sinplea kontaktuak sortu eta kudeatzeko. Kontaktuak zure gailuan baino esin dira gorde, baina sinkronizagarriak dira Google-n edo beste kontuen bitartez. Zure kontaktu gogokoenak zerrenda banandu batean erakutsi ditzakezu.
  

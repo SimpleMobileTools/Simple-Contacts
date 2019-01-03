@@ -151,7 +151,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">광고가 없는 연락처 관리 애플리케이션입니다.</string>
+    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
     <string name="app_long_description">
         연락처를 생성하고 관리하는 간단한 앱입니다. 연락처는 기본적으로 기기에만 저장되며 Google 또는 다른 계정을 통해 동기화 할 수도 있습니다. 즐겨 찾는 연락처는 별도의 목록에 표시 할 수 있습니다.
 
