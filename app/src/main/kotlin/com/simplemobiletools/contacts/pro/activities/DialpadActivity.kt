@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Telephony.Sms.Intents.SECRET_CODE_ACTION
+import android.telephony.PhoneNumberUtils
 import android.telephony.TelephonyManager
 import android.view.KeyEvent
 import android.view.Menu
@@ -58,6 +59,11 @@ class DialpadActivity : SimpleActivity() {
         val callIcon = resources.getColoredDrawableWithColor(R.drawable.ic_phone_huge, if (isBlackAndWhiteTheme()) Color.BLACK else Color.WHITE)
         dialpad_call_button.setImageDrawable(callIcon)
         dialpad_call_button.background.applyColorFilter(getAdjustedPrimaryColor())
+
+        val showLetters = config.showDialpadLetters
+        arrayOf(dialpad_2_letters, dialpad_3_letters, dialpad_4_letters, dialpad_5_letters, dialpad_6_letters, dialpad_7_letters, dialpad_8_letters, dialpad_9_letters).forEach {
+            it.beVisibleIf(showLetters)
+        }
     }
 
     override fun onResume() {
@@ -159,8 +165,18 @@ class DialpadActivity : SimpleActivity() {
             return
         }
 
+        val showLetters = config.showDialpadLetters
         (dialpad_list.adapter as? ContactsAdapter)?.finishActMode()
-        val filtered = contacts.filter { it.doesContainPhoneNumber(text) } as ArrayList<Contact>
+        val filtered = contacts.filter {
+            val convertedName = PhoneNumberUtils.convertKeypadLettersToDigits(it.getNameToDisplay())
+            it.doesContainPhoneNumber(text) || (showLetters && convertedName.contains(text, true))
+        }.sortedWith(compareBy {
+            if (showLetters) {
+                !it.doesContainPhoneNumber(text)
+            } else {
+                true
+            }
+        }).toMutableList() as ArrayList<Contact>
 
         ContactsAdapter(this, filtered, null, LOCATION_DIALPAD, null, dialpad_list, dialpad_fastscroller, text) {
             callContact(it as Contact)

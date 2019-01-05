@@ -64,4 +64,8 @@ class Config(context: Context) : BaseConfig(context) {
     var showDialpadButton: Boolean
         get() = prefs.getBoolean(SHOW_DIALPAD_BUTTON, true)
         set(showDialpadButton) = prefs.edit().putBoolean(SHOW_DIALPAD_BUTTON, showDialpadButton).apply()
+
+    var showDialpadLetters: Boolean
+        get() = prefs.getBoolean(SHOW_DIALPAD_LETTERS, false)
+        set(showDialpadLetters) = prefs.edit().putBoolean(SHOW_DIALPAD_LETTERS, showDialpadLetters).apply()
 }
