@@ -65,6 +65,7 @@
     <string name="favorites">Favoris</string>
     <string name="show_call_confirmation_dialog">Afficher une demande de confirmation avant de démarrer un appel</string>
     <string name="show_only_contacts_with_numbers">Afficher uniquement les contacts avec un numéro de téléphone</string>
+    <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
     <string name="email">Adresse de courriel</string>

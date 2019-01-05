@@ -65,6 +65,7 @@
     <string name="favorites">Favoriler</string>
     <string name="show_call_confirmation_dialog">Arama başlatmadan önce arama onayı penceresi göster</string>
     <string name="show_only_contacts_with_numbers">Sadece telefon numaralarını içeren kişileri göster</string>
+    <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
     <string name="email">E-posta</string>

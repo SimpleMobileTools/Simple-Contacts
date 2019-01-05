@@ -65,6 +65,7 @@
     <string name="favorites">我的最愛</string>
     <string name="show_call_confirmation_dialog">開始通話前顯示通話確認框</string>
     <string name="show_only_contacts_with_numbers">只顯示含有電話話碼的聯絡人</string>
+    <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
     <string name="email">電子信箱</string>

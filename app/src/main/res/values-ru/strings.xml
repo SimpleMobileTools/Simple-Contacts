@@ -65,6 +65,7 @@
     <string name="favorites">Избранное</string>
     <string name="show_call_confirmation_dialog">Показывать диалог подтверждения вызова</string>
     <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
+    <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
     <string name="email">Эл. почта</string>

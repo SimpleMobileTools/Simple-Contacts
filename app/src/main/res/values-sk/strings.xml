@@ -8,7 +8,7 @@
     <string name="phone_storage_hidden">Úložisko mobilu (neviditeľné pre ostatné apky)</string>
     <string name="company">Firma</string>
     <string name="job_position">Pracovná pozícia</string>
-    <string name="website">Website</string>
+    <string name="website">Webstránka</string>
     <string name="send_sms_to_contacts">Poslať kontaktom SMS</string>
     <string name="send_email_to_contacts">Poslať kontaktom email</string>
     <string name="send_sms_to_group">Poslať skupine SMS</string>
@@ -65,6 +65,7 @@
     <string name="favorites">Obľúbené</string>
     <string name="show_call_confirmation_dialog">Zobraziť pred spustením hovoru okno na jeho potvrdenie</string>
     <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
+    <string name="show_dialpad_letters">Zobraziť na číselníku písmená</string>
 
     <!-- Emails -->
     <string name="email">Email</string>

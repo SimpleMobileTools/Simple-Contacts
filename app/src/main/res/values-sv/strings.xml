@@ -65,6 +65,7 @@
     <string name="favorites">Favoriter</string>
     <string name="show_call_confirmation_dialog">Visa en bekräftelsedialogruta före uppringning</string>
     <string name="show_only_contacts_with_numbers">Visa bara kontakter med telefonnummer</string>
+    <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
     <string name="email">E-post</string>

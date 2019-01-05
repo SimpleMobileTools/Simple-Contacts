@@ -65,6 +65,7 @@
     <string name="favorites">Sevimlilər</string>
     <string name="show_call_confirmation_dialog">Zəngə başlamazdan əvvəl zəng təsdiq pəncərəsi göstər</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
+    <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
     <string name="email">E-poçt</string>

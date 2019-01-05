@@ -65,6 +65,7 @@
     <string name="favorites">お気に入り</string>
     <string name="show_call_confirmation_dialog">発信する前に確認ダイアログを表示する</string>
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
+    <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
     <string name="email">メール</string>
