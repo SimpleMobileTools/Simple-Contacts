@@ -19,13 +19,11 @@
     <string name="add_to_existing_contact">Lägg till i en befintlig kontakt</string>
     <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
     <string name="set_to_default">Set to default</string>
-    <string name="call_number">Call number</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Inga kontakter hittades</string>
     <string name="no_contacts_with_emails">Inga kontakter med e-postadresser hittades</string>
     <string name="no_contacts_with_phone_numbers">Inga kontakter med telefonnummer hittades</string>
-    <string name="no_recent_calls_found">No recent calls found</string>
 
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>
@@ -65,7 +63,6 @@
     <string name="manage_shown_tabs">Hantera visade flikar</string>
     <string name="contacts">Kontakter</string>
     <string name="favorites">Favoriter</string>
-    <string name="recent_calls">Senaste samtal</string>
     <string name="show_call_confirmation_dialog">Visa en bekräftelsedialogruta före uppringning</string>
     <string name="show_only_contacts_with_numbers">Visa bara kontakter med telefonnummer</string>
 

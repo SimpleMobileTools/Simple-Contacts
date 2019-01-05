@@ -6,7 +6,10 @@ import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.helpers.ALL_TABS_MASK
+import com.simplemobiletools.contacts.pro.helpers.CONTACTS_TAB_MASK
+import com.simplemobiletools.contacts.pro.helpers.FAVORITES_TAB_MASK
+import com.simplemobiletools.contacts.pro.helpers.GROUPS_TAB_MASK
 
 class ManageVisibleTabsDialog(val activity: BaseSimpleActivity) {
     private var view = activity.layoutInflater.inflate(R.layout.dialog_manage_visible_tabs, null)
@@ -16,7 +19,6 @@ class ManageVisibleTabsDialog(val activity: BaseSimpleActivity) {
         tabs.apply {
             put(CONTACTS_TAB_MASK, R.id.manage_visible_tabs_contacts)
             put(FAVORITES_TAB_MASK, R.id.manage_visible_tabs_favorites)
-            put(RECENTS_TAB_MASK, R.id.manage_visible_tabs_recents)
             put(GROUPS_TAB_MASK, R.id.manage_visible_tabs_groups)
         }
 

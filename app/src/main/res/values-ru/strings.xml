@@ -19,13 +19,11 @@
     <string name="add_to_existing_contact">Добавить к существующему контакту</string>
     <string name="must_make_default_dialer">Вы должны сделать \"Simple Contacts\" приложением по умолчанию для набора номера для использования блокировки номеров.</string>
     <string name="set_to_default">Сделать по умолчанию</string>
-    <string name="call_number">Набрать номер</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Контакты не найдены</string>
     <string name="no_contacts_with_emails">Контакты с адресами электронной почты не найдены</string>
     <string name="no_contacts_with_phone_numbers">Контакты с номерами телефонов не найдены</string>
-    <string name="no_recent_calls_found">Недавние вызовы не найдены</string>
 
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
@@ -65,7 +63,6 @@
     <string name="manage_shown_tabs">Управление отображаемыми вкладками</string>
     <string name="contacts">Контакты</string>
     <string name="favorites">Избранное</string>
-    <string name="recent_calls">Недавние вызовы</string>
     <string name="show_call_confirmation_dialog">Показывать диалог подтверждения вызова</string>
     <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
 

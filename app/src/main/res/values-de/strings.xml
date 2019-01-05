@@ -19,13 +19,11 @@
     <string name="add_to_existing_contact">Zu einem existierenden Kontakt hinzufügen</string>
     <string name="must_make_default_dialer">Du musst diese App als Standardtelefonie-App einstellen, um Nummern blockieren zu können.</string>
     <string name="set_to_default">Als Standard auswählen</string>
-    <string name="call_number">Call number</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Keine Kontakte gefunden</string>
     <string name="no_contacts_with_emails">Keine Kontakte mit E-Mailadressen gefunden</string>
     <string name="no_contacts_with_phone_numbers">Keine Kontakte mit Telefonnummern gefunden</string>
-    <string name="no_recent_calls_found">Keine kürzlichen Anrufe gefunden</string>
 
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
@@ -65,7 +63,6 @@
     <string name="manage_shown_tabs">Anzuzeigende Tabs festlegen</string>
     <string name="contacts">Kontakte</string>
     <string name="favorites">Favoriten</string>
-    <string name="recent_calls">Anrufliste</string>
     <string name="show_call_confirmation_dialog">Bestätigungsdialog zeigen, bevor ein Anruf durchgeführt wird</string>
     <string name="show_only_contacts_with_numbers">Nur Kontakte mit Telefonnummern anzeigen</string>
 

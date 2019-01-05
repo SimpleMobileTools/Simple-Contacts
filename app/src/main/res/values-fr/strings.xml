@@ -19,13 +19,11 @@
     <string name="add_to_existing_contact">Ajouter à un contact existant</string>
     <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
     <string name="set_to_default">Set to default</string>
-    <string name="call_number">Call number</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Aucun contact n\'a été trouvé</string>
     <string name="no_contacts_with_emails">Aucun contact avec une adresse de courriel n\'a été trouvé</string>
     <string name="no_contacts_with_phone_numbers">Aucun contact avec un numéro de téléphone n\'a été trouvé</string>
-    <string name="no_recent_calls_found">Aucun appel récent n\'a été trouvé</string>
 
     <string name="new_contact">Nouveau contact</string>
     <string name="edit_contact">Modifier contact</string>
@@ -65,7 +63,6 @@
     <string name="manage_shown_tabs">Gérer les onglets affichés</string>
     <string name="contacts">Contacts</string>
     <string name="favorites">Favoris</string>
-    <string name="recent_calls">Appels récents</string>
     <string name="show_call_confirmation_dialog">Afficher une demande de confirmation avant de démarrer un appel</string>
     <string name="show_only_contacts_with_numbers">Afficher uniquement les contacts avec un numéro de téléphone</string>
 
