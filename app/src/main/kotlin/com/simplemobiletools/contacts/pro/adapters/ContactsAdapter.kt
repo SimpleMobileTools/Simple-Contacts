@@ -267,7 +267,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                 }
 
                 val numberText = phoneNumberToUse?.value ?: ""
-                contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+                contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
                 contact_number.setTextColor(textColor)
                 contact_number.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
             }
