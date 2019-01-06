@@ -197,7 +197,6 @@ fun Context.hasContactPermissions() = hasPermission(PERMISSION_READ_CONTACTS) &&
 
 fun Context.getPublicContactSource(source: String, callback: (String) -> Unit) {
     when (source) {
-        config.localAccountName -> callback(getString(R.string.phone_storage))
         SMT_PRIVATE -> callback(getString(R.string.phone_storage_hidden))
         else -> {
             Thread {

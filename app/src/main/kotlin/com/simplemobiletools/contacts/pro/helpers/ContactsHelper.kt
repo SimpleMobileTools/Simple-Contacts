@@ -862,10 +862,6 @@ class ContactsHelper(val context: Context) {
         }
         sources.addAll(contentResolverAccounts)
 
-        if (sources.isEmpty() && context.config.localAccountName.isEmpty() && context.config.localAccountType.isEmpty()) {
-            sources.add(ContactSource("", "", ""))
-        }
-
         return sources
     }
 

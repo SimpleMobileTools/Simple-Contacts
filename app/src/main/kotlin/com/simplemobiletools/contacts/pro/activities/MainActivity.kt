@@ -73,12 +73,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             if (it) {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
                     handlePermission(PERMISSION_GET_ACCOUNTS) {
-                        storeLocalAccountData()
                         initFragments()
                     }
                 }
             } else {
-                storeLocalAccountData()
                 initFragments()
             }
         }
@@ -275,24 +273,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
             getInactiveTabIndexes(lastUsedPage).forEach {
                 getTabAt(it)?.icon?.applyColorFilter(config.textColor)
-            }
-        }
-    }
-
-    private fun storeLocalAccountData() {
-        if (config.localAccountType == "-1") {
-            ContactsHelper(this).getContactSources { sources ->
-                var localAccountType = ""
-                var localAccountName = ""
-                sources.forEach {
-                    if (localAccountTypes.contains(it.type)) {
-                        localAccountType = it.type
-                        localAccountName = it.name
-                    }
-                }
-
-                config.localAccountType = localAccountType
-                config.localAccountName = localAccountName
             }
         }
     }

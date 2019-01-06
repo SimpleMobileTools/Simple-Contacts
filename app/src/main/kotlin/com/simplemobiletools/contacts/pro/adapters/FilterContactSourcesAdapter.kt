@@ -22,10 +22,6 @@ class FilterContactSourcesAdapter(val activity: SimpleActivity, private val cont
                 selectedKeys.add(contactSource.hashCode())
             }
 
-            if (contactSource.name == activity.config.localAccountName && contactSource.type == activity.config.localAccountType) {
-                contactSource.name = activity.getString(R.string.phone_storage)
-            }
-
             if (contactSource.type == SMT_PRIVATE && displayContactSources.contains(SMT_PRIVATE)) {
                 selectedKeys.add(contactSource.hashCode())
             }

@@ -32,14 +32,6 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getString(LAST_USED_CONTACT_SOURCE, "")
         set(lastUsedContactSource) = prefs.edit().putString(LAST_USED_CONTACT_SOURCE, lastUsedContactSource).apply()
 
-    var localAccountName: String
-        get() = prefs.getString(LOCAL_ACCOUNT_NAME, "-1")
-        set(localAccountName) = prefs.edit().putString(LOCAL_ACCOUNT_NAME, localAccountName).apply()
-
-    var localAccountType: String
-        get() = prefs.getString(LOCAL_ACCOUNT_TYPE, "-1")
-        set(localAccountType) = prefs.edit().putString(LOCAL_ACCOUNT_TYPE, localAccountType).apply()
-
     var onContactClick: Int
         get() = prefs.getInt(ON_CONTACT_CLICK, ON_CLICK_VIEW_CONTACT)
         set(onContactClick) = prefs.edit().putInt(ON_CONTACT_CLICK, onContactClick).apply()
