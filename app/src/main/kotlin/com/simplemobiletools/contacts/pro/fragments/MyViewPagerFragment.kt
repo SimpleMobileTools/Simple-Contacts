@@ -242,7 +242,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                         it.websites.any { it.contains(text, true) }
             } as ArrayList
 
-            filtered.sortBy { !getProperText(it.getNameToDisplay(), shouldNormalize).startsWith(text, true) }
+            filtered.sortBy {
+                val nameToDisplay = it.getNameToDisplay()
+                !getProperText(nameToDisplay, shouldNormalize).startsWith(text, true) && !nameToDisplay.contains(text, true)
+            }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
                 fragment_placeholder.text = activity.getString(R.string.no_items_found)
