@@ -169,10 +169,10 @@ class DialpadActivity : SimpleActivity() {
         (dialpad_list.adapter as? ContactsAdapter)?.finishActMode()
         val filtered = contacts.filter {
             val convertedName = PhoneNumberUtils.convertKeypadLettersToDigits(it.getNameToDisplay())
-            it.doesContainPhoneNumber(text) || (showLetters && convertedName.contains(text, true))
+            it.doesContainPhoneNumber(text, showLetters) || (showLetters && convertedName.contains(text, true))
         }.sortedWith(compareBy {
             if (showLetters) {
-                !it.doesContainPhoneNumber(text)
+                !it.doesContainPhoneNumber(text, showLetters)
             } else {
                 true
             }

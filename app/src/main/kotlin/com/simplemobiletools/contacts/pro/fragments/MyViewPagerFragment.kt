@@ -228,11 +228,12 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun onSearchQueryChanged(text: String) {
         val shouldNormalize = text.normalizeString() == text
+        val convertLetters = config.showDialpadLetters
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             val filtered = contactsIgnoringSearch.filter {
                 getProperText(it.getNameToDisplay(), shouldNormalize).contains(text, true) ||
                         getProperText(it.nickname, shouldNormalize).contains(text, true) ||
-                        it.doesContainPhoneNumber(text) ||
+                        it.doesContainPhoneNumber(text, convertLetters) ||
                         it.emails.any { it.value.contains(text, true) } ||
                         it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
                         it.IMs.any { it.value.contains(text, true) } ||

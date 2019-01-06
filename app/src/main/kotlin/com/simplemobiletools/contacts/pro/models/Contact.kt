@@ -127,9 +127,9 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
 
     fun isABusinessContact() = prefix.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && suffix.isEmpty() && organization.isNotEmpty()
 
-    fun doesContainPhoneNumber(text: String): Boolean {
+    fun doesContainPhoneNumber(text: String, convertLetters: Boolean): Boolean {
         return if (text.isNotEmpty()) {
-            val normalizedText = text.normalizeNumber()
+            val normalizedText = if (convertLetters) text.normalizeNumber() else text
             phoneNumbers.any {
                 PhoneNumberUtils.compare(it.normalizedNumber, normalizedText) ||
                         it.value.contains(text) ||
