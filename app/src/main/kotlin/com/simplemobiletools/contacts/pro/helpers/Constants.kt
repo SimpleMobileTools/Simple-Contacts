@@ -10,7 +10,6 @@ const val SHOW_ONLY_CONTACTS_WITH_NUMBERS = "show_only_contacts_with_numbers"
 const val IGNORED_CONTACT_SOURCES = "ignored_contact_sources_2"
 const val START_NAME_WITH_SURNAME = "start_name_with_surname"
 const val LAST_USED_CONTACT_SOURCE = "last_used_contact_source"
-const val LOCAL_ACCOUNT_TYPE = "local_account_type"
 const val ON_CONTACT_CLICK = "on_contact_click"
 const val SHOW_CONTACT_FIELDS = "show_contact_fields"
 const val SHOW_TABS = "show_tabs"
@@ -35,10 +34,9 @@ const val KEY_NAME = "name"
 
 const val LOCATION_CONTACTS_TAB = 0
 const val LOCATION_FAVORITES_TAB = 1
-const val LOCATION_GROUPS_TAB = 2
-const val LOCATION_GROUP_CONTACTS = 3
-const val LOCATION_DIALPAD = 4
-const val LOCATION_INSERT_OR_EDIT = 5
+const val LOCATION_GROUP_CONTACTS = 2
+const val LOCATION_DIALPAD = 3
+const val LOCATION_INSERT_OR_EDIT = 4
 
 const val CONTACTS_TAB_MASK = 1
 const val FAVORITES_TAB_MASK = 2
@@ -103,17 +101,6 @@ const val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
 const val DEFAULT_ORGANIZATION_TYPE = CommonDataKinds.Organization.TYPE_WORK
 const val DEFAULT_WEBSITE_TYPE = CommonDataKinds.Website.TYPE_HOMEPAGE
 const val DEFAULT_IM_TYPE = CommonDataKinds.Im.PROTOCOL_SKYPE
-
-// some manufacturer contact account types from https://stackoverflow.com/a/44802016/1967672
-val localAccountTypes = arrayListOf("vnd.sec.contact.phone",
-        "com.htc.android.pcsc",
-        "com.sonyericsson.localcontacts",
-        "com.lge.sync",
-        "com.lge.phone",
-        "vnd.tmobileus.contact.phone",
-        "com.android.huawei.phone",
-        "Local Phone Account"
-)
 
 // apps with special handling
 const val TELEGRAM_PACKAGE = "org.telegram.messenger"

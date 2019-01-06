@@ -670,7 +670,7 @@ class ContactsHelper(val context: Context) {
         return groups
     }
 
-    fun getDeviceStoredGroups(): ArrayList<Group> {
+    private fun getDeviceStoredGroups(): ArrayList<Group> {
         val groups = ArrayList<Group>()
         if (!context.hasContactPermissions()) {
             return groups
