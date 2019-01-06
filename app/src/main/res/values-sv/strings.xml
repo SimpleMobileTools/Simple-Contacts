@@ -17,8 +17,8 @@
     <string name="request_the_required_permissions">Begär de behörigheter som krävs</string>
     <string name="create_new_contact">Skapa ny kontakt</string>
     <string name="add_to_existing_contact">Lägg till i en befintlig kontakt</string>
-    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_to_default">Set to default</string>
+    <string name="must_make_default_dialer">Du måste ställa in den här appen som standardtelefonapp för att kunna använda blockerade nummer.</string>
+    <string name="set_to_default">Ange som standard</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Inga kontakter hittades</string>
@@ -54,7 +54,7 @@
     <string name="start_name_with_surname">Visa efternamn först</string>
     <string name="show_phone_numbers">Visa telefonnummer i huvudvyn</string>
     <string name="show_contact_thumbnails">Visa kontaktminiatyrer</string>
-    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
+    <string name="show_dialpad_button">Visa en knappsatsknapp i huvudvyn</string>
     <string name="on_contact_click">Vid kontakttryckning</string>
     <string name="call_contact">Ring kontakt</string>
     <string name="view_contact">Visa kontaktuppgifter</string>
@@ -65,7 +65,7 @@
     <string name="favorites">Favoriter</string>
     <string name="show_call_confirmation_dialog">Visa en bekräftelsedialogruta före uppringning</string>
     <string name="show_only_contacts_with_numbers">Visa bara kontakter med telefonnummer</string>
-    <string name="show_dialpad_letters">Show letters on the dialpad</string>
+    <string name="show_dialpad_letters">Visa bokstäver på knappsatsen</string>
 
     <!-- Emails -->
     <string name="email">E-post</string>
@@ -111,14 +111,14 @@
     <string name="add_number_to_contact">Lägg till nummer i kontakt</string>
 
     <!-- Dialer -->
-    <string name="dialer">Dialer</string>
-    <string name="calling">Calling</string>
-    <string name="incoming_call">Incoming call</string>
-    <string name="incoming_call_from">Incoming call from…</string>
-    <string name="ongoing_call">Ongoing call</string>
-    <string name="disconnected">Disconnected</string>
-    <string name="decline_call">Decline</string>
-    <string name="answer_call">Answer</string>
+    <string name="dialer">Telefon</string>
+    <string name="calling">Ringer</string>
+    <string name="incoming_call">Inkommande samtal</string>
+    <string name="incoming_call_from">Inkommande samtal från…</string>
+    <string name="ongoing_call">Pågående samtal</string>
+    <string name="disconnected">Frånkopplad</string>
+    <string name="decline_call">Avvisa</string>
+    <string name="answer_call">Svara</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Välj vilka fält som ska visas</string>
@@ -136,12 +136,12 @@
     <string name="instant_messaging">Snabbmeddelanden (IM)</string>
 
     <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Manage blocked numbers</string>
-    <string name="not_blocking_anyone">You are not blocking anyone.</string>
-    <string name="add_a_blocked_number">Add a blocked number</string>
-    <string name="block_number">Block number</string>
-    <string name="block_numbers">Block numbers</string>
-    <string name="blocked_numbers">Blocked numbers</string>
+    <string name="manage_blocked_numbers">Hantera blockerade nummer</string>
+    <string name="not_blocking_anyone">Du blockerar inte någon.</string>
+    <string name="add_a_blocked_number">Lägg till ett blockerat nummer</string>
+    <string name="block_number">Blockera nummer</string>
+    <string name="block_numbers">Blockera nummer</string>
+    <string name="blocked_numbers">Blockerade nummer</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
@@ -149,7 +149,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
+    <string name="app_short_description">En app för att hantera dina kontakter utan reklam, respekterar din integritet.</string>
     <string name="app_long_description">
         En enkel app för att skapa och hantera kontakter från olika källor. Kontakterna kan lagras bara på din enhet, men kan också synkroniseras med ditt Google-konto eller andra konton. Du kan visa dina favoritkontakter i en separat lista.
 
