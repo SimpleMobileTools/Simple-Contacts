@@ -19,13 +19,11 @@
     <string name="add_to_existing_contact">Adicionar a contacto existente</string>
     <string name="must_make_default_dialer">Tem que tornar esta a aplicação padrão para poder bloquear números.</string>
     <string name="set_to_default">Definir como padrão</string>
-    <string name="call_number">Call number</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Não existem contactos</string>
     <string name="no_contacts_with_emails">Não existem contactos com endereço de e-mail</string>
     <string name="no_contacts_with_phone_numbers">Não existem contactos com número de telefone</string>
-    <string name="no_recent_calls_found">Não existem chamadas recentes</string>
 
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
@@ -65,9 +63,9 @@
     <string name="manage_shown_tabs">Gerir separadores a exibir</string>
     <string name="contacts">Contactos</string>
     <string name="favorites">Favoritos</string>
-    <string name="recent_calls">Chamadas recentes</string>
     <string name="show_call_confirmation_dialog">Mostrar diálogo para confirmar a chamada</string>
     <string name="show_only_contacts_with_numbers">Mostrar apenas contactos com número de telefone</string>
+    <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>

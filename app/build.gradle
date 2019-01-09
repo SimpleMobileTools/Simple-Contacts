@@ -15,8 +15,8 @@ android {
         applicationId "com.simplemobiletools.contacts.pro"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 39
-        versionName "6.1.2"
+        versionCode 40
+        versionName "6.2.0"
         setProperty("archivesBaseName", "contacts")
     }
 
@@ -51,10 +51,10 @@ android {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:5.6.2'
+    implementation 'com.simplemobiletools:commons:5.6.5'
     implementation 'joda-time:joda-time:2.10.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.4'
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.5'
 
     kapt "androidx.room:room-compiler:2.0.0"
     implementation "androidx.room:room-runtime:2.0.0"

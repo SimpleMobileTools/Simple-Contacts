@@ -7,7 +7,10 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.MainActivity
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
-import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.helpers.CONTACTS_TAB_MASK
+import com.simplemobiletools.contacts.pro.helpers.FAVORITES_TAB_MASK
+import com.simplemobiletools.contacts.pro.helpers.GROUPS_TAB_MASK
+import com.simplemobiletools.contacts.pro.helpers.tabsList
 
 class ViewPagerAdapter(val activity: MainActivity) : PagerAdapter() {
     private val showTabs = activity.config.showTabs
@@ -40,10 +43,6 @@ class ViewPagerAdapter(val activity: MainActivity) : PagerAdapter() {
 
         if (showTabs and FAVORITES_TAB_MASK != 0) {
             fragments.add(R.layout.fragment_favorites)
-        }
-
-        if (showTabs and RECENTS_TAB_MASK != 0) {
-            fragments.add(R.layout.fragment_recents)
         }
 
         if (showTabs and GROUPS_TAB_MASK != 0) {

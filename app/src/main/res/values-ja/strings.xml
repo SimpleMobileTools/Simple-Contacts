@@ -19,13 +19,11 @@
     <string name="add_to_existing_contact">既存の連絡先に追加</string>
     <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
     <string name="set_to_default">Set to default</string>
-    <string name="call_number">Call number</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">連絡先が見つかりません</string>
     <string name="no_contacts_with_emails">メールアドレスが登録された連絡先が見つかりません</string>
     <string name="no_contacts_with_phone_numbers">電話番号が登録された連絡先が見つかりません</string>
-    <string name="no_recent_calls_found">通話履歴はありません</string>
 
     <string name="new_contact">新しい連絡先</string>
     <string name="edit_contact">連絡先を編集</string>
@@ -65,9 +63,9 @@
     <string name="manage_shown_tabs">表示するタブを管理</string>
     <string name="contacts">連絡先</string>
     <string name="favorites">お気に入り</string>
-    <string name="recent_calls">通話履歴</string>
     <string name="show_call_confirmation_dialog">発信する前に確認ダイアログを表示する</string>
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
+    <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
     <string name="email">メール</string>

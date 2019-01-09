@@ -19,13 +19,11 @@
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
     <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
     <string name="set_to_default">Set to default</string>
-    <string name="call_number">Call number</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Kişi bulunamadı</string>
     <string name="no_contacts_with_emails">E-posta ile hiç bağlantı bulunamadı</string>
     <string name="no_contacts_with_phone_numbers">Telefon numaralarını içeren kişi bulunamadı</string>
-    <string name="no_recent_calls_found">No recent calls found</string>
 
     <string name="new_contact">Yeni kişi</string>
     <string name="edit_contact">Kişiyi düzenle</string>
@@ -65,9 +63,9 @@
     <string name="manage_shown_tabs">Gösterilen sekmeleri yönet</string>
     <string name="contacts">Kişiler</string>
     <string name="favorites">Favoriler</string>
-    <string name="recent_calls">Son aramalar</string>
     <string name="show_call_confirmation_dialog">Arama başlatmadan önce arama onayı penceresi göster</string>
     <string name="show_only_contacts_with_numbers">Sadece telefon numaralarını içeren kişileri göster</string>
+    <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
     <string name="email">E-posta</string>

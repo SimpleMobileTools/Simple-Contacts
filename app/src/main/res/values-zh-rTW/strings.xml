@@ -19,13 +19,11 @@
     <string name="add_to_existing_contact">添加至已存在的聯絡人</string>
     <string name="must_make_default_dialer">你必須將這應用程式設為預設的撥號程式來使用黑名單。</string>
     <string name="set_to_default">設為預設</string>
-    <string name="call_number">撥打號碼</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">未發現聯絡人</string>
     <string name="no_contacts_with_emails">未發現含有電子信箱的聯絡人</string>
     <string name="no_contacts_with_phone_numbers">未發現含有電話號碼的聯絡人</string>
-    <string name="no_recent_calls_found">未發現通話紀錄</string>
 
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>
@@ -65,9 +63,9 @@
     <string name="manage_shown_tabs">管理顯示的頁面</string>
     <string name="contacts">聯絡人</string>
     <string name="favorites">我的最愛</string>
-    <string name="recent_calls">通話紀錄</string>
     <string name="show_call_confirmation_dialog">開始通話前顯示通話確認框</string>
     <string name="show_only_contacts_with_numbers">只顯示含有電話話碼的聯絡人</string>
+    <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
     <string name="email">電子信箱</string>

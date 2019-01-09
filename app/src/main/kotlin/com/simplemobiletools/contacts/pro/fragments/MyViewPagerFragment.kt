@@ -15,7 +15,6 @@ import com.simplemobiletools.contacts.pro.activities.MainActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.adapters.GroupsAdapter
-import com.simplemobiletools.contacts.pro.adapters.RecentCallsAdapter
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.contactClicked
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
@@ -59,11 +58,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     fragment_placeholder.text = activity.getString(R.string.no_group_created)
                     fragment_placeholder_2.text = activity.getString(R.string.create_group)
                 }
-                this is RecentsFragment -> {
-                    fragment_fab.beGone()
-                    fragment_placeholder.text = activity.getString(R.string.no_recent_calls_found)
-                    fragment_placeholder_2.text = activity.getString(R.string.request_the_required_permissions)
-                }
             }
         }
     }
@@ -71,7 +65,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun textColorChanged(color: Int) {
         when {
             this is GroupsFragment -> (fragment_list.adapter as GroupsAdapter).updateTextColor(color)
-            this is RecentsFragment -> (fragment_list.adapter as RecentCallsAdapter).updateTextColor(color)
             else -> (fragment_list.adapter as ContactsAdapter).apply {
                 updateTextColor(color)
                 initDrawables()
@@ -88,7 +81,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
-        if (this !is GroupsFragment && this !is RecentsFragment) {
+        if (this !is GroupsFragment) {
             (fragment_list.adapter as? ContactsAdapter)?.apply {
                 config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
                 this@MyViewPagerFragment.activity!!.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
@@ -99,7 +92,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun refreshContacts(contacts: ArrayList<Contact>) {
         if ((config.showTabs and CONTACTS_TAB_MASK == 0 && this is ContactsFragment) ||
                 (config.showTabs and FAVORITES_TAB_MASK == 0 && this is FavoritesFragment) ||
-                (config.showTabs and RECENTS_TAB_MASK == 0 && this is RecentsFragment) ||
                 (config.showTabs and GROUPS_TAB_MASK == 0 && this is GroupsFragment)) {
             return
         }
@@ -114,7 +106,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         val filtered = when {
             this is GroupsFragment -> contacts
             this is FavoritesFragment -> contacts.filter { it.starred == 1 } as ArrayList<Contact>
-            this is RecentsFragment -> ArrayList()
             else -> {
                 val contactSources = activity!!.getVisibleContactSources()
                 contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
@@ -133,7 +124,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     private fun setupContacts(contacts: ArrayList<Contact>) {
         if (this is GroupsFragment) {
             setupGroupsAdapter(contacts)
-        } else if (this !is RecentsFragment) {
+        } else {
             setupContactsFavoritesAdapter(contacts)
         }
 
@@ -219,7 +210,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 showContactThumbnails = showThumbnails
                 notifyDataSetChanged()
             }
-        } else if (this !is RecentsFragment) {
+        } else {
             (fragment_list.adapter as? ContactsAdapter)?.apply {
                 showContactThumbnails = showThumbnails
                 notifyDataSetChanged()
@@ -237,11 +228,12 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun onSearchQueryChanged(text: String) {
         val shouldNormalize = text.normalizeString() == text
+        val convertLetters = config.showDialpadLetters
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             val filtered = contactsIgnoringSearch.filter {
                 getProperText(it.getNameToDisplay(), shouldNormalize).contains(text, true) ||
                         getProperText(it.nickname, shouldNormalize).contains(text, true) ||
-                        it.doesContainPhoneNumber(text) ||
+                        it.doesContainPhoneNumber(text, convertLetters) ||
                         it.emails.any { it.value.contains(text, true) } ||
                         it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
                         it.IMs.any { it.value.contains(text, true) } ||
@@ -251,7 +243,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                         it.websites.any { it.contains(text, true) }
             } as ArrayList
 
-            filtered.sortBy { !getProperText(it.getNameToDisplay(), shouldNormalize).startsWith(text, true) }
+            filtered.sortBy {
+                val nameToDisplay = it.getNameToDisplay()
+                !getProperText(nameToDisplay, shouldNormalize).startsWith(text, true) && !nameToDisplay.contains(text, true)
+            }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
                 fragment_placeholder.text = activity.getString(R.string.no_items_found)

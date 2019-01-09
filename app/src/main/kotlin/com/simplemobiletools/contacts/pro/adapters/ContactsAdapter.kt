@@ -1,6 +1,10 @@
 package com.simplemobiletools.contacts.pro.adapters
 
 import android.graphics.drawable.Drawable
+import android.telephony.PhoneNumberUtils
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -255,7 +259,14 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         view.apply {
             contact_frame?.isSelected = selectedKeys.contains(contact.id)
             val fullName = contact.getNameToDisplay()
-            contact_name.text = if (textToHighlight.isEmpty()) fullName else fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+            contact_name.text = if (textToHighlight.isEmpty()) fullName else {
+                if (fullName.contains(textToHighlight, true)) {
+                    fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+                } else {
+                    highlightTextFromNumbers(fullName, textToHighlight)
+                }
+            }
+
             contact_name.setTextColor(textColor)
             contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
 
@@ -267,7 +278,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                 }
 
                 val numberText = phoneNumberToUse?.value ?: ""
-                contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+                contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
                 contact_number.setTextColor(textColor)
                 contact_number.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
             }
@@ -299,5 +310,20 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                 }
             }
         }
+    }
+
+    private fun highlightTextFromNumbers(name: String, textToHighlight: String): SpannableString {
+        val spannableString = SpannableString(name)
+        val digits = PhoneNumberUtils.convertKeypadLettersToDigits(name)
+        if (digits.contains(textToHighlight)) {
+            val startIndex = digits.indexOf(textToHighlight, 0, true)
+            val endIndex = Math.min(startIndex + textToHighlight.length, name.length)
+            try {
+                spannableString.setSpan(ForegroundColorSpan(adjustedPrimaryColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+            } catch (ignored: IndexOutOfBoundsException) {
+            }
+        }
+
+        return spannableString
     }
 }

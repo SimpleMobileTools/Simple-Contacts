@@ -30,7 +30,7 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
                 view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, it, selectedSources)
 
                 dialog = AlertDialog.Builder(activity)
-                        .setPositiveButton(R.string.ok) { dialogInterface, i -> confirmEventTypes() }
+                        .setPositiveButton(R.string.ok) { dialogInterface, i -> confirmContactSources() }
                         .setNegativeButton(R.string.cancel, null)
                         .create().apply {
                             activity.setupDialogStuff(view, this)
@@ -39,7 +39,7 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
         }
     }
 
-    private fun confirmEventTypes() {
+    private fun confirmContactSources() {
         val selectedContactSources = (view.filter_contact_sources_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
         val ignoredContactSources = contactSources.filter { !selectedContactSources.contains(it) }.map {
             if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.getFullIdentifier()

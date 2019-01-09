@@ -37,9 +37,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.android.synthetic.main.fragment_groups.*
-import kotlinx.android.synthetic.main.fragment_recents.*
 import java.io.FileOutputStream
-
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isSearchOpen = false
@@ -64,16 +62,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         appLaunched(BuildConfig.APPLICATION_ID)
         setupTabColors()
 
-        handlePermission(PERMISSION_READ_CALL_LOG) {
-            if (it) {
-                handlePermission(PERMISSION_WRITE_CALL_LOG) {
-                    checkContactPermissions()
-                }
-            } else {
-                checkContactPermissions()
-            }
-        }
-
+        checkContactPermissions()
         storeStateVariables()
         checkWhatsNewDialog()
     }
@@ -84,12 +73,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             if (it) {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
                     handlePermission(PERMISSION_GET_ACCOUNTS) {
-                        storeLocalAccountData()
                         initFragments()
                     }
                 }
             } else {
-                storeLocalAccountData()
                 initFragments()
             }
         }
@@ -189,9 +176,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val currentFragment = getCurrentFragment()
 
         menu.apply {
-            findItem(R.id.search).isVisible = currentFragment != groups_fragment && currentFragment != recents_fragment
-            findItem(R.id.sort).isVisible = currentFragment != groups_fragment && currentFragment != recents_fragment
-            findItem(R.id.filter).isVisible = currentFragment != groups_fragment && currentFragment != recents_fragment
+            findItem(R.id.search).isVisible = currentFragment != groups_fragment
+            findItem(R.id.sort).isVisible = currentFragment != groups_fragment
+            findItem(R.id.filter).isVisible = currentFragment != groups_fragment
         }
         setupSearch(menu)
         return true
@@ -268,10 +255,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             fragments.add(favorites_fragment)
         }
 
-        if (showTabs and RECENTS_TAB_MASK != 0) {
-            fragments.add(recents_fragment)
-        }
-
         if (showTabs and GROUPS_TAB_MASK != 0) {
             fragments.add(groups_fragment)
         }
@@ -290,24 +273,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
             getInactiveTabIndexes(lastUsedPage).forEach {
                 getTabAt(it)?.icon?.applyColorFilter(config.textColor)
-            }
-        }
-    }
-
-    private fun storeLocalAccountData() {
-        if (config.localAccountType == "-1") {
-            ContactsHelper(this).getContactSources { sources ->
-                var localAccountType = ""
-                var localAccountName = ""
-                sources.forEach {
-                    if (localAccountTypes.contains(it.type)) {
-                        localAccountType = it.type
-                        localAccountName = it.name
-                    }
-                }
-
-                config.localAccountType = localAccountType
-                config.localAccountName = localAccountName
             }
         }
     }
@@ -371,11 +336,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         // selecting the proper tab sometimes glitches, add an extra selector to make sure we have it right
         main_tabs_holder.onGlobalLayout {
             Handler().postDelayed({
-                if (intent?.action == Intent.ACTION_VIEW && intent.type == "vnd.android.cursor.dir/calls") {
-                    main_tabs_holder.getTabAt(getRecentsTabIndex())?.select()
-                } else {
-                    main_tabs_holder.getTabAt(config.lastUsedViewPagerPage)?.select()
-                }
+                main_tabs_holder.getTabAt(config.lastUsedViewPagerPage)?.select()
                 invalidateOptionsMenu()
             }, 100L)
         }
@@ -392,7 +353,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val drawableId = when (position) {
             LOCATION_CONTACTS_TAB -> R.drawable.ic_person
             LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on
-            LOCATION_RECENTS_TAB -> R.drawable.ic_clock
             else -> R.drawable.ic_group
         }
 
@@ -529,52 +489,16 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 favorites_fragment?.refreshContacts(contacts)
             }
 
-            if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
-                recents_fragment?.refreshContacts(contacts)
-            }
-
             if (refreshTabsMask and GROUPS_TAB_MASK != 0) {
                 if (refreshTabsMask == GROUPS_TAB_MASK) {
                     groups_fragment.skipHashComparing = true
                 }
                 groups_fragment?.refreshContacts(contacts)
             }
-
-            if (refreshTabsMask and RECENTS_TAB_MASK != 0) {
-                ContactsHelper(this).getRecents {
-                    it.filter { it.name == null }.forEach {
-                        val namelessCall = it
-                        val contact = contacts.firstOrNull { it.doesContainPhoneNumber(namelessCall.number) }
-                        if (contact != null) {
-                            it.name = contact.getNameToDisplay()
-                        }
-                    }
-
-                    runOnUiThread {
-                        recents_fragment?.updateRecentCalls(it)
-                    }
-                }
-            }
         }
     }
 
-    private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, recents_fragment, groups_fragment)
-
-    private fun getRecentsTabIndex(): Int {
-        var index = 0
-        if (config.showTabs and RECENTS_TAB_MASK == 0) {
-            return index
-        }
-
-        if (config.showTabs and CONTACTS_TAB_MASK != 0) {
-            index++
-        }
-
-        if (config.showTabs and FAVORITES_TAB_MASK != 0) {
-            index++
-        }
-        return index
-    }
+    private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, groups_fragment)
 
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {
@@ -587,6 +511,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             add(Release(32, R.string.release_32))
             add(Release(34, R.string.release_34))
             add(Release(39, R.string.release_39))
+            add(Release(40, R.string.release_40))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }

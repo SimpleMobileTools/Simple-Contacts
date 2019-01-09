@@ -71,12 +71,7 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
         sources = filteredSources.map { it.publicName }
 
         sources.forEachIndexed { index, account ->
-            var publicAccount = account
-            if (account == config.localAccountName) {
-                publicAccount = getString(R.string.phone_storage)
-            }
-
-            items.add(RadioItem(index, publicAccount))
+            items.add(RadioItem(index, account))
             if (currentSource == SMT_PRIVATE && account == getString(R.string.phone_storage_hidden)) {
                 currentSourceIndex = index
             }

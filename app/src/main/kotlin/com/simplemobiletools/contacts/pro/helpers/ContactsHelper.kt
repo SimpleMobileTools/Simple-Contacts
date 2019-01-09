@@ -2,14 +2,12 @@ package com.simplemobiletools.contacts.pro.helpers
 
 import android.accounts.Account
 import android.accounts.AccountManager
-import android.annotation.SuppressLint
 import android.content.*
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
-import android.provider.CallLog
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.CommonDataKinds.Nickname
@@ -23,7 +21,6 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.models.*
 import com.simplemobiletools.contacts.pro.overloads.times
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -673,7 +670,7 @@ class ContactsHelper(val context: Context) {
         return groups
     }
 
-    fun getDeviceStoredGroups(): ArrayList<Group> {
+    private fun getDeviceStoredGroups(): ArrayList<Group> {
         val groups = ArrayList<Group>()
         if (!context.hasContactPermissions()) {
             return groups
@@ -864,10 +861,6 @@ class ContactsHelper(val context: Context) {
             it.name.isNotEmpty() && it.type.isNotEmpty() && !accounts.contains(Account(it.name, it.type))
         }
         sources.addAll(contentResolverAccounts)
-
-        if (sources.isEmpty() && context.config.localAccountName.isEmpty() && context.config.localAccountType.isEmpty()) {
-            sources.add(ContactSource("", "", ""))
-        }
 
         return sources
     }
@@ -1246,7 +1239,7 @@ class ContactsHelper(val context: Context) {
             ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI).apply {
                 withValue(ContactsContract.RawContacts.ACCOUNT_NAME, contact.source)
                 withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, getContactSourceType(contact.source))
-                withValue(ContactsContract.RawContacts.DIRTY, false)
+                withValue(ContactsContract.RawContacts.DIRTY, 1)
                 operations.add(build())
             }
 
@@ -1551,94 +1544,5 @@ class ContactsHelper(val context: Context) {
         } catch (e: Exception) {
             context.showErrorToast(e)
         }
-    }
-
-    @SuppressLint("MissingPermission")
-    fun getRecents(callback: (ArrayList<RecentCall>) -> Unit) {
-        Thread {
-            val calls = ArrayList<RecentCall>()
-            if (!context.hasPermission(PERMISSION_WRITE_CALL_LOG) || !context.hasPermission(PERMISSION_READ_CALL_LOG)) {
-                callback(calls)
-                return@Thread
-            }
-
-            val blockedNumbers = context.getBlockedNumbers()
-            val uri = CallLog.Calls.CONTENT_URI
-            val projection = arrayOf(
-                    CallLog.Calls._ID,
-                    CallLog.Calls.NUMBER,
-                    CallLog.Calls.DATE,
-                    CallLog.Calls.CACHED_NAME
-            )
-
-            val sorting = "${CallLog.Calls._ID} DESC LIMIT 100"
-            val currentDate = Date(System.currentTimeMillis())
-            val currentYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(currentDate)
-            val todayDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(currentDate)
-            val yesterdayDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(System.currentTimeMillis() - DAY_SECONDS * 1000))
-            val yesterday = context.getString(R.string.yesterday)
-            val timeFormat = if (context.config.use24HourFormat) "HH:mm" else "h:mm a"
-            var prevNumber = ""
-
-            var cursor: Cursor? = null
-            try {
-                cursor = context.contentResolver.query(uri, projection, null, null, sorting)
-                if (cursor?.moveToFirst() == true) {
-                    do {
-                        val id = cursor.getIntValue(CallLog.Calls._ID)
-                        val number = cursor.getStringValue(CallLog.Calls.NUMBER)
-                        val date = cursor.getLongValue(CallLog.Calls.DATE)
-                        val name = cursor.getStringValue(CallLog.Calls.CACHED_NAME)
-                        if (number == prevNumber) {
-                            continue
-                        }
-
-                        if (blockedNumbers.any { it.number == number || it.normalizedNumber == number }) {
-                            continue
-                        }
-
-                        var formattedDate = SimpleDateFormat("dd MMM yyyy, $timeFormat", Locale.getDefault()).format(Date(date))
-                        val datePart = formattedDate.substring(0, 11)
-                        when {
-                            datePart == todayDate -> formattedDate = formattedDate.substring(12)
-                            datePart == yesterdayDate -> formattedDate = yesterday + formattedDate.substring(11)
-                            formattedDate.substring(7, 11) == currentYear -> formattedDate = formattedDate.substring(0, 6) + formattedDate.substring(11)
-                        }
-
-                        prevNumber = number
-                        val recentCall = RecentCall(id, number, formattedDate, name)
-                        calls.add(recentCall)
-                    } while (cursor.moveToNext())
-                }
-            } finally {
-                cursor?.close()
-            }
-            callback(calls)
-        }.start()
-    }
-
-    fun removeRecentCalls(ids: ArrayList<Int>) {
-        Thread {
-            try {
-                val operations = ArrayList<ContentProviderOperation>()
-                val selection = "${CallLog.Calls._ID} = ?"
-                ids.forEach {
-                    ContentProviderOperation.newDelete(CallLog.Calls.CONTENT_URI).apply {
-                        val selectionArgs = arrayOf(it.toString())
-                        withSelection(selection, selectionArgs)
-                        operations.add(build())
-                    }
-
-                    if (operations.size % BATCH_SIZE == 0) {
-                        context.contentResolver.applyBatch(CallLog.AUTHORITY, operations)
-                        operations.clear()
-                    }
-                }
-
-                context.contentResolver.applyBatch(CallLog.AUTHORITY, operations)
-            } catch (e: Exception) {
-                context.showErrorToast(e)
-            }
-        }.start()
     }
 }
