@@ -65,7 +65,7 @@
     <string name="favorites">Favoritos</string>
     <string name="show_call_confirmation_dialog">Mostrar diálogo para confirmar a chamada</string>
     <string name="show_only_contacts_with_numbers">Mostrar apenas contactos com número de telefone</string>
-    <string name="show_dialpad_letters">Show letters on the dialpad</string>
+    <string name="show_dialpad_letters">Mostrar letras no marcador</string>
 
     <!-- Emails -->
     <string name="email">E-mail</string>
@@ -94,8 +94,8 @@
     <string name="must_be_at_edit">Tem que estar no ecrã de edição para alterar um contacto</string>
 
     <!-- Search -->
-    <string name="search_contacts">Pesquisar contactos</string>
-    <string name="search_favorites">Pesquisar favoritos</string>
+    <string name="search_contacts">Pesquisar nos contactos</string>
+    <string name="search_favorites">Pesquisar nos favoritos</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Importar contactos</string>
@@ -149,7 +149,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
+    <string name="app_short_description">Uma aplicação para gerir os seus contactos, sem anúncios e que respeita a sua privacidade.</string>
     <string name="app_long_description">
         Uma aplicação básica para criar e gerir contactos. Pode utilizar a aplicação guardar os contactos localmente, na sua conta Google ou em outro tipo de contas. Pode mostrar os contactos favoritos numa lista distinta.
 
