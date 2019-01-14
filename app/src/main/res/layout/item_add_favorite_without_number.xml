@@ -13,7 +13,7 @@
         android:id="@+id/contact_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="@dimen/normal_margin">
+        android:paddingEnd="@dimen/normal_margin">
 
         <ImageView
             android:id="@+id/contact_tmb"
@@ -27,8 +27,8 @@
             android:id="@+id/contact_name"
             android:layout_width="match_parent"
             android:layout_height="@dimen/contact_item_height"
-            android:layout_toLeftOf="@+id/contact_checkbox"
-            android:layout_toRightOf="@+id/contact_tmb"
+            android:layout_toStartOf="@+id/contact_checkbox"
+            android:layout_toEndOf="@+id/contact_tmb"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
@@ -39,7 +39,7 @@
             android:id="@+id/contact_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/contact_item_height"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:clickable="false"
             android:gravity="center_vertical"/>
 

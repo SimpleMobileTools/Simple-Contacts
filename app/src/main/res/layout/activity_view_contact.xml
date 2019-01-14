@@ -28,8 +28,8 @@
             android:layout_height="@dimen/contact_actions_size"
             android:layout_alignTop="@+id/contact_photo"
             android:layout_alignBottom="@id/contact_photo"
-            android:layout_marginLeft="@dimen/medium_margin"
-            android:layout_toRightOf="@+id/contact_photo"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_toEndOf="@+id/contact_photo"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/tiny_margin"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/contact_photo"
             android:layout_alignBottom="@id/contact_photo"
-            android:gravity="center_vertical|right">
+            android:gravity="center_vertical|end">
 
             <ImageView
                 android:id="@+id/contact_send_email"
@@ -59,11 +59,11 @@
                 android:id="@+id/contact_start_call"
                 android:layout_width="@dimen/contact_actions_size"
                 android:layout_height="@dimen/contact_actions_size"
-                android:layout_marginLeft="@dimen/normal_margin"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:paddingLeft="@dimen/activity_margin"
-                android:paddingRight="@dimen/activity_margin"
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingEnd="@dimen/activity_margin"
                 android:scaleType="center"
                 android:src="@drawable/ic_phone_big"/>
 
@@ -71,11 +71,11 @@
                 android:id="@+id/contact_send_sms"
                 android:layout_width="@dimen/contact_actions_size"
                 android:layout_height="@dimen/contact_actions_size"
-                android:layout_marginLeft="@dimen/normal_margin"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:paddingLeft="@dimen/activity_margin"
-                android:paddingRight="@dimen/activity_margin"
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingEnd="@dimen/activity_margin"
                 android:scaleType="center"
                 android:src="@drawable/ic_sms_big"/>
 
@@ -98,11 +98,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_photo"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:background="?attr/selectableItemBackground"
             android:lines="1"
             android:maxLines="1"
-            android:paddingLeft="@dimen/small_margin"
+            android:paddingStart="@dimen/small_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:singleLine="true"
@@ -114,11 +114,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_prefix"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:background="?attr/selectableItemBackground"
             android:lines="1"
             android:maxLines="1"
-            android:paddingLeft="@dimen/small_margin"
+            android:paddingStart="@dimen/small_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:singleLine="true"
@@ -130,11 +130,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_first_name"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:background="?attr/selectableItemBackground"
             android:lines="1"
             android:maxLines="1"
-            android:paddingLeft="@dimen/small_margin"
+            android:paddingStart="@dimen/small_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:singleLine="true"
@@ -146,11 +146,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_middle_name"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:background="?attr/selectableItemBackground"
             android:lines="1"
             android:maxLines="1"
-            android:paddingLeft="@dimen/small_margin"
+            android:paddingStart="@dimen/small_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:singleLine="true"
@@ -162,11 +162,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_surname"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:background="?attr/selectableItemBackground"
             android:lines="1"
             android:maxLines="1"
-            android:paddingLeft="@dimen/small_margin"
+            android:paddingStart="@dimen/small_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:singleLine="true"
@@ -178,11 +178,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_suffix"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:background="?attr/selectableItemBackground"
             android:lines="1"
             android:maxLines="1"
-            android:paddingLeft="@dimen/small_margin"
+            android:paddingStart="@dimen/small_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:singleLine="true"
@@ -204,9 +204,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_nickname"
-            android:layout_toRightOf="@+id/contact_numbers_image"
+            android:layout_toEndOf="@+id/contact_numbers_image"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/small_margin"/>
+            android:paddingStart="@dimen/small_margin"/>
 
         <ImageView
             android:id="@+id/contact_emails_image"
@@ -224,9 +224,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_numbers_holder"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/small_margin"/>
+            android:paddingStart="@dimen/small_margin"/>
 
         <ImageView
             android:id="@+id/contact_addresses_image"
@@ -244,9 +244,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_emails_holder"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/small_margin"/>
+            android:paddingStart="@dimen/small_margin"/>
 
         <ImageView
             android:id="@+id/contact_ims_image"
@@ -264,9 +264,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_addresses_holder"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/small_margin"/>
+            android:paddingStart="@dimen/small_margin"/>
 
         <ImageView
             android:id="@+id/contact_events_image"
@@ -284,7 +284,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_ims_holder"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:orientation="vertical"/>
 
         <ImageView
@@ -304,10 +304,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_events_holder"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/contact_notes_image"
+            android:layout_toEndOf="@+id/contact_notes_image"
             android:background="?attr/selectableItemBackground"
             android:lineSpacingExtra="@dimen/medium_margin"
-            android:paddingLeft="@dimen/small_margin"
+            android:paddingStart="@dimen/small_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:textSize="@dimen/bigger_text_size"/>
@@ -329,10 +329,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_notes"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/contact_organization_image"
+            android:layout_toEndOf="@+id/contact_organization_image"
             android:background="?attr/selectableItemBackground"
             android:lineSpacingExtra="@dimen/medium_margin"
-            android:paddingLeft="@dimen/small_margin"
+            android:paddingStart="@dimen/small_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:textSize="@dimen/bigger_text_size"/>
@@ -343,10 +343,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_organization_company"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/contact_organization_image"
+            android:layout_toEndOf="@+id/contact_organization_image"
             android:background="?attr/selectableItemBackground"
             android:lineSpacingExtra="@dimen/medium_margin"
-            android:paddingLeft="@dimen/small_margin"
+            android:paddingStart="@dimen/small_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:textSize="@dimen/bigger_text_size"/>
@@ -367,7 +367,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_organization_job_position"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:orientation="vertical"/>
 
         <ImageView
@@ -386,9 +386,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_websites_holder"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/small_margin"/>
+            android:paddingStart="@dimen/small_margin"/>
 
         <ImageView
             android:id="@+id/contact_source_image"
@@ -407,11 +407,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_groups_holder"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/contact_name_image"
+            android:layout_toEndOf="@+id/contact_name_image"
             android:background="?attr/selectableItemBackground"
             android:lines="1"
             android:maxLines="1"
-            android:paddingLeft="@dimen/small_margin"
+            android:paddingStart="@dimen/small_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:singleLine="true"
