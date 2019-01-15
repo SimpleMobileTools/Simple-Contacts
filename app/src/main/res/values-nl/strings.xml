@@ -1,0 +1,167 @@
+<resources>
+    <string name="app_name">Eenvoudig Adresboek</string>
+    <string name="app_launcher_name">Contacten</string>
+    <string name="address">Addres</string>
+    <string name="inserting">Toevoegen…</string>
+    <string name="updating">Updaten…</string>
+    <string name="phone_storage">Telefoonopslag</string>
+    <string name="phone_storage_hidden">Telefoonopslag (niet zichtbaar voor andere apps)</string>
+    <string name="company">Bedrijf</string>
+    <string name="job_position">Titel</string>
+    <string name="website">Website</string>
+    <string name="send_sms_to_contacts">SMS naar contacten sturen</string>
+    <string name="send_email_to_contacts">E-mail naar contacten sturen</string>
+    <string name="send_sms_to_group">SMS naar groep sturen</string>
+    <string name="send_email_to_group">E-mail naar groep sturen</string>
+    <string name="call_person">%s bellen</string>
+    <string name="request_the_required_permissions">Om benodigde machtigingen vragen</string>
+    <string name="create_new_contact">Nieuw contact</string>
+    <string name="add_to_existing_contact">Aan bestaand contact toevoegen</string>
+    <string name="must_make_default_dialer">Maak van deze app de standaardapp voor bellen om nummers te kunnen blokkeren.</string>
+    <string name="set_to_default">Als standaard instellen</string>
+
+    <!-- Placeholders -->
+    <string name="no_contacts_found">Geen contacten gevonden</string>
+    <string name="no_contacts_with_emails">Geen contacten met e-mailadressen gevonden</string>
+    <string name="no_contacts_with_phone_numbers">Geen contacten met telefoonnummers gevonden</string>
+
+    <string name="new_contact">Nieuw contact</string>
+    <string name="edit_contact">Contact bewerken</string>
+    <string name="select_contact">Contact kiezen</string>
+    <string name="select_contacts">Contacten kiezen</string>
+    <string name="first_name">Voornaam</string>
+    <string name="middle_name">Tweede voornaam</string>
+    <string name="surname">Achternaam</string>
+    <string name="nickname">Bijnaam</string>
+
+    <!-- Groups -->
+    <string name="no_groups">Geen groepen</string>
+    <string name="create_new_group">Nieuwe groep</string>
+    <string name="remove_from_group">Uit groep verwijderen</string>
+    <string name="no_group_participants">Deze groep is leeg</string>
+    <string name="add_contacts">Contacten toevoegen</string>
+    <string name="no_group_created">Er zijn geen contactgroepen gevonden</string>
+    <string name="create_group">Groep aanmaken</string>
+    <string name="add_to_group">Aan groep toevoegen</string>
+    <string name="create_group_under_account">Groep in account aanmaken</string>
+
+    <!-- Photo -->
+    <string name="take_photo">Foto maken</string>
+    <string name="choose_photo">Foto kiezen</string>
+    <string name="remove_photo">Foto verwijderen</string>
+
+    <!-- Settings -->
+    <string name="start_name_with_surname">Beginnen met achternaam</string>
+    <string name="show_phone_numbers">Telefoonnummers in hoofdscherm tonen</string>
+    <string name="show_contact_thumbnails">Contactafbeelding tonen</string>
+    <string name="show_dialpad_button">Knop voor toetsenblok in hoofdscherm tonen</string>
+    <string name="on_contact_click">Bij klikken op een contact</string>
+    <string name="call_contact">Contact bellen</string>
+    <string name="view_contact">Details tonen</string>
+    <string name="manage_shown_contact_fields">Contactvelden tonen/verbergen</string>
+    <string name="filter_duplicates">Probeer dubbele contacten weg te filteren</string>
+    <string name="manage_shown_tabs">Tabs tonen/verbergen</string>
+    <string name="contacts">Contacten</string>
+    <string name="favorites">Favorieten</string>
+    <string name="show_call_confirmation_dialog">Om bevestiging vragen voor het bellen</string>
+    <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummers tonen</string>
+    <string name="show_dialpad_letters">Letters op het toetsenblok tonen</string>
+
+    <!-- Emails -->
+    <string name="email">E-mail</string>
+    <string name="home">Thuis</string>
+    <string name="work">Werk</string>
+    <string name="other">Overig</string>
+
+    <!-- Phone numbers -->
+    <string name="number">Nummer</string>
+    <string name="mobile">Mobiel</string>
+    <string name="main_number">Standaard</string>
+    <string name="work_fax">Fax Werk</string>
+    <string name="home_fax">Fax Thuis</string>
+    <string name="pager">Pager</string>
+    <string name="no_phone_number_found">Geen telefoonnummers gevonden</string>
+
+    <!-- Events -->
+    <string name="birthday">Verjaardag</string>
+    <string name="anniversary">Jubileum</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">Er zijn nog geen favorieten toegevoegd.</string>
+    <string name="add_favorites">Favorieten toevoegen</string>
+    <string name="add_to_favorites">Aan favorieten toevoegen</string>
+    <string name="remove_from_favorites">Uit favorieten verwijderen</string>
+    <string name="must_be_at_edit">Ga naar Contact bewerken om gegevens aan te passen</string>
+
+    <!-- Search -->
+    <string name="search_contacts">Contacten zoeken</string>
+    <string name="search_favorites">Favorieten zoeken</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">Contacten importeren</string>
+    <string name="export_contacts">Contacten exporteren</string>
+    <string name="import_contacts_from_vcf">Contacten importeren uit .vcf-bestand</string>
+    <string name="export_contacts_to_vcf">Contacten exporteren naar .vcf-bestand</string>
+    <string name="target_contact_source">Opslaan in</string>
+    <string name="include_contact_sources">Contacten exporteren vanuit</string>
+    <string name="filename_without_vcf">Bestandsnaam (zonder .vcf)</string>
+
+    <!-- Dialpad -->
+    <string name="dialpad">Toetsenblok</string>
+    <string name="add_number_to_contact">Nummer aan contact toevoegen</string>
+
+    <!-- Dialer -->
+    <string name="dialer">Bellen</string>
+    <string name="calling">Bellen</string>
+    <string name="incoming_call">Inkomend gesprek</string>
+    <string name="incoming_call_from">Inkomend gesprek van…</string>
+    <string name="ongoing_call">Lopend gesprek</string>
+    <string name="disconnected">Verbinding verbroken</string>
+    <string name="decline_call">Afwijzen</string>
+    <string name="answer_call">Opnemen</string>
+
+    <!-- Visible fields -->
+    <string name="select_fields_to_show">Kies zichtbare velden</string>
+    <string name="prefix">Voorvoegsel</string>
+    <string name="suffix">Achtervoegsel van naam</string>
+    <string name="phone_numbers">Telefoonnummers</string>
+    <string name="emails">E-mailadressen</string>
+    <string name="addresses">Adressen</string>
+    <string name="events">Datums (verjaardagen, jubileums)</string>
+    <string name="notes">Notities</string>
+    <string name="organization">Organisatie</string>
+    <string name="websites">Websites</string>
+    <string name="groups">Groepen</string>
+    <string name="contact_source">Account</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
+
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Geblokkeerde nummers beheren</string>
+    <string name="not_blocking_anyone">Geen geblokkeerde nummers.</string>
+    <string name="add_a_blocked_number">Geblokkeerd nummer toevoegen</string>
+    <string name="block_number">Nummer blokkeren</string>
+    <string name="block_numbers">Nummers blokkeren</string>
+    <string name="blocked_numbers">Geblokkeerde nummers</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Ik wil de zichtbare contactvelden aanpassen. Kan ik dit doen?</string>
+    <string name="faq_1_text">Ja, dat kan via Instellingen -> Contactvelden tonen/verbergen. Sommige velden zijn standaard verborgen, dus er zijn via deze optie meer velden te ontdekken.</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Een privacyvriendelijke advertentievrije app om uw contacten te beheren.</string>
+    <string name="app_long_description">
+        Een eenvoudige app om contacten aan te maken en te beheren. Contacten kunnen lokaal opgeslagen worden, of gesynchroniseerd via Google en andere accounts. Favoriete contacten kunnen in een aparte lijst worden getoond.
+
+        De app is ook te gebruiken voor het beheren van e-mailadressen en gebeurtenissen gekoppeld aan contacten. Sorteren en filteren is mogelijk op basis van verschillende parameters en zowel voor- als achternaam kan als eerste worden getoond.
+
+        Bevat geen advertenties of onnodige machtigingen. Volledig open-source. Kleuren van de app kunnen worden aangepast.
+
+        Deze app is onderdeel van een grotere verzameling. Vind de andere apps op https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
