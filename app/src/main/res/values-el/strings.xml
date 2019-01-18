@@ -17,13 +17,13 @@
     <string name="request_the_required_permissions">Ζητούνται τα απαιτούμενα δικαιώματα</string>
     <string name="create_new_contact">Δημιουργία νέας Επαφής</string>
     <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
-    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_to_default">Set to default</string>
+    <string name="must_make_default_dialer">Θα πρέπει να οριστεί προεπιλεγμένη εφαρμογή για χρησιμοποίηση αποκλεισμένων αριθμών.</string>
+    <string name="set_to_default">Ορισμός προεπιλεγμένης/string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">No contacts found</string>
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+    <string name="no_contacts_found">Δεν βρέθηκαν Επαφές</string>
+    <string name="no_contacts_with_emails">Δεν βρέθηκαν Επαφές με emails</string>
+    <string name="no_contacts_with_phone_numbers">Δεν βρέθηκαν Επαφές με αριθμό τηλεφώνου</string>
 
     <string name="new_contact">Νέα επαφή</string>
     <string name="edit_contact">Επεξεργασία επαφής</string>
@@ -54,7 +54,7 @@
     <string name="start_name_with_surname">Εμφάνιση πρώτα το επώνυμο</string>
     <string name="show_phone_numbers">Εμφάνιση τηλεφωνικών αριθμών στην κύρια οθόνη</string>
     <string name="show_contact_thumbnails">Εμφάνιση μικρογραφιών επαφής</string>
-    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
+    <string name="show_dialpad_button">Προβολή ενός κουμπίου πληκτρολογίου στην κύρια οθόνη</string>
     <string name="on_contact_click">Στην επιλογή επαφής</string>
     <string name="call_contact">Κλήση επαφής</string>
     <string name="view_contact">Εμφάνιση λεπτομερειών επαφής</string>
@@ -64,8 +64,8 @@
     <string name="contacts">Επαφές</string>
     <string name="favorites">Αγαπημένες</string>
     <string name="show_call_confirmation_dialog">Εμφάνιση διαλόγου επιβεβαίωσης πριν από την έναρξη μιας κλήσης</string>
-    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
-    <string name="show_dialpad_letters">Show letters on the dialpad</string>
+    <string name="show_only_contacts_with_numbers">Προβολή όλων των Επαφών με αριθμούς τηλεφώνου</string>
+    <string name="show_dialpad_letters">Εμφάνιση γραμμάτων στην πληκτρολόγιο</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
@@ -111,14 +111,14 @@
     <string name="add_number_to_contact">Προσθήκη αριθμού σε επαφή</string>
 
     <!-- Dialer -->
-    <string name="dialer">Dialer</string>
-    <string name="calling">Calling</string>
-    <string name="incoming_call">Incoming call</string>
-    <string name="incoming_call_from">Incoming call from…</string>
-    <string name="ongoing_call">Ongoing call</string>
-    <string name="disconnected">Disconnected</string>
-    <string name="decline_call">Decline</string>
-    <string name="answer_call">Answer</string>
+    <string name="dialer">Πληκτρολόγιο</string>
+    <string name="calling">Κλήση</string>
+    <string name="incoming_call">Εισερχόμενη κλήση</string>
+    <string name="incoming_call_from">Εισερχόμενη κλήση απο…</string>
+    <string name="ongoing_call">Εξερχόμενη κλήση</string>
+    <string name="disconnected">Αποσύνδεση</string>
+    <string name="decline_call">Άρνηση</string>
+    <string name="answer_call">Απάντηση</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Επιλογή εμφάνισης πεδίων</string>
@@ -136,12 +136,12 @@
     <string name="instant_messaging">Αμεσο μήνυμα (IM)</string>
 
     <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Manage blocked numbers</string>
-    <string name="not_blocking_anyone">You are not blocking anyone.</string>
-    <string name="add_a_blocked_number">Add a blocked number</string>
-    <string name="block_number">Block number</string>
-    <string name="block_numbers">Block numbers</string>
-    <string name="blocked_numbers">Blocked numbers</string>
+    <string name="manage_blocked_numbers">Διαχείρηση αποκλεισμένων αριθμών</string>
+    <string name="not_blocking_anyone">Χωρίς αποκλεισμο κανενός.</string>
+    <string name="add_a_blocked_number">Προσθήκη ένος αποκλεισμένου αριθμού</string>
+    <string name="block_number">Αποκλεισμό αριθμού</string>
+    <string name="block_numbers">Αποκλεισμό αριθμών</string>
+    <string name="blocked_numbers">Αποκλεισμένοι αριθμοί</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Θέλω να αλλάξω τα πεδία που θα είναι ορατά στις επαφές. Μπορώ να το κάνω?</string>
@@ -149,7 +149,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
+    <string name="app_short_description">Μια εφαρμογή για τις Επαφές σας χωρίς διαφημίσεις, σεβόμενη το απόρρητό σας.</string>
     <string name="app_long_description">
         Μια απλή εφαρμογή για δημιουργία και διαχείριση των επαφών σου από κάθε πηγή. Οι επαφές μπορεί να είναι αποθηκευμένες μόνο στη συσκευή σου, αλλά μπορούν να συγχρονίζονται στο Google, ή σε κάποιο άλλο λογαριασμό. Μπορείς να εμφανίσεις τις αγαπημένες σου επαφές σε ξεχωριστή λίστα.
 
