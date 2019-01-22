@@ -2,8 +2,8 @@
     <string name="app_name">جهات الإتصال</string>
     <string name="app_launcher_name">جهات الإتصال</string>
     <string name="address">العنوان</string>
-    <string name="inserting">إضافة...</string>
-    <string name="updating">تحديث...</string>
+    <string name="inserting">إضافة…</string>
+    <string name="updating">تحديث…</string>
     <string name="phone_storage">ذاكرة الهاتف</string>
     <string name="phone_storage_hidden">ذاكرة الهاتف (غير مرئية من قبل التطبيقات الأخرى)</string>
     <string name="company">الشركة</string>
@@ -114,7 +114,7 @@
     <string name="dialer">المتصل</string>
     <string name="calling">اتصال</string>
     <string name="incoming_call">مكالمة واردة</string>
-    <string name="incoming_call_from">مكالمة واردة من ...</string>
+    <string name="incoming_call_from">مكالمة واردة من …</string>
     <string name="ongoing_call">مكالمة جارية</string>
     <string name="disconnected">انقطع الاتصال</string>
     <string name="decline_call">رفض</string>
