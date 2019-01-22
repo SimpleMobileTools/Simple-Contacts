@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:paddingRight="@dimen/activity_margin">
+        android:paddingEnd="@dimen/activity_margin">
 
         <ImageView
             android:id="@+id/new_contact_tmb"
@@ -26,7 +26,7 @@
             android:id="@+id/new_contact_name"
             android:layout_width="match_parent"
             android:layout_height="@dimen/create_new_contact_height"
-            android:layout_toRightOf="@+id/new_contact_tmb"
+            android:layout_toEndOf="@+id/new_contact_tmb"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"

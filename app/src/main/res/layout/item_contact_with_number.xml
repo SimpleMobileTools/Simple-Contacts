@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/contact_item_with_number_height"
         android:paddingTop="@dimen/tiny_margin"
-        android:paddingRight="@dimen/activity_margin">
+        android:paddingEnd="@dimen/activity_margin">
 
         <ImageView
             android:id="@+id/contact_tmb"
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/contact_tmb"
-            android:layout_toRightOf="@+id/contact_tmb"
+            android:layout_toEndOf="@+id/contact_tmb"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/big_text_size"
@@ -40,8 +40,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_name"
-            android:layout_alignLeft="@+id/contact_name"
-            android:layout_toRightOf="@+id/contact_tmb"
+            android:layout_alignStart="@+id/contact_name"
+            android:layout_toEndOf="@+id/contact_tmb"
             android:maxLines="1"
             android:textSize="@dimen/bigger_text_size"
             tools:text="0123 456 789"/>
