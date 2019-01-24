@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.3.0 *(2019-01-24)*
+----------------------------
+
+ * Fixed local contact source not being properly shown
+ * Fixed some glitches related to exporting contacts
+
 Version 6.2.0 *(2019-01-06)*
 ----------------------------
 
