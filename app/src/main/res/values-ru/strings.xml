@@ -56,8 +56,8 @@
     <string name="show_contact_thumbnails">Показывать фото контакта</string>
     <string name="show_dialpad_button">Показывать кнопку набора номера на главном экране</string>
     <string name="on_contact_click">При нажатии на контакт</string>
-    <string name="call_contact">Позвонить контакту</string>
-    <string name="view_contact">Просмотреть подробности о контакте</string>
+    <string name="call_contact">Вызов контакта</string>
+    <string name="view_contact">Просмотр подробностей</string>
     <string name="manage_shown_contact_fields">Управление отображаемыми полями контактов</string>
     <string name="filter_duplicates">Отфильтровывать повторяющиеся контакты</string>
     <string name="manage_shown_tabs">Управление отображаемыми вкладками</string>
@@ -65,7 +65,7 @@
     <string name="favorites">Избранное</string>
     <string name="show_call_confirmation_dialog">Показывать диалог подтверждения вызова</string>
     <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
-    <string name="show_dialpad_letters">Показывать буквы в наборе номера</string>
+    <string name="show_dialpad_letters">Показывать буквы на кнопках набора номера</string>
 
     <!-- Emails -->
     <string name="email">Эл. почта</string>
