@@ -91,13 +91,20 @@ class ContactsHelper(val context: Context) {
     }
 
     private fun getContentResolverAccounts(): HashSet<ContactSource> {
-        val uri = ContactsContract.Data.CONTENT_URI
+        val sources = HashSet<ContactSource>()
+        arrayOf(ContactsContract.Groups.CONTENT_URI, ContactsContract.Settings.CONTENT_URI, ContactsContract.RawContacts.CONTENT_URI).forEach {
+            fillSourcesFromUri(it, sources)
+        }
+
+        return sources
+    }
+
+    private fun fillSourcesFromUri(uri: Uri, sources: HashSet<ContactSource>) {
         val projection = arrayOf(
                 ContactsContract.RawContacts.ACCOUNT_NAME,
                 ContactsContract.RawContacts.ACCOUNT_TYPE
         )
 
-        val sources = HashSet<ContactSource>()
         var cursor: Cursor? = null
         try {
             cursor = context.contentResolver.query(uri, projection, null, null, null)
@@ -118,8 +125,6 @@ class ContactsHelper(val context: Context) {
         } finally {
             cursor?.close()
         }
-
-        return sources
     }
 
     private fun getDeviceContacts(contacts: SparseArray<Contact>) {
