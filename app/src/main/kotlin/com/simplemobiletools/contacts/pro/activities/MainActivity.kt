@@ -32,7 +32,6 @@ import com.simplemobiletools.contacts.pro.extensions.getTempFile
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
-import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
@@ -429,23 +428,20 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun exportContacts() {
         FilePickerDialog(this, pickFile = false, showFAB = true) {
-            ExportContactsDialog(this, it) { file, contactSources ->
-                Thread {
-                    ContactsHelper(this).getContacts { allContacts ->
-                        val contacts = allContacts.filter { contactSources.contains(it.source) }
-                        if (contacts.isEmpty()) {
-                            toast(R.string.no_entries_for_exporting)
-                        } else {
-                            VcfExporter().exportContacts(this, file, contacts as ArrayList<Contact>, true) { result ->
-                                toast(when (result) {
-                                    VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
-                                    VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
-                                    else -> R.string.exporting_failed
-                                })
-                            }
+            ExportContactsDialog(this, it) { file, ignoredContactSources ->
+                ContactsHelper(this).getContacts(ignoredContactSources) { contacts ->
+                    if (contacts.isEmpty()) {
+                        toast(R.string.no_entries_for_exporting)
+                    } else {
+                        VcfExporter().exportContacts(this, file, contacts, true) { result ->
+                            toast(when (result) {
+                                VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
+                                VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
+                                else -> R.string.exporting_failed
+                            })
                         }
                     }
-                }.start()
+                }
             }
         }
     }

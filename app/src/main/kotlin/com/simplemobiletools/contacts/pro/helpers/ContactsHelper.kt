@@ -28,11 +28,17 @@ class ContactsHelper(val context: Context) {
     private val BATCH_SIZE = 100
     private var displayContactSources = ArrayList<String>()
 
-    fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
+    fun getContacts(ignoredContactSources: HashSet<String>? = null, callback: (ArrayList<Contact>) -> Unit) {
         Thread {
             val contacts = SparseArray<Contact>()
             displayContactSources = context.getVisibleContactSources()
-            getDeviceContacts(contacts)
+            if (ignoredContactSources != null) {
+                displayContactSources = context.getAllContactSources().filter {
+                    !ignoredContactSources.contains(it.getFullIdentifier())
+                }.map { it.getFullIdentifier() }.toMutableList() as ArrayList
+            }
+
+            getDeviceContacts(contacts, ignoredContactSources)
 
             if (displayContactSources.contains(SMT_PRIVATE)) {
                 LocalContactsHelper(context).getAllContacts().forEach {
@@ -46,7 +52,7 @@ class ContactsHelper(val context: Context) {
             val resultContacts = ArrayList<Contact>(contactsSize)
 
             (0 until contactsSize).filter {
-                if (showOnlyContactsWithNumbers) {
+                if (ignoredContactSources == null && showOnlyContactsWithNumbers) {
                     contacts.valueAt(it).phoneNumbers.isNotEmpty()
                 } else {
                     true
@@ -55,7 +61,7 @@ class ContactsHelper(val context: Context) {
                 contacts.valueAt(it)
             }
 
-            if (context.config.filterDuplicates) {
+            if (ignoredContactSources == null && context.config.filterDuplicates) {
                 tempContacts = tempContacts.distinctBy {
                     it.getHashToCompare()
                 } as ArrayList<Contact>
@@ -127,12 +133,12 @@ class ContactsHelper(val context: Context) {
         }
     }
 
-    private fun getDeviceContacts(contacts: SparseArray<Contact>) {
+    private fun getDeviceContacts(contacts: SparseArray<Contact>, ignoredContactSources: HashSet<String>?) {
         if (!context.hasContactPermissions()) {
             return
         }
 
-        val ignoredSources = context.config.ignoredContactSources
+        val ignoredSources = ignoredContactSources ?: context.config.ignoredContactSources
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = getContactProjection()
 

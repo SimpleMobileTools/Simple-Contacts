@@ -304,13 +304,17 @@ fun Context.getContactPublicUri(contact: Contact): Uri {
 }
 
 fun Context.getVisibleContactSources(): ArrayList<String> {
+    val sources = getAllContactSources()
+    val ignoredContactSources = config.ignoredContactSources
+    return ArrayList(sources).filter { !ignoredContactSources.contains(it.getFullIdentifier()) }
+            .map { if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name }.toMutableList() as ArrayList<String>
+}
+
+fun Context.getAllContactSources(): List<ContactSource> {
     val sources = ContactsHelper(this).getDeviceContactSources()
     val phoneSecret = getString(R.string.phone_storage_hidden)
     sources.add(ContactSource(phoneSecret, SMT_PRIVATE, phoneSecret))
-    val ignoredContactSources = config.ignoredContactSources
-    val sourceNames = ArrayList(sources).filter { !ignoredContactSources.contains(it.getFullIdentifier()) }
-            .map { if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name }.toMutableList() as ArrayList<String>
-    return sourceNames
+    return sources.toMutableList()
 }
 
 @TargetApi(Build.VERSION_CODES.N)
