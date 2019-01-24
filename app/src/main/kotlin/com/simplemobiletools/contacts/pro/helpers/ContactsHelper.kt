@@ -845,8 +845,7 @@ class ContactsHelper(val context: Context) {
 
     private fun getContactSourcesSync(): ArrayList<ContactSource> {
         val sources = getDeviceContactSources()
-        val phoneSecret = context.getString(R.string.phone_storage_hidden)
-        sources.add(ContactSource(phoneSecret, SMT_PRIVATE, phoneSecret))
+        sources.add(context.getPrivateContactSource())
         return ArrayList(sources)
     }
 

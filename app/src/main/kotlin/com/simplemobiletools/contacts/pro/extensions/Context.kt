@@ -307,13 +307,12 @@ fun Context.getVisibleContactSources(): ArrayList<String> {
     val sources = getAllContactSources()
     val ignoredContactSources = config.ignoredContactSources
     return ArrayList(sources).filter { !ignoredContactSources.contains(it.getFullIdentifier()) }
-            .map { if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name }.toMutableList() as ArrayList<String>
+            .map { it.name }.toMutableList() as ArrayList<String>
 }
 
 fun Context.getAllContactSources(): List<ContactSource> {
     val sources = ContactsHelper(this).getDeviceContactSources()
-    val phoneSecret = getString(R.string.phone_storage_hidden)
-    sources.add(ContactSource(phoneSecret, SMT_PRIVATE, phoneSecret))
+    sources.add(getPrivateContactSource())
     return sources.toMutableList()
 }
 
@@ -372,3 +371,5 @@ fun Context.deleteBlockedNumber(number: String) {
 
 @TargetApi(Build.VERSION_CODES.M)
 fun Context.isDefaultDialer() = isMarshmallowPlus() && telecomManager.defaultDialerPackage == packageName
+
+fun Context.getPrivateContactSource() = ContactSource(SMT_PRIVATE, SMT_PRIVATE, getString(R.string.phone_storage_hidden))
