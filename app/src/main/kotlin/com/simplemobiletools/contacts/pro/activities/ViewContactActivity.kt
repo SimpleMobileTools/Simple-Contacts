@@ -148,6 +148,7 @@ class ViewContactActivity : ContactActivity() {
         contact_name_image.applyColorFilter(textColor)
         contact_numbers_image.applyColorFilter(textColor)
         contact_emails_image.applyColorFilter(textColor)
+        contact_addresses_image.applyColorFilter(textColor)
         contact_events_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
         contact_notes_image.applyColorFilter(textColor)
