@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
+import com.simplemobiletools.commons.extensions.applyColorFilter
 import com.simplemobiletools.commons.extensions.getColoredBitmap
 import com.simplemobiletools.commons.extensions.getContrastColor
 import com.simplemobiletools.commons.models.RadioItem
@@ -32,6 +33,10 @@ abstract class ContactActivity : SimpleActivity() {
     protected var currentContactPhotoPath = ""
 
     fun showPhotoPlaceholder(photoView: ImageView) {
+        val background = resources.getDrawable(R.drawable.contact_circular_background)
+        background.applyColorFilter(config.primaryColor)
+        photoView.background = background
+
         val placeholder = resources.getColoredBitmap(R.drawable.ic_person, config.primaryColor.getContrastColor())
         val padding = resources.getDimension(R.dimen.activity_margin).toInt()
         photoView.setPadding(padding, padding, padding, padding)
