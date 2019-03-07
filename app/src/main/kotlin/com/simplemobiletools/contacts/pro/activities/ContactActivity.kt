@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.graphics.Bitmap
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.provider.ContactsContract
 import android.widget.ImageView
@@ -53,9 +54,11 @@ abstract class ContactActivity : SimpleActivity() {
                 .load(bitmap ?: path)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .apply(options)
+                .apply(RequestOptions.circleCropTransform())
                 .listener(object : RequestListener<Drawable> {
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                         photoView.setPadding(0, 0, 0, 0)
+                        photoView.background = ColorDrawable(0)
                         return false
                     }
 

@@ -295,7 +295,12 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                                 .error(placeholderImage)
                                 .centerCrop()
 
-                        Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                        Glide.with(activity)
+                                .load(contact.photoUri)
+                                .transition(DrawableTransitionOptions.withCrossFade())
+                                .apply(options)
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(contact_tmb)
                     }
                     contact.photo != null -> {
                         val options = RequestOptions()
@@ -304,7 +309,12 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                                 .error(placeholderImage)
                                 .centerCrop()
 
-                        Glide.with(activity).load(contact.photo).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                        Glide.with(activity)
+                                .load(contact.photo)
+                                .transition(DrawableTransitionOptions.withCrossFade())
+                                .apply(options)
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(contact_tmb)
                     }
                     else -> contact_tmb.setImageDrawable(placeholderImage)
                 }
