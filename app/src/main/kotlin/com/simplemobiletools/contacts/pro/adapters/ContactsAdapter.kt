@@ -51,6 +51,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     var showPhoneNumbers: Boolean
 
     private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
+    private var mediumPadding = activity.resources.getDimension(R.dimen.medium_margin).toInt()
     private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
 
     init {
@@ -301,6 +302,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                                 .apply(options)
                                 .apply(RequestOptions.circleCropTransform())
                                 .into(contact_tmb)
+                        contact_tmb.setPadding(smallPadding, smallPadding, smallPadding, smallPadding)
                     }
                     contact.photo != null -> {
                         val options = RequestOptions()
@@ -315,8 +317,12 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                                 .apply(options)
                                 .apply(RequestOptions.circleCropTransform())
                                 .into(contact_tmb)
+                        contact_tmb.setPadding(smallPadding, smallPadding, smallPadding, smallPadding)
                     }
-                    else -> contact_tmb.setImageDrawable(placeholderImage)
+                    else -> {
+                        contact_tmb.setPadding(mediumPadding, mediumPadding, mediumPadding, mediumPadding)
+                        contact_tmb.setImageDrawable(placeholderImage)
+                    }
                 }
             }
         }
