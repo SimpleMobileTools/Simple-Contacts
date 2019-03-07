@@ -254,24 +254,47 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun checkShortcuts() {
         val appIconColor = config.appIconColor
         if (isNougatMR1Plus() && config.lastHandledShortcutColor != appIconColor) {
-            val newEvent = getString(R.string.dialpad)
+            val launchDialpad = getLaunchDialpadShortcut(appIconColor)
+            val createNewContact = getCreateNewContactShortcut(appIconColor)
+
             val manager = getSystemService(ShortcutManager::class.java)
-            val drawable = resources.getDrawable(R.drawable.shortcut_dialpad)
-            (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_dialpad_background).applyColorFilter(appIconColor)
-            val bmp = drawable.convertToBitmap()
-
-            val intent = Intent(this, DialpadActivity::class.java)
-            intent.action = Intent.ACTION_VIEW
-            val shortcut = ShortcutInfo.Builder(this, "launch_dialpad")
-                    .setShortLabel(newEvent)
-                    .setLongLabel(newEvent)
-                    .setIcon(Icon.createWithBitmap(bmp))
-                    .setIntent(intent)
-                    .build()
-
-            manager.dynamicShortcuts = Arrays.asList(shortcut)
+            manager.dynamicShortcuts = Arrays.asList(launchDialpad, createNewContact)
             config.lastHandledShortcutColor = appIconColor
         }
+    }
+
+    @SuppressLint("NewApi")
+    private fun getLaunchDialpadShortcut(appIconColor: Int): ShortcutInfo {
+        val newEvent = getString(R.string.dialpad)
+        val drawable = resources.getDrawable(R.drawable.shortcut_dialpad)
+        (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_dialpad_background).applyColorFilter(appIconColor)
+        val bmp = drawable.convertToBitmap()
+
+        val intent = Intent(this, DialpadActivity::class.java)
+        intent.action = Intent.ACTION_VIEW
+        return ShortcutInfo.Builder(this, "launch_dialpad")
+                .setShortLabel(newEvent)
+                .setLongLabel(newEvent)
+                .setIcon(Icon.createWithBitmap(bmp))
+                .setIntent(intent)
+                .build()
+    }
+
+    @SuppressLint("NewApi")
+    private fun getCreateNewContactShortcut(appIconColor: Int): ShortcutInfo {
+        val newEvent = getString(R.string.create_new_contact)
+        val drawable = resources.getDrawable(R.drawable.shortcut_plus)
+        (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_plus_background).applyColorFilter(appIconColor)
+        val bmp = drawable.convertToBitmap()
+
+        val intent = Intent(this, EditContactActivity::class.java)
+        intent.action = Intent.ACTION_VIEW
+        return ShortcutInfo.Builder(this, "create_new_contact")
+                .setShortLabel(newEvent)
+                .setLongLabel(newEvent)
+                .setIcon(Icon.createWithBitmap(bmp))
+                .setIntent(intent)
+                .build()
     }
 
     private fun getCurrentFragment(): MyViewPagerFragment? {
