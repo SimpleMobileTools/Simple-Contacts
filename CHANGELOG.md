@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.3.1 *(2019-03-07)*
+----------------------------
+
+ * Made contact avatars rounded and a bit bigger
+ * Added shortcuts for showing the dialpad or creating new contacts
+
 Version 6.3.0 *(2019-01-24)*
 ----------------------------
 
