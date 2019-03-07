@@ -37,7 +37,7 @@ abstract class ContactActivity : SimpleActivity() {
         background.applyColorFilter(config.primaryColor)
         photoView.background = background
 
-        val placeholder = resources.getColoredBitmap(R.drawable.ic_person, config.primaryColor.getContrastColor())
+        val placeholder = resources.getColoredBitmap(R.drawable.ic_person_biggest, config.primaryColor.getContrastColor())
         val padding = resources.getDimension(R.dimen.activity_margin).toInt()
         photoView.setPadding(padding, padding, padding, padding)
         photoView.setImageBitmap(placeholder)
