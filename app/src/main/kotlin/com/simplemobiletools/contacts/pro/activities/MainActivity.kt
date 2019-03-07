@@ -1,11 +1,16 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
+import android.graphics.drawable.LayerDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -37,6 +42,7 @@ import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.android.synthetic.main.fragment_groups.*
 import java.io.FileOutputStream
+import java.util.*
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isSearchOpen = false
@@ -155,6 +161,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         isFirstResume = false
+        checkShortcuts()
     }
 
     override fun onPause() {
@@ -241,6 +248,30 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 return true
             }
         })
+    }
+
+    @SuppressLint("NewApi")
+    private fun checkShortcuts() {
+        val appIconColor = config.appIconColor
+        if (isNougatMR1Plus() && config.lastHandledShortcutColor != appIconColor) {
+            val newEvent = getString(R.string.dialpad)
+            val manager = getSystemService(ShortcutManager::class.java)
+            val drawable = resources.getDrawable(R.drawable.shortcut_dialpad)
+            (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_dialpad_background).applyColorFilter(appIconColor)
+            val bmp = drawable.convertToBitmap()
+
+            val intent = Intent(this, DialpadActivity::class.java)
+            intent.action = Intent.ACTION_VIEW
+            val shortcut = ShortcutInfo.Builder(this, "launch_dialpad")
+                    .setShortLabel(newEvent)
+                    .setLongLabel(newEvent)
+                    .setIcon(Icon.createWithBitmap(bmp))
+                    .setIntent(intent)
+                    .build()
+
+            manager.dynamicShortcuts = Arrays.asList(shortcut)
+            config.lastHandledShortcutColor = appIconColor
+        }
     }
 
     private fun getCurrentFragment(): MyViewPagerFragment? {
