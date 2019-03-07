@@ -88,7 +88,6 @@
             android:layout_below="@+id/contact_photo"
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
             android:src="@drawable/ic_person"/>
 
@@ -195,7 +194,6 @@
             android:layout_alignTop="@+id/contact_numbers_holder"
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
             android:src="@drawable/ic_phone_big"/>
 
@@ -215,7 +213,6 @@
             android:layout_alignTop="@+id/contact_emails_holder"
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
             android:src="@drawable/ic_email"/>
 
@@ -235,7 +232,6 @@
             android:layout_alignTop="@+id/contact_addresses_holder"
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
             android:src="@drawable/ic_place"/>
 
@@ -255,7 +251,6 @@
             android:layout_alignTop="@+id/contact_ims_holder"
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
             android:src="@drawable/ic_im"/>
 
@@ -275,7 +270,6 @@
             android:layout_alignTop="@+id/contact_events_holder"
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
             android:src="@drawable/ic_cake"/>
 
@@ -294,7 +288,6 @@
             android:layout_alignTop="@+id/contact_notes"
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
             android:src="@drawable/ic_label"/>
 
@@ -319,7 +312,6 @@
             android:layout_alignTop="@+id/contact_organization_company"
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
             android:src="@drawable/ic_business"/>
 
@@ -358,7 +350,6 @@
             android:layout_alignTop="@+id/contact_websites_holder"
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
             android:src="@drawable/ic_link"/>
 
@@ -377,7 +368,6 @@
             android:layout_alignTop="@+id/contact_groups_holder"
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
             android:src="@drawable/ic_group"/>
 
@@ -397,7 +387,6 @@
             android:layout_alignTop="@+id/contact_source"
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
-            android:paddingRight="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
             android:src="@drawable/ic_account_box"/>
 
