@@ -258,8 +258,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             val createNewContact = getCreateNewContactShortcut(appIconColor)
 
             val manager = getSystemService(ShortcutManager::class.java)
-            manager.dynamicShortcuts = Arrays.asList(launchDialpad, createNewContact)
-            config.lastHandledShortcutColor = appIconColor
+            try {
+                manager.dynamicShortcuts = Arrays.asList(launchDialpad, createNewContact)
+                config.lastHandledShortcutColor = appIconColor
+            } catch (ignored: Exception) {
+            }
         }
     }
 
