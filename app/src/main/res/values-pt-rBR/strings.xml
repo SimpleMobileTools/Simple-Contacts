@@ -149,7 +149,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Um aplicativo para gerenciar os seus contatos, sem anúncios e com respeito à sua privacidade.</string>
+    <string name="app_short_description">Um aplicativo para gerenciar os seus contatos que respeita a sua privacidade.</string>
     <string name="app_long_description">
         Um aplicativo simples para criar ou gerenciar seus contatos a partir de qualquer origem. Os contatos podem ser armazenados apenas no seu dispositivo, mas também podem ser sincronizados através do Google ou outras contas. Seus contatos favoritos podem ser apresentados em uma lista separada.
 
