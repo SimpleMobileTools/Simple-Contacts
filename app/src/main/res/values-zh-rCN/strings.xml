@@ -1,0 +1,167 @@
+<resources>
+    <string name="app_name">简约通讯录</string>
+    <string name="app_launcher_name">简约通讯录</string>
+    <string name="address">地址</string>
+    <string name="inserting">添加中…</string>
+    <string name="updating">更新中…</string>
+    <string name="phone_storage">手机空间</string>
+    <string name="phone_storage_hidden">手机空间 (其他程序不可见)</string>
+    <string name="company">公司</string>
+    <string name="job_position">职位</string>
+    <string name="website">网站</string>
+    <string name="send_sms_to_contacts">发送短信给联系人</string>
+    <string name="send_email_to_contacts">发送电子邮件给联系人</string>
+    <string name="send_sms_to_group">发送短信给群组</string>
+    <string name="send_email_to_group">发送电子邮件给群组</string>
+    <string name="call_person">打电话给 %s</string>
+    <string name="request_the_required_permissions">请求必要的权限</string>
+    <string name="create_new_contact">建立新联系人</string>
+    <string name="add_to_existing_contact">添加至已存在的联系人</string>
+    <string name="must_make_default_dialer">你必须将这应用程序设为默认的拨号程序来使用黑名单。</string>
+    <string name="set_to_default">设为默认</string>
+
+    <!-- Placeholders -->
+    <string name="no_contacts_found">未发现联系人</string>
+    <string name="no_contacts_with_emails">未发现含有电子邮箱的联系人</string>
+    <string name="no_contacts_with_phone_numbers">未发现含有电话号码的联系人</string>
+
+    <string name="new_contact">新联系人</string>
+    <string name="edit_contact">编辑联系人</string>
+    <string name="select_contact">选择联系人</string>
+    <string name="select_contacts">选择联系人</string>
+    <string name="first_name">名字</string>
+    <string name="middle_name">中间名</string>
+    <string name="surname">姓氏</string>
+    <string name="nickname">昵称</string>
+
+    <!-- Groups -->
+    <string name="no_groups">没有群组</string>
+    <string name="create_new_group">建立一个新群组</string>
+    <string name="remove_from_group">从群组内移除</string>
+    <string name="no_group_participants">这群组是空白的</string>
+    <string name="add_contacts">添加联系人</string>
+    <string name="no_group_created">设备内没有联系人群组</string>
+    <string name="create_group">建立群组</string>
+    <string name="add_to_group">添加到群组</string>
+    <string name="create_group_under_account">在帐号下建立群组</string>
+
+    <!-- Photo -->
+    <string name="take_photo">拍照</string>
+    <string name="choose_photo">选择照片</string>
+    <string name="remove_photo">移除照片</string>
+
+    <!-- Settings -->
+    <string name="start_name_with_surname">姓氏在前</string>
+    <string name="show_phone_numbers">主页面显示电话号码</string>
+    <string name="show_contact_thumbnails">显示联系人缩图</string>
+    <string name="show_dialpad_button">在主页面显示拨号按钮</string>
+    <string name="on_contact_click">点击联系人</string>
+    <string name="call_contact">打电话给联系人</string>
+    <string name="view_contact">显示联系人资料</string>
+    <string name="manage_shown_contact_fields">管理显示的联系人栏位</string>
+    <string name="filter_duplicates">试着过滤重复的联系人</string>
+    <string name="manage_shown_tabs">管理显示的页面</string>
+    <string name="contacts">联系人</string>
+    <string name="favorites">我的收藏</string>
+    <string name="show_call_confirmation_dialog">开始通话前显示通话确认框</string>
+    <string name="show_only_contacts_with_numbers">只显示含有电话话码的联系人</string>
+    <string name="show_dialpad_letters">在拨号界面上显示字母</string>
+
+    <!-- Emails -->
+    <string name="email">电子邮箱</string>
+    <string name="home">住家</string>
+    <string name="work">工作</string>
+    <string name="other">其它</string>
+
+    <!-- Phone numbers -->
+    <string name="number">号码</string>
+    <string name="mobile">手机</string>
+    <string name="main_number">主用</string>
+    <string name="work_fax">工作传真</string>
+    <string name="home_fax">住家传真</string>
+    <string name="pager">呼叫器</string>
+    <string name="no_phone_number_found">未发现电话号码</string>
+
+    <!-- Events -->
+    <string name="birthday">生日</string>
+    <string name="anniversary">纪念日</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">你似乎还没加入任何我的收藏联系人。</string>
+    <string name="add_favorites">添加我的收藏</string>
+    <string name="add_to_favorites">加入我的收藏</string>
+    <string name="remove_from_favorites">从我的收藏移除</string>
+    <string name="must_be_at_edit">你必须在编辑页面去修改联系人</string>
+
+    <!-- Search -->
+    <string name="search_contacts">搜索联系人</string>
+    <string name="search_favorites">搜索我的收藏</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">导入联系人</string>
+    <string name="export_contacts">导出联系人</string>
+    <string name="import_contacts_from_vcf">从.vcf文件导入联系人</string>
+    <string name="export_contacts_to_vcf">导出联系人成.vcf文件</string>
+    <string name="target_contact_source">联系人来源</string>
+    <string name="include_contact_sources">包含联系人来源</string>
+    <string name="filename_without_vcf">文件名称 (不含.vcf)</string>
+
+    <!-- Dialpad -->
+    <string name="dialpad">拨号界面</string>
+    <string name="add_number_to_contact">添加号码至通讯录</string>
+
+    <!-- Dialer -->
+    <string name="dialer">拨号器</string>
+    <string name="calling">拨号中</string>
+    <string name="incoming_call">来电</string>
+    <string name="incoming_call_from">通话来自于…</string>
+    <string name="ongoing_call">持续通话</string>
+    <string name="disconnected">未接电话</string>
+    <string name="decline_call">挂断电话</string>
+    <string name="answer_call">回拨</string>
+
+    <!-- Visible fields -->
+    <string name="select_fields_to_show">选择要显示的栏位</string>
+    <string name="prefix">前缀</string>
+    <string name="suffix">后缀</string>
+    <string name="phone_numbers">电话号码</string>
+    <string name="emails">电子邮箱</string>
+    <string name="addresses">地址</string>
+    <string name="events">活动 (生日、纪念日)</string>
+    <string name="notes">笔记</string>
+    <string name="organization">组织</string>
+    <string name="websites">网站</string>
+    <string name="groups">群组</string>
+    <string name="contact_source">联系人来源</string>
+    <string name="instant_messaging">即时通讯 (IM)</string>
+
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">管理黑名单</string>
+    <string name="not_blocking_anyone">你的黑名单为空</string>
+    <string name="add_a_blocked_number">添加黑名单号码</string>
+    <string name="block_number">加入黑名单</string>
+    <string name="block_numbers">加入黑名单</string>
+    <string name="blocked_numbers">黑名单</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">我想要更改在通讯录会看到哪些栏位。我能这么做吗?</string>
+    <string name="faq_1_text">可以，你要做的是到[设置] -> [管理显示的联系人栏位]。在那里，你可以选择应该看到什么栏位。其中有些甚至默认是关闭的，所以你可能会在那里发现一些新的。</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">一个没有广告的通讯录应用程序，用来管理联系人，并且尊重您的隐私。</string>
+    <string name="app_long_description">
+        一个用来从任何来源建立或管理联系人的简约应用程序。联系人只能储存于你的设备上，不过也能透过Google或其他帐号来同步。你能将我的收藏联系人显示在独立名单上。
+
+        你也能用来管理使用者信箱和活动。它能够以多项参数来排序/筛选，以及选择将姓氏显示在名字前面。
+
+        不包含广告及非必要的权限，而且完全开放源代码，并提供自定义颜色。
+
+        这程序只是一系列众多应用程序的其中一项，你可以在这发现更多 https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
