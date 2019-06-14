@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/contact_item_with_number_height"
         android:paddingTop="@dimen/tiny_margin"
+        android:paddingStart="@dimen/activity_margin"
         android:paddingEnd="@dimen/activity_margin">
 
         <ImageView

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:paddingEnd="@dimen/activity_margin">
+        android:paddingEnd="@dimen/activity_margin"
+        android:paddingStart="@dimen/activity_margin">
 
         <ImageView
             android:id="@+id/new_contact_tmb"

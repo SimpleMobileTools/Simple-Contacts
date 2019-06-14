@@ -14,6 +14,7 @@
         android:id="@+id/group_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="@dimen/activity_margin"
         android:paddingEnd="@dimen/activity_margin">
 
         <ImageView
