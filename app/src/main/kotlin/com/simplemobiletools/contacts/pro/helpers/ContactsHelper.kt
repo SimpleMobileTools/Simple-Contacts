@@ -1250,6 +1250,7 @@ class ContactsHelper(val context: Context) {
                 withValue(ContactsContract.RawContacts.ACCOUNT_NAME, contact.source)
                 withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, getContactSourceType(contact.source))
                 withValue(ContactsContract.RawContacts.DIRTY, 0)
+                withValue(ContactsContract.RawContacts.DELETED, 0)
                 operations.add(build())
             }
 
