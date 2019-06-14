@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.3.2 *(2019-06-14)*
+----------------------------
+
+ * Fixed not all fields being properly exported in .vcf files
+ * Couple stability and translation improvements
+
 Version 6.3.1 *(2019-03-07)*
 ----------------------------
 
