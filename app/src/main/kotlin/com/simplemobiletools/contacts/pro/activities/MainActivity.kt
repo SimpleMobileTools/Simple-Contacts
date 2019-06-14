@@ -527,13 +527,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             viewpager.currentItem = config.lastUsedViewPagerPage
         }
 
-        ContactsHelper(this).getContacts {
+        ContactsHelper(this).getContacts { contacts ->
             isGettingContacts = false
             if (isDestroyed) {
                 return@getContacts
             }
 
-            val contacts = it
             if (refreshTabsMask and CONTACTS_TAB_MASK != 0) {
                 contacts_fragment?.refreshContacts(contacts)
             }

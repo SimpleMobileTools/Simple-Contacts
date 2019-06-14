@@ -28,11 +28,11 @@ class ContactsHelper(val context: Context) {
     private val BATCH_SIZE = 100
     private var displayContactSources = ArrayList<String>()
 
-    fun getContacts(ignoredContactSources: HashSet<String>? = null, callback: (ArrayList<Contact>) -> Unit) {
+    fun getContacts(ignoredContactSources: HashSet<String> = HashSet(), callback: (ArrayList<Contact>) -> Unit) {
         Thread {
             val contacts = SparseArray<Contact>()
             displayContactSources = context.getVisibleContactSources()
-            if (ignoredContactSources != null) {
+            if (ignoredContactSources.isNotEmpty()) {
                 displayContactSources = context.getAllContactSources().filter {
                     !ignoredContactSources.contains(it.getFullIdentifier())
                 }.map { it.getFullIdentifier() }.toMutableList() as ArrayList
@@ -52,7 +52,7 @@ class ContactsHelper(val context: Context) {
             val resultContacts = ArrayList<Contact>(contactsSize)
 
             (0 until contactsSize).filter {
-                if (ignoredContactSources == null && showOnlyContactsWithNumbers) {
+                if (ignoredContactSources.isEmpty() && showOnlyContactsWithNumbers) {
                     contacts.valueAt(it).phoneNumbers.isNotEmpty()
                 } else {
                     true
@@ -61,7 +61,7 @@ class ContactsHelper(val context: Context) {
                 contacts.valueAt(it)
             }
 
-            if (ignoredContactSources == null && context.config.filterDuplicates) {
+            if (ignoredContactSources.isEmpty() && context.config.filterDuplicates) {
                 tempContacts = tempContacts.distinctBy {
                     it.getHashToCompare()
                 } as ArrayList<Contact>
