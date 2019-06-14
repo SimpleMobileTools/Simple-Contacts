@@ -30,7 +30,7 @@ class VcfExporter {
     private var contactsFailed = 0
 
     fun exportContacts(activity: BaseSimpleActivity, file: File, contacts: ArrayList<Contact>, showExportingToast: Boolean, callback: (result: ExportResult) -> Unit) {
-        activity.getFileOutputStream(file.toFileDirItem(activity), true) {
+        activity.getFileOutputStream(file.toFileDirItem(), true) {
             try {
                 if (it == null) {
                     callback(EXPORT_FAIL)
