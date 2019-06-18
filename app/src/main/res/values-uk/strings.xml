@@ -138,7 +138,7 @@
     <!-- Blocked numbers -->
     <string name="manage_blocked_numbers">Керувати блокованими номерами</string>
     <string name="not_blocking_anyone">Немає блокованих номерів.</string>
-    <string name="add_a_blocked_number">Додати блокований номер</string>
+    <string name="add_a_blocked_number">Додати номер до блокованих</string>
     <string name="block_number">Блокувати номер</string>
     <string name="block_numbers">Блокувати номери</string>
     <string name="blocked_numbers">Заблоковані номери</string>
@@ -149,7 +149,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Додаток для керування вашими контактами, без реклами, поважає вашу приватність.</string>
+    <string name="app_short_description">Додаток для керування вашими контактами, без реклами, з увагою на приватності.</string>
     <string name="app_long_description">
         Простий додаток для створення або керування вашими контактами з будь-якого джерела. Контакти можна зберігати лише на вашому пристроєві, а також синхронізувати з допомогою Google чи інших служб. Ви можете розмістити ваші улюблені контакти в окремому списку.
 
