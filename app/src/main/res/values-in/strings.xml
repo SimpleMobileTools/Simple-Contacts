@@ -107,11 +107,11 @@
     <string name="filename_without_vcf">Nama berkas (tanpa .vcf)</string>
 
     <!-- Dialpad -->
-    <string name="dialpad">Tombol dial</string>
+    <string name="dialpad">Telepon</string>
     <string name="add_number_to_contact">Tambah nomor ke kontak</string>
 
     <!-- Dialer -->
-    <string name="dialer">Dialer</string>
+    <string name="dialer">Telepon</string>
     <string name="calling">Memanggil</string>
     <string name="incoming_call">Panggilan masuk</string>
     <string name="incoming_call_from">Panggilan masuk dari…</string>
