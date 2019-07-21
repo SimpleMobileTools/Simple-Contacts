@@ -145,7 +145,8 @@
 
     <!-- FAQ -->
     <string name="faq_1_title">Haluan muuttaa sitä mitkä palkit ovat näkyviä kontakteissa. Onko tämä mahdollista?</string>
-    <string name="faq_1_text">Kyllä, mene asetuksiin -> Muuta näytettyjä kontaktialueita. Siellä voit valita mitkä palkit haluat näkyviin. Jotkin niistä ovat piilossa oletuksena, joten saatat löytää sieltä uusia.
+    <string name="faq_1_text">Kyllä, mene asetuksiin -> Muuta näytettyjä kontaktialueita. Siellä voit valita mitkä palkit haluat näkyviin. Jotkin niistä ovat piilossa oletuksena, joten saatat löytää sieltä uusia.</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
