@@ -1,0 +1,167 @@
+<resources>
+    <string name="app_name">Simple Contacts</string>
+    <string name="app_launcher_name">Kontakter</string>
+    <string name="address">Adresse</string>
+    <string name="inserting">Indsætter…</string>
+    <string name="updating">Opdaterer…</string>
+    <string name="phone_storage">Telefon lager</string>
+    <string name="phone_storage_hidden">Telefon lager (ikke synlig for andre apps)</string>
+    <string name="company">Firma</string>
+    <string name="job_position">Stilling</string>
+    <string name="website">Hjemmeside</string>
+    <string name="send_sms_to_contacts">Send SMS til kontakter</string>
+    <string name="send_email_to_contacts">Send email til kontakter</string>
+    <string name="send_sms_to_group">Send SMS til gruppe</string>
+    <string name="send_email_to_group">Send email til gruppe</string>
+    <string name="call_person">Ring til %s</string>
+    <string name="request_the_required_permissions">Anmod om de krævede tilladelser</string>
+    <string name="create_new_contact">Opret ny kontakt</string>
+    <string name="add_to_existing_contact">Tilføj til en eksisterende kontakt/string>
+    <string name="must_make_default_dialer">Du skal gøre denne app til standardopkaldsappen for at gøre brug af blokerede numre.</string>
+    <string name="set_to_default">Gør til standard</string>
+
+    <!-- Placeholders -->
+    <string name="no_contacts_found">Ingen kontakter fundet</string>
+    <string name="no_contacts_with_emails">Ingen kontakter med emails fundet</string>
+    <string name="no_contacts_with_phone_numbers">Ingen kontakter med telefonnumre fundet</string>
+
+    <string name="new_contact">Ny kontakt</string>
+    <string name="edit_contact">Redigér kontakt</string>
+    <string name="select_contact">Vælg kontakt</string>
+    <string name="select_contacts">Vælg kontakter</string>
+    <string name="first_name">Fornavn</string>
+    <string name="middle_name">Mellemnavn</string>
+    <string name="surname">Efternavn</string>
+    <string name="nickname">Kaldenavn</string>
+
+    <!-- Groups -->
+    <string name="no_groups">Ingen grupper</string>
+    <string name="create_new_group">Oret en ny gruppe</string>
+    <string name="remove_from_group">Fjern fra gruppe</string>
+    <string name="no_group_participants">Denne gruppe er tom</string>
+    <string name="add_contacts">Tilføj kontakter</string>
+    <string name="no_group_created">Der er ingen kontaktgrupper på enheden</string>
+    <string name="create_group">Opret gruppe</string>
+    <string name="add_to_group">Tilføj til gruppe</string>
+    <string name="create_group_under_account">Opret gruppe under konto</string>
+
+    <!-- Photo -->
+    <string name="take_photo">Tag foto</string>
+    <string name="choose_photo">Vælg foto</string>
+    <string name="remove_photo">Fjern foto</string>
+
+    <!-- Settings -->
+    <string name="start_name_with_surname">Start navn med efternavn</string>
+    <string name="show_phone_numbers">Vis telefonnumre på hovedskærmen</string>
+    <string name="show_contact_thumbnails">Vis kontakt miniature-billede</string>
+    <string name="show_dialpad_button">Vis en opkaldstasteknap på hovedskærmen</string>
+    <string name="on_contact_click">Ved klik på kontakt</string>
+    <string name="call_contact">Ring til kontakt</string>
+    <string name="view_contact">Vis kontakt detaljer</string>
+    <string name="manage_shown_contact_fields">Administrer viste kontaktfelter</string>
+    <string name="filter_duplicates">Prøv at filtrere dupletter</string>
+    <string name="manage_shown_tabs">Administrer viste faner</string>
+    <string name="contacts">Kontakter</string>
+    <string name="favorites">Favoritter</string>
+    <string name="show_call_confirmation_dialog">Vis en opkaldsbekræftelsesdialog før du starter et opkald</string>
+    <string name="show_only_contacts_with_numbers">Vis kun kontakter med telefonnumre</string>
+    <string name="show_dialpad_letters">Vis bogstaver på tastaturet</string>
+
+    <!-- Emails -->
+    <string name="email">Email</string>
+    <string name="home">Hjem</string>
+    <string name="work">Arbejde</string>
+    <string name="other">Andet</string>
+
+    <!-- Phone numbers -->
+    <string name="number">Nummer</string>
+    <string name="mobile">Mobil</string>
+    <string name="main_number">Hovednummer</string>
+    <string name="work_fax">Arbejdsfax</string>
+    <string name="home_fax">Hjemmefax</string>
+    <string name="pager">Pager</string>
+    <string name="no_phone_number_found">Intet telefonnummer er fundet</string>
+
+    <!-- Events -->
+    <string name="birthday">Fødselsdag</string>
+    <string name="anniversary">Jubilæum</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">Det ser ud til, at du ikke har tilføjet nogen favoritkontakter endnu.</string>
+    <string name="add_favorites">Tilføj favoritter</string>
+    <string name="add_to_favorites">Tilføj til favoritter</string>
+    <string name="remove_from_favorites">Fjern fra favoritter</string>
+    <string name="must_be_at_edit">Du skal være på skærmen Rediger for at ændre en kontakt</string>
+
+    <!-- Search -->
+    <string name="search_contacts">Søg kontakter</string>
+    <string name="search_favorites">Søg favoritter</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">Import kontakter</string>
+    <string name="export_contacts">Eksport kontakter</string>
+    <string name="import_contacts_from_vcf">Import kontakter fra en .vcf fil</string>
+    <string name="export_contacts_to_vcf">Eksport kontakter til en .vcf fil</string>
+    <string name="target_contact_source">Kontaktskilde</string>
+    <string name="include_contact_sources">Medtag kontaktkilder</string>
+    <string name="filename_without_vcf">Filnavn (uden .vcf)</string>
+
+    <!-- Dialpad -->
+    <string name="dialpad">Tastatur</string>
+    <string name="add_number_to_contact">Tilføj nummer til kontakt</string>
+
+    <!-- Dialer -->
+    <string name="dialer">Dialer</string>
+    <string name="calling">Ringer</string>
+    <string name="incoming_call">Indkommende opkald call</string>
+    <string name="incoming_call_from">Indkommende opkald fra…</string>
+    <string name="ongoing_call">Igangværende opkald</string>
+    <string name="disconnected">Afbrudt</string>
+    <string name="decline_call">Afvis</string>
+    <string name="answer_call">Besvar</string>
+
+    <!-- Visible fields -->
+    <string name="select_fields_to_show">Vælg felter der skal vises</string>
+    <string name="prefix">Præfiks</string>
+    <string name="suffix">Suffiks</string>
+    <string name="phone_numbers">Telefonnumre</string>
+    <string name="emails">Emails</string>
+    <string name="addresses">Adresser</string>
+    <string name="events">Begivenheder (fødselsdage, jubilæer)</string>
+    <string name="notes">Noter</string>
+    <string name="organization">Organisation</string>
+    <string name="websites">Hjemmesider</string>
+    <string name="groups">Groupper</string>
+    <string name="contact_source">Kontaktkilde</string>
+    <string name="instant_messaging">Instant messaging (IM)</string>
+
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Administrér blokerede numre</string>
+    <string name="not_blocking_anyone">Du blokerer ikke nogen</string>
+    <string name="add_a_blocked_number">Tilføj et blokeret nummer</string>
+    <string name="block_number">Blokér nummer</string>
+    <string name="block_numbers">Blokér numre</string>
+    <string name="blocked_numbers">Blokerede numre</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Jeg vil ændre, hvilke felter der er synlige ved kontakter. Kan jeg gøre det?</string>
+    <string name="faq_1_text">Ja, alt hvad du skal gøre er at gå i Indstillinger -> Administrer viste kontaktfelter. Der kan du vælge, hvilke felter der skal være synlige. Nogle af dem er endda deaktiveret som standard, så du kan muligvis finde nogle nye der.</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">En app til dine kontakter, uden annoncer og med respekt for dit privatliv.</string>
+    <string name="app_long_description">
+        En simpel app til at oprette eller administrere dine kontakter fra enhver kilde. Kontakterne kan gemmes kun på din enhed, eller synkroniseres via Google eller andre konti. Du kan vise dine foretrukne kontakter på en separat liste. 
+
+        Du kan også bruge den til at styre bruger-emails og begivenheder. Den har muligheden for at sortere / filtrere efter flere parametre, og vise efternavn eller fornavn først. 
+
+        Indeholder ingen annoncer eller unødvendige tilladelser. Det er fuldstændigt opensource. Appens farver kan tilpasses.
+
+        Denne app er kun en af en større række af apps. Du kan finde resten af dem på https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
