@@ -84,7 +84,7 @@
 
     <!-- Events -->
     <string name="birthday">Fødselsdag</string>
-    <string name="anniversary">Jubilæum</string>
+    <string name="anniversary">Årsdag</string>
 
     <!-- Favorites -->
     <string name="no_favorites">Det ser ud til, at du ikke har tilføjet nogen favoritkontakter endnu.</string>
@@ -127,7 +127,7 @@
     <string name="phone_numbers">Telefonnumre</string>
     <string name="emails">Emails</string>
     <string name="addresses">Adresser</string>
-    <string name="events">Begivenheder (fødselsdage, jubilæer)</string>
+    <string name="events">Begivenheder (fødselsdage, årsdage)</string>
     <string name="notes">Noter</string>
     <string name="organization">Organisation</string>
     <string name="websites">Hjemmesider</string>
