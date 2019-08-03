@@ -31,6 +31,11 @@ class ViewContactActivity : ContactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_contact)
+
+        if (checkAppSideloading()) {
+            return
+        }
+
         showFields = config.showContactFields
     }
 

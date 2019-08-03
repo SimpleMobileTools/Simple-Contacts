@@ -59,6 +59,11 @@ class EditContactActivity : ContactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_contact)
+
+        if (checkAppSideloading()) {
+            return
+        }
+
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross)
 
         val action = intent.action

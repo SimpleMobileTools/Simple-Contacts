@@ -4,10 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
-import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.toast
-import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
@@ -24,6 +21,11 @@ class InsertOrEditContactActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insert_edit_contact)
+
+        if (checkAppSideloading()) {
+            return
+        }
+
         title = getString(R.string.select_contact)
         setupViews()
 
