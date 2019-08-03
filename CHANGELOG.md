@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.3.3 *(2019-08-03)*
+----------------------------
+
+ * Allow customizing the bottom navigation bar color
+ * Some smaller translation and misc improvements
+
 Version 6.3.2 *(2019-06-14)*
 ----------------------------
 
