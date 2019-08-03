@@ -51,12 +51,12 @@ android {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:5.13.14'
+    implementation 'com.simplemobiletools:commons:5.15.22'
     implementation 'joda-time:joda-time:2.10.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.5'
 
-    kapt "androidx.room:room-compiler:2.0.0"
-    implementation "androidx.room:room-runtime:2.0.0"
-    annotationProcessor "androidx.room:room-compiler:2.0.0"
+    kapt "androidx.room:room-compiler:2.1.0"
+    implementation "androidx.room:room-runtime:2.1.0"
+    annotationProcessor "androidx.room:room-compiler:2.1.0"
 }
