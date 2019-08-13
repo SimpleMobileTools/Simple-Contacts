@@ -162,6 +162,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         isFirstResume = false
         checkShortcuts()
+        invalidateOptionsMenu()
     }
 
     override fun onPause() {
