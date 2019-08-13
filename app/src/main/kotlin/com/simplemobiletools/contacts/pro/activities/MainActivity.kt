@@ -153,7 +153,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         }
 
-        val dialpadIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad_vector, if (isBlackAndWhiteTheme()) Color.BLACK else Color.WHITE)
+        val dialpadIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad_vector, if (isBlackAndWhiteTheme()) Color.BLACK else config.primaryColor.getContrastColor())
         main_dialpad_button.apply {
             setImageDrawable(dialpadIcon)
             background.applyColorFilter(getAdjustedPrimaryColor())

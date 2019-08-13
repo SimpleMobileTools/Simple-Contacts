@@ -60,7 +60,7 @@ class DialpadActivity : SimpleActivity() {
         ContactsHelper(this).getContacts { gotContacts(it) }
         disableKeyboardPopping()
 
-        val callIcon = resources.getColoredDrawableWithColor(R.drawable.ic_phone_vector, if (isBlackAndWhiteTheme()) Color.BLACK else Color.WHITE)
+        val callIcon = resources.getColoredDrawableWithColor(R.drawable.ic_phone_vector, if (isBlackAndWhiteTheme()) Color.BLACK else config.primaryColor.getContrastColor())
         dialpad_call_button.setImageDrawable(callIcon)
         dialpad_call_button.background.applyColorFilter(getAdjustedPrimaryColor())
 
