@@ -35,7 +35,7 @@
         android:layout_marginTop="@dimen/medium_margin"
         android:background="@drawable/button_background"
         android:padding="@dimen/medium_margin"
-        android:src="@drawable/ic_minus"
+        android:src="@drawable/ic_minus_vector"
         android:visibility="gone"/>
 
 </RelativeLayout>

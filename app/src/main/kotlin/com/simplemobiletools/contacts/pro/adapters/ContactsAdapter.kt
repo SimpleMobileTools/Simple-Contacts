@@ -127,7 +127,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     private fun getItemWithKey(key: Int): Contact? = contactItems.firstOrNull { it.id == key }
 
     fun initDrawables() {
-        contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person, textColor)
+        contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person_vector, textColor)
         businessContactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_business, textColor)
     }
 

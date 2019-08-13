@@ -57,6 +57,7 @@ class SelectContactActivity : SimpleActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_select_activity, menu)
+        updateMenuItemColors(menu)
         return true
     }
 

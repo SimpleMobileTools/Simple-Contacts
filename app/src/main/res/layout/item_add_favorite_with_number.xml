@@ -21,7 +21,7 @@
             android:layout_height="@dimen/normal_icon_size"
             android:layout_centerVertical="true"
             android:padding="@dimen/medium_margin"
-            android:src="@drawable/ic_person"/>
+            android:src="@drawable/ic_person_vector"/>
 
         <TextView
             android:id="@+id/contact_name"
@@ -33,8 +33,8 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingStart="@dimen/small_margin"
-            android:paddingEnd="@dimen/small_margin"
             android:paddingTop="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
             android:textSize="@dimen/bigger_text_size"
             tools:text="John Doe"/>
 
@@ -42,8 +42,8 @@
             android:id="@+id/contact_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/contact_name"
             android:layout_below="@+id/contact_name"
+            android:layout_alignStart="@+id/contact_name"
             android:layout_toStartOf="@+id/contact_checkbox"
             android:layout_toEndOf="@+id/contact_tmb"
             android:maxLines="1"

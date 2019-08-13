@@ -33,7 +33,7 @@
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/tiny_margin"
-            android:src="@drawable/ic_star_off_big"
+            android:src="@drawable/ic_star_off_vector"
             android:visibility="gone"/>
 
         <LinearLayout
@@ -53,7 +53,7 @@
                 android:paddingLeft="@dimen/activity_margin"
                 android:paddingRight="@dimen/activity_margin"
                 android:scaleType="center"
-                android:src="@drawable/ic_email_big"/>
+                android:src="@drawable/ic_email_vector"/>
 
             <ImageView
                 android:id="@+id/contact_start_call"
@@ -65,7 +65,7 @@
                 android:paddingStart="@dimen/activity_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:scaleType="center"
-                android:src="@drawable/ic_phone_big"/>
+                android:src="@drawable/ic_phone_vector"/>
 
             <ImageView
                 android:id="@+id/contact_send_sms"
@@ -77,7 +77,7 @@
                 android:paddingStart="@dimen/activity_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:scaleType="center"
-                android:src="@drawable/ic_sms_big"/>
+                android:src="@drawable/ic_sms_vector"/>
 
         </LinearLayout>
 
@@ -89,7 +89,7 @@
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
-            android:src="@drawable/ic_person"/>
+            android:src="@drawable/ic_person_vector"/>
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/contact_prefix"
@@ -195,7 +195,7 @@
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
-            android:src="@drawable/ic_phone_big"/>
+            android:src="@drawable/ic_phone_vector"/>
 
         <LinearLayout
             android:id="@+id/contact_numbers_holder"
@@ -214,7 +214,7 @@
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
-            android:src="@drawable/ic_email"/>
+            android:src="@drawable/ic_email_vector"/>
 
         <LinearLayout
             android:id="@+id/contact_emails_holder"
@@ -233,7 +233,7 @@
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
-            android:src="@drawable/ic_place"/>
+            android:src="@drawable/ic_place_vector"/>
 
         <LinearLayout
             android:id="@+id/contact_addresses_holder"
@@ -289,7 +289,7 @@
             android:paddingTop="@dimen/medium_margin"
             android:paddingEnd="@dimen/small_margin"
             android:paddingBottom="@dimen/small_margin"
-            android:src="@drawable/ic_label"/>
+            android:src="@drawable/ic_label_vector"/>
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/contact_notes"

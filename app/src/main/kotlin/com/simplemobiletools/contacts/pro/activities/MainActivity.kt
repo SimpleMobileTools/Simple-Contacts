@@ -185,8 +185,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             findItem(R.id.search).isVisible = currentFragment != groups_fragment
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
+            setupSearch(this)
+            updateMenuItemColors(this)
         }
-        setupSearch(menu)
+
         return true
     }
 
@@ -407,8 +409,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun getTabIcon(position: Int): Drawable {
         val drawableId = when (position) {
-            LOCATION_CONTACTS_TAB -> R.drawable.ic_person
-            LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on
+            LOCATION_CONTACTS_TAB -> R.drawable.ic_person_vector
+            LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on_vector
             else -> R.drawable.ic_group
         }
 

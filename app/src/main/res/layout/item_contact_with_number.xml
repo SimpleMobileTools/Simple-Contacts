@@ -22,7 +22,7 @@
             android:layout_width="@dimen/normal_icon_size"
             android:layout_height="match_parent"
             android:padding="@dimen/medium_margin"
-            android:src="@drawable/ic_person"/>
+            android:src="@drawable/ic_person_vector"/>
 
         <TextView
             android:id="@+id/contact_name"

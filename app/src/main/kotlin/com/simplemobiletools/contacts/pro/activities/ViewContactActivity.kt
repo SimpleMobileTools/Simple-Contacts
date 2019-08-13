@@ -64,6 +64,7 @@ class ViewContactActivity : ContactActivity() {
         menuInflater.inflate(R.menu.menu_view_contact, menu)
         menu.apply {
             findItem(R.id.open_with).isVisible = contact?.isPrivate() == false
+            updateMenuItemColors(this)
         }
         return true
     }
@@ -465,7 +466,7 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_big else R.drawable.ic_star_off_big)
+    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_vector else R.drawable.ic_star_off_vector)
 
     private fun View.copyOnLongClick(value: String) {
         setOnLongClickListener {

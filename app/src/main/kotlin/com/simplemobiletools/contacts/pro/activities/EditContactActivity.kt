@@ -64,8 +64,6 @@ class EditContactActivity : ContactActivity() {
             return
         }
 
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross)
-
         val action = intent.action
         isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT || action == ADD_NEW_CONTACT_NUMBER
         val isFromSimpleContacts = intent.getBooleanExtra(IS_FROM_SIMPLE_CONTACTS, false)
@@ -97,6 +95,8 @@ class EditContactActivity : ContactActivity() {
             menu.findItem(R.id.share).isVisible = contact?.id != 0
             menu.findItem(R.id.open_with).isVisible = contact?.id != 0 && contact?.isPrivate() == false
         }
+
+        updateMenuItemColors(menu, true)
         return true
     }
 
@@ -384,7 +384,7 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupEditContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-        supportActionBar?.title = resources.getString(R.string.edit_contact)
+        updateActionBarTitle(resources.getString(R.string.edit_contact))
 
         setupNames()
         setupPhoneNumbers()
@@ -581,7 +581,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupNewContact() {
-        supportActionBar?.title = resources.getString(R.string.new_contact)
+        updateActionBarTitle(resources.getString(R.string.new_contact))
         originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
         contact = getEmptyContact()
         getPublicContactSource(contact!!.source) {
@@ -1094,7 +1094,7 @@ class EditContactActivity : ContactActivity() {
 
     private fun isContactStarred() = contact_toggle_favorite.tag == 1
 
-    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_big else R.drawable.ic_star_off_big)
+    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_vector else R.drawable.ic_star_off_vector)
 
     private fun trySetPhoto() {
         val items = arrayListOf(

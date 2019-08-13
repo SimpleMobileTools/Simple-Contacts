@@ -78,6 +78,7 @@ class DialpadActivity : SimpleActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_dialpad, menu)
+        updateMenuItemColors(menu)
         return true
     }
 
