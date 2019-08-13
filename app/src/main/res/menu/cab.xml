@@ -18,7 +18,7 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/cab_add_to_group"
-        android:icon="@drawable/ic_group_add"
+        android:icon="@drawable/ic_group_add_vector"
         android:title="@string/add_to_group"
         app:showAsAction="ifRoom"/>
     <item

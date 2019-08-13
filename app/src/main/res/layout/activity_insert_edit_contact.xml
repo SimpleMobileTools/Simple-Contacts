@@ -20,7 +20,7 @@
             android:layout_alignTop="@+id/new_contact_name"
             android:layout_alignBottom="@+id/new_contact_name"
             android:padding="@dimen/medium_margin"
-            android:src="@drawable/ic_new_contact"/>
+            android:src="@drawable/ic_new_contact_vector"/>
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/new_contact_name"

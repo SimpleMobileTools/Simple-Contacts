@@ -45,7 +45,7 @@ class InsertOrEditContactActivity : SimpleActivity() {
 
     private fun setupViews() {
         updateTextColors(insert_edit_contact_holder)
-        new_contact_tmb.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_new_contact, config.textColor))
+        new_contact_tmb.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_new_contact_vector, config.textColor))
         new_contact_holder.setOnClickListener {
             Intent().apply {
                 action = Intent.ACTION_INSERT
