@@ -18,7 +18,7 @@
     <string name="create_new_contact">Skapa ny kontakt</string>
     <string name="add_to_existing_contact">Lägg till i en befintlig kontakt</string>
     <string name="must_make_default_dialer">Du måste ställa in den här appen som standardtelefonapp för att kunna använda blockerade nummer.</string>
-    <string name="set_to_default">Ange som standard</string>
+    <string name="set_as_default">Ange som standard</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Inga kontakter hittades</string>

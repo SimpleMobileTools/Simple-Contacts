@@ -18,7 +18,7 @@
     <string name="create_new_contact">建立新联系人</string>
     <string name="add_to_existing_contact">添加至已存在的联系人</string>
     <string name="must_make_default_dialer">你必须将这应用程序设为默认的拨号程序来使用黑名单。</string>
-    <string name="set_to_default">设为默认</string>
+    <string name="set_as_default">设为默认</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">未发现联系人</string>

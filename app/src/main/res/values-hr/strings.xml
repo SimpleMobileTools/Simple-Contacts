@@ -18,7 +18,7 @@
     <string name="create_new_contact">Stvori novi kontakt</string>
     <string name="add_to_existing_contact">Dodaj postojećem kontaktu</string>
     <string name="must_make_default_dialer">Morate napraviti ovu aplikaciju zadanom aplikacijom za biranje da biste bili u mogućnosti koristiti blokirane brojeve.</string>
-    <string name="set_to_default">Postavi na zadano</string>
+    <string name="set_as_default">Postavi na zadano</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nisu pronađeni kontakti</string>

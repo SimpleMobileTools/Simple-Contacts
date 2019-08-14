@@ -18,7 +18,7 @@
     <string name="create_new_contact">Yeni kişi oluştur</string>
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
     <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_to_default">Set to default</string>
+    <string name="set_as_default">Set as default</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Kişi bulunamadı</string>
