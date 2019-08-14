@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Kontaktları axtar</string>
     <string name="search_favorites">Sevimliləri axtar</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Kontaktları daxil et</string>

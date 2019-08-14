@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Etsi kontakteja</string>
     <string name="search_favorites">Etsi suosikkeja</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Tuo kontakteja</string>

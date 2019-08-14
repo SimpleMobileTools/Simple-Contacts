@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Pretraži kontakte</string>
     <string name="search_favorites">Pretraži favorite</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Uvezi kontakte</string>

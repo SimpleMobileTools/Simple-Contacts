@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">搜索联系人</string>
     <string name="search_favorites">搜索我的收藏</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">导入联系人</string>

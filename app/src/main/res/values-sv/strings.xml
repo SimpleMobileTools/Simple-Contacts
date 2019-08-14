@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Sök efter kontakter</string>
     <string name="search_favorites">Sök efter favoriter</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Importera kontakter</string>

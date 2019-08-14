@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Ieškoti kontaktų</string>
     <string name="search_favorites">Ieškoti mėgiamiausiųjų</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Importuoti kontaktus</string>

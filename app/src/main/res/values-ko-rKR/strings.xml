@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">연락처 검색</string>
     <string name="search_favorites">자주쓰는 연락처 검색</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">연락처 가져오기</string>

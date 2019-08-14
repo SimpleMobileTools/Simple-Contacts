@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Névjegyek keresése</string>
     <string name="search_favorites">Kedvencek keresése</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Névjegyek importálása</string>

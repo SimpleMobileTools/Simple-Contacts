@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Rechercher des contacts</string>
     <string name="search_favorites">Rechercher des favoris</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Importer des contacts</string>
