@@ -1,6 +1,16 @@
 Changelog
 ==========
 
+Version 6.3.4 *(2019-08-14)*
+----------------------------
+
+ * Allow enlarging contact photos by clicking on them
+ * Fixed photo deleting at locally stored contacts
+ * Improved light theme handling
+ * Allow searching at the groups tab
+ * Replaced icons with vectors for better quality and smaller size
+ * Some other glitches fixed + translation improvements
+
 Version 6.3.3 *(2019-08-03)*
 ----------------------------
 
