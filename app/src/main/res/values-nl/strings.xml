@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Contacten zoeken</string>
     <string name="search_favorites">Favorieten zoeken</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Groepen zoeken</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Contacten importeren</string>
