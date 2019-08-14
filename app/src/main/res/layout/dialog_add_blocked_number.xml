@@ -13,6 +13,7 @@
         android:layout_marginStart="@dimen/activity_margin"
         android:layout_marginTop="@dimen/small_margin"
         android:layout_marginEnd="@dimen/activity_margin"
+        android:hint="@string/number"
         android:inputType="phone"
         android:textCursorDrawable="@null"
         android:textSize="@dimen/bigger_text_size"/>
