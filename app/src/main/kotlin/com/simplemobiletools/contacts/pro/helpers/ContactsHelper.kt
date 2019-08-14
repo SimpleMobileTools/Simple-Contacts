@@ -29,7 +29,7 @@ class ContactsHelper(val context: Context) {
     private var displayContactSources = ArrayList<String>()
 
     fun getContacts(ignoredContactSources: HashSet<String> = HashSet(), callback: (ArrayList<Contact>) -> Unit) {
-        Thread {
+        ensureBackgroundThread {
             val contacts = SparseArray<Contact>()
             displayContactSources = context.getVisibleContactSources()
             if (ignoredContactSources.isNotEmpty()) {
@@ -93,7 +93,7 @@ class ContactsHelper(val context: Context) {
             Handler(Looper.getMainLooper()).post {
                 callback(resultContacts)
             }
-        }.start()
+        }
     }
 
     private fun getContentResolverAccounts(): HashSet<ContactSource> {
@@ -667,12 +667,12 @@ class ContactsHelper(val context: Context) {
     }
 
     fun getStoredGroups(callback: (ArrayList<Group>) -> Unit) {
-        Thread {
+        ensureBackgroundThread {
             val groups = getStoredGroupsSync()
             Handler(Looper.getMainLooper()).post {
                 callback(groups)
             }
-        }.start()
+        }
     }
 
     fun getStoredGroupsSync(): ArrayList<Group> {
@@ -838,9 +838,9 @@ class ContactsHelper(val context: Context) {
     }
 
     fun getContactSources(callback: (ArrayList<ContactSource>) -> Unit) {
-        Thread {
+        ensureBackgroundThread {
             callback(getContactSourcesSync())
-        }.start()
+        }
     }
 
     private fun getContactSourcesSync(): ArrayList<ContactSource> {
@@ -1476,21 +1476,21 @@ class ContactsHelper(val context: Context) {
     }
 
     fun addFavorites(contacts: ArrayList<Contact>) {
-        Thread {
+        ensureBackgroundThread {
             toggleLocalFavorites(contacts, true)
             if (context.hasContactPermissions()) {
                 toggleFavorites(contacts, true)
             }
-        }.start()
+        }
     }
 
     fun removeFavorites(contacts: ArrayList<Contact>) {
-        Thread {
+        ensureBackgroundThread {
             toggleLocalFavorites(contacts, false)
             if (context.hasContactPermissions()) {
                 toggleFavorites(contacts, false)
             }
-        }.start()
+        }
     }
 
     private fun toggleFavorites(contacts: ArrayList<Contact>, addToFavorites: Boolean) {
@@ -1520,13 +1520,13 @@ class ContactsHelper(val context: Context) {
     }
 
     fun deleteContact(contact: Contact) {
-        Thread {
+        ensureBackgroundThread {
             if (contact.isPrivate()) {
                 context.contactsDB.deleteContactId(contact.id)
             } else {
                 deleteContacts(arrayListOf(contact))
             }
-        }.start()
+        }
     }
 
     fun deleteContacts(contacts: ArrayList<Contact>) {

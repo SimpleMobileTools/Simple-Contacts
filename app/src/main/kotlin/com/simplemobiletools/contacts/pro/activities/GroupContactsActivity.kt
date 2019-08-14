@@ -7,6 +7,7 @@ import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.underlineText
 import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.dialogs.SelectContactsDialog
@@ -70,11 +71,11 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
 
     private fun fabClicked() {
         SelectContactsDialog(this, allContacts, groupContacts) { addedContacts, removedContacts ->
-            Thread {
+            ensureBackgroundThread {
                 addContactsToGroup(addedContacts, group.id!!)
                 removeContactsFromGroup(removedContacts, group.id!!)
                 refreshContacts()
-            }.start()
+            }
         }
     }
 
@@ -124,11 +125,11 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     }
 
     override fun removeFromGroup(contacts: ArrayList<Contact>) {
-        Thread {
+        ensureBackgroundThread {
             removeContactsFromGroup(contacts, group.id!!)
             if (groupContacts.size == contacts.size) {
                 refreshContacts()
             }
-        }.start()
+        }
     }
 }

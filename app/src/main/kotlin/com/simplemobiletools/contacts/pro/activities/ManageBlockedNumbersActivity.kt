@@ -8,6 +8,7 @@ import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.underlineText
 import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ManageBlockedNumbersAdapter
@@ -63,7 +64,7 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
     }
 
     private fun updateBlockedNumbers() {
-        Thread {
+        ensureBackgroundThread {
             val blockedNumbers = getBlockedNumbers()
             runOnUiThread {
                 ManageBlockedNumbersAdapter(this, blockedNumbers, this, manage_blocked_numbers_list) {
@@ -75,7 +76,7 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
                 manage_blocked_numbers_placeholder.beVisibleIf(blockedNumbers.isEmpty())
                 manage_blocked_numbers_placeholder_2.beVisibleIf(blockedNumbers.isEmpty())
             }
-        }.start()
+        }
     }
 
     private fun addOrEditBlockedNumber(currentNumber: BlockedNumber? = null) {

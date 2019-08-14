@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.config
@@ -41,11 +42,11 @@ class ImportContactsDialog(val activity: SimpleActivity, val path: String, priva
                     activity.setupDialogStuff(view, this, R.string.import_contacts) {
                         getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                             activity.toast(R.string.importing)
-                            Thread {
+                            ensureBackgroundThread {
                                 val result = VcfImporter(activity).importContacts(path, targetContactSource)
                                 handleParseResult(result)
                                 dismiss()
-                            }.start()
+                            }
                         }
                     }
                 }

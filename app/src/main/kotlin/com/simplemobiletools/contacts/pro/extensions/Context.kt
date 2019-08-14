@@ -15,10 +15,7 @@ import android.provider.ContactsContract
 import android.telecom.TelecomManager
 import androidx.core.content.FileProvider
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
-import com.simplemobiletools.commons.helpers.isMarshmallowPlus
-import com.simplemobiletools.commons.helpers.isNougatPlus
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
@@ -199,7 +196,7 @@ fun Context.getPublicContactSource(source: String, callback: (String) -> Unit) {
     when (source) {
         SMT_PRIVATE -> callback(getString(R.string.phone_storage_hidden))
         else -> {
-            Thread {
+            ensureBackgroundThread {
                 ContactsHelper(this).getContactSources {
                     var newSource = source
                     for (contactSource in it) {
@@ -212,7 +209,7 @@ fun Context.getPublicContactSource(source: String, callback: (String) -> Unit) {
                         callback(newSource)
                     }
                 }
-            }.start()
+            }
         }
     }
 }

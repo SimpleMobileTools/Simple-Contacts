@@ -11,6 +11,7 @@ import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.extensions.*
@@ -46,18 +47,18 @@ class ViewContactActivity : ContactActivity() {
         if (isViewIntent) {
             handlePermission(PERMISSION_READ_CONTACTS) {
                 if (it) {
-                    Thread {
+                    ensureBackgroundThread {
                         initContact()
-                    }.start()
+                    }
                 } else {
                     toast(R.string.no_contacts_permission)
                     finish()
                 }
             }
         } else {
-            Thread {
+            ensureBackgroundThread {
                 initContact()
-            }.start()
+            }
         }
     }
 

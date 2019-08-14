@@ -21,6 +21,7 @@ import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
@@ -148,7 +149,7 @@ class EditContactActivity : ContactActivity() {
         }
 
         if (contactId != 0) {
-            Thread {
+            ensureBackgroundThread {
                 contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
                 if (contact == null) {
                     toast(R.string.unknown_error_occurred)
@@ -158,7 +159,7 @@ class EditContactActivity : ContactActivity() {
                         gotContact()
                     }
                 }
-            }.start()
+            }
         } else {
             gotContact()
         }
@@ -875,7 +876,7 @@ class EditContactActivity : ContactActivity() {
             val jobPosition = contact_organization_job_position.value
             organization = Organization(company, jobPosition)
 
-            Thread {
+            ensureBackgroundThread {
                 config.lastUsedContactSource = source
                 when {
                     id == 0 -> insertNewContact(false)
@@ -885,7 +886,7 @@ class EditContactActivity : ContactActivity() {
                         updateContact(photoUpdateStatus)
                     }
                 }
-            }.start()
+            }
         }
     }
 

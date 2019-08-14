@@ -20,6 +20,7 @@ import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -164,9 +165,9 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         val positions = getSelectedItemPositions()
         contactItems.removeAll(contactsToRemove)
 
-        Thread {
+        ensureBackgroundThread {
             ContactsHelper(activity).deleteContacts(contactsToRemove)
-        }.start()
+        }
 
         if (contactItems.isEmpty()) {
             refreshListener?.refreshContacts(ALL_TABS_MASK)
@@ -219,17 +220,17 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         RadioGroupDialog(activity, radioItems, 0) {
             if (it as Int == NEW_GROUP_ID) {
                 CreateNewGroupDialog(activity) {
-                    Thread {
+                    ensureBackgroundThread {
                         activity.addContactsToGroup(selectedContacts, it.id!!.toLong())
                         refreshListener?.refreshContacts(GROUPS_TAB_MASK)
-                    }.start()
+                    }
                     finishActMode()
                 }
             } else {
-                Thread {
+                ensureBackgroundThread {
                     activity.addContactsToGroup(selectedContacts, it.toLong())
                     refreshListener?.refreshContacts(GROUPS_TAB_MASK)
-                }.start()
+                }
                 finishActMode()
             }
         }

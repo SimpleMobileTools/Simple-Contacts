@@ -8,6 +8,7 @@ import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.extensions.showKeyboard
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.extensions.value
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.getPrivateContactSource
@@ -60,7 +61,7 @@ class CreateNewGroupDialog(val activity: BaseSimpleActivity, val callback: (newG
     }
 
     private fun createGroupUnder(name: String, contactSource: ContactSource, dialog: AlertDialog) {
-        Thread {
+        ensureBackgroundThread {
             val newGroup = ContactsHelper(activity).createNewGroup(name, contactSource.name, contactSource.type)
             activity.runOnUiThread {
                 if (newGroup != null) {
@@ -68,6 +69,6 @@ class CreateNewGroupDialog(val activity: BaseSimpleActivity, val callback: (newG
                 }
                 dialog.dismiss()
             }
-        }.start()
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.pro.dialogs
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.FilterContactSourcesAdapter
@@ -49,12 +50,12 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, priva
                                         return@setOnClickListener
                                     }
 
-                                    Thread {
+                                    ensureBackgroundThread {
                                         val selectedSources = (view.export_contacts_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
                                         val ignoredSources = contactSources.filter { !selectedSources.contains(it) }.map { it.getFullIdentifier() }.toHashSet()
                                         callback(file, ignoredSources)
                                         dismiss()
-                                    }.start()
+                                    }
                                 }
                                 else -> activity.toast(R.string.invalid_name)
                             }
