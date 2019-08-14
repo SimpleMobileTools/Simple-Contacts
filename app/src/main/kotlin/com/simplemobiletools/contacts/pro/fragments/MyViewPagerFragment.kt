@@ -79,6 +79,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             adjustedPrimaryColor = context.getAdjustedPrimaryColor()
         }
+
+        (fragment_list.adapter as? GroupsAdapter)?.apply {
+            adjustedPrimaryColor = context.getAdjustedPrimaryColor()
+        }
     }
 
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
@@ -268,7 +272,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
 
             fragment_placeholder.beVisibleIf(filtered.isEmpty())
-            (adapter as? GroupsAdapter)?.updateItems(filtered)
+            (adapter as? GroupsAdapter)?.updateItems(filtered, text)
         }
     }
 
