@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
+import com.bumptech.glide.Glide
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.contacts.pro.R
@@ -146,6 +147,16 @@ class ViewContactActivity : ContactActivity() {
             showPhotoPlaceholder(contact_photo)
         } else {
             updateContactPhoto(contact!!.photoUri, contact_photo, contact!!.photo)
+            Glide.with(this).load(currentContactPhotoPath).into(contact_photo_big)
+            contact_photo.setOnClickListener {
+                contact_photo_big.alpha = 0f
+                contact_photo_big.beVisible()
+                contact_photo_big.animate().alpha(1f).start()
+            }
+
+            contact_photo_big.setOnClickListener {
+                contact_photo_big.animate().alpha(0f).withEndAction { it.beGone() }.start()
+            }
         }
 
         val textColor = config.textColor
