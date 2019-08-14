@@ -147,7 +147,7 @@ class ViewContactActivity : ContactActivity() {
             showPhotoPlaceholder(contact_photo)
         } else {
             updateContactPhoto(contact!!.photoUri, contact_photo, contact!!.photo)
-            Glide.with(this).load(currentContactPhotoPath).into(contact_photo_big)
+            Glide.with(this).load(contact!!.photo ?: currentContactPhotoPath).into(contact_photo_big)
             contact_photo.setOnClickListener {
                 contact_photo_big.alpha = 0f
                 contact_photo_big.beVisible()
