@@ -183,7 +183,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val currentFragment = getCurrentFragment()
 
         menu.apply {
-            findItem(R.id.search).isVisible = currentFragment != groups_fragment
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
             setupSearch(this)
@@ -225,7 +224,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         (searchMenuItem!!.actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isSubmitButtonEnabled = false
-            queryHint = getString(if (getCurrentFragment() == contacts_fragment) R.string.search_contacts else R.string.search_favorites)
+            queryHint = getString(getSearchString())
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String) = false
 
@@ -251,6 +250,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 return true
             }
         })
+    }
+
+    private fun getSearchString(): Int {
+        return when (getCurrentFragment()) {
+            favorites_fragment -> R.string.search_favorites
+            groups_fragment -> R.string.search_groups
+            else -> R.string.search_contacts
+        }
     }
 
     @SuppressLint("NewApi")

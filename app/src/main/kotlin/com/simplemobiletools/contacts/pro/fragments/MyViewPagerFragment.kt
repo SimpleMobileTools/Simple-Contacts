@@ -29,6 +29,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     private var lastHashCode = 0
     private var contactsIgnoringSearch = ArrayList<Contact>()
+    private var groupsIgnoringSearch = ArrayList<Group>()
     private lateinit var config: Config
 
     var skipHashComparing = false
@@ -130,6 +131,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
         if (this is ContactsFragment || this is FavoritesFragment) {
             contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
+        } else if (this is GroupsFragment) {
+            groupsIgnoringSearch = (fragment_list?.adapter as? GroupsAdapter)?.groups ?: ArrayList()
         }
     }
 
@@ -177,7 +180,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     private fun setupContactsFavoritesAdapter(contacts: ArrayList<Contact>) {
-        setupViewVisibility(contacts)
+        setupViewVisibility(contacts.isNotEmpty())
         val currAdapter = fragment_list.adapter
         if (currAdapter == null || forceListRedraw) {
             forceListRedraw = false
@@ -227,9 +230,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun onSearchQueryChanged(text: String) {
-        val shouldNormalize = text.normalizeString() == text
-        val convertLetters = config.showDialpadLetters
-        (fragment_list.adapter as? ContactsAdapter)?.apply {
+        val adapter = fragment_list.adapter
+        if (adapter is ContactsAdapter) {
+            val shouldNormalize = text.normalizeString() == text
+            val convertLetters = config.showDialpadLetters
             val filtered = contactsIgnoringSearch.filter {
                 getProperText(it.getNameToDisplay(), shouldNormalize).contains(text, true) ||
                         getProperText(it.nickname, shouldNormalize).contains(text, true) ||
@@ -249,11 +253,22 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
-                fragment_placeholder.text = activity.getString(R.string.no_items_found)
+                fragment_placeholder.text = activity?.getString(R.string.no_items_found)
             }
 
             fragment_placeholder.beVisibleIf(filtered.isEmpty())
-            updateItems(filtered, text.normalizeString())
+            (adapter as? ContactsAdapter)?.updateItems(filtered, text.normalizeString())
+        } else if (adapter is GroupsAdapter) {
+            val filtered = groupsIgnoringSearch.filter {
+                it.title.contains(text, true)
+            } as ArrayList
+
+            if (filtered.isEmpty()) {
+                fragment_placeholder.text = activity?.getString(R.string.no_items_found)
+            }
+
+            fragment_placeholder.beVisibleIf(filtered.isEmpty())
+            (adapter as? GroupsAdapter)?.updateItems(filtered)
         }
     }
 
@@ -261,11 +276,17 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun onSearchOpened() {
         contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
+        groupsIgnoringSearch = (fragment_list?.adapter as? GroupsAdapter)?.groups ?: ArrayList()
     }
 
     fun onSearchClosed() {
-        (fragment_list.adapter as? ContactsAdapter)?.updateItems(contactsIgnoringSearch)
-        setupViewVisibility(contactsIgnoringSearch)
+        if (fragment_list.adapter is ContactsAdapter) {
+            (fragment_list.adapter as? ContactsAdapter)?.updateItems(contactsIgnoringSearch)
+            setupViewVisibility(contactsIgnoringSearch.isNotEmpty())
+        } else if (fragment_list.adapter is GroupsAdapter) {
+            (fragment_list.adapter as? GroupsAdapter)?.updateItems(groupsIgnoringSearch)
+            setupViewVisibility(groupsIgnoringSearch.isNotEmpty())
+        }
 
         if (this is FavoritesFragment) {
             fragment_placeholder.text = activity?.getString(R.string.no_favorites)
@@ -279,10 +300,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         fragment_placeholder_2.setTextColor(context.getAdjustedPrimaryColor())
     }
 
-    private fun setupViewVisibility(contacts: ArrayList<Contact>) {
-        fragment_placeholder_2.beVisibleIf(contacts.isEmpty())
-        fragment_placeholder.beVisibleIf(contacts.isEmpty())
-        fragment_list.beVisibleIf(contacts.isNotEmpty())
+    private fun setupViewVisibility(hasItemsToShow: Boolean) {
+        fragment_placeholder_2.beVisibleIf(!hasItemsToShow)
+        fragment_placeholder.beVisibleIf(!hasItemsToShow)
+        fragment_list.beVisibleIf(hasItemsToShow)
     }
 
     abstract fun fabClicked()
