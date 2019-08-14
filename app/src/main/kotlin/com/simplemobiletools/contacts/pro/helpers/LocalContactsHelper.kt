@@ -117,6 +117,12 @@ class LocalContactsHelper(val context: Context) {
     }
 
     private fun convertContactToLocalContact(contact: Contact): LocalContact {
+        val photoByteArray = if (contact.photoUri.isNotEmpty()) {
+            getPhotoByteArray(contact.photoUri)
+        } else {
+            contact.photo?.getByteArray()
+        }
+
         return getEmptyLocalContact().apply {
             id = if (contact.id == 0) null else contact.id
             prefix = contact.prefix
@@ -125,7 +131,7 @@ class LocalContactsHelper(val context: Context) {
             surname = contact.surname
             suffix = contact.suffix
             nickname = contact.nickname
-            photo = getPhotoByteArray(contact.photoUri)
+            photo = photoByteArray
             phoneNumbers = contact.phoneNumbers
             emails = contact.emails
             events = contact.events
