@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Névjegyek keresése</string>
     <string name="search_favorites">Kedvencek keresése</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Csoportok keresése</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Névjegyek importálása</string>
@@ -132,7 +132,7 @@
     <string name="notes">Jegyzetek</string>
     <string name="organization">Szervezet</string>
     <string name="websites">Weboldalak</string>
-    <string name="groups">Groups</string>
+    <string name="groups">Csoportok</string>
     <string name="contact_source">Névjegy account</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
 

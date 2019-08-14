@@ -60,7 +60,7 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
 
     private fun updatePlaceholderTexts() {
         manage_blocked_numbers_placeholder.text = getString(if (isDefaultDialer()) R.string.not_blocking_anyone else R.string.must_make_default_dialer)
-        manage_blocked_numbers_placeholder_2.text = getString(if (isDefaultDialer()) R.string.add_a_blocked_number else R.string.set_to_default)
+        manage_blocked_numbers_placeholder_2.text = getString(if (isDefaultDialer()) R.string.add_a_blocked_number else R.string.set_as_default)
     }
 
     private fun updateBlockedNumbers() {
