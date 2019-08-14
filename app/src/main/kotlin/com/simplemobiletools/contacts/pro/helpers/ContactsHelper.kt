@@ -34,7 +34,7 @@ class ContactsHelper(val context: Context) {
             displayContactSources = context.getVisibleContactSources()
             if (ignoredContactSources.isNotEmpty()) {
                 displayContactSources = context.getAllContactSources().filter {
-                    !ignoredContactSources.contains(it.getFullIdentifier())
+                    it.getFullIdentifier().isNotEmpty() && !ignoredContactSources.contains(it.getFullIdentifier())
                 }.map { it.getFullIdentifier() }.toMutableList() as ArrayList
             }
 
