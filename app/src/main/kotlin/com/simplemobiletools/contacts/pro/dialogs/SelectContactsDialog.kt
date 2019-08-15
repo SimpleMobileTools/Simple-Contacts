@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.pro.dialogs
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.extensions.setupDialogStuff
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.SelectContactsAdapter
@@ -45,13 +46,13 @@ class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayL
     }
 
     private fun dialogConfirmed() {
-        Thread {
+        ensureBackgroundThread {
             val adapter = view?.select_contact_list?.adapter as? SelectContactsAdapter
             val selectedContacts = adapter?.getSelectedItemsSet()?.toList() ?: ArrayList()
 
             val newlySelectedContacts = selectedContacts.filter { !initiallySelectedContacts.contains(it) } as ArrayList
             val unselectedContacts = initiallySelectedContacts.filter { !selectedContacts.contains(it) } as ArrayList
             callback(newlySelectedContacts, unselectedContacts)
-        }.start()
+        }
     }
 }

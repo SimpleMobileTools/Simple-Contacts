@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.telecom.PhoneAccount
 import android.telecom.TelecomManager
+import android.view.Menu
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.pro.R
@@ -35,6 +36,11 @@ class DialerActivity : SimpleActivity() {
             toast(R.string.unknown_error_occurred)
             finish()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        updateMenuItemColors(menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     @SuppressLint("MissingPermission")

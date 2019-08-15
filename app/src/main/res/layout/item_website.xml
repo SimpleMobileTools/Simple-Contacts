@@ -7,8 +7,8 @@
     android:layout_centerVertical="true"
     android:background="?attr/selectableItemBackground"
     android:paddingBottom="@dimen/normal_margin"
-    android:paddingLeft="@dimen/small_margin"
-    android:paddingRight="@dimen/small_margin"
+    android:paddingStart="@dimen/small_margin"
+    android:paddingEnd="@dimen/small_margin"
     android:paddingTop="@dimen/normal_margin"
     android:text="@string/unknown"
     android:textSize="@dimen/bigger_text_size"/>

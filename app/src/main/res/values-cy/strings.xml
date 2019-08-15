@@ -1,0 +1,168 @@
+<resources>
+    <string name="app_name">Simple Contacts</string>
+    <string name="app_launcher_name">Cysylltiadau</string>
+    <string name="address">Cyfeiriad</string>
+    <string name="inserting">Yn gosod…</string>
+    <string name="updating">Yn diweddaru…</string>
+    <string name="phone_storage">Storfa ddyfais</string>
+    <string name="phone_storage_hidden">Storfa ddyfais (dim i\'w weld gan apiau eraill)</string>
+    <string name="company">Cwmni</string>
+    <string name="job_position">Swydd</string>
+    <string name="website">Gwefan</string>
+    <string name="send_sms_to_contacts">Anfon SMS at gysylltiadau</string>
+    <string name="send_email_to_contacts">Anfon e-bost at gysylltiadau</string>
+    <string name="send_sms_to_group">Anfon SMS at grŵp</string>
+    <string name="send_email_to_group">Anfon ebost at grŵp</string>
+    <string name="call_person">Galw %s</string>
+    <string name="request_the_required_permissions">Gofyn am y caniatâd sydd ei angen</string>
+    <string name="create_new_contact">Creu cyswllt newydd</string>
+    <string name="add_to_existing_contact">Ychwanegu at gyswllt sy\'n bodoli</string>
+    <string name="must_make_default_dialer">Rhaid gwneud yr ap hwn yr ap deialu rhagosodedig er mwyn defnyddio rhifau wedi\'u rhwystro.</string>
+    <string name="set_as_default">Defnyddio fel y rhagosodedig</string>
+
+    <!-- Placeholders -->
+    <string name="no_contacts_found">Ni chanfuwyd unrhyw gysylltiadau</string>
+    <string name="no_contacts_with_emails">Ni chanfuwyd unrhyw gysylltiadau gydag ebost</string>
+    <string name="no_contacts_with_phone_numbers">Ni chanfuwyd unrhyw gysylltiadau gyda rhifau ffôn</string>
+
+    <string name="new_contact">Cyswllt newydd</string>
+    <string name="edit_contact">Golygu\'r cyswllt</string>
+    <string name="select_contact">Dewis cyswllt</string>
+    <string name="select_contacts">Dewis cysylltiadau</string>
+    <string name="first_name">Enw cyntaf</string>
+    <string name="middle_name">Enw canol</string>
+    <string name="surname">Cyfenw</string>
+    <string name="nickname">Llys enw</string>
+
+    <!-- Groups -->
+    <string name="no_groups">Dim grwpiau</string>
+    <string name="create_new_group">Creu grŵp newydd</string>
+    <string name="remove_from_group">Tynnu o\'r grŵp</string>
+    <string name="no_group_participants">Mae\'r grŵp hwn yn wag</string>
+    <string name="add_contacts">Ychwanegu cysylltiadau</string>
+    <string name="no_group_created">Does dim grwpiau cysylltiadau ar y ddyfais</string>
+    <string name="create_group">Creu grŵp</string>
+    <string name="add_to_group">Ychwanegu at grŵp</string>
+    <string name="create_group_under_account">Creu grŵp dan gyfrif</string>
+
+    <!-- Photo -->
+    <string name="take_photo">Tynnu llun</string>
+    <string name="choose_photo">Dewis llun</string>
+    <string name="remove_photo">Cael gwared â\'r llun</string>
+
+    <!-- Settings -->
+    <string name="start_name_with_surname">Dangos enw gyda\'r cyfenw gyntaf</string>
+    <string name="show_phone_numbers">Dangos rhifau ffôn ar y brif sgrin</string>
+    <string name="show_contact_thumbnails">Dangos mân luniau cysylltiadau</string>
+    <string name="show_dialpad_button">Dangos botwm pad deialu ar y brif sgrin</string>
+    <string name="on_contact_click">Wrth glicio ar gyswllt</string>
+    <string name="call_contact">Galw cyswllt</string>
+    <string name="view_contact">Gweld manylion cyswllt</string>
+    <string name="manage_shown_contact_fields">Rheoli pa feysydd cyswllt i\'w dangos</string>
+    <string name="filter_duplicates">Ceisio canfod a gwaredu cysylltiadau dyblyg</string>
+    <string name="manage_shown_tabs">Rheoli pa dabiau sy\'n cael eu dangos</string>
+    <string name="contacts">Cysylltiadau</string>
+    <string name="favorites">Ffefrynnau</string>
+    <string name="show_call_confirmation_dialog">Dangos deialog i gadarnhau cyn gwneud galwad</string>
+    <string name="show_only_contacts_with_numbers">Dangos dim ond cysylltiadau gyda rhifau ffôn</string>
+    <string name="show_dialpad_letters">Dangos llythrennau ar y pad deialu</string>
+
+    <!-- Emails -->
+    <string name="email">Ebost</string>
+    <string name="home">Cartref</string>
+    <string name="work">Gwaith</string>
+    <string name="other">Arall</string>
+
+    <!-- Phone numbers -->
+    <string name="number">Rhif</string>
+    <string name="mobile">Symudol</string>
+    <string name="main_number">Prif</string>
+    <string name="work_fax">Ffacs gwaith</string>
+    <string name="home_fax">Ffacs cartref</string>
+    <string name="pager">Peiriant galw</string>
+    <string name="no_phone_number_found">Ni chanfuwyd rif ffôn</string>
+
+    <!-- Events -->
+    <string name="birthday">Pen-blwydd</string>
+    <string name="anniversary">Pen-blwydd achlysur</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">Ymddangosir nad wyt wedi ychwanegu unrhyw ffefrynnau eto.</string>
+    <string name="add_favorites">Ychwanegu ffefrynnau</string>
+    <string name="add_to_favorites">Ychwanegu i\'r ffefrynnau</string>
+    <string name="remove_from_favorites">Tynnu o\'r ffefrynnau</string>
+    <string name="must_be_at_edit">Rhaid bod ar y sgrin golygu er mwyn addasu cyswllt</string>
+
+    <!-- Search -->
+    <string name="search_contacts">Chwilio\'r cysylltiadau</string>
+    <string name="search_favorites">Chwilio\'r ffefrynnau</string>
+    <string name="search_groups">Search groups</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">Mewnforio cysylltiadau</string>
+    <string name="export_contacts">Allforio cysylltiadau</string>
+    <string name="import_contacts_from_vcf">Mewnforio cysylltiadau o ffeil .vcf</string>
+    <string name="export_contacts_to_vcf">Allforio cysylltiadau i ffeil .vcf</string>
+    <string name="target_contact_source">Ffynhonnell y cyswllt targed</string>
+    <string name="include_contact_sources">Cynnwys ffynonellau cysylltiadau</string>
+    <string name="filename_without_vcf">Enw\'r ffeil (heb .vcf)</string>
+
+    <!-- Dialpad -->
+    <string name="dialpad">Pad deialu</string>
+    <string name="add_number_to_contact">Ychwanegu rhif at gyswllt</string>
+
+    <!-- Dialer -->
+    <string name="dialer">Deialydd</string>
+    <string name="calling">Yn galw</string>
+    <string name="incoming_call">Galwad i mewn</string>
+    <string name="incoming_call_from">Galwad i mewn oddi wrth…</string>
+    <string name="ongoing_call">Galwad ar y gweill</string>
+    <string name="disconnected">Datgysylltwyd</string>
+    <string name="decline_call">Gwrthod</string>
+    <string name="answer_call">Ateb</string>
+
+    <!-- Visible fields -->
+    <string name="select_fields_to_show">Dewis pa feysydd i\'w dangos</string>
+    <string name="prefix">Rhagddodiad</string>
+    <string name="suffix">Ôl-ddodiad</string>
+    <string name="phone_numbers">Rhifau ffôn</string>
+    <string name="emails">Cyfeiriadau ebost</string>
+    <string name="addresses">Cyfeiriadau</string>
+    <string name="events">Digwyddiadau (e.e. pen-blwyddi)</string>
+    <string name="notes">Nodiadau</string>
+    <string name="organization">Sefydliad</string>
+    <string name="websites">Gwefannau</string>
+    <string name="groups">Grwpiau</string>
+    <string name="contact_source">Ffynhonnell gyswllt</string>
+    <string name="instant_messaging">Negesu ar unwaith (IM)</string>
+
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Rheoli rhifau wedi\'u rhwystro</string>
+    <string name="not_blocking_anyone">Nid wyt yn rhwystro unrhyw un.</string>
+    <string name="add_a_blocked_number">Ychwanegu rif i\'w rwystro</string>
+    <string name="block_number">Rhwystro rhif</string>
+    <string name="block_numbers">Rhwystro rhifau</string>
+    <string name="blocked_numbers">Rhifau wedi\'u rhwystro</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Hoffwn newid pa feysydd sydd i\'w gweld ar gyfer cysylltiadau. Ydy hyn yn bosib?</string>
+    <string name="faq_1_text">Ydy. Y cwbl sy\'n rhaid gwneud ydy mynd i Gosodiadau -> Rheoli pa feysydd cysylltiadau i\'w dangos. Yna, gellir dewis pa feysydd sydd i\'w gweld. Bydd rhai wedi eu gosod i beidio ymddangos fel arfer, felly mae\'n bosib byddi\'n dod o hyd i rai newydd yno.</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Ap i reoli dy gysylltiadau, heb hysbysebion, gan barchu dy breifatrwydd.</string>
+    <string name="app_long_description">
+        Ap syml i greu neu reoli dy gysylltiadau o unrhyw ffynhonnell. Caiff y cysylltiadau eu cadw ar dy ddyfais yn unig, ond mae hefyd yn bosib eu cysoni gyda Google neu gyfrifon eraill. Gellir golygu dy hoff gysylltiadau mewn rhestr ar wahân.
+
+        Gellir ei ddefnyddio i reoli cyfeiriadau e-bost defnyddwyr a digwyddiadau hefyd. Mae ganddo\'r gallu i drefnu mewn gwahanol ffyrdd ac i ddangos enwau gyda\'r cyfenw gyntaf os yw\'n well gennyt.
+
+        Does dim hysbysebion na dim angen arno unrhyw ganiatâd diangen. Mae\'n gwbl cod agored ac mae modd addasu lliwiau\'r ap.
+
+        Mae\'r ap hwn yn un ymhlith nifer o apiau gennym. Mae\'r gweddill i\'w gweld ar https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven\'t found some strings? There\'s more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>

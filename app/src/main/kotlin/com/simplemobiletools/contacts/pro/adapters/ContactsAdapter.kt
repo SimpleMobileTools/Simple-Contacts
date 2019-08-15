@@ -20,6 +20,7 @@ import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -51,6 +52,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     var showPhoneNumbers: Boolean
 
     private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
+    private var mediumPadding = activity.resources.getDimension(R.dimen.medium_margin).toInt()
     private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
 
     init {
@@ -126,8 +128,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     private fun getItemWithKey(key: Int): Contact? = contactItems.firstOrNull { it.id == key }
 
     fun initDrawables() {
-        contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person, textColor)
-        businessContactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_business, textColor)
+        contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person_vector, textColor)
+        businessContactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_business_vector, textColor)
     }
 
     fun updateItems(newItems: ArrayList<Contact>, highlightText: String = "") {
@@ -163,9 +165,9 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         val positions = getSelectedItemPositions()
         contactItems.removeAll(contactsToRemove)
 
-        Thread {
+        ensureBackgroundThread {
             ContactsHelper(activity).deleteContacts(contactsToRemove)
-        }.start()
+        }
 
         if (contactItems.isEmpty()) {
             refreshListener?.refreshContacts(ALL_TABS_MASK)
@@ -218,17 +220,17 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         RadioGroupDialog(activity, radioItems, 0) {
             if (it as Int == NEW_GROUP_ID) {
                 CreateNewGroupDialog(activity) {
-                    Thread {
+                    ensureBackgroundThread {
                         activity.addContactsToGroup(selectedContacts, it.id!!.toLong())
                         refreshListener?.refreshContacts(GROUPS_TAB_MASK)
-                    }.start()
+                    }
                     finishActMode()
                 }
             } else {
-                Thread {
+                ensureBackgroundThread {
                     activity.addContactsToGroup(selectedContacts, it.toLong())
                     refreshListener?.refreshContacts(GROUPS_TAB_MASK)
-                }.start()
+                }
                 finishActMode()
             }
         }
@@ -295,7 +297,13 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                                 .error(placeholderImage)
                                 .centerCrop()
 
-                        Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                        Glide.with(activity)
+                                .load(contact.photoUri)
+                                .transition(DrawableTransitionOptions.withCrossFade())
+                                .apply(options)
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(contact_tmb)
+                        contact_tmb.setPadding(smallPadding, smallPadding, smallPadding, smallPadding)
                     }
                     contact.photo != null -> {
                         val options = RequestOptions()
@@ -304,9 +312,18 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                                 .error(placeholderImage)
                                 .centerCrop()
 
-                        Glide.with(activity).load(contact.photo).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                        Glide.with(activity)
+                                .load(contact.photo)
+                                .transition(DrawableTransitionOptions.withCrossFade())
+                                .apply(options)
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(contact_tmb)
+                        contact_tmb.setPadding(smallPadding, smallPadding, smallPadding, smallPadding)
                     }
-                    else -> contact_tmb.setImageDrawable(placeholderImage)
+                    else -> {
+                        contact_tmb.setPadding(mediumPadding, mediumPadding, mediumPadding, mediumPadding)
+                        contact_tmb.setImageDrawable(placeholderImage)
+                    }
                 }
             }
         }

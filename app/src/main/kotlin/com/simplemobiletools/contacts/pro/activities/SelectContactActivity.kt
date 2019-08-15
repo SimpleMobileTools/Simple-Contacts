@@ -26,6 +26,11 @@ class SelectContactActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_contact)
+
+        if (checkAppSideloading()) {
+            return
+        }
+
         setupPlaceholders()
 
         handlePermission(PERMISSION_READ_CONTACTS) {
@@ -52,6 +57,7 @@ class SelectContactActivity : SimpleActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_select_activity, menu)
+        updateMenuItemColors(menu)
         return true
     }
 

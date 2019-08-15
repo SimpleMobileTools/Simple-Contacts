@@ -3,18 +3,18 @@ package com.simplemobiletools.contacts.pro.dialogs
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.FilterContactSourcesAdapter
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
-import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.pro.models.ContactSource
 import kotlinx.android.synthetic.main.dialog_export_contacts.view.*
 import java.io.File
 import java.util.*
 
-class ExportContactsDialog(val activity: SimpleActivity, val path: String, private val callback: (file: File, contactSources: HashSet<String>) -> Unit) {
+class ExportContactsDialog(val activity: SimpleActivity, val path: String, private val callback: (file: File, ignoredContactSources: HashSet<String>) -> Unit) {
     private var contactSources = ArrayList<ContactSource>()
 
     init {
@@ -50,13 +50,12 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, priva
                                         return@setOnClickListener
                                     }
 
-                                    val selectedSources = (view.export_contacts_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
-                                    val selectedContactSourceNames = HashSet<String>()
-                                    selectedSources.forEach {
-                                        selectedContactSourceNames.add(if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name)
+                                    ensureBackgroundThread {
+                                        val selectedSources = (view.export_contacts_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
+                                        val ignoredSources = contactSources.filter { !selectedSources.contains(it) }.map { it.getFullIdentifier() }.toHashSet()
+                                        callback(file, ignoredSources)
+                                        dismiss()
                                     }
-                                    callback(file, selectedContactSourceNames)
-                                    dismiss()
                                 }
                                 else -> activity.toast(R.string.invalid_name)
                             }

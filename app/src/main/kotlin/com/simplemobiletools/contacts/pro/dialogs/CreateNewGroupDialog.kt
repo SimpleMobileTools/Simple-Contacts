@@ -8,10 +8,11 @@ import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.extensions.showKeyboard
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.extensions.value
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.extensions.getPrivateContactSource
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
-import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.pro.models.ContactSource
 import com.simplemobiletools.contacts.pro.models.Group
 import kotlinx.android.synthetic.main.dialog_create_new_group.view.*
@@ -36,8 +37,7 @@ class CreateNewGroupDialog(val activity: BaseSimpleActivity, val callback: (newG
                             val contactSources = ArrayList<ContactSource>()
                             ContactsHelper(activity).getContactSources {
                                 it.filter { it.type.contains("google", true) }.mapTo(contactSources) { ContactSource(it.name, it.type, it.name) }
-                                val phoneSecret = activity.getString(R.string.phone_storage_hidden)
-                                contactSources.add(ContactSource(phoneSecret, SMT_PRIVATE, phoneSecret))
+                                contactSources.add(activity.getPrivateContactSource())
 
                                 val items = ArrayList<RadioItem>()
                                 contactSources.forEachIndexed { index, contactSource ->
@@ -61,7 +61,7 @@ class CreateNewGroupDialog(val activity: BaseSimpleActivity, val callback: (newG
     }
 
     private fun createGroupUnder(name: String, contactSource: ContactSource, dialog: AlertDialog) {
-        Thread {
+        ensureBackgroundThread {
             val newGroup = ContactsHelper(activity).createNewGroup(name, contactSource.name, contactSource.type)
             activity.runOnUiThread {
                 if (newGroup != null) {
@@ -69,6 +69,6 @@ class CreateNewGroupDialog(val activity: BaseSimpleActivity, val callback: (newG
                 }
                 dialog.dismiss()
             }
-        }.start()
+        }
     }
 }

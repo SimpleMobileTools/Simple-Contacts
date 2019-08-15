@@ -36,6 +36,10 @@ class DialpadActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dialpad)
 
+        if (checkAppSideloading()) {
+            return
+        }
+
         dialpad_0_holder.setOnClickListener { dialpadPressed("0", it) }
         dialpad_1.setOnClickListener { dialpadPressed("1", it) }
         dialpad_2.setOnClickListener { dialpadPressed("2", it) }
@@ -56,7 +60,7 @@ class DialpadActivity : SimpleActivity() {
         ContactsHelper(this).getContacts { gotContacts(it) }
         disableKeyboardPopping()
 
-        val callIcon = resources.getColoredDrawableWithColor(R.drawable.ic_phone_huge, if (isBlackAndWhiteTheme()) Color.BLACK else Color.WHITE)
+        val callIcon = resources.getColoredDrawableWithColor(R.drawable.ic_phone_vector, if (isBlackAndWhiteTheme()) Color.BLACK else config.primaryColor.getContrastColor())
         dialpad_call_button.setImageDrawable(callIcon)
         dialpad_call_button.background.applyColorFilter(getAdjustedPrimaryColor())
 
@@ -74,6 +78,7 @@ class DialpadActivity : SimpleActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_dialpad, menu)
+        updateMenuItemColors(menu)
         return true
     }
 

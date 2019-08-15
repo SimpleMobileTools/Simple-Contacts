@@ -1,6 +1,40 @@
 Changelog
 ==========
 
+Version 6.3.4 *(2019-08-14)*
+----------------------------
+
+ * Allow enlarging contact photos by clicking on them
+ * Fixed photo deleting at locally stored contacts
+ * Improved light theme handling
+ * Allow searching at the groups tab
+ * Replaced icons with vectors for better quality and smaller size
+ * Some other glitches fixed + translation improvements
+
+Version 6.3.3 *(2019-08-03)*
+----------------------------
+
+ * Allow customizing the bottom navigation bar color
+ * Some smaller translation and misc improvements
+
+Version 6.3.2 *(2019-06-14)*
+----------------------------
+
+ * Fixed not all fields being properly exported in .vcf files
+ * Couple stability and translation improvements
+
+Version 6.3.1 *(2019-03-07)*
+----------------------------
+
+ * Made contact avatars rounded and a bit bigger
+ * Added shortcuts for showing the dialpad or creating new contacts
+
+Version 6.3.0 *(2019-01-24)*
+----------------------------
+
+ * Fixed local contact source not being properly shown
+ * Fixed some glitches related to exporting contacts
+
 Version 6.2.0 *(2019-01-06)*
 ----------------------------
 

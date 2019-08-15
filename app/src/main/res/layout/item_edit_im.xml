@@ -30,8 +30,8 @@
         android:layout_centerVertical="true"
         android:background="?attr/selectableItemBackground"
         android:gravity="center"
-        android:paddingLeft="@dimen/medium_margin"
-        android:paddingRight="@dimen/medium_margin"
+        android:paddingStart="@dimen/medium_margin"
+        android:paddingEnd="@dimen/medium_margin"
         android:text="@string/skype"
         android:textSize="@dimen/bigger_text_size"/>
 

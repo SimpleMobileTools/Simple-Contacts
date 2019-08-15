@@ -10,9 +10,10 @@
         android:id="@+id/add_blocked_number_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginStart="@dimen/activity_margin"
         android:layout_marginTop="@dimen/small_margin"
-        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_marginEnd="@dimen/activity_margin"
+        android:hint="@string/number"
         android:inputType="phone"
         android:textCursorDrawable="@null"
         android:textSize="@dimen/bigger_text_size"/>

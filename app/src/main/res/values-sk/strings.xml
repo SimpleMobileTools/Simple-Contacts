@@ -18,7 +18,7 @@
     <string name="create_new_contact">Vytvoriť nový kontakt</string>
     <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
     <string name="must_make_default_dialer">Pre použitie blokovania čísel musíte nastaviť aplikáciu ako predvolenú pre správu hovorov.</string>
-    <string name="set_to_default">Nastaviť ako predvolenú</string>
+    <string name="set_as_default">Nastaviť ako predvolenú</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nenašli sa žiadne kontakty</string>
@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Hľadať v kontaktoch</string>
     <string name="search_favorites">Hľadať medzi obľúbenými</string>
+    <string name="search_groups">Hľadať medzi skupinami</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Importovať kontakty</string>

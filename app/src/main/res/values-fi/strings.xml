@@ -1,0 +1,168 @@
+<resources>
+    <string name="app_name">Simple Contacts</string>
+    <string name="app_launcher_name">Kontaktit</string>
+    <string name="address">Osoite</string>
+    <string name="inserting">Sijoitetaan</string>
+    <string name="updating">Päivitetään</string>
+    <string name="phone_storage">Puhelimen muisti</string>
+    <string name="phone_storage_hidden">Puhelimen muisti piilotettu</string>
+    <string name="company">Yritys</string>
+    <string name="job_position">Ammatti</string>
+    <string name="website">Internet sivu</string>
+    <string name="send_sms_to_contacts">Lähetä tekstiviesti kontakteille</string>
+    <string name="send_email_to_contacts">Lähetä sähköposti kontakteille</string>
+    <string name="send_sms_to_group">Lähetä tekstiviesti ryhmälle</string>
+    <string name="send_email_to_group">Lähetä sähköposti ryhmälle</string>
+    <string name="call_person">Soita</string>
+    <string name="request_the_required_permissions">Pyydä tarvittavia oikeuksia</string>
+    <string name="create_new_contact">Luo uusi kontakti</string>
+    <string name="add_to_existing_contact">Lisää olemassa olevaan kontaktiin</string>
+    <string name="must_make_default_dialer">Soittajan täytyy olla oletus</string>
+    <string name="set_as_default">Aseta oletukseksi</string>
+
+    <!-- Placeholders -->
+    <string name="no_contacts_found">Kontakteja ei löytynyt</string>
+    <string name="no_contacts_with_emails">Sähköpostillisia kontakteja ei löytynyt</string>
+    <string name="no_contacts_with_phone_numbers">Puhelinnumerollisia kontakteja ei löytynyt</string>
+
+    <string name="new_contact">Uusi kontakti</string>
+    <string name="edit_contact">Muokkaa kontaktia</string>
+    <string name="select_contact">Valitse kontakti</string>
+    <string name="select_contacts">Valitse kontaktit</string>
+    <string name="first_name">Etunimi</string>
+    <string name="middle_name">Toinen nimi</string>
+    <string name="surname">Sukunimi</string>
+    <string name="nickname">Kutsumanimi</string>
+
+    <!-- Groups -->
+    <string name="no_groups">Ei ryhmiä</string>
+    <string name="create_new_group">Luo uusi ryhmä</string>
+    <string name="remove_from_group">Poista ryhmästä</string>
+    <string name="no_group_participants">Ei ryhmään kuuluvia</string>
+    <string name="add_contacts">Lisää kontakteja</string>
+    <string name="no_group_created">Ryhmää ei luotu</string>
+    <string name="create_group">Luo ryhmä</string>
+    <string name="add_to_group">Lisää ryhmään</string>
+    <string name="create_group_under_account">Luo ryhmä tilille</string>
+
+    <!-- Photo -->
+    <string name="take_photo">Ota kuva</string>
+    <string name="choose_photo">Valitse kuva</string>
+    <string name="remove_photo">Posta kuva</string>
+
+    <!-- Settings -->
+    <string name="start_name_with_surname">Aloita sukunimellä</string>
+    <string name="show_phone_numbers">Näytä puhelinnumerot</string>
+    <string name="show_contact_thumbnails">Näytä kontaktien kuvakkeet</string>
+    <string name="show_dialpad_button">Näytä soittimen nappi</string>
+    <string name="on_contact_click">Kontaktia painettaessa</string>
+    <string name="call_contact">Soita kontaktiin</string>
+    <string name="view_contact">Näytä kontakti</string>
+    <string name="manage_shown_contact_fields">Muuta näytettyjä kontaktialueita</string>
+    <string name="filter_duplicates">Suodata kaksoiskappaleet</string>
+    <string name="manage_shown_tabs">Muuta näytettyjä palkkeja</string>
+    <string name="contacts">Kontaktit</string>
+    <string name="favorites">Suosikit</string>
+    <string name="show_call_confirmation_dialog">Näytä puhelun vahvistusruutu</string>
+    <string name="show_only_contacts_with_numbers">Näytä ainoastaan numerolliset kontaktit</string>
+    <string name="show_dialpad_letters">Näytä kirjaimet puhelimessa</string>
+
+    <!-- Emails -->
+    <string name="email">Sähköposti</string>
+    <string name="home">Koti</string>
+    <string name="work">Työ</string>
+    <string name="other">Muu</string>
+
+    <!-- Phone numbers -->
+    <string name="number">Numero</string>
+    <string name="mobile">Mobiili</string>
+    <string name="main_number">Päänumero</string>
+    <string name="work_fax">Työ faxi</string>
+    <string name="home_fax">Koti faxi</string>
+    <string name="pager">Hakulaite</string>
+    <string name="no_phone_number_found">Puhelinnumeroa ei löytynyt</string>
+
+    <!-- Events -->
+    <string name="birthday">Syntymäpäivä</string>
+    <string name="anniversary">Vuosipäivä</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">Ei suosikkeja</string>
+    <string name="add_favorites">Lisää suosikkeja</string>
+    <string name="add_to_favorites">Lisää suosikkeihin</string>
+    <string name="remove_from_favorites">Poista suosikeista</string>
+    <string name="must_be_at_edit">Täytyy olla muokkauksessa</string>
+
+    <!-- Search -->
+    <string name="search_contacts">Etsi kontakteja</string>
+    <string name="search_favorites">Etsi suosikkeja</string>
+    <string name="search_groups">Search groups</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">Tuo kontakteja</string>
+    <string name="export_contacts">Vie kontakteja</string>
+    <string name="import_contacts_from_vcf">Tuo .vcf kontakteja</string>
+    <string name="export_contacts_to_vcf">Vie .vcf kontakteja</string>
+    <string name="target_contact_source">Kohdenna kontaktin lähde</string>
+    <string name="include_contact_sources">Sisällytä kontaktin lähteet</string>
+    <string name="filename_without_vcf">Tiedostonimi ilman .vcf päätettä</string>
+
+    <!-- Dialpad -->
+    <string name="dialpad">Näppäimistö</string>
+    <string name="add_number_to_contact">Lisää numero kontakteihin</string>
+
+    <!-- Dialer -->
+    <string name="dialer">Vastaaja</string>
+    <string name="calling">Soitaa</string>
+    <string name="incoming_call">Tuleva puhelu</string>
+    <string name="incoming_call_from">Tuleva puhelu: </string>
+    <string name="ongoing_call">Puhelu kesken</string>
+    <string name="disconnected">Katkaistu</string>
+    <string name="decline_call">Hylkää puhelu</string>
+    <string name="answer_call">Vastaa puheluun</string>
+
+    <!-- Visible fields -->
+    <string name="select_fields_to_show">Valitse näytettävät palkit</string>
+    <string name="prefix">Alku</string>
+    <string name="suffix">Pääte</string>
+    <string name="phone_numbers">Puhelinnumero</string>
+    <string name="emails">Sähköpostit</string>
+    <string name="addresses">Osoitteet</string>
+    <string name="events">Tapahtumat</string>
+    <string name="notes">Muistiinpanot</string>
+    <string name="organization">Järjestö</string>
+    <string name="websites">Internetsivut</string>
+    <string name="groups">Ryhmät</string>
+    <string name="contact_source">Kontaktin lähde</string>
+    <string name="instant_messaging">Pikaviestin</string>
+
+    <!-- Blocked numbers -->
+    <string name="manage_blocked_numbers">Muuta estettyjä numeroita</string>
+    <string name="not_blocking_anyone">Et estä ketään.</string>
+    <string name="add_a_blocked_number">Lisää estetty numero</string>
+    <string name="block_number">Estä numero</string>
+    <string name="block_numbers">Estä numeroja</string>
+    <string name="blocked_numbers">Estetyt numerot</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Haluan muuttaa sitä mitkä palkit ovat näkyviä kontakteissa. Onko tämä mahdollista?</string>
+    <string name="faq_1_text">Kyllä, mene asetuksiin -> Muuta näytettyjä kontaktialueita. Siellä voit valita mitkä palkit haluat näkyviin. Jotkin niistä ovat piilossa oletuksena, joten saatat löytää sieltä uusia.</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
+    <string name="app_long_description">
+        A simple app for creating or managing your contacts from any source. The contacts can be stored on your device only, but also synchronized via Google, or other accounts. You can display your favorite contacts on a separate list.
+
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+
+        This app is just one piece of a bigger series of apps. You can find the rest of them at https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>

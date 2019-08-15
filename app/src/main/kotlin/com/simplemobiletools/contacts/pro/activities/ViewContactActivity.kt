@@ -1,7 +1,6 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.Menu
@@ -9,8 +8,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
+import com.bumptech.glide.Glide
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.extensions.*
@@ -32,6 +33,11 @@ class ViewContactActivity : ContactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_contact)
+
+        if (checkAppSideloading()) {
+            return
+        }
+
         showFields = config.showContactFields
     }
 
@@ -41,18 +47,18 @@ class ViewContactActivity : ContactActivity() {
         if (isViewIntent) {
             handlePermission(PERMISSION_READ_CONTACTS) {
                 if (it) {
-                    Thread {
+                    ensureBackgroundThread {
                         initContact()
-                    }.start()
+                    }
                 } else {
                     toast(R.string.no_contacts_permission)
                     finish()
                 }
             }
         } else {
-            Thread {
+            ensureBackgroundThread {
                 initContact()
-            }.start()
+            }
         }
     }
 
@@ -60,6 +66,7 @@ class ViewContactActivity : ContactActivity() {
         menuInflater.inflate(R.menu.menu_view_contact, menu)
         menu.apply {
             findItem(R.id.open_with).isVisible = contact?.isPrivate() == false
+            updateMenuItemColors(this)
         }
         return true
     }
@@ -133,12 +140,24 @@ class ViewContactActivity : ContactActivity() {
         contact_start_call.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
         contact_send_email.beVisibleIf(contact!!.emails.isNotEmpty())
 
-        contact_photo.background = ColorDrawable(config.primaryColor)
+        val background = resources.getDrawable(R.drawable.contact_circular_background)
+        background.applyColorFilter(config.primaryColor)
+        contact_photo.background = background
 
         if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
             showPhotoPlaceholder(contact_photo)
         } else {
             updateContactPhoto(contact!!.photoUri, contact_photo, contact!!.photo)
+            Glide.with(this).load(contact!!.photo ?: currentContactPhotoPath).into(contact_photo_big)
+            contact_photo.setOnClickListener {
+                contact_photo_big.alpha = 0f
+                contact_photo_big.beVisible()
+                contact_photo_big.animate().alpha(1f).start()
+            }
+
+            contact_photo_big.setOnClickListener {
+                contact_photo_big.animate().alpha(0f).withEndAction { it.beGone() }.start()
+            }
         }
 
         val textColor = config.textColor
@@ -148,6 +167,7 @@ class ViewContactActivity : ContactActivity() {
         contact_name_image.applyColorFilter(textColor)
         contact_numbers_image.applyColorFilter(textColor)
         contact_emails_image.applyColorFilter(textColor)
+        contact_addresses_image.applyColorFilter(textColor)
         contact_events_image.applyColorFilter(textColor)
         contact_source_image.applyColorFilter(textColor)
         contact_notes_image.applyColorFilter(textColor)
@@ -458,7 +478,7 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_big else R.drawable.ic_star_off_big)
+    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_vector else R.drawable.ic_star_off_vector)
 
     private fun View.copyOnLongClick(value: String) {
         setOnLongClickListener {

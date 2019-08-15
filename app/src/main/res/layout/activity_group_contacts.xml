@@ -18,8 +18,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/activity_margin"
             android:gravity="center"
-            android:paddingLeft="@dimen/activity_margin"
-            android:paddingRight="@dimen/activity_margin"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin"
             android:text="@string/no_group_participants"
             android:textSize="@dimen/bigger_text_size"
             android:visibility="gone"/>
@@ -51,8 +51,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:paddingStart="@dimen/normal_margin"
-            android:paddingLeft="@dimen/normal_margin">
+            android:paddingStart="@dimen/normal_margin">
 
             <include layout="@layout/fastscroller_handle_vertical"/>
 
@@ -65,6 +64,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/activity_margin"
-        android:src="@drawable/ic_plus"/>
+        android:src="@drawable/ic_plus_vector"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

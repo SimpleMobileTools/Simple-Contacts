@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.graphics.Bitmap
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.provider.ContactsContract
 import android.widget.ImageView
@@ -14,7 +15,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.getColoredBitmap
+import com.simplemobiletools.commons.extensions.applyColorFilter
+import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.getContrastColor
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
@@ -31,10 +33,14 @@ abstract class ContactActivity : SimpleActivity() {
     protected var currentContactPhotoPath = ""
 
     fun showPhotoPlaceholder(photoView: ImageView) {
-        val placeholder = resources.getColoredBitmap(R.drawable.ic_person, config.primaryColor.getContrastColor())
+        val background = resources.getDrawable(R.drawable.contact_circular_background)
+        background.applyColorFilter(config.primaryColor)
+        photoView.background = background
+
+        val placeholder = resources.getColoredDrawableWithColor(R.drawable.ic_person_vector, config.primaryColor.getContrastColor())
         val padding = resources.getDimension(R.dimen.activity_margin).toInt()
         photoView.setPadding(padding, padding, padding, padding)
-        photoView.setImageBitmap(placeholder)
+        photoView.setImageDrawable(placeholder)
         currentContactPhotoPath = ""
         contact?.photo = null
     }
@@ -53,9 +59,11 @@ abstract class ContactActivity : SimpleActivity() {
                 .load(bitmap ?: path)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .apply(options)
+                .apply(RequestOptions.circleCropTransform())
                 .listener(object : RequestListener<Drawable> {
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                         photoView.setPadding(0, 0, 0, 0)
+                        photoView.background = ColorDrawable(0)
                         return false
                     }
 

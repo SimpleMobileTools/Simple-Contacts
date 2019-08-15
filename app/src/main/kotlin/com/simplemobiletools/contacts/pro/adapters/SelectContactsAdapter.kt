@@ -29,7 +29,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
     private val selectedPositions = HashSet<Int>()
     private val config = activity.config
     private val textColor = config.textColor
-    private val contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person, textColor)
+    private val contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person_vector, textColor)
     private val showContactThumbnails = config.showContactThumbnails
     private val itemLayout = if (config.showPhoneNumbers) R.layout.item_add_favorite_with_number else R.layout.item_add_favorite_without_number
 

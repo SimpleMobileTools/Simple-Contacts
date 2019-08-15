@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:paddingRight="@dimen/activity_margin">
+        android:paddingEnd="@dimen/activity_margin">
 
         <ImageView
             android:id="@+id/new_contact_tmb"
@@ -20,13 +20,13 @@
             android:layout_alignTop="@+id/new_contact_name"
             android:layout_alignBottom="@+id/new_contact_name"
             android:padding="@dimen/medium_margin"
-            android:src="@drawable/ic_new_contact"/>
+            android:src="@drawable/ic_new_contact_vector"/>
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/new_contact_name"
             android:layout_width="match_parent"
             android:layout_height="@dimen/create_new_contact_height"
-            android:layout_toRightOf="@+id/new_contact_tmb"
+            android:layout_toEndOf="@+id/new_contact_tmb"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"

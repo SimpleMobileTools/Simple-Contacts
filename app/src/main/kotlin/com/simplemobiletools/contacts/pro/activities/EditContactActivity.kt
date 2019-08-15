@@ -6,7 +6,6 @@ import android.content.ClipData
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds
@@ -22,6 +21,7 @@ import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
@@ -60,7 +60,10 @@ class EditContactActivity : ContactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_contact)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_cross)
+
+        if (checkAppSideloading()) {
+            return
+        }
 
         val action = intent.action
         isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT || action == ADD_NEW_CONTACT_NUMBER
@@ -93,6 +96,8 @@ class EditContactActivity : ContactActivity() {
             menu.findItem(R.id.share).isVisible = contact?.id != 0
             menu.findItem(R.id.open_with).isVisible = contact?.id != 0 && contact?.isPrivate() == false
         }
+
+        updateMenuItemColors(menu, true)
         return true
     }
 
@@ -144,7 +149,7 @@ class EditContactActivity : ContactActivity() {
         }
 
         if (contactId != 0) {
-            Thread {
+            ensureBackgroundThread {
                 contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
                 if (contact == null) {
                     toast(R.string.unknown_error_occurred)
@@ -154,7 +159,7 @@ class EditContactActivity : ContactActivity() {
                         gotContact()
                     }
                 }
-            }.start()
+            }
         } else {
             gotContact()
         }
@@ -195,7 +200,9 @@ class EditContactActivity : ContactActivity() {
         contact_start_call.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
         contact_send_email.beVisibleIf(contact!!.emails.isNotEmpty())
 
-        contact_photo.background = ColorDrawable(config.primaryColor)
+        val background = resources.getDrawable(R.drawable.contact_circular_background)
+        background.applyColorFilter(config.primaryColor)
+        contact_photo.background = background
 
         if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
             showPhotoPlaceholder(contact_photo)
@@ -378,7 +385,7 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupEditContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-        supportActionBar?.title = resources.getString(R.string.edit_contact)
+        updateActionBarTitle(resources.getString(R.string.edit_contact))
 
         setupNames()
         setupPhoneNumbers()
@@ -575,7 +582,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupNewContact() {
-        supportActionBar?.title = resources.getString(R.string.new_contact)
+        updateActionBarTitle(resources.getString(R.string.new_contact))
         originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
         contact = getEmptyContact()
         getPublicContactSource(contact!!.source) {
@@ -869,7 +876,7 @@ class EditContactActivity : ContactActivity() {
             val jobPosition = contact_organization_job_position.value
             organization = Organization(company, jobPosition)
 
-            Thread {
+            ensureBackgroundThread {
                 config.lastUsedContactSource = source
                 when {
                     id == 0 -> insertNewContact(false)
@@ -879,7 +886,7 @@ class EditContactActivity : ContactActivity() {
                         updateContact(photoUpdateStatus)
                     }
                 }
-            }.start()
+            }
         }
     }
 
@@ -1088,7 +1095,7 @@ class EditContactActivity : ContactActivity() {
 
     private fun isContactStarred() = contact_toggle_favorite.tag == 1
 
-    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_big else R.drawable.ic_star_off_big)
+    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_vector else R.drawable.ic_star_off_vector)
 
     private fun trySetPhoto() {
         val items = arrayListOf(

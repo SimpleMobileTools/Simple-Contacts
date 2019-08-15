@@ -1,11 +1,16 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
+import android.graphics.drawable.LayerDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -32,12 +37,12 @@ import com.simplemobiletools.contacts.pro.extensions.getTempFile
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
-import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.android.synthetic.main.fragment_groups.*
 import java.io.FileOutputStream
+import java.util.*
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isSearchOpen = false
@@ -148,7 +153,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         }
 
-        val dialpadIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad, if (isBlackAndWhiteTheme()) Color.BLACK else Color.WHITE)
+        val dialpadIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad_vector, if (isBlackAndWhiteTheme()) Color.BLACK else config.primaryColor.getContrastColor())
         main_dialpad_button.apply {
             setImageDrawable(dialpadIcon)
             background.applyColorFilter(getAdjustedPrimaryColor())
@@ -156,6 +161,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         isFirstResume = false
+        checkShortcuts()
+        invalidateOptionsMenu()
     }
 
     override fun onPause() {
@@ -176,11 +183,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val currentFragment = getCurrentFragment()
 
         menu.apply {
-            findItem(R.id.search).isVisible = currentFragment != groups_fragment
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
+            setupSearch(this)
+            updateMenuItemColors(this)
         }
-        setupSearch(menu)
+
         return true
     }
 
@@ -216,7 +224,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         (searchMenuItem!!.actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isSubmitButtonEnabled = false
-            queryHint = getString(if (getCurrentFragment() == contacts_fragment) R.string.search_contacts else R.string.search_favorites)
+            queryHint = getString(getSearchString())
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String) = false
 
@@ -242,6 +250,64 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 return true
             }
         })
+    }
+
+    private fun getSearchString(): Int {
+        return when (getCurrentFragment()) {
+            favorites_fragment -> R.string.search_favorites
+            groups_fragment -> R.string.search_groups
+            else -> R.string.search_contacts
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private fun checkShortcuts() {
+        val appIconColor = config.appIconColor
+        if (isNougatMR1Plus() && config.lastHandledShortcutColor != appIconColor) {
+            val launchDialpad = getLaunchDialpadShortcut(appIconColor)
+            val createNewContact = getCreateNewContactShortcut(appIconColor)
+
+            val manager = getSystemService(ShortcutManager::class.java)
+            try {
+                manager.dynamicShortcuts = Arrays.asList(launchDialpad, createNewContact)
+                config.lastHandledShortcutColor = appIconColor
+            } catch (ignored: Exception) {
+            }
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private fun getLaunchDialpadShortcut(appIconColor: Int): ShortcutInfo {
+        val newEvent = getString(R.string.dialpad)
+        val drawable = resources.getDrawable(R.drawable.shortcut_dialpad)
+        (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_dialpad_background).applyColorFilter(appIconColor)
+        val bmp = drawable.convertToBitmap()
+
+        val intent = Intent(this, DialpadActivity::class.java)
+        intent.action = Intent.ACTION_VIEW
+        return ShortcutInfo.Builder(this, "launch_dialpad")
+                .setShortLabel(newEvent)
+                .setLongLabel(newEvent)
+                .setIcon(Icon.createWithBitmap(bmp))
+                .setIntent(intent)
+                .build()
+    }
+
+    @SuppressLint("NewApi")
+    private fun getCreateNewContactShortcut(appIconColor: Int): ShortcutInfo {
+        val newEvent = getString(R.string.create_new_contact)
+        val drawable = resources.getDrawable(R.drawable.shortcut_plus)
+        (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_plus_background).applyColorFilter(appIconColor)
+        val bmp = drawable.convertToBitmap()
+
+        val intent = Intent(this, EditContactActivity::class.java)
+        intent.action = Intent.ACTION_VIEW
+        return ShortcutInfo.Builder(this, "create_new_contact")
+                .setShortLabel(newEvent)
+                .setLongLabel(newEvent)
+                .setIcon(Icon.createWithBitmap(bmp))
+                .setIntent(intent)
+                .build()
     }
 
     private fun getCurrentFragment(): MyViewPagerFragment? {
@@ -351,9 +417,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun getTabIcon(position: Int): Drawable {
         val drawableId = when (position) {
-            LOCATION_CONTACTS_TAB -> R.drawable.ic_person
-            LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on
-            else -> R.drawable.ic_group
+            LOCATION_CONTACTS_TAB -> R.drawable.ic_person_vector
+            LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on_vector
+            else -> R.drawable.ic_group_vector
         }
 
         return resources.getColoredDrawableWithColor(drawableId, config.textColor)
@@ -429,23 +495,20 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun exportContacts() {
         FilePickerDialog(this, pickFile = false, showFAB = true) {
-            ExportContactsDialog(this, it) { file, contactSources ->
-                Thread {
-                    ContactsHelper(this).getContacts { allContacts ->
-                        val contacts = allContacts.filter { contactSources.contains(it.source) }
-                        if (contacts.isEmpty()) {
-                            toast(R.string.no_entries_for_exporting)
-                        } else {
-                            VcfExporter().exportContacts(this, file, contacts as ArrayList<Contact>, true) { result ->
-                                toast(when (result) {
-                                    VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
-                                    VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
-                                    else -> R.string.exporting_failed
-                                })
-                            }
+            ExportContactsDialog(this, it) { file, ignoredContactSources ->
+                ContactsHelper(this).getContacts(ignoredContactSources) { contacts ->
+                    if (contacts.isEmpty()) {
+                        toast(R.string.no_entries_for_exporting)
+                    } else {
+                        VcfExporter().exportContacts(this, file, contacts, true) { result ->
+                            toast(when (result) {
+                                VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
+                                VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
+                                else -> R.string.exporting_failed
+                            })
                         }
                     }
-                }.start()
+                }
             }
         }
     }
@@ -456,7 +519,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val faqItems = arrayListOf(
                 FAQItem(R.string.faq_1_title, R.string.faq_1_text),
                 FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
-                FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons)
+                FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons),
+                FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons)
         )
 
         startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
@@ -474,13 +538,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             viewpager.currentItem = config.lastUsedViewPagerPage
         }
 
-        ContactsHelper(this).getContacts {
+        ContactsHelper(this).getContacts { contacts ->
             isGettingContacts = false
             if (isDestroyed) {
                 return@getContacts
             }
 
-            val contacts = it
             if (refreshTabsMask and CONTACTS_TAB_MASK != 0) {
                 contacts_fragment?.refreshContacts(contacts)
             }

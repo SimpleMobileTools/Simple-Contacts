@@ -13,6 +13,6 @@
         android:layout_centerInParent="true"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/activity_margin"
-        android:src="@drawable/ic_phone_huge"/>
+        android:src="@drawable/ic_phone_vector"/>
 
 </RelativeLayout>

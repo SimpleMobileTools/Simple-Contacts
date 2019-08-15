@@ -7,6 +7,9 @@ import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.applyColorFilter
 import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
+import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
@@ -26,7 +29,9 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
     private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
+    private var textToHighlight = ""
 
+    var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
     var showContactThumbnails = activity.config.showContactThumbnails
 
     init {
@@ -75,10 +80,16 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     private fun getItemWithKey(key: Int): Group? = groups.firstOrNull { it.id!!.toInt() == key }
 
-    fun updateItems(newItems: ArrayList<Group>) {
-        groups = newItems
-        notifyDataSetChanged()
-        finishActMode()
+    fun updateItems(newItems: ArrayList<Group>, highlightText: String = "") {
+        if (newItems.hashCode() != groups.hashCode()) {
+            groups = newItems
+            textToHighlight = highlightText
+            notifyDataSetChanged()
+            finishActMode()
+        } else if (textToHighlight != highlightText) {
+            textToHighlight = highlightText
+            notifyDataSetChanged()
+        }
         fastScroller?.measureRecyclerView()
     }
 
@@ -92,9 +103,9 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     private fun askConfirmDelete() {
         ConfirmationDialog(activity) {
-            Thread {
+            ensureBackgroundThread {
                 deleteGroups()
-            }.start()
+            }
         }
     }
 
@@ -127,9 +138,16 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
     private fun setupView(view: View, group: Group) {
         view.apply {
             group_frame?.isSelected = selectedKeys.contains(group.id!!.toInt())
+            val titleWithCnt = "${group.title} (${group.contactsCount})"
+            val groupTitle = if (textToHighlight.isEmpty()) {
+                titleWithCnt
+            } else {
+                titleWithCnt.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+            }
+
             group_name.apply {
                 setTextColor(textColor)
-                text = String.format(activity.getString(R.string.groups_placeholder), group.title, group.contactsCount.toString())
+                text = groupTitle
                 setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
             }
 

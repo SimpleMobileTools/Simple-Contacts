@@ -18,7 +18,7 @@
     <string name="create_new_contact">Crea un nuovo contatto</string>
     <string name="add_to_existing_contact">Aggiungi a un contatto esistente</string>
     <string name="must_make_default_dialer">È necessario impostare quest\'app come predefinita per utilizzare i numeri bloccati.</string>
-    <string name="set_to_default">Imposta come predefinita</string>
+    <string name="set_as_default">Imposta come predefinita</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nessun contatto trovato</string>
@@ -65,7 +65,7 @@
     <string name="favorites">Preferiti</string>
     <string name="show_call_confirmation_dialog">Mostra un messaggio di conferma prima di iniziare una chiamata</string>
     <string name="show_only_contacts_with_numbers">Mostra solamente i contatti con almeno un numero telefonico</string>
-    <string name="show_dialpad_letters">Show letters on the dialpad</string>
+    <string name="show_dialpad_letters">Mostra lettere nel compositore</string>
 
     <!-- Emails -->
     <string name="email">Email</string>
@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Cerca contatti</string>
     <string name="search_favorites">Cerca preferiti</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Importa contatti</string>

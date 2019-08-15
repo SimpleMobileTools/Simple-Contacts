@@ -18,7 +18,7 @@
     <string name="create_new_contact">新しい連絡先を作成</string>
     <string name="add_to_existing_contact">既存の連絡先に追加</string>
     <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_to_default">Set to default</string>
+    <string name="set_as_default">Set as default</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">連絡先が見つかりません</string>
@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">連絡先を検索</string>
     <string name="search_favorites">お気に入りを検索</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">連絡先をインポート</string>

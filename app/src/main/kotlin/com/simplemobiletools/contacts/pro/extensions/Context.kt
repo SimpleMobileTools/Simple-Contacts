@@ -15,10 +15,7 @@ import android.provider.ContactsContract
 import android.telecom.TelecomManager
 import androidx.core.content.FileProvider
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
-import com.simplemobiletools.commons.helpers.isMarshmallowPlus
-import com.simplemobiletools.commons.helpers.isNougatPlus
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
@@ -199,7 +196,7 @@ fun Context.getPublicContactSource(source: String, callback: (String) -> Unit) {
     when (source) {
         SMT_PRIVATE -> callback(getString(R.string.phone_storage_hidden))
         else -> {
-            Thread {
+            ensureBackgroundThread {
                 ContactsHelper(this).getContactSources {
                     var newSource = source
                     for (contactSource in it) {
@@ -212,7 +209,7 @@ fun Context.getPublicContactSource(source: String, callback: (String) -> Unit) {
                         callback(newSource)
                     }
                 }
-            }.start()
+            }
         }
     }
 }
@@ -304,13 +301,16 @@ fun Context.getContactPublicUri(contact: Contact): Uri {
 }
 
 fun Context.getVisibleContactSources(): ArrayList<String> {
-    val sources = ContactsHelper(this).getDeviceContactSources()
-    val phoneSecret = getString(R.string.phone_storage_hidden)
-    sources.add(ContactSource(phoneSecret, SMT_PRIVATE, phoneSecret))
+    val sources = getAllContactSources()
     val ignoredContactSources = config.ignoredContactSources
-    val sourceNames = ArrayList(sources).filter { !ignoredContactSources.contains(it.getFullIdentifier()) }
-            .map { if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.name }.toMutableList() as ArrayList<String>
-    return sourceNames
+    return ArrayList(sources).filter { !ignoredContactSources.contains(it.getFullIdentifier()) }
+            .map { it.name }.toMutableList() as ArrayList<String>
+}
+
+fun Context.getAllContactSources(): List<ContactSource> {
+    val sources = ContactsHelper(this).getDeviceContactSources()
+    sources.add(getPrivateContactSource())
+    return sources.toMutableList()
 }
 
 @TargetApi(Build.VERSION_CODES.N)
@@ -368,3 +368,5 @@ fun Context.deleteBlockedNumber(number: String) {
 
 @TargetApi(Build.VERSION_CODES.M)
 fun Context.isDefaultDialer() = isMarshmallowPlus() && telecomManager.defaultDialerPackage == packageName
+
+fun Context.getPrivateContactSource() = ContactSource(SMT_PRIVATE, SMT_PRIVATE, getString(R.string.phone_storage_hidden))

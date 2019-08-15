@@ -28,11 +28,17 @@ class ContactsHelper(val context: Context) {
     private val BATCH_SIZE = 100
     private var displayContactSources = ArrayList<String>()
 
-    fun getContacts(callback: (ArrayList<Contact>) -> Unit) {
-        Thread {
+    fun getContacts(ignoredContactSources: HashSet<String> = HashSet(), callback: (ArrayList<Contact>) -> Unit) {
+        ensureBackgroundThread {
             val contacts = SparseArray<Contact>()
             displayContactSources = context.getVisibleContactSources()
-            getDeviceContacts(contacts)
+            if (ignoredContactSources.isNotEmpty()) {
+                displayContactSources = context.getAllContactSources().filter {
+                    it.getFullIdentifier().isNotEmpty() && !ignoredContactSources.contains(it.getFullIdentifier())
+                }.map { it.getFullIdentifier() }.toMutableList() as ArrayList
+            }
+
+            getDeviceContacts(contacts, ignoredContactSources)
 
             if (displayContactSources.contains(SMT_PRIVATE)) {
                 LocalContactsHelper(context).getAllContacts().forEach {
@@ -46,7 +52,7 @@ class ContactsHelper(val context: Context) {
             val resultContacts = ArrayList<Contact>(contactsSize)
 
             (0 until contactsSize).filter {
-                if (showOnlyContactsWithNumbers) {
+                if (ignoredContactSources.isEmpty() && showOnlyContactsWithNumbers) {
                     contacts.valueAt(it).phoneNumbers.isNotEmpty()
                 } else {
                     true
@@ -55,7 +61,7 @@ class ContactsHelper(val context: Context) {
                 contacts.valueAt(it)
             }
 
-            if (context.config.filterDuplicates) {
+            if (ignoredContactSources.isEmpty() && context.config.filterDuplicates) {
                 tempContacts = tempContacts.distinctBy {
                     it.getHashToCompare()
                 } as ArrayList<Contact>
@@ -87,17 +93,24 @@ class ContactsHelper(val context: Context) {
             Handler(Looper.getMainLooper()).post {
                 callback(resultContacts)
             }
-        }.start()
+        }
     }
 
     private fun getContentResolverAccounts(): HashSet<ContactSource> {
-        val uri = ContactsContract.Data.CONTENT_URI
+        val sources = HashSet<ContactSource>()
+        arrayOf(ContactsContract.Groups.CONTENT_URI, ContactsContract.Settings.CONTENT_URI, ContactsContract.RawContacts.CONTENT_URI).forEach {
+            fillSourcesFromUri(it, sources)
+        }
+
+        return sources
+    }
+
+    private fun fillSourcesFromUri(uri: Uri, sources: HashSet<ContactSource>) {
         val projection = arrayOf(
                 ContactsContract.RawContacts.ACCOUNT_NAME,
                 ContactsContract.RawContacts.ACCOUNT_TYPE
         )
 
-        val sources = HashSet<ContactSource>()
         var cursor: Cursor? = null
         try {
             cursor = context.contentResolver.query(uri, projection, null, null, null)
@@ -118,16 +131,14 @@ class ContactsHelper(val context: Context) {
         } finally {
             cursor?.close()
         }
-
-        return sources
     }
 
-    private fun getDeviceContacts(contacts: SparseArray<Contact>) {
+    private fun getDeviceContacts(contacts: SparseArray<Contact>, ignoredContactSources: HashSet<String>?) {
         if (!context.hasContactPermissions()) {
             return
         }
 
-        val ignoredSources = context.config.ignoredContactSources
+        val ignoredSources = ignoredContactSources ?: context.config.ignoredContactSources
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = getContactProjection()
 
@@ -656,12 +667,12 @@ class ContactsHelper(val context: Context) {
     }
 
     fun getStoredGroups(callback: (ArrayList<Group>) -> Unit) {
-        Thread {
+        ensureBackgroundThread {
             val groups = getStoredGroupsSync()
             Handler(Looper.getMainLooper()).post {
                 callback(groups)
             }
-        }.start()
+        }
     }
 
     fun getStoredGroupsSync(): ArrayList<Group> {
@@ -827,15 +838,14 @@ class ContactsHelper(val context: Context) {
     }
 
     fun getContactSources(callback: (ArrayList<ContactSource>) -> Unit) {
-        Thread {
+        ensureBackgroundThread {
             callback(getContactSourcesSync())
-        }.start()
+        }
     }
 
     private fun getContactSourcesSync(): ArrayList<ContactSource> {
         val sources = getDeviceContactSources()
-        val phoneSecret = context.getString(R.string.phone_storage_hidden)
-        sources.add(ContactSource(phoneSecret, SMT_PRIVATE, phoneSecret))
+        sources.add(context.getPrivateContactSource())
         return ArrayList(sources)
     }
 
@@ -1239,7 +1249,8 @@ class ContactsHelper(val context: Context) {
             ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI).apply {
                 withValue(ContactsContract.RawContacts.ACCOUNT_NAME, contact.source)
                 withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, getContactSourceType(contact.source))
-                withValue(ContactsContract.RawContacts.DIRTY, 1)
+                withValue(ContactsContract.RawContacts.DIRTY, 0)
+                withValue(ContactsContract.RawContacts.DELETED, 0)
                 operations.add(build())
             }
 
@@ -1465,21 +1476,21 @@ class ContactsHelper(val context: Context) {
     }
 
     fun addFavorites(contacts: ArrayList<Contact>) {
-        Thread {
+        ensureBackgroundThread {
             toggleLocalFavorites(contacts, true)
             if (context.hasContactPermissions()) {
                 toggleFavorites(contacts, true)
             }
-        }.start()
+        }
     }
 
     fun removeFavorites(contacts: ArrayList<Contact>) {
-        Thread {
+        ensureBackgroundThread {
             toggleLocalFavorites(contacts, false)
             if (context.hasContactPermissions()) {
                 toggleFavorites(contacts, false)
             }
-        }.start()
+        }
     }
 
     private fun toggleFavorites(contacts: ArrayList<Contact>, addToFavorites: Boolean) {
@@ -1509,13 +1520,13 @@ class ContactsHelper(val context: Context) {
     }
 
     fun deleteContact(contact: Contact) {
-        Thread {
+        ensureBackgroundThread {
             if (contact.isPrivate()) {
                 context.contactsDB.deleteContactId(contact.id)
             } else {
                 deleteContacts(arrayListOf(contact))
             }
-        }.start()
+        }
     }
 
     fun deleteContacts(contacts: ArrayList<Contact>) {

@@ -18,7 +18,7 @@
     <string name="create_new_contact">Create new contact</string>
     <string name="add_to_existing_contact">Add to an existing contact</string>
     <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_to_default">Set to default</string>
+    <string name="set_as_default">Set as default</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">No contacts found</string>
@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Search contacts</string>
     <string name="search_favorites">Search favorites</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Import contacts</string>
@@ -149,7 +150,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Apka na správu vašich kontaktov bez reklám, rešpektujúca vaše súkromie.</string>
+    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
     <string name="app_long_description">
         A simple app for creating or managing your contacts from any source. The contacts can be stored on your device only, but also synchronized via Google, or other accounts. You can display your favorite contacts on a separate list.
 

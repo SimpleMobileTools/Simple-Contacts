@@ -30,8 +30,8 @@
         android:layout_alignTop="@+id/contact_number"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:paddingLeft="@dimen/medium_margin"
-        android:paddingRight="@dimen/medium_margin"
+        android:paddingStart="@dimen/medium_margin"
+        android:paddingEnd="@dimen/medium_margin"
         android:text="@string/mobile"
         android:textSize="@dimen/bigger_text_size"/>
 

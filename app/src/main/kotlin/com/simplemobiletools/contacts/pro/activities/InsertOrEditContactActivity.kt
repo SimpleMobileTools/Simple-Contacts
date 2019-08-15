@@ -4,10 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
-import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.toast
-import com.simplemobiletools.commons.extensions.updateTextColors
+import android.view.Menu
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
@@ -24,6 +22,11 @@ class InsertOrEditContactActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insert_edit_contact)
+
+        if (checkAppSideloading()) {
+            return
+        }
+
         title = getString(R.string.select_contact)
         setupViews()
 
@@ -35,9 +38,14 @@ class InsertOrEditContactActivity : SimpleActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        updateMenuItemColors(menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     private fun setupViews() {
         updateTextColors(insert_edit_contact_holder)
-        new_contact_tmb.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_new_contact, config.textColor))
+        new_contact_tmb.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_new_contact_vector, config.textColor))
         new_contact_holder.setOnClickListener {
             Intent().apply {
                 action = Intent.ACTION_INSERT

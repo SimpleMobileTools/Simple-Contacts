@@ -18,7 +18,7 @@
     <string name="create_new_contact">Créer un nouveau contact</string>
     <string name="add_to_existing_contact">Ajouter à un contact existant</string>
     <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_to_default">Set to default</string>
+    <string name="set_as_default">Set as default</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Aucun contact n\'a été trouvé</string>
@@ -96,6 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Rechercher des contacts</string>
     <string name="search_favorites">Rechercher des favoris</string>
+    <string name="search_groups">Search groups</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Importer des contacts</string>

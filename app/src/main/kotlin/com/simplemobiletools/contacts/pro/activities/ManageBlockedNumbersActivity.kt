@@ -8,6 +8,7 @@ import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.underlineText
 import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ManageBlockedNumbersAdapter
@@ -39,8 +40,9 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_add_blocked_number, menu)
+        updateMenuItemColors(menu)
         return true
     }
 
@@ -58,11 +60,11 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
 
     private fun updatePlaceholderTexts() {
         manage_blocked_numbers_placeholder.text = getString(if (isDefaultDialer()) R.string.not_blocking_anyone else R.string.must_make_default_dialer)
-        manage_blocked_numbers_placeholder_2.text = getString(if (isDefaultDialer()) R.string.add_a_blocked_number else R.string.set_to_default)
+        manage_blocked_numbers_placeholder_2.text = getString(if (isDefaultDialer()) R.string.add_a_blocked_number else R.string.set_as_default)
     }
 
     private fun updateBlockedNumbers() {
-        Thread {
+        ensureBackgroundThread {
             val blockedNumbers = getBlockedNumbers()
             runOnUiThread {
                 ManageBlockedNumbersAdapter(this, blockedNumbers, this, manage_blocked_numbers_list) {
@@ -74,7 +76,7 @@ class ManageBlockedNumbersActivity : SimpleActivity(), RefreshRecyclerViewListen
                 manage_blocked_numbers_placeholder.beVisibleIf(blockedNumbers.isEmpty())
                 manage_blocked_numbers_placeholder_2.beVisibleIf(blockedNumbers.isEmpty())
             }
-        }.start()
+        }
     }
 
     private fun addOrEditBlockedNumber(currentNumber: BlockedNumber? = null) {
