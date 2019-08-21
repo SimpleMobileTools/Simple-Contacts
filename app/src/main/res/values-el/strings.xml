@@ -18,7 +18,7 @@
     <string name="create_new_contact">Δημιουργία νέας Επαφής</string>
     <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
     <string name="must_make_default_dialer">Θα πρέπει να οριστεί προεπιλεγμένη εφαρμογή για χρησιμοποίηση αποκλεισμένων αριθμών.</string>
-    <string name="set_as_default">Ορισμός προεπιλεγμένης</string>
+    <string name="set_as_default">Ορισμός ως προεπιλογής</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Δεν βρέθηκαν Επαφές</string>
@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Αναζήτηση επαφών</string>
     <string name="search_favorites">Αναζήτηση αγαπημένων</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Αναζήτηση ομάδων</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Εισαγωγή επαφών</string>
