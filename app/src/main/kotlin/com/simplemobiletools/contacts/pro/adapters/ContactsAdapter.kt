@@ -167,14 +167,16 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
         ensureBackgroundThread {
             ContactsHelper(activity).deleteContacts(contactsToRemove)
-        }
 
-        if (contactItems.isEmpty()) {
-            refreshListener?.refreshContacts(ALL_TABS_MASK)
-            finishActMode()
-        } else {
-            removeSelectedItems(positions)
-            refreshListener?.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+            activity.runOnUiThread {
+                if (contactItems.isEmpty()) {
+                    refreshListener?.refreshContacts(ALL_TABS_MASK)
+                    finishActMode()
+                } else {
+                    removeSelectedItems(positions)
+                    refreshListener?.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+                }
+            }
         }
     }
 

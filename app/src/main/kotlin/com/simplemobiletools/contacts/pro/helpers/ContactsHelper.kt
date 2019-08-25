@@ -1530,7 +1530,7 @@ class ContactsHelper(val context: Context) {
     }
 
     fun deleteContacts(contacts: ArrayList<Contact>) {
-        val localContacts = contacts.filter { it.isPrivate() }.map { it.id }.toTypedArray()
+        val localContacts = contacts.filter { it.isPrivate() }.map { it.id.toLong() }.toMutableList()
         LocalContactsHelper(context).deleteContactIds(localContacts)
 
         try {
