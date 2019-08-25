@@ -134,6 +134,10 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun gotContact() {
+        if (isDestroyed || isFinishing) {
+            return
+        }
+
         contact_scrollview.beVisible()
         setupViewContact()
         contact_send_sms.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
