@@ -66,7 +66,7 @@ class ContactsHelper(val context: Context) {
                     it.getHashToCompare()
                 } as ArrayList<Contact>
 
-                tempContacts.groupBy { "${it.getNameToDisplay().toLowerCase()}${it.emails}" }.values.forEach {
+                tempContacts.filter { displayContactSources.contains(it.source) }.groupBy { "${it.getNameToDisplay().toLowerCase()}${it.emails}" }.values.forEach { it ->
                     if (it.size == 1) {
                         resultContacts.add(it.first())
                     } else {
