@@ -10,6 +10,7 @@ import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getPublicContactSource
 import com.simplemobiletools.contacts.pro.extensions.showContactSourcePicker
+import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPORT_FAIL
@@ -23,6 +24,17 @@ class ImportContactsDialog(val activity: SimpleActivity, val path: String, priva
             targetContactSource = activity.config.lastUsedContactSource
             activity.getPublicContactSource(targetContactSource) {
                 import_contacts_title.text = it
+                if (it.isEmpty()) {
+                    ContactsHelper(activity).getContactSources {
+                        val localSource = it.firstOrNull { it.name == SMT_PRIVATE }
+                        if (localSource != null) {
+                            targetContactSource = localSource.name
+                            activity.runOnUiThread {
+                                import_contacts_title.text = localSource.publicName
+                            }
+                        }
+                    }
+                }
             }
 
             import_contacts_title.setOnClickListener {
