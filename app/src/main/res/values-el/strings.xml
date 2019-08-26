@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Simple Contacts</string>
+    <string name="app_name">Απλές Επαφές</string>
     <string name="app_launcher_name">Επαφές</string>
     <string name="address">Διεύθυνση</string>
     <string name="inserting">Εισαγωγή…</string>
@@ -43,7 +43,7 @@
     <string name="no_group_created">Δεν υπάρχουν ομάδες επαφών στη συσκευή</string>
     <string name="create_group">Δημιουργία ομάδας</string>
     <string name="add_to_group">Προσθήκη σε ομάδα</string>
-    <string name="create_group_under_account">Δημιουργία ομάδας υπο ενός λογαριασμού</string>
+    <string name="create_group_under_account">Δημιουργία ομάδας υπό ενός λογαριασμού</string>
 
     <!-- Photo -->
     <string name="take_photo">Λήψη φωτογραφίας</string>
@@ -109,7 +109,7 @@
 
     <!-- Dialpad -->
     <string name="dialpad">Πληκτρολόγιο</string>
-    <string name="add_number_to_contact">Προσθήκη αριθμού σε επαφή</string>
+    <string name="add_number_to_contact">Προσθήκη επαφής σε αριθμό</string>
 
     <!-- Dialer -->
     <string name="dialer">Πληκτρολόγιο</string>
@@ -145,17 +145,17 @@
     <string name="blocked_numbers">Αποκλεισμένοι αριθμοί</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_contacts_confirmation">Θέλετε σίγουρα να διαγράψετε %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
-        <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacts</item>
+        <item quantity="one">%d επαφή</item>
+        <item quantity="other">%d επαφές</item>
     </plurals>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d ομάδα</item>
+        <item quantity="other">%d ομάδες</item>
     </plurals>
 
     <!-- FAQ -->
