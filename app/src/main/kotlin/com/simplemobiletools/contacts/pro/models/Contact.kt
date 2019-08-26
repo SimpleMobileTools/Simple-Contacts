@@ -118,7 +118,7 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
 
     fun getHashToCompare() = getStringToCompare().hashCode()
 
-    private fun getFullCompany(): String {
+    fun getFullCompany(): String {
         var fullOrganization = if (organization.company.isEmpty()) "" else "${organization.company}, "
         fullOrganization += organization.jobPosition
         return fullOrganization.trim().trimEnd(',')
