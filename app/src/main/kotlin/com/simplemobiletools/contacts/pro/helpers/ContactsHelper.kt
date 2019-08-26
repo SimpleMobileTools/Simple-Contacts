@@ -25,17 +25,22 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ContactsHelper(val context: Context) {
-    private val BATCH_SIZE = 100
+    private val BATCH_SIZE = 50
     private var displayContactSources = ArrayList<String>()
 
-    fun getContacts(ignoredContactSources: HashSet<String> = HashSet(), callback: (ArrayList<Contact>) -> Unit) {
+    fun getContacts(isExporting: Boolean = false, ignoredContactSources: HashSet<String> = HashSet(), callback: (ArrayList<Contact>) -> Unit) {
         ensureBackgroundThread {
             val contacts = SparseArray<Contact>()
             displayContactSources = context.getVisibleContactSources()
-            if (ignoredContactSources.isNotEmpty()) {
-                displayContactSources = context.getAllContactSources().filter {
-                    it.getFullIdentifier().isNotEmpty() && !ignoredContactSources.contains(it.getFullIdentifier())
-                }.map { it.getFullIdentifier() }.toMutableList() as ArrayList
+
+            if (isExporting) {
+                displayContactSources = if (ignoredContactSources.isEmpty()) {
+                    context.getAllContactSources().map { it.getFullIdentifier() }.toMutableList() as ArrayList
+                } else {
+                    context.getAllContactSources().filter {
+                        it.getFullIdentifier().isNotEmpty() && !ignoredContactSources.contains(it.getFullIdentifier())
+                    }.map { it.getFullIdentifier() }.toMutableList() as ArrayList
+                }
             }
 
             getDeviceContacts(contacts, ignoredContactSources)
@@ -61,7 +66,7 @@ class ContactsHelper(val context: Context) {
                 contacts.valueAt(it)
             }
 
-            if (ignoredContactSources.isEmpty() && context.config.filterDuplicates) {
+            if (ignoredContactSources.isEmpty() && context.config.filterDuplicates && !isExporting) {
                 tempContacts = tempContacts.distinctBy {
                     it.getHashToCompare()
                 } as ArrayList<Contact>

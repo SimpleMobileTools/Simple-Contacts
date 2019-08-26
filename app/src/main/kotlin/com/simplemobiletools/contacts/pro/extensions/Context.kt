@@ -307,10 +307,10 @@ fun Context.getVisibleContactSources(): ArrayList<String> {
             .map { it.name }.toMutableList() as ArrayList<String>
 }
 
-fun Context.getAllContactSources(): List<ContactSource> {
+fun Context.getAllContactSources(): ArrayList<ContactSource> {
     val sources = ContactsHelper(this).getDeviceContactSources()
     sources.add(getPrivateContactSource())
-    return sources.toMutableList()
+    return sources.toMutableList() as ArrayList<ContactSource>
 }
 
 @TargetApi(Build.VERSION_CODES.N)
