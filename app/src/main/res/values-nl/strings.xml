@@ -145,17 +145,17 @@
     <string name="blocked_numbers">Geblokkeerde nummers</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_contacts_confirmation">%s verwijderen?</string>    <!-- Are you sure you want to delete 5 contacts? -->
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
         <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacts</item>
+        <item quantity="other">%d contacten</item>
     </plurals>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d groep</item>
+        <item quantity="other">%d groepen</item>
     </plurals>
 
     <!-- FAQ -->
