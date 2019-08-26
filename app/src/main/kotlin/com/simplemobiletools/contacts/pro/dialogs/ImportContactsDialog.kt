@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.dialog_import_contacts.view.*
 
 class ImportContactsDialog(val activity: SimpleActivity, val path: String, private val callback: (refreshView: Boolean) -> Unit) {
     private var targetContactSource = ""
+    private var ignoreClicks = false
 
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_import_contacts, null) as ViewGroup).apply {
@@ -53,6 +54,11 @@ class ImportContactsDialog(val activity: SimpleActivity, val path: String, priva
                 .create().apply {
                     activity.setupDialogStuff(view, this, R.string.import_contacts) {
                         getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                            if (ignoreClicks) {
+                                return@setOnClickListener
+                            }
+
+                            ignoreClicks = true
                             activity.toast(R.string.importing)
                             ensureBackgroundThread {
                                 val result = VcfImporter(activity).importContacts(path, targetContactSource)
