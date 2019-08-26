@@ -144,6 +144,20 @@
     <string name="block_numbers">Block numbers</string>
     <string name="blocked_numbers">Blocked numbers</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Noriu pakeisti, kokie laukai yra matomi kontaktuose. Ar galiu tai padaryti?</string>
     <string name="faq_1_text">Taip, viskas, ką jums reikia padaryti, tai eiti į Nustatymai -> Tvarkyti rodomus kontaktų laukus. Čia galite pasirinkti, kurie laukai turėtų būti matomi. Kai kurie iš jų netgi yra išjungiami pagal numatytuosius nustatymus, todėl ten galite rasti naujų.</string>

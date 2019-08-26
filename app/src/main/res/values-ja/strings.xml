@@ -144,6 +144,20 @@
     <string name="block_numbers">Block numbers</string>
     <string name="blocked_numbers">Blocked numbers</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">連絡先に表示される項目(フィールド)を変更することはできますか？</string>
     <string name="faq_1_text">可能です。[設定] -> [連絡先に表示するフィールドを管理] から、表示されるフィールドを選択することができます。これらの中にはデフォルトで無効になっているものもあるので、あなたは新しいものを見つけるかもしれません。</string>

@@ -144,6 +144,20 @@
     <string name="block_numbers">Block numbers</string>
     <string name="blocked_numbers">Blocked numbers</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Aldatu ditzaket kontaktuetan ikusgarri dauden eremuak?</string>
     <string name="faq_1_text">Bai, joan hona: Ezarpenak -> Kudeatu erakutsitako kontaktu eremuan. Hor hautatu dezakezu zein eremu nahi duzun ikusgarri izatea. Batzuk desaktibatuta daude era lehenetsian, berri batzuk aurkitu ditzakezu.</string>

@@ -144,6 +144,20 @@
     <string name="block_numbers">Αποκλεισμό αριθμών</string>
     <string name="blocked_numbers">Αποκλεισμένοι αριθμοί</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Θέλω να αλλάξω τα πεδία που θα είναι ορατά στις επαφές. Μπορώ να το κάνω?</string>
     <string name="faq_1_text">Ναι, το μόνο που έχετε να κάνετε είναι να μεταβείτε στις Ρυθμίσεις -> Διαχείριση εμφανιζόμενων πεδίων επαφής. Εκεί μπορείτε να επιλέξετε ποια πεδία θα πρέπει να είναι ορατά. Κάποια από αυτά είναι ακόμη και απενεργοποιημένα από προεπιλογή, επομένως ίσως βρείτε κάποια νέα εκεί.</string>

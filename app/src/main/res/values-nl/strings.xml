@@ -144,6 +144,20 @@
     <string name="block_numbers">Nummers blokkeren</string>
     <string name="blocked_numbers">Geblokkeerde nummers</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Ik wil de zichtbare contactvelden aanpassen. Kan ik dit doen?</string>
     <string name="faq_1_text">Ja, dat kan via Instellingen -> Contactvelden tonen/verbergen. Sommige velden zijn standaard verborgen, dus er zijn via deze optie meer velden te ontdekken.</string>

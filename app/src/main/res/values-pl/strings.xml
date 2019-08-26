@@ -144,6 +144,20 @@
     <string name="block_numbers">Zablokuj numery</string>
     <string name="blocked_numbers">Zablokowane numery</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Chcę zmienić, które pola są widoczne w kontaktach. Czy mogę to zrobić?</string>
     <string name="faq_1_text">Tak, wszystko, co musisz zrobić, to wejść do Ustawień -> Zarządzaj pokazywanymi polami kontaktu. Możesz tam wybrać, które pola mają być wyświetlane. Niektóre z nich są nawet domyślnie wyłączone, więc możesz znaleźć tam wiele z nich nowych.</string>

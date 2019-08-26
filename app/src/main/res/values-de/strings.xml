@@ -144,6 +144,20 @@
     <string name="block_numbers">Nummern blockieren</string>
     <string name="blocked_numbers">Blockierte Nummern</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Ich möchte die sichtbaren Kontaktfelder ändern. Kann ich das machen?</string>
     <string name="faq_1_text">Ja, alles, was Sie tun müssen ist folgendes: Gehen Sie zu Einstellungen -> Bearbeite sichtbare Kontaktfelder. Hier können die sichtbaren Felder ausgewählt werden. Einige sind standardmäßig deaktiviert, weshalb hier neue gefunden werden können.</string>

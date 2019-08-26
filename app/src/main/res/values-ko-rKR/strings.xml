@@ -144,6 +144,20 @@
     <string name="block_numbers">Block numbers</string>
     <string name="blocked_numbers">Blocked numbers</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
     <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>

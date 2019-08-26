@@ -144,6 +144,20 @@
     <string name="block_numbers">加入黑名单</string>
     <string name="blocked_numbers">黑名单</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">我想要更改在通讯录会看到哪些栏位。我能这么做吗?</string>
     <string name="faq_1_text">可以，你要做的是到[设置] -> [管理显示的联系人栏位]。在那里，你可以选择应该看到什么栏位。其中有些甚至默认是关闭的，所以你可能会在那里发现一些新的。</string>

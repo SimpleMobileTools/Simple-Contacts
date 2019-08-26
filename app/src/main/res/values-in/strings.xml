@@ -144,6 +144,20 @@
     <string name="block_numbers">Blokir nomor</string>
     <string name="blocked_numbers">Nomor yang diblokir</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Saya ingin mengubah ruas yang ditampilkan pada kontak. Bisakah saya melakukannya?</string>
     <string name="faq_1_text">Ya, yang perlu anda lakukan adalah kunjungi Pengaturan -> Kelola ruas kontak yang ditampilkan. Lalu anda bisa memilih ruas yang ingin ditampilkan. Beberapa ruas dinonaktifkan secara bawaan, jadi anda mungkin akan menemukan yang baru di sana.</string>

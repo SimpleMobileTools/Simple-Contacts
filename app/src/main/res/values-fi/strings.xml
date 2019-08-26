@@ -144,6 +144,20 @@
     <string name="block_numbers">Estä numeroja</string>
     <string name="blocked_numbers">Estetyt numerot</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Haluan muuttaa sitä mitkä palkit ovat näkyviä kontakteissa. Onko tämä mahdollista?</string>
     <string name="faq_1_text">Kyllä, mene asetuksiin -> Muuta näytettyjä kontaktialueita. Siellä voit valita mitkä palkit haluat näkyviin. Jotkin niistä ovat piilossa oletuksena, joten saatat löytää sieltä uusia.</string>
