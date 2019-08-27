@@ -102,7 +102,18 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
     }
 
     private fun askConfirmDelete() {
-        ConfirmationDialog(activity) {
+        val itemsCnt = selectedKeys.size
+        val firstItem = getSelectedItems().first()
+        val items = if (itemsCnt == 1) {
+            "\"${firstItem.title}\""
+        } else {
+            resources.getQuantityString(R.plurals.delete_groups, itemsCnt, itemsCnt)
+        }
+
+        val baseString = R.string.delete_contacts_confirmation
+        val question = String.format(resources.getString(baseString), items)
+
+        ConfirmationDialog(activity, question) {
             ensureBackgroundThread {
                 deleteGroups()
             }
@@ -134,6 +145,8 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
             }
         }
     }
+
+    private fun getSelectedItems() = groups.filter { selectedKeys.contains(it.id?.toInt()) } as ArrayList<Group>
 
     private fun setupView(view: View, group: Group) {
         view.apply {

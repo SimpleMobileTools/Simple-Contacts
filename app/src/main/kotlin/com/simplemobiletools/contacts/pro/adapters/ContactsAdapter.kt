@@ -151,7 +151,18 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     }
 
     private fun askConfirmDelete() {
-        ConfirmationDialog(activity) {
+        val itemsCnt = selectedKeys.size
+        val firstItem = getSelectedItems().first()
+        val items = if (itemsCnt == 1) {
+            "\"${firstItem.getNameToDisplay()}\""
+        } else {
+            resources.getQuantityString(R.plurals.delete_contacts, itemsCnt, itemsCnt)
+        }
+
+        val baseString = R.string.delete_contacts_confirmation
+        val question = String.format(resources.getString(baseString), items)
+
+        ConfirmationDialog(activity, question) {
             deleteContacts()
         }
     }
