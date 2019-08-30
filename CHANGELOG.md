@@ -1,6 +1,16 @@
 Changelog
 ==========
 
+Version 6.3.5 *(2019-08-27)*
+----------------------------
+
+ * Fixed some issues with some contacts being wrongly filtered out
+ * Show a more detailed confirmation dialog at deleting contacts/groups
+ * Fixed some glitches related to exporting contacts
+ * Search organizations with dialpad letters too, not just names
+ * Properly handle searching names with accents with dialpad letters
+ * Misc stability/performance/translation improvements
+
 Version 6.3.4 *(2019-08-14)*
 ----------------------------
 

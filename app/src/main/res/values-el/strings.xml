@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Simple Contacts</string>
+    <string name="app_name">Απλές Επαφές</string>
     <string name="app_launcher_name">Επαφές</string>
     <string name="address">Διεύθυνση</string>
     <string name="inserting">Εισαγωγή…</string>
@@ -18,7 +18,7 @@
     <string name="create_new_contact">Δημιουργία νέας Επαφής</string>
     <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
     <string name="must_make_default_dialer">Θα πρέπει να οριστεί προεπιλεγμένη εφαρμογή για χρησιμοποίηση αποκλεισμένων αριθμών.</string>
-    <string name="set_as_default">Ορισμός προεπιλεγμένης</string>
+    <string name="set_as_default">Ορισμός ως προεπιλογής</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Δεν βρέθηκαν Επαφές</string>
@@ -43,7 +43,7 @@
     <string name="no_group_created">Δεν υπάρχουν ομάδες επαφών στη συσκευή</string>
     <string name="create_group">Δημιουργία ομάδας</string>
     <string name="add_to_group">Προσθήκη σε ομάδα</string>
-    <string name="create_group_under_account">Δημιουργία ομάδας υπο ενός λογαριασμού</string>
+    <string name="create_group_under_account">Δημιουργία ομάδας υπό ενός λογαριασμού</string>
 
     <!-- Photo -->
     <string name="take_photo">Λήψη φωτογραφίας</string>
@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Αναζήτηση επαφών</string>
     <string name="search_favorites">Αναζήτηση αγαπημένων</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Αναζήτηση ομάδων</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Εισαγωγή επαφών</string>
@@ -109,7 +109,7 @@
 
     <!-- Dialpad -->
     <string name="dialpad">Πληκτρολόγιο</string>
-    <string name="add_number_to_contact">Προσθήκη αριθμού σε επαφή</string>
+    <string name="add_number_to_contact">Προσθήκη επαφής σε αριθμό</string>
 
     <!-- Dialer -->
     <string name="dialer">Πληκτρολόγιο</string>
@@ -143,6 +143,20 @@
     <string name="block_number">Αποκλεισμό αριθμού</string>
     <string name="block_numbers">Αποκλεισμό αριθμών</string>
     <string name="blocked_numbers">Αποκλεισμένοι αριθμοί</string>
+
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Θέλετε σίγουρα να διαγράψετε %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d επαφή</item>
+        <item quantity="other">%d επαφές</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d ομάδα</item>
+        <item quantity="other">%d ομάδες</item>
+    </plurals>
 
     <!-- FAQ -->
     <string name="faq_1_title">Θέλω να αλλάξω τα πεδία που θα είναι ορατά στις επαφές. Μπορώ να το κάνω?</string>

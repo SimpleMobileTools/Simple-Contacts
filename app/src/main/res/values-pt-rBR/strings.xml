@@ -144,6 +144,20 @@
     <string name="block_numbers">Bloquear números</string>
     <string name="blocked_numbers">Números bloqueados</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Quero alterar os campos visíveis dos contatos. Posso fazer isso?</string>
     <string name="faq_1_text">Sim, você só precisa modificar as definições em Configurações -> Gerenciar os campos visíveis. Alguns campos estão desmarcados por padrão, então você encontrará alguns novos por lá.</string>

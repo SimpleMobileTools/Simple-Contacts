@@ -22,4 +22,7 @@ interface ContactsDao {
 
     @Query("DELETE FROM contacts WHERE id = :id")
     fun deleteContactId(id: Int)
+
+    @Query("DELETE FROM contacts WHERE id IN (:ids)")
+    fun deleteContactIds(ids: List<Long>)
 }

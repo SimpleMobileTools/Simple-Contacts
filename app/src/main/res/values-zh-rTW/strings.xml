@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">搜尋聯絡人</string>
     <string name="search_favorites">搜尋我的最愛</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">搜尋群組</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">匯入聯絡人</string>
@@ -143,6 +143,20 @@
     <string name="block_number">封鎖號碼</string>
     <string name="block_numbers">封鎖號碼</string>
     <string name="blocked_numbers">黑名單</string>
+
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
 
     <!-- FAQ -->
     <string name="faq_1_title">我想要更改在通訊錄會看到哪些欄位。我能這麼做嗎?</string>

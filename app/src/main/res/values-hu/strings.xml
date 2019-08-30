@@ -144,6 +144,20 @@
     <string name="block_numbers">Telefonszámok zárolása</string>
     <string name="blocked_numbers">Zárolt telefonszámok</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Szeretném módosítani a névjegyekhez megjelenített mezők listáját. Lehetséges ez?</string>
     <string name="faq_1_text">Igen. Navigálj a Beállítások -> A megjelenő mezők kiválasztása menűpontra. Itt kiválaszhatod a megjelenítendő mezőket. Néhány már alapértelmezés szerint sem jelenik meg, de itt más mezőket is találhatsz.</string>

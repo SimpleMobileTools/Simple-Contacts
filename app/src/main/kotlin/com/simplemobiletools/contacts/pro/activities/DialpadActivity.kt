@@ -173,8 +173,9 @@ class DialpadActivity : SimpleActivity() {
         val showLetters = config.showDialpadLetters
         (dialpad_list.adapter as? ContactsAdapter)?.finishActMode()
         val filtered = contacts.filter {
-            val convertedName = PhoneNumberUtils.convertKeypadLettersToDigits(it.getNameToDisplay())
-            it.doesContainPhoneNumber(text, showLetters) || (showLetters && convertedName.contains(text, true))
+            val convertedName = PhoneNumberUtils.convertKeypadLettersToDigits(it.getNameToDisplay().normalizeString())
+            val company = PhoneNumberUtils.convertKeypadLettersToDigits(it.getFullCompany().normalizeString())
+            it.doesContainPhoneNumber(text, showLetters) || (showLetters && (convertedName.contains(text, true) || company.contains(text, true)))
         }.sortedWith(compareBy {
             if (showLetters) {
                 !it.doesContainPhoneNumber(text, showLetters)

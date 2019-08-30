@@ -144,6 +144,20 @@
     <string name="block_numbers">Rhwystro rhifau</string>
     <string name="blocked_numbers">Rhifau wedi\'u rhwystro</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Hoffwn newid pa feysydd sydd i\'w gweld ar gyfer cysylltiadau. Ydy hyn yn bosib?</string>
     <string name="faq_1_text">Ydy. Y cwbl sy\'n rhaid gwneud ydy mynd i Gosodiadau -> Rheoli pa feysydd cysylltiadau i\'w dangos. Yna, gellir dewis pa feysydd sydd i\'w gweld. Bydd rhai wedi eu gosod i beidio ymddangos fel arfer, felly mae\'n bosib byddi\'n dod o hyd i rai newydd yno.</string>

@@ -496,7 +496,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun exportContacts() {
         FilePickerDialog(this, pickFile = false, showFAB = true) {
             ExportContactsDialog(this, it) { file, ignoredContactSources ->
-                ContactsHelper(this).getContacts(ignoredContactSources) { contacts ->
+                ContactsHelper(this).getContacts(true, ignoredContactSources) { contacts ->
                     if (contacts.isEmpty()) {
                         toast(R.string.no_entries_for_exporting)
                     } else {

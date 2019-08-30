@@ -144,6 +144,22 @@
     <string name="block_numbers">Blokovať čísla</string>
     <string name="blocked_numbers">Blokované čísla</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Ste si istý, že chcete vymazať %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d kontakt</item>
+        <item quantity="few">%d kontakty</item>
+        <item quantity="other">%d kontaktov</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d skupinu</item>
+        <item quantity="few">%d skupiny</item>
+        <item quantity="other">%d skupín</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Chcem upraviť viditeľné polia kontaktov. Dá sa to?</string>
     <string name="faq_1_text">Áno, stačí ísť do Nastavenia -> Spravovať zobrazené polia kontaktov. Tam si viete zvoliť, ktoré polia majú byť viditeľné. Niektoré sú v predvolenom stave vypnuté, čiže tam môžete objaviť aj nové.</string>

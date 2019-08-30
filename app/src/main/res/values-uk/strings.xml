@@ -144,6 +144,20 @@
     <string name="block_numbers">Блокувати номери</string>
     <string name="blocked_numbers">Заблоковані номери</string>
 
+    <!-- Confirmation dialog -->
+    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+
+    <!-- Are you sure you want to delete 5 contacts? -->
+    <plurals name="delete_contacts">
+        <item quantity="one">%d contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">Я хочу змінити налаштування видимих полів контактних даних. Чи можу я це зробити?</string>
     <string name="faq_1_text">Так, вам необхідно перейти у Налаштування -> Керування полями контактів, що відображаються. Там ви можете обрати поля, що відображатимуться. Деякі з них у стандартному режимі деактивовано, а отже ви можете знайти там нові.</string>

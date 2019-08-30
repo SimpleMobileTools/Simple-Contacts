@@ -16,6 +16,7 @@ import java.util.*
 
 class ExportContactsDialog(val activity: SimpleActivity, val path: String, private val callback: (file: File, ignoredContactSources: HashSet<String>) -> Unit) {
     private var contactSources = ArrayList<ContactSource>()
+    private var ignoreClicks = false
 
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_export_contacts, null) as ViewGroup).apply {
@@ -36,7 +37,7 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, priva
                 .create().apply {
                     activity.setupDialogStuff(view, this, R.string.export_contacts) {
                         getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                            if (view.export_contacts_list.adapter == null) {
+                            if (view.export_contacts_list.adapter == null || ignoreClicks) {
                                 return@setOnClickListener
                             }
 
@@ -50,6 +51,7 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, priva
                                         return@setOnClickListener
                                     }
 
+                                    ignoreClicks = true
                                     ensureBackgroundThread {
                                         val selectedSources = (view.export_contacts_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
                                         val ignoredSources = contactSources.filter { !selectedSources.contains(it) }.map { it.getFullIdentifier() }.toHashSet()
