@@ -145,17 +145,17 @@
     <string name="blocked_numbers">黑名單</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_contacts_confirmation">你確認要刪除 %s 嗎?</string>    <!-- Are you sure you want to delete 5 contacts? -->
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
-        <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacts</item>
+        <item quantity="one">%d個聯絡人</item>
+        <item quantity="other">%d個聯絡人</item>
     </plurals>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d個群組</item>
+        <item quantity="other">%d個群組</item>
     </plurals>
 
     <!-- FAQ -->
