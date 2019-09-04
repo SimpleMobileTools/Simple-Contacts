@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Cari kontak</string>
     <string name="search_favorites">Cari favorit</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Cari grup</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Impor kontak</string>
@@ -145,17 +145,17 @@
     <string name="blocked_numbers">Nomor yang diblokir</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_contacts_confirmation">Apakah anda yakin ingin menghapus %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
-        <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacts</item>
+        <item quantity="one">%d kontak</item>
+        <item quantity="other">%d kontak</item>
     </plurals>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d grup</item>
+        <item quantity="other">%d grup</item>
     </plurals>
 
     <!-- FAQ -->
