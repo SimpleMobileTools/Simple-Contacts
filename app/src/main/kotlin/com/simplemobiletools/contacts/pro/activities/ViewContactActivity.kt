@@ -16,6 +16,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_view_contact.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_view_address.view.*
@@ -78,7 +79,7 @@ class ViewContactActivity : ContactActivity() {
         }
 
         when (item.itemId) {
-            R.id.edit -> editContact()
+            R.id.edit -> launchEditContact(contact!!)
             R.id.share -> shareContact()
             R.id.open_with -> openWith()
             R.id.delete -> deleteContact()
@@ -205,9 +206,9 @@ class ViewContactActivity : ContactActivity() {
         addContactSources()
     }
 
-    private fun editContact() {
+    private fun launchEditContact(contact: Contact) {
         wasEditLaunched = true
-        editContact(contact!!)
+        editContact(contact)
     }
 
     private fun openWith() {
@@ -472,13 +473,13 @@ class ViewContactActivity : ContactActivity() {
 
     private fun addContactSources() {
         contact_sources_holder.removeAllViews()
-        addContactSource(contact!!.source)
+        addContactSource(contact!!)
         ensureBackgroundThread {
             ContactsHelper(this).getContacts { contacts ->
                 contacts.forEach {
                     if (it.id != contact!!.id && it.getHashToCompare() == contact!!.getHashToCompare()) {
                         runOnUiThread {
-                            addContactSource(it.source)
+                            addContactSource(it)
                         }
                     }
                 }
@@ -486,13 +487,17 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun addContactSource(source: String) {
+    private fun addContactSource(contact: Contact) {
         if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
             layoutInflater.inflate(R.layout.item_view_contact_source, contact_sources_holder, false).apply {
-                getPublicContactSource(source) {
+                getPublicContactSource(contact.source) {
                     contact_source.text = it
                     contact_source.copyOnLongClick(it)
                     contact_sources_holder.addView(this)
+
+                    contact_source.setOnClickListener {
+                        launchEditContact(contact)
+                    }
                 }
             }
 
