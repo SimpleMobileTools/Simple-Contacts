@@ -113,6 +113,17 @@ class ViewContactActivity : ContactActivity() {
 
         if (contactId != 0 && !wasLookupKeyUsed) {
             contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
+
+            if (contact != null) {
+                ContactsHelper(this).getContacts { contacts ->
+                    contacts.forEach {
+                        if (it.id != contact!!.id && it.getHashToCompare() == contact!!.getHashToCompare()) {
+                            addContactSource(it.source)
+                        }
+                    }
+                }
+            }
+
             if (contact == null) {
                 if (!wasEditLaunched) {
                     toast(R.string.unknown_error_occurred)
@@ -201,7 +212,7 @@ class ViewContactActivity : ContactActivity() {
         setupOrganization()
         setupWebsites()
         setupGroups()
-        setupContactSource(contact!!.source)
+        addContactSource(contact!!.source)
     }
 
     private fun editContact() {
@@ -469,7 +480,7 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun setupContactSource(source: String) {
+    private fun addContactSource(source: String) {
         if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
             layoutInflater.inflate(R.layout.item_view_contact_source, contact_sources_holder, false).apply {
                 getPublicContactSource(source) {
