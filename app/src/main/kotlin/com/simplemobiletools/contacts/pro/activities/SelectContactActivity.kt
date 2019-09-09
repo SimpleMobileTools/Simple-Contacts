@@ -84,7 +84,7 @@ class SelectContactActivity : SimpleActivity() {
 
     private fun initContacts() {
         ContactsHelper(this).getContacts {
-            if (isDestroyed) {
+            if (isDestroyed || isFinishing) {
                 return@getContacts
             }
 

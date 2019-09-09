@@ -527,7 +527,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     override fun refreshContacts(refreshTabsMask: Int) {
-        if (isDestroyed || isGettingContacts) {
+        if (isDestroyed || isFinishing || isGettingContacts) {
             return
         }
 
@@ -540,7 +540,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         ContactsHelper(this).getContacts { contacts ->
             isGettingContacts = false
-            if (isDestroyed) {
+            if (isDestroyed || isFinishing) {
                 return@getContacts
             }
 

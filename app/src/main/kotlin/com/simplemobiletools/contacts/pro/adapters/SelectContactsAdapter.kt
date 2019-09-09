@@ -117,7 +117,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
                                 .error(contactDrawable)
                                 .centerCrop()
 
-                        if (activity.isDestroyed) {
+                        if (!activity.isDestroyed && !activity.isFinishing) {
                             Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
                         }
                     } else {
@@ -136,7 +136,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
-        if (!activity.isDestroyed) {
+        if (!activity.isDestroyed && !activity.isFinishing) {
             Glide.with(activity).clear(holder.itemView.contact_tmb)
         }
     }

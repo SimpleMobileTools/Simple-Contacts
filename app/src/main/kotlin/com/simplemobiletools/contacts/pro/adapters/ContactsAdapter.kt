@@ -265,7 +265,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
-        if (!activity.isDestroyed) {
+        if (!activity.isDestroyed && !activity.isFinishing) {
             Glide.with(activity).clear(holder.itemView.contact_tmb)
         }
     }

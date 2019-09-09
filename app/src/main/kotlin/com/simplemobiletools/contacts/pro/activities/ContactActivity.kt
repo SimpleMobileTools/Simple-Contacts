@@ -51,7 +51,7 @@ abstract class ContactActivity : SimpleActivity() {
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .centerCrop()
 
-        if (isDestroyed) {
+        if (isDestroyed || isFinishing) {
             return
         }
 
