@@ -114,16 +114,6 @@ class ViewContactActivity : ContactActivity() {
         if (contactId != 0 && !wasLookupKeyUsed) {
             contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
 
-            if (contact != null) {
-                ContactsHelper(this).getContacts { contacts ->
-                    contacts.forEach {
-                        if (it.id != contact!!.id && it.getHashToCompare() == contact!!.getHashToCompare()) {
-                            addContactSource(it.source)
-                        }
-                    }
-                }
-            }
-
             if (contact == null) {
                 if (!wasEditLaunched) {
                     toast(R.string.unknown_error_occurred)
@@ -212,7 +202,7 @@ class ViewContactActivity : ContactActivity() {
         setupOrganization()
         setupWebsites()
         setupGroups()
-        addContactSource(contact!!.source)
+        addContactSources()
     }
 
     private fun editContact() {
@@ -477,6 +467,22 @@ class ViewContactActivity : ContactActivity() {
         } else {
             contact_groups_image.beGone()
             contact_groups_holder.beGone()
+        }
+    }
+
+    private fun addContactSources() {
+        contact_sources_holder.removeAllViews()
+        addContactSource(contact!!.source)
+        ensureBackgroundThread {
+            ContactsHelper(this).getContacts { contacts ->
+                contacts.forEach {
+                    if (it.id != contact!!.id && it.getHashToCompare() == contact!!.getHashToCompare()) {
+                        runOnUiThread {
+                            addContactSource(it.source)
+                        }
+                    }
+                }
+            }
         }
     }
 
