@@ -19,6 +19,7 @@ import com.simplemobiletools.contacts.pro.helpers.*
 import kotlinx.android.synthetic.main.activity_view_contact.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_view_address.view.*
+import kotlinx.android.synthetic.main.item_view_contact_source.view.*
 import kotlinx.android.synthetic.main.item_view_email.view.*
 import kotlinx.android.synthetic.main.item_view_group.view.*
 import kotlinx.android.synthetic.main.item_view_im.view.*
@@ -200,7 +201,7 @@ class ViewContactActivity : ContactActivity() {
         setupOrganization()
         setupWebsites()
         setupGroups()
-        setupContactSource()
+        setupContactSource(contact!!.source)
     }
 
     private fun editContact() {
@@ -468,17 +469,21 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun setupContactSource() {
+    private fun setupContactSource(source: String) {
         if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
-            getPublicContactSource(contact!!.source) {
-                contact_source.text = it
-                contact_source.copyOnLongClick(it)
+            layoutInflater.inflate(R.layout.item_view_contact_source, contact_sources_holder, false).apply {
+                getPublicContactSource(source) {
+                    contact_source.text = it
+                    contact_source.copyOnLongClick(it)
+                    contact_sources_holder.addView(this)
+                }
             }
+
             contact_source_image.beVisible()
-            contact_source.beVisible()
+            contact_sources_holder.beVisible()
         } else {
             contact_source_image.beGone()
-            contact_source.beGone()
+            contact_sources_holder.beGone()
         }
     }
 
