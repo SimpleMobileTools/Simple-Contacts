@@ -472,7 +472,10 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun addContactSources() {
-        contact_sources_holder.removeAllViews()
+        if (contact_sources_holder.childCount > 0) {
+            return
+        }
+
         addContactSource(contact!!)
         ensureBackgroundThread {
             ContactsHelper(this).getContacts { contacts ->
