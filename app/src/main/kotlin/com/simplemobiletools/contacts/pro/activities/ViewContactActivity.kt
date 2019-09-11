@@ -477,14 +477,10 @@ class ViewContactActivity : ContactActivity() {
         }
 
         addContactSource(contact!!)
-        ensureBackgroundThread {
-            ContactsHelper(this).getContacts { contacts ->
+        ContactsHelper(this).getDuplicatesOfContact(contact!!) { contacts ->
+            runOnUiThread {
                 contacts.forEach {
-                    if (it.id != contact!!.id && it.getHashToCompare() == contact!!.getHashToCompare()) {
-                        runOnUiThread {
-                            addContactSource(it)
-                        }
-                    }
+                    addContactSource(it)
                 }
             }
         }
