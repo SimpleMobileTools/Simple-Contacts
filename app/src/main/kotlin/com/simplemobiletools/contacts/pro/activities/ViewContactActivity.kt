@@ -477,7 +477,7 @@ class ViewContactActivity : ContactActivity() {
         }
 
         addContactSource(contact!!)
-        ContactsHelper(this).getDuplicatesOfContact(contact!!) { contacts ->
+        ContactsHelper(this).getDuplicatesOfContact(contact!!, false) { contacts ->
             runOnUiThread {
                 contacts.forEach {
                     addContactSource(it)

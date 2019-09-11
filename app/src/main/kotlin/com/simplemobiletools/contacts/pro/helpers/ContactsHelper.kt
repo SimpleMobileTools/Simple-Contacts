@@ -1524,13 +1524,9 @@ class ContactsHelper(val context: Context) {
         LocalContactsHelper(context).toggleFavorites(localContacts, addToFavorites)
     }
 
-    fun deleteContact(contact: Contact) {
-        ensureBackgroundThread {
-            if (contact.isPrivate()) {
-                context.contactsDB.deleteContactId(contact.id)
-            } else {
-                deleteContacts(arrayListOf(contact))
-            }
+    fun deleteContact(originalContact: Contact) {
+        getDuplicatesOfContact(originalContact, true) { contacts ->
+            deleteContacts(contacts)
         }
     }
 
@@ -1562,10 +1558,13 @@ class ContactsHelper(val context: Context) {
         }
     }
 
-    fun getDuplicatesOfContact(contact: Contact, callback: (ArrayList<Contact>) -> Unit) {
+    fun getDuplicatesOfContact(contact: Contact, addOriginal: Boolean, callback: (ArrayList<Contact>) -> Unit) {
         ensureBackgroundThread {
             getContacts { contacts ->
                 val duplicates = contacts.filter { it.id != contact.id && it.getHashToCompare() == contact.getHashToCompare() }.toMutableList() as ArrayList<Contact>
+                if (addOriginal) {
+                    duplicates.add(contact)
+                }
                 callback(duplicates)
             }
         }
