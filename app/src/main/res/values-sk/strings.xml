@@ -146,6 +146,7 @@
 
     <!-- Confirmation dialog -->
     <string name="delete_contacts_confirmation">Ste si istý, že chcete vymazať %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_from_all_sources">Kontakt bude vymazaný zo všetkých zdrojov kontaktov.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">

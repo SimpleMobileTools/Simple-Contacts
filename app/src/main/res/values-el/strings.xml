@@ -146,6 +146,7 @@
 
     <!-- Confirmation dialog -->
     <string name="delete_contacts_confirmation">Θέλετε σίγουρα να διαγράψετε %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
