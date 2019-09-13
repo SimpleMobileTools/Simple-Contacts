@@ -9,6 +9,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
+import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
@@ -82,7 +83,7 @@ class ViewContactActivity : ContactActivity() {
             R.id.edit -> launchEditContact(contact!!)
             R.id.share -> shareContact()
             R.id.open_with -> openWith()
-            R.id.delete -> deleteContact()
+            R.id.delete -> deleteContactFromAllSources()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -505,6 +506,22 @@ class ViewContactActivity : ContactActivity() {
         } else {
             contact_source_image.beGone()
             contact_sources_holder.beGone()
+        }
+    }
+
+    private fun deleteContactFromAllSources() {
+        val addition = if (contact_sources_holder.childCount > 1) {
+            "\n\n${getString(R.string.delete_from_all_sources)}"
+        } else {
+            ""
+        }
+
+        val message = "${getString(R.string.proceed_with_deletion)}$addition"
+        ConfirmationDialog(this, message) {
+            if (contact != null) {
+                ContactsHelper(this).deleteContact(contact!!)
+                finish()
+            }
         }
     }
 
