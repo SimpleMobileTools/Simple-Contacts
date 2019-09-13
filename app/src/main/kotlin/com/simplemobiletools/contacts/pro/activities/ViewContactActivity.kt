@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.item_website.view.*
 class ViewContactActivity : ContactActivity() {
     private var isViewIntent = false
     private var wasEditLaunched = false
+    private var shownContactSources = ArrayList<String>()
     private var showFields = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -473,15 +474,25 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun addContactSources() {
-        if (contact_sources_holder.childCount > 0) {
-            return
+        if (contact_sources_holder.childCount == 0) {
+            addContactSource(contact!!)
         }
 
-        addContactSource(contact!!)
         ContactsHelper(this).getDuplicatesOfContact(contact!!, false) { contacts ->
+            val currContactSources = contacts.map { it.source }
             runOnUiThread {
-                contacts.forEach {
-                    addContactSource(it)
+                if (currContactSources.toString() != shownContactSources.toString()) {
+                    for (i in (contact_sources_holder.childCount - 1) downTo 1) {
+                        contact_sources_holder.removeView(contact_sources_holder.getChildAt(i))
+                        shownContactSources.clear()
+                    }
+                }
+
+                if (shownContactSources.isEmpty()) {
+                    contacts.forEach {
+                        addContactSource(it)
+                        shownContactSources.add(it.source)
+                    }
                 }
             }
         }
