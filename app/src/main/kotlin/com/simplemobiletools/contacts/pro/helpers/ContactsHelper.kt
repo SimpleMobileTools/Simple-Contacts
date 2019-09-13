@@ -1524,17 +1524,27 @@ class ContactsHelper(val context: Context) {
         LocalContactsHelper(context).toggleFavorites(localContacts, addToFavorites)
     }
 
-    fun deleteContact(originalContact: Contact) {
-        getDuplicatesOfContact(originalContact, true) { contacts ->
-            deleteContacts(contacts)
+    fun deleteContact(originalContact: Contact, deleteClones: Boolean = false, callback: (success: Boolean) -> Unit) {
+        ensureBackgroundThread {
+            if (deleteClones) {
+                getDuplicatesOfContact(originalContact, true) { contacts ->
+                    if (deleteContacts(contacts)) {
+                        callback(true)
+                    }
+                }
+            } else {
+                if (deleteContacts(arrayListOf(originalContact))) {
+                    callback(true)
+                }
+            }
         }
     }
 
-    fun deleteContacts(contacts: ArrayList<Contact>) {
+    fun deleteContacts(contacts: ArrayList<Contact>): Boolean {
         val localContacts = contacts.filter { it.isPrivate() }.map { it.id.toLong() }.toMutableList()
         LocalContactsHelper(context).deleteContactIds(localContacts)
 
-        try {
+        return try {
             val operations = ArrayList<ContentProviderOperation>()
             val selection = "${ContactsContract.RawContacts._ID} = ?"
             contacts.filter { !it.isPrivate() }.forEach {
@@ -1553,8 +1563,10 @@ class ContactsHelper(val context: Context) {
             if (context.hasPermission(PERMISSION_WRITE_CONTACTS)) {
                 context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
             }
+            true
         } catch (e: Exception) {
             context.showErrorToast(e)
+            false
         }
     }
 

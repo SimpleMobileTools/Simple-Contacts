@@ -519,8 +519,9 @@ class ViewContactActivity : ContactActivity() {
         val message = "${getString(R.string.proceed_with_deletion)}$addition"
         ConfirmationDialog(this, message) {
             if (contact != null) {
-                ContactsHelper(this).deleteContact(contact!!)
-                finish()
+                ContactsHelper(this).deleteContact(contact!!, true) {
+                    finish()
+                }
             }
         }
     }

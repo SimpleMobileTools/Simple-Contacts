@@ -77,8 +77,9 @@ abstract class ContactActivity : SimpleActivity() {
     fun deleteContact() {
         ConfirmationDialog(this) {
             if (contact != null) {
-                ContactsHelper(this).deleteContact(contact!!)
-                finish()
+                ContactsHelper(this).deleteContact(contact!!, false) {
+                    finish()
+                }
             }
         }
     }

@@ -992,10 +992,14 @@ class EditContactActivity : ContactActivity() {
         if (ContactsHelper(this@EditContactActivity).insertContact(contact!!)) {
             if (deleteCurrentContact) {
                 contact!!.source = originalContactSource
-                ContactsHelper(this).deleteContact(contact!!)
+                ContactsHelper(this).deleteContact(contact!!, false) {
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
+            } else {
+                setResult(Activity.RESULT_OK)
+                finish()
             }
-            setResult(Activity.RESULT_OK)
-            finish()
         } else {
             toast(R.string.unknown_error_occurred)
         }
