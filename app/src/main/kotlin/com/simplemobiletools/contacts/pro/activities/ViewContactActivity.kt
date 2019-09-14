@@ -205,7 +205,8 @@ class ViewContactActivity : ContactActivity() {
         setupOrganization()
         setupWebsites()
         setupGroups()
-        addContactSources()
+        setupContactSources()
+        checkDuplicateContacts()
     }
 
     private fun launchEditContact(contact: Contact) {
@@ -473,11 +474,13 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun addContactSources() {
+    private fun setupContactSources() {
         if (contact_sources_holder.childCount == 0) {
             addContactSource(contact!!)
         }
+    }
 
+    private fun checkDuplicateContacts() {
         ContactsHelper(this).getDuplicatesOfContact(contact!!, false) { contacts ->
             val currContactSources = contacts.map { it.source }
             runOnUiThread {
