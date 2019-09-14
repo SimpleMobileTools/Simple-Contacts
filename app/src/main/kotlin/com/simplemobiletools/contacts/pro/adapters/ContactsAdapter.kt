@@ -176,7 +176,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         val positions = getSelectedItemPositions()
         contactItems.removeAll(contactsToRemove)
 
-        ContactsHelper(activity).getContacts { allContacts ->
+        ContactsHelper(activity).getContacts(true) { allContacts ->
             ensureBackgroundThread {
                 contactsToRemove.forEach {
                     val contactToRemove = it

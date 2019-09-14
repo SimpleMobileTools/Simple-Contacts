@@ -1572,7 +1572,7 @@ class ContactsHelper(val context: Context) {
 
     fun getDuplicatesOfContact(contact: Contact, addOriginal: Boolean, callback: (ArrayList<Contact>) -> Unit) {
         ensureBackgroundThread {
-            getContacts { contacts ->
+            getContacts(true) { contacts ->
                 val duplicates = contacts.filter { it.id != contact.id && it.getHashToCompare() == contact.getHashToCompare() }.toMutableList() as ArrayList<Contact>
                 if (addOriginal) {
                     duplicates.add(contact)
