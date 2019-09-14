@@ -482,19 +482,29 @@ class ViewContactActivity : ContactActivity() {
 
     private fun checkDuplicateContacts() {
         ContactsHelper(this).getDuplicatesOfContact(contact!!, false) { contacts ->
-            val currContactSources = contacts.map { it.source }
-            runOnUiThread {
-                if (currContactSources.toString() != shownContactSources.toString()) {
-                    for (i in (contact_sources_holder.childCount - 1) downTo 1) {
-                        contact_sources_holder.removeView(contact_sources_holder.getChildAt(i))
-                        shownContactSources.clear()
+            ensureBackgroundThread {
+                val duplicates = ArrayList<Contact>()
+                contacts.forEach {
+                    val duplicate = ContactsHelper(this).getContactWithId(it.id, it.isPrivate())
+                    if (duplicate != null) {
+                        duplicates.add(duplicate)
                     }
                 }
 
-                if (shownContactSources.isEmpty()) {
-                    contacts.forEach {
-                        addContactSource(it)
-                        shownContactSources.add(it.source)
+                val currContactSources = duplicates.map { it.source }
+                runOnUiThread {
+                    if (currContactSources.toString() != shownContactSources.toString()) {
+                        for (i in (contact_sources_holder.childCount - 1) downTo 1) {
+                            contact_sources_holder.removeView(contact_sources_holder.getChildAt(i))
+                            shownContactSources.clear()
+                        }
+                    }
+
+                    if (shownContactSources.isEmpty()) {
+                        duplicates.forEach {
+                            addContactSource(it)
+                            shownContactSources.add(it.source)
+                        }
                     }
                 }
             }
