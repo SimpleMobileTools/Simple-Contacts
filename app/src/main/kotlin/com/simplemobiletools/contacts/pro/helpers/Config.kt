@@ -41,10 +41,6 @@ class Config(context: Context) : BaseConfig(context) {
                 SHOW_ADDRESSES_FIELD or SHOW_EVENTS_FIELD or SHOW_NOTES_FIELD or SHOW_GROUPS_FIELD or SHOW_CONTACT_SOURCE_FIELD)
         set(showContactFields) = prefs.edit().putInt(SHOW_CONTACT_FIELDS, showContactFields).apply()
 
-    var filterDuplicates: Boolean
-        get() = prefs.getBoolean(FILTER_DUPLICATES, true)
-        set(filterDuplicates) = prefs.edit().putBoolean(FILTER_DUPLICATES, filterDuplicates).apply()
-
     var showTabs: Int
         get() = prefs.getInt(SHOW_TABS, ALL_TABS_MASK)
         set(showTabs) = prefs.edit().putInt(SHOW_TABS, showTabs).apply()

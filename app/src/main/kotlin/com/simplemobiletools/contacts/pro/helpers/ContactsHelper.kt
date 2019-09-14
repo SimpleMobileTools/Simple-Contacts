@@ -66,7 +66,7 @@ class ContactsHelper(val context: Context) {
                 contacts.valueAt(it)
             }
 
-            if (ignoredContactSources.isEmpty() && context.config.filterDuplicates && !getAll) {
+            if (ignoredContactSources.isEmpty() && !getAll) {
                 tempContacts = tempContacts.distinctBy {
                     it.getHashToCompare()
                 } as ArrayList<Contact>
