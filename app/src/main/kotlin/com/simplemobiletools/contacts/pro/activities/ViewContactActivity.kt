@@ -34,6 +34,7 @@ class ViewContactActivity : ContactActivity() {
     private var duplicateContacts = ArrayList<Contact>()
     private var contactSources = ArrayList<ContactSource>()
     private var showFields = 0
+    private var fullContact: Contact? = null    // contact with all fields filled from duplicates
 
     private val COMPARABLE_PHONE_NUMBER_LENGTH = 7
 
@@ -85,7 +86,7 @@ class ViewContactActivity : ContactActivity() {
 
         when (item.itemId) {
             R.id.edit -> launchEditContact(contact!!)
-            R.id.share -> shareContact()
+            R.id.share -> shareContact(fullContact!!)
             R.id.open_with -> openWith()
             R.id.delete -> deleteContactFromAllSources()
             else -> return super.onOptionsItemSelected(item)
@@ -103,6 +104,7 @@ class ViewContactActivity : ContactActivity() {
                     val lookupKey = getLookupKeyFromUri(data)
                     if (lookupKey != null) {
                         contact = ContactsHelper(this).getContactWithLookupKey(lookupKey)
+                        fullContact = contact
                         wasLookupKeyUsed = true
                     }
 
@@ -119,6 +121,7 @@ class ViewContactActivity : ContactActivity() {
 
         if (contactId != 0 && !wasLookupKeyUsed) {
             contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
+            fullContact = contact
 
             if (contact == null) {
                 if (!wasEditLaunched) {
@@ -297,6 +300,7 @@ class ViewContactActivity : ContactActivity() {
             }.toMutableSet() as LinkedHashSet<PhoneNumber>
 
             phoneNumbers = phoneNumbers.sortedBy { it.type }.toMutableSet() as LinkedHashSet<PhoneNumber>
+            fullContact!!.phoneNumbers = phoneNumbers.toMutableList() as ArrayList<PhoneNumber>
             if (phoneNumbers.isNotEmpty()) {
                 phoneNumbers.forEach {
                     layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
@@ -364,6 +368,7 @@ class ViewContactActivity : ContactActivity() {
             }
 
             addresses = addresses.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Address>
+            fullContact!!.addresses = addresses.toMutableList() as ArrayList<Address>
             if (addresses.isNotEmpty()) {
                 addresses.forEach {
                     layoutInflater.inflate(R.layout.item_view_address, contact_addresses_holder, false).apply {
@@ -399,6 +404,7 @@ class ViewContactActivity : ContactActivity() {
             }
 
             IMs = IMs.sortedBy { it.type }.toMutableSet() as LinkedHashSet<IM>
+            fullContact!!.IMs = IMs.toMutableList() as ArrayList<IM>
             if (IMs.isNotEmpty()) {
                 IMs.forEach {
                     layoutInflater.inflate(R.layout.item_view_im, contact_ims_holder, false).apply {
@@ -430,6 +436,7 @@ class ViewContactActivity : ContactActivity() {
             }
 
             events = events.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Event>
+            fullContact!!.events = events.toMutableList() as ArrayList<Event>
             if (events.isNotEmpty()) {
                 events.forEach {
                     layoutInflater.inflate(R.layout.item_view_event, contact_events_holder, false).apply {
@@ -494,6 +501,7 @@ class ViewContactActivity : ContactActivity() {
             }
 
             websites = websites.sorted().toMutableSet() as LinkedHashSet<String>
+            fullContact!!.websites = websites.toMutableList() as ArrayList<String>
             if (websites.isNotEmpty()) {
                 websites.forEach {
                     val url = it
@@ -528,6 +536,7 @@ class ViewContactActivity : ContactActivity() {
             }
 
             groups = groups.sortedBy { it.title }.toMutableSet() as LinkedHashSet<Group>
+            fullContact!!.groups = groups.toMutableList() as ArrayList<Group>
             if (groups.isNotEmpty()) {
                 groups.forEach {
                     layoutInflater.inflate(R.layout.item_view_group, contact_groups_holder, false).apply {

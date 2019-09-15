@@ -84,8 +84,8 @@ abstract class ContactActivity : SimpleActivity() {
         }
     }
 
-    fun shareContact() {
-        shareContacts(arrayListOf(contact!!))
+    fun shareContact(contact: Contact) {
+        shareContacts(arrayListOf(contact))
     }
 
     fun trySendSMS() {

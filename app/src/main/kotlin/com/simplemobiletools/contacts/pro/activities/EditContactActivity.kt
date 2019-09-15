@@ -108,7 +108,7 @@ class EditContactActivity : ContactActivity() {
 
         when (item.itemId) {
             R.id.save -> saveContact()
-            R.id.share -> shareContact()
+            R.id.share -> shareContact(contact!!)
             R.id.open_with -> openWith()
             R.id.delete -> deleteContact()
             else -> return super.onOptionsItemSelected(item)
