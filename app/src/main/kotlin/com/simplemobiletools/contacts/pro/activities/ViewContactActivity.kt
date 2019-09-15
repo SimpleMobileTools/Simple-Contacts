@@ -17,10 +17,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
-import com.simplemobiletools.contacts.pro.models.Address
-import com.simplemobiletools.contacts.pro.models.Contact
-import com.simplemobiletools.contacts.pro.models.ContactSource
-import com.simplemobiletools.contacts.pro.models.PhoneNumber
+import com.simplemobiletools.contacts.pro.models.*
 import kotlinx.android.synthetic.main.activity_view_contact.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_view_address.view.*
@@ -209,11 +206,11 @@ class ViewContactActivity : ContactActivity() {
                 setupPhoneNumbers()
                 setupEmails()
                 setupAddresses()
+                setupIMs()
                 setupContactSources()
             }
         }
 
-        setupIMs()
         setupEvents()
         setupNotes()
         setupOrganization()
@@ -285,6 +282,7 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupPhoneNumbers() {
+        contact_numbers_holder.removeAllViews()
         if (showFields and SHOW_PHONE_NUMBERS_FIELD != 0) {
             var phoneNumbers = contact!!.phoneNumbers.toMutableSet() as LinkedHashSet<PhoneNumber>
             duplicateContacts.forEach {
@@ -300,8 +298,6 @@ class ViewContactActivity : ContactActivity() {
             }.toMutableSet() as LinkedHashSet<PhoneNumber>
 
             phoneNumbers = phoneNumbers.sortedBy { it.type }.toMutableSet() as LinkedHashSet<PhoneNumber>
-
-            contact_numbers_holder.removeAllViews()
             if (phoneNumbers.isNotEmpty()) {
                 phoneNumbers.forEach {
                     layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
@@ -368,7 +364,6 @@ class ViewContactActivity : ContactActivity() {
             }
 
             addresses = addresses.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Address>
-
             if (addresses.isNotEmpty()) {
                 addresses.forEach {
                     layoutInflater.inflate(R.layout.item_view_address, contact_addresses_holder, false).apply {
@@ -397,19 +392,29 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupIMs() {
         contact_ims_holder.removeAllViews()
-        val IMs = contact!!.IMs
-        if (IMs.isNotEmpty() && showFields and SHOW_IMS_FIELD != 0) {
-            IMs.forEach {
-                layoutInflater.inflate(R.layout.item_view_im, contact_ims_holder, false).apply {
-                    val IM = it
-                    contact_ims_holder.addView(this)
-                    contact_im.text = IM.value
-                    contact_im_type.text = getIMTypeText(IM.type, IM.label)
-                    copyOnLongClick(IM.value)
-                }
+        if (showFields and SHOW_IMS_FIELD != 0) {
+            var IMs = contact!!.IMs.toMutableSet() as LinkedHashSet<IM>
+            duplicateContacts.forEach {
+                IMs.addAll(it.IMs)
             }
-            contact_ims_image.beVisible()
-            contact_ims_holder.beVisible()
+
+            IMs = IMs.sortedBy { it.type }.toMutableSet() as LinkedHashSet<IM>
+            if (IMs.isNotEmpty()) {
+                IMs.forEach {
+                    layoutInflater.inflate(R.layout.item_view_im, contact_ims_holder, false).apply {
+                        val IM = it
+                        contact_ims_holder.addView(this)
+                        contact_im.text = IM.value
+                        contact_im_type.text = getIMTypeText(IM.type, IM.label)
+                        copyOnLongClick(IM.value)
+                    }
+                }
+                contact_ims_image.beVisible()
+                contact_ims_holder.beVisible()
+            } else {
+                contact_ims_image.beGone()
+                contact_ims_holder.beGone()
+            }
         } else {
             contact_ims_image.beGone()
             contact_ims_holder.beGone()
