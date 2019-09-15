@@ -1528,8 +1528,10 @@ class ContactsHelper(val context: Context) {
         ensureBackgroundThread {
             if (deleteClones) {
                 getDuplicatesOfContact(originalContact, true) { contacts ->
-                    if (deleteContacts(contacts)) {
-                        callback(true)
+                    ensureBackgroundThread {
+                        if (deleteContacts(contacts)) {
+                            callback(true)
+                        }
                     }
                 }
             } else {
