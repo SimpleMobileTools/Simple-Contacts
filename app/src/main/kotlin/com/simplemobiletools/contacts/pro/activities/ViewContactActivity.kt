@@ -442,40 +442,6 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun setupNotes() {
-        val notes = contact!!.notes
-        if (notes.isNotEmpty() && showFields and SHOW_NOTES_FIELD != 0) {
-            contact_notes.text = notes
-            contact_notes_image.beVisible()
-            contact_notes.beVisible()
-            contact_notes.copyOnLongClick(notes)
-        } else {
-            contact_notes_image.beGone()
-            contact_notes.beGone()
-        }
-    }
-
-    private fun setupOrganization() {
-        val organization = contact!!.organization
-        if (organization.isNotEmpty() && showFields and SHOW_ORGANIZATION_FIELD != 0) {
-            contact_organization_company.text = organization.company
-            contact_organization_job_position.text = organization.jobPosition
-            contact_organization_image.beGoneIf(organization.isEmpty())
-            contact_organization_company.beGoneIf(organization.company.isEmpty())
-            contact_organization_job_position.beGoneIf(organization.jobPosition.isEmpty())
-            contact_organization_company.copyOnLongClick(contact_organization_company.value)
-            contact_organization_job_position.copyOnLongClick(contact_organization_job_position.value)
-
-            if (organization.company.isEmpty() && organization.jobPosition.isNotEmpty()) {
-                (contact_organization_image.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.ALIGN_TOP, contact_organization_job_position.id)
-            }
-        } else {
-            contact_organization_image.beGone()
-            contact_organization_company.beGone()
-            contact_organization_job_position.beGone()
-        }
-    }
-
     private fun setupWebsites() {
         var websites = contact!!.websites.toMutableSet() as LinkedHashSet<String>
         duplicateContacts.forEach {
@@ -564,6 +530,40 @@ class ViewContactActivity : ContactActivity() {
         } else {
             contact_source_image.beGone()
             contact_sources_holder.beGone()
+        }
+    }
+
+    private fun setupNotes() {
+        val notes = contact!!.notes
+        if (notes.isNotEmpty() && showFields and SHOW_NOTES_FIELD != 0) {
+            contact_notes.text = notes
+            contact_notes_image.beVisible()
+            contact_notes.beVisible()
+            contact_notes.copyOnLongClick(notes)
+        } else {
+            contact_notes_image.beGone()
+            contact_notes.beGone()
+        }
+    }
+
+    private fun setupOrganization() {
+        val organization = contact!!.organization
+        if (organization.isNotEmpty() && showFields and SHOW_ORGANIZATION_FIELD != 0) {
+            contact_organization_company.text = organization.company
+            contact_organization_job_position.text = organization.jobPosition
+            contact_organization_image.beGoneIf(organization.isEmpty())
+            contact_organization_company.beGoneIf(organization.company.isEmpty())
+            contact_organization_job_position.beGoneIf(organization.jobPosition.isEmpty())
+            contact_organization_company.copyOnLongClick(contact_organization_company.value)
+            contact_organization_job_position.copyOnLongClick(contact_organization_job_position.value)
+
+            if (organization.company.isEmpty() && organization.jobPosition.isNotEmpty()) {
+                (contact_organization_image.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.ALIGN_TOP, contact_organization_job_position.id)
+            }
+        } else {
+            contact_organization_image.beGone()
+            contact_organization_company.beGone()
+            contact_organization_job_position.beGone()
         }
     }
 
