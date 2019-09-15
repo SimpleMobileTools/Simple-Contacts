@@ -504,18 +504,21 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupContactSources() {
         if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
-            val sources = LinkedHashMap<Contact, String>()
-            sources[contact!!] = contact!!.source
+            var sources = HashMap<Contact, String>()
+            sources[contact!!] = getPublicContactSourceSync(contact!!.source, contactSources)
             duplicateContacts.forEach {
-                sources[it] = it.source
+                sources[it] = getPublicContactSourceSync(it.source, contactSources)
+            }
+
+            if (sources.size > 1) {
+                sources = sources.toList().sortedBy { (key, value) -> value.toLowerCase() }.toMap() as LinkedHashMap<Contact, String>
             }
 
             contact_sources_holder.removeAllViews()
             for ((key, value) in sources) {
                 layoutInflater.inflate(R.layout.item_view_contact_source, contact_sources_holder, false).apply {
-                    val contactSource = getPublicContactSourceSync(value, contactSources)
-                    contact_source.text = contactSource
-                    contact_source.copyOnLongClick(contactSource)
+                    contact_source.text = value
+                    contact_source.copyOnLongClick(value)
                     contact_sources_holder.addView(this)
 
                     contact_source.setOnClickListener {
