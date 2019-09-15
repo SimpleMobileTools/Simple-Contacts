@@ -207,11 +207,11 @@ class ViewContactActivity : ContactActivity() {
                 setupEmails()
                 setupAddresses()
                 setupIMs()
+                setupEvents()
                 setupContactSources()
             }
         }
 
-        setupEvents()
         setupNotes()
         setupOrganization()
         setupWebsites()
@@ -423,20 +423,28 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupEvents() {
         contact_events_holder.removeAllViews()
-        val events = contact!!.events
-        if (events.isNotEmpty() && showFields and SHOW_EVENTS_FIELD != 0) {
-            events.forEach {
-                layoutInflater.inflate(R.layout.item_event, contact_events_holder, false).apply {
-                    contact_events_holder.addView(this)
-                    contact_event.alpha = 1f
-                    it.value.getDateTimeFromDateString(contact_event)
-                    contact_event_type.setText(getEventTextId(it.type))
-                    contact_event_remove.beGone()
-                    copyOnLongClick(it.value)
-                }
+        if (showFields and SHOW_EVENTS_FIELD != 0) {
+            var events = contact!!.events.toMutableSet() as LinkedHashSet<Event>
+            duplicateContacts.forEach {
+                events.addAll(it.events)
             }
-            contact_events_image.beVisible()
-            contact_events_holder.beVisible()
+
+            events = events.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Event>
+            if (events.isNotEmpty()) {
+                events.forEach {
+                    layoutInflater.inflate(R.layout.item_view_event, contact_events_holder, false).apply {
+                        contact_events_holder.addView(this)
+                        it.value.getDateTimeFromDateString(contact_event)
+                        contact_event_type.setText(getEventTextId(it.type))
+                        copyOnLongClick(it.value)
+                    }
+                }
+                contact_events_image.beVisible()
+                contact_events_holder.beVisible()
+            } else {
+                contact_events_image.beGone()
+                contact_events_holder.beGone()
+            }
         } else {
             contact_events_image.beGone()
             contact_events_holder.beGone()

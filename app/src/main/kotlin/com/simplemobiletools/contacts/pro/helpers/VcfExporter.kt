@@ -70,7 +70,7 @@ class VcfExporter {
                     }
 
                     contact.events.forEach {
-                        if (it.type == CommonDataKinds.Event.TYPE_BIRTHDAY || it.type == CommonDataKinds.Event.TYPE_ANNIVERSARY) {
+                        if (it.type == CommonDataKinds.Event.TYPE_ANNIVERSARY || it.type == CommonDataKinds.Event.TYPE_BIRTHDAY) {
                             val dateTime = it.value.getDateTimeFromDateString()
                             if (it.value.startsWith("--")) {
                                 val partialDate = PartialDate.builder().year(null).month(dateTime.monthOfYear).date(dateTime.dayOfMonth).build()

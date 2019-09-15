@@ -180,8 +180,8 @@ abstract class ContactActivity : SimpleActivity() {
     }
 
     fun getEventTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
         ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
+        ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
         else -> R.string.other
     }
 }

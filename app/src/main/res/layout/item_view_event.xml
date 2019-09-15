@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contact_event_holder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:paddingTop="@dimen/normal_margin"
+    android:paddingBottom="@dimen/normal_margin">
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/contact_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/contact_event_type"
+        android:lines="1"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="@dimen/bigger_text_size" />
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/contact_event_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/contact_event"
+        android:layout_alignBottom="@+id/contact_event"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:paddingLeft="@dimen/medium_margin"
+        android:paddingRight="@dimen/medium_margin"
+        android:text="@string/home"
+        android:textSize="@dimen/bigger_text_size" />
+
+</RelativeLayout>

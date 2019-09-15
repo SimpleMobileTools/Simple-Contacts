@@ -821,8 +821,8 @@ class EditContactActivity : ContactActivity() {
 
     private fun showEventTypePicker(eventTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
                 RadioItem(CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(R.string.anniversary)),
+                RadioItem(CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
                 RadioItem(CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other))
         )
 
@@ -1221,8 +1221,8 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun getEventTypeId(value: String) = when (value) {
-        getString(R.string.birthday) -> CommonDataKinds.Event.TYPE_BIRTHDAY
         getString(R.string.anniversary) -> CommonDataKinds.Event.TYPE_ANNIVERSARY
+        getString(R.string.birthday) -> CommonDataKinds.Event.TYPE_BIRTHDAY
         else -> CommonDataKinds.Event.TYPE_OTHER
     }
 
