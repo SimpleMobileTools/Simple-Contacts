@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.4.0 *(2019-09-15)*
+----------------------------
+
+ * Removed the setting for merging duplicate contacts, merge them always
+ * Show all contact sources of the contact at the View screen
+ * Fixed a glitch with some missing fields at exporting contacts in .ics files
+
 Version 6.3.5 *(2019-08-27)*
 ----------------------------
 
