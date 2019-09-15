@@ -208,14 +208,13 @@ class ViewContactActivity : ContactActivity() {
                 setupAddresses()
                 setupIMs()
                 setupEvents()
+                setupWebsites()
+                setupGroups()
+                setupContactSources()
                 setupNotes()
                 setupOrganization()
-                setupWebsites()
-                setupContactSources()
             }
         }
-
-        setupGroups()
     }
 
     private fun launchEditContact(contact: Contact) {
@@ -522,18 +521,29 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupGroups() {
         contact_groups_holder.removeAllViews()
-        val groups = contact!!.groups
-        if (groups.isNotEmpty() && showFields and SHOW_GROUPS_FIELD != 0) {
-            groups.forEach {
-                layoutInflater.inflate(R.layout.item_view_group, contact_groups_holder, false).apply {
-                    val group = it
-                    contact_groups_holder.addView(this)
-                    contact_group.text = group.title
-                    copyOnLongClick(group.title)
-                }
+        if (showFields and SHOW_GROUPS_FIELD != 0) {
+            var groups = contact!!.groups.toMutableSet() as LinkedHashSet<Group>
+            duplicateContacts.forEach {
+                groups.addAll(it.groups)
             }
-            contact_groups_image.beVisible()
-            contact_groups_holder.beVisible()
+
+            groups = groups.sortedBy { it.title }.toMutableSet() as LinkedHashSet<Group>
+
+            if (groups.isNotEmpty()) {
+                groups.forEach {
+                    layoutInflater.inflate(R.layout.item_view_group, contact_groups_holder, false).apply {
+                        val group = it
+                        contact_groups_holder.addView(this)
+                        contact_group.text = group.title
+                        copyOnLongClick(group.title)
+                    }
+                }
+                contact_groups_image.beVisible()
+                contact_groups_holder.beVisible()
+            } else {
+                contact_groups_image.beGone()
+                contact_groups_holder.beGone()
+            }
         } else {
             contact_groups_image.beGone()
             contact_groups_holder.beGone()
