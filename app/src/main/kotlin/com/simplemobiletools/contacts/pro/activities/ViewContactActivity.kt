@@ -329,6 +329,7 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
+    // a contact cannot have different emails per contact source. Such contacts are handled as separate ones, not duplicates of each other
     private fun setupEmails() {
         contact_emails_holder.removeAllViews()
         val emails = contact!!.emails
@@ -493,7 +494,6 @@ class ViewContactActivity : ContactActivity() {
             }
 
             websites = websites.sorted().toMutableSet() as LinkedHashSet<String>
-
             if (websites.isNotEmpty()) {
                 websites.forEach {
                     val url = it
@@ -528,7 +528,6 @@ class ViewContactActivity : ContactActivity() {
             }
 
             groups = groups.sortedBy { it.title }.toMutableSet() as LinkedHashSet<Group>
-
             if (groups.isNotEmpty()) {
                 groups.forEach {
                     layoutInflater.inflate(R.layout.item_view_group, contact_groups_holder, false).apply {
@@ -551,6 +550,7 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupContactSources() {
+        contact_sources_holder.removeAllViews()
         if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
             var sources = HashMap<Contact, String>()
             sources[contact!!] = getPublicContactSourceSync(contact!!.source, contactSources)
@@ -562,7 +562,6 @@ class ViewContactActivity : ContactActivity() {
                 sources = sources.toList().sortedBy { (key, value) -> value.toLowerCase() }.toMap() as LinkedHashMap<Contact, String>
             }
 
-            contact_sources_holder.removeAllViews()
             for ((key, value) in sources) {
                 layoutInflater.inflate(R.layout.item_view_contact_source, contact_sources_holder, false).apply {
                     contact_source.text = value
