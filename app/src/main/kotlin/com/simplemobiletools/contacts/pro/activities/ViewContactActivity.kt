@@ -18,6 +18,7 @@ import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
+import com.simplemobiletools.contacts.pro.models.PhoneNumber
 import kotlinx.android.synthetic.main.activity_view_contact.*
 import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_view_address.view.*
@@ -32,6 +33,7 @@ class ViewContactActivity : ContactActivity() {
     private var isViewIntent = false
     private var wasEditLaunched = false
     private var shownContactSources = ArrayList<String>()
+    private var duplicateContacts = ArrayList<Contact>()
     private var showFields = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -196,7 +198,12 @@ class ViewContactActivity : ContactActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         setupFavorite()
         setupNames()
-        setupPhoneNumbers()
+        setupContactSources()
+
+        getDuplicateContacts {
+            setupPhoneNumbers()
+        }
+
         setupEmails()
         setupAddresses()
         setupIMs()
@@ -205,8 +212,6 @@ class ViewContactActivity : ContactActivity() {
         setupOrganization()
         setupWebsites()
         setupGroups()
-        setupContactSources()
-        checkDuplicateContacts()
     }
 
     private fun launchEditContact(contact: Contact) {
@@ -274,7 +279,21 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupPhoneNumbers() {
         contact_numbers_holder.removeAllViews()
-        val phoneNumbers = contact!!.phoneNumbers
+        var phoneNumbers = contact!!.phoneNumbers.toMutableSet() as LinkedHashSet<PhoneNumber>
+        duplicateContacts.forEach {
+            it.phoneNumbers.forEach {
+                phoneNumbers.add(it)
+            }
+        }
+
+        phoneNumbers = phoneNumbers.distinctBy {
+            if (it.normalizedNumber != null && it.normalizedNumber!!.length >= 7) {
+                it.normalizedNumber?.substring(it.normalizedNumber!!.length - 7)
+            } else {
+                it.normalizedNumber
+            }
+        }.toMutableSet() as LinkedHashSet<PhoneNumber>
+
         if (phoneNumbers.isNotEmpty() && showFields and SHOW_PHONE_NUMBERS_FIELD != 0) {
             phoneNumbers.forEach {
                 layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
@@ -480,19 +499,21 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun checkDuplicateContacts() {
+    private fun getDuplicateContacts(callback: () -> Unit) {
         ContactsHelper(this).getDuplicatesOfContact(contact!!, false) { contacts ->
             ensureBackgroundThread {
-                val duplicates = ArrayList<Contact>()
+                duplicateContacts.clear()
                 contacts.forEach {
                     val duplicate = ContactsHelper(this).getContactWithId(it.id, it.isPrivate())
                     if (duplicate != null) {
-                        duplicates.add(duplicate)
+                        duplicateContacts.add(duplicate)
                     }
                 }
 
-                val currContactSources = duplicates.map { it.source }
                 runOnUiThread {
+                    callback()
+
+                    val currContactSources = duplicateContacts.map { it.source }
                     if (currContactSources.toString() != shownContactSources.toString()) {
                         for (i in (contact_sources_holder.childCount - 1) downTo 1) {
                             contact_sources_holder.removeView(contact_sources_holder.getChildAt(i))
@@ -501,7 +522,7 @@ class ViewContactActivity : ContactActivity() {
                     }
 
                     if (shownContactSources.isEmpty()) {
-                        duplicates.forEach {
+                        duplicateContacts.forEach {
                             addContactSource(it)
                             shownContactSources.add(it.source)
                         }
