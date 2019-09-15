@@ -298,6 +298,8 @@ class ViewContactActivity : ContactActivity() {
                 }
             }.toMutableSet() as LinkedHashSet<PhoneNumber>
 
+            phoneNumbers = phoneNumbers.sortedBy { it.type }.toMutableSet() as LinkedHashSet<PhoneNumber>
+
             contact_numbers_holder.removeAllViews()
             if (phoneNumbers.isNotEmpty()) {
                 phoneNumbers.forEach {
