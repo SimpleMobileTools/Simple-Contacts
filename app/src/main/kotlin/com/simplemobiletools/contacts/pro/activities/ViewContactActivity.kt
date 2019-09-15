@@ -17,6 +17,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.models.Address
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.ContactSource
 import com.simplemobiletools.contacts.pro.models.PhoneNumber
@@ -206,12 +207,12 @@ class ViewContactActivity : ContactActivity() {
             contactSources = it
             getDuplicateContacts {
                 setupPhoneNumbers()
+                setupEmails()
+                setupAddresses()
                 setupContactSources()
             }
         }
 
-        setupEmails()
-        setupAddresses()
         setupIMs()
         setupEvents()
         setupNotes()
@@ -360,23 +361,34 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupAddresses() {
         contact_addresses_holder.removeAllViews()
-        val addresses = contact!!.addresses
-        if (addresses.isNotEmpty() && showFields and SHOW_ADDRESSES_FIELD != 0) {
-            addresses.forEach {
-                layoutInflater.inflate(R.layout.item_view_address, contact_addresses_holder, false).apply {
-                    val address = it
-                    contact_addresses_holder.addView(this)
-                    contact_address.text = address.value
-                    contact_address_type.text = getAddressTypeText(address.type, address.label)
-                    copyOnLongClick(address.value)
+        if (showFields and SHOW_ADDRESSES_FIELD != 0) {
+            var addresses = contact!!.addresses.toMutableSet() as LinkedHashSet<Address>
+            duplicateContacts.forEach {
+                addresses.addAll(it.addresses)
+            }
 
-                    setOnClickListener {
-                        sendAddressIntent(address.value)
+            addresses = addresses.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Address>
+
+            if (addresses.isNotEmpty()) {
+                addresses.forEach {
+                    layoutInflater.inflate(R.layout.item_view_address, contact_addresses_holder, false).apply {
+                        val address = it
+                        contact_addresses_holder.addView(this)
+                        contact_address.text = address.value
+                        contact_address_type.text = getAddressTypeText(address.type, address.label)
+                        copyOnLongClick(address.value)
+
+                        setOnClickListener {
+                            sendAddressIntent(address.value)
+                        }
                     }
                 }
+                contact_addresses_image.beVisible()
+                contact_addresses_holder.beVisible()
+            } else {
+                contact_addresses_image.beGone()
+                contact_addresses_holder.beGone()
             }
-            contact_addresses_image.beVisible()
-            contact_addresses_holder.beVisible()
         } else {
             contact_addresses_image.beGone()
             contact_addresses_holder.beGone()
