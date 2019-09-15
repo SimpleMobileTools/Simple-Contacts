@@ -19,10 +19,10 @@ import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.*
 import kotlinx.android.synthetic.main.activity_view_contact.*
-import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_view_address.view.*
 import kotlinx.android.synthetic.main.item_view_contact_source.view.*
 import kotlinx.android.synthetic.main.item_view_email.view.*
+import kotlinx.android.synthetic.main.item_view_event.view.*
 import kotlinx.android.synthetic.main.item_view_group.view.*
 import kotlinx.android.synthetic.main.item_view_im.view.*
 import kotlinx.android.synthetic.main.item_view_phone_number.view.*
@@ -208,13 +208,13 @@ class ViewContactActivity : ContactActivity() {
                 setupAddresses()
                 setupIMs()
                 setupEvents()
+                setupNotes()
+                setupOrganization()
+                setupWebsites()
                 setupContactSources()
             }
         }
 
-        setupNotes()
-        setupOrganization()
-        setupWebsites()
         setupGroups()
     }
 
@@ -487,22 +487,33 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupWebsites() {
         contact_websites_holder.removeAllViews()
-        val websites = contact!!.websites
-        if (websites.isNotEmpty() && showFields and SHOW_WEBSITES_FIELD != 0) {
-            websites.forEach {
-                val url = it
-                layoutInflater.inflate(R.layout.item_website, contact_websites_holder, false).apply {
-                    contact_websites_holder.addView(this)
-                    contact_website.text = url
-                    copyOnLongClick(url)
+        if (showFields and SHOW_WEBSITES_FIELD != 0) {
+            var websites = contact!!.websites.toMutableSet() as LinkedHashSet<String>
+            duplicateContacts.forEach {
+                websites.addAll(it.websites)
+            }
 
-                    setOnClickListener {
-                        openWebsiteIntent(url)
+            websites = websites.sorted().toMutableSet() as LinkedHashSet<String>
+
+            if (websites.isNotEmpty()) {
+                websites.forEach {
+                    val url = it
+                    layoutInflater.inflate(R.layout.item_website, contact_websites_holder, false).apply {
+                        contact_websites_holder.addView(this)
+                        contact_website.text = url
+                        copyOnLongClick(url)
+
+                        setOnClickListener {
+                            openWebsiteIntent(url)
+                        }
                     }
                 }
+                contact_websites_image.beVisible()
+                contact_websites_holder.beVisible()
+            } else {
+                contact_websites_image.beGone()
+                contact_websites_holder.beGone()
             }
-            contact_websites_image.beVisible()
-            contact_websites_holder.beVisible()
         } else {
             contact_websites_image.beGone()
             contact_websites_holder.beGone()
