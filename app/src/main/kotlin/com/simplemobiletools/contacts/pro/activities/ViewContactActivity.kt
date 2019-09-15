@@ -284,49 +284,45 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupPhoneNumbers() {
-        contact_numbers_holder.removeAllViews()
-        if (showFields and SHOW_PHONE_NUMBERS_FIELD != 0) {
-            var phoneNumbers = contact!!.phoneNumbers.toMutableSet() as LinkedHashSet<PhoneNumber>
-            duplicateContacts.forEach {
-                phoneNumbers.addAll(it.phoneNumbers)
+        var phoneNumbers = contact!!.phoneNumbers.toMutableSet() as LinkedHashSet<PhoneNumber>
+        duplicateContacts.forEach {
+            phoneNumbers.addAll(it.phoneNumbers)
+        }
+
+        phoneNumbers = phoneNumbers.distinctBy {
+            if (it.normalizedNumber != null && it.normalizedNumber!!.length >= COMPARABLE_PHONE_NUMBER_LENGTH) {
+                it.normalizedNumber?.substring(it.normalizedNumber!!.length - COMPARABLE_PHONE_NUMBER_LENGTH)
+            } else {
+                it.normalizedNumber
             }
+        }.toMutableSet() as LinkedHashSet<PhoneNumber>
 
-            phoneNumbers = phoneNumbers.distinctBy {
-                if (it.normalizedNumber != null && it.normalizedNumber!!.length >= COMPARABLE_PHONE_NUMBER_LENGTH) {
-                    it.normalizedNumber?.substring(it.normalizedNumber!!.length - COMPARABLE_PHONE_NUMBER_LENGTH)
-                } else {
-                    it.normalizedNumber
-                }
-            }.toMutableSet() as LinkedHashSet<PhoneNumber>
+        phoneNumbers = phoneNumbers.sortedBy { it.type }.toMutableSet() as LinkedHashSet<PhoneNumber>
+        fullContact!!.phoneNumbers = phoneNumbers.toMutableList() as ArrayList<PhoneNumber>
+        contact_numbers_holder.removeAllViews()
 
-            phoneNumbers = phoneNumbers.sortedBy { it.type }.toMutableSet() as LinkedHashSet<PhoneNumber>
-            fullContact!!.phoneNumbers = phoneNumbers.toMutableList() as ArrayList<PhoneNumber>
-            if (phoneNumbers.isNotEmpty()) {
-                phoneNumbers.forEach {
-                    layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
-                        val phoneNumber = it
-                        contact_numbers_holder.addView(this)
-                        contact_number.text = phoneNumber.value
-                        contact_number_type.text = getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)
-                        copyOnLongClick(phoneNumber.value)
+        if (phoneNumbers.isNotEmpty() && showFields and SHOW_PHONE_NUMBERS_FIELD != 0) {
+            phoneNumbers.forEach {
+                layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
+                    val phoneNumber = it
+                    contact_numbers_holder.addView(this)
+                    contact_number.text = phoneNumber.value
+                    contact_number_type.text = getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)
+                    copyOnLongClick(phoneNumber.value)
 
-                        setOnClickListener {
-                            if (config.showCallConfirmation) {
-                                CallConfirmationDialog(this@ViewContactActivity, phoneNumber.value) {
-                                    startCallIntent(phoneNumber.value)
-                                }
-                            } else {
+                    setOnClickListener {
+                        if (config.showCallConfirmation) {
+                            CallConfirmationDialog(this@ViewContactActivity, phoneNumber.value) {
                                 startCallIntent(phoneNumber.value)
                             }
+                        } else {
+                            startCallIntent(phoneNumber.value)
                         }
                     }
                 }
-                contact_numbers_image.beVisible()
-                contact_numbers_holder.beVisible()
-            } else {
-                contact_numbers_image.beGone()
-                contact_numbers_holder.beGone()
             }
+            contact_numbers_image.beVisible()
+            contact_numbers_holder.beVisible()
         } else {
             contact_numbers_image.beGone()
             contact_numbers_holder.beGone()
@@ -360,35 +356,31 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupAddresses() {
+        var addresses = contact!!.addresses.toMutableSet() as LinkedHashSet<Address>
+        duplicateContacts.forEach {
+            addresses.addAll(it.addresses)
+        }
+
+        addresses = addresses.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Address>
+        fullContact!!.addresses = addresses.toMutableList() as ArrayList<Address>
         contact_addresses_holder.removeAllViews()
-        if (showFields and SHOW_ADDRESSES_FIELD != 0) {
-            var addresses = contact!!.addresses.toMutableSet() as LinkedHashSet<Address>
-            duplicateContacts.forEach {
-                addresses.addAll(it.addresses)
-            }
 
-            addresses = addresses.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Address>
-            fullContact!!.addresses = addresses.toMutableList() as ArrayList<Address>
-            if (addresses.isNotEmpty()) {
-                addresses.forEach {
-                    layoutInflater.inflate(R.layout.item_view_address, contact_addresses_holder, false).apply {
-                        val address = it
-                        contact_addresses_holder.addView(this)
-                        contact_address.text = address.value
-                        contact_address_type.text = getAddressTypeText(address.type, address.label)
-                        copyOnLongClick(address.value)
+        if (addresses.isNotEmpty() && showFields and SHOW_ADDRESSES_FIELD != 0) {
+            addresses.forEach {
+                layoutInflater.inflate(R.layout.item_view_address, contact_addresses_holder, false).apply {
+                    val address = it
+                    contact_addresses_holder.addView(this)
+                    contact_address.text = address.value
+                    contact_address_type.text = getAddressTypeText(address.type, address.label)
+                    copyOnLongClick(address.value)
 
-                        setOnClickListener {
-                            sendAddressIntent(address.value)
-                        }
+                    setOnClickListener {
+                        sendAddressIntent(address.value)
                     }
                 }
-                contact_addresses_image.beVisible()
-                contact_addresses_holder.beVisible()
-            } else {
-                contact_addresses_image.beGone()
-                contact_addresses_holder.beGone()
             }
+            contact_addresses_image.beVisible()
+            contact_addresses_holder.beVisible()
         } else {
             contact_addresses_image.beGone()
             contact_addresses_holder.beGone()
@@ -396,31 +388,27 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupIMs() {
-        contact_ims_holder.removeAllViews()
-        if (showFields and SHOW_IMS_FIELD != 0) {
-            var IMs = contact!!.IMs.toMutableSet() as LinkedHashSet<IM>
-            duplicateContacts.forEach {
-                IMs.addAll(it.IMs)
-            }
+        var IMs = contact!!.IMs.toMutableSet() as LinkedHashSet<IM>
+        duplicateContacts.forEach {
+            IMs.addAll(it.IMs)
+        }
 
-            IMs = IMs.sortedBy { it.type }.toMutableSet() as LinkedHashSet<IM>
-            fullContact!!.IMs = IMs.toMutableList() as ArrayList<IM>
-            if (IMs.isNotEmpty()) {
-                IMs.forEach {
-                    layoutInflater.inflate(R.layout.item_view_im, contact_ims_holder, false).apply {
-                        val IM = it
-                        contact_ims_holder.addView(this)
-                        contact_im.text = IM.value
-                        contact_im_type.text = getIMTypeText(IM.type, IM.label)
-                        copyOnLongClick(IM.value)
-                    }
+        IMs = IMs.sortedBy { it.type }.toMutableSet() as LinkedHashSet<IM>
+        fullContact!!.IMs = IMs.toMutableList() as ArrayList<IM>
+        contact_ims_holder.removeAllViews()
+
+        if (IMs.isNotEmpty() && showFields and SHOW_IMS_FIELD != 0) {
+            IMs.forEach {
+                layoutInflater.inflate(R.layout.item_view_im, contact_ims_holder, false).apply {
+                    val IM = it
+                    contact_ims_holder.addView(this)
+                    contact_im.text = IM.value
+                    contact_im_type.text = getIMTypeText(IM.type, IM.label)
+                    copyOnLongClick(IM.value)
                 }
-                contact_ims_image.beVisible()
-                contact_ims_holder.beVisible()
-            } else {
-                contact_ims_image.beGone()
-                contact_ims_holder.beGone()
             }
+            contact_ims_image.beVisible()
+            contact_ims_holder.beVisible()
         } else {
             contact_ims_image.beGone()
             contact_ims_holder.beGone()
@@ -428,30 +416,26 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupEvents() {
-        contact_events_holder.removeAllViews()
-        if (showFields and SHOW_EVENTS_FIELD != 0) {
-            var events = contact!!.events.toMutableSet() as LinkedHashSet<Event>
-            duplicateContacts.forEach {
-                events.addAll(it.events)
-            }
+        var events = contact!!.events.toMutableSet() as LinkedHashSet<Event>
+        duplicateContacts.forEach {
+            events.addAll(it.events)
+        }
 
-            events = events.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Event>
-            fullContact!!.events = events.toMutableList() as ArrayList<Event>
-            if (events.isNotEmpty()) {
-                events.forEach {
-                    layoutInflater.inflate(R.layout.item_view_event, contact_events_holder, false).apply {
-                        contact_events_holder.addView(this)
-                        it.value.getDateTimeFromDateString(contact_event)
-                        contact_event_type.setText(getEventTextId(it.type))
-                        copyOnLongClick(it.value)
-                    }
+        events = events.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Event>
+        fullContact!!.events = events.toMutableList() as ArrayList<Event>
+        contact_events_holder.removeAllViews()
+
+        if (events.isNotEmpty() && showFields and SHOW_EVENTS_FIELD != 0) {
+            events.forEach {
+                layoutInflater.inflate(R.layout.item_view_event, contact_events_holder, false).apply {
+                    contact_events_holder.addView(this)
+                    it.value.getDateTimeFromDateString(contact_event)
+                    contact_event_type.setText(getEventTextId(it.type))
+                    copyOnLongClick(it.value)
                 }
-                contact_events_image.beVisible()
-                contact_events_holder.beVisible()
-            } else {
-                contact_events_image.beGone()
-                contact_events_holder.beGone()
             }
+            contact_events_image.beVisible()
+            contact_events_holder.beVisible()
         } else {
             contact_events_image.beGone()
             contact_events_holder.beGone()
@@ -493,34 +477,30 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupWebsites() {
+        var websites = contact!!.websites.toMutableSet() as LinkedHashSet<String>
+        duplicateContacts.forEach {
+            websites.addAll(it.websites)
+        }
+
+        websites = websites.sorted().toMutableSet() as LinkedHashSet<String>
+        fullContact!!.websites = websites.toMutableList() as ArrayList<String>
         contact_websites_holder.removeAllViews()
-        if (showFields and SHOW_WEBSITES_FIELD != 0) {
-            var websites = contact!!.websites.toMutableSet() as LinkedHashSet<String>
-            duplicateContacts.forEach {
-                websites.addAll(it.websites)
-            }
 
-            websites = websites.sorted().toMutableSet() as LinkedHashSet<String>
-            fullContact!!.websites = websites.toMutableList() as ArrayList<String>
-            if (websites.isNotEmpty()) {
-                websites.forEach {
-                    val url = it
-                    layoutInflater.inflate(R.layout.item_website, contact_websites_holder, false).apply {
-                        contact_websites_holder.addView(this)
-                        contact_website.text = url
-                        copyOnLongClick(url)
+        if (websites.isNotEmpty() && showFields and SHOW_WEBSITES_FIELD != 0) {
+            websites.forEach {
+                val url = it
+                layoutInflater.inflate(R.layout.item_website, contact_websites_holder, false).apply {
+                    contact_websites_holder.addView(this)
+                    contact_website.text = url
+                    copyOnLongClick(url)
 
-                        setOnClickListener {
-                            openWebsiteIntent(url)
-                        }
+                    setOnClickListener {
+                        openWebsiteIntent(url)
                     }
                 }
-                contact_websites_image.beVisible()
-                contact_websites_holder.beVisible()
-            } else {
-                contact_websites_image.beGone()
-                contact_websites_holder.beGone()
             }
+            contact_websites_image.beVisible()
+            contact_websites_holder.beVisible()
         } else {
             contact_websites_image.beGone()
             contact_websites_holder.beGone()
@@ -528,30 +508,26 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupGroups() {
-        contact_groups_holder.removeAllViews()
-        if (showFields and SHOW_GROUPS_FIELD != 0) {
-            var groups = contact!!.groups.toMutableSet() as LinkedHashSet<Group>
-            duplicateContacts.forEach {
-                groups.addAll(it.groups)
-            }
+        var groups = contact!!.groups.toMutableSet() as LinkedHashSet<Group>
+        duplicateContacts.forEach {
+            groups.addAll(it.groups)
+        }
 
-            groups = groups.sortedBy { it.title }.toMutableSet() as LinkedHashSet<Group>
-            fullContact!!.groups = groups.toMutableList() as ArrayList<Group>
-            if (groups.isNotEmpty()) {
-                groups.forEach {
-                    layoutInflater.inflate(R.layout.item_view_group, contact_groups_holder, false).apply {
-                        val group = it
-                        contact_groups_holder.addView(this)
-                        contact_group.text = group.title
-                        copyOnLongClick(group.title)
-                    }
+        groups = groups.sortedBy { it.title }.toMutableSet() as LinkedHashSet<Group>
+        fullContact!!.groups = groups.toMutableList() as ArrayList<Group>
+        contact_groups_holder.removeAllViews()
+
+        if (groups.isNotEmpty() && showFields and SHOW_GROUPS_FIELD != 0) {
+            groups.forEach {
+                layoutInflater.inflate(R.layout.item_view_group, contact_groups_holder, false).apply {
+                    val group = it
+                    contact_groups_holder.addView(this)
+                    contact_group.text = group.title
+                    copyOnLongClick(group.title)
                 }
-                contact_groups_image.beVisible()
-                contact_groups_holder.beVisible()
-            } else {
-                contact_groups_image.beGone()
-                contact_groups_holder.beGone()
             }
+            contact_groups_image.beVisible()
+            contact_groups_holder.beVisible()
         } else {
             contact_groups_image.beGone()
             contact_groups_holder.beGone()
