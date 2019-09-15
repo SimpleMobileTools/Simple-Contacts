@@ -85,7 +85,6 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
     }
 }
 
-
 fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
     val file = getTempFile()
     if (file == null) {
