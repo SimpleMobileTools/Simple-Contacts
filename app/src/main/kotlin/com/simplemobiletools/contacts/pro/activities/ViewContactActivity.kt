@@ -200,10 +200,10 @@ class ViewContactActivity : ContactActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         setupFavorite()
         setupNames()
-        setupContactSources()
 
         getDuplicateContacts {
             setupPhoneNumbers()
+            setupContactSources()
         }
 
         setupEmails()
@@ -280,42 +280,47 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupPhoneNumbers() {
-        var phoneNumbers = contact!!.phoneNumbers.toMutableSet() as LinkedHashSet<PhoneNumber>
-        duplicateContacts.forEach {
-            phoneNumbers.addAll(it.phoneNumbers)
-        }
-
-        phoneNumbers = phoneNumbers.distinctBy {
-            if (it.normalizedNumber != null && it.normalizedNumber!!.length >= COMPARABLE_PHONE_NUMBER_LENGTH) {
-                it.normalizedNumber?.substring(it.normalizedNumber!!.length - COMPARABLE_PHONE_NUMBER_LENGTH)
-            } else {
-                it.normalizedNumber
+        if (showFields and SHOW_PHONE_NUMBERS_FIELD != 0) {
+            var phoneNumbers = contact!!.phoneNumbers.toMutableSet() as LinkedHashSet<PhoneNumber>
+            duplicateContacts.forEach {
+                phoneNumbers.addAll(it.phoneNumbers)
             }
-        }.toMutableSet() as LinkedHashSet<PhoneNumber>
 
-        contact_numbers_holder.removeAllViews()
-        if (phoneNumbers.isNotEmpty() && showFields and SHOW_PHONE_NUMBERS_FIELD != 0) {
-            phoneNumbers.forEach {
-                layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
-                    val phoneNumber = it
-                    contact_numbers_holder.addView(this)
-                    contact_number.text = phoneNumber.value
-                    contact_number_type.text = getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)
-                    copyOnLongClick(phoneNumber.value)
+            phoneNumbers = phoneNumbers.distinctBy {
+                if (it.normalizedNumber != null && it.normalizedNumber!!.length >= COMPARABLE_PHONE_NUMBER_LENGTH) {
+                    it.normalizedNumber?.substring(it.normalizedNumber!!.length - COMPARABLE_PHONE_NUMBER_LENGTH)
+                } else {
+                    it.normalizedNumber
+                }
+            }.toMutableSet() as LinkedHashSet<PhoneNumber>
 
-                    setOnClickListener {
-                        if (config.showCallConfirmation) {
-                            CallConfirmationDialog(this@ViewContactActivity, phoneNumber.value) {
+            contact_numbers_holder.removeAllViews()
+            if (phoneNumbers.isNotEmpty()) {
+                phoneNumbers.forEach {
+                    layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
+                        val phoneNumber = it
+                        contact_numbers_holder.addView(this)
+                        contact_number.text = phoneNumber.value
+                        contact_number_type.text = getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)
+                        copyOnLongClick(phoneNumber.value)
+
+                        setOnClickListener {
+                            if (config.showCallConfirmation) {
+                                CallConfirmationDialog(this@ViewContactActivity, phoneNumber.value) {
+                                    startCallIntent(phoneNumber.value)
+                                }
+                            } else {
                                 startCallIntent(phoneNumber.value)
                             }
-                        } else {
-                            startCallIntent(phoneNumber.value)
                         }
                     }
                 }
+                contact_numbers_image.beVisible()
+                contact_numbers_holder.beVisible()
+            } else {
+                contact_numbers_image.beGone()
+                contact_numbers_holder.beGone()
             }
-            contact_numbers_image.beVisible()
-            contact_numbers_holder.beVisible()
         } else {
             contact_numbers_image.beGone()
             contact_numbers_holder.beGone()
