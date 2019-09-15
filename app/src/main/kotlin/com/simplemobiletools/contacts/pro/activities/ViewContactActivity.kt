@@ -18,6 +18,7 @@ import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
+import com.simplemobiletools.contacts.pro.models.ContactSource
 import com.simplemobiletools.contacts.pro.models.PhoneNumber
 import kotlinx.android.synthetic.main.activity_view_contact.*
 import kotlinx.android.synthetic.main.item_event.view.*
@@ -32,8 +33,8 @@ import kotlinx.android.synthetic.main.item_website.view.*
 class ViewContactActivity : ContactActivity() {
     private var isViewIntent = false
     private var wasEditLaunched = false
-    private var shownContactSources = ArrayList<String>()
     private var duplicateContacts = ArrayList<Contact>()
+    private var contactSources = ArrayList<ContactSource>()
     private var showFields = 0
 
     private val COMPARABLE_PHONE_NUMBER_LENGTH = 7
@@ -201,9 +202,12 @@ class ViewContactActivity : ContactActivity() {
         setupFavorite()
         setupNames()
 
-        getDuplicateContacts {
-            setupPhoneNumbers()
-            setupContactSources()
+        ContactsHelper(this).getContactSources {
+            contactSources = it
+            getDuplicateContacts {
+                setupPhoneNumbers()
+                setupContactSources()
+            }
         }
 
         setupEmails()
@@ -499,8 +503,32 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupContactSources() {
-        if (contact_sources_holder.childCount == 0) {
-            addContactSource(contact!!)
+        if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
+            val sources = LinkedHashMap<Contact, String>()
+            sources[contact!!] = contact!!.source
+            duplicateContacts.forEach {
+                sources[it] = it.source
+            }
+
+            contact_sources_holder.removeAllViews()
+            for ((key, value) in sources) {
+                layoutInflater.inflate(R.layout.item_view_contact_source, contact_sources_holder, false).apply {
+                    val contactSource = getPublicContactSourceSync(value, contactSources)
+                    contact_source.text = contactSource
+                    contact_source.copyOnLongClick(contactSource)
+                    contact_sources_holder.addView(this)
+
+                    contact_source.setOnClickListener {
+                        launchEditContact(key)
+                    }
+                }
+            }
+
+            contact_source_image.beVisible()
+            contact_sources_holder.beVisible()
+        } else {
+            contact_source_image.beGone()
+            contact_sources_holder.beGone()
         }
     }
 
@@ -517,45 +545,8 @@ class ViewContactActivity : ContactActivity() {
 
                 runOnUiThread {
                     callback()
-
-                    val currContactSources = duplicateContacts.map { it.source }
-                    if (currContactSources.toString() != shownContactSources.toString()) {
-                        for (i in (contact_sources_holder.childCount - 1) downTo 1) {
-                            contact_sources_holder.removeView(contact_sources_holder.getChildAt(i))
-                            shownContactSources.clear()
-                        }
-                    }
-
-                    if (shownContactSources.isEmpty()) {
-                        duplicateContacts.forEach {
-                            addContactSource(it)
-                            shownContactSources.add(it.source)
-                        }
-                    }
                 }
             }
-        }
-    }
-
-    private fun addContactSource(contact: Contact) {
-        if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
-            layoutInflater.inflate(R.layout.item_view_contact_source, contact_sources_holder, false).apply {
-                getPublicContactSource(contact.source) {
-                    contact_source.text = it
-                    contact_source.copyOnLongClick(it)
-                    contact_sources_holder.addView(this)
-
-                    contact_source.setOnClickListener {
-                        launchEditContact(contact)
-                    }
-                }
-            }
-
-            contact_source_image.beVisible()
-            contact_sources_holder.beVisible()
-        } else {
-            contact_source_image.beGone()
-            contact_sources_holder.beGone()
         }
     }
 

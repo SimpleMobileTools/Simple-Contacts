@@ -15,7 +15,10 @@ import android.provider.ContactsContract
 import android.telecom.TelecomManager
 import androidx.core.content.FileProvider
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
+import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
+import com.simplemobiletools.commons.helpers.isMarshmallowPlus
+import com.simplemobiletools.commons.helpers.isNougatPlus
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
@@ -29,7 +32,6 @@ import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.ContactSource
 import com.simplemobiletools.contacts.pro.models.Organization
 import java.io.File
-
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
 
@@ -196,20 +198,35 @@ fun Context.getPublicContactSource(source: String, callback: (String) -> Unit) {
     when (source) {
         SMT_PRIVATE -> callback(getString(R.string.phone_storage_hidden))
         else -> {
-            ensureBackgroundThread {
-                ContactsHelper(this).getContactSources {
-                    var newSource = source
-                    for (contactSource in it) {
-                        if (contactSource.name == source && contactSource.type == TELEGRAM_PACKAGE) {
-                            newSource += " (${getString(R.string.telegram)})"
-                            break
-                        }
-                    }
-                    Handler(Looper.getMainLooper()).post {
-                        callback(newSource)
+            ContactsHelper(this).getContactSources {
+                var newSource = source
+                for (contactSource in it) {
+                    if (contactSource.name == source && contactSource.type == TELEGRAM_PACKAGE) {
+                        newSource += " (${getString(R.string.telegram)})"
+                        break
                     }
                 }
+                Handler(Looper.getMainLooper()).post {
+                    callback(newSource)
+                }
             }
+        }
+    }
+}
+
+fun Context.getPublicContactSourceSync(source: String, contactSources: ArrayList<ContactSource>): String {
+    return when (source) {
+        SMT_PRIVATE -> getString(R.string.phone_storage_hidden)
+        else -> {
+            var newSource = source
+            for (contactSource in contactSources) {
+                if (contactSource.name == source && contactSource.type == TELEGRAM_PACKAGE) {
+                    newSource += " (${getString(R.string.telegram)})"
+                    break
+                }
+            }
+
+            return newSource
         }
     }
 }

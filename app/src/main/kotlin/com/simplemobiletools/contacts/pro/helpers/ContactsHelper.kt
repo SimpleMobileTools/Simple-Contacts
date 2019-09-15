@@ -848,7 +848,7 @@ class ContactsHelper(val context: Context) {
         }
     }
 
-    private fun getContactSourcesSync(): ArrayList<ContactSource> {
+    fun getContactSourcesSync(): ArrayList<ContactSource> {
         val sources = getDeviceContactSources()
         sources.add(context.getPrivateContactSource())
         return ArrayList(sources)
