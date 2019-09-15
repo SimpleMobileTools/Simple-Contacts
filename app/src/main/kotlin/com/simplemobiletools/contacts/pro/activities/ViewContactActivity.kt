@@ -36,6 +36,8 @@ class ViewContactActivity : ContactActivity() {
     private var duplicateContacts = ArrayList<Contact>()
     private var showFields = 0
 
+    private val COMPARABLE_PHONE_NUMBER_LENGTH = 7
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_contact)
@@ -278,22 +280,20 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupPhoneNumbers() {
-        contact_numbers_holder.removeAllViews()
         var phoneNumbers = contact!!.phoneNumbers.toMutableSet() as LinkedHashSet<PhoneNumber>
         duplicateContacts.forEach {
-            it.phoneNumbers.forEach {
-                phoneNumbers.add(it)
-            }
+            phoneNumbers.addAll(it.phoneNumbers)
         }
 
         phoneNumbers = phoneNumbers.distinctBy {
-            if (it.normalizedNumber != null && it.normalizedNumber!!.length >= 7) {
-                it.normalizedNumber?.substring(it.normalizedNumber!!.length - 7)
+            if (it.normalizedNumber != null && it.normalizedNumber!!.length >= COMPARABLE_PHONE_NUMBER_LENGTH) {
+                it.normalizedNumber?.substring(it.normalizedNumber!!.length - COMPARABLE_PHONE_NUMBER_LENGTH)
             } else {
                 it.normalizedNumber
             }
         }.toMutableSet() as LinkedHashSet<PhoneNumber>
 
+        contact_numbers_holder.removeAllViews()
         if (phoneNumbers.isNotEmpty() && showFields and SHOW_PHONE_NUMBERS_FIELD != 0) {
             phoneNumbers.forEach {
                 layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
