@@ -51,7 +51,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:5.17.16'
+    implementation 'com.simplemobiletools:commons:5.17.17'
     implementation 'joda-time:joda-time:2.10.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.5'
