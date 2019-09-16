@@ -216,6 +216,7 @@ class ViewContactActivity : ContactActivity() {
                 setupContactSources()
                 setupNotes()
                 setupOrganization()
+                updateTextColors(contact_scrollview)
             }
         }
     }
