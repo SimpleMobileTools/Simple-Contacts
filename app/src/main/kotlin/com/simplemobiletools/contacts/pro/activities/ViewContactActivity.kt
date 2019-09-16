@@ -572,7 +572,8 @@ class ViewContactActivity : ContactActivity() {
         ContactsHelper(this).getDuplicatesOfContact(contact!!, false) { contacts ->
             ensureBackgroundThread {
                 duplicateContacts.clear()
-                contacts.forEach {
+                val displayContactSources = getVisibleContactSources()
+                contacts.filter { displayContactSources.contains(it.source) }.forEach {
                     val duplicate = ContactsHelper(this).getContactWithId(it.id, it.isPrivate())
                     if (duplicate != null) {
                         duplicateContacts.add(duplicate)
