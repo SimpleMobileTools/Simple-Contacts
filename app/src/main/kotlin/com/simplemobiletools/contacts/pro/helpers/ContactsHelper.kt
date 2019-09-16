@@ -67,7 +67,7 @@ class ContactsHelper(val context: Context) {
             }
 
             if (ignoredContactSources.isEmpty() && !getAll) {
-                tempContacts.filter { displayContactSources.contains(it.source) }.groupBy { "${it.getNameToDisplay().toLowerCase()}${it.emails}" }.values.forEach { it ->
+                tempContacts.filter { displayContactSources.contains(it.source) }.groupBy { it.getNameToDisplay().toLowerCase()}.values.forEach { it ->
                     if (it.size == 1) {
                         resultContacts.add(it.first())
                     } else {
