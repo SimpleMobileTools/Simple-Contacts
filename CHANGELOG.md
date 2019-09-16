@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.4.1 *(2019-09-16)*
+----------------------------
+
+ * Made duplicate merging more aggressive, compare only by full name
+ * Fixed some theming and duplicate contact issues at the View details screen
+
 Version 6.4.0 *(2019-09-15)*
 ----------------------------
 
