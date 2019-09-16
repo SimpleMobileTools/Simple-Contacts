@@ -51,7 +51,7 @@ abstract class ContactActivity : SimpleActivity() {
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .centerCrop()
 
-        if (isDestroyed) {
+        if (isDestroyed || isFinishing) {
             return
         }
 
@@ -77,14 +77,15 @@ abstract class ContactActivity : SimpleActivity() {
     fun deleteContact() {
         ConfirmationDialog(this) {
             if (contact != null) {
-                ContactsHelper(this).deleteContact(contact!!)
-                finish()
+                ContactsHelper(this).deleteContact(contact!!, false) {
+                    finish()
+                }
             }
         }
     }
 
-    fun shareContact() {
-        shareContacts(arrayListOf(contact!!))
+    fun shareContact(contact: Contact) {
+        shareContacts(arrayListOf(contact))
     }
 
     fun trySendSMS() {
@@ -179,8 +180,8 @@ abstract class ContactActivity : SimpleActivity() {
     }
 
     fun getEventTextId(type: Int) = when (type) {
-        ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
         ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
+        ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
         else -> R.string.other
     }
 }

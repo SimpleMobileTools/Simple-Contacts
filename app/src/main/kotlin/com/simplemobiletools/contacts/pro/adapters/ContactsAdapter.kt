@@ -176,16 +176,23 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         val positions = getSelectedItemPositions()
         contactItems.removeAll(contactsToRemove)
 
-        ensureBackgroundThread {
-            ContactsHelper(activity).deleteContacts(contactsToRemove)
+        ContactsHelper(activity).getContacts(true) { allContacts ->
+            ensureBackgroundThread {
+                contactsToRemove.forEach {
+                    val contactToRemove = it
+                    val duplicates = allContacts.filter { it.id != contactToRemove.id && it.getHashToCompare() == contactToRemove.getHashToCompare() }.toMutableList() as ArrayList<Contact>
+                    duplicates.add(contactToRemove)
+                    ContactsHelper(activity).deleteContacts(duplicates)
+                }
 
-            activity.runOnUiThread {
-                if (contactItems.isEmpty()) {
-                    refreshListener?.refreshContacts(ALL_TABS_MASK)
-                    finishActMode()
-                } else {
-                    removeSelectedItems(positions)
-                    refreshListener?.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+                activity.runOnUiThread {
+                    if (contactItems.isEmpty()) {
+                        refreshListener?.refreshContacts(ALL_TABS_MASK)
+                        finishActMode()
+                    } else {
+                        removeSelectedItems(positions)
+                        refreshListener?.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+                    }
                 }
             }
         }
@@ -265,7 +272,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
-        if (!activity.isDestroyed) {
+        if (!activity.isDestroyed && !activity.isFinishing) {
             Glide.with(activity).clear(holder.itemView.contact_tmb)
         }
     }

@@ -28,18 +28,18 @@ class ContactsHelper(val context: Context) {
     private val BATCH_SIZE = 50
     private var displayContactSources = ArrayList<String>()
 
-    fun getContacts(isExporting: Boolean = false, ignoredContactSources: HashSet<String> = HashSet(), callback: (ArrayList<Contact>) -> Unit) {
+    fun getContacts(getAll: Boolean = false, ignoredContactSources: HashSet<String> = HashSet(), callback: (ArrayList<Contact>) -> Unit) {
         ensureBackgroundThread {
             val contacts = SparseArray<Contact>()
             displayContactSources = context.getVisibleContactSources()
 
-            if (isExporting) {
+            if (getAll) {
                 displayContactSources = if (ignoredContactSources.isEmpty()) {
-                    context.getAllContactSources().map { it.getFullIdentifier() }.toMutableList() as ArrayList
+                    context.getAllContactSources().map { it.name }.toMutableList() as ArrayList
                 } else {
                     context.getAllContactSources().filter {
                         it.getFullIdentifier().isNotEmpty() && !ignoredContactSources.contains(it.getFullIdentifier())
-                    }.map { it.getFullIdentifier() }.toMutableList() as ArrayList
+                    }.map { it.name }.toMutableList() as ArrayList
                 }
             }
 
@@ -66,7 +66,7 @@ class ContactsHelper(val context: Context) {
                 contacts.valueAt(it)
             }
 
-            if (ignoredContactSources.isEmpty() && context.config.filterDuplicates && !isExporting) {
+            if (ignoredContactSources.isEmpty() && !getAll) {
                 tempContacts = tempContacts.distinctBy {
                     it.getHashToCompare()
                 } as ArrayList<Contact>
@@ -848,7 +848,7 @@ class ContactsHelper(val context: Context) {
         }
     }
 
-    private fun getContactSourcesSync(): ArrayList<ContactSource> {
+    fun getContactSourcesSync(): ArrayList<ContactSource> {
         val sources = getDeviceContactSources()
         sources.add(context.getPrivateContactSource())
         return ArrayList(sources)
@@ -1524,21 +1524,29 @@ class ContactsHelper(val context: Context) {
         LocalContactsHelper(context).toggleFavorites(localContacts, addToFavorites)
     }
 
-    fun deleteContact(contact: Contact) {
+    fun deleteContact(originalContact: Contact, deleteClones: Boolean = false, callback: (success: Boolean) -> Unit) {
         ensureBackgroundThread {
-            if (contact.isPrivate()) {
-                context.contactsDB.deleteContactId(contact.id)
+            if (deleteClones) {
+                getDuplicatesOfContact(originalContact, true) { contacts ->
+                    ensureBackgroundThread {
+                        if (deleteContacts(contacts)) {
+                            callback(true)
+                        }
+                    }
+                }
             } else {
-                deleteContacts(arrayListOf(contact))
+                if (deleteContacts(arrayListOf(originalContact))) {
+                    callback(true)
+                }
             }
         }
     }
 
-    fun deleteContacts(contacts: ArrayList<Contact>) {
+    fun deleteContacts(contacts: ArrayList<Contact>): Boolean {
         val localContacts = contacts.filter { it.isPrivate() }.map { it.id.toLong() }.toMutableList()
         LocalContactsHelper(context).deleteContactIds(localContacts)
 
-        try {
+        return try {
             val operations = ArrayList<ContentProviderOperation>()
             val selection = "${ContactsContract.RawContacts._ID} = ?"
             contacts.filter { !it.isPrivate() }.forEach {
@@ -1557,8 +1565,22 @@ class ContactsHelper(val context: Context) {
             if (context.hasPermission(PERMISSION_WRITE_CONTACTS)) {
                 context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
             }
+            true
         } catch (e: Exception) {
             context.showErrorToast(e)
+            false
+        }
+    }
+
+    fun getDuplicatesOfContact(contact: Contact, addOriginal: Boolean, callback: (ArrayList<Contact>) -> Unit) {
+        ensureBackgroundThread {
+            getContacts(true) { contacts ->
+                val duplicates = contacts.filter { it.id != contact.id && it.getHashToCompare() == contact.getHashToCompare() }.toMutableList() as ArrayList<Contact>
+                if (addOriginal) {
+                    duplicates.add(contact)
+                }
+                callback(duplicates)
+            }
         }
     }
 }

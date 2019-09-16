@@ -58,7 +58,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var storedShowContactThumbnails = false
     private var storedShowPhoneNumbers = false
     private var storedStartNameWithSurname = false
-    private var storedFilterDuplicates = true
     private var storedShowTabs = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,10 +136,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             favorites_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
         }
 
-        if (storedFilterDuplicates != config.filterDuplicates) {
-            refreshContacts(ALL_TABS_MASK)
-        }
-
         if (werePermissionsHandled && !isFirstResume) {
             if (viewpager.adapter == null) {
                 initFragments()
@@ -213,7 +208,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             storedShowContactThumbnails = showContactThumbnails
             storedShowPhoneNumbers = showPhoneNumbers
             storedStartNameWithSurname = startNameWithSurname
-            storedFilterDuplicates = filterDuplicates
             storedShowTabs = showTabs
         }
     }
@@ -527,7 +521,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     override fun refreshContacts(refreshTabsMask: Int) {
-        if (isDestroyed || isGettingContacts) {
+        if (isDestroyed || isFinishing || isGettingContacts) {
             return
         }
 
@@ -540,7 +534,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         ContactsHelper(this).getContacts { contacts ->
             isGettingContacts = false
-            if (isDestroyed) {
+            if (isDestroyed || isFinishing) {
                 return@getContacts
             }
 
@@ -575,6 +569,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             add(Release(34, R.string.release_34))
             add(Release(39, R.string.release_39))
             add(Release(40, R.string.release_40))
+            add(Release(47, R.string.release_47))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }

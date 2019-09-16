@@ -9,6 +9,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
+import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
@@ -16,10 +17,12 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.models.*
 import kotlinx.android.synthetic.main.activity_view_contact.*
-import kotlinx.android.synthetic.main.item_event.view.*
 import kotlinx.android.synthetic.main.item_view_address.view.*
+import kotlinx.android.synthetic.main.item_view_contact_source.view.*
 import kotlinx.android.synthetic.main.item_view_email.view.*
+import kotlinx.android.synthetic.main.item_view_event.view.*
 import kotlinx.android.synthetic.main.item_view_group.view.*
 import kotlinx.android.synthetic.main.item_view_im.view.*
 import kotlinx.android.synthetic.main.item_view_phone_number.view.*
@@ -28,7 +31,12 @@ import kotlinx.android.synthetic.main.item_website.view.*
 class ViewContactActivity : ContactActivity() {
     private var isViewIntent = false
     private var wasEditLaunched = false
+    private var duplicateContacts = ArrayList<Contact>()
+    private var contactSources = ArrayList<ContactSource>()
     private var showFields = 0
+    private var fullContact: Contact? = null    // contact with all fields filled from duplicates
+
+    private val COMPARABLE_PHONE_NUMBER_LENGTH = 7
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,10 +85,10 @@ class ViewContactActivity : ContactActivity() {
         }
 
         when (item.itemId) {
-            R.id.edit -> editContact()
-            R.id.share -> shareContact()
+            R.id.edit -> launchEditContact(contact!!)
+            R.id.share -> shareContact(fullContact!!)
             R.id.open_with -> openWith()
-            R.id.delete -> deleteContact()
+            R.id.delete -> deleteContactFromAllSources()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -96,6 +104,7 @@ class ViewContactActivity : ContactActivity() {
                     val lookupKey = getLookupKeyFromUri(data)
                     if (lookupKey != null) {
                         contact = ContactsHelper(this).getContactWithLookupKey(lookupKey)
+                        fullContact = contact
                         wasLookupKeyUsed = true
                     }
 
@@ -112,6 +121,8 @@ class ViewContactActivity : ContactActivity() {
 
         if (contactId != 0 && !wasLookupKeyUsed) {
             contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
+            fullContact = contact
+
             if (contact == null) {
                 if (!wasEditLaunched) {
                     toast(R.string.unknown_error_occurred)
@@ -191,21 +202,28 @@ class ViewContactActivity : ContactActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         setupFavorite()
         setupNames()
-        setupPhoneNumbers()
-        setupEmails()
-        setupAddresses()
-        setupIMs()
-        setupEvents()
-        setupNotes()
-        setupOrganization()
-        setupWebsites()
-        setupGroups()
-        setupContactSource()
+
+        ContactsHelper(this).getContactSources {
+            contactSources = it
+            getDuplicateContacts {
+                setupPhoneNumbers()
+                setupEmails()
+                setupAddresses()
+                setupIMs()
+                setupEvents()
+                setupWebsites()
+                setupGroups()
+                setupContactSources()
+                setupNotes()
+                setupOrganization()
+                updateTextColors(contact_scrollview)
+            }
+        }
     }
 
-    private fun editContact() {
+    private fun launchEditContact(contact: Contact) {
         wasEditLaunched = true
-        editContact(contact!!)
+        editContact(contact)
     }
 
     private fun openWith() {
@@ -267,8 +285,23 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupPhoneNumbers() {
+        var phoneNumbers = contact!!.phoneNumbers.toMutableSet() as LinkedHashSet<PhoneNumber>
+        duplicateContacts.forEach {
+            phoneNumbers.addAll(it.phoneNumbers)
+        }
+
+        phoneNumbers = phoneNumbers.distinctBy {
+            if (it.normalizedNumber != null && it.normalizedNumber!!.length >= COMPARABLE_PHONE_NUMBER_LENGTH) {
+                it.normalizedNumber?.substring(it.normalizedNumber!!.length - COMPARABLE_PHONE_NUMBER_LENGTH)
+            } else {
+                it.normalizedNumber
+            }
+        }.toMutableSet() as LinkedHashSet<PhoneNumber>
+
+        phoneNumbers = phoneNumbers.sortedBy { it.type }.toMutableSet() as LinkedHashSet<PhoneNumber>
+        fullContact!!.phoneNumbers = phoneNumbers.toMutableList() as ArrayList<PhoneNumber>
         contact_numbers_holder.removeAllViews()
-        val phoneNumbers = contact!!.phoneNumbers
+
         if (phoneNumbers.isNotEmpty() && showFields and SHOW_PHONE_NUMBERS_FIELD != 0) {
             phoneNumbers.forEach {
                 layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
@@ -297,6 +330,7 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
+    // a contact cannot have different emails per contact source. Such contacts are handled as separate ones, not duplicates of each other
     private fun setupEmails() {
         contact_emails_holder.removeAllViews()
         val emails = contact!!.emails
@@ -323,8 +357,15 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupAddresses() {
+        var addresses = contact!!.addresses.toMutableSet() as LinkedHashSet<Address>
+        duplicateContacts.forEach {
+            addresses.addAll(it.addresses)
+        }
+
+        addresses = addresses.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Address>
+        fullContact!!.addresses = addresses.toMutableList() as ArrayList<Address>
         contact_addresses_holder.removeAllViews()
-        val addresses = contact!!.addresses
+
         if (addresses.isNotEmpty() && showFields and SHOW_ADDRESSES_FIELD != 0) {
             addresses.forEach {
                 layoutInflater.inflate(R.layout.item_view_address, contact_addresses_holder, false).apply {
@@ -348,8 +389,15 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupIMs() {
+        var IMs = contact!!.IMs.toMutableSet() as LinkedHashSet<IM>
+        duplicateContacts.forEach {
+            IMs.addAll(it.IMs)
+        }
+
+        IMs = IMs.sortedBy { it.type }.toMutableSet() as LinkedHashSet<IM>
+        fullContact!!.IMs = IMs.toMutableList() as ArrayList<IM>
         contact_ims_holder.removeAllViews()
-        val IMs = contact!!.IMs
+
         if (IMs.isNotEmpty() && showFields and SHOW_IMS_FIELD != 0) {
             IMs.forEach {
                 layoutInflater.inflate(R.layout.item_view_im, contact_ims_holder, false).apply {
@@ -369,16 +417,21 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupEvents() {
+        var events = contact!!.events.toMutableSet() as LinkedHashSet<Event>
+        duplicateContacts.forEach {
+            events.addAll(it.events)
+        }
+
+        events = events.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Event>
+        fullContact!!.events = events.toMutableList() as ArrayList<Event>
         contact_events_holder.removeAllViews()
-        val events = contact!!.events
+
         if (events.isNotEmpty() && showFields and SHOW_EVENTS_FIELD != 0) {
             events.forEach {
-                layoutInflater.inflate(R.layout.item_event, contact_events_holder, false).apply {
+                layoutInflater.inflate(R.layout.item_view_event, contact_events_holder, false).apply {
                     contact_events_holder.addView(this)
-                    contact_event.alpha = 1f
                     it.value.getDateTimeFromDateString(contact_event)
                     contact_event_type.setText(getEventTextId(it.type))
-                    contact_event_remove.beGone()
                     copyOnLongClick(it.value)
                 }
             }
@@ -387,6 +440,97 @@ class ViewContactActivity : ContactActivity() {
         } else {
             contact_events_image.beGone()
             contact_events_holder.beGone()
+        }
+    }
+
+    private fun setupWebsites() {
+        var websites = contact!!.websites.toMutableSet() as LinkedHashSet<String>
+        duplicateContacts.forEach {
+            websites.addAll(it.websites)
+        }
+
+        websites = websites.sorted().toMutableSet() as LinkedHashSet<String>
+        fullContact!!.websites = websites.toMutableList() as ArrayList<String>
+        contact_websites_holder.removeAllViews()
+
+        if (websites.isNotEmpty() && showFields and SHOW_WEBSITES_FIELD != 0) {
+            websites.forEach {
+                val url = it
+                layoutInflater.inflate(R.layout.item_website, contact_websites_holder, false).apply {
+                    contact_websites_holder.addView(this)
+                    contact_website.text = url
+                    copyOnLongClick(url)
+
+                    setOnClickListener {
+                        openWebsiteIntent(url)
+                    }
+                }
+            }
+            contact_websites_image.beVisible()
+            contact_websites_holder.beVisible()
+        } else {
+            contact_websites_image.beGone()
+            contact_websites_holder.beGone()
+        }
+    }
+
+    private fun setupGroups() {
+        var groups = contact!!.groups.toMutableSet() as LinkedHashSet<Group>
+        duplicateContacts.forEach {
+            groups.addAll(it.groups)
+        }
+
+        groups = groups.sortedBy { it.title }.toMutableSet() as LinkedHashSet<Group>
+        fullContact!!.groups = groups.toMutableList() as ArrayList<Group>
+        contact_groups_holder.removeAllViews()
+
+        if (groups.isNotEmpty() && showFields and SHOW_GROUPS_FIELD != 0) {
+            groups.forEach {
+                layoutInflater.inflate(R.layout.item_view_group, contact_groups_holder, false).apply {
+                    val group = it
+                    contact_groups_holder.addView(this)
+                    contact_group.text = group.title
+                    copyOnLongClick(group.title)
+                }
+            }
+            contact_groups_image.beVisible()
+            contact_groups_holder.beVisible()
+        } else {
+            contact_groups_image.beGone()
+            contact_groups_holder.beGone()
+        }
+    }
+
+    private fun setupContactSources() {
+        contact_sources_holder.removeAllViews()
+        if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
+            var sources = HashMap<Contact, String>()
+            sources[contact!!] = getPublicContactSourceSync(contact!!.source, contactSources)
+            duplicateContacts.forEach {
+                sources[it] = getPublicContactSourceSync(it.source, contactSources)
+            }
+
+            if (sources.size > 1) {
+                sources = sources.toList().sortedBy { (key, value) -> value.toLowerCase() }.toMap() as LinkedHashMap<Contact, String>
+            }
+
+            for ((key, value) in sources) {
+                layoutInflater.inflate(R.layout.item_view_contact_source, contact_sources_holder, false).apply {
+                    contact_source.text = value
+                    contact_source.copyOnLongClick(value)
+                    contact_sources_holder.addView(this)
+
+                    contact_source.setOnClickListener {
+                        launchEditContact(key)
+                    }
+                }
+            }
+
+            contact_source_image.beVisible()
+            contact_sources_holder.beVisible()
+        } else {
+            contact_source_image.beGone()
+            contact_sources_holder.beGone()
         }
     }
 
@@ -424,61 +568,38 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun setupWebsites() {
-        contact_websites_holder.removeAllViews()
-        val websites = contact!!.websites
-        if (websites.isNotEmpty() && showFields and SHOW_WEBSITES_FIELD != 0) {
-            websites.forEach {
-                val url = it
-                layoutInflater.inflate(R.layout.item_website, contact_websites_holder, false).apply {
-                    contact_websites_holder.addView(this)
-                    contact_website.text = url
-                    copyOnLongClick(url)
-
-                    setOnClickListener {
-                        openWebsiteIntent(url)
+    private fun getDuplicateContacts(callback: () -> Unit) {
+        ContactsHelper(this).getDuplicatesOfContact(contact!!, false) { contacts ->
+            ensureBackgroundThread {
+                duplicateContacts.clear()
+                contacts.forEach {
+                    val duplicate = ContactsHelper(this).getContactWithId(it.id, it.isPrivate())
+                    if (duplicate != null) {
+                        duplicateContacts.add(duplicate)
                     }
                 }
-            }
-            contact_websites_image.beVisible()
-            contact_websites_holder.beVisible()
-        } else {
-            contact_websites_image.beGone()
-            contact_websites_holder.beGone()
-        }
-    }
 
-    private fun setupGroups() {
-        contact_groups_holder.removeAllViews()
-        val groups = contact!!.groups
-        if (groups.isNotEmpty() && showFields and SHOW_GROUPS_FIELD != 0) {
-            groups.forEach {
-                layoutInflater.inflate(R.layout.item_view_group, contact_groups_holder, false).apply {
-                    val group = it
-                    contact_groups_holder.addView(this)
-                    contact_group.text = group.title
-                    copyOnLongClick(group.title)
+                runOnUiThread {
+                    callback()
                 }
             }
-            contact_groups_image.beVisible()
-            contact_groups_holder.beVisible()
-        } else {
-            contact_groups_image.beGone()
-            contact_groups_holder.beGone()
         }
     }
 
-    private fun setupContactSource() {
-        if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
-            getPublicContactSource(contact!!.source) {
-                contact_source.text = it
-                contact_source.copyOnLongClick(it)
-            }
-            contact_source_image.beVisible()
-            contact_source.beVisible()
+    private fun deleteContactFromAllSources() {
+        val addition = if (contact_sources_holder.childCount > 1) {
+            "\n\n${getString(R.string.delete_from_all_sources)}"
         } else {
-            contact_source_image.beGone()
-            contact_source.beGone()
+            ""
+        }
+
+        val message = "${getString(R.string.proceed_with_deletion)}$addition"
+        ConfirmationDialog(this, message) {
+            if (contact != null) {
+                ContactsHelper(this).deleteContact(contact!!, true) {
+                    finish()
+                }
+            }
         }
     }
 

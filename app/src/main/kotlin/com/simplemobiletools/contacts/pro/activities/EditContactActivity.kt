@@ -108,7 +108,7 @@ class EditContactActivity : ContactActivity() {
 
         when (item.itemId) {
             R.id.save -> saveContact()
-            R.id.share -> shareContact()
+            R.id.share -> shareContact(contact!!)
             R.id.open_with -> openWith()
             R.id.delete -> deleteContact()
             else -> return super.onOptionsItemSelected(item)
@@ -821,8 +821,8 @@ class EditContactActivity : ContactActivity() {
 
     private fun showEventTypePicker(eventTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
                 RadioItem(CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(R.string.anniversary)),
+                RadioItem(CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
                 RadioItem(CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other))
         )
 
@@ -992,10 +992,14 @@ class EditContactActivity : ContactActivity() {
         if (ContactsHelper(this@EditContactActivity).insertContact(contact!!)) {
             if (deleteCurrentContact) {
                 contact!!.source = originalContactSource
-                ContactsHelper(this).deleteContact(contact!!)
+                ContactsHelper(this).deleteContact(contact!!, false) {
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
+            } else {
+                setResult(Activity.RESULT_OK)
+                finish()
             }
-            setResult(Activity.RESULT_OK)
-            finish()
         } else {
             toast(R.string.unknown_error_occurred)
         }
@@ -1217,8 +1221,8 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun getEventTypeId(value: String) = when (value) {
-        getString(R.string.birthday) -> CommonDataKinds.Event.TYPE_BIRTHDAY
         getString(R.string.anniversary) -> CommonDataKinds.Event.TYPE_ANNIVERSARY
+        getString(R.string.birthday) -> CommonDataKinds.Event.TYPE_BIRTHDAY
         else -> CommonDataKinds.Event.TYPE_OTHER
     }
 
