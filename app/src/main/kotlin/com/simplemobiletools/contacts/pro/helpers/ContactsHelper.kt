@@ -53,7 +53,7 @@ class ContactsHelper(val context: Context) {
 
             val contactsSize = contacts.size()
             val showOnlyContactsWithNumbers = context.config.showOnlyContactsWithNumbers
-            var tempContacts = ArrayList<Contact>(contactsSize)
+            val tempContacts = ArrayList<Contact>(contactsSize)
             val resultContacts = ArrayList<Contact>(contactsSize)
 
             (0 until contactsSize).filter {
@@ -67,11 +67,7 @@ class ContactsHelper(val context: Context) {
             }
 
             if (ignoredContactSources.isEmpty() && !getAll) {
-                tempContacts = tempContacts.distinctBy {
-                    it.getHashToCompare()
-                } as ArrayList<Contact>
-
-                tempContacts.filter { displayContactSources.contains(it.source) }.groupBy { "${it.getNameToDisplay().toLowerCase()}${it.emails}" }.values.forEach { it ->
+                tempContacts.filter { displayContactSources.contains(it.source) }.groupBy { it.getNameToDisplay().toLowerCase()}.values.forEach { it ->
                     if (it.size == 1) {
                         resultContacts.add(it.first())
                     } else {

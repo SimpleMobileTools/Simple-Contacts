@@ -108,11 +108,8 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
     }
 
     fun getStringToCompare(): String {
-        val newEmails = ArrayList<Email>()
-        emails.mapTo(newEmails) { Email(it.value, 0, "") }
-
         return copy(id = 0, prefix = "", firstName = getNameToDisplay().toLowerCase(), middleName = "", surname = "", suffix = "", nickname = "", photoUri = "",
-                phoneNumbers = ArrayList(), events = ArrayList(), source = "", addresses = ArrayList(), emails = newEmails, starred = 0, contactId = 0,
+                phoneNumbers = ArrayList(), emails = ArrayList(), events = ArrayList(), source = "", addresses = ArrayList(), starred = 0, contactId = 0,
                 thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", ""), IMs = ArrayList()).toString()
     }
 
