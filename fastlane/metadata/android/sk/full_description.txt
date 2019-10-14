@@ -1,0 +1,7 @@
+Jednoduchá aplikácia na vytváranie, alebo správu vašich kontaktov z rôznych zdrojov. Môžu byť uložené buď iba vo vašom zariadení, alebo ich môžete aj synchronizovať cez Google, alebo iný účet. Vaše obľúbené položky viete zobraziť vo vlastnom zozname.
+
+Viete ju používať aj na správu emailov a udalostí kontaktov. Ponúka možnosť zoradenia/filtrovania pomocou rôznych parametrov, voliteľné je zobrazovanie priezviska ako prvého mena.
+
+Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje možnosť zmeny farieb.
+
+Táto aplikácia je iba jednou zo skupiny aplikácií. Ostatné viete nájsť na https://www.simplemobiletools.com

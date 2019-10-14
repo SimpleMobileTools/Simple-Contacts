@@ -1,0 +1,7 @@
+Egy egyszerű app, amelyik az összes accountod névjegyeit képes kezelni. Bár a névjegyeket csak az eszközön tárolja, de szinkronizálható Google, vagy más accountokkal is. A kedvenceidet külön listán is kezelheted.
+
+Kezelhetsz vele email-címeket és eseményeket. Képes a névjegyeket többféle paraméter rendezni és szűrni. A megjelenítést beállíthatod vezetéknév, keresztnév sorrendben is. A színeket testreszabhtod.
+
+Nem kér szükségtelen jogosultságokat és nincs benne reklám. Teljes egészében nyílt forráskódú szoftver.
+
+Ez az app egy nagyobb sorozat része. A többi app elérhető a https://www.simplemobiletools.com weboldalon.

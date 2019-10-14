@@ -1,0 +1,7 @@
+Um aplicativo simples para criar ou gerenciar seus contatos a partir de qualquer origem. Os contatos podem ser armazenados apenas no seu dispositivo, mas também podem ser sincronizados através do Google ou outras contas. Seus contatos favoritos podem ser apresentados em uma lista separada.
+
+Você também pode usá-lo para gerenciar os eventos e e-mails do usuário. Tem a capacidade de ordenar/filtrar através de diversos parâmetros e, opcionalmente, apresentar o sobrenome antes do primeiro nome.
+
+Não contém anúncios e permissões desnecessárias. É totalmente open source e permite a personalização das cores.
+
+Este aplicativo é apenas uma parte de um enorme conjunto de aplicativos. Você poderá encontrar todos os outros em https://www.simplemobiletools.com

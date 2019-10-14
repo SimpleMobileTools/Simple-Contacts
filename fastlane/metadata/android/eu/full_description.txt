@@ -1,0 +1,5 @@
+Aplikazio sinplea kontaktuak sortu eta kudeatzeko. Kontaktuak zure gailuan baino esin dira gorde, baina sinkronizagarriak dira Google-n edo beste kontuen bitartez. Zure kontaktu gogokoenak zerrenda banandu batean erakutsi ditzakezu.
+
+Erabiltzaileen emailak eta ekitaldiak kudeatzeko erabili dezakezu ere. Aukera duzu parametro askoren arabera sailkatzeko, tartean abizena izen gisa erakustea.
+
+Ez ditu iragarkirik ezta beharrezkoak ez diren baimenak. Guztiz kode irekikoa da eta koloreak pertsonalizagarriak dira. Aplikazio hau sorta handiago bateko zati bat baino ez da. Gainontzekoak ikusteko, jo https://www.simplemobiletools.com webgunera

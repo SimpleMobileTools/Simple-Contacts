@@ -1,0 +1,7 @@
+Een eenvoudige app om contacten aan te maken en te beheren. Contacten kunnen lokaal opgeslagen worden, of gesynchroniseerd via Google en andere accounts. Favoriete contacten kunnen in een aparte lijst worden getoond.
+
+De app is ook te gebruiken voor het beheren van e-mailadressen en gebeurtenissen gekoppeld aan contacten. Sorteren en filteren is mogelijk op basis van verschillende parameters en zowel voor- als achternaam kan als eerste worden getoond.
+
+Bevat geen advertenties of onnodige machtigingen. Volledig open-source. Kleuren van de app kunnen worden aangepast.
+
+Deze app is onderdeel van een grotere verzameling. Vind de andere apps op https://www.simplemobiletools.com

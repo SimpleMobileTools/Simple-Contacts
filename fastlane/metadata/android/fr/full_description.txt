@@ -1,0 +1,7 @@
+Un outil simple pour créer et gérer vos contacts depuis n'importe quelle source. Les contacts peuvent être stockés sur votre appareil mais aussi synchronisés via votre compte Google ou d'autres comptes. Vous pouvez afficher vos contacts favoris dans une liste séparée.
+
+Vous pouvez l'utiliser pour gérer les adresses de courriels et les événements de vos contacts. Cet outil permet de trier/filtrer à l'aide de multiples paramètres, par exemple : afficher le surnom en premier.
+
+L'application ne contient ni publicité, ni autorisation inutile. Elle est totalement opensource et est également fournie avec des couleurs personnalisables.
+
+Cette application fait partie d'une plus grande suite. Vous pouvez trouver les autres applications sur https://www.simplemobiletools.com

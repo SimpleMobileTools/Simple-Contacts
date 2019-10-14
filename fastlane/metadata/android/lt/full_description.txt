@@ -1,0 +1,7 @@
+Paprasta programėlė įrenginio kontaktų kūrimui ir tvarkymui iš įvairių šaltinių. Kontaktai gali būti saugomi Jūsų įrenginyje, taip pat sinchronizuojami per Google, ar kitas paskyras. Jūs galite matyti mėgiamiausiuosius kontaktus atskirame  sąraše.
+
+Jūs taip pat galite naudoti programėlę elektroninių paštų adresų tvarkymui. Programėlė turi galimybę rikiuoti/filtruoti pagal įvairius parametrus, taip pat rodyti pavardę pirma vardo.
+
+Neturi reklamų ar nereikalingų leidimų. Programėlė visiškai atviro kodo, yra galimybė keisti spalvas.
+
+Ši programėle yra vienintelė iš keletos mūsų programėlių. Likusias Jūs galite rasti čia https://www.simplemobiletools.com

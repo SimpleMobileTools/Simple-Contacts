@@ -1,0 +1,7 @@
+Una semplice applicazione per creare o gestire i propri contatti di qualsiasi tipo. I contatti saranno salvati nel dispositivo, ma possono essere eventualmente sincronizzati con Google o con altri servizi. Si possono visualizzare i contatti preferiti in una lista separata.
+
+Si può utilizzare l'applicazione anche per gestire l'email e gli eventi. Si possono ordinare e filtrare per diversi criteri, opzionalmente si può visualizzare il cognome come nome.
+
+L'applicazione non contiene pubblicità o permessi non necessari; è completamente opensource e la si può personalizzare con i propri colori preferiti.
+
+Questa è solamente una delle tante applicazioni della serie Simple Mobile Tools. Si possono trovare le altre su https://www.simplemobiletools.com
