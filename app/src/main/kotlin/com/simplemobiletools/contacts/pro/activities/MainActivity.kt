@@ -165,6 +165,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         storeStateVariables()
     }
 
+    override fun onStop() {
+        super.onStop()
+        searchMenuItem?.collapseActionView()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         config.lastUsedViewPagerPage = viewpager.currentItem
