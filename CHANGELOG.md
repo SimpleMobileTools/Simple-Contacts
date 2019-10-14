@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.4.2 *(2019-10-14)*
+----------------------------
+
+ * Close search at opening a contact
+ * Some smaller misc improvements
+
 Version 6.4.1 *(2019-09-16)*
 ----------------------------
 
