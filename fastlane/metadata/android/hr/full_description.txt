@@ -4,4 +4,4 @@ Možete ju koristiti za upravljanje e-poštom i događajima. Ima mogućnost sort
 
 Ne sadrži oglase ili nepotrebne dozvole. Aplikacije je otvorenog koda, pruža prilagodljive boje.
 
-Ova je aplikacija samo dio većeg broja aplikacija. Možete pronaći ostatak na http://www.simplemobiletools.com
+Ova je aplikacija samo dio većeg broja aplikacija. Možete pronaći ostatak na https://www.simplemobiletools.com
