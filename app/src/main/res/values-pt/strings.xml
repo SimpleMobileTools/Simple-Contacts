@@ -160,8 +160,8 @@
     </plurals>
 
     <!-- FAQ -->
-    <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_title">Quero alterar os campos a mostrar nos contactos. É possível?</string>
+    <string name="faq_1_text">Sim, basta aceder a Definições -> Gerir campos a mostrar. Aqui, pode escolher os campos que serão mostrados. Alguns dos campos já estão ocultos e, assim, pode mostrar alguns destes.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
