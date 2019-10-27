@@ -58,9 +58,9 @@
     <string name="on_contact_click">Vid kontakttryckning</string>
     <string name="call_contact">Ring kontakt</string>
     <string name="view_contact">Visa kontaktuppgifter</string>
-    <string name="manage_shown_contact_fields">Hantera visade kontaktfält</string>
+    <string name="manage_shown_contact_fields">Välj vilka kontaktfält som ska visas</string>
     <string name="filter_duplicates">Försök filtrera bort dubblettkontakter</string>
-    <string name="manage_shown_tabs">Hantera visade flikar</string>
+    <string name="manage_shown_tabs">Välj vilka flikar som ska visas</string>
     <string name="contacts">Kontakter</string>
     <string name="favorites">Favoriter</string>
     <string name="show_call_confirmation_dialog">Visa en bekräftelsedialogruta före uppringning</string>
@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Sök efter kontakter</string>
     <string name="search_favorites">Sök efter favoriter</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Sök efter grupper</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Importera kontakter</string>
@@ -145,18 +145,18 @@
     <string name="blocked_numbers">Blockerade nummer</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_contacts_confirmation">Är du säker på att du vill ta bort %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_from_all_sources">Kontakten kommer att tas bort från alla kontaktkällor.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
-        <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacts</item>
+        <item quantity="one">%d kontakt</item>
+        <item quantity="other">%d kontakter</item>
     </plurals>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d grupp</item>
+        <item quantity="other">%d grupper</item>
     </plurals>
 
     <!-- FAQ -->
