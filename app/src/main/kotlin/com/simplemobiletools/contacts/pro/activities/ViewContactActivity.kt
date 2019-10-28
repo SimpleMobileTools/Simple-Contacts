@@ -205,20 +205,31 @@ class ViewContactActivity : ContactActivity() {
 
         ContactsHelper(this).getContactSources {
             contactSources = it
-            getDuplicateContacts {
-                setupPhoneNumbers()
-                setupEmails()
-                setupAddresses()
-                setupIMs()
-                setupEvents()
-                setupWebsites()
-                setupGroups()
-                setupContactSources()
-                setupNotes()
-                setupOrganization()
-                updateTextColors(contact_scrollview)
+            runOnUiThread {
+                setupContactDetails()
+                getDuplicateContacts {
+                    setupContactDetails()
+                }
             }
         }
+    }
+
+    private fun setupContactDetails() {
+        if (isFinishing || isDestroyed) {
+            return
+        }
+
+        setupPhoneNumbers()
+        setupEmails()
+        setupAddresses()
+        setupIMs()
+        setupEvents()
+        setupWebsites()
+        setupGroups()
+        setupContactSources()
+        setupNotes()
+        setupOrganization()
+        updateTextColors(contact_scrollview)
     }
 
     private fun launchEditContact(contact: Contact) {
