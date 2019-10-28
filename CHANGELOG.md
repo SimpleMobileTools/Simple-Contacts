@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 6.4.4 *(2019-10-28)*
+----------------------------
+
+ * Improving the performance at fetching local contacts
+
 Version 6.4.3 *(2019-10-28)*
 ----------------------------
 
