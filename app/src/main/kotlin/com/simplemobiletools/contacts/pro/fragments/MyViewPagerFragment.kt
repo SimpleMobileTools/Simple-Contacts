@@ -128,19 +128,16 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     private fun setupContacts(contacts: ArrayList<Contact>) {
         if (this is GroupsFragment) {
-            setupGroupsAdapter(contacts)
+            setupGroupsAdapter(contacts) {
+                groupsIgnoringSearch = (fragment_list?.adapter as? GroupsAdapter)?.groups ?: ArrayList()
+            }
         } else {
             setupContactsFavoritesAdapter(contacts)
-        }
-
-        if (this is ContactsFragment || this is FavoritesFragment) {
             contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
-        } else if (this is GroupsFragment) {
-            groupsIgnoringSearch = (fragment_list?.adapter as? GroupsAdapter)?.groups ?: ArrayList()
         }
     }
 
-    private fun setupGroupsAdapter(contacts: ArrayList<Contact>) {
+    private fun setupGroupsAdapter(contacts: ArrayList<Contact>, callback: () -> Unit) {
         ContactsHelper(activity!!).getStoredGroups {
             var storedGroups = it
             contacts.forEach {
@@ -180,6 +177,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     updateItems(storedGroups)
                 }
             }
+
+            callback()
         }
     }
 
