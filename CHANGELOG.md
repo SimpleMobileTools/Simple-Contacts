@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.4.3 *(2019-10-28)*
+----------------------------
+
+ * Fixed some Organization type contacts not being visible
+ * Improve the performance at showing a specific Contact details
+ * Added some stability and translation improvements
+
 Version 6.4.2 *(2019-10-14)*
 ----------------------------
 
