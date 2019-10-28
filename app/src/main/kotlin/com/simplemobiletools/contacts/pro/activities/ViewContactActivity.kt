@@ -215,7 +215,7 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupContactDetails() {
-        if (isFinishing || isDestroyed) {
+        if (isFinishing || isDestroyed || contact == null) {
             return
         }
 
