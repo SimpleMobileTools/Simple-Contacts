@@ -159,11 +159,21 @@ class ContactsHelper(val context: Context) {
                     }
 
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
-                    val firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
-                    val middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
-                    val surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
-                    val suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
+                    var prefix = ""
+                    var firstName = ""
+                    var middleName = ""
+                    var surname = ""
+                    var suffix = ""
+
+                    // ignore names at Organization type contacts
+                    if (cursor.getStringValue(ContactsContract.Data.MIMETYPE) == CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE) {
+                        prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
+                        firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
+                        middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
+                        surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
+                        suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
+                    }
+
                     val nickname = ""
                     val photoUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
                     val numbers = ArrayList<PhoneNumber>()          // proper value is obtained below
@@ -808,11 +818,22 @@ class ContactsHelper(val context: Context) {
             cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                val prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
-                val firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
-                val middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
-                val surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
-                val suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
+
+                var prefix = ""
+                var firstName = ""
+                var middleName = ""
+                var surname = ""
+                var suffix = ""
+
+                // ignore names at Organization type contacts
+                if (cursor.getStringValue(ContactsContract.Data.MIMETYPE) == CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE) {
+                    prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
+                    firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
+                    middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
+                    surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
+                    suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
+                }
+
                 val nickname = getNicknames(id)[id] ?: ""
                 val photoUri = cursor.getStringValue(CommonDataKinds.Phone.PHOTO_URI) ?: ""
                 val number = getPhoneNumbers(id)[id] ?: ArrayList()
@@ -879,6 +900,7 @@ class ContactsHelper(val context: Context) {
     private fun getContactSourceType(accountName: String) = getDeviceContactSources().firstOrNull { it.name == accountName }?.type ?: ""
 
     private fun getContactProjection() = arrayOf(
+            ContactsContract.Data.MIMETYPE,
             ContactsContract.Data.CONTACT_ID,
             ContactsContract.Data.RAW_CONTACT_ID,
             CommonDataKinds.StructuredName.PREFIX,
@@ -936,8 +958,8 @@ class ContactsHelper(val context: Context) {
         try {
             val operations = ArrayList<ContentProviderOperation>()
             ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
-                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND (${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?)"
+                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 withValue(CommonDataKinds.StructuredName.PREFIX, contact.prefix)
                 withValue(CommonDataKinds.StructuredName.GIVEN_NAME, contact.firstName)
