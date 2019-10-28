@@ -67,7 +67,7 @@ class ContactsHelper(val context: Context) {
             }
 
             if (ignoredContactSources.isEmpty() && !getAll) {
-                tempContacts.filter { displayContactSources.contains(it.source) }.groupBy { it.getNameToDisplay().toLowerCase()}.values.forEach { it ->
+                tempContacts.filter { displayContactSources.contains(it.source) }.groupBy { it.getNameToDisplay().toLowerCase() }.values.forEach { it ->
                     if (it.size == 1) {
                         resultContacts.add(it.first())
                     } else {
@@ -143,8 +143,8 @@ class ContactsHelper(val context: Context) {
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = getContactProjection()
 
-        val selection = "${ContactsContract.Data.MIMETYPE} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+        val selection = "${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
         val sortOrder = getSortString()
 
         var cursor: Cursor? = null
@@ -788,14 +788,14 @@ class ContactsHelper(val context: Context) {
             return LocalContactsHelper(context).getContactWithId(id)
         }
 
-        val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, id.toString())
+        val selection = "(${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?) AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, id.toString())
         return parseContactCursor(selection, selectionArgs)
     }
 
     fun getContactWithLookupKey(key: String): Contact? {
-        val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.LOOKUP_KEY} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, key)
+        val selection = "(${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?) AND ${ContactsContract.Data.LOOKUP_KEY} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, key)
         return parseContactCursor(selection, selectionArgs)
     }
 
@@ -912,8 +912,8 @@ class ContactsHelper(val context: Context) {
     private fun getRealContactId(id: Long): Int {
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = getContactProjection()
-        val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, id.toString())
+        val selection = "(${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?) AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, id.toString())
         var cursor: Cursor? = null
         try {
             cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
