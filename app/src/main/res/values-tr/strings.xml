@@ -17,8 +17,8 @@
     <string name="request_the_required_permissions">Gerekli izinleri iste</string>
     <string name="create_new_contact">Yeni kişi oluştur</string>
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
-    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_as_default">Set as default</string>
+    <string name="must_make_default_dialer">Engellenen numaraları kullanmak için bu uygulamayı varsayılan çevirici uygulaması yapmalısınız.</string>
+    <string name="set_as_default">Varsayılan olarak ayarla</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Kişi bulunamadı</string>
@@ -54,7 +54,7 @@
     <string name="start_name_with_surname">Soyadı ile başla</string>
     <string name="show_phone_numbers">Ana ekranda telefon numaralarını göster</string>
     <string name="show_contact_thumbnails">Kişi küçük resimlerini göster</string>
-    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
+    <string name="show_dialpad_button">Ana ekranda tuş takımı düğmesini göster</string>
     <string name="on_contact_click">Kişi tıklandığında</string>
     <string name="call_contact">Kişiyi ara</string>
     <string name="view_contact">Kişi bilgilerini göster</string>
@@ -65,7 +65,7 @@
     <string name="favorites">Favoriler</string>
     <string name="show_call_confirmation_dialog">Arama başlatmadan önce arama onayı penceresi göster</string>
     <string name="show_only_contacts_with_numbers">Sadece telefon numaralarını içeren kişileri göster</string>
-    <string name="show_dialpad_letters">Show letters on the dialpad</string>
+    <string name="show_dialpad_letters">Tuş takımında harfleri göster</string>
 
     <!-- Emails -->
     <string name="email">E-posta</string>
@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Kişileri ara</string>
     <string name="search_favorites">Favorileri ara</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Grupları ara</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Kişileri içe aktar</string>
