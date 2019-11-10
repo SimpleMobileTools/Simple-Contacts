@@ -87,8 +87,8 @@
     <string name="anniversary">Yıldönümü</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Henüz hiç favori kişi eklemediniz gibi görünüyor.</string>
-    <string name="add_favorites">Favorilerini ekle</string>
+    <string name="no_favorites">Henüz herhangi bir favori kişi eklememişsiniz.</string>
+    <string name="add_favorites">Favorileri ekle</string>
     <string name="add_to_favorites">Favorilere ekle</string>
     <string name="remove_from_favorites">Favorilerden kaldır</string>
     <string name="must_be_at_edit">Bir kişiyi değiştirmek için Düzen ekranında olmalısınız</string>
@@ -112,14 +112,14 @@
     <string name="add_number_to_contact">Kişiye numara ekle</string>
 
     <!-- Dialer -->
-    <string name="dialer">Dialer</string>
-    <string name="calling">Calling</string>
-    <string name="incoming_call">Incoming call</string>
-    <string name="incoming_call_from">Incoming call from…</string>
-    <string name="ongoing_call">Ongoing call</string>
-    <string name="disconnected">Disconnected</string>
-    <string name="decline_call">Decline</string>
-    <string name="answer_call">Answer</string>
+    <string name="dialer">Çevirici</string>
+    <string name="calling">Çağırı yapılıyor</string>
+    <string name="incoming_call">Gelen çağrı</string>
+    <string name="incoming_call_from">Gelen çağrı şundan…</string>
+    <string name="ongoing_call">Devam eden çağrı</string>
+    <string name="disconnected">Bağlantı kesildi</string>
+    <string name="decline_call">Reddet</string>
+    <string name="answer_call">Cevapla</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Görüntülenecek alanları seç</string>
@@ -137,26 +137,26 @@
     <string name="instant_messaging">Anlık mesajlaşma (IM)</string>
 
     <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Manage blocked numbers</string>
-    <string name="not_blocking_anyone">You are not blocking anyone.</string>
-    <string name="add_a_blocked_number">Add a blocked number</string>
-    <string name="block_number">Block number</string>
-    <string name="block_numbers">Block numbers</string>
-    <string name="blocked_numbers">Blocked numbers</string>
+    <string name="manage_blocked_numbers">Engelli numaraları yönet</string>
+    <string name="not_blocking_anyone">Kimseyi engellemiyorsun.</string>
+    <string name="add_a_blocked_number">Engellenen numara ekle</string>
+    <string name="block_number">Numarayı engelle</string>
+    <string name="block_numbers">Numaraları engelle</string>
+    <string name="blocked_numbers">Engelli numaralar</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_contacts_confirmation">%s silmek istediğinize emin misiniz?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_from_all_sources">Kişi tüm kişi kaynaklarından kaldırılacak.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
-        <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacts</item>
+        <item quantity="one">%d kişi</item>
+        <item quantity="other">%d kişi</item>
     </plurals>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d grup</item>
+        <item quantity="other">%d grup</item>
     </plurals>
 
     <!-- FAQ -->
