@@ -164,6 +164,8 @@
     <string name="faq_1_text">Ya, yang perlu anda lakukan adalah kunjungi Pengaturan -> Kelola ruas kontak yang ditampilkan. Lalu anda bisa memilih ruas yang ingin ditampilkan. Beberapa ruas dinonaktifkan secara bawaan, jadi anda mungkin akan menemukan yang baru di sana.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Aplikasi untuk mengelola kontak tanpa iklan, menghargai privasi anda.</string>
     <string name="app_long_description">

@@ -164,6 +164,8 @@
     <string name="faq_1_text">可以，你要做的是到[設定] -> [管理顯示的聯絡人欄位]。在那裡，你可以選擇應該看到什麼欄位。其中有些甚至預設是關閉的，所以你可能會在那裡發現一些新的。</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">一個沒有廣告的通訊錄應用程式，用來管理聯絡人，並且尊重您的隱私。</string>
     <string name="app_long_description">

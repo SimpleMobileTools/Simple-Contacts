@@ -164,6 +164,8 @@
     <string name="faq_1_text">Ja, dat kan via Instellingen -> Contactvelden tonen/verbergen. Sommige velden zijn standaard verborgen, dus er zijn via deze optie meer velden te ontdekken.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Een privacyvriendelijke advertentievrije app om uw contacten te beheren.</string>
     <string name="app_long_description">

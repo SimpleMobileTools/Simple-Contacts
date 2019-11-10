@@ -164,6 +164,8 @@
     <string name="faq_1_text">Tak, wszystko, co musisz zrobić, to wejść do Ustawień -> Zarządzaj pokazywanymi polami kontaktu. Możesz tam wybrać, które pola mają być wyświetlane. Niektóre z nich są nawet domyślnie wyłączone, więc możesz znaleźć tam wiele z nich nowych.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Aplikacja do zarządzania Twoimi kontaktami, bez reklam, szanująca prywatność.</string>
     <string name="app_long_description">

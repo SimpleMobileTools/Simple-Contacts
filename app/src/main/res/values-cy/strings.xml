@@ -164,6 +164,8 @@
     <string name="faq_1_text">Ydy. Y cwbl sy\'n rhaid gwneud ydy mynd i Gosodiadau -> Rheoli pa feysydd cysylltiadau i\'w dangos. Yna, gellir dewis pa feysydd sydd i\'w gweld. Bydd rhai wedi eu gosod i beidio ymddangos fel arfer, felly mae\'n bosib byddi\'n dod o hyd i rai newydd yno.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Ap i reoli dy gysylltiadau, heb hysbysebion, gan barchu dy breifatrwydd.</string>
     <string name="app_long_description">

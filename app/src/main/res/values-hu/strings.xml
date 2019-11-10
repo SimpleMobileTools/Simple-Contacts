@@ -164,6 +164,8 @@
     <string name="faq_1_text">Igen. Navigálj a Beállítások -> A megjelenő mezők kiválasztása menűpontra. Itt kiválaszhatod a megjelenítendő mezőket. Néhány már alapértelmezés szerint sem jelenik meg, de itt más mezőket is találhatsz.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Egy reklámmentes app névjegyek kezelésére, amelyik óvja a magánszférádat.</string>
     <string name="app_long_description">

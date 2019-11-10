@@ -164,6 +164,8 @@
     <string name="faq_1_text">Taip, viskas, ką jums reikia padaryti, tai eiti į Nustatymai -> Tvarkyti rodomus kontaktų laukus. Čia galite pasirinkti, kurie laukai turėtų būti matomi. Kai kurie iš jų netgi yra išjungiami pagal numatytuosius nustatymus, todėl ten galite rasti naujų.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
     <string name="app_long_description">

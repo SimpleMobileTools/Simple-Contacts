@@ -164,6 +164,8 @@
     <string name="faq_1_text">Sim, você só precisa modificar as definições em Configurações -> Gerenciar os campos visíveis. Alguns campos estão desmarcados por padrão, então você encontrará alguns novos por lá.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Um aplicativo para gerenciar os seus contatos que respeita a sua privacidade.</string>
     <string name="app_long_description">

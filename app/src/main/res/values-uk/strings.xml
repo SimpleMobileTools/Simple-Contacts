@@ -164,6 +164,8 @@
     <string name="faq_1_text">Так, вам необхідно перейти у Налаштування -> Керування полями контактів, що відображаються. Там ви можете обрати поля, що відображатимуться. Деякі з них у стандартному режимі деактивовано, а отже ви можете знайти там нові.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Додаток для керування вашими контактами, без реклами, з увагою на приватності.</string>
     <string name="app_long_description">

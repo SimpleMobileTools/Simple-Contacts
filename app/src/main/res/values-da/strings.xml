@@ -164,6 +164,8 @@
     <string name="faq_1_text">Ja, alt hvad du skal gøre er at gå i Indstillinger -> Administrer viste kontaktfelter. Der kan du vælge, hvilke felter der skal være synlige. Nogle af dem er endda deaktiveret som standard, så du kan muligvis finde nogle nye der.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">En app til dine kontakter, uden annoncer og med respekt for dit privatliv.</string>
     <string name="app_long_description">
