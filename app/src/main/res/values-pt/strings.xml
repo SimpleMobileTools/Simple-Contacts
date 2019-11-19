@@ -165,7 +165,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">Simple Contacts Pro - Gestão de contactos</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Aplicação para gerir os seus contactos, sem anúncios e com total privacidade.</string>
     <string name="app_long_description">
