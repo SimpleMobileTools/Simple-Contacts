@@ -384,7 +384,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         )
 
         if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
-            tryImportContactsFromFile(intent.data)
+            tryImportContactsFromFile(intent.data!!)
             intent.data = null
         }
 
@@ -463,7 +463,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun tryImportContactsFromFile(uri: Uri) {
         when {
-            uri.scheme == "file" -> showImportContactsDialog(uri.path)
+            uri.scheme == "file" -> showImportContactsDialog(uri.path!!)
             uri.scheme == "content" -> {
                 val tempFile = getTempFile()
                 if (tempFile == null) {
@@ -474,7 +474,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 try {
                     val inputStream = contentResolver.openInputStream(uri)
                     val out = FileOutputStream(tempFile)
-                    inputStream.copyTo(out)
+                    inputStream!!.copyTo(out)
                     showImportContactsDialog(tempFile.absolutePath)
                 } catch (e: Exception) {
                     showErrorToast(e)

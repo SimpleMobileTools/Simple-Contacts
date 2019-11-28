@@ -32,7 +32,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         setContentView(R.layout.activity_group_contacts)
         updateTextColors(group_contacts_coordinator)
 
-        group = intent.extras.getSerializable(GROUP) as Group
+        group = intent.extras?.getSerializable(GROUP) as Group
         supportActionBar?.title = group.title
 
         group_contacts_fab.setOnClickListener {

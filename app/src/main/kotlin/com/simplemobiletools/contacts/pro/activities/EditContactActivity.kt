@@ -131,10 +131,10 @@ class EditContactActivity : ContactActivity() {
         val action = intent.action
         if (contactId == 0 && (action == Intent.ACTION_EDIT || action == ADD_NEW_CONTACT_NUMBER)) {
             val data = intent.data
-            if (data != null) {
-                val rawId = if (data.path.contains("lookup")) {
+            if (data != null && data.path != null) {
+                val rawId = if (data.path!!.contains("lookup")) {
                     if (data.pathSegments.last().startsWith("local_")) {
-                        data.path.substringAfter("local_").toInt()
+                        data.path!!.substringAfter("local_").toInt()
                     } else {
                         getLookupUriRawId(data)
                     }

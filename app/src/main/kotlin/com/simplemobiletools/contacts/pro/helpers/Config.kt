@@ -29,7 +29,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(startNameWithSurname) = prefs.edit().putBoolean(START_NAME_WITH_SURNAME, startNameWithSurname).apply()
 
     var lastUsedContactSource: String
-        get() = prefs.getString(LAST_USED_CONTACT_SOURCE, "")
+        get() = prefs.getString(LAST_USED_CONTACT_SOURCE, "")!!
         set(lastUsedContactSource) = prefs.edit().putString(LAST_USED_CONTACT_SOURCE, lastUsedContactSource).apply()
 
     var onContactClick: Int

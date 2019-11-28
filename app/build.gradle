@@ -8,13 +8,13 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "com.simplemobiletools.contacts.pro"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 52
         versionName "6.4.4"
         setProperty("archivesBaseName", "contacts")
@@ -51,12 +51,12 @@ android {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:5.19.15'
+    implementation 'com.simplemobiletools:commons:5.20.0'
     implementation 'joda-time:joda-time:2.10.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.5'
 
-    kapt "androidx.room:room-compiler:2.2.1"
-    implementation "androidx.room:room-runtime:2.2.1"
-    annotationProcessor "androidx.room:room-compiler:2.2.1"
+    kapt "androidx.room:room-compiler:2.2.2"
+    implementation "androidx.room:room-runtime:2.2.2"
+    annotationProcessor "androidx.room:room-compiler:2.2.2"
 }

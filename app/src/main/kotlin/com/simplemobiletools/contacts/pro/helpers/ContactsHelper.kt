@@ -1455,7 +1455,7 @@ class ContactsHelper(val context: Context) {
         val baseUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, contactId)
         val displayPhotoUri = Uri.withAppendedPath(baseUri, ContactsContract.RawContacts.DisplayPhoto.CONTENT_DIRECTORY)
         val fileDescriptor = context.contentResolver.openAssetFileDescriptor(displayPhotoUri, "rw")
-        val photoStream = fileDescriptor.createOutputStream()
+        val photoStream = fileDescriptor!!.createOutputStream()
         photoStream.write(fullSizePhotoData)
         photoStream.close()
         fileDescriptor.close()
