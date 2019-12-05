@@ -185,7 +185,7 @@ class EditContactActivity : ContactActivity() {
                 }
             }
 
-            val email = intent.getStringExtra("email")
+            val email = intent.getStringExtra(KEY_EMAIL)
             if (email != null) {
                 val newEmail = Email(email, DEFAULT_EMAIL_TYPE, "")
                 contact!!.emails.add(newEmail)
