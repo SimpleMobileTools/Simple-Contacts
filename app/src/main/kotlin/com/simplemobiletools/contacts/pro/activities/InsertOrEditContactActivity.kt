@@ -75,11 +75,11 @@ class InsertOrEditContactActivity : SimpleActivity() {
             }
         }
 
-        existing_contact_label.setTextColor(getAdjustedPrimaryColor())
+        select_contact_label.setTextColor(getAdjustedPrimaryColor())
     }
 
     private fun gotContacts(contacts: ArrayList<Contact>) {
-        ContactsAdapter(this, contacts, null, LOCATION_INSERT_OR_EDIT, null, existing_contact_list, existing_contact_fastscroller) {
+        ContactsAdapter(this, contacts, null, LOCATION_INSERT_OR_EDIT, null, select_contact_list, select_contact_fastscroller) {
             val contact = it as Contact
             val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
             val email = getEmailFromIntent(intent) ?: ""
@@ -100,13 +100,13 @@ class InsertOrEditContactActivity : SimpleActivity() {
                 startActivityForResult(this, START_EDIT_ACTIVITY)
             }
         }.apply {
-            existing_contact_list.adapter = this
+            select_contact_list.adapter = this
         }
 
-        existing_contact_fastscroller.setScrollToY(0)
-        existing_contact_fastscroller.setViews(existing_contact_list) {
-            val item = (existing_contact_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
-            existing_contact_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
+        select_contact_fastscroller.setScrollToY(0)
+        select_contact_fastscroller.setViews(select_contact_list) {
+            val item = (select_contact_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
+            select_contact_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
         }
     }
 
