@@ -60,22 +60,6 @@
         </activity>
 
         <activity
-            android:name=".activities.SelectContactActivity"
-            android:label="@string/select_contact">
-
-            <intent-filter>
-                <action android:name="android.intent.action.PICK"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="vnd.android.cursor.dir/contact"/>
-                <data android:mimeType="vnd.android.cursor.dir/person"/>
-                <data android:mimeType="vnd.android.cursor.dir/phone_v2"/>
-                <data android:mimeType="vnd.android.cursor.dir/phone"/>
-                <data android:mimeType="vnd.android.cursor.dir/email_v2"/>
-            </intent-filter>
-        </activity>
-
-        <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/settings"
             android:parentActivityName=".activities.MainActivity"/>
@@ -175,6 +159,22 @@
                 <action android:name="com.android.contacts.action.SHOW_OR_CREATE_CONTACT"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:scheme="mailto"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.SelectContactActivity"
+            android:label="@string/select_contact">
+
+            <intent-filter>
+                <action android:name="android.intent.action.PICK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:mimeType="vnd.android.cursor.dir/contact"/>
+                <data android:mimeType="vnd.android.cursor.dir/person"/>
+                <data android:mimeType="vnd.android.cursor.dir/phone_v2"/>
+                <data android:mimeType="vnd.android.cursor.dir/phone"/>
+                <data android:mimeType="vnd.android.cursor.dir/email_v2"/>
             </intent-filter>
         </activity>
 
