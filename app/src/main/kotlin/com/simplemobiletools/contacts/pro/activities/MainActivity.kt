@@ -185,6 +185,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         menu.apply {
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
+            findItem(R.id.dialpad).isVisible = !config.showDialpadButton
+
             setupSearch(this)
             updateMenuItemColors(this)
         }
@@ -196,6 +198,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         when (item.itemId) {
             R.id.sort -> showSortingDialog()
             R.id.filter -> showFilterDialog()
+            R.id.dialpad -> launchDialpad()
             R.id.import_contacts -> tryImportContacts()
             R.id.export_contacts -> tryExportContacts()
             R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
@@ -409,8 +412,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         main_tabs_holder.beVisibleIf(skippedTabs < tabsList.size - 1)
 
         main_dialpad_button.setOnClickListener {
-            val intent = Intent(applicationContext, DialpadActivity::class.java)
-            startActivity(intent)
+            launchDialpad()
         }
     }
 
@@ -435,6 +437,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             contacts_fragment?.forceListRedraw = true
             refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
         }
+    }
+
+    private fun launchDialpad() {
+        val intent = Intent(applicationContext, DialpadActivity::class.java)
+        startActivity(intent)
     }
 
     private fun tryImportContacts() {
