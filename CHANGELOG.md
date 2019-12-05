@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 6.5.0 *(2019-12-05)*
+----------------------------
+
+ * Added many UI changes to refresh the apps look
+ * Fixed some third party intents and added handling for some new ones
+ * Show dialpad letters by default
+ * If the Dialpad button is hidden at the bottom, show it in the top Menu
+
 Version 6.4.4 *(2019-10-28)*
 ----------------------------
 
