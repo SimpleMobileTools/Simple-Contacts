@@ -27,7 +27,6 @@ class InsertOrEditContactActivity : SimpleActivity() {
             return
         }
 
-        title = getString(R.string.select_contact)
         setupViews()
 
         handlePermission(PERMISSION_READ_CONTACTS) {
