@@ -47,10 +47,26 @@ class InsertOrEditContactActivity : SimpleActivity() {
         updateTextColors(insert_edit_contact_holder)
         new_contact_tmb.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_new_contact_vector, config.textColor))
         new_contact_holder.setOnClickListener {
+            val name = intent.getStringExtra(KEY_NAME) ?: ""
+            val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
+            val email = getEmailFromIntent(intent) ?: ""
+
             Intent().apply {
                 action = Intent.ACTION_INSERT
                 data = ContactsContract.Contacts.CONTENT_URI
-                putExtra(KEY_PHONE, getPhoneNumberFromIntent(intent))
+
+                if (phoneNumber.isNotEmpty()) {
+                    putExtra(KEY_PHONE, phoneNumber)
+                }
+
+                if (name.isNotEmpty()) {
+                    putExtra(KEY_NAME, name)
+                }
+
+                if (email.isNotEmpty()) {
+                    putExtra(KEY_EMAIL, email)
+                }
+
                 if (resolveActivity(packageManager) != null) {
                     startActivityForResult(this, START_INSERT_ACTIVITY)
                 } else {
@@ -65,10 +81,21 @@ class InsertOrEditContactActivity : SimpleActivity() {
     private fun gotContacts(contacts: ArrayList<Contact>) {
         ContactsAdapter(this, contacts, null, LOCATION_INSERT_OR_EDIT, null, existing_contact_list, existing_contact_fastscroller) {
             val contact = it as Contact
+            val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
+            val email = getEmailFromIntent(intent) ?: ""
+
             Intent(applicationContext, EditContactActivity::class.java).apply {
                 data = getContactPublicUri(contact)
                 action = ADD_NEW_CONTACT_NUMBER
-                putExtra(KEY_PHONE, getPhoneNumberFromIntent(intent))
+
+                if (phoneNumber.isNotEmpty()) {
+                    putExtra(KEY_PHONE, phoneNumber)
+                }
+
+                if (email.isNotEmpty()) {
+                    putExtra(KEY_EMAIL, email)
+                }
+
                 putExtra(IS_PRIVATE, contact.isPrivate())
                 startActivityForResult(this, START_EDIT_ACTIVITY)
             }

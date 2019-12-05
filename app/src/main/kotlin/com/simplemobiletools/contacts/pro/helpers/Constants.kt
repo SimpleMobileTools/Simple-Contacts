@@ -31,6 +31,7 @@ const val REQUEST_CODE_SET_DEFAULT_DIALER = 1
 const val KEY_PHONE = "phone"
 const val KEY_NAME = "name"
 const val KEY_EMAIL = "email"
+const val KEY_MAILTO = "mailto"
 
 const val LOCATION_CONTACTS_TAB = 0
 const val LOCATION_FAVORITES_TAB = 1

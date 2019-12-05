@@ -3,11 +3,13 @@ package com.simplemobiletools.contacts.pro.activities
 import android.annotation.TargetApi
 import android.content.ContentValues
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.telecom.TelecomManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.helpers.KEY_MAILTO
 import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.pro.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 
@@ -51,6 +53,14 @@ open class SimpleActivity : BaseSimpleActivity() {
             }
         }
         return null
+    }
+
+    protected fun getEmailFromIntent(intent: Intent): String? {
+        return if (intent.dataString?.startsWith("$KEY_MAILTO:") == true) {
+            Uri.decode(intent.dataString!!.substringAfter("$KEY_MAILTO:").trim())
+        } else {
+            null
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.M)

@@ -66,7 +66,7 @@ fun Context.editContact(contact: Contact) {
 
 fun Context.sendEmailIntent(recipient: String) {
     Intent(Intent.ACTION_SENDTO).apply {
-        data = Uri.fromParts("mailto", recipient, null)
+        data = Uri.fromParts(KEY_MAILTO, recipient, null)
         if (resolveActivity(packageManager) != null) {
             startActivity(this)
         } else {

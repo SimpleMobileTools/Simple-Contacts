@@ -170,6 +170,12 @@
                 <data android:mimeType="vnd.android.cursor.item/contact"/>
                 <data android:mimeType="vnd.android.cursor.item/raw_contact"/>
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="com.android.contacts.action.SHOW_OR_CREATE_CONTACT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="mailto"/>
+            </intent-filter>
         </activity>
 
         <activity
