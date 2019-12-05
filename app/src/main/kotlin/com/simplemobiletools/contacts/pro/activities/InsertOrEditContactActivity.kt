@@ -73,7 +73,6 @@ class InsertOrEditContactActivity : SimpleActivity() {
                 startActivityForResult(this, START_EDIT_ACTIVITY)
             }
         }.apply {
-            addVerticalDividers(true)
             existing_contact_list.adapter = this
         }
 

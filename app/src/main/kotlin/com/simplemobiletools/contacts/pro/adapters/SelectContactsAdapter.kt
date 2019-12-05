@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -45,11 +44,6 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
         if (recyclerView.itemDecorationCount > 0) {
             recyclerView.removeItemDecorationAt(0)
-        }
-
-        DividerItemDecoration(activity, DividerItemDecoration.VERTICAL).apply {
-            setDrawable(activity.resources.getDrawable(R.drawable.divider))
-            recyclerView.addItemDecoration(this)
         }
     }
 

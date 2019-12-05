@@ -187,7 +187,6 @@ class DialpadActivity : SimpleActivity() {
         ContactsAdapter(this, filtered, null, LOCATION_DIALPAD, null, dialpad_list, dialpad_fastscroller, text) {
             callContact(it as Contact)
         }.apply {
-            addVerticalDividers(true)
             dialpad_list.adapter = this
         }
 

@@ -162,7 +162,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                         activity!!.startActivity(this)
                     }
                 }.apply {
-                    addVerticalDividers(true)
                     fragment_list.adapter = this
                 }
 
@@ -191,7 +190,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             ContactsAdapter(activity as SimpleActivity, contacts, activity, location, null, fragment_list, fragment_fastscroller) {
                 activity?.contactClicked(it as Contact)
             }.apply {
-                addVerticalDividers(true)
                 fragment_list.adapter = this
             }
 

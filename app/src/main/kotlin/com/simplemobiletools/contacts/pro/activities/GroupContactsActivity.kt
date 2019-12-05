@@ -106,7 +106,6 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
             ContactsAdapter(this, contacts, this, LOCATION_GROUP_CONTACTS, this, group_contacts_list, group_contacts_fastscroller) {
                 contactClicked(it as Contact)
             }.apply {
-                addVerticalDividers(true)
                 group_contacts_list.adapter = this
             }
 
