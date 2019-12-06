@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
+import com.simplemobiletools.contacts.pro.activities.InsertOrEditContactActivity
 import com.simplemobiletools.contacts.pro.activities.MainActivity
 
 class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
@@ -14,6 +15,10 @@ class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPag
     }
 
     override fun placeholderClicked() {
-        (activity as? MainActivity)?.showFilterDialog()
+        if (activity is MainActivity) {
+            (activity as MainActivity).showFilterDialog()
+        } else if (activity is InsertOrEditContactActivity) {
+            (activity as InsertOrEditContactActivity).showFilterDialog()
+        }
     }
 }

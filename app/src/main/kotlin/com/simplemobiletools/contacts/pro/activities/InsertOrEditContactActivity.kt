@@ -289,7 +289,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    private fun showFilterDialog() {
+    fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
             contacts_fragment?.forceListRedraw = true
             refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
