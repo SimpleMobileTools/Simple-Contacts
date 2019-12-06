@@ -39,15 +39,15 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         config = activity.config
         if (this.activity == null) {
             this.activity = activity
-            fragment_fab.setOnClickListener {
+            fragment_fab?.setOnClickListener {
                 fabClicked()
             }
 
-            fragment_placeholder_2.setOnClickListener {
+            fragment_placeholder_2?.setOnClickListener {
                 placeholderClicked()
             }
 
-            fragment_placeholder_2.underlineText()
+            fragment_placeholder_2?.underlineText()
             updateViewStuff()
 
             when {
@@ -298,16 +298,19 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         context.updateTextColors(fragment_wrapper.parent as ViewGroup)
         fragment_fastscroller.updateBubbleColors()
         fragment_fastscroller.allowBubbleDisplay = config.showInfoBubble
-        fragment_placeholder_2.setTextColor(context.getAdjustedPrimaryColor())
+        fragment_placeholder_2?.setTextColor(context.getAdjustedPrimaryColor())
+        viewSetup()
     }
 
     private fun setupViewVisibility(hasItemsToShow: Boolean) {
-        fragment_placeholder_2.beVisibleIf(!hasItemsToShow)
-        fragment_placeholder.beVisibleIf(!hasItemsToShow)
+        fragment_placeholder_2?.beVisibleIf(!hasItemsToShow)
+        fragment_placeholder?.beVisibleIf(!hasItemsToShow)
         fragment_list.beVisibleIf(hasItemsToShow)
     }
 
     abstract fun fabClicked()
 
     abstract fun placeholderClicked()
+
+    abstract fun viewSetup()
 }

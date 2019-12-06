@@ -28,4 +28,6 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
             (activity as? MainActivity)?.refreshContacts(FAVORITES_TAB_MASK)
         }
     }
+
+    override fun viewSetup() {}
 }

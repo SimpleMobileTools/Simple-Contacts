@@ -17,8 +17,8 @@ import com.simplemobiletools.contacts.pro.helpers.FAVORITES_TAB_MASK
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_insert_edit_contact.*
-import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
+import kotlinx.android.synthetic.main.fragment_insert_or_edit_contacts.*
 
 class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     private val START_INSERT_ACTIVITY = 1
@@ -110,7 +110,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         if (viewpager.adapter == null) {
-            val fragments = arrayListOf(R.layout.fragment_contacts, R.layout.fragment_favorites)
+            val fragments = arrayListOf(R.layout.fragment_insert_or_edit_contacts, R.layout.fragment_favorites)
             viewpager.adapter = ViewPagerAdapter(this, contactsFavoritesList, CONTACTS_TAB_MASK or FAVORITES_TAB_MASK, fragments)
         }
 
@@ -120,7 +120,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
             }
 
             if (refreshTabsMask and CONTACTS_TAB_MASK != 0) {
-                contacts_fragment?.refreshContacts(contacts)
+                insert_or_edit_contacts_fragment?.refreshContacts(contacts)
             }
 
             if (refreshTabsMask and FAVORITES_TAB_MASK != 0) {
