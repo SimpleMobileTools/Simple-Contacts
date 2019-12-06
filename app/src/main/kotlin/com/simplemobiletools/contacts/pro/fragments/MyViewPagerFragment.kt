@@ -11,6 +11,7 @@ import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.GroupContactsActivity
+import com.simplemobiletools.contacts.pro.activities.InsertOrEditContactActivity
 import com.simplemobiletools.contacts.pro.activities.MainActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
@@ -40,7 +41,11 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         if (this.activity == null) {
             this.activity = activity
             fragment_fab?.setOnClickListener {
-                fabClicked()
+                if (activity is InsertOrEditContactActivity) {
+                    activity.fabClicked()
+                } else {
+                    fabClicked()
+                }
             }
 
             fragment_placeholder_2?.setOnClickListener {
