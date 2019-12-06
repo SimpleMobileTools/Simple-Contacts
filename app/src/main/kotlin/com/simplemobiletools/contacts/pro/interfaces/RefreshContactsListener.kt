@@ -5,5 +5,5 @@ import com.simplemobiletools.contacts.pro.models.Contact
 interface RefreshContactsListener {
     fun refreshContacts(refreshTabsMask: Int)
 
-    fun contactClicked(contact: Contact?, isCreateNewContact: Boolean)
+    fun contactClicked(contact: Contact)
 }

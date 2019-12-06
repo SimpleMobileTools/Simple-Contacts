@@ -560,8 +560,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    override fun contactClicked(contact: Contact?, isCreateNewContact: Boolean) {
-        handleGenericContactClick(contact!!)
+    override fun contactClicked(contact: Contact) {
+        handleGenericContactClick(contact)
     }
 
     private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, groups_fragment)

@@ -96,6 +96,12 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         insert_or_edit_tabs_holder.beVisibleIf(skippedTabs == 0)
+
+        select_contact_label?.setTextColor(getAdjustedPrimaryColor())
+        new_contact_tmb?.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_new_contact_vector, config.textColor))
+        new_contact_holder?.setOnClickListener {
+            createNewContact()
+        }
     }
 
     private fun setupTabColors() {
@@ -130,54 +136,52 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    override fun contactClicked(contact: Contact?, isCreateNewContact: Boolean) {
-        if (contact != null) {
-            val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
-            val email = getEmailFromIntent(intent) ?: ""
+    override fun contactClicked(contact: Contact) {
+        val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
+        val email = getEmailFromIntent(intent) ?: ""
 
-            Intent(applicationContext, EditContactActivity::class.java).apply {
-                data = getContactPublicUri(contact)
-                action = ADD_NEW_CONTACT_NUMBER
+        Intent(applicationContext, EditContactActivity::class.java).apply {
+            data = getContactPublicUri(contact)
+            action = ADD_NEW_CONTACT_NUMBER
 
-                if (phoneNumber.isNotEmpty()) {
-                    putExtra(KEY_PHONE, phoneNumber)
-                }
-
-                if (email.isNotEmpty()) {
-                    putExtra(KEY_EMAIL, email)
-                }
-
-                putExtra(IS_PRIVATE, contact.isPrivate())
-                startActivityForResult(this, START_EDIT_ACTIVITY)
-                finish()
+            if (phoneNumber.isNotEmpty()) {
+                putExtra(KEY_PHONE, phoneNumber)
             }
-        } else if (isCreateNewContact) {
-            val name = intent.getStringExtra(KEY_NAME) ?: ""
-            val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
-            val email = getEmailFromIntent(intent) ?: ""
 
-            Intent().apply {
-                action = Intent.ACTION_INSERT
-                data = ContactsContract.Contacts.CONTENT_URI
+            if (email.isNotEmpty()) {
+                putExtra(KEY_EMAIL, email)
+            }
 
-                if (phoneNumber.isNotEmpty()) {
-                    putExtra(KEY_PHONE, phoneNumber)
-                }
+            putExtra(IS_PRIVATE, contact.isPrivate())
+            startActivityForResult(this, START_EDIT_ACTIVITY)
+        }
+    }
 
-                if (name.isNotEmpty()) {
-                    putExtra(KEY_NAME, name)
-                }
+    private fun createNewContact() {
+        val name = intent.getStringExtra(KEY_NAME) ?: ""
+        val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
+        val email = getEmailFromIntent(intent) ?: ""
 
-                if (email.isNotEmpty()) {
-                    putExtra(KEY_EMAIL, email)
-                }
+        Intent().apply {
+            action = Intent.ACTION_INSERT
+            data = ContactsContract.Contacts.CONTENT_URI
 
-                if (resolveActivity(packageManager) != null) {
-                    startActivityForResult(this, START_INSERT_ACTIVITY)
-                    finish()
-                } else {
-                    toast(R.string.no_app_found)
-                }
+            if (phoneNumber.isNotEmpty()) {
+                putExtra(KEY_PHONE, phoneNumber)
+            }
+
+            if (name.isNotEmpty()) {
+                putExtra(KEY_NAME, name)
+            }
+
+            if (email.isNotEmpty()) {
+                putExtra(KEY_EMAIL, email)
+            }
+
+            if (resolveActivity(packageManager) != null) {
+                startActivityForResult(this, START_INSERT_ACTIVITY)
+            } else {
+                toast(R.string.no_app_found)
             }
         }
     }

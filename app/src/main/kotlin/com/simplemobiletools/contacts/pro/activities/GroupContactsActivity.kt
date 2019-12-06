@@ -104,7 +104,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         val currAdapter = group_contacts_list.adapter
         if (currAdapter == null) {
             ContactsAdapter(this, contacts, this, LOCATION_GROUP_CONTACTS, this, group_contacts_list, group_contacts_fastscroller) {
-                contactClicked(it as Contact, false)
+                contactClicked(it as Contact)
             }.apply {
                 group_contacts_list.adapter = this
             }
@@ -123,8 +123,8 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         refreshContacts()
     }
 
-    override fun contactClicked(contact: Contact?, isCreateNewContact: Boolean) {
-        handleGenericContactClick(contact!!)
+    override fun contactClicked(contact: Contact) {
+        handleGenericContactClick(contact)
     }
 
     override fun removeFromGroup(contacts: ArrayList<Contact>) {

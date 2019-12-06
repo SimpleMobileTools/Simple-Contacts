@@ -21,11 +21,7 @@ import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.Group
-import kotlinx.android.synthetic.main.fragment_insert_or_edit_contacts.view.*
 import kotlinx.android.synthetic.main.fragment_layout.view.*
-import kotlinx.android.synthetic.main.fragment_layout.view.fragment_fastscroller
-import kotlinx.android.synthetic.main.fragment_layout.view.fragment_list
-import kotlinx.android.synthetic.main.fragment_layout.view.fragment_wrapper
 
 abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
     protected var activity: SimpleActivity? = null
@@ -192,7 +188,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             forceListRedraw = false
             val location = if (this is FavoritesFragment) LOCATION_FAVORITES_TAB else LOCATION_CONTACTS_TAB
             ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list, fragment_fastscroller) {
-                (activity as RefreshContactsListener).contactClicked(it as Contact, false)
+                (activity as RefreshContactsListener).contactClicked(it as Contact)
             }.apply {
                 fragment_list.adapter = this
             }
@@ -303,11 +299,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         fragment_fastscroller.updateBubbleColors()
         fragment_fastscroller.allowBubbleDisplay = config.showInfoBubble
         fragment_placeholder_2?.setTextColor(context.getAdjustedPrimaryColor())
-        select_contact_label?.setTextColor(context.getAdjustedPrimaryColor())
-        new_contact_tmb?.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_new_contact_vector, context.config.textColor))
-        new_contact_holder?.setOnClickListener {
-            (activity as RefreshContactsListener).contactClicked(null, true)
-        }
     }
 
     private fun setupViewVisibility(hasItemsToShow: Boolean) {
