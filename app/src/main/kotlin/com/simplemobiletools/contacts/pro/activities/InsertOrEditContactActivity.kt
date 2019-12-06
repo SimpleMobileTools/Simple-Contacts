@@ -1,7 +1,9 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.Menu
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.extensions.*
@@ -11,9 +13,8 @@ import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.helpers.CONTACTS_TAB_MASK
-import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
-import com.simplemobiletools.contacts.pro.helpers.FAVORITES_TAB_MASK
+import com.simplemobiletools.contacts.pro.extensions.getContactPublicUri
+import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_insert_edit_contact.*
@@ -130,6 +131,54 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     override fun contactClicked(contact: Contact?, isCreateNewContact: Boolean) {
+        if (contact != null) {
+            val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
+            val email = getEmailFromIntent(intent) ?: ""
 
+            Intent(applicationContext, EditContactActivity::class.java).apply {
+                data = getContactPublicUri(contact)
+                action = ADD_NEW_CONTACT_NUMBER
+
+                if (phoneNumber.isNotEmpty()) {
+                    putExtra(KEY_PHONE, phoneNumber)
+                }
+
+                if (email.isNotEmpty()) {
+                    putExtra(KEY_EMAIL, email)
+                }
+
+                putExtra(IS_PRIVATE, contact.isPrivate())
+                startActivityForResult(this, START_EDIT_ACTIVITY)
+                finish()
+            }
+        } else if (isCreateNewContact) {
+            val name = intent.getStringExtra(KEY_NAME) ?: ""
+            val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
+            val email = getEmailFromIntent(intent) ?: ""
+
+            Intent().apply {
+                action = Intent.ACTION_INSERT
+                data = ContactsContract.Contacts.CONTENT_URI
+
+                if (phoneNumber.isNotEmpty()) {
+                    putExtra(KEY_PHONE, phoneNumber)
+                }
+
+                if (name.isNotEmpty()) {
+                    putExtra(KEY_NAME, name)
+                }
+
+                if (email.isNotEmpty()) {
+                    putExtra(KEY_EMAIL, email)
+                }
+
+                if (resolveActivity(packageManager) != null) {
+                    startActivityForResult(this, START_INSERT_ACTIVITY)
+                    finish()
+                } else {
+                    toast(R.string.no_app_found)
+                }
+            }
+        }
     }
 }
