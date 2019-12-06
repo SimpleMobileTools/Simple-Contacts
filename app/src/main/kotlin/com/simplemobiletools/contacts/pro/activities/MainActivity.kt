@@ -532,7 +532,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         isGettingContacts = true
 
         if (viewpager.adapter == null) {
-            viewpager.adapter = ViewPagerAdapter(this, tabsList, config.showTabs)
+            val fragments = arrayListOf(R.layout.fragment_contacts, R.layout.fragment_favorites, R.layout.fragment_groups)
+            viewpager.adapter = ViewPagerAdapter(this, tabsList, config.showTabs, fragments)
             viewpager.currentItem = config.lastUsedViewPagerPage
         }
 

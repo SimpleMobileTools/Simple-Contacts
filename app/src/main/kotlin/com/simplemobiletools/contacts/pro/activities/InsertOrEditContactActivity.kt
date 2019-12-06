@@ -110,7 +110,8 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         if (viewpager.adapter == null) {
-            viewpager.adapter = ViewPagerAdapter(this, contactsFavoritesList, CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+            val fragments = arrayListOf(R.layout.fragment_contacts, R.layout.fragment_favorites)
+            viewpager.adapter = ViewPagerAdapter(this, contactsFavoritesList, CONTACTS_TAB_MASK or FAVORITES_TAB_MASK, fragments)
         }
 
         ContactsHelper(this).getContacts { contacts ->
