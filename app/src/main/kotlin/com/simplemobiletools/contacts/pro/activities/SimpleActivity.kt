@@ -3,15 +3,16 @@ package com.simplemobiletools.contacts.pro.activities
 import android.annotation.TargetApi
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.telecom.TelecomManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
+import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.pro.R
-import com.simplemobiletools.contacts.pro.helpers.KEY_MAILTO
-import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
-import com.simplemobiletools.contacts.pro.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
+import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.helpers.*
 
 open class SimpleActivity : BaseSimpleActivity() {
     override fun getAppIconIDs() = arrayListOf(
@@ -72,5 +73,15 @@ open class SimpleActivity : BaseSimpleActivity() {
                 toast(R.string.no_app_found)
             }
         }
+    }
+
+    protected fun getTabIcon(position: Int): Drawable {
+        val drawableId = when (position) {
+            LOCATION_CONTACTS_TAB -> R.drawable.ic_person_vector
+            LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on_vector
+            else -> R.drawable.ic_group_vector
+        }
+
+        return resources.getColoredDrawableWithColor(drawableId, config.textColor)
     }
 }

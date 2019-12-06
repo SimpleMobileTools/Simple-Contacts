@@ -8,7 +8,6 @@ import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
 import android.net.Uri
@@ -414,16 +413,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         main_dialpad_button.setOnClickListener {
             launchDialpad()
         }
-    }
-
-    private fun getTabIcon(position: Int): Drawable {
-        val drawableId = when (position) {
-            LOCATION_CONTACTS_TAB -> R.drawable.ic_person_vector
-            LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on_vector
-            else -> R.drawable.ic_group_vector
-        }
-
-        return resources.getColoredDrawableWithColor(drawableId, config.textColor)
     }
 
     private fun showSortingDialog() {
