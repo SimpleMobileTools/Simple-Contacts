@@ -129,7 +129,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    override fun contactClicked(contact: Contact) {
+    override fun contactClicked(contact: Contact?, isCreateNewContact: Boolean) {
 
     }
 }

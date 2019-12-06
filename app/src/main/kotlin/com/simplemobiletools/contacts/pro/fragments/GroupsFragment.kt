@@ -22,6 +22,4 @@ class GroupsFragment(context: Context, attributeSet: AttributeSet) : MyViewPager
             (activity as? MainActivity)?.refreshContacts(GROUPS_TAB_MASK)
         }
     }
-
-    override fun viewSetup() {}
 }

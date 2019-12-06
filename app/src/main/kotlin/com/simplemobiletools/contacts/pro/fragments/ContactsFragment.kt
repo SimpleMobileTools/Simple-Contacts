@@ -16,6 +16,4 @@ class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPag
     override fun placeholderClicked() {
         (activity as? MainActivity)?.showFilterDialog()
     }
-
-    override fun viewSetup() {}
 }
