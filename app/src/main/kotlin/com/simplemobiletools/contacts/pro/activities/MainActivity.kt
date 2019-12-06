@@ -396,7 +396,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             if (config.showTabs and value == 0) {
                 skippedTabs++
             } else {
-                main_tabs_holder.addTab(main_tabs_holder.newTab().setIcon(getTabIcon(index)), index - skippedTabs, config.lastUsedViewPagerPage == index - skippedTabs)
+                val tab = main_tabs_holder.newTab().setIcon(getTabIcon(index))
+                main_tabs_holder.addTab(tab, index - skippedTabs, config.lastUsedViewPagerPage == index - skippedTabs)
             }
         }
 

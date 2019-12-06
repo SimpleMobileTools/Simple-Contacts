@@ -1,23 +1,26 @@
 package com.simplemobiletools.contacts.pro.activities
 
-import android.app.Activity
-import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.view.Menu
+import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.PERMISSION_GET_ACCOUNTS
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
+import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.contacts.pro.R
-import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.getContactPublicUri
-import com.simplemobiletools.contacts.pro.helpers.*
-import com.simplemobiletools.contacts.pro.models.Contact
+import com.simplemobiletools.contacts.pro.helpers.CONTACTS_TAB_MASK
+import com.simplemobiletools.contacts.pro.helpers.FAVORITES_TAB_MASK
 import kotlinx.android.synthetic.main.activity_insert_edit_contact.*
 
 class InsertOrEditContactActivity : SimpleActivity() {
     private val START_INSERT_ACTIVITY = 1
     private val START_EDIT_ACTIVITY = 2
+
+    private val contactsFavoritesList = arrayListOf(CONTACTS_TAB_MASK,
+            FAVORITES_TAB_MASK
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,12 +30,18 @@ class InsertOrEditContactActivity : SimpleActivity() {
             return
         }
 
-        setupViews()
+        setupTabColors()
 
+        // we do not really care about the permission request result. Even if it was denied, load private contacts
         handlePermission(PERMISSION_READ_CONTACTS) {
-            // we do not really care about the permission request result. Even if it was denied, load private contacts
-            ContactsHelper(this).getContacts {
-                gotContacts(it)
+            if (it) {
+                handlePermission(PERMISSION_WRITE_CONTACTS) {
+                    handlePermission(PERMISSION_GET_ACCOUNTS) {
+                        initFragments()
+                    }
+                }
+            } else {
+                initFragments()
             }
         }
     }
@@ -42,77 +51,46 @@ class InsertOrEditContactActivity : SimpleActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    private fun setupViews() {
-        updateTextColors(insert_edit_contact_holder)
-        new_contact_tmb.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_new_contact_vector, config.textColor))
-        new_contact_holder.setOnClickListener {
-            val name = intent.getStringExtra(KEY_NAME) ?: ""
-            val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
-            val email = getEmailFromIntent(intent) ?: ""
+    private fun initFragments() {
+        viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
 
-            Intent().apply {
-                action = Intent.ACTION_INSERT
-                data = ContactsContract.Contacts.CONTENT_URI
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
-                if (phoneNumber.isNotEmpty()) {
-                    putExtra(KEY_PHONE, phoneNumber)
+            override fun onPageSelected(position: Int) {
+                insert_or_edit_tabs_holder.getTabAt(position)?.select()
+                invalidateOptionsMenu()
+            }
+        })
+
+        insert_or_edit_tabs_holder.onTabSelectionChanged(
+                tabUnselectedAction = {
+                    it.icon?.applyColorFilter(config.textColor)
+                },
+                tabSelectedAction = {
+                    viewpager.currentItem = it.position
+                    it.icon?.applyColorFilter(getAdjustedPrimaryColor())
                 }
+        )
 
-                if (name.isNotEmpty()) {
-                    putExtra(KEY_NAME, name)
-                }
-
-                if (email.isNotEmpty()) {
-                    putExtra(KEY_EMAIL, email)
-                }
-
-                if (resolveActivity(packageManager) != null) {
-                    startActivityForResult(this, START_INSERT_ACTIVITY)
-                } else {
-                    toast(R.string.no_app_found)
-                }
+        insert_or_edit_tabs_holder.removeAllTabs()
+        var skippedTabs = 0
+        contactsFavoritesList.forEachIndexed { index, value ->
+            if (config.showTabs and value == 0) {
+                skippedTabs++
+            } else {
+                val tab = insert_or_edit_tabs_holder.newTab().setIcon(getTabIcon(index))
+                insert_or_edit_tabs_holder.addTab(tab, index - skippedTabs, index == 0)
             }
         }
 
-        select_contact_label.setTextColor(getAdjustedPrimaryColor())
+        insert_or_edit_tabs_holder.beVisibleIf(skippedTabs == 0)
     }
 
-    private fun gotContacts(contacts: ArrayList<Contact>) {
-        ContactsAdapter(this, contacts, null, LOCATION_INSERT_OR_EDIT, null, select_contact_list, select_contact_fastscroller) {
-            val contact = it as Contact
-            val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
-            val email = getEmailFromIntent(intent) ?: ""
-
-            Intent(applicationContext, EditContactActivity::class.java).apply {
-                data = getContactPublicUri(contact)
-                action = ADD_NEW_CONTACT_NUMBER
-
-                if (phoneNumber.isNotEmpty()) {
-                    putExtra(KEY_PHONE, phoneNumber)
-                }
-
-                if (email.isNotEmpty()) {
-                    putExtra(KEY_EMAIL, email)
-                }
-
-                putExtra(IS_PRIVATE, contact.isPrivate())
-                startActivityForResult(this, START_EDIT_ACTIVITY)
-            }
-        }.apply {
-            select_contact_list.adapter = this
-        }
-
-        select_contact_fastscroller.setScrollToY(0)
-        select_contact_fastscroller.setViews(select_contact_list) {
-            val item = (select_contact_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
-            select_contact_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, resultData)
-        if (resultCode == Activity.RESULT_OK) {
-            finish()
+    private fun setupTabColors() {
+        insert_or_edit_tabs_holder.apply {
+            background = ColorDrawable(config.backgroundColor)
+            setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
         }
     }
 }
