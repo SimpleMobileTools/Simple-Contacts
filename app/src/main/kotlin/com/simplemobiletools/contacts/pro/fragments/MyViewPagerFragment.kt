@@ -100,7 +100,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun refreshContacts(contacts: ArrayList<Contact>) {
-        if ((config.showTabs and CONTACTS_TAB_MASK == 0 && this is ContactsFragment) ||
+        if ((config.showTabs and CONTACTS_TAB_MASK == 0 && this is ContactsFragment && activity !is InsertOrEditContactActivity) ||
                 (config.showTabs and FAVORITES_TAB_MASK == 0 && this is FavoritesFragment) ||
                 (config.showTabs and GROUPS_TAB_MASK == 0 && this is GroupsFragment)) {
             return

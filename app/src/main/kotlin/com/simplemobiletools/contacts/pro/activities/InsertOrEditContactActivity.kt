@@ -112,7 +112,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         })
 
         viewpager.onGlobalLayout {
-            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+            refreshContacts(getTabsMask())
         }
 
         insert_or_edit_tabs_holder.onTabSelectionChanged(
@@ -132,7 +132,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         insert_or_edit_tabs_holder.removeAllTabs()
         var skippedTabs = 0
         contactsFavoritesList.forEachIndexed { index, value ->
-            if (config.showTabs and value == 0) {
+            if (config.showTabs and value == 0 && value == FAVORITES_TAB_MASK) {
                 skippedTabs++
             } else {
                 val tab = insert_or_edit_tabs_holder.newTab().setIcon(getTabIcon(index))
@@ -211,7 +211,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         if (viewpager.adapter == null) {
-            viewpager.adapter = ViewPagerAdapter(this, contactsFavoritesList, CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+            viewpager.adapter = ViewPagerAdapter(this, contactsFavoritesList, getTabsMask())
         }
 
         ContactsHelper(this).getContacts { contacts ->
@@ -285,14 +285,22 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
-            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+            refreshContacts(getTabsMask())
         }
     }
 
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
             contacts_fragment?.forceListRedraw = true
-            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+            refreshContacts(getTabsMask())
         }
+    }
+
+    fun getTabsMask(): Int {
+        var mask = CONTACTS_TAB_MASK
+        if (config.showTabs and FAVORITES_TAB_MASK != 0) {
+            mask += FAVORITES_TAB_MASK
+        }
+        return mask
     }
 }
