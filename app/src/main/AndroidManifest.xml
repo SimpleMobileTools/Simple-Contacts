@@ -147,6 +147,14 @@
             android:label="@string/select_contact"
             android:parentActivityName=".activities.MainActivity">
 
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:resource="@xml/searchable"/>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.INSERT_OR_EDIT"/>
                 <category android:name="android.intent.category.DEFAULT"/>

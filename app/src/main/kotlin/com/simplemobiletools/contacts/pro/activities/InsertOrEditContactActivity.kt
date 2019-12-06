@@ -1,10 +1,15 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_GET_ACCOUNTS
@@ -14,6 +19,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getContactPublicUri
+import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.models.Contact
@@ -25,7 +31,11 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     private val START_INSERT_ACTIVITY = 1
     private val START_EDIT_ACTIVITY = 2
 
-    private val contactsFavoritesList = arrayListOf(CONTACTS_TAB_MASK,
+    private var isSearchOpen = false
+    private var searchMenuItem: MenuItem? = null
+
+    private val contactsFavoritesList = arrayListOf(
+            CONTACTS_TAB_MASK,
             FAVORITES_TAB_MASK
     )
 
@@ -53,14 +63,26 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        searchMenuItem?.collapseActionView()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_insert_or_edit, menu)
+        setupSearch(menu)
         updateMenuItemColors(menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     private fun initFragments() {
         viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrollStateChanged(state: Int) {
+                if (isSearchOpen) {
+                    getCurrentFragment()?.onSearchQueryChanged("")
+                    searchMenuItem?.collapseActionView()
+                }
+            }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
@@ -79,6 +101,10 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
                     it.icon?.applyColorFilter(config.textColor)
                 },
                 tabSelectedAction = {
+                    if (isSearchOpen) {
+                        getCurrentFragment()?.onSearchQueryChanged("")
+                        searchMenuItem?.collapseActionView()
+                    }
                     viewpager.currentItem = it.position
                     it.icon?.applyColorFilter(getAdjustedPrimaryColor())
                 }
@@ -101,6 +127,55 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         new_contact_tmb?.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_new_contact_vector, config.textColor))
         new_contact_holder?.setOnClickListener {
             createNewContact()
+        }
+    }
+
+    private fun setupSearch(menu: Menu) {
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchMenuItem = menu.findItem(R.id.search)
+        (searchMenuItem!!.actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            isSubmitButtonEnabled = false
+            queryHint = getString(getSearchString())
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String) = false
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    if (isSearchOpen) {
+                        getCurrentFragment()?.onSearchQueryChanged(newText)
+                    }
+                    return true
+                }
+            })
+        }
+
+        MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                getCurrentFragment()?.onSearchOpened()
+                isSearchOpen = true
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                getCurrentFragment()?.onSearchClosed()
+                isSearchOpen = false
+                return true
+            }
+        })
+    }
+
+    private fun getSearchString(): Int {
+        return when (getCurrentFragment()) {
+            favorites_fragment -> R.string.search_favorites
+            else -> R.string.search_contacts
+        }
+    }
+
+    private fun getCurrentFragment(): MyViewPagerFragment? {
+        return if (viewpager.currentItem == 0) {
+            contacts_fragment
+        } else {
+            favorites_fragment
         }
     }
 
