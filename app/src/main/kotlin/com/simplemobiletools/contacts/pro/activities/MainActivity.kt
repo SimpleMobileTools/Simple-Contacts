@@ -33,9 +33,11 @@ import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.pro.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getTempFile
+import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
+import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
@@ -530,7 +532,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         isGettingContacts = true
 
         if (viewpager.adapter == null) {
-            viewpager.adapter = ViewPagerAdapter(this)
+            viewpager.adapter = ViewPagerAdapter(this, tabsList, config.showTabs)
             viewpager.currentItem = config.lastUsedViewPagerPage
         }
 
@@ -555,6 +557,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 groups_fragment?.refreshContacts(contacts)
             }
         }
+    }
+
+    override fun contactClicked(contact: Contact) {
+        handleGenericContactClick(contact)
     }
 
     private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, groups_fragment)

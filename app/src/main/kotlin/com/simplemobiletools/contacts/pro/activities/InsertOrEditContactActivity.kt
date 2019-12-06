@@ -9,12 +9,18 @@ import com.simplemobiletools.commons.helpers.PERMISSION_GET_ACCOUNTS
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.CONTACTS_TAB_MASK
+import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.FAVORITES_TAB_MASK
+import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
+import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_insert_edit_contact.*
+import kotlinx.android.synthetic.main.fragment_contacts.*
+import kotlinx.android.synthetic.main.fragment_favorites.*
 
-class InsertOrEditContactActivity : SimpleActivity() {
+class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     private val START_INSERT_ACTIVITY = 1
     private val START_EDIT_ACTIVITY = 2
 
@@ -63,6 +69,10 @@ class InsertOrEditContactActivity : SimpleActivity() {
             }
         })
 
+        viewpager.onGlobalLayout {
+            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+        }
+
         insert_or_edit_tabs_holder.onTabSelectionChanged(
                 tabUnselectedAction = {
                     it.icon?.applyColorFilter(config.textColor)
@@ -92,5 +102,33 @@ class InsertOrEditContactActivity : SimpleActivity() {
             background = ColorDrawable(config.backgroundColor)
             setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
         }
+    }
+
+    override fun refreshContacts(refreshTabsMask: Int) {
+        if (isDestroyed || isFinishing) {
+            return
+        }
+
+        if (viewpager.adapter == null) {
+            viewpager.adapter = ViewPagerAdapter(this, contactsFavoritesList, CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+        }
+
+        ContactsHelper(this).getContacts { contacts ->
+            if (isDestroyed || isFinishing) {
+                return@getContacts
+            }
+
+            if (refreshTabsMask and CONTACTS_TAB_MASK != 0) {
+                contacts_fragment?.refreshContacts(contacts)
+            }
+
+            if (refreshTabsMask and FAVORITES_TAB_MASK != 0) {
+                favorites_fragment?.refreshContacts(contacts)
+            }
+        }
+    }
+
+    override fun contactClicked(contact: Contact) {
+
     }
 }

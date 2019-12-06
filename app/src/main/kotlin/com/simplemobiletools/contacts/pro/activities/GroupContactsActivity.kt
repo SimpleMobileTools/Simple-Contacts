@@ -123,6 +123,10 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         refreshContacts()
     }
 
+    override fun contactClicked(contact: Contact) {
+        handleGenericContactClick(contact)
+    }
+
     override fun removeFromGroup(contacts: ArrayList<Contact>) {
         ensureBackgroundThread {
             removeContactsFromGroup(contacts, group.id!!)
