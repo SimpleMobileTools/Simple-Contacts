@@ -18,6 +18,8 @@ import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
+import com.simplemobiletools.contacts.pro.dialogs.ChangeSortingDialog
+import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getContactPublicUri
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
@@ -74,6 +76,22 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         setupSearch(menu)
         updateMenuItemColors(menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.sort -> showSortingDialog()
+            R.id.filter -> showFilterDialog()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (resultCode == Activity.RESULT_OK) {
+            finish()
+        }
     }
 
     private fun initFragments() {
@@ -265,10 +283,16 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         createNewContact()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, resultData)
-        if (resultCode == Activity.RESULT_OK) {
-            finish()
+    private fun showSortingDialog() {
+        ChangeSortingDialog(this) {
+            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+        }
+    }
+
+    private fun showFilterDialog() {
+        FilterContactSourcesDialog(this) {
+            contacts_fragment?.forceListRedraw = true
+            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
         }
     }
 }
