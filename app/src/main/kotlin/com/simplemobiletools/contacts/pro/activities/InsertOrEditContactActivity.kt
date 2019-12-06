@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
@@ -262,5 +263,12 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
     fun fabClicked() {
         createNewContact()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (resultCode == Activity.RESULT_OK) {
+            finish()
+        }
     }
 }
