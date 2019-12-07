@@ -21,7 +21,7 @@
     <string name="set_as_default">Сделать по умолчанию</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Контакты не найдены</string>
+    <string name="no_contacts_found">Контакты не найдены.</string>
     <string name="no_contacts_with_emails">Контакты с адресами электронной почты не найдены</string>
     <string name="no_contacts_with_phone_numbers">Контакты с номерами телефонов не найдены</string>
 

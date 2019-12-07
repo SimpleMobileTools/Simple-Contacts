@@ -21,7 +21,7 @@
     <string name="set_as_default">Varsayılan olarak ayarla</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Kişi bulunamadı</string>
+    <string name="no_contacts_found">Kişi bulunamadı.</string>
     <string name="no_contacts_with_emails">E-posta ile hiç bağlantı bulunamadı</string>
     <string name="no_contacts_with_phone_numbers">Telefon numaralarını içeren kişi bulunamadı</string>
 

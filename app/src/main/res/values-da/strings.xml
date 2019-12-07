@@ -21,7 +21,7 @@
     <string name="set_as_default">Gør til standard</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Ingen kontakter fundet</string>
+    <string name="no_contacts_found">Ingen kontakter fundet.</string>
     <string name="no_contacts_with_emails">Ingen kontakter med emails fundet</string>
     <string name="no_contacts_with_phone_numbers">Ingen kontakter med telefonnumre fundet</string>
 

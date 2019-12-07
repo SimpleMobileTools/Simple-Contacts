@@ -21,7 +21,7 @@
     <string name="set_as_default">Als standaard instellen</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Geen contacten gevonden</string>
+    <string name="no_contacts_found">Geen contacten .</string>
     <string name="no_contacts_with_emails">Geen contacten met e-mailadressen gevonden</string>
     <string name="no_contacts_with_phone_numbers">Geen contacten met telefoonnummers gevonden</string>
 

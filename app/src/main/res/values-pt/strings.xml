@@ -21,7 +21,7 @@
     <string name="set_as_default">Definir como padrão</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Não existem contactos</string>
+    <string name="no_contacts_found">Não existem contactos.</string>
     <string name="no_contacts_with_emails">Não existem contactos com endereço de e-mail</string>
     <string name="no_contacts_with_phone_numbers">Não existem contactos com número de telefone</string>
 

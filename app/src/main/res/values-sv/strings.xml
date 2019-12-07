@@ -21,7 +21,7 @@
     <string name="set_as_default">Ange som standard</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Inga kontakter hittades</string>
+    <string name="no_contacts_found">Inga kontakter hittades.</string>
     <string name="no_contacts_with_emails">Inga kontakter med e-postadresser hittades</string>
     <string name="no_contacts_with_phone_numbers">Inga kontakter med telefonnummer hittades</string>
 

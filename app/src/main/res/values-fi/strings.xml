@@ -21,7 +21,7 @@
     <string name="set_as_default">Aseta oletukseksi</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Kontakteja ei löytynyt</string>
+    <string name="no_contacts_found">Kontakteja ei löytynyt.</string>
     <string name="no_contacts_with_emails">Sähköpostillisia kontakteja ei löytynyt</string>
     <string name="no_contacts_with_phone_numbers">Puhelinnumerollisia kontakteja ei löytynyt</string>
 

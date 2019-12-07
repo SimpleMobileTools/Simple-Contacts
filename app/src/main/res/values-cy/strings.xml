@@ -21,7 +21,7 @@
     <string name="set_as_default">Defnyddio fel y rhagosodedig</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Ni chanfuwyd unrhyw gysylltiadau</string>
+    <string name="no_contacts_found">Ni chanfuwyd unrhyw gysylltiadau.</string>
     <string name="no_contacts_with_emails">Ni chanfuwyd unrhyw gysylltiadau gydag ebost</string>
     <string name="no_contacts_with_phone_numbers">Ni chanfuwyd unrhyw gysylltiadau gyda rhifau ffôn</string>
 

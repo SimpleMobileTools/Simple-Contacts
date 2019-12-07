@@ -21,7 +21,7 @@
     <string name="set_as_default">Postavi na zadano</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Nisu pronađeni kontakti</string>
+    <string name="no_contacts_found">Nisu pronađeni kontakti.</string>
     <string name="no_contacts_with_emails">Nije pronađen nijedan kontakt s e-poštom</string>
     <string name="no_contacts_with_phone_numbers">Nisu pronađeni kontakti s telefonskim brojevima</string>
 

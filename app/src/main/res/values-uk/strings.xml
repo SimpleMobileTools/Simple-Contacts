@@ -21,7 +21,7 @@
     <string name="set_as_default">Встановити додаток як стандартний</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Контактів не знайдено</string>
+    <string name="no_contacts_found">Контактів не знайдено.</string>
     <string name="no_contacts_with_emails">Не знайдено контактів з електронною поштою</string>
     <string name="no_contacts_with_phone_numbers">Не знайдено контактів з телефонними номерами</string>
 

@@ -21,7 +21,7 @@
     <string name="set_as_default">Set as default</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">連絡先が見つかりません</string>
+    <string name="no_contacts_found">連絡先が見つかりません.</string>
     <string name="no_contacts_with_emails">メールアドレスが登録された連絡先が見つかりません</string>
     <string name="no_contacts_with_phone_numbers">電話番号が登録された連絡先が見つかりません</string>
 

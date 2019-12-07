@@ -21,7 +21,7 @@
     <string name="set_as_default">Set as default</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Aucun contact n\'a été trouvé</string>
+    <string name="no_contacts_found">Aucun contact n\'a été trouvé.</string>
     <string name="no_contacts_with_emails">Aucun contact avec une adresse de courriel n\'a été trouvé</string>
     <string name="no_contacts_with_phone_numbers">Aucun contact avec un numéro de téléphone n\'a été trouvé</string>
 
