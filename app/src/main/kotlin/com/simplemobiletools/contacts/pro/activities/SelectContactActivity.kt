@@ -1,11 +1,15 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
@@ -22,6 +26,9 @@ import kotlinx.android.synthetic.main.activity_select_contact.*
 
 class SelectContactActivity : SimpleActivity() {
     private var specialMimeType: String? = null
+    private var isSearchOpen = false
+    private var searchMenuItem: MenuItem? = null
+    private var contactsIgnoringSearch = ArrayList<Contact>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +62,14 @@ class SelectContactActivity : SimpleActivity() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        searchMenuItem?.collapseActionView()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_select_activity, menu)
+        setupSearch(menu)
         updateMenuItemColors(menu)
         return true
     }
@@ -68,6 +81,52 @@ class SelectContactActivity : SimpleActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun setupSearch(menu: Menu) {
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchMenuItem = menu.findItem(R.id.search)
+        (searchMenuItem!!.actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            isSubmitButtonEnabled = false
+            queryHint = getString(R.string.search_contacts)
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String) = false
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    if (isSearchOpen) {
+                        onSearchQueryChanged(newText)
+                    }
+                    return true
+                }
+            })
+        }
+
+        MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                onSearchOpened()
+                isSearchOpen = true
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                onSearchClosed()
+                isSearchOpen = false
+                return true
+            }
+        })
+    }
+
+    private fun onSearchQueryChanged(text: String) {
+
+    }
+
+    private fun onSearchOpened() {
+        contactsIgnoringSearch = (select_contact_list.adapter as? SelectContactsAdapter)?.contacts ?: ArrayList()
+    }
+
+    private fun onSearchClosed() {
+
     }
 
     private fun showSortingDialog() {
