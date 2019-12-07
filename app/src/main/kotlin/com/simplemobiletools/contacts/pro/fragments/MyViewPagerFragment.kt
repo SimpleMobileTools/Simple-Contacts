@@ -191,7 +191,12 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         val currAdapter = fragment_list.adapter
         if (currAdapter == null || forceListRedraw) {
             forceListRedraw = false
-            val location = if (this is FavoritesFragment) LOCATION_FAVORITES_TAB else LOCATION_CONTACTS_TAB
+            val location = when {
+                activity is InsertOrEditContactActivity -> LOCATION_INSERT_OR_EDIT
+                this is FavoritesFragment -> LOCATION_FAVORITES_TAB
+                else -> LOCATION_CONTACTS_TAB
+            }
+
             ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list, fragment_fastscroller) {
                 (activity as RefreshContactsListener).contactClicked(it as Contact)
             }.apply {
