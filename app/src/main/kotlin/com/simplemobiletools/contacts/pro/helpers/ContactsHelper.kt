@@ -917,18 +917,12 @@ class ContactsHelper(val context: Context) {
 
     private fun getSortString(): String {
         val sorting = context.config.sorting
-        var sort = when {
+        return when {
             sorting and SORT_BY_FIRST_NAME != 0 -> "${CommonDataKinds.StructuredName.GIVEN_NAME} COLLATE NOCASE"
             sorting and SORT_BY_MIDDLE_NAME != 0 -> "${CommonDataKinds.StructuredName.MIDDLE_NAME} COLLATE NOCASE"
             sorting and SORT_BY_SURNAME != 0 -> "${CommonDataKinds.StructuredName.FAMILY_NAME} COLLATE NOCASE"
             else -> CommonDataKinds.Phone.NUMBER
         }
-
-        if (sorting and SORT_DESCENDING != 0) {
-            sort += " DESC"
-        }
-
-        return sort
     }
 
     private fun getRealContactId(id: Long): Int {
