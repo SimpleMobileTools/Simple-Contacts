@@ -1,6 +1,10 @@
 package com.simplemobiletools.contacts.pro.adapters
 
 import android.graphics.drawable.Drawable
+import android.telephony.PhoneNumberUtils
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +17,8 @@ import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
+import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
@@ -22,15 +28,19 @@ import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.item_add_favorite_with_number.view.*
 import java.util.*
 
-class SelectContactsAdapter(val activity: SimpleActivity, val contacts: ArrayList<Contact>, private val selectedContacts: ArrayList<Contact>, private val allowPickMultiple: Boolean,
-                            private val recyclerView: MyRecyclerView, private val itemClick: ((Contact) -> Unit)? = null) : RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
+class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayList<Contact>, private val selectedContacts: ArrayList<Contact>, private val allowPickMultiple: Boolean,
+                            recyclerView: MyRecyclerView, val fastScroller: FastScroller, private val itemClick: ((Contact) -> Unit)? = null) :
+        RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
     private val itemViews = SparseArray<View>()
     private val selectedPositions = HashSet<Int>()
     private val config = activity.config
     private val textColor = config.textColor
+    private val adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
+
     private val contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person_vector, textColor)
     private val showContactThumbnails = config.showContactThumbnails
     private val itemLayout = if (config.showPhoneNumbers) R.layout.item_add_favorite_with_number else R.layout.item_add_favorite_without_number
+    private var textToHighlight = ""
 
     private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
     private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
@@ -78,6 +88,25 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: ArrayLis
 
     override fun getItemCount() = contacts.size
 
+    fun updateItems(newItems: ArrayList<Contact>, highlightText: String = "") {
+        if (newItems.hashCode() != contacts.hashCode()) {
+            contacts = newItems.clone() as ArrayList<Contact>
+            textToHighlight = highlightText
+            notifyDataSetChanged()
+        } else if (textToHighlight != highlightText) {
+            textToHighlight = highlightText
+            notifyDataSetChanged()
+        }
+        fastScroller.measureRecyclerView()
+    }
+
+    override fun onViewRecycled(holder: ViewHolder) {
+        super.onViewRecycled(holder)
+        if (!activity.isDestroyed && !activity.isFinishing) {
+            Glide.with(activity).clear(holder.itemView.contact_tmb)
+        }
+    }
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(contact: Contact, contactDrawable: Drawable, config: Config, showContactThumbnails: Boolean,
                      smallPadding: Int, bigPadding: Int): View {
@@ -86,13 +115,30 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: ArrayLis
                 contact_checkbox.setColors(config.textColor, context.getAdjustedPrimaryColor(), config.backgroundColor)
                 val textColor = config.textColor
 
-                contact_name.text = contact.getNameToDisplay()
+                val fullName = contact.getNameToDisplay()
+                contact_name.text = if (textToHighlight.isEmpty()) fullName else {
+                    if (fullName.contains(textToHighlight, true)) {
+                        fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+                    } else {
+                        highlightTextFromNumbers(fullName, textToHighlight)
+                    }
+                }
+
                 contact_name.setTextColor(textColor)
                 contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
 
-                contact_number?.text = contact.phoneNumbers.firstOrNull()?.value ?: ""
-                contact_number?.setTextColor(textColor)
-                contact_number?.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
+                if (contact_number != null) {
+                    val phoneNumberToUse = if (textToHighlight.isEmpty()) {
+                        contact.phoneNumbers.firstOrNull()
+                    } else {
+                        contact.phoneNumbers.firstOrNull { it.value.contains(textToHighlight) } ?: contact.phoneNumbers.firstOrNull()
+                    }
+
+                    val numberText = phoneNumberToUse?.value ?: ""
+                    contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
+                    contact_number.setTextColor(textColor)
+                    contact_number.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
+                }
 
                 contact_frame.setOnClickListener {
                     if (itemClick != null) {
@@ -128,10 +174,18 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: ArrayLis
         }
     }
 
-    override fun onViewRecycled(holder: ViewHolder) {
-        super.onViewRecycled(holder)
-        if (!activity.isDestroyed && !activity.isFinishing) {
-            Glide.with(activity).clear(holder.itemView.contact_tmb)
+    private fun highlightTextFromNumbers(name: String, textToHighlight: String): SpannableString {
+        val spannableString = SpannableString(name)
+        val digits = PhoneNumberUtils.convertKeypadLettersToDigits(name)
+        if (digits.contains(textToHighlight)) {
+            val startIndex = digits.indexOf(textToHighlight, 0, true)
+            val endIndex = Math.min(startIndex + textToHighlight.length, name.length)
+            try {
+                spannableString.setSpan(ForegroundColorSpan(adjustedPrimaryColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+            } catch (ignored: IndexOutOfBoundsException) {
+            }
         }
+
+        return spannableString
     }
 }

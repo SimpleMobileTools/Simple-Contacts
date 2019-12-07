@@ -118,7 +118,34 @@ class SelectContactActivity : SimpleActivity() {
     }
 
     private fun onSearchQueryChanged(text: String) {
+        val adapter = select_contact_list.adapter
+        if (adapter != null && adapter is SelectContactsAdapter) {
+            val shouldNormalize = text.normalizeString() == text
+            val filtered = contactsIgnoringSearch.filter {
+                getProperText(it.getNameToDisplay(), shouldNormalize).contains(text, true) ||
+                        getProperText(it.nickname, shouldNormalize).contains(text, true) ||
+                        it.doesContainPhoneNumber(text, false) ||
+                        it.emails.any { it.value.contains(text, true) } ||
+                        it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
+                        it.IMs.any { it.value.contains(text, true) } ||
+                        getProperText(it.notes, shouldNormalize).contains(text, true) ||
+                        getProperText(it.organization.company, shouldNormalize).contains(text, true) ||
+                        getProperText(it.organization.jobPosition, shouldNormalize).contains(text, true) ||
+                        it.websites.any { it.contains(text, true) }
+            } as ArrayList
 
+            filtered.sortBy {
+                val nameToDisplay = it.getNameToDisplay()
+                !getProperText(nameToDisplay, shouldNormalize).startsWith(text, true) && !nameToDisplay.contains(text, true)
+            }
+
+            if (filtered.isEmpty()) {
+                select_contact_placeholder.text = getString(R.string.no_items_found)
+            }
+
+            select_contact_placeholder.beVisibleIf(filtered.isEmpty())
+            adapter.updateItems(filtered, text.normalizeString())
+        }
     }
 
     private fun onSearchOpened() {
@@ -126,8 +153,10 @@ class SelectContactActivity : SimpleActivity() {
     }
 
     private fun onSearchClosed() {
-
+        (select_contact_list.adapter as? SelectContactsAdapter)?.updateItems(contactsIgnoringSearch)
     }
+
+    private fun getProperText(text: String, shouldNormalize: Boolean) = if (shouldNormalize) text.normalizeString() else text
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
@@ -165,7 +194,7 @@ class SelectContactActivity : SimpleActivity() {
 
             runOnUiThread {
                 updatePlaceholderVisibility(contacts)
-                SelectContactsAdapter(this, contacts, ArrayList(), false, select_contact_list) {
+                SelectContactsAdapter(this, contacts, ArrayList(), false, select_contact_list, select_contact_fastscroller) {
                     confirmSelection(it)
                 }.apply {
                     select_contact_list.adapter = this
