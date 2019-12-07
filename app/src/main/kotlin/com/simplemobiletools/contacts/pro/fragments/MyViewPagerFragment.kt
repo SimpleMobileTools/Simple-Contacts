@@ -264,7 +264,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
-                fragment_placeholder.text = activity?.getString(R.string.no_items_found)
+                fragment_placeholder.text = activity?.getString(R.string.no_contacts_found)
             }
 
             fragment_placeholder.beVisibleIf(filtered.isEmpty())
@@ -282,8 +282,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             (adapter as? GroupsAdapter)?.updateItems(filtered, text)
         }
     }
-
-    private fun getProperText(text: String, shouldNormalize: Boolean) = if (shouldNormalize) text.normalizeString() else text
 
     fun onSearchOpened() {
         contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()

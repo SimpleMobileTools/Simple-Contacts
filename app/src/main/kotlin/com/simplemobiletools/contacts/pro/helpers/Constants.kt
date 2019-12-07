@@ -1,6 +1,11 @@
 package com.simplemobiletools.contacts.pro.helpers
 
 import android.provider.ContactsContract.CommonDataKinds
+import android.telephony.PhoneNumberUtils
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.contacts.pro.models.LocalContact
 
 // shared prefs
@@ -109,3 +114,20 @@ const val SIGNAL_PACKAGE = "org.thoughtcrime.securesms"
 const val WHATSAPP_PACKAGE = "com.whatsapp"
 
 fun getEmptyLocalContact() = LocalContact(0, "", "", "", "", "", "", null, ArrayList(), ArrayList(), ArrayList(), 0, ArrayList(), "", ArrayList(), "", "", ArrayList(), ArrayList())
+
+fun getProperText(text: String, shouldNormalize: Boolean) = if (shouldNormalize) text.normalizeString() else text
+
+fun highlightTextFromNumbers(name: String, textToHighlight: String, adjustedPrimaryColor: Int): SpannableString {
+    val spannableString = SpannableString(name)
+    val digits = PhoneNumberUtils.convertKeypadLettersToDigits(name)
+    if (digits.contains(textToHighlight)) {
+        val startIndex = digits.indexOf(textToHighlight, 0, true)
+        val endIndex = Math.min(startIndex + textToHighlight.length, name.length)
+        try {
+            spannableString.setSpan(ForegroundColorSpan(adjustedPrimaryColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        } catch (ignored: IndexOutOfBoundsException) {
+        }
+    }
+
+    return spannableString
+}

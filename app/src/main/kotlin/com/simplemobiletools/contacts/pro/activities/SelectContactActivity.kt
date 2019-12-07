@@ -21,6 +21,7 @@ import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getContactPublicUri
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
+import com.simplemobiletools.contacts.pro.helpers.getProperText
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_select_contact.*
 
@@ -155,8 +156,6 @@ class SelectContactActivity : SimpleActivity() {
     private fun onSearchClosed() {
         (select_contact_list.adapter as? SelectContactsAdapter)?.updateItems(contactsIgnoringSearch)
     }
-
-    private fun getProperText(text: String, shouldNormalize: Boolean) = if (shouldNormalize) text.normalizeString() else text
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {

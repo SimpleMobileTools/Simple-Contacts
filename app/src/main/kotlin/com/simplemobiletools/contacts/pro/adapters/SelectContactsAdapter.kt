@@ -1,10 +1,6 @@
 package com.simplemobiletools.contacts.pro.adapters
 
 import android.graphics.drawable.Drawable
-import android.telephony.PhoneNumberUtils
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +20,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.Config
+import com.simplemobiletools.contacts.pro.helpers.highlightTextFromNumbers
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.item_add_favorite_with_number.view.*
 import java.util.*
@@ -120,7 +117,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                     if (fullName.contains(textToHighlight, true)) {
                         fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
                     } else {
-                        highlightTextFromNumbers(fullName, textToHighlight)
+                        highlightTextFromNumbers(fullName, textToHighlight, adjustedPrimaryColor)
                     }
                 }
 
@@ -172,20 +169,5 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
         private fun viewClicked(select: Boolean) {
             toggleItemSelection(select, adapterPosition)
         }
-    }
-
-    private fun highlightTextFromNumbers(name: String, textToHighlight: String): SpannableString {
-        val spannableString = SpannableString(name)
-        val digits = PhoneNumberUtils.convertKeypadLettersToDigits(name)
-        if (digits.contains(textToHighlight)) {
-            val startIndex = digits.indexOf(textToHighlight, 0, true)
-            val endIndex = Math.min(startIndex + textToHighlight.length, name.length)
-            try {
-                spannableString.setSpan(ForegroundColorSpan(adjustedPrimaryColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-            } catch (ignored: IndexOutOfBoundsException) {
-            }
-        }
-
-        return spannableString
     }
 }
