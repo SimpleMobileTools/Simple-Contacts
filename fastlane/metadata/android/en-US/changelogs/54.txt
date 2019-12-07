@@ -1,0 +1,2 @@
+ * Rewrote the Select Contact screen for handling contact picking for other apps
+ * Fixed a glitch with some contacts not being visible in some cases

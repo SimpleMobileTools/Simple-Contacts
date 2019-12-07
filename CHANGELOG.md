@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.5.1 *(2019-12-07)*
+----------------------------
+
+ * Rewrote the Select Contact screen for handling contact picking for other apps
+ * Fixed a glitch with some contacts not being visible in some cases
+
 Version 6.5.0 *(2019-12-05)*
 ----------------------------
 
