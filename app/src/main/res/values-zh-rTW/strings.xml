@@ -21,7 +21,7 @@
     <string name="set_as_default">設為預設</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">未發現聯絡人.</string>
+    <string name="no_contacts_found">未發現聯絡人。</string>
     <string name="no_contacts_with_emails">未發現含有電子信箱的聯絡人</string>
     <string name="no_contacts_with_phone_numbers">未發現含有電話號碼的聯絡人</string>
 
@@ -165,7 +165,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">簡易通訊錄 Pro - 輕鬆管理你的聯絡人</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">一個沒有廣告的通訊錄應用程式，用來管理聯絡人，並且尊重您的隱私。</string>
     <string name="app_long_description">
