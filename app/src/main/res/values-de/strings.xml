@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Kontakte durchsuchen</string>
     <string name="search_favorites">Favoriten durchsuchen</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Gruppen durchsuchen</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Kontakte importieren</string>
@@ -145,18 +145,18 @@
     <string name="blocked_numbers">Blockierte Nummern</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_contacts_confirmation">Sind Sie sicher, dass Sie %s löschen wollen?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_from_all_sources">Der Kontakt wird von allen Kontaktquellen entfernt.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
-        <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacts</item>
+        <item quantity="one">%d Kontakt</item>
+        <item quantity="other">%d Kontakte</item>
     </plurals>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d Gruppe</item>
+        <item quantity="other">%d Gruppen</item>
     </plurals>
 
     <!-- FAQ -->
@@ -165,7 +165,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">Schlichte Kontakte Pro - Mühlose Kontaktverwaltung</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
     <string name="app_long_description">
