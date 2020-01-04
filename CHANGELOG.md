@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.5.2 *(2020-01-04)*
+----------------------------
+
+ * Fixed some theming issues
+ * Added some UI and translation improvements
+
 Version 6.5.1 *(2019-12-07)*
 ----------------------------
 
