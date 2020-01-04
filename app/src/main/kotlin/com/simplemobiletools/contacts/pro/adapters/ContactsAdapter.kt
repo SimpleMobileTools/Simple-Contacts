@@ -105,6 +105,10 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun getItemKeyPosition(key: Int) = contactItems.indexOfFirst { it.id == key }
 
+    override fun onActionModeCreated() {}
+
+    override fun onActionModeDestroyed() {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
         return createViewHolder(layout, parent)
