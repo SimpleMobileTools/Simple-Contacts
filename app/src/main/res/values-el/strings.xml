@@ -122,9 +122,9 @@
     <string name="answer_call">Απάντηση</string>
 
     <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+    <string name="speed_dial">Ταχεία Κλήση</string>
+    <string name="manage_speed_dial">Διαχείριση Ταχείας Κλήσης</string>
+    <string name="speed_dial_label">Κάντε κλικ σε έναν αριθμό για να αντιστοιχίσετε μια επαφή σε αυτόν. Στη συνέχεια, μπορείτε να καλέσετε γρήγορα τη δεδομένη επαφή πατώντας τον αριθμό αυτόν στο πληκτρολόγιο.</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Επιλογή εμφάνισης πεδίων</string>
