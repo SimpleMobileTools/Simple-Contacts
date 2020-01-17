@@ -123,7 +123,7 @@
 
     <!-- Speed dial -->
     <string name="speed_dial">Snelkiezer</string>
-    <string name="manage_speed_dial">Snelkiezer aanpassen</string>
+    <string name="manage_speed_dial">Snelkiezer bewerken</string>
     <string name="speed_dial_label">Klik op een cijfer om er een contact aan te koppelen. Vervolgens kan dit contact direct gebeld worden door in de kiezer lang op het gekoppelde cijfer te drukken.</string>
 
     <!-- Visible fields -->
