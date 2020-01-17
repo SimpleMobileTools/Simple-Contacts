@@ -1,0 +1,7 @@
+Kişilerinizi herhangi bir kaynaktan oluşturmak veya yönetmek için basit bir uygulama. Kişiler yalnızca cihazınızda saklanabilir, aynı zamanda Google veya diğer hesaplarla senkronize edilebilir. Favori kişilerinizi ayrı bir listede görüntüleyebilirsiniz.
+
+Kullanıcı e-postalarını ve etkinliklerini yönetmek için de kullanabilirsiniz. Birden çok parametreye göre sıralama/filtreleme, isteğe bağlı olarak soyadı ilk ad olarak görüntüleme yeteneğine sahiptir.
+
+Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sağlar.
+
+Bu uygulama, daha büyük bir uygulama serisinden sadece bir parça. Geri kalanı https://www.simplemobiletools.com adresinde bulabilirsiniz

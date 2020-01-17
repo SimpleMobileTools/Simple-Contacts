@@ -11,20 +11,21 @@ import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.GroupContactsActivity
+import com.simplemobiletools.contacts.pro.activities.InsertOrEditContactActivity
 import com.simplemobiletools.contacts.pro.activities.MainActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.adapters.GroupsAdapter
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.contactClicked
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.Group
 import kotlinx.android.synthetic.main.fragment_layout.view.*
 
 abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
-    protected var activity: MainActivity? = null
+    protected var activity: SimpleActivity? = null
     protected var allContacts = ArrayList<Contact>()
 
     private var lastHashCode = 0
@@ -35,19 +36,23 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     var skipHashComparing = false
     var forceListRedraw = false
 
-    fun setupFragment(activity: MainActivity) {
+    fun setupFragment(activity: SimpleActivity) {
         config = activity.config
         if (this.activity == null) {
             this.activity = activity
-            fragment_fab.setOnClickListener {
-                fabClicked()
+            fragment_fab?.setOnClickListener {
+                if (activity is InsertOrEditContactActivity) {
+                    activity.fabClicked()
+                } else {
+                    fabClicked()
+                }
             }
 
-            fragment_placeholder_2.setOnClickListener {
+            fragment_placeholder_2?.setOnClickListener {
                 placeholderClicked()
             }
 
-            fragment_placeholder_2.underlineText()
+            fragment_placeholder_2?.underlineText()
             updateViewStuff()
 
             when {
@@ -89,13 +94,13 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         if (this !is GroupsFragment) {
             (fragment_list.adapter as? ContactsAdapter)?.apply {
                 config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
-                this@MyViewPagerFragment.activity!!.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+                (this@MyViewPagerFragment.activity!! as MainActivity).refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
             }
         }
     }
 
     fun refreshContacts(contacts: ArrayList<Contact>) {
-        if ((config.showTabs and CONTACTS_TAB_MASK == 0 && this is ContactsFragment) ||
+        if ((config.showTabs and CONTACTS_TAB_MASK == 0 && this is ContactsFragment && activity !is InsertOrEditContactActivity) ||
                 (config.showTabs and FAVORITES_TAB_MASK == 0 && this is FavoritesFragment) ||
                 (config.showTabs and GROUPS_TAB_MASK == 0 && this is GroupsFragment)) {
             return
@@ -128,19 +133,16 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     private fun setupContacts(contacts: ArrayList<Contact>) {
         if (this is GroupsFragment) {
-            setupGroupsAdapter(contacts)
+            setupGroupsAdapter(contacts) {
+                groupsIgnoringSearch = (fragment_list?.adapter as? GroupsAdapter)?.groups ?: ArrayList()
+            }
         } else {
             setupContactsFavoritesAdapter(contacts)
-        }
-
-        if (this is ContactsFragment || this is FavoritesFragment) {
             contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
-        } else if (this is GroupsFragment) {
-            groupsIgnoringSearch = (fragment_list?.adapter as? GroupsAdapter)?.groups ?: ArrayList()
         }
     }
 
-    private fun setupGroupsAdapter(contacts: ArrayList<Contact>) {
+    private fun setupGroupsAdapter(contacts: ArrayList<Contact>, callback: () -> Unit) {
         ContactsHelper(activity!!).getStoredGroups {
             var storedGroups = it
             contacts.forEach {
@@ -159,13 +161,12 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
             val currAdapter = fragment_list.adapter
             if (currAdapter == null) {
-                GroupsAdapter(activity as SimpleActivity, storedGroups, activity, fragment_list, fragment_fastscroller) {
+                GroupsAdapter(activity as SimpleActivity, storedGroups, activity as RefreshContactsListener, fragment_list, fragment_fastscroller) {
                     Intent(activity, GroupContactsActivity::class.java).apply {
                         putExtra(GROUP, it as Group)
                         activity!!.startActivity(this)
                     }
                 }.apply {
-                    addVerticalDividers(true)
                     fragment_list.adapter = this
                 }
 
@@ -180,6 +181,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     updateItems(storedGroups)
                 }
             }
+
+            callback()
         }
     }
 
@@ -188,11 +191,15 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         val currAdapter = fragment_list.adapter
         if (currAdapter == null || forceListRedraw) {
             forceListRedraw = false
-            val location = if (this is FavoritesFragment) LOCATION_FAVORITES_TAB else LOCATION_CONTACTS_TAB
-            ContactsAdapter(activity as SimpleActivity, contacts, activity, location, null, fragment_list, fragment_fastscroller) {
-                activity?.contactClicked(it as Contact)
+            val location = when {
+                activity is InsertOrEditContactActivity -> LOCATION_INSERT_OR_EDIT
+                this is FavoritesFragment -> LOCATION_FAVORITES_TAB
+                else -> LOCATION_CONTACTS_TAB
+            }
+
+            ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list, fragment_fastscroller) {
+                (activity as RefreshContactsListener).contactClicked(it as Contact)
             }.apply {
-                addVerticalDividers(true)
                 fragment_list.adapter = this
             }
 
@@ -257,7 +264,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
-                fragment_placeholder.text = activity?.getString(R.string.no_items_found)
+                fragment_placeholder.text = activity?.getString(R.string.no_contacts_found)
             }
 
             fragment_placeholder.beVisibleIf(filtered.isEmpty())
@@ -275,8 +282,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             (adapter as? GroupsAdapter)?.updateItems(filtered, text)
         }
     }
-
-    private fun getProperText(text: String, shouldNormalize: Boolean) = if (shouldNormalize) text.normalizeString() else text
 
     fun onSearchOpened() {
         contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
@@ -301,12 +306,12 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         context.updateTextColors(fragment_wrapper.parent as ViewGroup)
         fragment_fastscroller.updateBubbleColors()
         fragment_fastscroller.allowBubbleDisplay = config.showInfoBubble
-        fragment_placeholder_2.setTextColor(context.getAdjustedPrimaryColor())
+        fragment_placeholder_2?.setTextColor(context.getAdjustedPrimaryColor())
     }
 
     private fun setupViewVisibility(hasItemsToShow: Boolean) {
-        fragment_placeholder_2.beVisibleIf(!hasItemsToShow)
-        fragment_placeholder.beVisibleIf(!hasItemsToShow)
+        fragment_placeholder_2?.beVisibleIf(!hasItemsToShow)
+        fragment_placeholder?.beVisibleIf(!hasItemsToShow)
         fragment_list.beVisibleIf(hasItemsToShow)
     }
 

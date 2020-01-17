@@ -21,7 +21,7 @@
     <string name="set_as_default">Als standaard instellen</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Geen contacten gevonden</string>
+    <string name="no_contacts_found">Geen contacten gevonden.</string>
     <string name="no_contacts_with_emails">Geen contacten met e-mailadressen gevonden</string>
     <string name="no_contacts_with_phone_numbers">Geen contacten met telefoonnummers gevonden</string>
 
@@ -121,6 +121,11 @@
     <string name="decline_call">Afwijzen</string>
     <string name="answer_call">Opnemen</string>
 
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Kies zichtbare velden</string>
     <string name="prefix">Voorvoegsel</string>
@@ -164,6 +169,8 @@
     <string name="faq_1_text">Ja, dat kan via Instellingen -> Contactvelden tonen/verbergen. Sommige velden zijn standaard verborgen, dus er zijn via deze optie meer velden te ontdekken.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Eenvoudig Adresboek Pro - Snel contacten beheren</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Een privacyvriendelijke advertentievrije app om uw contacten te beheren.</string>
     <string name="app_long_description">

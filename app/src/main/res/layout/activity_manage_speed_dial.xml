@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manage_speed_dial_scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/manage_speed_dial_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="HardcodedText">
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/manage_speed_dial_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/normal_margin"
+            android:text="@string/speed_dial_label"
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/speed_dial_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_margin"
+            android:text="1."
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/speed_dial_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_margin"
+            android:text="2."
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/speed_dial_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_margin"
+            android:text="3."
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/speed_dial_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_margin"
+            android:text="4."
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/speed_dial_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_margin"
+            android:text="5."
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/speed_dial_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_margin"
+            android:text="6."
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/speed_dial_7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_margin"
+            android:text="7."
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/speed_dial_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_margin"
+            android:text="8."
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/speed_dial_9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_margin"
+            android:text="9."
+            android:textSize="@dimen/bigger_text_size" />
+
+    </LinearLayout>
+</ScrollView>

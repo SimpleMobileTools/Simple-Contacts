@@ -100,7 +100,7 @@ class ViewContactActivity : ContactActivity() {
         if (contactId == 0 && isViewIntent) {
             val data = intent.data
             if (data != null) {
-                val rawId = if (data.path.contains("lookup")) {
+                val rawId = if (data.path!!.contains("lookup")) {
                     val lookupKey = getLookupKeyFromUri(data)
                     if (lookupKey != null) {
                         contact = ContactsHelper(this).getContactWithLookupKey(lookupKey)
@@ -205,20 +205,31 @@ class ViewContactActivity : ContactActivity() {
 
         ContactsHelper(this).getContactSources {
             contactSources = it
-            getDuplicateContacts {
-                setupPhoneNumbers()
-                setupEmails()
-                setupAddresses()
-                setupIMs()
-                setupEvents()
-                setupWebsites()
-                setupGroups()
-                setupContactSources()
-                setupNotes()
-                setupOrganization()
-                updateTextColors(contact_scrollview)
+            runOnUiThread {
+                setupContactDetails()
+                getDuplicateContacts {
+                    setupContactDetails()
+                }
             }
         }
+    }
+
+    private fun setupContactDetails() {
+        if (isFinishing || isDestroyed || contact == null) {
+            return
+        }
+
+        setupPhoneNumbers()
+        setupEmails()
+        setupAddresses()
+        setupIMs()
+        setupEvents()
+        setupWebsites()
+        setupGroups()
+        setupContactSources()
+        setupNotes()
+        setupOrganization()
+        updateTextColors(contact_scrollview)
     }
 
     private fun launchEditContact(contact: Contact) {

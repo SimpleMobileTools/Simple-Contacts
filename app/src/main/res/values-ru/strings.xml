@@ -21,7 +21,7 @@
     <string name="set_as_default">Сделать по умолчанию</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Контакты не найдены</string>
+    <string name="no_contacts_found">Контакты не найдены.</string>
     <string name="no_contacts_with_emails">Контакты с адресами электронной почты не найдены</string>
     <string name="no_contacts_with_phone_numbers">Контакты с номерами телефонов не найдены</string>
 
@@ -121,6 +121,11 @@
     <string name="decline_call">Отклонить</string>
     <string name="answer_call">Ответить</string>
 
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Выберите отображаемые поля</string>
     <string name="prefix">Префикс</string>
@@ -166,6 +171,8 @@
     <string name="faq_1_text">Да, всё, что вам нужно сделать, это зайти в \"Настройки\" → \"Управление отображаемыми полями контактов\". Там вы сможете выбрать, какие поля должны быть видимы. Некоторые из них даже отключены по умолчанию, так что вы можете найти некоторые новые.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Приложение для управления контактами. Конфиденциальное. Без рекламы.</string>
     <string name="app_long_description">

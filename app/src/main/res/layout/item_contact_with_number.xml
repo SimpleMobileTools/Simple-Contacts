@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contact_frame"
     android:layout_width="match_parent"
@@ -13,27 +12,29 @@
     <RelativeLayout
         android:id="@+id/contact_holder"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/contact_item_with_number_height"
-        android:paddingTop="@dimen/tiny_margin"
-        android:paddingEnd="@dimen/activity_margin">
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/medium_margin"
+        android:paddingEnd="@dimen/activity_margin"
+        android:paddingBottom="@dimen/medium_margin">
 
         <ImageView
             android:id="@+id/contact_tmb"
             android:layout_width="@dimen/normal_icon_size"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/normal_icon_size"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/small_margin"
             android:padding="@dimen/medium_margin"
-            android:src="@drawable/ic_person_vector"/>
+            android:src="@drawable/ic_person_vector" />
 
         <TextView
             android:id="@+id/contact_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/contact_tmb"
             android:layout_toEndOf="@+id/contact_tmb"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/big_text_size"
-            tools:text="John Doe"/>
+            tools:text="John Doe" />
 
         <TextView
             android:id="@+id/contact_number"
@@ -42,9 +43,10 @@
             android:layout_below="@+id/contact_name"
             android:layout_alignStart="@+id/contact_name"
             android:layout_toEndOf="@+id/contact_tmb"
+            android:alpha="0.6"
             android:maxLines="1"
             android:textSize="@dimen/bigger_text_size"
-            tools:text="0123 456 789"/>
+            tools:text="0123 456 789" />
 
     </RelativeLayout>
 </FrameLayout>

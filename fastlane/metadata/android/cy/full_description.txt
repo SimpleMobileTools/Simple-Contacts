@@ -1,0 +1,7 @@
+Ap syml i greu neu reoli dy gysylltiadau o unrhyw ffynhonnell. Caiff y cysylltiadau eu cadw ar dy ddyfais yn unig, ond mae hefyd yn bosib eu cysoni gyda Google neu gyfrifon eraill. Gellir golygu dy hoff gysylltiadau mewn rhestr ar wahân.
+
+Gellir ei ddefnyddio i reoli cyfeiriadau e-bost defnyddwyr a digwyddiadau hefyd. Mae ganddo'r gallu i drefnu mewn gwahanol ffyrdd ac i ddangos enwau gyda'r cyfenw gyntaf os yw'n well gennyt.
+
+Does dim hysbysebion na dim angen arno unrhyw ganiatâd diangen. Mae'n gwbl cod agored ac mae modd addasu lliwiau'r ap.
+
+Mae'r ap hwn yn un ymhlith nifer o apiau gennym. Mae'r gweddill i'w gweld ar https://www.simplemobiletools.com

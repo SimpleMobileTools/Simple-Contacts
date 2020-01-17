@@ -21,7 +21,7 @@
     <string name="set_as_default">Definir como padrão</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Nenhum contato encontrado</string>
+    <string name="no_contacts_found">Nenhum contato encontrado.</string>
     <string name="no_contacts_with_emails">Não foram encontrados contatos com e-mails</string>
     <string name="no_contacts_with_phone_numbers">Não foram encontrados contatos com números de telefone</string>
 
@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Procurar contatos</string>
     <string name="search_favorites">Procurar favoritos</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Procurar grupos</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Importar contatos</string>
@@ -120,6 +120,11 @@
     <string name="disconnected">Desligada</string>
     <string name="decline_call">Recusar</string>
     <string name="answer_call">Atender</string>
+
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Selecionar os campos a mostrar</string>
@@ -145,18 +150,18 @@
     <string name="blocked_numbers">Números bloqueados</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_contacts_confirmation">Você tem certeza que quer deletar %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_from_all_sources">O contato será removido de todas removido de todas as fontes de contato.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
-        <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacts</item>
+        <item quantity="one">%d contato</item>
+        <item quantity="other">%d contatos</item>
     </plurals>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d grupo</item>
+        <item quantity="other">%d grupos</item>
     </plurals>
 
     <!-- FAQ -->
@@ -164,6 +169,8 @@
     <string name="faq_1_text">Sim, você só precisa modificar as definições em Configurações -> Gerenciar os campos visíveis. Alguns campos estão desmarcados por padrão, então você encontrará alguns novos por lá.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Um aplicativo para gerenciar os seus contatos que respeita a sua privacidade.</string>
     <string name="app_long_description">

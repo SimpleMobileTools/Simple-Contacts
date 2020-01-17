@@ -21,7 +21,7 @@
     <string name="set_as_default">设为默认</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">未发现联系人</string>
+    <string name="no_contacts_found">未发现联系人.</string>
     <string name="no_contacts_with_emails">未发现含有电子邮箱的联系人</string>
     <string name="no_contacts_with_phone_numbers">未发现含有电话号码的联系人</string>
 
@@ -121,6 +121,11 @@
     <string name="decline_call">挂断电话</string>
     <string name="answer_call">回拨</string>
 
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">选择要显示的栏位</string>
     <string name="prefix">前缀</string>
@@ -164,6 +169,8 @@
     <string name="faq_1_text">可以，你要做的是到[设置] -> [管理显示的联系人栏位]。在那里，你可以选择应该看到什么栏位。其中有些甚至默认是关闭的，所以你可能会在那里发现一些新的。</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">一个没有广告的通讯录应用程序，用来管理联系人，并且尊重您的隐私。</string>
     <string name="app_long_description">

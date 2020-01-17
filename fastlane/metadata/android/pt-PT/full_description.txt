@@ -1,0 +1,7 @@
+Uma aplicação básica para criar e gerir contactos. Pode utilizar a aplicação guardar os contactos localmente, na sua conta Google ou em outro tipo de contas. Pode mostrar os contactos favoritos numa lista distinta.
+
+Também pode utilizar a aplicação para gerir endereços de e-mail e eventos. Tem a capacidade de ordenar/filtrar por diversos parâmetros e também a possibilidade de diversas formas de exibição dos contactos.
+
+Não contém anúncios ou permissões desnecessárias. É totalmente open source e permite personalização de cores.
+
+Esta aplicação é apenas parte de um conjunto mais vasto de aplicações. Saiba mais em https://www.simplemobiletools.com

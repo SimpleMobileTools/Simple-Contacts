@@ -21,7 +21,7 @@
     <string name="set_as_default">Ange som standard</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Inga kontakter hittades</string>
+    <string name="no_contacts_found">Inga kontakter hittades.</string>
     <string name="no_contacts_with_emails">Inga kontakter med e-postadresser hittades</string>
     <string name="no_contacts_with_phone_numbers">Inga kontakter med telefonnummer hittades</string>
 
@@ -58,9 +58,9 @@
     <string name="on_contact_click">Vid kontakttryckning</string>
     <string name="call_contact">Ring kontakt</string>
     <string name="view_contact">Visa kontaktuppgifter</string>
-    <string name="manage_shown_contact_fields">Hantera visade kontaktfält</string>
+    <string name="manage_shown_contact_fields">Välj vilka kontaktfält som ska visas</string>
     <string name="filter_duplicates">Försök filtrera bort dubblettkontakter</string>
-    <string name="manage_shown_tabs">Hantera visade flikar</string>
+    <string name="manage_shown_tabs">Välj vilka flikar som ska visas</string>
     <string name="contacts">Kontakter</string>
     <string name="favorites">Favoriter</string>
     <string name="show_call_confirmation_dialog">Visa en bekräftelsedialogruta före uppringning</string>
@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Sök efter kontakter</string>
     <string name="search_favorites">Sök efter favoriter</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Sök efter grupper</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Importera kontakter</string>
@@ -120,6 +120,11 @@
     <string name="disconnected">Frånkopplad</string>
     <string name="decline_call">Avvisa</string>
     <string name="answer_call">Svara</string>
+
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Välj vilka fält som ska visas</string>
@@ -145,18 +150,18 @@
     <string name="blocked_numbers">Blockerade nummer</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_contacts_confirmation">Är du säker på att du vill ta bort %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_from_all_sources">Kontakten kommer att tas bort från alla kontaktkällor.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
-        <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacts</item>
+        <item quantity="one">%d kontakt</item>
+        <item quantity="other">%d kontakter</item>
     </plurals>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d grupp</item>
+        <item quantity="other">%d grupper</item>
     </plurals>
 
     <!-- FAQ -->
@@ -164,6 +169,8 @@
     <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">En app för att hantera dina kontakter utan reklam, respekterar din integritet.</string>
     <string name="app_long_description">

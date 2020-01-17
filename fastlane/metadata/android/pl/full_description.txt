@@ -1,0 +1,7 @@
+Prosta aplikacja do tworzenia lub zarządzania Twoimi kontaktami przechowywanymi w różnych miejscach. Kontakty mogą być przechowywane tylko na Twoim urządzeniu, ale również synchronizowane przez konto Google lub inne konta. Możesz wyświetlać Twoje ulubione kontakty na oddzielnej liście.
+
+Możesz użyć jej także do zarządzania e-mailami użytkowników i wydarzeniami. Jest zdolna do sortowania/filtrowania według wielu parametrów, opcjonalnie do wyświetlania nazwiska jako imienia.
+
+Nie zawiera reklam oraz niekoniecznych uprawnień. Jest w pełni otwartoźródłowa i w pełni podatna na kolorowanie.
+
+Ta aplikacja jesst tylko częścią większej serii aplikacji. Możesz znaleźć pozostałe na https://www.simplemobiletools.com

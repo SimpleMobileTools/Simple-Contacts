@@ -1,6 +1,11 @@
 package com.simplemobiletools.contacts.pro.helpers
 
 import android.provider.ContactsContract.CommonDataKinds
+import android.telephony.PhoneNumberUtils
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.contacts.pro.models.LocalContact
 
 // shared prefs
@@ -16,6 +21,7 @@ const val SHOW_TABS = "show_tabs"
 const val SHOW_CALL_CONFIRMATION = "show_call_confirmation"
 const val SHOW_DIALPAD_BUTTON = "show_dialpad_button"
 const val SHOW_DIALPAD_LETTERS = "show_dialpad_letters"
+const val SPEED_DIAL = "speed_dial"
 
 const val CONTACT_ID = "contact_id"
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
@@ -30,6 +36,8 @@ const val REQUEST_CODE_SET_DEFAULT_DIALER = 1
 // extras used at third party intents
 const val KEY_PHONE = "phone"
 const val KEY_NAME = "name"
+const val KEY_EMAIL = "email"
+const val KEY_MAILTO = "mailto"
 
 const val LOCATION_CONTACTS_TAB = 0
 const val LOCATION_FAVORITES_TAB = 1
@@ -107,3 +115,20 @@ const val SIGNAL_PACKAGE = "org.thoughtcrime.securesms"
 const val WHATSAPP_PACKAGE = "com.whatsapp"
 
 fun getEmptyLocalContact() = LocalContact(0, "", "", "", "", "", "", null, ArrayList(), ArrayList(), ArrayList(), 0, ArrayList(), "", ArrayList(), "", "", ArrayList(), ArrayList())
+
+fun getProperText(text: String, shouldNormalize: Boolean) = if (shouldNormalize) text.normalizeString() else text
+
+fun highlightTextFromNumbers(name: String, textToHighlight: String, adjustedPrimaryColor: Int): SpannableString {
+    val spannableString = SpannableString(name)
+    val digits = PhoneNumberUtils.convertKeypadLettersToDigits(name)
+    if (digits.contains(textToHighlight)) {
+        val startIndex = digits.indexOf(textToHighlight, 0, true)
+        val endIndex = Math.min(startIndex + textToHighlight.length, name.length)
+        try {
+            spannableString.setSpan(ForegroundColorSpan(adjustedPrimaryColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        } catch (ignored: IndexOutOfBoundsException) {
+        }
+    }
+
+    return spannableString
+}

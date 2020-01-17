@@ -1,0 +1,4 @@
+ * Added many UI changes to refresh the apps look
+ * Fixed some third party intents and added handling for some new ones
+ * Show dialpad letters by default
+ * If the Dialpad button is hidden at the bottom, show it in the top Menu

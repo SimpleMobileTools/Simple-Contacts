@@ -54,7 +54,9 @@ class EditContactActivity : ContactActivity() {
     private var isSaving = false
     private var isThirdPartyIntent = false
     private var highlightLastPhoneNumber = false
+    private var highlightLastEmail = false
     private var numberViewToColor: EditText? = null
+    private var emailViewToColor: EditText? = null
     private var originalContactSource = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,10 +133,10 @@ class EditContactActivity : ContactActivity() {
         val action = intent.action
         if (contactId == 0 && (action == Intent.ACTION_EDIT || action == ADD_NEW_CONTACT_NUMBER)) {
             val data = intent.data
-            if (data != null) {
-                val rawId = if (data.path.contains("lookup")) {
+            if (data != null && data.path != null) {
+                val rawId = if (data.path!!.contains("lookup")) {
                     if (data.pathSegments.last().startsWith("local_")) {
-                        data.path.substringAfter("local_").toInt()
+                        data.path!!.substringAfter("local_").toInt()
                     } else {
                         getLookupUriRawId(data)
                     }
@@ -181,6 +183,13 @@ class EditContactActivity : ContactActivity() {
                 if (phoneNumber.isNotEmpty() && action == ADD_NEW_CONTACT_NUMBER) {
                     highlightLastPhoneNumber = true
                 }
+            }
+
+            val email = intent.getStringExtra(KEY_EMAIL)
+            if (email != null) {
+                val newEmail = Email(email, DEFAULT_EMAIL_TYPE, "")
+                contact!!.emails.add(newEmail)
+                highlightLastEmail = true
             }
 
             val firstName = intent.extras!!.get(KEY_NAME)
@@ -265,7 +274,8 @@ class EditContactActivity : ContactActivity() {
         }
 
         updateTextColors(contact_scrollview)
-        numberViewToColor?.setTextColor(getAdjustedPrimaryColor())
+        numberViewToColor?.setTextColor(adjustedPrimaryColor)
+        emailViewToColor?.setTextColor(adjustedPrimaryColor)
         wasActivityInitialized = true
         invalidateOptionsMenu()
     }
@@ -440,6 +450,9 @@ class EditContactActivity : ContactActivity() {
             emailHolder!!.apply {
                 contact_email.setText(email.value)
                 setupEmailTypePicker(contact_email_type, email.type, email.label)
+                if (highlightLastEmail && index == contact!!.emails.size - 1) {
+                    emailViewToColor = contact_email
+                }
             }
         }
     }

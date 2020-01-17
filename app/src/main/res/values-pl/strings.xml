@@ -2,8 +2,8 @@
     <string name="app_name">Proste Kontakty</string>
     <string name="app_launcher_name">Kontakty</string>
     <string name="address">Adres</string>
-    <string name="inserting">Dodawanie...</string>
-    <string name="updating">Aktualizowanie...</string>
+    <string name="inserting">Dodawanie…</string>
+    <string name="updating">Aktualizowanie…</string>
     <string name="phone_storage">Pamięć telefonu</string>
     <string name="phone_storage_hidden">Pamięć telefonu (niewidoczna dla innych aplikacji)</string>
     <string name="company">Firma</string>
@@ -21,7 +21,7 @@
     <string name="set_as_default">Ustaw jako domyślną</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Nie znaleziono kontaktów</string>
+    <string name="no_contacts_found">Nie znaleziono kontaktów.</string>
     <string name="no_contacts_with_emails">Nie znaleziono kontaktów z adresami e-mail</string>
     <string name="no_contacts_with_phone_numbers">Nie znaleziono kontaktów z numerami telefonów</string>
 
@@ -121,6 +121,11 @@
     <string name="decline_call">Odrzuć</string>
     <string name="answer_call">Odpowiedz</string>
 
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Wybierz pola do pokazywania</string>
     <string name="prefix">Prefiks</string>
@@ -164,6 +169,8 @@
     <string name="faq_1_text">Tak, wszystko, co musisz zrobić, to wejść do Ustawień -> Zarządzaj pokazywanymi polami kontaktu. Możesz tam wybrać, które pola mają być wyświetlane. Niektóre z nich są nawet domyślnie wyłączone, więc możesz znaleźć tam wiele z nich nowych.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Aplikacja do zarządzania Twoimi kontaktami, bez reklam, szanująca prywatność.</string>
     <string name="app_long_description">

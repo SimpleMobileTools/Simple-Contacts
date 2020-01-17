@@ -1,0 +1,7 @@
+En simpel app til at oprette eller administrere dine kontakter fra enhver kilde. Kontakterne kan gemmes kun på din enhed, eller synkroniseres via Google eller andre konti. Du kan vise dine foretrukne kontakter på en separat liste. 
+
+Du kan også bruge den til at styre bruger-emails og begivenheder. Den har muligheden for at sortere / filtrere efter flere parametre, og vise efternavn eller fornavn først. 
+
+Indeholder ingen annoncer eller unødvendige tilladelser. Det er fuldstændigt opensource. Appens farver kan tilpasses.
+
+Denne app er kun en af en større række af apps. Du kan finde resten af dem på https://www.simplemobiletools.com

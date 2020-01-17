@@ -21,7 +21,7 @@
     <string name="set_as_default">Ορισμός ως προεπιλογής</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Δεν βρέθηκαν Επαφές</string>
+    <string name="no_contacts_found">Δεν βρέθηκαν Επαφές.</string>
     <string name="no_contacts_with_emails">Δεν βρέθηκαν Επαφές με emails</string>
     <string name="no_contacts_with_phone_numbers">Δεν βρέθηκαν Επαφές με αριθμό τηλεφώνου</string>
 
@@ -121,6 +121,11 @@
     <string name="decline_call">Άρνηση</string>
     <string name="answer_call">Απάντηση</string>
 
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Επιλογή εμφάνισης πεδίων</string>
     <string name="prefix">Πρόθεμα</string>
@@ -164,6 +169,8 @@
     <string name="faq_1_text">Ναι, το μόνο που έχετε να κάνετε είναι να μεταβείτε στις Ρυθμίσεις -> Διαχείριση εμφανιζόμενων πεδίων επαφής. Εκεί μπορείτε να επιλέξετε ποια πεδία θα πρέπει να είναι ορατά. Κάποια από αυτά είναι ακόμη και απενεργοποιημένα από προεπιλογή, επομένως ίσως βρείτε κάποια νέα εκεί.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Απλές Επαφές Pro - Εύκολη διαχείριση Επαφών</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Μια εφαρμογή για τις Επαφές σας χωρίς διαφημίσεις, σεβόμενη το απόρρητό σας.</string>
     <string name="app_long_description">

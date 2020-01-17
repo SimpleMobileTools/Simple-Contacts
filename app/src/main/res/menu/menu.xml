@@ -18,6 +18,11 @@
         android:title="@string/filter"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/dialpad"
+        android:icon="@drawable/ic_dialpad_vector"
+        android:title="@string/dialpad"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/import_contacts"
         android:title="@string/import_contacts_from_vcf"
         app:showAsAction="never"/>

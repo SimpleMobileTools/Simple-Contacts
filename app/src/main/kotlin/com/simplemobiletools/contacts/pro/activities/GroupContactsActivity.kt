@@ -32,7 +32,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         setContentView(R.layout.activity_group_contacts)
         updateTextColors(group_contacts_coordinator)
 
-        group = intent.extras.getSerializable(GROUP) as Group
+        group = intent.extras?.getSerializable(GROUP) as Group
         supportActionBar?.title = group.title
 
         group_contacts_fab.setOnClickListener {
@@ -106,7 +106,6 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
             ContactsAdapter(this, contacts, this, LOCATION_GROUP_CONTACTS, this, group_contacts_list, group_contacts_fastscroller) {
                 contactClicked(it as Contact)
             }.apply {
-                addVerticalDividers(true)
                 group_contacts_list.adapter = this
             }
 
@@ -122,6 +121,10 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
 
     override fun refreshContacts(refreshTabsMask: Int) {
         refreshContacts()
+    }
+
+    override fun contactClicked(contact: Contact) {
+        handleGenericContactClick(contact)
     }
 
     override fun removeFromGroup(contacts: ArrayList<Contact>) {

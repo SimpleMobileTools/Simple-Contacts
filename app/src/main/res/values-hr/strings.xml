@@ -21,7 +21,7 @@
     <string name="set_as_default">Postavi na zadano</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Nisu pronađeni kontakti</string>
+    <string name="no_contacts_found">Nisu pronađeni kontakti.</string>
     <string name="no_contacts_with_emails">Nije pronađen nijedan kontakt s e-poštom</string>
     <string name="no_contacts_with_phone_numbers">Nisu pronađeni kontakti s telefonskim brojevima</string>
 
@@ -115,11 +115,16 @@
     <string name="dialer">Birač broja</string>
     <string name="calling">Pozivanje</string>
     <string name="incoming_call">Dolazni poziv</string>
-    <string name="incoming_call_from">Dolazni poziv od...</string>
+    <string name="incoming_call_from">Dolazni poziv od…</string>
     <string name="ongoing_call">Poziv u tijeku</string>
     <string name="disconnected">Prekinuto</string>
     <string name="decline_call">Odbij</string>
     <string name="answer_call">Odgovori</string>
+
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Odaberi polja za prikaz</string>
@@ -164,6 +169,8 @@
     <string name="faq_1_text">Da, sve što morate učiniti je otići u Postavke -> Upravljanje poljima za prikaz. Tamo možete odabrati polja koja bi trebala biti vidljiva. Neka od njih su čak i onemogućena prema zadanim postavkama, tako da možete pronaći neke nove.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Aplikacija za upravljanje kontaktima, bez oglasa, poštujući Vašu privatnost.</string>
     <string name="app_long_description">
@@ -173,7 +180,7 @@
 
         Ne sadrži oglase ili nepotrebne dozvole. Aplikacije je otvorenog koda, pruža prilagodljive boje.
 
-        Ova je aplikacija samo dio većeg broja aplikacija. Možete pronaći ostatak na http://www.simplemobiletools.com
+        Ova je aplikacija samo dio većeg broja aplikacija. Možete pronaći ostatak na https://www.simplemobiletools.com
     </string>
 
     <!--

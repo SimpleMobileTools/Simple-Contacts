@@ -67,7 +67,7 @@ class ContactsHelper(val context: Context) {
             }
 
             if (ignoredContactSources.isEmpty() && !getAll) {
-                tempContacts.filter { displayContactSources.contains(it.source) }.groupBy { it.getNameToDisplay().toLowerCase()}.values.forEach { it ->
+                tempContacts.filter { displayContactSources.contains(it.source) }.groupBy { it.getNameToDisplay().toLowerCase() }.values.forEach { it ->
                     if (it.size == 1) {
                         resultContacts.add(it.first())
                     } else {
@@ -143,8 +143,8 @@ class ContactsHelper(val context: Context) {
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = getContactProjection()
 
-        val selection = "${ContactsContract.Data.MIMETYPE} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+        val selection = "${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
         val sortOrder = getSortString()
 
         var cursor: Cursor? = null
@@ -159,11 +159,21 @@ class ContactsHelper(val context: Context) {
                     }
 
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
-                    val firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
-                    val middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
-                    val surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
-                    val suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
+                    var prefix = ""
+                    var firstName = ""
+                    var middleName = ""
+                    var surname = ""
+                    var suffix = ""
+
+                    // ignore names at Organization type contacts
+                    if (cursor.getStringValue(ContactsContract.Data.MIMETYPE) == CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE) {
+                        prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
+                        firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
+                        middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
+                        surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
+                        suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
+                    }
+
                     val nickname = ""
                     val photoUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
                     val numbers = ArrayList<PhoneNumber>()          // proper value is obtained below
@@ -788,14 +798,14 @@ class ContactsHelper(val context: Context) {
             return LocalContactsHelper(context).getContactWithId(id)
         }
 
-        val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, id.toString())
+        val selection = "(${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?) AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, id.toString())
         return parseContactCursor(selection, selectionArgs)
     }
 
     fun getContactWithLookupKey(key: String): Contact? {
-        val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.LOOKUP_KEY} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, key)
+        val selection = "(${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?) AND ${ContactsContract.Data.LOOKUP_KEY} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, key)
         return parseContactCursor(selection, selectionArgs)
     }
 
@@ -808,11 +818,22 @@ class ContactsHelper(val context: Context) {
             cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor?.moveToFirst() == true) {
                 val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                val prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
-                val firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
-                val middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
-                val surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
-                val suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
+
+                var prefix = ""
+                var firstName = ""
+                var middleName = ""
+                var surname = ""
+                var suffix = ""
+
+                // ignore names at Organization type contacts
+                if (cursor.getStringValue(ContactsContract.Data.MIMETYPE) == CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE) {
+                    prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
+                    firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
+                    middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
+                    surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
+                    suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
+                }
+
                 val nickname = getNicknames(id)[id] ?: ""
                 val photoUri = cursor.getStringValue(CommonDataKinds.Phone.PHOTO_URI) ?: ""
                 val number = getPhoneNumbers(id)[id] ?: ArrayList()
@@ -879,6 +900,7 @@ class ContactsHelper(val context: Context) {
     private fun getContactSourceType(accountName: String) = getDeviceContactSources().firstOrNull { it.name == accountName }?.type ?: ""
 
     private fun getContactProjection() = arrayOf(
+            ContactsContract.Data.MIMETYPE,
             ContactsContract.Data.CONTACT_ID,
             ContactsContract.Data.RAW_CONTACT_ID,
             CommonDataKinds.StructuredName.PREFIX,
@@ -895,25 +917,19 @@ class ContactsHelper(val context: Context) {
 
     private fun getSortString(): String {
         val sorting = context.config.sorting
-        var sort = when {
+        return when {
             sorting and SORT_BY_FIRST_NAME != 0 -> "${CommonDataKinds.StructuredName.GIVEN_NAME} COLLATE NOCASE"
             sorting and SORT_BY_MIDDLE_NAME != 0 -> "${CommonDataKinds.StructuredName.MIDDLE_NAME} COLLATE NOCASE"
             sorting and SORT_BY_SURNAME != 0 -> "${CommonDataKinds.StructuredName.FAMILY_NAME} COLLATE NOCASE"
             else -> CommonDataKinds.Phone.NUMBER
         }
-
-        if (sorting and SORT_DESCENDING != 0) {
-            sort += " DESC"
-        }
-
-        return sort
     }
 
     private fun getRealContactId(id: Long): Int {
         val uri = ContactsContract.Data.CONTENT_URI
         val projection = getContactProjection()
-        val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, id.toString())
+        val selection = "(${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?) AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, id.toString())
         var cursor: Cursor? = null
         try {
             cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
@@ -936,8 +952,8 @@ class ContactsHelper(val context: Context) {
         try {
             val operations = ArrayList<ContentProviderOperation>()
             ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
-                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND (${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?)"
+                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 withValue(CommonDataKinds.StructuredName.PREFIX, contact.prefix)
                 withValue(CommonDataKinds.StructuredName.GIVEN_NAME, contact.firstName)
@@ -1250,8 +1266,6 @@ class ContactsHelper(val context: Context) {
             ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI).apply {
                 withValue(ContactsContract.RawContacts.ACCOUNT_NAME, contact.source)
                 withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, getContactSourceType(contact.source))
-                withValue(ContactsContract.RawContacts.DIRTY, 0)
-                withValue(ContactsContract.RawContacts.DELETED, 0)
                 operations.add(build())
             }
 
@@ -1433,7 +1447,7 @@ class ContactsHelper(val context: Context) {
         val baseUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, contactId)
         val displayPhotoUri = Uri.withAppendedPath(baseUri, ContactsContract.RawContacts.DisplayPhoto.CONTENT_DIRECTORY)
         val fileDescriptor = context.contentResolver.openAssetFileDescriptor(displayPhotoUri, "rw")
-        val photoStream = fileDescriptor.createOutputStream()
+        val photoStream = fileDescriptor!!.createOutputStream()
         photoStream.write(fullSizePhotoData)
         photoStream.close()
         fileDescriptor.close()

@@ -21,7 +21,7 @@
     <string name="set_as_default">Tetapkan sebagai default</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Tidak ada kontak yang ditemukan</string>
+    <string name="no_contacts_found">Tidak ada kontak yang ditemukan.</string>
     <string name="no_contacts_with_emails">Tidak ada kontak dengan alamat surel yang ditemukan</string>
     <string name="no_contacts_with_phone_numbers">Tidak ada kontak dengan nomor telepon yang ditemukan</string>
 
@@ -121,6 +121,11 @@
     <string name="decline_call">Tolak</string>
     <string name="answer_call">Jawab</string>
 
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Pilih ruas untuk ditampilkan</string>
     <string name="prefix">Awalan</string>
@@ -146,7 +151,7 @@
 
     <!-- Confirmation dialog -->
     <string name="delete_contacts_confirmation">Apakah anda yakin ingin menghapus %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_from_all_sources">Kontak akan dihapus dari semua sumber kontak.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
@@ -164,6 +169,8 @@
     <string name="faq_1_text">Ya, yang perlu anda lakukan adalah kunjungi Pengaturan -> Kelola ruas kontak yang ditampilkan. Lalu anda bisa memilih ruas yang ingin ditampilkan. Beberapa ruas dinonaktifkan secara bawaan, jadi anda mungkin akan menemukan yang baru di sana.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Aplikasi untuk mengelola kontak tanpa iklan, menghargai privasi anda.</string>
     <string name="app_long_description">

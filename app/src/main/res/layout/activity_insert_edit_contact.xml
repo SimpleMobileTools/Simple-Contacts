@@ -1,72 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/insert_edit_contact_holder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/insert_or_edit_tabs_holder"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:elevation="6dp"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabIndicatorHeight="2dp"
+        app:tabMinWidth="150dp"
+        app:tabSelectedTextColor="@android:color/white" />
+
     <RelativeLayout
         android:id="@+id/new_contact_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/insert_or_edit_tabs_holder"
         android:background="?attr/selectableItemBackground"
-        android:paddingEnd="@dimen/activity_margin">
+        android:paddingTop="@dimen/medium_margin"
+        android:paddingEnd="@dimen/activity_margin"
+        android:paddingBottom="@dimen/medium_margin">
 
         <ImageView
             android:id="@+id/new_contact_tmb"
             android:layout_width="@dimen/normal_icon_size"
             android:layout_height="@dimen/normal_icon_size"
-            android:layout_alignTop="@+id/new_contact_name"
-            android:layout_alignBottom="@+id/new_contact_name"
+            android:layout_centerVertical="true"
             android:padding="@dimen/medium_margin"
-            android:src="@drawable/ic_new_contact_vector"/>
+            android:src="@drawable/ic_new_contact_vector" />
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/new_contact_name"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/create_new_contact_height"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/new_contact_tmb"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
+            android:paddingStart="@dimen/small_margin"
             android:text="@string/create_new_contact"
-            android:textSize="@dimen/big_text_size"/>
+            android:textSize="@dimen/big_text_size" />
 
     </RelativeLayout>
 
     <com.simplemobiletools.commons.views.MyTextView
-        android:id="@+id/existing_contact_label"
+        android:id="@+id/select_contact_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/new_contact_holder"
         android:layout_marginStart="@dimen/bigger_margin"
-        android:layout_marginLeft="@dimen/bigger_margin"
+        android:layout_marginTop="@dimen/small_margin"
         android:layout_marginBottom="@dimen/activity_margin"
         android:text="@string/add_to_existing_contact"
         android:textAllCaps="true"
-        android:textSize="@dimen/smaller_text_size"/>
+        android:textSize="@dimen/smaller_text_size" />
 
-    <com.simplemobiletools.commons.views.MyRecyclerView
-        android:id="@+id/existing_contact_list"
+    <com.simplemobiletools.commons.views.MyViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/existing_contact_label"
-        android:clipToPadding="false"
-        android:scrollbars="none"
-        app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager"/>
+        android:layout_below="@+id/select_contact_label" />
 
-    <com.simplemobiletools.commons.views.FastScroller
-        android:id="@+id/existing_contact_fastscroller"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/existing_contact_label"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:paddingStart="@dimen/normal_margin"
-        android:paddingLeft="@dimen/normal_margin">
-
-        <include layout="@layout/fastscroller_handle_vertical"/>
-
-    </com.simplemobiletools.commons.views.FastScroller>
 </RelativeLayout>

@@ -1,0 +1,7 @@
+Aplikasi sederhana untuk membuat dan mengelola kontak anda dari berbagai sumber. Kontak bisa disimpan hanya pada perangkat anda, tetapi juga disinkronisasikan melalui Google, atau akun lainnya. Anda bisa menampilkan kontak favorit anda pada daftar terpisah.
+
+Anda juga bisa menggunakannya untuk mengelola surel dan acara. Memiliki kemampuan untuk mengurutkan/menyaring menggunakan banyak parameter, dan secara opsional menampilkan nama belakang sebagai awalan nama.
+
+Tanpa iklan dan perizinan yang tidak perlu. Sepenuhnya sumber terbuka, dengan warna yang bisa disesuaikan.
+
+Aplikasi ini hanya salah satu bagian dari rangkaian aplikasi yang lebih besar. Anda bisa menemukan yang lainnya di https://www.simplemobiletools.com

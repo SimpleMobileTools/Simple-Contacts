@@ -1,0 +1,7 @@
+Jednostavna aplikacija za izradu ili upravljanje kontaktima iz bilo kojeg izvora. Kontakti mogu biti pohranjeni samo na Vašem uređaju, ali i sinkronizirani putem Googlea ili drugih računa. Možete prikazati svoje omiljene kontakte na zasebnom popisu.
+
+Možete ju koristiti za upravljanje e-poštom i događajima. Ima mogućnost sortirati/filtrirati višestrukim parametrima, po želji može prikazati prezime prvo, zatim ime.
+
+Ne sadrži oglase ili nepotrebne dozvole. Aplikacije je otvorenog koda, pruža prilagodljive boje.
+
+Ova je aplikacija samo dio većeg broja aplikacija. Možete pronaći ostatak na https://www.simplemobiletools.com

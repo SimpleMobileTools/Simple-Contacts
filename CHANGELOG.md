@@ -1,6 +1,44 @@
 Changelog
 ==========
 
+Version 6.5.2 *(2020-01-04)*
+----------------------------
+
+ * Fixed some theming issues
+ * Added some UI and translation improvements
+
+Version 6.5.1 *(2019-12-07)*
+----------------------------
+
+ * Rewrote the Select Contact screen for handling contact picking for other apps
+ * Fixed a glitch with some contacts not being visible in some cases
+
+Version 6.5.0 *(2019-12-05)*
+----------------------------
+
+ * Added many UI changes to refresh the apps look
+ * Fixed some third party intents and added handling for some new ones
+ * Show dialpad letters by default
+ * If the Dialpad button is hidden at the bottom, show it in the top Menu
+
+Version 6.4.4 *(2019-10-28)*
+----------------------------
+
+ * Improving the performance at fetching local contacts
+
+Version 6.4.3 *(2019-10-28)*
+----------------------------
+
+ * Fixed some Organization type contacts not being visible
+ * Improve the performance at showing a specific Contact details
+ * Added some stability and translation improvements
+
+Version 6.4.2 *(2019-10-14)*
+----------------------------
+
+ * Close search at opening a contact
+ * Some smaller misc improvements
+
 Version 6.4.1 *(2019-09-16)*
 ----------------------------
 

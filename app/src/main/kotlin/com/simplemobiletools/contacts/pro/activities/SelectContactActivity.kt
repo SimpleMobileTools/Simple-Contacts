@@ -1,11 +1,15 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
@@ -17,11 +21,15 @@ import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getContactPublicUri
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
+import com.simplemobiletools.contacts.pro.helpers.getProperText
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_select_contact.*
 
 class SelectContactActivity : SimpleActivity() {
     private var specialMimeType: String? = null
+    private var isSearchOpen = false
+    private var searchMenuItem: MenuItem? = null
+    private var contactsIgnoringSearch = ArrayList<Contact>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +63,14 @@ class SelectContactActivity : SimpleActivity() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        searchMenuItem?.collapseActionView()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_select_activity, menu)
+        setupSearch(menu)
         updateMenuItemColors(menu)
         return true
     }
@@ -68,6 +82,79 @@ class SelectContactActivity : SimpleActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun setupSearch(menu: Menu) {
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchMenuItem = menu.findItem(R.id.search)
+        (searchMenuItem!!.actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            isSubmitButtonEnabled = false
+            queryHint = getString(R.string.search_contacts)
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String) = false
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    if (isSearchOpen) {
+                        onSearchQueryChanged(newText)
+                    }
+                    return true
+                }
+            })
+        }
+
+        MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                onSearchOpened()
+                isSearchOpen = true
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                onSearchClosed()
+                isSearchOpen = false
+                return true
+            }
+        })
+    }
+
+    private fun onSearchQueryChanged(text: String) {
+        val adapter = select_contact_list.adapter
+        if (adapter != null && adapter is SelectContactsAdapter) {
+            val shouldNormalize = text.normalizeString() == text
+            val filtered = contactsIgnoringSearch.filter {
+                getProperText(it.getNameToDisplay(), shouldNormalize).contains(text, true) ||
+                        getProperText(it.nickname, shouldNormalize).contains(text, true) ||
+                        it.doesContainPhoneNumber(text, false) ||
+                        it.emails.any { it.value.contains(text, true) } ||
+                        it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
+                        it.IMs.any { it.value.contains(text, true) } ||
+                        getProperText(it.notes, shouldNormalize).contains(text, true) ||
+                        getProperText(it.organization.company, shouldNormalize).contains(text, true) ||
+                        getProperText(it.organization.jobPosition, shouldNormalize).contains(text, true) ||
+                        it.websites.any { it.contains(text, true) }
+            } as ArrayList
+
+            filtered.sortBy {
+                val nameToDisplay = it.getNameToDisplay()
+                !getProperText(nameToDisplay, shouldNormalize).startsWith(text, true) && !nameToDisplay.contains(text, true)
+            }
+
+            if (filtered.isEmpty()) {
+                select_contact_placeholder.text = getString(R.string.no_items_found)
+            }
+
+            select_contact_placeholder.beVisibleIf(filtered.isEmpty())
+            adapter.updateItems(filtered, text.normalizeString())
+        }
+    }
+
+    private fun onSearchOpened() {
+        contactsIgnoringSearch = (select_contact_list.adapter as? SelectContactsAdapter)?.contacts ?: ArrayList()
+    }
+
+    private fun onSearchClosed() {
+        (select_contact_list.adapter as? SelectContactsAdapter)?.updateItems(contactsIgnoringSearch)
     }
 
     private fun showSortingDialog() {
@@ -106,7 +193,7 @@ class SelectContactActivity : SimpleActivity() {
 
             runOnUiThread {
                 updatePlaceholderVisibility(contacts)
-                SelectContactsAdapter(this, contacts, ArrayList(), false, select_contact_list) {
+                SelectContactsAdapter(this, contacts, ArrayList(), false, select_contact_list, select_contact_fastscroller) {
                     confirmSelection(it)
                 }.apply {
                     select_contact_list.adapter = this

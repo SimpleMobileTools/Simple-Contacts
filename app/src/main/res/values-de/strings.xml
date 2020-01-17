@@ -21,7 +21,7 @@
     <string name="set_as_default">Als Standard auswählen</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Keine Kontakte gefunden</string>
+    <string name="no_contacts_found">Keine Kontakte gefunden.</string>
     <string name="no_contacts_with_emails">Keine Kontakte mit E-Mailadressen gefunden</string>
     <string name="no_contacts_with_phone_numbers">Keine Kontakte mit Telefonnummern gefunden</string>
 
@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Kontakte durchsuchen</string>
     <string name="search_favorites">Favoriten durchsuchen</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Gruppen durchsuchen</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Kontakte importieren</string>
@@ -121,13 +121,18 @@
     <string name="decline_call">Ablehnen</string>
     <string name="answer_call">Antworten</string>
 
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Sichtbare Felder auswählen</string>
     <string name="prefix">Titel</string>
     <string name="suffix">Suffix</string>
     <string name="phone_numbers">Telefonnummern</string>
     <string name="emails">E-Mails</string>
-    <string name="addresses">Addressen</string>
+    <string name="addresses">Adressen</string>
     <string name="events">Termine (Geburtstage, Jahrestage)</string>
     <string name="notes">Notizen</string>
     <string name="organization">Organisation</string>
@@ -145,18 +150,18 @@
     <string name="blocked_numbers">Blockierte Nummern</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_contacts_confirmation">Sind Sie sicher, dass Sie %s löschen wollen?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_from_all_sources">Der Kontakt wird von allen Kontaktquellen entfernt.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
-        <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacts</item>
+        <item quantity="one">%d Kontakt</item>
+        <item quantity="other">%d Kontakte</item>
     </plurals>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d Gruppe</item>
+        <item quantity="other">%d Gruppen</item>
     </plurals>
 
     <!-- FAQ -->
@@ -164,8 +169,10 @@
     <string name="faq_1_text">Ja, alles, was Sie tun müssen ist folgendes: Gehen Sie zu Einstellungen -> Bearbeite sichtbare Kontaktfelder. Hier können die sichtbaren Felder ausgewählt werden. Einige sind standardmäßig deaktiviert, weshalb hier neue gefunden werden können.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Schlichte Kontakte Pro - Mühlose Kontaktverwaltung</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
+    <string name="app_short_description">Verwaltet Ihre Kontakte ohne Werbeanzeigen und respektiert Ihre Privatsphäre.</string>
     <string name="app_long_description">
         Eine einfache App, mit der Sie Kontakte erstellen oder von jeder Quelle verwalten können. Die Kontakte können entweder nur auf Ihrem Gerät gespeichert, oder mittels Google oder anderer Konten synchronisiert werden. Sie können Ihre Lieblingskontake in einer separaten Liste anzeigen.
 

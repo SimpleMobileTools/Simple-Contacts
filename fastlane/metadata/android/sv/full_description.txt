@@ -1,0 +1,7 @@
+En enkel app för att skapa och hantera kontakter från olika källor. Kontakterna kan lagras bara på din enhet, men kan också synkroniseras med ditt Google-konto eller andra konton. Du kan visa dina favoritkontakter i en separat lista.
+
+Du kan också använda den för att hantera dina kontakters e-postadresser och händelser. Den kan sortera och filtrera efter flera parametrar. Den kan också visa efternamn först.
+
+Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och anpassningsbara färger.
+
+Denna app är bara en del av en större serie appar. Du hittar resten av dem på https://www.simplemobiletools.com

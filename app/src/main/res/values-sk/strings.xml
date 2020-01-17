@@ -21,7 +21,7 @@
     <string name="set_as_default">Nastaviť ako predvolenú</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Nenašli sa žiadne kontakty</string>
+    <string name="no_contacts_found">Nenašli sa žiadne kontakty.</string>
     <string name="no_contacts_with_emails">Nenašli sa žiadne kontakty s emailami</string>
     <string name="no_contacts_with_phone_numbers">Nenašli sa žiadne kontakty s telefónnymi číslami</string>
 
@@ -121,6 +121,11 @@
     <string name="decline_call">Odmietnuť</string>
     <string name="answer_call">Prijať</string>
 
+    <!-- Speed dial -->
+    <string name="speed_dial">Rýchle vytáčanie</string>
+    <string name="manage_speed_dial">Spravovať rýchle vytáčanie</string>
+    <string name="speed_dial_label">Pre priradenie kontaktu kliknite na číslo. Následne viete daný kontakt rýchlo vytočiť dlhým podržaním čísla na číselníku.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Zvoľte polia na zobrazenie</string>
     <string name="prefix">Titul pred menom</string>
@@ -166,6 +171,8 @@
     <string name="faq_1_text">Áno, stačí ísť do Nastavenia -> Spravovať zobrazené polia kontaktov. Tam si viete zvoliť, ktoré polia majú byť viditeľné. Niektoré sú v predvolenom stave vypnuté, čiže tam môžete objaviť aj nové.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Jednoduché kontakty Pro - Rýchla správa kontaktov</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Apka na správu vašich kontaktov bez reklám, rešpektujúca vaše súkromie.</string>
     <string name="app_long_description">

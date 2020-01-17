@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -14,24 +13,31 @@ import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
+import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.Config
+import com.simplemobiletools.contacts.pro.helpers.highlightTextFromNumbers
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.item_add_favorite_with_number.view.*
 import java.util.*
 
-class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Contact>, private val selectedContacts: ArrayList<Contact>, private val allowPickMultiple: Boolean,
-                            private val recyclerView: MyRecyclerView, private val itemClick: ((Contact) -> Unit)? = null) : RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
+class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayList<Contact>, private val selectedContacts: ArrayList<Contact>, private val allowPickMultiple: Boolean,
+                            recyclerView: MyRecyclerView, val fastScroller: FastScroller, private val itemClick: ((Contact) -> Unit)? = null) :
+        RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
     private val itemViews = SparseArray<View>()
     private val selectedPositions = HashSet<Int>()
     private val config = activity.config
     private val textColor = config.textColor
+    private val adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
+
     private val contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person_vector, textColor)
     private val showContactThumbnails = config.showContactThumbnails
     private val itemLayout = if (config.showPhoneNumbers) R.layout.item_add_favorite_with_number else R.layout.item_add_favorite_without_number
+    private var textToHighlight = ""
 
     private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
     private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
@@ -45,11 +51,6 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
         if (recyclerView.itemDecorationCount > 0) {
             recyclerView.removeItemDecorationAt(0)
-        }
-
-        DividerItemDecoration(activity, DividerItemDecoration.VERTICAL).apply {
-            setDrawable(activity.resources.getDrawable(R.drawable.divider))
-            recyclerView.addItemDecoration(this)
         }
     }
 
@@ -84,6 +85,25 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
     override fun getItemCount() = contacts.size
 
+    fun updateItems(newItems: ArrayList<Contact>, highlightText: String = "") {
+        if (newItems.hashCode() != contacts.hashCode()) {
+            contacts = newItems.clone() as ArrayList<Contact>
+            textToHighlight = highlightText
+            notifyDataSetChanged()
+        } else if (textToHighlight != highlightText) {
+            textToHighlight = highlightText
+            notifyDataSetChanged()
+        }
+        fastScroller.measureRecyclerView()
+    }
+
+    override fun onViewRecycled(holder: ViewHolder) {
+        super.onViewRecycled(holder)
+        if (!activity.isDestroyed && !activity.isFinishing) {
+            Glide.with(activity).clear(holder.itemView.contact_tmb)
+        }
+    }
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(contact: Contact, contactDrawable: Drawable, config: Config, showContactThumbnails: Boolean,
                      smallPadding: Int, bigPadding: Int): View {
@@ -92,13 +112,30 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
                 contact_checkbox.setColors(config.textColor, context.getAdjustedPrimaryColor(), config.backgroundColor)
                 val textColor = config.textColor
 
-                contact_name.text = contact.getNameToDisplay()
+                val fullName = contact.getNameToDisplay()
+                contact_name.text = if (textToHighlight.isEmpty()) fullName else {
+                    if (fullName.contains(textToHighlight, true)) {
+                        fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+                    } else {
+                        highlightTextFromNumbers(fullName, textToHighlight, adjustedPrimaryColor)
+                    }
+                }
+
                 contact_name.setTextColor(textColor)
                 contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
 
-                contact_number?.text = contact.phoneNumbers.firstOrNull()?.value ?: ""
-                contact_number?.setTextColor(textColor)
-                contact_number?.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
+                if (contact_number != null) {
+                    val phoneNumberToUse = if (textToHighlight.isEmpty()) {
+                        contact.phoneNumbers.firstOrNull()
+                    } else {
+                        contact.phoneNumbers.firstOrNull { it.value.contains(textToHighlight) } ?: contact.phoneNumbers.firstOrNull()
+                    }
+
+                    val numberText = phoneNumberToUse?.value ?: ""
+                    contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
+                    contact_number.setTextColor(textColor)
+                    contact_number.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
+                }
 
                 contact_frame.setOnClickListener {
                     if (itemClick != null) {
@@ -118,7 +155,12 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
                                 .centerCrop()
 
                         if (!activity.isDestroyed && !activity.isFinishing) {
-                            Glide.with(activity).load(contact.photoUri).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(contact_tmb)
+                            Glide.with(activity)
+                                    .load(contact.photoUri)
+                                    .transition(DrawableTransitionOptions.withCrossFade())
+                                    .apply(options)
+                                    .apply(RequestOptions.circleCropTransform())
+                                    .into(contact_tmb)
                         }
                     } else {
                         contact_tmb.setImageDrawable(contactDrawable)
@@ -131,13 +173,6 @@ class SelectContactsAdapter(val activity: SimpleActivity, val contacts: List<Con
 
         private fun viewClicked(select: Boolean) {
             toggleItemSelection(select, adapterPosition)
-        }
-    }
-
-    override fun onViewRecycled(holder: ViewHolder) {
-        super.onViewRecycled(holder)
-        if (!activity.isDestroyed && !activity.isFinishing) {
-            Glide.with(activity).clear(holder.itemView.contact_tmb)
         }
     }
 }

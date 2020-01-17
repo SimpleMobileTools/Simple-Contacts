@@ -101,7 +101,7 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
     }
 }
 
-fun SimpleActivity.contactClicked(contact: Contact) {
+fun SimpleActivity.handleGenericContactClick(contact: Contact) {
     when (config.onContactClick) {
         ON_CLICK_CALL_CONTACT -> callContact(contact)
         ON_CLICK_VIEW_CONTACT -> viewContact(contact)

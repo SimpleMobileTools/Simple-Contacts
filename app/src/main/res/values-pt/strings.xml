@@ -21,7 +21,7 @@
     <string name="set_as_default">Definir como padrão</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Não existem contactos</string>
+    <string name="no_contacts_found">Não existem contactos.</string>
     <string name="no_contacts_with_emails">Não existem contactos com endereço de e-mail</string>
     <string name="no_contacts_with_phone_numbers">Não existem contactos com número de telefone</string>
 
@@ -121,6 +121,11 @@
     <string name="decline_call">Recusar</string>
     <string name="answer_call">Atender</string>
 
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Selecione os campos a mostrar</string>
     <string name="prefix">Prefixo</string>
@@ -146,7 +151,7 @@
 
     <!-- Confirmation dialog -->
     <string name="delete_contacts_confirmation">Tem a certeza de que deseja apagar %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_from_all_sources">O contacto será apagado de todas as origens.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
@@ -160,10 +165,12 @@
     </plurals>
 
     <!-- FAQ -->
-    <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_title">Quero alterar os campos a mostrar nos contactos. É possível?</string>
+    <string name="faq_1_text">Sim, basta aceder a Definições -> Gerir campos a mostrar. Aqui, pode escolher os campos que serão mostrados. Alguns dos campos já estão ocultos e, assim, pode mostrar alguns destes.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Gestão de contactos</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Aplicação para gerir os seus contactos, sem anúncios e com total privacidade.</string>
     <string name="app_long_description">
@@ -173,7 +180,7 @@
 
         Não contém anúncios ou permissões desnecessárias. É totalmente open source e permite personalização de cores.
 
-        Esta aplicação é apenas parte de um conjunto mais vasto de aplicações. Saiba mais em http://www.simplemobiletools.com
+        Esta aplicação é apenas parte de um conjunto mais vasto de aplicações. Saiba mais em https://www.simplemobiletools.com
     </string>
 
     <!--

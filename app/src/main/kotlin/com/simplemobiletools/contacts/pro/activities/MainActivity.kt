@@ -8,7 +8,6 @@ import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
 import android.net.Uri
@@ -34,9 +33,11 @@ import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.pro.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getTempFile
+import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
+import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
@@ -165,6 +166,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         storeStateVariables()
     }
 
+    override fun onStop() {
+        super.onStop()
+        searchMenuItem?.collapseActionView()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         config.lastUsedViewPagerPage = viewpager.currentItem
@@ -180,6 +186,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         menu.apply {
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
+            findItem(R.id.dialpad).isVisible = !config.showDialpadButton
+
             setupSearch(this)
             updateMenuItemColors(this)
         }
@@ -191,6 +199,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         when (item.itemId) {
             R.id.sort -> showSortingDialog()
             R.id.filter -> showFilterDialog()
+            R.id.dialpad -> launchDialpad()
             R.id.import_contacts -> tryImportContacts()
             R.id.export_contacts -> tryExportContacts()
             R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
@@ -379,7 +388,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         )
 
         if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
-            tryImportContactsFromFile(intent.data)
+            tryImportContactsFromFile(intent.data!!)
             intent.data = null
         }
 
@@ -389,7 +398,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             if (config.showTabs and value == 0) {
                 skippedTabs++
             } else {
-                main_tabs_holder.addTab(main_tabs_holder.newTab().setIcon(getTabIcon(index)), index - skippedTabs, config.lastUsedViewPagerPage == index - skippedTabs)
+                val tab = main_tabs_holder.newTab().setIcon(getTabIcon(index))
+                main_tabs_holder.addTab(tab, index - skippedTabs, config.lastUsedViewPagerPage == index - skippedTabs)
             }
         }
 
@@ -404,19 +414,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         main_tabs_holder.beVisibleIf(skippedTabs < tabsList.size - 1)
 
         main_dialpad_button.setOnClickListener {
-            val intent = Intent(applicationContext, DialpadActivity::class.java)
-            startActivity(intent)
+            launchDialpad()
         }
-    }
-
-    private fun getTabIcon(position: Int): Drawable {
-        val drawableId = when (position) {
-            LOCATION_CONTACTS_TAB -> R.drawable.ic_person_vector
-            LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on_vector
-            else -> R.drawable.ic_group_vector
-        }
-
-        return resources.getColoredDrawableWithColor(drawableId, config.textColor)
     }
 
     private fun showSortingDialog() {
@@ -430,6 +429,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             contacts_fragment?.forceListRedraw = true
             refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
         }
+    }
+
+    private fun launchDialpad() {
+        val intent = Intent(applicationContext, DialpadActivity::class.java)
+        startActivity(intent)
     }
 
     private fun tryImportContacts() {
@@ -458,7 +462,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun tryImportContactsFromFile(uri: Uri) {
         when {
-            uri.scheme == "file" -> showImportContactsDialog(uri.path)
+            uri.scheme == "file" -> showImportContactsDialog(uri.path!!)
             uri.scheme == "content" -> {
                 val tempFile = getTempFile()
                 if (tempFile == null) {
@@ -469,7 +473,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 try {
                     val inputStream = contentResolver.openInputStream(uri)
                     val out = FileOutputStream(tempFile)
-                    inputStream.copyTo(out)
+                    inputStream!!.copyTo(out)
                     showImportContactsDialog(tempFile.absolutePath)
                 } catch (e: Exception) {
                     showErrorToast(e)
@@ -528,7 +532,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         isGettingContacts = true
 
         if (viewpager.adapter == null) {
-            viewpager.adapter = ViewPagerAdapter(this)
+            viewpager.adapter = ViewPagerAdapter(this, tabsList, config.showTabs)
             viewpager.currentItem = config.lastUsedViewPagerPage
         }
 
@@ -553,6 +557,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 groups_fragment?.refreshContacts(contacts)
             }
         }
+    }
+
+    override fun contactClicked(contact: Contact) {
+        handleGenericContactClick(contact)
     }
 
     private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, groups_fragment)

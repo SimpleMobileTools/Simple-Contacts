@@ -66,7 +66,7 @@ fun Context.editContact(contact: Contact) {
 
 fun Context.sendEmailIntent(recipient: String) {
     Intent(Intent.ACTION_SENDTO).apply {
-        data = Uri.fromParts("mailto", recipient, null)
+        data = Uri.fromParts(KEY_MAILTO, recipient, null)
         if (resolveActivity(packageManager) != null) {
             startActivity(this)
         } else {
@@ -126,7 +126,7 @@ fun Context.getContactUriRawId(uri: Uri): Int {
     var cursor: Cursor? = null
     try {
         cursor = contentResolver.query(uri, projection, null, null, null)
-        if (cursor.moveToFirst()) {
+        if (cursor!!.moveToFirst()) {
             return cursor.getIntValue(ContactsContract.Contacts.NAME_RAW_CONTACT_ID)
         }
     } catch (ignored: Exception) {
@@ -380,7 +380,7 @@ fun Context.deleteBlockedNumber(number: String) {
     val values = ContentValues()
     values.put(BlockedNumbers.COLUMN_ORIGINAL_NUMBER, number)
     val uri = contentResolver.insert(BlockedNumbers.CONTENT_URI, values)
-    contentResolver.delete(uri, null, null)
+    contentResolver.delete(uri!!, null, null)
 }
 
 @TargetApi(Build.VERSION_CODES.M)

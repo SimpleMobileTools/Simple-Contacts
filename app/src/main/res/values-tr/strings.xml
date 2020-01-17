@@ -17,11 +17,11 @@
     <string name="request_the_required_permissions">Gerekli izinleri iste</string>
     <string name="create_new_contact">Yeni kişi oluştur</string>
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
-    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_as_default">Set as default</string>
+    <string name="must_make_default_dialer">Engellenen numaraları kullanmak için bu uygulamayı varsayılan çevirici uygulaması yapmalısınız.</string>
+    <string name="set_as_default">Varsayılan olarak ayarla</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Kişi bulunamadı</string>
+    <string name="no_contacts_found">Kişi bulunamadı.</string>
     <string name="no_contacts_with_emails">E-posta ile hiç bağlantı bulunamadı</string>
     <string name="no_contacts_with_phone_numbers">Telefon numaralarını içeren kişi bulunamadı</string>
 
@@ -54,7 +54,7 @@
     <string name="start_name_with_surname">Soyadı ile başla</string>
     <string name="show_phone_numbers">Ana ekranda telefon numaralarını göster</string>
     <string name="show_contact_thumbnails">Kişi küçük resimlerini göster</string>
-    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
+    <string name="show_dialpad_button">Ana ekranda tuş takımı düğmesini göster</string>
     <string name="on_contact_click">Kişi tıklandığında</string>
     <string name="call_contact">Kişiyi ara</string>
     <string name="view_contact">Kişi bilgilerini göster</string>
@@ -65,7 +65,7 @@
     <string name="favorites">Favoriler</string>
     <string name="show_call_confirmation_dialog">Arama başlatmadan önce arama onayı penceresi göster</string>
     <string name="show_only_contacts_with_numbers">Sadece telefon numaralarını içeren kişileri göster</string>
-    <string name="show_dialpad_letters">Show letters on the dialpad</string>
+    <string name="show_dialpad_letters">Tuş takımında harfleri göster</string>
 
     <!-- Emails -->
     <string name="email">E-posta</string>
@@ -87,8 +87,8 @@
     <string name="anniversary">Yıldönümü</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Henüz hiç favori kişi eklemediniz gibi görünüyor.</string>
-    <string name="add_favorites">Favorilerini ekle</string>
+    <string name="no_favorites">Henüz herhangi bir favori kişi eklememişsiniz.</string>
+    <string name="add_favorites">Favorileri ekle</string>
     <string name="add_to_favorites">Favorilere ekle</string>
     <string name="remove_from_favorites">Favorilerden kaldır</string>
     <string name="must_be_at_edit">Bir kişiyi değiştirmek için Düzen ekranında olmalısınız</string>
@@ -96,7 +96,7 @@
     <!-- Search -->
     <string name="search_contacts">Kişileri ara</string>
     <string name="search_favorites">Favorileri ara</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Grupları ara</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Kişileri içe aktar</string>
@@ -112,14 +112,19 @@
     <string name="add_number_to_contact">Kişiye numara ekle</string>
 
     <!-- Dialer -->
-    <string name="dialer">Dialer</string>
-    <string name="calling">Calling</string>
-    <string name="incoming_call">Incoming call</string>
-    <string name="incoming_call_from">Incoming call from…</string>
-    <string name="ongoing_call">Ongoing call</string>
-    <string name="disconnected">Disconnected</string>
-    <string name="decline_call">Decline</string>
-    <string name="answer_call">Answer</string>
+    <string name="dialer">Çevirici</string>
+    <string name="calling">Çağırı yapılıyor</string>
+    <string name="incoming_call">Gelen çağrı</string>
+    <string name="incoming_call_from">Gelen çağrı şundan…</string>
+    <string name="ongoing_call">Devam eden çağrı</string>
+    <string name="disconnected">Bağlantı kesildi</string>
+    <string name="decline_call">Reddet</string>
+    <string name="answer_call">Cevapla</string>
+
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Görüntülenecek alanları seç</string>
@@ -137,26 +142,26 @@
     <string name="instant_messaging">Anlık mesajlaşma (IM)</string>
 
     <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Manage blocked numbers</string>
-    <string name="not_blocking_anyone">You are not blocking anyone.</string>
-    <string name="add_a_blocked_number">Add a blocked number</string>
-    <string name="block_number">Block number</string>
-    <string name="block_numbers">Block numbers</string>
-    <string name="blocked_numbers">Blocked numbers</string>
+    <string name="manage_blocked_numbers">Engelli numaraları yönet</string>
+    <string name="not_blocking_anyone">Kimseyi engellemiyorsun.</string>
+    <string name="add_a_blocked_number">Engellenen numara ekle</string>
+    <string name="block_number">Numarayı engelle</string>
+    <string name="block_numbers">Numaraları engelle</string>
+    <string name="blocked_numbers">Engelli numaralar</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_contacts_confirmation">%s silmek istediğinize emin misiniz?</string>    <!-- Are you sure you want to delete 5 contacts? -->
+    <string name="delete_from_all_sources">Kişi tüm kişi kaynaklarından kaldırılacak.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
     <plurals name="delete_contacts">
-        <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacts</item>
+        <item quantity="one">%d kişi</item>
+        <item quantity="other">%d kişi</item>
     </plurals>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d grup</item>
+        <item quantity="other">%d grup</item>
     </plurals>
 
     <!-- FAQ -->
@@ -164,6 +169,8 @@
     <string name="faq_1_text">Evet, tek yapmanız gereken Ayarlar -> Görüntülenecek kişi alanlarını yönet\'e gitmek. Orada hangi alanların görüntüleneceğini seçebilirsiniz. Bazıları varsayılan olarak devre dışı bile olsa, orada bazı yenilerini bulabilirsiniz.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
     <string name="app_long_description">
@@ -173,7 +180,7 @@
 
         Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sağlar.
 
-        Bu uygulama, daha büyük bir uygulama serisinden sadece bir parça. Geri kalanı http://www.simplemobiletools.com adresinde bulabilirsiniz
+        Bu uygulama, daha büyük bir uygulama serisinden sadece bir parça. Geri kalanı https://www.simplemobiletools.com adresinde bulabilirsiniz
     </string>
 
     <!--

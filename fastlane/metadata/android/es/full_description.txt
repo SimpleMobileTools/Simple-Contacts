@@ -1,0 +1,7 @@
+Una aplicación simple para crear o administrar tus contactos desde cualquier origen. Los contactos pueden ser almacenados solo en tu dispositivo, o también sincronizarlos vía Google u otras cuentas.Puedes mostrar tus contactos favoritos en una lista separada.
+
+Puedes usarla para administrar correos electrónicos y eventos. Tiene la capacidad de ordenar/filtrar por multiples parámetros, opcionalmente, mostrar apellido como el primer nombre.
+
+No contiene anuncios o permisos innecesarios. Es complétamente de código abierto, provee colores personalziables.
+
+Esta es solo una aplicación de una serie de aplicaciones más grande. Puedes encontrar el resto en https://www.simplemobiletools.com

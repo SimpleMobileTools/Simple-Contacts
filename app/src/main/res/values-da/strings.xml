@@ -21,7 +21,7 @@
     <string name="set_as_default">Gør til standard</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Ingen kontakter fundet</string>
+    <string name="no_contacts_found">Ingen kontakter fundet.</string>
     <string name="no_contacts_with_emails">Ingen kontakter med emails fundet</string>
     <string name="no_contacts_with_phone_numbers">Ingen kontakter med telefonnumre fundet</string>
 
@@ -121,6 +121,11 @@
     <string name="decline_call">Afvis</string>
     <string name="answer_call">Besvar</string>
 
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Vælg felter der skal vises</string>
     <string name="prefix">Præfiks</string>
@@ -164,6 +169,8 @@
     <string name="faq_1_text">Ja, alt hvad du skal gøre er at gå i Indstillinger -> Administrer viste kontaktfelter. Der kan du vælge, hvilke felter der skal være synlige. Nogle af dem er endda deaktiveret som standard, så du kan muligvis finde nogle nye der.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">En app til dine kontakter, uden annoncer og med respekt for dit privatliv.</string>
     <string name="app_long_description">

@@ -16,9 +16,16 @@ import com.simplemobiletools.contacts.pro.models.LocalContact
 import com.simplemobiletools.contacts.pro.models.Organization
 
 class LocalContactsHelper(val context: Context) {
-    fun getAllContacts() = context.contactsDB.getContacts().map { convertLocalContactToContact(it) }.toMutableList() as ArrayList<Contact>
+    fun getAllContacts(): ArrayList<Contact> {
+        val contacts = context.contactsDB.getContacts()
+        val storedGroups = ContactsHelper(context).getStoredGroupsSync()
+        return contacts.map { convertLocalContactToContact(it, storedGroups) }.toMutableList() as ArrayList<Contact>
+    }
 
-    fun getContactWithId(id: Int) = convertLocalContactToContact(context.contactsDB.getContactWithId(id))
+    fun getContactWithId(id: Int): Contact? {
+        val storedGroups = ContactsHelper(context).getStoredGroupsSync()
+        return convertLocalContactToContact(context.contactsDB.getContactWithId(id), storedGroups)
+    }
 
     fun insertOrUpdateContact(contact: Contact): Boolean {
         val localContact = convertContactToLocalContact(contact)
@@ -74,7 +81,7 @@ class LocalContactsHelper(val context: Context) {
         return scaledSizePhotoData
     }
 
-    private fun convertLocalContactToContact(localContact: LocalContact?): Contact? {
+    private fun convertLocalContactToContact(localContact: LocalContact?, storedGroups: ArrayList<Group>): Contact? {
         if (localContact == null) {
             return null
         }
@@ -88,8 +95,6 @@ class LocalContactsHelper(val context: Context) {
                 null
             }
         }
-
-        val storedGroups = ContactsHelper(context).getStoredGroupsSync()
 
         return context.getEmptyContact().apply {
             id = localContact.id!!

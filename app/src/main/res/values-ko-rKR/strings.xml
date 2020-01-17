@@ -21,7 +21,7 @@
     <string name="set_as_default">Set as default</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">No contacts found</string>
+    <string name="no_contacts_found">No contacts found.</string>
     <string name="no_contacts_with_emails">No contacts with emails have been found</string>
     <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
 
@@ -121,6 +121,11 @@
     <string name="decline_call">Decline</string>
     <string name="answer_call">Answer</string>
 
+    <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Select fields to show</string>
     <string name="prefix">Prefix</string>
@@ -164,6 +169,8 @@
     <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
     <string name="app_long_description">
