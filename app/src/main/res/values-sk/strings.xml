@@ -121,6 +121,10 @@
     <string name="decline_call">Odmietnuť</string>
     <string name="answer_call">Prijať</string>
 
+    <!-- Speed dial -->
+    <string name="manage_speed_dial">Spravovať rýchle vytáčanie</string>
+    <string name="speed_dial_label">Pre priradenie kontaktu kliknite na číslo. Následne viete daný kontakt rýchlo vytočiť dlhým podržaním čísla na číselníku.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Zvoľte polia na zobrazenie</string>
     <string name="prefix">Titul pred menom</string>

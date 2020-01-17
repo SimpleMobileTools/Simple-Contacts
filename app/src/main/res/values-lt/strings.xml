@@ -121,6 +121,10 @@
     <string name="decline_call">Decline</string>
     <string name="answer_call">Answer</string>
 
+    <!-- Speed dial -->
+    <string name="manage_speed_dial">Manage speed dial</string>
+    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+
     <!-- Visible fields -->
     <string name="select_fields_to_show">Pasirinkti rodomus laukelius</string>
     <string name="prefix">Priešdėlis</string>
