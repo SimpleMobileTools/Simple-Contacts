@@ -56,4 +56,8 @@ class Config(context: Context) : BaseConfig(context) {
     var showDialpadLetters: Boolean
         get() = prefs.getBoolean(SHOW_DIALPAD_LETTERS, true)
         set(showDialpadLetters) = prefs.edit().putBoolean(SHOW_DIALPAD_LETTERS, showDialpadLetters).apply()
+
+    var speedDial: String
+        get() = prefs.getString(SPEED_DIAL, "")!!
+        set(speedDial) = prefs.edit().putString(SPEED_DIAL, speedDial).apply()
 }
