@@ -112,7 +112,7 @@
     <string name="add_number_to_contact">Добавить номер к контакту</string>
 
     <!-- Dialer -->
-    <string name="dialer">Набор номера</string>
+    <string name="dialer">Номеронабиратель</string>
     <string name="calling">Вызов</string>
     <string name="incoming_call">Входящий вызов</string>
     <string name="incoming_call_from">Входящий вызов от…</string>
