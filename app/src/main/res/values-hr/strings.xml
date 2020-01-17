@@ -122,6 +122,7 @@
     <string name="answer_call">Odgovori</string>
 
     <!-- Speed dial -->
+    <string name="speed_dial">Speed dial</string>
     <string name="manage_speed_dial">Manage speed dial</string>
     <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
 

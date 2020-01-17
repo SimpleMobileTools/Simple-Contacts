@@ -122,6 +122,7 @@
     <string name="answer_call">Prijať</string>
 
     <!-- Speed dial -->
+    <string name="speed_dial">Rýchle vytáčanie</string>
     <string name="manage_speed_dial">Spravovať rýchle vytáčanie</string>
     <string name="speed_dial_label">Pre priradenie kontaktu kliknite na číslo. Následne viete daný kontakt rýchlo vytočiť dlhým podržaním čísla na číselníku.</string>
 
