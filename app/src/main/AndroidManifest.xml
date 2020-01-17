@@ -220,6 +220,11 @@
             android:parentActivityName=".activities.SettingsActivity"/>
 
         <activity
+            android:name=".activities.ManageSpeedDialActivity"
+            android:label="@string/speed_dial"
+            android:parentActivityName=".activities.SettingsActivity"/>
+
+        <activity
             android:name=".activities.DialpadActivity"
             android:label="@string/dialpad"
             android:parentActivityName=".activities.MainActivity">
