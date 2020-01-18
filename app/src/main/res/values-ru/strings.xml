@@ -18,7 +18,7 @@
     <string name="create_new_contact">Создать новый контакт</string>
     <string name="add_to_existing_contact">Добавить к существующему контакту</string>
     <string name="must_make_default_dialer">Вы должны сделать \"Simple Contacts\" приложением по умолчанию для набора номера, чтобы использовать блокировку номеров.</string>
-    <string name="set_as_default">Сделать по умолчанию</string>
+    <string name="set_as_default">Установить по умолчанию</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Контакты не найдены.</string>
@@ -112,7 +112,7 @@
     <string name="add_number_to_contact">Добавить номер к контакту</string>
 
     <!-- Dialer -->
-    <string name="dialer">Набор номера</string>
+    <string name="dialer">Номеронабиратель</string>
     <string name="calling">Вызов</string>
     <string name="incoming_call">Входящий вызов</string>
     <string name="incoming_call_from">Входящий вызов от…</string>
@@ -122,9 +122,9 @@
     <string name="answer_call">Ответить</string>
 
     <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+    <string name="speed_dial">Быстрый набор</string>
+    <string name="manage_speed_dial">Управление быстрым набором</string>
+    <string name="speed_dial_label">Нажмите на цифру, чтобы назначить ей контакт. Затем вы сможете быстро звонить данному контакту долгим нажитием на указанную цифру в номеронабирателе.</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Выберите отображаемые поля</string>
@@ -172,7 +172,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">Simple Contacts Pro - легко управляйте контактами</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Приложение для управления контактами. Конфиденциальное. Без рекламы.</string>
     <string name="app_long_description">
