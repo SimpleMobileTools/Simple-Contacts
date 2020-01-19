@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.layout_select_contact.view.*
 
 class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayList<Contact>, val allowSelectMultiple: Boolean, selectContacts: ArrayList<Contact>? = null,
                            val callback: (addedContacts: ArrayList<Contact>, removedContacts: ArrayList<Contact>) -> Unit) {
+    private var dialog: AlertDialog? = null
     private var view = activity.layoutInflater.inflate(R.layout.layout_select_contact, null)
     private var initiallySelectedContacts = ArrayList<Contact>()
 
@@ -28,24 +29,31 @@ class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayL
         }
 
         activity.runOnUiThread {
+            // if selecting multiple contacts is disabled, react on first contact click and dismiss the dialog
+            val contactClickCallback: ((Contact) -> Unit)? = if (allowSelectMultiple) null else { contact ->
+                callback(arrayListOf(contact), arrayListOf())
+                dialog!!.dismiss()
+            }
+
             view.apply {
                 select_contact_list.adapter = SelectContactsAdapter(activity, allContacts, initiallySelectedContacts, allowSelectMultiple,
-                        select_contact_list, select_contact_fastscroller)
+                        select_contact_list, select_contact_fastscroller, contactClickCallback)
+
                 select_contact_fastscroller.allowBubbleDisplay = activity.baseConfig.showInfoBubble
                 select_contact_fastscroller.setViews(select_contact_list) {
                     select_contact_fastscroller.updateBubbleText(allContacts[it].getBubbleText())
                 }
             }
-        }
 
-        val builder = AlertDialog.Builder(activity)
-        if (allowSelectMultiple) {
-            builder.setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
-        }
-        builder.setNegativeButton(R.string.cancel, null)
+            val builder = AlertDialog.Builder(activity)
+            if (allowSelectMultiple) {
+                builder.setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
+            }
+            builder.setNegativeButton(R.string.cancel, null)
 
-        builder.create().apply {
-            activity.setupDialogStuff(view, this)
+            dialog = builder.create().apply {
+                activity.setupDialogStuff(view, this)
+            }
         }
     }
 
