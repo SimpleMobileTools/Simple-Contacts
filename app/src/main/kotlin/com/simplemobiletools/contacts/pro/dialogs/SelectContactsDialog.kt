@@ -11,8 +11,8 @@ import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.layout_select_contact.view.*
 
-class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayList<Contact>, val allowSelectMultiple: Boolean, selectContacts: ArrayList<Contact>? = null,
-                           val callback: (addedContacts: ArrayList<Contact>, removedContacts: ArrayList<Contact>) -> Unit) {
+class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayList<Contact>, val allowSelectMultiple: Boolean, val showOnlyContactsWithNumber: Boolean,
+                           selectContacts: ArrayList<Contact>? = null, val callback: (addedContacts: ArrayList<Contact>, removedContacts: ArrayList<Contact>) -> Unit) {
     private var dialog: AlertDialog? = null
     private var view = activity.layoutInflater.inflate(R.layout.layout_select_contact, null)
     private var initiallySelectedContacts = ArrayList<Contact>()
@@ -22,6 +22,10 @@ class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayL
         if (selectContacts == null) {
             val contactSources = activity.getVisibleContactSources()
             allContacts = allContacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
+
+            if (showOnlyContactsWithNumber) {
+                allContacts = allContacts.filter { it.phoneNumbers.isNotEmpty() }.toMutableList() as ArrayList<Contact>
+            }
 
             initiallySelectedContacts = allContacts.filter { it.starred == 1 } as ArrayList<Contact>
         } else {
