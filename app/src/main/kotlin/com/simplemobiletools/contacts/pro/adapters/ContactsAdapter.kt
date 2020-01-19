@@ -43,9 +43,11 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     private var textToHighlight = highlightText
 
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
-    var startNameWithSurname: Boolean
-    var showContactThumbnails: Boolean
-    var showPhoneNumbers: Boolean
+    var startNameWithSurname = config.startNameWithSurname
+    var showContactThumbnails = config.showContactThumbnails
+    var showPhoneNumbers = config.showPhoneNumbers
+
+    private val itemLayout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
 
     private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
     private var mediumPadding = activity.resources.getDimension(R.dimen.medium_margin).toInt()
@@ -54,9 +56,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     init {
         setupDragListener(true)
         initDrawables()
-        showContactThumbnails = config.showContactThumbnails
-        showPhoneNumbers = config.showPhoneNumbers
-        startNameWithSurname = config.startNameWithSurname
     }
 
     override fun getActionMenuId() = R.menu.cab
@@ -109,10 +108,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun onActionModeDestroyed() {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
-        return createViewHolder(layout, parent)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(itemLayout, parent)
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val contact = contactItems[position]
@@ -290,7 +286,11 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             }
 
             contact_name.setTextColor(textColor)
-            contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
+            if (!showContactThumbnails && !showPhoneNumbers) {
+                contact_name.setPadding(bigPadding, bigPadding, bigPadding, bigPadding)
+            } else {
+                contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
+            }
 
             if (contact_number != null) {
                 val phoneNumberToUse = if (textToHighlight.isEmpty()) {

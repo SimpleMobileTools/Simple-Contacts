@@ -1,6 +1,5 @@
 package com.simplemobiletools.contacts.pro.adapters
 
-import android.graphics.drawable.Drawable
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,6 @@ import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.helpers.Config
 import com.simplemobiletools.contacts.pro.helpers.highlightTextFromNumbers
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.item_add_favorite_with_number.view.*
@@ -36,7 +34,8 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
 
     private val contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person_vector, textColor)
     private val showContactThumbnails = config.showContactThumbnails
-    private val itemLayout = if (config.showPhoneNumbers) R.layout.item_add_favorite_with_number else R.layout.item_add_favorite_without_number
+    private val showPhoneNumbers = config.showPhoneNumbers
+    private val itemLayout = if (showPhoneNumbers) R.layout.item_add_favorite_with_number else R.layout.item_add_favorite_without_number
     private var textToHighlight = ""
 
     private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
@@ -79,8 +78,8 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val eventType = contacts[position]
-        itemViews.put(position, holder.bindView(eventType, contactDrawable, config, showContactThumbnails, smallPadding, bigPadding))
+        val contact = contacts[position]
+        itemViews.put(position, holder.bindView(contact))
         toggleItemSelection(selectedPositions.contains(position), position)
     }
 
@@ -106,8 +105,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bindView(contact: Contact, contactDrawable: Drawable, config: Config, showContactThumbnails: Boolean,
-                     smallPadding: Int, bigPadding: Int): View {
+        fun bindView(contact: Contact): View {
             itemView.apply {
                 contact_checkbox.beVisibleIf(allowPickMultiple)
                 contact_checkbox.setColors(config.textColor, context.getAdjustedPrimaryColor(), config.backgroundColor)
@@ -123,7 +121,11 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                 }
 
                 contact_name.setTextColor(textColor)
-                contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
+                if (!showContactThumbnails && !showPhoneNumbers) {
+                    contact_name.setPadding(bigPadding, bigPadding, bigPadding, bigPadding)
+                } else {
+                    contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
+                }
 
                 if (contact_number != null) {
                     val phoneNumberToUse = if (textToHighlight.isEmpty()) {

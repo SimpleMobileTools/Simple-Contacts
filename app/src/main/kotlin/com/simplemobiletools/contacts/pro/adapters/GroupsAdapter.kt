@@ -33,6 +33,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
     var showContactThumbnails = activity.config.showContactThumbnails
+    var showPhoneNumbers = activity.config.showPhoneNumbers
 
     init {
         setupDragListener(true)
@@ -165,7 +166,12 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
             group_name.apply {
                 setTextColor(textColor)
                 text = groupTitle
-                setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
+
+                if (showContactThumbnails) {
+                    setPadding(smallPadding, bigPadding, bigPadding, bigPadding)
+                } else {
+                    setPadding(bigPadding, bigPadding, bigPadding, bigPadding)
+                }
             }
 
             group_tmb.beVisibleIf(showContactThumbnails)
