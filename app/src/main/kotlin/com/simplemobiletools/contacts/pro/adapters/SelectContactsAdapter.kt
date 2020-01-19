@@ -40,6 +40,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
     private var textToHighlight = ""
 
     private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
+    private var mediumPadding = activity.resources.getDimension(R.dimen.medium_margin).toInt()
     private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
 
     init {
@@ -161,8 +162,24 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                                     .apply(options)
                                     .apply(RequestOptions.circleCropTransform())
                                     .into(contact_tmb)
+                            contact_tmb.setPadding(smallPadding, smallPadding, smallPadding, smallPadding)
                         }
+                    } else if (contact.photo != null) {
+                        val options = RequestOptions()
+                                .signature(ObjectKey(contact.hashCode()))
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                .error(contactDrawable)
+                                .centerCrop()
+
+                        Glide.with(activity)
+                                .load(contact.photo)
+                                .transition(DrawableTransitionOptions.withCrossFade())
+                                .apply(options)
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(contact_tmb)
+                        contact_tmb.setPadding(smallPadding, smallPadding, smallPadding, smallPadding)
                     } else {
+                        contact_tmb.setPadding(mediumPadding, mediumPadding, mediumPadding, mediumPadding)
                         contact_tmb.setImageDrawable(contactDrawable)
                     }
                 }
