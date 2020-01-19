@@ -327,7 +327,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                     }
                     contact.photo != null -> {
                         val options = RequestOptions()
-                                .signature(ObjectKey(contact.photo!!))
+                                .signature(ObjectKey(contact.hashCode()))
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                 .error(placeholderImage)
                                 .centerCrop()
