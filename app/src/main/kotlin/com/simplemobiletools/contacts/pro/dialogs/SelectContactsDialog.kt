@@ -39,14 +39,14 @@ class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayL
         }
 
         val builder = AlertDialog.Builder(activity)
-                if (allowSelectMultiple) {
-                    builder.setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
-                    builder.setNegativeButton(R.string.cancel, null)
-                }
+        if (allowSelectMultiple) {
+            builder.setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
+        }
+        builder.setNegativeButton(R.string.cancel, null)
 
-                builder.create().apply {
-                    activity.setupDialogStuff(view, this)
-                }
+        builder.create().apply {
+            activity.setupDialogStuff(view, this)
+        }
     }
 
     private fun dialogConfirmed() {
