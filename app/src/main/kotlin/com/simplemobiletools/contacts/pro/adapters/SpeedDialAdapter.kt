@@ -7,12 +7,13 @@ import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
+import com.simplemobiletools.contacts.pro.interfaces.RemoveSpeedDialListener
 import com.simplemobiletools.contacts.pro.models.SpeedDial
 import kotlinx.android.synthetic.main.item_speed_dial.view.*
 import java.util.*
 
-class SpeedDialAdapter(activity: SimpleActivity, var speedDialValues: ArrayList<SpeedDial>, recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) :
-        MyRecyclerViewAdapter(activity, recyclerView, null, itemClick) {
+class SpeedDialAdapter(activity: SimpleActivity, var speedDialValues: ArrayList<SpeedDial>, private val removeListener: RemoveSpeedDialListener,
+                       recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, null, itemClick) {
 
     init {
         setupDragListener(true)
@@ -25,6 +26,10 @@ class SpeedDialAdapter(activity: SimpleActivity, var speedDialValues: ArrayList<
     override fun actionItemPressed(id: Int) {
         if (selectedKeys.isEmpty()) {
             return
+        }
+
+        when (id) {
+            R.id.cab_delete -> deleteSpeedDial()
         }
     }
 
@@ -51,6 +56,14 @@ class SpeedDialAdapter(activity: SimpleActivity, var speedDialValues: ArrayList<
     }
 
     override fun getItemCount() = speedDialValues.size
+
+    private fun getSelectedItems() = speedDialValues.filter { selectedKeys.contains(it.hashCode()) } as ArrayList<SpeedDial>
+
+    private fun deleteSpeedDial() {
+        val ids = getSelectedItems().map { it.id }.toMutableList() as ArrayList<Int>
+        removeListener.removeSpeedDial(ids)
+        finishActMode()
+    }
 
     private fun setupView(view: View, speedDial: SpeedDial) {
         view.apply {
