@@ -43,7 +43,7 @@ class ManageSpeedDialActivity : SimpleActivity(), RemoveSpeedDialListener {
                 val selectedContact = addedContacts.first()
                 speedDialValues.first { it.id == clickedContact.id }.apply {
                     displayName = selectedContact.getNameToDisplay()
-                    number = selectedContact.phoneNumbers.first().toString()
+                    number = selectedContact.phoneNumbers.first().value
                 }
                 updateAdapter()
             }
