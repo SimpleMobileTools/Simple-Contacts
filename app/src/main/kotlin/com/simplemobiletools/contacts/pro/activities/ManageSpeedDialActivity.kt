@@ -2,7 +2,6 @@ package com.simplemobiletools.contacts.pro.activities
 
 import android.os.Bundle
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.SpeedDialAdapter
 import com.simplemobiletools.contacts.pro.dialogs.SelectContactsDialog
@@ -21,16 +20,7 @@ class ManageSpeedDialActivity : SimpleActivity(), RemoveSpeedDialListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_speed_dial)
 
-        val speedDialType = object : TypeToken<List<SpeedDial>>() {}.type
-        speedDialValues = Gson().fromJson<ArrayList<SpeedDial>>(config.speedDial, speedDialType) ?: ArrayList(1)
-
-        for (i in 1..9) {
-            val speedDial = SpeedDial(i, "", "")
-            if (speedDialValues.firstOrNull { it.id == i } == null) {
-                speedDialValues.add(speedDial)
-            }
-        }
-
+        speedDialValues = config.getSpeedDialValues()
         updateAdapter()
         ContactsHelper(this).getContacts { contacts ->
             allContacts = contacts
