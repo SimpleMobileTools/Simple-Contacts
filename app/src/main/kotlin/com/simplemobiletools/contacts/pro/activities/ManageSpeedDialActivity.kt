@@ -2,6 +2,7 @@ package com.simplemobiletools.contacts.pro.activities
 
 import android.os.Bundle
 import com.google.gson.Gson
+import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.SpeedDialAdapter
 import com.simplemobiletools.contacts.pro.dialogs.SelectContactsDialog
@@ -25,6 +26,8 @@ class ManageSpeedDialActivity : SimpleActivity(), RemoveSpeedDialListener {
         ContactsHelper(this).getContacts { contacts ->
             allContacts = contacts
         }
+
+        updateTextColors(manage_speed_dial_scrollview)
     }
 
     override fun onStop() {

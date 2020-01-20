@@ -67,10 +67,14 @@ class SpeedDialAdapter(activity: SimpleActivity, var speedDialValues: ArrayList<
 
     private fun setupView(view: View, speedDial: SpeedDial) {
         view.apply {
-            var text = "${speedDial.id}. "
-            text += if (speedDial.isValid()) speedDial.displayName else ""
-            speed_dial_label.text = text
-            speed_dial_label.isSelected = selectedKeys.contains(speedDial.hashCode())
+            var displayName = "${speedDial.id}. "
+            displayName += if (speedDial.isValid()) speedDial.displayName else ""
+
+            speed_dial_label.apply {
+                text = displayName
+                isSelected = selectedKeys.contains(speedDial.hashCode())
+                setTextColor(textColor)
+            }
         }
     }
 }
