@@ -33,7 +33,6 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
     var showContactThumbnails = activity.config.showContactThumbnails
-    var showPhoneNumbers = activity.config.showPhoneNumbers
 
     init {
         setupDragListener(true)
