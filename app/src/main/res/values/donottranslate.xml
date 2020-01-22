@@ -14,6 +14,7 @@
     <string name="telegram">Telegram</string>
 
     <!-- Release notes -->
+    <string name="release_56">Added an initial implementation of Speed Dial, contacts can be set in the app settings</string>
     <string name="release_47">Removed the setting for merging duplicate contacts, merge them always</string>
     <string name="release_40">
         Removed the Recents tab due to Googles\' latest security policies being stricter than initiall thought\n
