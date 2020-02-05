@@ -79,8 +79,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun primaryColorChanged() {
-        fragment_fastscroller.updatePrimaryColor()
-        fragment_fastscroller.updateBubblePrimaryColor()
+        fragment_fastscroller?.updatePrimaryColor()
+        fragment_fastscroller?.updateBubblePrimaryColor()
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             adjustedPrimaryColor = context.getAdjustedPrimaryColor()
         }
@@ -197,16 +197,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 else -> LOCATION_CONTACTS_TAB
             }
 
-            ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list, fragment_fastscroller) {
+            ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list, null) {
                 (activity as RefreshContactsListener).contactClicked(it as Contact)
             }.apply {
                 fragment_list.adapter = this
-            }
-
-            fragment_fastscroller.setScrollToY(0)
-            fragment_fastscroller.setViews(fragment_list) {
-                val item = (fragment_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
-                fragment_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
             }
         } else {
             (currAdapter as ContactsAdapter).apply {
@@ -318,8 +312,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     private fun updateViewStuff() {
         context.updateTextColors(fragment_wrapper.parent as ViewGroup)
-        fragment_fastscroller.updateBubbleColors()
-        fragment_fastscroller.allowBubbleDisplay = config.showInfoBubble
+        fragment_fastscroller?.updateBubbleColors()
+        fragment_fastscroller?.allowBubbleDisplay = config.showInfoBubble
         fragment_placeholder_2?.setTextColor(context.getAdjustedPrimaryColor())
     }
 
