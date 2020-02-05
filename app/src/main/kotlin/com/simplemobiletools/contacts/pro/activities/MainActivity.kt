@@ -59,6 +59,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var storedShowContactThumbnails = false
     private var storedShowPhoneNumbers = false
     private var storedStartNameWithSurname = false
+    private var storedFontSize = 0
     private var storedShowTabs = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -135,6 +136,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (storedStartNameWithSurname != configStartNameWithSurname) {
             contacts_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
             favorites_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
+        }
+
+        val configFontSize = config.fontSize
+        if (storedFontSize != configFontSize) {
+            getAllFragments().forEach {
+                it?.fontSizeChanged()
+            }
         }
 
         if (werePermissionsHandled && !isFirstResume) {
@@ -218,6 +226,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             storedShowPhoneNumbers = showPhoneNumbers
             storedStartNameWithSurname = startNameWithSurname
             storedShowTabs = showTabs
+            storedFontSize = fontSize
         }
     }
 

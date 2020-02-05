@@ -232,6 +232,20 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
+    fun fontSizeChanged() {
+        if (this is GroupsFragment) {
+            (fragment_list.adapter as? GroupsAdapter)?.apply {
+                fontSize = activity.getTextSize()
+                notifyDataSetChanged()
+            }
+        } else {
+            (fragment_list.adapter as? ContactsAdapter)?.apply {
+                fontSize = activity.getTextSize()
+                notifyDataSetChanged()
+            }
+        }
+    }
+
     fun onActivityResume() {
         updateViewStuff()
     }
