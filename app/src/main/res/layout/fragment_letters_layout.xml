@@ -49,6 +49,15 @@
             android:paddingBottom="@dimen/activity_margin"
             android:layout_alignParentEnd="true" />
 
+        <com.reddit.indicatorfastscroll.FastScrollerThumbView
+            android:id="@+id/letter_fastscroller_thumb"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/letter_fastscroller"
+            android:layout_alignBottom="@+id/letter_fastscroller"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:layout_toStartOf="@+id/letter_fastscroller" />
+
     </RelativeLayout>
 
     <com.simplemobiletools.commons.views.MyFloatingActionButton

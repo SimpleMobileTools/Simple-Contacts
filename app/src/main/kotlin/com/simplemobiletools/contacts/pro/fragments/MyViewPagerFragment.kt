@@ -180,6 +180,9 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                         FastScrollItemIndicator.Text("")
                     }
                 })
+
+                letter_fastscroller_thumb.setupWithFastScroller(letter_fastscroller)
+                letter_fastscroller_thumb.textColor = config.primaryColor.getContrastColor()
             }
         }
     }
