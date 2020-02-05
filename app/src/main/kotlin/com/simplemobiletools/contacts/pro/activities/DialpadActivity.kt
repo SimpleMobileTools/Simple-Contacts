@@ -232,9 +232,11 @@ class DialpadActivity : SimpleActivity() {
     }
 
     private fun speedDial(id: Int) {
-        val speedDial = speedDialValues.firstOrNull { it.id == id }
-        if (speedDial?.isValid() == true) {
-            initCall(speedDial.number)
+        if (dialpad_input.value.isEmpty()) {
+            val speedDial = speedDialValues.firstOrNull { it.id == id }
+            if (speedDial?.isValid() == true) {
+                initCall(speedDial.number)
+            }
         }
     }
 }
