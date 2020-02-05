@@ -18,7 +18,6 @@ import com.simplemobiletools.contacts.pro.activities.MainActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.adapters.GroupsAdapter
-import com.simplemobiletools.contacts.pro.extensions.areLettersOnly
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.helpers.*

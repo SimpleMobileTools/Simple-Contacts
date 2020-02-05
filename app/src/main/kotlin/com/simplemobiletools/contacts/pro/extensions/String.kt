@@ -35,5 +35,3 @@ fun String.getDateTimeFromDateString(viewToUpdate: TextView? = null): DateTime {
 }
 
 fun String.normalizeNumber() = PhoneNumberUtils.normalizeNumber(this)
-
-fun String.areLettersOnly() = matches(Regex("[a-zA-Z]+"))
