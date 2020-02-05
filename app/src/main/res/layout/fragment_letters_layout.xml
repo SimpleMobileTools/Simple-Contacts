@@ -51,7 +51,7 @@
 
         <com.reddit.indicatorfastscroll.FastScrollerThumbView
             android:id="@+id/letter_fastscroller_thumb"
-            android:layout_width="40dp"
+            android:layout_width="@dimen/fab_size"
             android:layout_height="match_parent"
             android:layout_alignTop="@+id/letter_fastscroller"
             android:layout_alignBottom="@+id/letter_fastscroller"

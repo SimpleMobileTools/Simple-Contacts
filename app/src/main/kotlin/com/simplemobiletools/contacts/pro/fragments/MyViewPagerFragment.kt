@@ -360,6 +360,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         fragment_fastscroller?.updateBubbleColors()
         fragment_fastscroller?.allowBubbleDisplay = config.showInfoBubble
         fragment_placeholder_2?.setTextColor(context.getAdjustedPrimaryColor())
+        letter_fastscroller_thumb?.fontSize = context.getTextSize()
     }
 
     private fun setupViewVisibility(hasItemsToShow: Boolean) {
