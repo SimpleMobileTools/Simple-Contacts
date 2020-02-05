@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.7.0 *(2020-02-05)*
+----------------------------
+
+ * Improved the side scrollbar by adding letters to it on some places
+ * Allow changing the font size in the app settings
+ * Trigger speed dial only if no number has been written yet
+
 Version 6.6.0 *(2020-01-22)*
 ----------------------------
 
