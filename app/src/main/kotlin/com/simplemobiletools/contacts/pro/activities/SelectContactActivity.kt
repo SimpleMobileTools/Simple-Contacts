@@ -199,7 +199,7 @@ class SelectContactActivity : SimpleActivity() {
                     select_contact_list.adapter = this
                 }
 
-                select_contact_fastscroller.allowBubbleDisplay = baseConfig.showInfoBubble
+                select_contact_fastscroller.allowBubbleDisplay = true
                 select_contact_fastscroller.setViews(select_contact_list) {
                     select_contact_fastscroller.updateBubbleText(contacts[it].getBubbleText())
                 }
