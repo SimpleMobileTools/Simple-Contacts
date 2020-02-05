@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
@@ -16,6 +17,7 @@ import com.simplemobiletools.contacts.pro.activities.MainActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.adapters.GroupsAdapter
+import com.simplemobiletools.contacts.pro.extensions.areLettersOnly
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.helpers.*
@@ -23,6 +25,14 @@ import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.Group
 import kotlinx.android.synthetic.main.fragment_layout.view.*
+import kotlinx.android.synthetic.main.fragment_layout.view.fragment_fab
+import kotlinx.android.synthetic.main.fragment_layout.view.fragment_list
+import kotlinx.android.synthetic.main.fragment_layout.view.fragment_placeholder
+import kotlinx.android.synthetic.main.fragment_layout.view.fragment_placeholder_2
+import kotlinx.android.synthetic.main.fragment_layout.view.fragment_wrapper
+import kotlinx.android.synthetic.main.fragment_letters_layout.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
     protected var activity: SimpleActivity? = null
@@ -35,6 +45,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     var skipHashComparing = false
     var forceListRedraw = false
+    var wasLetterFastScrollerSetup = false
 
     fun setupFragment(activity: SimpleActivity) {
         config = activity.config
@@ -139,6 +150,23 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         } else {
             setupContactsFavoritesAdapter(contacts)
             contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
+
+            if (!wasLetterFastScrollerSetup) {
+                wasLetterFastScrollerSetup = true
+                letter_fastscroller.setupWithRecyclerView(fragment_list, { position ->
+                    try {
+                        val name = contacts[position].getNameToDisplay()
+                        var character = if (name.isNotEmpty()) name.substring(0, 1) else ""
+                        if (!character.areLettersOnly()) {
+                            character = "#"
+                        }
+
+                        FastScrollItemIndicator.Text(character.toUpperCase(Locale.getDefault()))
+                    } catch (e: Exception) {
+                        FastScrollItemIndicator.Text("")
+                    }
+                })
+            }
         }
     }
 

@@ -42,6 +42,13 @@
             android:scrollbars="none"
             app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager"/>
 
+        <com.reddit.indicatorfastscroll.FastScrollerView
+            android:id="@+id/letter_fastscroller"
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_margin"
+            android:layout_alignParentEnd="true" />
+
     </RelativeLayout>
 
     <com.simplemobiletools.commons.views.MyFloatingActionButton
