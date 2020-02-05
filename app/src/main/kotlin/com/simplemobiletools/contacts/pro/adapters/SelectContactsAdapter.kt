@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.adapters
 
 import android.util.SparseArray
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,10 +10,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
-import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
@@ -31,6 +29,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
     private val config = activity.config
     private val textColor = config.textColor
     private val adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
+    private val fontSize = activity.getTextSize()
 
     private val contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person_vector, textColor)
     private val showContactThumbnails = config.showContactThumbnails
@@ -121,6 +120,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                 }
 
                 contact_name.setTextColor(textColor)
+                contact_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
                 if (!showContactThumbnails && !showPhoneNumbers) {
                     contact_name.setPadding(bigPadding, bigPadding, bigPadding, bigPadding)
                 } else {
@@ -138,6 +138,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                     contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
                     contact_number.setTextColor(textColor)
                     contact_number.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
+                    contact_number.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
                 }
 
                 contact_frame.setOnClickListener {

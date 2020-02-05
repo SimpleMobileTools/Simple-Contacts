@@ -45,7 +45,7 @@
             android:layout_toEndOf="@+id/contact_tmb"
             android:alpha="0.6"
             android:maxLines="1"
-            android:textSize="@dimen/bigger_text_size"
+            android:textSize="@dimen/big_text_size"
             tools:text="0123 456 789" />
 
     </RelativeLayout>
