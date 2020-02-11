@@ -122,9 +122,9 @@
     <string name="answer_call">Atender</string>
 
     <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+    <string name="speed_dial">Ligação rápida</string>
+    <string name="manage_speed_dial">Gerir ligações rápidas</string>
+    <string name="speed_dial_label">Clique no número para atribuir um contacto a uma ligação rápida. Posteriormente, poderá ligar diretamente ao contacto através da tecla de ligação rápida.</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Selecione os campos a mostrar</string>
