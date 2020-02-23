@@ -122,9 +122,9 @@
     <string name="answer_call">回撥</string>
 
     <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+    <string name="speed_dial">快速撥號</string>
+    <string name="manage_speed_dial">管理快速撥號</string>
+    <string name="speed_dial_label">點擊一個數字以分配一個聯絡人給它。然後你可以在撥號器上，長按指定的數字來快速撥號給指定的聯絡人。</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">選擇要顯示的欄位</string>
