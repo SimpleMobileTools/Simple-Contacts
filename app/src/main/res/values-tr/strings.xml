@@ -113,7 +113,7 @@
 
     <!-- Dialer -->
     <string name="dialer">Çevirici</string>
-    <string name="calling">Çağırı yapılıyor</string>
+    <string name="calling">Çağrı yapılıyor</string>
     <string name="incoming_call">Gelen çağrı</string>
     <string name="incoming_call_from">Gelen çağrı şundan…</string>
     <string name="ongoing_call">Devam eden çağrı</string>
