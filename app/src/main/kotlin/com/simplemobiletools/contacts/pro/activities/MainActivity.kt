@@ -59,6 +59,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var storedShowContactThumbnails = false
     private var storedShowPhoneNumbers = false
     private var storedStartNameWithSurname = false
+    private var storedFontSize = 0
     private var storedShowTabs = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -135,6 +136,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (storedStartNameWithSurname != configStartNameWithSurname) {
             contacts_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
             favorites_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
+        }
+
+        val configFontSize = config.fontSize
+        if (storedFontSize != configFontSize) {
+            getAllFragments().forEach {
+                it?.fontSizeChanged()
+            }
         }
 
         if (werePermissionsHandled && !isFirstResume) {
@@ -218,6 +226,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             storedShowPhoneNumbers = showPhoneNumbers
             storedStartNameWithSurname = startNameWithSurname
             storedShowTabs = showTabs
+            storedFontSize = fontSize
         }
     }
 
@@ -512,7 +521,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchAbout() {
-        val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON
+        val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_INDICATOR_FAST_SCROLL
 
         val faqItems = arrayListOf(
                 FAQItem(R.string.faq_1_title, R.string.faq_1_text),
@@ -578,6 +587,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             add(Release(39, R.string.release_39))
             add(Release(40, R.string.release_40))
             add(Release(47, R.string.release_47))
+            add(Release(56, R.string.release_56))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }

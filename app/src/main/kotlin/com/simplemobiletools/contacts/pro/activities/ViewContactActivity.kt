@@ -36,7 +36,7 @@ class ViewContactActivity : ContactActivity() {
     private var showFields = 0
     private var fullContact: Contact? = null    // contact with all fields filled from duplicates
 
-    private val COMPARABLE_PHONE_NUMBER_LENGTH = 7
+    private val COMPARABLE_PHONE_NUMBER_LENGTH = 9
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

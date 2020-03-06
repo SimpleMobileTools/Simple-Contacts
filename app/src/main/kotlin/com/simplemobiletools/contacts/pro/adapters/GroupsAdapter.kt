@@ -1,14 +1,12 @@
 package com.simplemobiletools.contacts.pro.adapters
 
+import android.util.TypedValue
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
-import com.simplemobiletools.commons.extensions.applyColorFilter
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
-import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -33,6 +31,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
     var showContactThumbnails = activity.config.showContactThumbnails
+    var fontSize = activity.getTextSize()
 
     init {
         setupDragListener(true)
@@ -72,7 +71,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.item_group, parent)
 
-    override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val group = groups[position]
         holder.bindView(group, true, true) { itemView, layoutPosition ->
             setupView(itemView, group)
@@ -164,8 +163,14 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
             group_name.apply {
                 setTextColor(textColor)
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
                 text = groupTitle
-                setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
+
+                if (showContactThumbnails) {
+                    setPadding(smallPadding, bigPadding, bigPadding, bigPadding)
+                } else {
+                    setPadding(bigPadding, bigPadding, bigPadding, bigPadding)
+                }
             }
 
             group_tmb.beVisibleIf(showContactThumbnails)

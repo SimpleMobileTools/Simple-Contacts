@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.adapters
 
 import android.graphics.drawable.Drawable
+import android.util.TypedValue
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,7 @@ import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
-import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
@@ -33,7 +31,7 @@ import java.util.*
 
 class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val refreshListener: RefreshContactsListener?,
                       private val location: Int, private val removeListener: RemoveFromGroupListener?, recyclerView: MyRecyclerView,
-                      fastScroller: FastScroller, highlightText: String = "", itemClick: (Any) -> Unit) :
+                      fastScroller: FastScroller?, highlightText: String = "", itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
     private val NEW_GROUP_ID = -1
 
@@ -43,9 +41,12 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     private var textToHighlight = highlightText
 
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
-    var startNameWithSurname: Boolean
-    var showContactThumbnails: Boolean
-    var showPhoneNumbers: Boolean
+    var startNameWithSurname = config.startNameWithSurname
+    var showContactThumbnails = config.showContactThumbnails
+    var showPhoneNumbers = config.showPhoneNumbers
+    var fontSize = activity.getTextSize()
+
+    private val itemLayout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
 
     private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
     private var mediumPadding = activity.resources.getDimension(R.dimen.medium_margin).toInt()
@@ -54,9 +55,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     init {
         setupDragListener(true)
         initDrawables()
-        showContactThumbnails = config.showContactThumbnails
-        showPhoneNumbers = config.showPhoneNumbers
-        startNameWithSurname = config.startNameWithSurname
     }
 
     override fun getActionMenuId() = R.menu.cab
@@ -109,12 +107,9 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     override fun onActionModeDestroyed() {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
-        return createViewHolder(layout, parent)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(itemLayout, parent)
 
-    override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val contact = contactItems[position]
         val allowLongClick = location != LOCATION_INSERT_OR_EDIT
         holder.bindView(contact, true, allowLongClick) { itemView, layoutPosition ->
@@ -290,7 +285,12 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             }
 
             contact_name.setTextColor(textColor)
-            contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
+            contact_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+            if (!showContactThumbnails && !showPhoneNumbers) {
+                contact_name.setPadding(bigPadding, bigPadding, bigPadding, bigPadding)
+            } else {
+                contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
+            }
 
             if (contact_number != null) {
                 val phoneNumberToUse = if (textToHighlight.isEmpty()) {
@@ -303,6 +303,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                 contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
                 contact_number.setTextColor(textColor)
                 contact_number.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
+                contact_number.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
             }
 
             contact_tmb.beVisibleIf(showContactThumbnails)
@@ -327,7 +328,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                     }
                     contact.photo != null -> {
                         val options = RequestOptions()
-                                .signature(ObjectKey(contact.photo!!))
+                                .signature(ObjectKey(contact.hashCode()))
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                 .error(placeholderImage)
                                 .centerCrop()

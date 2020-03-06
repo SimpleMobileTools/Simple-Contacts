@@ -122,9 +122,9 @@
     <string name="answer_call">回撥</string>
 
     <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+    <string name="speed_dial">快速撥號</string>
+    <string name="manage_speed_dial">管理快速撥號</string>
+    <string name="speed_dial_label">點擊一個數字以分配一個聯絡人給它。然後你可以在撥號器上，長按指定的數字來快速撥號給指定的聯絡人。</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">選擇要顯示的欄位</string>
@@ -180,7 +180,17 @@
 
         不包含廣告及非必要的權限，而且完全開放原始碼，並提供自訂顏色。
 
-        這程式只是一系列眾多應用程式的其中一項，你可以在這發現更多 https://www.simplemobiletools.com
+        <b>Check out the full suite of Simple Tools here:</b>
+        https://www.simplemobiletools.com
+
+        <b>Standalone website of Simple Contacts Pro:</b>
+        https://www.simplemobiletools.com/contacts
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
     </string>
 
     <!--

@@ -113,7 +113,7 @@
 
     <!-- Dialer -->
     <string name="dialer">Çevirici</string>
-    <string name="calling">Çağırı yapılıyor</string>
+    <string name="calling">Çağrı yapılıyor</string>
     <string name="incoming_call">Gelen çağrı</string>
     <string name="incoming_call_from">Gelen çağrı şundan…</string>
     <string name="ongoing_call">Devam eden çağrı</string>
@@ -122,9 +122,9 @@
     <string name="answer_call">Cevapla</string>
 
     <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+    <string name="speed_dial">Hızlı arama</string>
+    <string name="manage_speed_dial">Hızlı aramayı yönet</string>
+    <string name="speed_dial_label">Bir kişiyi bir numaraya atamak için numaraya tıklayın. Daha sonra atanan kişiyi çeviricide atanan numaraya uzun basarak hızlıca arayabilirsiniz.</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Görüntülenecek alanları seç</string>
@@ -170,9 +170,9 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">Basit Kişiler Pro - Kişilerinizi kolayca yönetin</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
+    <string name="app_short_description">Reklamsız, gizliliğinize saygı duyan, kişilerinizi yönetmek için bir uygulama.</string>
     <string name="app_long_description">
         Kişilerinizi herhangi bir kaynaktan oluşturmak veya yönetmek için basit bir uygulama. Kişiler yalnızca cihazınızda saklanabilir, aynı zamanda Google veya diğer hesaplarla senkronize edilebilir. Favori kişilerinizi ayrı bir listede görüntüleyebilirsiniz.
 
@@ -180,7 +180,17 @@
 
         Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sağlar.
 
-        Bu uygulama, daha büyük bir uygulama serisinden sadece bir parça. Geri kalanı https://www.simplemobiletools.com adresinde bulabilirsiniz
+        <b>Basit Araçlar paketinin tamamını buradan inceleyin:</b>
+        https://www.simplemobiletools.com
+
+        <b>Basit Kişiler Pro'nun bağımsız web sitesi:</b>
+        https://www.simplemobiletools.com/contacts
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
     </string>
 
     <!--

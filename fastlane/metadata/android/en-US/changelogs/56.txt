@@ -1,0 +1,3 @@
+ * Added an initial Speed dial implementation, can be customized in the app settings
+ * Properly color the status bar icons at light themes
+ * Many different stability, translation and UX improvements

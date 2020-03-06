@@ -1,7 +1,10 @@
 package com.simplemobiletools.contacts.pro.helpers
 
 import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.simplemobiletools.commons.helpers.BaseConfig
+import com.simplemobiletools.contacts.pro.models.SpeedDial
 
 class Config(context: Context) : BaseConfig(context) {
     companion object {
@@ -60,4 +63,18 @@ class Config(context: Context) : BaseConfig(context) {
     var speedDial: String
         get() = prefs.getString(SPEED_DIAL, "")!!
         set(speedDial) = prefs.edit().putString(SPEED_DIAL, speedDial).apply()
+
+    fun getSpeedDialValues(): ArrayList<SpeedDial> {
+        val speedDialType = object : TypeToken<List<SpeedDial>>() {}.type
+        val speedDialValues = Gson().fromJson<ArrayList<SpeedDial>>(speedDial, speedDialType) ?: ArrayList(1)
+
+        for (i in 1..9) {
+            val speedDial = SpeedDial(i, "", "")
+            if (speedDialValues.firstOrNull { it.id == i } == null) {
+                speedDialValues.add(speedDial)
+            }
+        }
+
+        return speedDialValues
+    }
 }

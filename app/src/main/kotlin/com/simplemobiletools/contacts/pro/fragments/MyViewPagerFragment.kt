@@ -2,9 +2,11 @@ package com.simplemobiletools.contacts.pro.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
@@ -23,6 +25,14 @@ import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.Group
 import kotlinx.android.synthetic.main.fragment_layout.view.*
+import kotlinx.android.synthetic.main.fragment_layout.view.fragment_fab
+import kotlinx.android.synthetic.main.fragment_layout.view.fragment_list
+import kotlinx.android.synthetic.main.fragment_layout.view.fragment_placeholder
+import kotlinx.android.synthetic.main.fragment_layout.view.fragment_placeholder_2
+import kotlinx.android.synthetic.main.fragment_layout.view.fragment_wrapper
+import kotlinx.android.synthetic.main.fragment_letters_layout.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
     protected var activity: SimpleActivity? = null
@@ -35,6 +45,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     var skipHashComparing = false
     var forceListRedraw = false
+    var wasLetterFastScrollerSetup = false
 
     fun setupFragment(activity: SimpleActivity) {
         config = activity.config
@@ -79,8 +90,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun primaryColorChanged() {
-        fragment_fastscroller.updatePrimaryColor()
-        fragment_fastscroller.updateBubblePrimaryColor()
+        fragment_fastscroller?.updatePrimaryColor()
+        fragment_fastscroller?.updateBubblePrimaryColor()
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             adjustedPrimaryColor = context.getAdjustedPrimaryColor()
         }
@@ -139,6 +150,39 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         } else {
             setupContactsFavoritesAdapter(contacts)
             contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
+
+            if (!wasLetterFastScrollerSetup) {
+                wasLetterFastScrollerSetup = true
+
+                val states = arrayOf(intArrayOf(android.R.attr.state_enabled),
+                        intArrayOf(-android.R.attr.state_enabled),
+                        intArrayOf(-android.R.attr.state_checked),
+                        intArrayOf(android.R.attr.state_pressed)
+                )
+
+                val textColor = config.textColor
+                val colors = intArrayOf(textColor, textColor, textColor, textColor)
+
+                val myList = ColorStateList(states, colors)
+                letter_fastscroller.textColor = myList
+
+                letter_fastscroller.setupWithRecyclerView(fragment_list, { position ->
+                    try {
+                        val name = contacts[position].getNameToDisplay()
+                        var character = if (name.isNotEmpty()) name.substring(0, 1) else ""
+                        if (!character.areLettersOnly()) {
+                            character = "#"
+                        }
+
+                        FastScrollItemIndicator.Text(character.toUpperCase(Locale.getDefault()))
+                    } catch (e: Exception) {
+                        FastScrollItemIndicator.Text("")
+                    }
+                })
+
+                letter_fastscroller_thumb.setupWithFastScroller(letter_fastscroller)
+                letter_fastscroller_thumb.textColor = config.primaryColor.getContrastColor()
+            }
         }
     }
 
@@ -197,16 +241,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 else -> LOCATION_CONTACTS_TAB
             }
 
-            ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list, fragment_fastscroller) {
+            ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list, null) {
                 (activity as RefreshContactsListener).contactClicked(it as Contact)
             }.apply {
                 fragment_list.adapter = this
-            }
-
-            fragment_fastscroller.setScrollToY(0)
-            fragment_fastscroller.setViews(fragment_list) {
-                val item = (fragment_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
-                fragment_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
             }
         } else {
             (currAdapter as ContactsAdapter).apply {
@@ -227,6 +265,20 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         } else {
             (fragment_list.adapter as? ContactsAdapter)?.apply {
                 showContactThumbnails = showThumbnails
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+    fun fontSizeChanged() {
+        if (this is GroupsFragment) {
+            (fragment_list.adapter as? GroupsAdapter)?.apply {
+                fontSize = activity.getTextSize()
+                notifyDataSetChanged()
+            }
+        } else {
+            (fragment_list.adapter as? ContactsAdapter)?.apply {
+                fontSize = activity.getTextSize()
                 notifyDataSetChanged()
             }
         }
@@ -304,9 +356,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     private fun updateViewStuff() {
         context.updateTextColors(fragment_wrapper.parent as ViewGroup)
-        fragment_fastscroller.updateBubbleColors()
-        fragment_fastscroller.allowBubbleDisplay = config.showInfoBubble
+        fragment_fastscroller?.updateBubbleColors()
+        fragment_fastscroller?.allowBubbleDisplay = true
         fragment_placeholder_2?.setTextColor(context.getAdjustedPrimaryColor())
+        letter_fastscroller_thumb?.fontSize = context.getTextSize()
     }
 
     private fun setupViewVisibility(hasItemsToShow: Boolean) {

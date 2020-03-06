@@ -122,9 +122,9 @@
     <string name="answer_call">Opnemen</string>
 
     <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
+    <string name="speed_dial">Snelkiezer</string>
+    <string name="manage_speed_dial">Snelkiezer bewerken</string>
+    <string name="speed_dial_label">Klik op een cijfer om er een contact aan te koppelen. Vervolgens kan dit contact direct gebeld worden door in de kiezer lang op het gekoppelde cijfer te drukken.</string>
 
     <!-- Visible fields -->
     <string name="select_fields_to_show">Kies zichtbare velden</string>
@@ -180,7 +180,17 @@
 
         Bevat geen advertenties of onnodige machtigingen. Volledig open-source. Kleuren van de app kunnen worden aangepast.
 
-        Deze app is onderdeel van een grotere verzameling. Vind de andere apps op https://www.simplemobiletools.com
+        <b>Check out the full suite of Simple Tools here:</b>
+        https://www.simplemobiletools.com
+
+        <b>Standalone website of Simple Contacts Pro:</b>
+        https://www.simplemobiletools.com/contacts
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
     </string>
 
     <!--

@@ -70,7 +70,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     }
 
     private fun fabClicked() {
-        SelectContactsDialog(this, allContacts, groupContacts) { addedContacts, removedContacts ->
+        SelectContactsDialog(this, allContacts, true, false, groupContacts) { addedContacts, removedContacts ->
             ensureBackgroundThread {
                 addContactsToGroup(addedContacts, group.id!!)
                 removeContactsFromGroup(removedContacts, group.id!!)

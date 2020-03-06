@@ -1,7 +1,7 @@
 package com.simplemobiletools.contacts.pro.adapters
 
-import android.graphics.drawable.Drawable
 import android.util.SparseArray
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,16 +10,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
-import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.helpers.Config
 import com.simplemobiletools.contacts.pro.helpers.highlightTextFromNumbers
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.item_add_favorite_with_number.view.*
@@ -33,13 +29,16 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
     private val config = activity.config
     private val textColor = config.textColor
     private val adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
+    private val fontSize = activity.getTextSize()
 
     private val contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person_vector, textColor)
     private val showContactThumbnails = config.showContactThumbnails
-    private val itemLayout = if (config.showPhoneNumbers) R.layout.item_add_favorite_with_number else R.layout.item_add_favorite_without_number
+    private val showPhoneNumbers = config.showPhoneNumbers
+    private val itemLayout = if (showPhoneNumbers) R.layout.item_add_favorite_with_number else R.layout.item_add_favorite_without_number
     private var textToHighlight = ""
 
     private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
+    private var mediumPadding = activity.resources.getDimension(R.dimen.medium_margin).toInt()
     private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
 
     init {
@@ -78,8 +77,8 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val eventType = contacts[position]
-        itemViews.put(position, holder.bindView(eventType, contactDrawable, config, showContactThumbnails, smallPadding, bigPadding))
+        val contact = contacts[position]
+        itemViews.put(position, holder.bindView(contact))
         toggleItemSelection(selectedPositions.contains(position), position)
     }
 
@@ -105,8 +104,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bindView(contact: Contact, contactDrawable: Drawable, config: Config, showContactThumbnails: Boolean,
-                     smallPadding: Int, bigPadding: Int): View {
+        fun bindView(contact: Contact): View {
             itemView.apply {
                 contact_checkbox.beVisibleIf(allowPickMultiple)
                 contact_checkbox.setColors(config.textColor, context.getAdjustedPrimaryColor(), config.backgroundColor)
@@ -122,7 +120,12 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                 }
 
                 contact_name.setTextColor(textColor)
-                contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
+                contact_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+                if (!showContactThumbnails && !showPhoneNumbers) {
+                    contact_name.setPadding(bigPadding, bigPadding, bigPadding, bigPadding)
+                } else {
+                    contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
+                }
 
                 if (contact_number != null) {
                     val phoneNumberToUse = if (textToHighlight.isEmpty()) {
@@ -135,6 +138,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                     contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
                     contact_number.setTextColor(textColor)
                     contact_number.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
+                    contact_number.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
                 }
 
                 contact_frame.setOnClickListener {
@@ -161,8 +165,24 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                                     .apply(options)
                                     .apply(RequestOptions.circleCropTransform())
                                     .into(contact_tmb)
+                            contact_tmb.setPadding(smallPadding, smallPadding, smallPadding, smallPadding)
                         }
+                    } else if (contact.photo != null) {
+                        val options = RequestOptions()
+                                .signature(ObjectKey(contact.hashCode()))
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                .error(contactDrawable)
+                                .centerCrop()
+
+                        Glide.with(activity)
+                                .load(contact.photo)
+                                .transition(DrawableTransitionOptions.withCrossFade())
+                                .apply(options)
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(contact_tmb)
+                        contact_tmb.setPadding(smallPadding, smallPadding, smallPadding, smallPadding)
                     } else {
+                        contact_tmb.setPadding(mediumPadding, mediumPadding, mediumPadding, mediumPadding)
                         contact_tmb.setImageDrawable(contactDrawable)
                     }
                 }

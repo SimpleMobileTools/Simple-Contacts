@@ -27,10 +27,12 @@ import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.pro.helpers.LOCATION_DIALPAD
 import com.simplemobiletools.contacts.pro.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 import com.simplemobiletools.contacts.pro.models.Contact
+import com.simplemobiletools.contacts.pro.models.SpeedDial
 import kotlinx.android.synthetic.main.activity_dialpad.*
 
 class DialpadActivity : SimpleActivity() {
-    var contacts = ArrayList<Contact>()
+    private var contacts = ArrayList<Contact>()
+    private var speedDialValues = ArrayList<SpeedDial>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,8 @@ class DialpadActivity : SimpleActivity() {
         if (checkAppSideloading()) {
             return
         }
+
+        speedDialValues = config.getSpeedDialValues()
 
         dialpad_0_holder.setOnClickListener { dialpadPressed("0", it) }
         dialpad_1.setOnClickListener { dialpadPressed("1", it) }
@@ -50,6 +54,17 @@ class DialpadActivity : SimpleActivity() {
         dialpad_7.setOnClickListener { dialpadPressed("7", it) }
         dialpad_8.setOnClickListener { dialpadPressed("8", it) }
         dialpad_9.setOnClickListener { dialpadPressed("9", it) }
+
+        dialpad_1.setOnLongClickListener { speedDial(1); true }
+        dialpad_2.setOnLongClickListener { speedDial(2); true }
+        dialpad_3.setOnLongClickListener { speedDial(3); true }
+        dialpad_4.setOnLongClickListener { speedDial(4); true }
+        dialpad_5.setOnLongClickListener { speedDial(5); true }
+        dialpad_6.setOnLongClickListener { speedDial(6); true }
+        dialpad_7.setOnLongClickListener { speedDial(7); true }
+        dialpad_8.setOnLongClickListener { speedDial(8); true }
+        dialpad_9.setOnLongClickListener { speedDial(9); true }
+
         dialpad_0_holder.setOnLongClickListener { dialpadPressed("+", null); true }
         dialpad_asterisk.setOnClickListener { dialpadPressed("*", it) }
         dialpad_hashtag.setOnClickListener { dialpadPressed("#", it) }
@@ -204,8 +219,7 @@ class DialpadActivity : SimpleActivity() {
         }
     }
 
-    private fun initCall() {
-        val number = dialpad_input.value
+    private fun initCall(number: String = dialpad_input.value) {
         if (number.isNotEmpty()) {
             if (config.showCallConfirmation) {
                 CallConfirmationDialog(this, number) {
@@ -213,6 +227,15 @@ class DialpadActivity : SimpleActivity() {
                 }
             } else {
                 startCallIntent(number)
+            }
+        }
+    }
+
+    private fun speedDial(id: Int) {
+        if (dialpad_input.value.isEmpty()) {
+            val speedDial = speedDialValues.firstOrNull { it.id == id }
+            if (speedDial?.isValid() == true) {
+                initCall(speedDial.number)
             }
         }
     }

@@ -1,6 +1,20 @@
 Changelog
 ==========
 
+Version 6.7.0 *(2020-02-05)*
+----------------------------
+
+ * Improved the side scrollbar by adding letters to it on some places
+ * Allow changing the font size in the app settings
+ * Trigger speed dial only if no number has been written yet
+
+Version 6.6.0 *(2020-01-22)*
+----------------------------
+
+ * Added an initial Speed dial implementation, can be customized in the app settings
+ * Properly color the status bar icons at light themes
+ * Many different stability, translation and UX improvements
+
 Version 6.5.2 *(2020-01-04)*
 ----------------------------
 
