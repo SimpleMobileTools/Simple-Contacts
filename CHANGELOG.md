@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.7.1 *(2020-03-08)*
+----------------------------
+
+ * Fixed some letter scrollbar related glitches
+ * Added some translation and stability related improvements
+
 Version 6.7.0 *(2020-02-05)*
 ----------------------------
 
