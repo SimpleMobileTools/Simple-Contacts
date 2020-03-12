@@ -172,11 +172,33 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">簡易通訊錄 Pro - 輕鬆管理你的聯絡人</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">一個沒有廣告的通訊錄應用程式，用來管理聯絡人，並且尊重您的隱私。</string>
+    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
     <string name="app_long_description">
-        一個用來從任何來源建立或管理聯絡人的簡易應用程式。聯絡人只能儲存於你的裝置上，不過也能透過Google或其他帳號來同步。你能將我的最愛聯絡人顯示在獨立名單上。
+        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
-        你也能用來管理使用者信箱和活動。它能夠以多項參數來排序/篩選，以及選擇將姓氏顯示在名字前面。
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+
+        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+
+        There is a lightweight dialpad at your service too, with smart contact suggestions.
+
+        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+
+        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+
+        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+
+        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+
+        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+
+        You can easily block phone numbers to avoid unwanted incoming calls.
+
+        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
 
         不包含廣告及非必要的權限，而且完全開放原始碼，並提供自訂顏色。
 

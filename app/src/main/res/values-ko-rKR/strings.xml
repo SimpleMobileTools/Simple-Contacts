@@ -172,11 +172,33 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
+    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
     <string name="app_long_description">
-        연락처를 생성하고 관리하는 간단한 앱입니다. 연락처는 기본적으로 기기에만 저장되며 Google 또는 다른 계정을 통해 동기화 할 수도 있습니다. 즐겨 찾는 연락처는 별도의 목록에 표시 할 수 있습니다.
+        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
-        다양한 조건으로 정렬 및 필터링이 가능하며 성과 이름을 표시하는 옵션도 제공합니다. 또한 애플리케이션을 이용해 사용자 이메일 및 이벤트 관리를 할 수도 있습니다.
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+
+        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+
+        There is a lightweight dialpad at your service too, with smart contact suggestions.
+
+        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+
+        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+
+        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+
+        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+
+        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+
+        You can easily block phone numbers to avoid unwanted incoming calls.
+
+        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
 
         광고가 포함되어 있거나, 불필요한 권한을 요청하지 않습니다. 이 앱의 모든 소스는 오픈소스이며, 사용자가 직접 애플리케이션의 컬러를 설정 할 수 있습니다.
 
