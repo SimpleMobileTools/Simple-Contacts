@@ -17,7 +17,7 @@
     <string name="request_the_required_permissions">Ζητούνται τα απαιτούμενα δικαιώματα</string>
     <string name="create_new_contact">Δημιουργία νέας Επαφής</string>
     <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
-    <string name="must_make_default_dialer">Θα πρέπει να οριστεί προεπιλεγμένη εφαρμογή για χρησιμοποίηση αποκλεισμένων αριθμών.</string>
+    <string name="must_make_default_dialer">Θα πρέπει να οριστεί προεπιλεγμένη εφαρμογή για χρήση αποκλεισμένων αριθμών.</string>
     <string name="set_as_default">Ορισμός ως προεπιλογής</string>
 
     <!-- Placeholders -->
@@ -38,7 +38,7 @@
     <string name="no_groups">Δεν υπάρχουν ομάδες</string>
     <string name="create_new_group">Δημιουργία νέας ομάδας</string>
     <string name="remove_from_group">Αφαίρεση από ομάδα</string>
-    <string name="no_group_participants">Η ομάδα είναι άδεια</string>
+    <string name="no_group_participants">Η ομάδα είναι κενή</string>
     <string name="add_contacts">Προσθήκη επαφών</string>
     <string name="no_group_created">Δεν υπάρχουν ομάδες επαφών στη συσκευή</string>
     <string name="create_group">Δημιουργία ομάδας</string>
@@ -59,7 +59,7 @@
     <string name="call_contact">Κλήση επαφής</string>
     <string name="view_contact">Εμφάνιση λεπτομερειών επαφής</string>
     <string name="manage_shown_contact_fields">Διαχείριση εμφανιζόμενων πεδίων επαφής</string>
-    <string name="filter_duplicates">Δοκιμάστε το φιλτράρισμα διπλών επαφών</string>
+    <string name="filter_duplicates">Δοκιμάστε το φιλτράρισμα διπλότυπων επαφών</string>
     <string name="manage_shown_tabs">Διαχείριση εμφανιζόμενων καρτελών</string>
     <string name="contacts">Επαφές</string>
     <string name="favorites">Αγαπημένες</string>
@@ -103,7 +103,7 @@
     <string name="export_contacts">Εξαγωγή επαφών</string>
     <string name="import_contacts_from_vcf">Εισαγωγή επαφών από .vcf αρχείο</string>
     <string name="export_contacts_to_vcf">Εξαγωγή επαφών σε .vcf αρχείο</string>
-    <string name="target_contact_source">Πηγή επαφής προορισμού</string>
+    <string name="target_contact_source">Προορισμός πηγής επαφής</string>
     <string name="include_contact_sources">Συμπερίληψη πηγών επαφών</string>
     <string name="filename_without_vcf">Όνομα αρχείου (χωρίς .vcf)</string>
 
@@ -118,7 +118,7 @@
     <string name="incoming_call_from">Εισερχόμενη κλήση απο…</string>
     <string name="ongoing_call">Εξερχόμενη κλήση</string>
     <string name="disconnected">Αποσύνδεση</string>
-    <string name="decline_call">Άρνηση</string>
+    <string name="decline_call">Απόρριψη</string>
     <string name="answer_call">Απάντηση</string>
 
     <!-- Speed dial -->
@@ -142,7 +142,7 @@
     <string name="instant_messaging">Αμεσο μήνυμα (IM)</string>
 
     <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Διαχείρηση αποκλεισμένων αριθμών</string>
+    <string name="manage_blocked_numbers">Διαχείριση αποκλεισμένων αριθμών</string>
     <string name="not_blocking_anyone">Χωρίς αποκλεισμο κανενός.</string>
     <string name="add_a_blocked_number">Προσθήκη ένος αποκλεισμένου αριθμού</string>
     <string name="block_number">Αποκλεισμό αριθμού</string>
@@ -172,33 +172,34 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Απλές Επαφές Pro - Εύκολη διαχείριση Επαφών</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
+    <string name="app_short_description">Εύκολη και γρήγορη διαχείριση ομάδων &amp; αγαπημένων επαφών χωρίς διαφημίσεις.</string>
     <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
+        
+        Μια ελαφριά εφαρμογή διαχείρισης των επαφών σας που αγαπήθηκε από εκατομμύρια χρήστες. Οι επαφές μπορούν να αποθηκευτούν μόνο στη συσκευή σας, αλλά και να συγχρονιστούν μέσω της Google ή άλλων λογαριασμών.
 
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+        Μπορείτε να την χρησιμοποιήσετε και για τη διαχείριση email και συμβάντων χρήστη. Έχει τη δυνατότητα ταξινόμισης/φιλτραρίσματος με πολλές παραμέτρους, προαιρετικά εμφανίζει το επώνυμο ως πρώτο όνομα.
 
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+        Μπορείτε να εμφανίσετε τις αγαπημένες σας επαφές ή ομάδες σε ξεχωριστή λίστα. Οι ομάδες μπορούν να χρησιμοποιηθούν για την αποστολή ομαδικών μηνυμάτων email ή SMS, για να εξοικονομήσετε χρόνο, καθώς &amp; για εύκολη μετονομασία.
 
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+        Περιέχει εύχρηστα πλήκτρα στις κλήσεις ή προς αποστολή μηνυμάτων στις επαφές σας. Όλα τα ορατά πεδία μπορούν να προσαρμοστούν όπως επιθυμείτε, μπορείτε εύκολα να αποκρύψετε τα μη χρησιμοποιούμενα. Η λειτουργία Αναζήτηση θα βρεί την συμβολοσειρά σε κάθε ορατό πεδίο επαφής για να σας βοηθήσει στον εύκολο εντοπισμό της επιθυμητής επαφής.
 
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
+        Υπάρχει και ένα ελαφρύ πληκτρολόγιο κλήσης στην διάθεσή σας, με προτάσεις έξυπνων επαφών.
 
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+        Υποστηρίζει την εξαγωγή/εισαγωγή επαφών σε μορφή vCard σε αρχεία .vcf, για εύκολη μεταφορά ή δημιουργία αντιγράφων ασφαλείας των δεδομένων σας.
 
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+        Με αυτόν τον σύγχρονο &amp; σταθερό διαχειριστή επαφών μπορείτε να προστατέψετε τις επαφές σας χωρίς να τις μοιραστείτε με άλλες εφαρμογές, ώστε να διατηρήσετε τις επαφές σας ιδιωτικές.
 
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+        Όπως και στη πηγή επαφών, μπορείτε επίσης να αλλάξετε εύκολα το όνομα της επαφής, το email, τον αριθμό τηλεφώνου, τη διεύθυνση, τον οργανισμό, τις ομάδες και πολλά άλλα προσαρμόσιμα πεδία. Μπορείτε να την χρησιμοποιήσετε και για την αποθήκευση συμβάντων επαφής, όπως γενέθλια, επετείους ή άλλα προσαρμόσιμα.
 
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+        Αυτό το απλό πρόγραμμα επεξεργασίας επαφών έχει πολλές εύχρηστες ρυθμίσεις, όπως εμφάνιση αριθμών τηλεφώνου στην κύρια οθόνη, εναλλαγή προβολής μικρογραφιών επαφών, εμφάνιση μόνο επαφών με αριθμούς τηλεφώνου, εμφάνιση διαλόγου επιβεβαίωσης κλήσης πριν την εκκίνηση μιας κλήσης. Έρχεται επίσης με Ταχεία κλήση χρησιμοποιώντας γράμματα.
 
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+        Για περαιτέρω βελτίωση της εμπειρίας χρήστη, μπορείτε να προσαρμόσετε τις ενέργειες που θα γίνονται κάνοντας κλικ σε μια επαφή. Μπορείτε είτε να ξεκινήσετε μια κλήση, να μεταβείτε στην οθόνη, Προβολή λεπτομερειών, ή να επεξεργαστείτε την επιλεγμένη επαφή.
 
-        You can easily block phone numbers to avoid unwanted incoming calls.
+        Μπορείτε εύκολα να αποκλείσετε αριθμούς τηλεφώνου για να αποφύγετε ανεπιθύμητες εισερχόμενες κλήσεις.
 
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+        Για αποφυγή προβολής πιθανών ανεπιθύμητων επαφών, διαθέτει μια ισχυρή ενσωματωμένη συγχώνευση διπλότυπων επαφών.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Διατίθεται με σχεδίαση υλικού με σκούρο θέμα από προεπιλογή, παρέχει εξαιρετική εμπειρία χρήστη για εύκολη χρήση. Η έλλειψη πρόσβασης στο διαδίκτυο σας παρέχει περισσότερο απόρρητο, ασφάλεια και σταθερότητα από ότι άλλες εφαρμογές.
 
         Δεν περιέχει διαφημίσεις ή περιττές άδειες. Έιναι όλη ανοιχτού κώδικα και παρέχει προσαρμόσιμα χρώματα για την εφαρμογή.
 
