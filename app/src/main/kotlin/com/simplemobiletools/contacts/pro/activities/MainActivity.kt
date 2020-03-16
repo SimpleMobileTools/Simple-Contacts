@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
@@ -46,6 +47,9 @@ import java.io.FileOutputStream
 import java.util.*
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
+    private val PICK_IMPORT_SOURCE_INTENT = 1
+    private val PICK_EXPORT_FILE_INTENT = 1
+
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
     private var werePermissionsHandled = false
@@ -215,6 +219,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == PICK_IMPORT_SOURCE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
+            tryImportContactsFromFile(resultData.data!!)
+        }
     }
 
     private fun storeStateVariables() {
@@ -446,9 +457,17 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun tryImportContacts() {
-        handlePermission(PERMISSION_READ_STORAGE) {
-            if (it) {
-                importContacts()
+        if (isQPlus()) {
+            Intent(Intent.ACTION_GET_CONTENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "text/x-vcard"
+                startActivityForResult(this, PICK_IMPORT_SOURCE_INTENT)
+            }
+        } else {
+            handlePermission(PERMISSION_READ_STORAGE) {
+                if (it) {
+                    importContacts()
+                }
             }
         }
     }
