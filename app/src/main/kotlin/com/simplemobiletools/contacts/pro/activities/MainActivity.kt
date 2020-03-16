@@ -49,13 +49,14 @@ import java.util.*
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
     private val PICK_IMPORT_SOURCE_INTENT = 1
-    private val PICK_EXPORT_FILE_INTENT = 1
+    private val PICK_EXPORT_FILE_INTENT = 2
 
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
     private var werePermissionsHandled = false
     private var isFirstResume = true
     private var isGettingContacts = false
+    private var ignoredExportContactSources = HashSet<String>()
     private var handledShowTabs = 0
 
     private var storedTextColor = 0
@@ -226,6 +227,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (requestCode == PICK_IMPORT_SOURCE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
             tryImportContactsFromFile(resultData.data!!)
+        } else if (requestCode == PICK_EXPORT_FILE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
+            val outputStream = contentResolver.openOutputStream(resultData.data!!)
+            exportContactsTo(ignoredExportContactSources, outputStream)
         }
     }
 
@@ -513,12 +517,27 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun tryExportContacts() {
-        handlePermission(PERMISSION_WRITE_STORAGE) {
-            if (it) {
-                ExportContactsDialog(this, config.lastExportPath, false) { file, ignoredContactSources ->
-                    config.lastExportPath = file.absolutePath.getParentPath()
-                    getFileOutputStream(file.toFileDirItem(this), true) {
-                        exportContactsTo(ignoredContactSources, it)
+        if (isQPlus()) {
+            ExportContactsDialog(this, config.lastExportPath, true) { file, ignoredContactSources ->
+                config.lastExportPath = file.absolutePath.getParentPath()
+                ignoredExportContactSources = ignoredContactSources
+
+                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                    type = "text/x-vcard"
+                    putExtra(Intent.EXTRA_TITLE, file.name)
+                    addCategory(Intent.CATEGORY_OPENABLE)
+
+                    startActivityForResult(this, PICK_EXPORT_FILE_INTENT)
+                }
+            }
+        } else {
+            handlePermission(PERMISSION_WRITE_STORAGE) {
+                if (it) {
+                    ExportContactsDialog(this, config.lastExportPath, false) { file, ignoredContactSources ->
+                        config.lastExportPath = file.absolutePath.getParentPath()
+                        getFileOutputStream(file.toFileDirItem(this), true) {
+                            exportContactsTo(ignoredContactSources, it)
+                        }
                     }
                 }
             }
