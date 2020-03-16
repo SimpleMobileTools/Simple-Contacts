@@ -526,12 +526,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 if (contacts.isEmpty()) {
                     toast(R.string.no_entries_for_exporting)
                 } else {
-                    VcfExporter().exportContacts(this, file, contacts, true) { result ->
-                        toast(when (result) {
-                            VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
-                            VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
-                            else -> R.string.exporting_failed
-                        })
+                    getFileOutputStream(file.toFileDirItem(this), true) {
+                        VcfExporter().exportContacts(this, it, contacts, true) { result ->
+                            toast(when (result) {
+                                VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
+                                VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
+                                else -> R.string.exporting_failed
+                            })
+                        }
                     }
                 }
             }
