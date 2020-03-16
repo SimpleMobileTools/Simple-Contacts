@@ -520,7 +520,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun exportContacts() {
-        ExportContactsDialog(this, config.lastExportPath) { file, ignoredContactSources ->
+        ExportContactsDialog(this, config.lastExportPath, false) { file, ignoredContactSources ->
             config.lastExportPath = file.absolutePath.getParentPath()
             ContactsHelper(this).getContacts(true, ignoredContactSources) { contacts ->
                 if (contacts.isEmpty()) {

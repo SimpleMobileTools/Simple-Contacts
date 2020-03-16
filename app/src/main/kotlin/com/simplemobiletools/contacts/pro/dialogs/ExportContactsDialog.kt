@@ -15,7 +15,8 @@ import kotlinx.android.synthetic.main.dialog_export_contacts.view.*
 import java.io.File
 import java.util.*
 
-class ExportContactsDialog(val activity: SimpleActivity, val path: String, private val callback: (file: File, ignoredContactSources: HashSet<String>) -> Unit) {
+class ExportContactsDialog(val activity: SimpleActivity, val path: String, val hidePath: Boolean,
+                           private val callback: (file: File, ignoredContactSources: HashSet<String>) -> Unit) {
     private var contactSources = ArrayList<ContactSource>()
     private var ignoreClicks = false
     private var realPath = if (path.isEmpty()) activity.internalStoragePath else path
@@ -25,11 +26,16 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, priva
             export_contacts_folder.text = activity.humanizePath(realPath)
             export_contacts_filename.setText("contacts_${activity.getCurrentFormattedDateTime()}")
 
-            export_contacts_folder.setOnClickListener {
-                activity.hideKeyboard(export_contacts_filename)
-                FilePickerDialog(activity, realPath, false, showFAB = true) {
-                    export_contacts_folder.text = activity.humanizePath(it)
-                    realPath = it
+            if (hidePath) {
+                export_contacts_folder_label.beGone()
+                export_contacts_folder.beGone()
+            } else {
+                export_contacts_folder.setOnClickListener {
+                    activity.hideKeyboard(export_contacts_filename)
+                    FilePickerDialog(activity, realPath, false, showFAB = true) {
+                        export_contacts_folder.text = activity.humanizePath(it)
+                        realPath = it
+                    }
                 }
             }
 
