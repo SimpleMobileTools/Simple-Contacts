@@ -44,6 +44,7 @@ import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.android.synthetic.main.fragment_groups.*
 import java.io.FileOutputStream
+import java.io.OutputStream
 import java.util.*
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
@@ -514,27 +515,27 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun tryExportContacts() {
         handlePermission(PERMISSION_WRITE_STORAGE) {
             if (it) {
-                exportContacts()
+                ExportContactsDialog(this, config.lastExportPath, false) { file, ignoredContactSources ->
+                    config.lastExportPath = file.absolutePath.getParentPath()
+                    getFileOutputStream(file.toFileDirItem(this), true) {
+                        exportContactsTo(ignoredContactSources, it)
+                    }
+                }
             }
         }
     }
 
-    private fun exportContacts() {
-        ExportContactsDialog(this, config.lastExportPath, false) { file, ignoredContactSources ->
-            config.lastExportPath = file.absolutePath.getParentPath()
-            ContactsHelper(this).getContacts(true, ignoredContactSources) { contacts ->
-                if (contacts.isEmpty()) {
-                    toast(R.string.no_entries_for_exporting)
-                } else {
-                    getFileOutputStream(file.toFileDirItem(this), true) {
-                        VcfExporter().exportContacts(this, it, contacts, true) { result ->
-                            toast(when (result) {
-                                VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
-                                VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
-                                else -> R.string.exporting_failed
-                            })
-                        }
-                    }
+    private fun exportContactsTo(ignoredContactSources: HashSet<String>, outputStream: OutputStream?) {
+        ContactsHelper(this).getContacts(true, ignoredContactSources) { contacts ->
+            if (contacts.isEmpty()) {
+                toast(R.string.no_entries_for_exporting)
+            } else {
+                VcfExporter().exportContacts(this, outputStream, contacts, true) { result ->
+                    toast(when (result) {
+                        VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
+                        VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
+                        else -> R.string.exporting_failed
+                    })
                 }
             }
         }
