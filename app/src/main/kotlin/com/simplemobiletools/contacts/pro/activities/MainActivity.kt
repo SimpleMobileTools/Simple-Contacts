@@ -520,19 +520,18 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun exportContacts() {
-        FilePickerDialog(this, pickFile = false, showFAB = true) {
-            ExportContactsDialog(this, it) { file, ignoredContactSources ->
-                ContactsHelper(this).getContacts(true, ignoredContactSources) { contacts ->
-                    if (contacts.isEmpty()) {
-                        toast(R.string.no_entries_for_exporting)
-                    } else {
-                        VcfExporter().exportContacts(this, file, contacts, true) { result ->
-                            toast(when (result) {
-                                VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
-                                VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
-                                else -> R.string.exporting_failed
-                            })
-                        }
+        ExportContactsDialog(this, config.lastExportPath) { file, ignoredContactSources ->
+            config.lastExportPath = file.absolutePath.getParentPath()
+            ContactsHelper(this).getContacts(true, ignoredContactSources) { contacts ->
+                if (contacts.isEmpty()) {
+                    toast(R.string.no_entries_for_exporting)
+                } else {
+                    VcfExporter().exportContacts(this, file, contacts, true) { result ->
+                        toast(when (result) {
+                            VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
+                            VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
+                            else -> R.string.exporting_failed
+                        })
                     }
                 }
             }

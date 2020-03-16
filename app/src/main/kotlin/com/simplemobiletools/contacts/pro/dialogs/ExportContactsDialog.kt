@@ -2,6 +2,7 @@ package com.simplemobiletools.contacts.pro.dialogs
 
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
@@ -17,11 +18,20 @@ import java.util.*
 class ExportContactsDialog(val activity: SimpleActivity, val path: String, private val callback: (file: File, ignoredContactSources: HashSet<String>) -> Unit) {
     private var contactSources = ArrayList<ContactSource>()
     private var ignoreClicks = false
+    private var realPath = if (path.isEmpty()) activity.internalStoragePath else path
 
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_export_contacts, null) as ViewGroup).apply {
-            export_contacts_folder.text = activity.humanizePath(path)
+            export_contacts_folder.text = activity.humanizePath(realPath)
             export_contacts_filename.setText("contacts_${activity.getCurrentFormattedDateTime()}")
+
+            export_contacts_folder.setOnClickListener {
+                activity.hideKeyboard(export_contacts_filename)
+                FilePickerDialog(activity, realPath, false, showFAB = true) {
+                    export_contacts_folder.text = activity.humanizePath(it)
+                    realPath = it
+                }
+            }
 
             ContactsHelper(activity).getContactSources {
                 it.mapTo(contactSources) { it.copy() }
@@ -45,7 +55,7 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, priva
                             when {
                                 filename.isEmpty() -> activity.toast(R.string.empty_name)
                                 filename.isAValidFilename() -> {
-                                    val file = File(path, "$filename.vcf")
+                                    val file = File(realPath, "$filename.vcf")
                                     if (file.exists()) {
                                         activity.toast(R.string.name_taken)
                                         return@setOnClickListener
