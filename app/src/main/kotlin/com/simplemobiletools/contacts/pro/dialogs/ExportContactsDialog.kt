@@ -8,6 +8,7 @@ import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.FilterContactSourcesAdapter
+import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.models.ContactSource
@@ -69,6 +70,7 @@ class ExportContactsDialog(val activity: SimpleActivity, val path: String, val h
 
                                     ignoreClicks = true
                                     ensureBackgroundThread {
+                                        activity.config.lastExportPath = file.absolutePath.getParentPath()
                                         val selectedSources = (view.export_contacts_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
                                         val ignoredSources = contactSources.filter { !selectedSources.contains(it) }.map { it.getFullIdentifier() }.toHashSet()
                                         callback(file, ignoredSources)

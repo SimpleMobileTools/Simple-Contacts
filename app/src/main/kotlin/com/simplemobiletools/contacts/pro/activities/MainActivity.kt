@@ -519,7 +519,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun tryExportContacts() {
         if (isQPlus()) {
             ExportContactsDialog(this, config.lastExportPath, true) { file, ignoredContactSources ->
-                config.lastExportPath = file.absolutePath.getParentPath()
                 ignoredExportContactSources = ignoredContactSources
 
                 Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
@@ -534,7 +533,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             handlePermission(PERMISSION_WRITE_STORAGE) {
                 if (it) {
                     ExportContactsDialog(this, config.lastExportPath, false) { file, ignoredContactSources ->
-                        config.lastExportPath = file.absolutePath.getParentPath()
                         getFileOutputStream(file.toFileDirItem(this), true) {
                             exportContactsTo(ignoredContactSources, it)
                         }
