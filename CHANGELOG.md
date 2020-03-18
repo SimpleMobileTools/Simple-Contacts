@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.8.0 *(2020-03-18)*
+----------------------------
+
+ * Remember the last used folder at contacts exporting
+ * Do not request the Storage permission on Android 10+, use Scoped Storage
+
 Version 6.7.1 *(2020-03-08)*
 ----------------------------
 
