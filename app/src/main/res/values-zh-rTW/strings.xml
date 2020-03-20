@@ -62,13 +62,11 @@
     <string name="filter_duplicates">試著過濾重複的聯絡人</string>
     <string name="manage_shown_tabs">管理顯示的頁面</string>
     <string name="contacts">聯絡人</string>
-    <string name="favorites">我的最愛</string>
     <string name="show_call_confirmation_dialog">開始通話前顯示通話確認框</string>
     <string name="show_only_contacts_with_numbers">只顯示含有電話話碼的聯絡人</string>
     <string name="show_dialpad_letters">在撥號畫面上顯示字母</string>
 
     <!-- Emails -->
-    <string name="email">電子信箱</string>
     <string name="home">住家</string>
     <string name="work">工作</string>
     <string name="other">其它</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">你似乎還沒加入任何我的最愛聯絡人。</string>
-    <string name="add_favorites">添加我的最愛</string>
-    <string name="add_to_favorites">加入我的最愛</string>
-    <string name="remove_from_favorites">從我的最愛移除</string>
     <string name="must_be_at_edit">你必須在編輯畫面去修改聯絡人</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">電子信箱</string>
     <string name="addresses">地址</string>
     <string name="events">活動 (生日、紀念日)</string>
-    <string name="notes">筆記</string>
     <string name="organization">組織</string>
     <string name="websites">網站</string>
     <string name="groups">群組</string>

@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Försök filtrera bort dubblettkontakter</string>
     <string name="manage_shown_tabs">Välj vilka flikar som ska visas</string>
     <string name="contacts">Kontakter</string>
-    <string name="favorites">Favoriter</string>
     <string name="show_call_confirmation_dialog">Visa en bekräftelsedialogruta före uppringning</string>
     <string name="show_only_contacts_with_numbers">Visa bara kontakter med telefonnummer</string>
     <string name="show_dialpad_letters">Visa bokstäver på knappsatsen</string>
 
     <!-- Emails -->
-    <string name="email">E-post</string>
     <string name="home">Hem</string>
     <string name="work">Arbete</string>
     <string name="other">Annat</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Det verkar som att du inte har lagt till några favoritkontakter ännu.</string>
-    <string name="add_favorites">Lägg till favoriter</string>
-    <string name="add_to_favorites">Lägg till i favoriter</string>
-    <string name="remove_from_favorites">Ta bort från favoriter</string>
     <string name="must_be_at_edit">Kontakter kan bara redigeras i redigeringsvyn</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">E-postadresser</string>
     <string name="addresses">Adresser</string>
     <string name="events">Händelser (födelsedagar, årsdagar)</string>
-    <string name="notes">Anteckningar</string>
     <string name="organization">Organisation</string>
     <string name="websites">Webbplatser</string>
     <string name="groups">Grupper</string>

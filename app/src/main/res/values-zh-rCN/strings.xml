@@ -62,13 +62,11 @@
     <string name="filter_duplicates">试着过滤重复的联系人</string>
     <string name="manage_shown_tabs">管理显示的页面</string>
     <string name="contacts">联系人</string>
-    <string name="favorites">我的收藏</string>
     <string name="show_call_confirmation_dialog">开始通话前显示通话确认框</string>
     <string name="show_only_contacts_with_numbers">只显示含有电话话码的联系人</string>
     <string name="show_dialpad_letters">在拨号界面上显示字母</string>
 
     <!-- Emails -->
-    <string name="email">电子邮箱</string>
     <string name="home">住家</string>
     <string name="work">工作</string>
     <string name="other">其它</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">你似乎还没加入任何我的收藏联系人。</string>
-    <string name="add_favorites">添加我的收藏</string>
-    <string name="add_to_favorites">加入我的收藏</string>
-    <string name="remove_from_favorites">从我的收藏移除</string>
     <string name="must_be_at_edit">你必须在编辑页面去修改联系人</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">电子邮箱</string>
     <string name="addresses">地址</string>
     <string name="events">活动 (生日、纪念日)</string>
-    <string name="notes">笔记</string>
     <string name="organization">组织</string>
     <string name="websites">网站</string>
     <string name="groups">群组</string>

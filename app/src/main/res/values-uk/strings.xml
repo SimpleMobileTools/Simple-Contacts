@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Фільтрувати контакти, що дублюються</string>
     <string name="manage_shown_tabs">Керування вкладками, що відображаються</string>
     <string name="contacts">Контакти</string>
-    <string name="favorites">Улюблені</string>
     <string name="show_call_confirmation_dialog">Показувати діалог підтвердження виклику</string>
     <string name="show_only_contacts_with_numbers">Показувати лише контакти з телефонними номерами</string>
     <string name="show_dialpad_letters">Показувати літери на панелі набору</string>
 
     <!-- Emails -->
-    <string name="email">Електронна пошта</string>
     <string name="home">Домашній</string>
     <string name="work">Робочий</string>
     <string name="other">Інше</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Здається, ви ще не додали улюблені контакти.</string>
-    <string name="add_favorites">Додати улюблені</string>
-    <string name="add_to_favorites">Додати до улюблених</string>
-    <string name="remove_from_favorites">Видалити з улюблених</string>
     <string name="must_be_at_edit">Для того, щоб змінити контакт, необхідно відкрити меню редагування</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">Електронна пошта</string>
     <string name="addresses">Адреси</string>
     <string name="events">Події (дні народжень, річниці)</string>
-    <string name="notes">Нотатки</string>
     <string name="organization">Організація</string>
     <string name="websites">Веб-сайт</string>
     <string name="groups">Групи</string>

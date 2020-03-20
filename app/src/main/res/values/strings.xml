@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Try filtering out duplicate contacts</string>
     <string name="manage_shown_tabs">Manage shown tabs</string>
     <string name="contacts">Contacts</string>
-    <string name="favorites">Favorites</string>
     <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
-    <string name="email">Email</string>
     <string name="home">Home</string>
     <string name="work">Work</string>
     <string name="other">Other</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Seems like you haven\'t added any favorite contacts yet.</string>
-    <string name="add_favorites">Add favorites</string>
-    <string name="add_to_favorites">Add to favorites</string>
-    <string name="remove_from_favorites">Remove from favorites</string>
     <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">Emails</string>
     <string name="addresses">Addresses</string>
     <string name="events">Events (birthdays, anniversaries)</string>
-    <string name="notes">Notes</string>
     <string name="organization">Organization</string>
     <string name="websites">Websites</string>
     <string name="groups">Groups</string>

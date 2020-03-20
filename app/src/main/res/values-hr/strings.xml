@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Pokušaj filtrirati duple kontakte</string>
     <string name="manage_shown_tabs">Upravljaj prikazanim karticama</string>
     <string name="contacts">Kontakti</string>
-    <string name="favorites">Favoriti</string>
     <string name="show_call_confirmation_dialog">Pokažite dijaloški okvir za potvrdu poziva prije pokretanja poziva</string>
     <string name="show_only_contacts_with_numbers">Prikaži samo kontakte s telefonskim brojevima</string>
     <string name="show_dialpad_letters">Prikaži slova na telefonskoj tipkovnici</string>
 
     <!-- Emails -->
-    <string name="email">E-pošta</string>
     <string name="home">Kućni</string>
     <string name="work">Posao</string>
     <string name="other">Ostalo</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Čini se da još niste dodali nijedan kontakt u favorite.</string>
-    <string name="add_favorites">Dodaj favorite</string>
-    <string name="add_to_favorites">Dodaj u favorite</string>
-    <string name="remove_from_favorites">Ukloni iz favorita</string>
     <string name="must_be_at_edit">Morate biti na zaslonu Uređivanje da biste izmijenili kontakt</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">E-pošte</string>
     <string name="addresses">Adrese</string>
     <string name="events">Događaji (rođendani, godišnjice)</string>
-    <string name="notes">Bilješke</string>
     <string name="organization">Organizacije</string>
     <string name="websites">Web stranice</string>
     <string name="groups">Grupe</string>

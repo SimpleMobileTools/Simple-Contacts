@@ -62,13 +62,11 @@
     <string name="filter_duplicates">محاولة تصفية جهات الاتصال المكررة</string>
     <string name="manage_shown_tabs">إدارة التابات المعروضة</string>
     <string name="contacts">جهات الاتصال</string>
-    <string name="favorites">المفضلة</string>
     <string name="show_call_confirmation_dialog">إظهار مربع حوار تأكيد الاتصال قبل بدء مكالمة</string>
     <string name="show_only_contacts_with_numbers">إظهار جهات الإتصال التي لديها أرقام هواتف فقط</string>
     <string name="show_dialpad_letters">عرض الحروف على لوحة الاتصال</string>
 
     <!-- Emails -->
-    <string name="email">البريد الالكتروني</string>
     <string name="home">المنزل</string>
     <string name="work">العمل</string>
     <string name="other">مختلف</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">يبدو أنك لم تضف أية جهة اتصال مفضلة حتى الآن.</string>
-    <string name="add_favorites">اضافة مفضلة</string>
-    <string name="add_to_favorites">اضافة الى المفضلة</string>
-    <string name="remove_from_favorites">ازالة من المفضلة</string>
     <string name="must_be_at_edit">يجب أن تكون في شاشة التعديل لتعديل جهة اتصال</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">البريد الالكتروني</string>
     <string name="addresses">العناوين</string>
     <string name="events">الأحداث (أعياد الميلاد ، الذكرى السنوية)</string>
-    <string name="notes">ملاحظات</string>
     <string name="organization">منظمة</string>
     <string name="websites">المواقع الالكترونية</string>
     <string name="groups">مجموعات</string>

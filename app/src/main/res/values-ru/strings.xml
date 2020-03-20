@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Отфильтровывать повторяющиеся контакты</string>
     <string name="manage_shown_tabs">Управление отображаемыми вкладками</string>
     <string name="contacts">Контакты</string>
-    <string name="favorites">Избранное</string>
     <string name="show_call_confirmation_dialog">Показывать диалог подтверждения вызова</string>
     <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
     <string name="show_dialpad_letters">Показывать буквы на кнопках набора номера</string>
 
     <!-- Emails -->
-    <string name="email">Эл. почта</string>
     <string name="home">Домашний</string>
     <string name="work">Рабочий</string>
     <string name="other">Другой</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Похоже, вы ещё не добавили избранные контакты.</string>
-    <string name="add_favorites">Добавить избранные</string>
-    <string name="add_to_favorites">Добавить в избранные</string>
-    <string name="remove_from_favorites">Удалить из избранных</string>
     <string name="must_be_at_edit">Для изменения контакта необходимо находиться на экране редактирования</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">Электронная почта</string>
     <string name="addresses">Адреса</string>
     <string name="events">События (дни рождения, юбилеи)</string>
-    <string name="notes">Заметки</string>
     <string name="organization">Организация</string>
     <string name="websites">Сайты</string>
     <string name="groups">Группы</string>

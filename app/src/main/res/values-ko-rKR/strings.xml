@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Try filtering out duplicate contacts</string>
     <string name="manage_shown_tabs">Manage shown tabs</string>
     <string name="contacts">Contacts</string>
-    <string name="favorites">Favorites</string>
     <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
-    <string name="email">이메일</string>
     <string name="home">집</string>
     <string name="work">회사</string>
     <string name="other">미분류</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">자주 사용하는 연락처가 아직 등록되지 않았습니다.</string>
-    <string name="add_favorites">자주쓰는 연락처 등록</string>
-    <string name="add_to_favorites">자주쓰는 연락처에 추가</string>
-    <string name="remove_from_favorites">자주쓰는 연락처에서 제거</string>
     <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">Emails</string>
     <string name="addresses">Addresses</string>
     <string name="events">Events (birthdays, anniversaries)</string>
-    <string name="notes">Notes</string>
     <string name="organization">Organization</string>
     <string name="websites">Websites</string>
     <string name="groups">Groups</string>

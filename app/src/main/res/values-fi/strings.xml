@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Suodata kaksoiskappaleet</string>
     <string name="manage_shown_tabs">Muuta näytettyjä palkkeja</string>
     <string name="contacts">Kontaktit</string>
-    <string name="favorites">Suosikit</string>
     <string name="show_call_confirmation_dialog">Näytä puhelun vahvistusruutu</string>
     <string name="show_only_contacts_with_numbers">Näytä ainoastaan numerolliset kontaktit</string>
     <string name="show_dialpad_letters">Näytä kirjaimet puhelimessa</string>
 
     <!-- Emails -->
-    <string name="email">Sähköposti</string>
     <string name="home">Koti</string>
     <string name="work">Työ</string>
     <string name="other">Muu</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Ei suosikkeja</string>
-    <string name="add_favorites">Lisää suosikkeja</string>
-    <string name="add_to_favorites">Lisää suosikkeihin</string>
-    <string name="remove_from_favorites">Poista suosikeista</string>
     <string name="must_be_at_edit">Täytyy olla muokkauksessa</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">Sähköpostit</string>
     <string name="addresses">Osoitteet</string>
     <string name="events">Tapahtumat</string>
-    <string name="notes">Muistiinpanot</string>
     <string name="organization">Järjestö</string>
     <string name="websites">Internetsivut</string>
     <string name="groups">Ryhmät</string>

@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Többszörösen felvett névjegyek kiszűrése</string>
     <string name="manage_shown_tabs">A megjelenő fülek kiválasztása</string>
     <string name="contacts">Névjegyek</string>
-    <string name="favorites">Kedvencek</string>
     <string name="show_call_confirmation_dialog">Jóváhagyás kérése telefonhívás indítása előtt</string>
     <string name="show_only_contacts_with_numbers">Csak telefonszámot tartalmazó névjegyek kijelzése</string>
     <string name="show_dialpad_letters">Betűk kijelzése a tárcsázón</string>
 
     <!-- Emails -->
-    <string name="email">Email</string>
     <string name="home">Otthon</string>
     <string name="work">Munkahely</string>
     <string name="other">Egyéb</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Úgy tűnik, hogy még nincsenek kedvencek felvéve.</string>
-    <string name="add_favorites">Kedvencek felvétele</string>
-    <string name="add_to_favorites">Hozzáadás a kedvencekhez</string>
-    <string name="remove_from_favorites">Törlés a kedvencek közül</string>
     <string name="must_be_at_edit">Névjegyet csak a szerkesztő képernyőn lehet módosítani.</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">Emailek</string>
     <string name="addresses">Címek</string>
     <string name="events">Események (születésnapok, évfordulók)</string>
-    <string name="notes">Jegyzetek</string>
     <string name="organization">Szervezet</string>
     <string name="websites">Weboldalak</string>
     <string name="groups">Csoportok</string>

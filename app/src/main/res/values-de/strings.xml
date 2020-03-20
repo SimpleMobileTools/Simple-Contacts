@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Versucht Kontaktduplikate herauszufiltern</string>
     <string name="manage_shown_tabs">Anzuzeigende Tabs festlegen</string>
     <string name="contacts">Kontakte</string>
-    <string name="favorites">Favoriten</string>
     <string name="show_call_confirmation_dialog">Bestätigungsdialog zeigen, bevor ein Anruf durchgeführt wird</string>
     <string name="show_only_contacts_with_numbers">Nur Kontakte mit Telefonnummern anzeigen</string>
     <string name="show_dialpad_letters">Buchstaben im Wahlfeld anzeigen</string>
 
     <!-- Emails -->
-    <string name="email">E-Mail</string>
     <string name="home">Privat</string>
     <string name="work">Arbeit</string>
     <string name="other">Sonstiges</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Anscheinend haben Sie bisher keine Kontakte zu den Favoriten hinzugefügt.</string>
-    <string name="add_favorites">Favoriten hinzufügen</string>
-    <string name="add_to_favorites">Zu Favoriten hinzufügen</string>
-    <string name="remove_from_favorites">Aus Favoriten entfernen</string>
     <string name="must_be_at_edit">Sie müssen sich im Bearbeitungsmodus befinden, um einen Kontakt zu bearbeiten.</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">E-Mails</string>
     <string name="addresses">Adressen</string>
     <string name="events">Termine (Geburtstage, Jahrestage)</string>
-    <string name="notes">Notizen</string>
     <string name="organization">Organisation</string>
     <string name="websites">Webseiten</string>
     <string name="groups">Gruppen</string>

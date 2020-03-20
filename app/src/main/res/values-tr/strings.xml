@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Çift kişileri filtrelemeyi dene</string>
     <string name="manage_shown_tabs">Gösterilen sekmeleri yönet</string>
     <string name="contacts">Kişiler</string>
-    <string name="favorites">Favoriler</string>
     <string name="show_call_confirmation_dialog">Arama başlatmadan önce arama onayı penceresi göster</string>
     <string name="show_only_contacts_with_numbers">Sadece telefon numaralarını içeren kişileri göster</string>
     <string name="show_dialpad_letters">Tuş takımında harfleri göster</string>
 
     <!-- Emails -->
-    <string name="email">E-posta</string>
     <string name="home">Ev</string>
     <string name="work">İş</string>
     <string name="other">Diğer</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Henüz herhangi bir favori kişi eklememişsiniz.</string>
-    <string name="add_favorites">Favorileri ekle</string>
-    <string name="add_to_favorites">Favorilere ekle</string>
-    <string name="remove_from_favorites">Favorilerden kaldır</string>
     <string name="must_be_at_edit">Bir kişiyi değiştirmek için Düzen ekranında olmalısınız</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">E-postalar</string>
     <string name="addresses">Adresler</string>
     <string name="events">Etkinlikler (doğum günleri, yıldönümleri)</string>
-    <string name="notes">Notlar</string>
     <string name="organization">Organizasyon</string>
     <string name="websites">Web siteleri</string>
     <string name="groups">Gruplar</string>

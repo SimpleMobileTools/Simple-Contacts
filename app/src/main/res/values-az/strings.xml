@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Təkrarlanmış kontaktları filtrləməyə çalış</string>
     <string name="manage_shown_tabs">Göstərilən nişanları idarə et</string>
     <string name="contacts">Kontaktlar</string>
-    <string name="favorites">Sevimlilər</string>
     <string name="show_call_confirmation_dialog">Zəngə başlamazdan əvvəl zəng təsdiq pəncərəsi göstər</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
-    <string name="email">E-poçt</string>
     <string name="home">Ev</string>
     <string name="work">İş</string>
     <string name="other">Başqa</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Görünür, hələlik heçbir sevimli kontakt əlavə etməmisiniz.</string>
-    <string name="add_favorites">Sevimlilər əlavə et</string>
-    <string name="add_to_favorites">Sevimlilərə əlavə et</string>
-    <string name="remove_from_favorites">Sevimlilərdən sil</string>
     <string name="must_be_at_edit">Kontaktı dəyişmək üçün İdarə et ekranında olmalısınız</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">E-poçtlar</string>
     <string name="addresses">Ünvanlar</string>
     <string name="events">Hadisələr (ad günləri, il dönümləri)</string>
-    <string name="notes">Qeydlər</string>
     <string name="organization">Təşkilat</string>
     <string name="websites">Vebsaytlar</string>
     <string name="groups">Qruplar </string>

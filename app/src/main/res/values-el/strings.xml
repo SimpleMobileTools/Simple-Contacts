@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Δοκιμάστε το φιλτράρισμα διπλότυπων επαφών</string>
     <string name="manage_shown_tabs">Διαχείριση εμφανιζόμενων καρτελών</string>
     <string name="contacts">Επαφές</string>
-    <string name="favorites">Αγαπημένες</string>
     <string name="show_call_confirmation_dialog">Εμφάνιση διαλόγου επιβεβαίωσης πριν από την έναρξη μιας κλήσης</string>
     <string name="show_only_contacts_with_numbers">Προβολή όλων των Επαφών με αριθμούς τηλεφώνου</string>
     <string name="show_dialpad_letters">Εμφάνιση γραμμάτων στην πληκτρολόγιο</string>
 
     <!-- Emails -->
-    <string name="email">Email</string>
     <string name="home">Οικία</string>
     <string name="work">Εργασία</string>
     <string name="other">Άλλο</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Φαίνεται ότι δεν έχετε προσθέσει αγαπημένες επαφές ακόμη.</string>
-    <string name="add_favorites">Προσθήκη αγαπημένων</string>
-    <string name="add_to_favorites">Προσθήκη στις αγαπημένες</string>
-    <string name="remove_from_favorites">Αφαίρεση από τα αγαπημένα</string>
     <string name="must_be_at_edit">Πρέπει να είστε στην οθόνη "Επεξεργασία" για να τροποποιήσετε μια επαφή</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">Emails</string>
     <string name="addresses">Διευθύνσεις</string>
     <string name="events">Εκδηλώσεις (γενέθλια, επετείους)</string>
-    <string name="notes">Σημειώσεις</string>
     <string name="organization">Εταιρεία</string>
     <string name="websites">Ιστοσελίδα</string>
     <string name="groups">Ομάδες</string>

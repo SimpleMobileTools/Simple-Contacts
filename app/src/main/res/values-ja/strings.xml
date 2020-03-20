@@ -62,13 +62,11 @@
     <string name="filter_duplicates">重複した連絡先を除外する</string>
     <string name="manage_shown_tabs">表示するタブを管理</string>
     <string name="contacts">連絡先</string>
-    <string name="favorites">お気に入り</string>
     <string name="show_call_confirmation_dialog">発信する前に確認ダイアログを表示する</string>
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
     <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
-    <string name="email">メール</string>
     <string name="home">自宅</string>
     <string name="work">職場</string>
     <string name="other">その他</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">お気に入りの連絡先はまだありません</string>
-    <string name="add_favorites">お気に入りを追加</string>
-    <string name="add_to_favorites">お気に入りに追加</string>
-    <string name="remove_from_favorites">お気に入りから削除</string>
     <string name="must_be_at_edit">連絡先を編集するには編集画面に切り替えてください</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">メール</string>
     <string name="addresses">住所</string>
     <string name="events">予定 (誕生日、記念日)</string>
-    <string name="notes">メモ</string>
     <string name="organization">所属</string>
     <string name="websites">ウェブサイト</string>
     <string name="groups">グループ</string>

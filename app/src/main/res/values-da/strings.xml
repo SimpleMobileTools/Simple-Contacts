@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Prøv at filtrere dupletter</string>
     <string name="manage_shown_tabs">Administrer viste faner</string>
     <string name="contacts">Kontakter</string>
-    <string name="favorites">Favoritter</string>
     <string name="show_call_confirmation_dialog">Vis en opkaldsbekræftelsesdialog før du starter et opkald</string>
     <string name="show_only_contacts_with_numbers">Vis kun kontakter med telefonnumre</string>
     <string name="show_dialpad_letters">Vis bogstaver på tastaturet</string>
 
     <!-- Emails -->
-    <string name="email">Email</string>
     <string name="home">Hjem</string>
     <string name="work">Arbejde</string>
     <string name="other">Andet</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Det ser ud til, at du ikke har tilføjet nogen favoritkontakter endnu.</string>
-    <string name="add_favorites">Tilføj favoritter</string>
-    <string name="add_to_favorites">Tilføj til favoritter</string>
-    <string name="remove_from_favorites">Fjern fra favoritter</string>
     <string name="must_be_at_edit">Du skal være på skærmen Rediger for at ændre en kontakt</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">Emails</string>
     <string name="addresses">Adresser</string>
     <string name="events">Begivenheder (fødselsdage, årsdage)</string>
-    <string name="notes">Noter</string>
     <string name="organization">Organisation</string>
     <string name="websites">Hjemmesider</string>
     <string name="groups">Groupper</string>

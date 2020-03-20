@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Try filtering out duplicate contacts</string>
     <string name="manage_shown_tabs">Manage shown tabs</string>
     <string name="contacts">Contacts</string>
-    <string name="favorites">Favorites</string>
     <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
-    <string name="email">Elektroninis paštas</string>
     <string name="home">Namų</string>
     <string name="work">Darbo</string>
     <string name="other">Kitas</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Atrodo jog Jūs dar neįvedėte nė vieno mėgiamiausiojo kontakto.</string>
-    <string name="add_favorites">Pridėti mėgiamiausiuosius</string>
-    <string name="add_to_favorites">Pridėti į mėgiamiausiuosius</string>
-    <string name="remove_from_favorites">Pašalinti iš mėgiamiausiųjų</string>
     <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">Elektroniniaipaštai</string>
     <string name="addresses">Adresai</string>
     <string name="events">Įvykiai (gimtadieniai, sukaktys)</string>
-    <string name="notes">Užrašai</string>
     <string name="organization">Organizacija</string>
     <string name="websites">Interneto puslapiai</string>
     <string name="groups">Grupės</string>

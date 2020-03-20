@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Ceisio canfod a gwaredu cysylltiadau dyblyg</string>
     <string name="manage_shown_tabs">Rheoli pa dabiau sy\'n cael eu dangos</string>
     <string name="contacts">Cysylltiadau</string>
-    <string name="favorites">Ffefrynnau</string>
     <string name="show_call_confirmation_dialog">Dangos deialog i gadarnhau cyn gwneud galwad</string>
     <string name="show_only_contacts_with_numbers">Dangos dim ond cysylltiadau gyda rhifau ffôn</string>
     <string name="show_dialpad_letters">Dangos llythrennau ar y pad deialu</string>
 
     <!-- Emails -->
-    <string name="email">Ebost</string>
     <string name="home">Cartref</string>
     <string name="work">Gwaith</string>
     <string name="other">Arall</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Ymddangosir nad wyt wedi ychwanegu unrhyw ffefrynnau eto.</string>
-    <string name="add_favorites">Ychwanegu ffefrynnau</string>
-    <string name="add_to_favorites">Ychwanegu i\'r ffefrynnau</string>
-    <string name="remove_from_favorites">Tynnu o\'r ffefrynnau</string>
     <string name="must_be_at_edit">Rhaid bod ar y sgrin golygu er mwyn addasu cyswllt</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">Cyfeiriadau ebost</string>
     <string name="addresses">Cyfeiriadau</string>
     <string name="events">Digwyddiadau (e.e. pen-blwyddi)</string>
-    <string name="notes">Nodiadau</string>
     <string name="organization">Sefydliad</string>
     <string name="websites">Gwefannau</string>
     <string name="groups">Grwpiau</string>

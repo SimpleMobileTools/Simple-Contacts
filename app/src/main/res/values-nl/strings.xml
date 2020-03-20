@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Probeer dubbele contacten weg te filteren</string>
     <string name="manage_shown_tabs">Tabs tonen/verbergen</string>
     <string name="contacts">Contacten</string>
-    <string name="favorites">Favorieten</string>
     <string name="show_call_confirmation_dialog">Om bevestiging vragen voor het bellen</string>
     <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummers tonen</string>
     <string name="show_dialpad_letters">Letters op het toetsenblok tonen</string>
 
     <!-- Emails -->
-    <string name="email">E-mail</string>
     <string name="home">Thuis</string>
     <string name="work">Werk</string>
     <string name="other">Overig</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Er zijn nog geen favorieten toegevoegd.</string>
-    <string name="add_favorites">Favorieten toevoegen</string>
-    <string name="add_to_favorites">Aan favorieten toevoegen</string>
-    <string name="remove_from_favorites">Uit favorieten verwijderen</string>
     <string name="must_be_at_edit">Ga naar Contact bewerken om gegevens aan te passen</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">E-mailadressen</string>
     <string name="addresses">Adressen</string>
     <string name="events">Datums (verjaardagen, jubileums)</string>
-    <string name="notes">Notities</string>
     <string name="organization">Organisatie</string>
     <string name="websites">Websites</string>
     <string name="groups">Groepen</string>

@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Coba sembunyikan duplikat kontak</string>
     <string name="manage_shown_tabs">Kelola tab yang ditampilkan</string>
     <string name="contacts">Kontak</string>
-    <string name="favorites">Favorit</string>
     <string name="show_call_confirmation_dialog">Tampilkan dialog konfirmasi panggilan sebelum melakukan panggilan</string>
     <string name="show_only_contacts_with_numbers">Hanya tampilkan kontak dengan nomor telepon</string>
     <string name="show_dialpad_letters">Tampilkan huruf pada tombol dial</string>
 
     <!-- Emails -->
-    <string name="email">Surel</string>
     <string name="home">Rumah</string>
     <string name="work">Kerja</string>
     <string name="other">Lainnya</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Sepertinya anda belum menambahkan kontak favorit.</string>
-    <string name="add_favorites">Tambah favorit</string>
-    <string name="add_to_favorites">Tambah ke favorit</string>
-    <string name="remove_from_favorites">Buang dari favorit</string>
     <string name="must_be_at_edit">Anda harus berada di layar Sunting untuk mengubah kontak</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">Surel</string>
     <string name="addresses">Alamat</string>
     <string name="events">Acara (ulang tahun, hari jadi)</string>
-    <string name="notes">Catatan</string>
     <string name="organization">Organisasi</string>
     <string name="websites">Situs web</string>
     <string name="groups">Grup</string>

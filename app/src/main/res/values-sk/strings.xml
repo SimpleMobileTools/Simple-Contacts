@@ -62,13 +62,11 @@
     <string name="filter_duplicates">Pokúsiť sa vyfiltrovať duplicitné kontakty</string>
     <string name="manage_shown_tabs">Spravovať zobrazené karty</string>
     <string name="contacts">Kontakty</string>
-    <string name="favorites">Obľúbené</string>
     <string name="show_call_confirmation_dialog">Zobraziť pred spustením hovoru okno na jeho potvrdenie</string>
     <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
     <string name="show_dialpad_letters">Zobraziť na číselníku písmená</string>
 
     <!-- Emails -->
-    <string name="email">Email</string>
     <string name="home">Domov</string>
     <string name="work">Práca</string>
     <string name="other">Iné</string>
@@ -88,9 +86,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Zdá sa, že ste ešte nepridali žiadne obľúbené kontakty.</string>
-    <string name="add_favorites">Pridať obľúbené</string>
-    <string name="add_to_favorites">Pridať medzi obľúbené</string>
-    <string name="remove_from_favorites">Odstrániť z obľúbených</string>
     <string name="must_be_at_edit">Pre úpravu kontaktu musíte byť v Editore kontaktu</string>
 
     <!-- Search -->
@@ -134,7 +129,6 @@
     <string name="emails">Emaily</string>
     <string name="addresses">Adresy</string>
     <string name="events">Udalosti (narodeniny, výročia)</string>
-    <string name="notes">Poznámky</string>
     <string name="organization">Firma</string>
     <string name="websites">Webstránky</string>
     <string name="groups">Skupiny</string>
