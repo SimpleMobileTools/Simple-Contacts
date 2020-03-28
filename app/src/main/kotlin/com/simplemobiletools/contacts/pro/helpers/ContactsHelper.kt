@@ -117,14 +117,14 @@ class ContactsHelper(val context: Context) {
             cursor = context.contentResolver.query(uri, projection, null, null, null)
             if (cursor?.moveToFirst() == true) {
                 do {
-                    val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
-                    val type = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: ""
+                    val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME)
+                    val type = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE)
                     var publicName = name
                     if (type == TELEGRAM_PACKAGE) {
                         publicName += " (${context.getString(R.string.telegram)})"
                     }
 
-                    val source = ContactSource(name, type, publicName)
+                    val source = ContactSource(name, type, publicName ?: "NULL")
                     sources.add(source)
                 } while (cursor.moveToNext())
             }
@@ -890,14 +890,14 @@ class ContactsHelper(val context: Context) {
         }
 
         val contentResolverAccounts = getContentResolverAccounts().filter {
-            it.name.isNotEmpty() && it.type.isNotEmpty() && !accounts.contains(Account(it.name, it.type))
+            !accounts.contains(Account(it.name, it.type))
         }
         sources.addAll(contentResolverAccounts)
 
         return sources
     }
 
-    private fun getContactSourceType(accountName: String) = getDeviceContactSources().firstOrNull { it.name == accountName }?.type ?: ""
+    private fun getContactSourceType(accountName: String?) = getDeviceContactSources().first { it.name == accountName }.type
 
     private fun getContactProjection() = arrayOf(
             ContactsContract.Data.MIMETYPE,

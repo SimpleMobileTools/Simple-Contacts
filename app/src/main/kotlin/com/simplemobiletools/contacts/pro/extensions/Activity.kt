@@ -54,7 +54,7 @@ fun SimpleActivity.startCall(contact: Contact) {
     }
 }
 
-fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (newSource: String) -> Unit) {
+fun SimpleActivity.showContactSourcePicker(currentSource: String?, callback: (newSource: String) -> Unit) {
     ContactsHelper(this).getContactSources {
         val ignoredTypes = arrayListOf(
                 SIGNAL_PACKAGE,
