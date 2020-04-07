@@ -1,3 +1,3 @@
 package com.simplemobiletools.contacts.pro.models
 
-data class Event(var value: String, var type: Int)
+data class Event(var value: String, var type: Int, val ignoreYear: Boolean?)

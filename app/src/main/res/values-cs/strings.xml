@@ -83,6 +83,7 @@
     <!-- Events -->
     <string name="birthday">Narozeniny</string>
     <string name="anniversary">Výročí</string>
+    <string name="birthday_ignore_year">Ignore year</string>
 
     <!-- Favorites -->
     <string name="no_favorites">Vypadá to, že jste ještě nepřidali žádné oblíbené kontakty.</string>

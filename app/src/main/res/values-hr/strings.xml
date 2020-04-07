@@ -83,6 +83,7 @@
     <!-- Events -->
     <string name="birthday">Rođendan</string>
     <string name="anniversary">Obljetnica</string>
+    <string name="birthday_ignore_year">Ignore year</string>
 
     <!-- Favorites -->
     <string name="no_favorites">Čini se da još niste dodali nijedan kontakt u favorite.</string>

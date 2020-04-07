@@ -83,6 +83,7 @@
     <!-- Events -->
     <string name="birthday">Ulang tahun</string>
     <string name="anniversary">Hari jadi</string>
+    <string name="birthday_ignore_year">Ignore year</string>
 
     <!-- Favorites -->
     <string name="no_favorites">Sepertinya anda belum menambahkan kontak favorit.</string>

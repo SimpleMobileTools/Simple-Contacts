@@ -83,6 +83,7 @@
     <!-- Events -->
     <string name="birthday">Ad günü</string>
     <string name="anniversary">İl dönümü</string>
+    <string name="birthday_ignore_year">Ignore year</string>
 
     <!-- Favorites -->
     <string name="no_favorites">Görünür, hələlik heçbir sevimli kontakt əlavə etməmisiniz.</string>

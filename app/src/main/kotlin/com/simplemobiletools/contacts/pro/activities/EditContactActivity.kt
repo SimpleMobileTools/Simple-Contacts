@@ -5,15 +5,13 @@ import android.app.DatePickerDialog
 import android.content.ClipData
 import android.content.ContentValues
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.MediaStore
-import android.view.Menu
-import android.view.MenuItem
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -533,6 +531,11 @@ class EditContactActivity : ContactActivity() {
                         resetContactEvent(contactEvent, this)
                     }
                 }
+
+                contact_event_ignore_year.apply {
+                    isChecked = event.ignoreYear ?: false
+                    tag = event.ignoreYear ?: false
+                }
             }
         }
     }
@@ -684,29 +687,50 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupEventTypePicker(eventHolder: ViewGroup, type: Int = DEFAULT_EVENT_TYPE) {
+        val ignoreYearField = eventHolder.contact_event_ignore_year
+
         eventHolder.contact_event_type.apply {
             setText(getEventTextId(type))
             setOnClickListener {
-                showEventTypePicker(it as TextView)
+                showEventTypePicker(it as TextView) { selectedType ->
+                    ignoreYearField.beVisibleIf(selectedType == CommonDataKinds.Event.TYPE_BIRTHDAY)
+
+                    if (selectedType != CommonDataKinds.Event.TYPE_BIRTHDAY) {
+                        ignoreYearField.tag = null
+                    }
+                }
             }
         }
 
         val eventField = eventHolder.contact_event
         eventField.setOnClickListener {
+            val ignoreYear = ignoreYearField.isChecked
             val setDateListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 eventHolder.contact_event_remove.beVisible()
                 val date = DateTime().withDate(year, monthOfYear + 1, dayOfMonth).withTimeAtStartOfDay()
-                val formatted = date.toString(DateTimeFormat.mediumDate())
+                val formatted = date.toString(if (ignoreYear) DateTimeFormat.forPattern("MMMM d") else DateTimeFormat.mediumDate())
                 eventField.apply {
                     text = formatted
                     tag = date.toString("yyyy-MM-dd")
                     alpha = 1f
                 }
+
+                ignoreYearField.beVisibleIf(type == CommonDataKinds.Event.TYPE_BIRTHDAY && eventField.tag != null)
             }
 
             val date = (eventField.tag?.toString() ?: "").getDateTimeFromDateString()
             DatePickerDialog(this, getDialogTheme(), setDateListener, date.year, date.monthOfYear - 1, date.dayOfMonth).show()
         }
+
+        ignoreYearField.setOnCheckedChangeListener { _, isChecked ->
+            ignoreYearField.tag = isChecked
+
+            val date = DateTimeFormat.forPattern("yyyy-MM-dd").parseDateTime(eventField.tag as? String)
+            val formatted = date.toString(if (isChecked) DateTimeFormat.forPattern("MMM d") else DateTimeFormat.mediumDate())
+            eventField.text = formatted
+        }
+
+        ignoreYearField.beVisibleIf(type == CommonDataKinds.Event.TYPE_BIRTHDAY && eventField.tag != null)
 
         eventHolder.contact_event_remove.apply {
             applyColorFilter(getAdjustedPrimaryColor())
@@ -832,16 +856,17 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
-    private fun showEventTypePicker(eventTypeField: TextView) {
+    private fun showEventTypePicker(eventTypeField: TextView, callback: (Int) -> Unit) {
         val items = arrayListOf(
                 RadioItem(CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(R.string.anniversary)),
                 RadioItem(CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
                 RadioItem(CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other))
         )
 
-        val currentEventTypeId = getEventTypeId(eventTypeField.value)
+        val currentEventTypeId: Int = getEventTypeId(eventTypeField.value)
         RadioGroupDialog(this, items, currentEventTypeId) {
             eventTypeField.setText(getEventTextId(it as Int))
+            callback(it)
         }
     }
 
@@ -975,9 +1000,10 @@ class EditContactActivity : ContactActivity() {
             val eventHolder = contact_events_holder.getChildAt(i)
             val event = eventHolder.contact_event.value
             val eventType = getEventTypeId(eventHolder.contact_event_type.value)
+            val ignoreYearField = eventHolder.contact_event_ignore_year.tag as? Boolean ?: false
 
             if (event.isNotEmpty() && event != unknown) {
-                events.add(Event(eventHolder.contact_event.tag.toString(), eventType))
+                events.add(Event(eventHolder.contact_event.tag.toString(), eventType, ignoreYearField))
             }
         }
         return events
@@ -1170,7 +1196,8 @@ class EditContactActivity : ContactActivity() {
     private fun parseEvent(contentValues: ContentValues) {
         val type = contentValues.getAsInteger(CommonDataKinds.Event.DATA2) ?: DEFAULT_EVENT_TYPE
         val eventValue = contentValues.getAsString(CommonDataKinds.Event.DATA1) ?: return
-        val event = Event(eventValue, type)
+        val ignoreYearField = contentValues.getAsInteger(CommonDataKinds.Event.DATA15) == 1
+        val event = Event(eventValue, type, ignoreYearField)
         contact!!.events.add(event)
     }
 

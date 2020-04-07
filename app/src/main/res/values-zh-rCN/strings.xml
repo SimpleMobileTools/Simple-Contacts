@@ -83,6 +83,7 @@
     <!-- Events -->
     <string name="birthday">生日</string>
     <string name="anniversary">纪念日</string>
+    <string name="birthday_ignore_year">Ignore year</string>
 
     <!-- Favorites -->
     <string name="no_favorites">你似乎还没加入任何我的收藏联系人。</string>

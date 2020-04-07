@@ -83,6 +83,7 @@
     <!-- Events -->
     <string name="birthday">Gimtadienis</string>
     <string name="anniversary">Sukaktis</string>
+    <string name="birthday_ignore_year">Ignore year</string>
 
     <!-- Favorites -->
     <string name="no_favorites">Atrodo jog Jūs dar neįvedėte nė vieno mėgiamiausiojo kontakto.</string>

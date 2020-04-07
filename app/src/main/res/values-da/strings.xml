@@ -83,6 +83,7 @@
     <!-- Events -->
     <string name="birthday">Fødselsdag</string>
     <string name="anniversary">Årsdag</string>
+    <string name="birthday_ignore_year">Ignore year</string>
 
     <!-- Favorites -->
     <string name="no_favorites">Det ser ud til, at du ikke har tilføjet nogen favoritkontakter endnu.</string>

@@ -83,6 +83,7 @@
     <!-- Events -->
     <string name="birthday">Γενέθλια</string>
     <string name="anniversary">Επέτειος</string>
+    <string name="birthday_ignore_year">Ignore year</string>
 
     <!-- Favorites -->
     <string name="no_favorites">Φαίνεται ότι δεν έχετε προσθέσει αγαπημένες επαφές ακόμη.</string>

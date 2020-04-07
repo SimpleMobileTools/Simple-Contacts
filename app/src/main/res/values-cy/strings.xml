@@ -83,6 +83,7 @@
     <!-- Events -->
     <string name="birthday">Pen-blwydd</string>
     <string name="anniversary">Pen-blwydd achlysur</string>
+    <string name="birthday_ignore_year">Ignore year</string>
 
     <!-- Favorites -->
     <string name="no_favorites">Ymddangosir nad wyt wedi ychwanegu unrhyw ffefrynnau eto.</string>

@@ -89,12 +89,12 @@ class VcfImporter(val activity: SimpleActivity) {
 
                 val events = ArrayList<Event>()
                 ezContact.anniversaries.forEach {
-                    val event = Event(formatDateToDayCode(it.date), CommonDataKinds.Event.TYPE_ANNIVERSARY)
+                    val event = Event(formatDateToDayCode(it.date), CommonDataKinds.Event.TYPE_ANNIVERSARY, false)
                     events.add(event)
                 }
 
                 ezContact.birthdays.forEach {
-                    val event = Event(formatDateToDayCode(it.date), CommonDataKinds.Event.TYPE_BIRTHDAY)
+                    val event = Event(formatDateToDayCode(it.date), CommonDataKinds.Event.TYPE_BIRTHDAY, false)
                     events.add(event)
                 }
 
