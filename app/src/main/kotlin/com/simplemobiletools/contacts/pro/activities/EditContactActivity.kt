@@ -914,6 +914,11 @@ class EditContactActivity : ContactActivity() {
             val jobPosition = contact_organization_job_position.value
             organization = Organization(company, jobPosition)
 
+            if (getNameToDisplay().isBlank()) {
+                toast("fcgvh")
+                return
+            }
+
             ensureBackgroundThread {
                 config.lastUsedContactSource = source
                 when {
