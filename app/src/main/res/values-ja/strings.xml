@@ -135,16 +135,7 @@
     <string name="contact_source">インポート元</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">ブロックした番号を管理</string>
-    <string name="not_blocking_anyone">まだ誰もブロックしていません.</string>
-    <string name="add_a_blocked_number">ブロックする番号を追加</string>
-    <string name="block_number">Block number</string>
-    <string name="block_numbers">Block numbers</string>
-    <string name="blocked_numbers">Blocked numbers</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->

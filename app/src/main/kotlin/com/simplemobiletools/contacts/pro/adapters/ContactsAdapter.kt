@@ -154,7 +154,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             resources.getQuantityString(R.plurals.delete_contacts, itemsCnt, itemsCnt)
         }
 
-        val baseString = R.string.delete_contacts_confirmation
+        val baseString = R.string.deletion_confirmation
         val question = String.format(resources.getString(baseString), items)
 
         ConfirmationDialog(activity, question) {

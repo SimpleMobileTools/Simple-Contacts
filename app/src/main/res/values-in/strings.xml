@@ -135,16 +135,7 @@
     <string name="contact_source">Sumber kontak</string>
     <string name="instant_messaging">Pesan singkat (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Kelola nomor yang diblokir</string>
-    <string name="not_blocking_anyone">Anda tidak memblokir siapapun.</string>
-    <string name="add_a_blocked_number">Tambahkan nomor yang diblokir</string>
-    <string name="block_number">Blokir nomor</string>
-    <string name="block_numbers">Blokir nomor</string>
-    <string name="blocked_numbers">Nomor yang diblokir</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Apakah anda yakin ingin menghapus %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">Kontak akan dihapus dari semua sumber kontak.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->

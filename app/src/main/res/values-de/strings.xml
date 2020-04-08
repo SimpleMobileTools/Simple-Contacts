@@ -135,16 +135,7 @@
     <string name="contact_source">Kontaktquelle</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Blockierte Nummern verwalten</string>
-    <string name="not_blocking_anyone">Du blockierst niemanden.</string>
-    <string name="add_a_blocked_number">Eine blockierte Nummer hinzufügen</string>
-    <string name="block_number">Nummer blockieren</string>
-    <string name="block_numbers">Nummern blockieren</string>
-    <string name="blocked_numbers">Blockierte Nummern</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Sind Sie sicher, dass Sie %s löschen wollen?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">Der Kontakt wird von allen Kontaktquellen entfernt.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->

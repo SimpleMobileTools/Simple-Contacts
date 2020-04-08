@@ -113,7 +113,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
             resources.getQuantityString(R.plurals.delete_groups, itemsCnt, itemsCnt)
         }
 
-        val baseString = R.string.delete_contacts_confirmation
+        val baseString = R.string.deletion_confirmation
         val question = String.format(resources.getString(baseString), items)
 
         ConfirmationDialog(activity, question) {
