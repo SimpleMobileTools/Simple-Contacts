@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Запит на необхідні дозволи</string>
     <string name="create_new_contact">Створити новий контакт</string>
     <string name="add_to_existing_contact">Додати до існуючого контакту</string>
-    <string name="must_make_default_dialer">Щоб використовувати функцію блокування номерів, вам необхідно встановити цей додаток як стандартний для роботи з контактами.</string>
-    <string name="set_as_default">Встановити додаток як стандартний</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Контактів не знайдено.</string>
@@ -72,7 +70,6 @@
     <string name="other">Інше</string>
 
     <!-- Phone numbers -->
-    <string name="number">Номер</string>
     <string name="mobile">Мобільний</string>
     <string name="main_number">Основний</string>
     <string name="work_fax">Робочий факс</string>

@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Begär de behörigheter som krävs</string>
     <string name="create_new_contact">Skapa ny kontakt</string>
     <string name="add_to_existing_contact">Lägg till i en befintlig kontakt</string>
-    <string name="must_make_default_dialer">Du måste ställa in den här appen som standardtelefonapp för att kunna använda blockerade nummer.</string>
-    <string name="set_as_default">Ange som standard</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Inga kontakter hittades.</string>
@@ -72,7 +70,6 @@
     <string name="other">Annat</string>
 
     <!-- Phone numbers -->
-    <string name="number">Nummer</string>
     <string name="mobile">Mobil</string>
     <string name="main_number">Primärt nummer</string>
     <string name="work_fax">Arbetsfax</string>

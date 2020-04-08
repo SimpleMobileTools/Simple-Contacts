@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Richiedi le permissioni necessarie</string>
     <string name="create_new_contact">Crea un nuovo contatto</string>
     <string name="add_to_existing_contact">Aggiungi a un contatto esistente</string>
-    <string name="must_make_default_dialer">È necessario impostare quest\'app come predefinita per utilizzare i numeri bloccati.</string>
-    <string name="set_as_default">Imposta come predefinita</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nessun contatto trovato.</string>
@@ -72,7 +70,6 @@
     <string name="other">Altro</string>
 
     <!-- Phone numbers -->
-    <string name="number">Numero</string>
     <string name="mobile">Cellulare</string>
     <string name="main_number">Principale</string>
     <string name="work_fax">Fax di lavoro</string>

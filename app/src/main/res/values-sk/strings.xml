@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Vyžiadať potrebné oprávnenia</string>
     <string name="create_new_contact">Vytvoriť nový kontakt</string>
     <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
-    <string name="must_make_default_dialer">Pre použitie blokovania čísel musíte nastaviť aplikáciu ako predvolenú pre správu hovorov.</string>
-    <string name="set_as_default">Nastaviť ako predvolenú</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nenašli sa žiadne kontakty.</string>
@@ -72,7 +70,6 @@
     <string name="other">Iné</string>
 
     <!-- Phone numbers -->
-    <string name="number">Číslo</string>
     <string name="mobile">Mobil</string>
     <string name="main_number">Hlavné</string>
     <string name="work_fax">Pracovný fax</string>

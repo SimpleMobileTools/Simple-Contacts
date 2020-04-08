@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Meminta izin yang diperlukan</string>
     <string name="create_new_contact">Buat kontak baru</string>
     <string name="add_to_existing_contact">Tambah ke kontak yang ada</string>
-    <string name="must_make_default_dialer">Anda harus mengatur aplikasi ini sebagai aplikasi dialer default untuk menggunakan fitur pemblokir nomor.</string>
-    <string name="set_as_default">Tetapkan sebagai default</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Tidak ada kontak yang ditemukan.</string>
@@ -72,7 +70,6 @@
     <string name="other">Lainnya</string>
 
     <!-- Phone numbers -->
-    <string name="number">Nomor</string>
     <string name="mobile">Ponsel</string>
     <string name="main_number">Utama</string>
     <string name="work_fax">Faks Kerja</string>

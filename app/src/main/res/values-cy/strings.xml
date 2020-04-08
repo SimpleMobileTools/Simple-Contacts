@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Gofyn am y caniatâd sydd ei angen</string>
     <string name="create_new_contact">Creu cyswllt newydd</string>
     <string name="add_to_existing_contact">Ychwanegu at gyswllt sy\'n bodoli</string>
-    <string name="must_make_default_dialer">Rhaid gwneud yr ap hwn yr ap deialu rhagosodedig er mwyn defnyddio rhifau wedi\'u rhwystro.</string>
-    <string name="set_as_default">Defnyddio fel y rhagosodedig</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Ni chanfuwyd unrhyw gysylltiadau.</string>
@@ -72,7 +70,6 @@
     <string name="other">Arall</string>
 
     <!-- Phone numbers -->
-    <string name="number">Rhif</string>
     <string name="mobile">Symudol</string>
     <string name="main_number">Prif</string>
     <string name="work_fax">Ffacs gwaith</string>

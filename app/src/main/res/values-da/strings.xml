@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Anmod om de krævede tilladelser</string>
     <string name="create_new_contact">Opret ny kontakt</string>
     <string name="add_to_existing_contact">Tilføj til en eksisterende kontakt</string>
-    <string name="must_make_default_dialer">Du skal gøre denne app til standardopkaldsappen for at gøre brug af blokerede numre.</string>
-    <string name="set_as_default">Gør til standard</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Ingen kontakter fundet.</string>
@@ -72,7 +70,6 @@
     <string name="other">Andet</string>
 
     <!-- Phone numbers -->
-    <string name="number">Nummer</string>
     <string name="mobile">Mobil</string>
     <string name="main_number">Hovednummer</string>
     <string name="work_fax">Arbejdsfax</string>

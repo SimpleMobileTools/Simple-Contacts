@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Benötigte Berechtigungen anfordern</string>
     <string name="create_new_contact">Neuen Kontakt erstellen</string>
     <string name="add_to_existing_contact">Zu einem existierenden Kontakt hinzufügen</string>
-    <string name="must_make_default_dialer">Du musst diese App als Standardtelefonie-App einstellen, um Nummern blockieren zu können.</string>
-    <string name="set_as_default">Als Standard auswählen</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Keine Kontakte gefunden.</string>
@@ -72,7 +70,6 @@
     <string name="other">Sonstiges</string>
 
     <!-- Phone numbers -->
-    <string name="number">Nummer</string>
     <string name="mobile">Mobil</string>
     <string name="main_number">Festnetz</string>
     <string name="work_fax">Arbeit Fax</string>

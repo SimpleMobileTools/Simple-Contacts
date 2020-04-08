@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Pedir permissão necessária</string>
     <string name="create_new_contact">Criar novo contacto</string>
     <string name="add_to_existing_contact">Adicionar a contacto existente</string>
-    <string name="must_make_default_dialer">Tem que tornar esta a aplicação padrão para poder bloquear números.</string>
-    <string name="set_as_default">Definir como padrão</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Não existem contactos.</string>
@@ -72,7 +70,6 @@
     <string name="other">Outro</string>
 
     <!-- Phone numbers -->
-    <string name="number">Número</string>
     <string name="mobile">Telemóvel</string>
     <string name="main_number">Principal</string>
     <string name="work_fax">Fax profissional</string>

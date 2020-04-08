@@ -1,24 +1,18 @@
 package com.simplemobiletools.contacts.pro.extensions
 
-import android.annotation.TargetApi
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.provider.BlockedNumberContract
-import android.provider.BlockedNumberContract.BlockedNumbers
 import android.provider.ContactsContract
-import android.telecom.TelecomManager
 import androidx.core.content.FileProvider
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.getIntValue
+import com.simplemobiletools.commons.extensions.hasPermission
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
-import com.simplemobiletools.commons.helpers.isMarshmallowPlus
-import com.simplemobiletools.commons.helpers.isNougatPlus
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
@@ -27,7 +21,6 @@ import com.simplemobiletools.contacts.pro.databases.ContactsDatabase
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.ContactsDao
 import com.simplemobiletools.contacts.pro.interfaces.GroupsDao
-import com.simplemobiletools.contacts.pro.models.BlockedNumber
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.ContactSource
 import com.simplemobiletools.contacts.pro.models.Organization
@@ -38,8 +31,6 @@ val Context.config: Config get() = Config.newInstance(applicationContext)
 val Context.contactsDB: ContactsDao get() = ContactsDatabase.getInstance(applicationContext).ContactsDao()
 
 val Context.groupsDB: GroupsDao get() = ContactsDatabase.getInstance(applicationContext).GroupsDao()
-
-val Context.telecomManager: TelecomManager get() = getSystemService(Context.TELECOM_SERVICE) as TelecomManager
 
 fun Context.getEmptyContact(): Contact {
     val originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
@@ -329,61 +320,5 @@ fun Context.getAllContactSources(): ArrayList<ContactSource> {
     sources.add(getPrivateContactSource())
     return sources.toMutableList() as ArrayList<ContactSource>
 }
-
-@TargetApi(Build.VERSION_CODES.N)
-fun Context.getBlockedNumbers(): ArrayList<BlockedNumber> {
-    val blockedNumbers = ArrayList<BlockedNumber>()
-    if (!isNougatPlus() || !isDefaultDialer()) {
-        return blockedNumbers
-    }
-
-    val uri = BlockedNumberContract.BlockedNumbers.CONTENT_URI
-    val projection = arrayOf(
-            BlockedNumberContract.BlockedNumbers.COLUMN_ID,
-            BlockedNumberContract.BlockedNumbers.COLUMN_ORIGINAL_NUMBER,
-            BlockedNumberContract.BlockedNumbers.COLUMN_E164_NUMBER
-    )
-
-    var cursor: Cursor? = null
-    try {
-        cursor = contentResolver.query(uri, projection, null, null, null)
-        if (cursor?.moveToFirst() == true) {
-            do {
-                val id = cursor.getLongValue(BlockedNumberContract.BlockedNumbers.COLUMN_ID)
-                val number = cursor.getStringValue(BlockedNumberContract.BlockedNumbers.COLUMN_ORIGINAL_NUMBER) ?: ""
-                val normalizedNumber = cursor.getStringValue(BlockedNumberContract.BlockedNumbers.COLUMN_E164_NUMBER) ?: ""
-                val blockedNumber = BlockedNumber(id, number, normalizedNumber)
-                blockedNumbers.add(blockedNumber)
-            } while (cursor.moveToNext())
-        }
-    } finally {
-        cursor?.close()
-    }
-
-    return blockedNumbers
-}
-
-@TargetApi(Build.VERSION_CODES.N)
-fun Context.addBlockedNumber(number: String) {
-    ContentValues().apply {
-        put(BlockedNumbers.COLUMN_ORIGINAL_NUMBER, number)
-        try {
-            contentResolver.insert(BlockedNumbers.CONTENT_URI, this)
-        } catch (e: Exception) {
-            showErrorToast(e)
-        }
-    }
-}
-
-@TargetApi(Build.VERSION_CODES.N)
-fun Context.deleteBlockedNumber(number: String) {
-    val values = ContentValues()
-    values.put(BlockedNumbers.COLUMN_ORIGINAL_NUMBER, number)
-    val uri = contentResolver.insert(BlockedNumbers.CONTENT_URI, values)
-    contentResolver.delete(uri!!, null, null)
-}
-
-@TargetApi(Build.VERSION_CODES.M)
-fun Context.isDefaultDialer() = isMarshmallowPlus() && telecomManager.defaultDialerPackage == packageName
 
 fun Context.getPrivateContactSource() = ContactSource(SMT_PRIVATE, SMT_PRIVATE, getString(R.string.phone_storage_hidden))

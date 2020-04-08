@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">A kívánt jogosultságok igénylése</string>
     <string name="create_new_contact">Új névjegy hozzáadása</string>
     <string name="add_to_existing_contact">Hozzáadás meglévő névjegyhez</string>
-    <string name="must_make_default_dialer">A zárolt telefonszámok használatához be kell állítani, hogy ez az app legyen az alapértelmezett tárcsázó.</string>
-    <string name="set_as_default">Alapértelmezés beállítása</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nincs ilyen névjegy.</string>
@@ -72,7 +70,6 @@
     <string name="other">Egyéb</string>
 
     <!-- Phone numbers -->
-    <string name="number">Telefonszám</string>
     <string name="mobile">Mobil</string>
     <string name="main_number">Elsődleges telefonszám</string>
     <string name="work_fax">Munkahelyi fax</string>

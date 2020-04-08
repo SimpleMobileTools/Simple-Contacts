@@ -14,18 +14,17 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.extensions.callContact
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.isDefaultDialer
 import com.simplemobiletools.contacts.pro.extensions.startCallIntent
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.pro.helpers.LOCATION_DIALPAD
-import com.simplemobiletools.contacts.pro.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.SpeedDial
 import kotlinx.android.synthetic.main.activity_dialpad.*
@@ -174,7 +173,7 @@ class DialpadActivity : SimpleActivity() {
             val secretCode = text.substring(4, text.length - 4)
             if (isOreoPlus()) {
                 if (isDefaultDialer()) {
-                    getSystemService(TelephonyManager::class.java).sendDialerSpecialCode(secretCode)
+                    getSystemService(TelephonyManager::class.java)?.sendDialerSpecialCode(secretCode)
                 } else {
                     launchSetDefaultDialerIntent()
                 }

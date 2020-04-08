@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">طلب الأذونات المطلوبة</string>
     <string name="create_new_contact">إنشاء جهة إتصال</string>
     <string name="add_to_existing_contact">إضافة إلى جهة موجودة</string>
-    <string name="must_make_default_dialer">عليك أن تجعل هذا التطبيق المتصل الإفتراضي للإستفادة من الأرقام المحظورة.</string>
-    <string name="set_as_default">ضبط الى الافتراضي</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">لم يتم العثور على جهات اتصال.</string>
@@ -72,7 +70,6 @@
     <string name="other">مختلف</string>
 
     <!-- Phone numbers -->
-    <string name="number">رقم</string>
     <string name="mobile">جوال</string>
     <string name="main_number">رئيسي</string>
     <string name="work_fax">فاكس العمل</string>

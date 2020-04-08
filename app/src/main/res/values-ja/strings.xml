@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Request the required permissions</string>
     <string name="create_new_contact">新しい連絡先を作成</string>
     <string name="add_to_existing_contact">既存の連絡先に追加</string>
-    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_as_default">Set as default</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">連絡先が見つかりません.</string>
@@ -72,7 +70,6 @@
     <string name="other">その他</string>
 
     <!-- Phone numbers -->
-    <string name="number">番号</string>
     <string name="mobile">携帯</string>
     <string name="main_number">Main</string>
     <string name="work_fax">職場FAX</string>

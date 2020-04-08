@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Gerekli izinleri iste</string>
     <string name="create_new_contact">Yeni kişi oluştur</string>
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
-    <string name="must_make_default_dialer">Engellenen numaraları kullanmak için bu uygulamayı varsayılan çevirici uygulaması yapmalısınız.</string>
-    <string name="set_as_default">Varsayılan olarak ayarla</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Kişi bulunamadı.</string>
@@ -72,7 +70,6 @@
     <string name="other">Diğer</string>
 
     <!-- Phone numbers -->
-    <string name="number">Numara</string>
     <string name="mobile">Cep</string>
     <string name="main_number">Ana</string>
     <string name="work_fax">İş Faksı</string>

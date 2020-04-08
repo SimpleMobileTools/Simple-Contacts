@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">請求必要的權限</string>
     <string name="create_new_contact">建立新聯絡人</string>
     <string name="add_to_existing_contact">添加至已存在的聯絡人</string>
-    <string name="must_make_default_dialer">你必須將這應用程式設為預設的撥號程式來使用黑名單。</string>
-    <string name="set_as_default">設為預設</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">未發現聯絡人。</string>
@@ -72,7 +70,6 @@
     <string name="other">其它</string>
 
     <!-- Phone numbers -->
-    <string name="number">號碼</string>
     <string name="mobile">手機</string>
     <string name="main_number">主用</string>
     <string name="work_fax">工作傳真</string>
