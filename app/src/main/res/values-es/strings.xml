@@ -19,6 +19,7 @@
     <string name="add_to_existing_contact">Añadir a un contacto existente</string>
     <string name="must_make_default_dialer">Tienes que hacer esta aplicación la aplicación de marcación por defecto para hacer uso de los números bloqueados.</string>
     <string name="set_as_default">Establecer como por defecto</string>
+    <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">No se encontraron contactos.</string>

@@ -441,7 +441,8 @@ class ViewContactActivity : ContactActivity() {
             events.forEach {
                 layoutInflater.inflate(R.layout.item_view_event, contact_events_holder, false).apply {
                     contact_events_holder.addView(this)
-                    it.value.getDateTimeFromDateString(contact_event)
+                    val ignoreYearField = it.ignoreYear ?: false
+                    it.value.getDateTimeFromDateString(contact_event, ignoreYearField)
                     contact_event_type.setText(getEventTextId(it.type))
                     copyOnLongClick(it.value)
                 }

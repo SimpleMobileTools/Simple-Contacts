@@ -462,7 +462,8 @@ class ContactsHelper(val context: Context) {
         val projection = arrayOf(
                 ContactsContract.Data.RAW_CONTACT_ID,
                 CommonDataKinds.Event.START_DATE,
-                CommonDataKinds.Event.TYPE
+                CommonDataKinds.Event.TYPE,
+                CommonDataKinds.Event.DATA14
         )
 
         val selection = getSourcesSelection(true, contactId != null)
@@ -476,7 +477,7 @@ class ContactsHelper(val context: Context) {
                     val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
                     val startDate = cursor.getStringValue(CommonDataKinds.Event.START_DATE) ?: continue
                     val type = cursor.getIntValue(CommonDataKinds.Event.TYPE)
-                    val ignoreYearField = cursor.getIntValueOrNull(CommonDataKinds.Event.DATA15) == 1
+                    val ignoreYearField = cursor.getIntValueOrNull(CommonDataKinds.Event.DATA14) == 1
 
                     if (events[id] == null) {
                         events.put(id, ArrayList())
@@ -1071,11 +1072,13 @@ class ContactsHelper(val context: Context) {
 
             // add events
             contact.events.forEach {
+                val ignoreYear = if (it.ignoreYear == true) 1 else 0
                 ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
                     withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Event.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Event.START_DATE, it.value)
                     withValue(CommonDataKinds.Event.TYPE, it.type)
+                    withValue(CommonDataKinds.Event.DATA14, ignoreYear)
                     operations.add(build())
                 }
             }
@@ -1341,12 +1344,13 @@ class ContactsHelper(val context: Context) {
 
             // events
             contact.events.forEach {
+                val ignoreYear = if (it.ignoreYear == true) 1 else 0
                 ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
                     withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
                     withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Event.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Event.START_DATE, it.value)
                     withValue(CommonDataKinds.Event.TYPE, it.type)
-                    withValue(CommonDataKinds.Event.DATA15, it.ignoreYear)
+                    withValue(CommonDataKinds.Event.DATA14, ignoreYear)
                     operations.add(build())
                 }
             }

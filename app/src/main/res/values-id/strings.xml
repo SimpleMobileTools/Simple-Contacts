@@ -19,6 +19,7 @@
     <string name="add_to_existing_contact">Tambah ke kontak yang ada</string>
     <string name="must_make_default_dialer">Anda harus mengatur aplikasi ini sebagai aplikasi dialer default untuk menggunakan fitur pemblokir nomor.</string>
     <string name="set_as_default">Tetapkan sebagai default</string>
+    <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Tidak ada kontak yang ditemukan.</string>

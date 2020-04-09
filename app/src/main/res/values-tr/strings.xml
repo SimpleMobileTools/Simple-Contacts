@@ -19,6 +19,7 @@
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
     <string name="must_make_default_dialer">Engellenen numaraları kullanmak için bu uygulamayı varsayılan çevirici uygulaması yapmalısınız.</string>
     <string name="set_as_default">Varsayılan olarak ayarla</string>
+    <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Kişi bulunamadı.</string>

@@ -19,6 +19,7 @@
     <string name="add_to_existing_contact">Tilføj til en eksisterende kontakt</string>
     <string name="must_make_default_dialer">Du skal gøre denne app til standardopkaldsappen for at gøre brug af blokerede numre.</string>
     <string name="set_as_default">Gør til standard</string>
+    <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Ingen kontakter fundet.</string>

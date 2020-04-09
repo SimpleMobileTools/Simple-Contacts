@@ -19,6 +19,7 @@
     <string name="add_to_existing_contact">Добавить к существующему контакту</string>
     <string name="must_make_default_dialer">Вы должны сделать \"Simple Contacts\" приложением по умолчанию для набора номера, чтобы использовать блокировку номеров.</string>
     <string name="set_as_default">Установить по умолчанию</string>
+    <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Контакты не найдены.</string>

@@ -19,6 +19,7 @@
     <string name="add_to_existing_contact">Lisää olemassa olevaan kontaktiin</string>
     <string name="must_make_default_dialer">Soittajan täytyy olla oletus</string>
     <string name="set_as_default">Aseta oletukseksi</string>
+    <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Kontakteja ei löytynyt.</string>

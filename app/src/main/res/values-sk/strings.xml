@@ -19,6 +19,7 @@
     <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
     <string name="must_make_default_dialer">Pre použitie blokovania čísel musíte nastaviť aplikáciu ako predvolenú pre správu hovorov.</string>
     <string name="set_as_default">Nastaviť ako predvolenú</string>
+    <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nenašli sa žiadne kontakty.</string>

@@ -19,6 +19,7 @@
     <string name="add_to_existing_contact">Dodaj do istniejącego kontaktu</string>
     <string name="must_make_default_dialer">Musisz ustawić tę aplikację jako domyślną aplikację telefoniczną, aby móc korzystać z funkcji blokowania numerów.</string>
     <string name="set_as_default">Ustaw jako domyślną</string>
+    <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_found">Nie znaleziono kontaktów.</string>

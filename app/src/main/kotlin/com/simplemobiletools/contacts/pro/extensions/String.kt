@@ -9,7 +9,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun String.getDateTimeFromDateString(viewToUpdate: TextView? = null): DateTime {
+fun String.getDateTimeFromDateString(viewToUpdate: TextView? = null, ignoreYear: Boolean = false): DateTime {
     val dateFormats = getDateFormats()
     var date = DateTime()
     for (format in dateFormats) {
@@ -25,7 +25,7 @@ fun String.getDateTimeFromDateString(viewToUpdate: TextView? = null): DateTime {
                 date = date.withYear(DateTime().year)
             }
 
-            val formattedString = date.toString(localPattern)
+            val formattedString = date.toString(if (ignoreYear) "MMM d" else localPattern)
             viewToUpdate?.text = formattedString
             break
         } catch (ignored: Exception) {

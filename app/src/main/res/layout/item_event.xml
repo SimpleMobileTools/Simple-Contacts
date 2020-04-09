@@ -65,11 +65,11 @@
         android:id="@+id/contact_event_ignore_year"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="-2dp"
         android:layout_marginBottom="@dimen/medium_margin"
-        android:foregroundTint="@color/md_grey"
-        android:paddingStart="@dimen/medium_margin"
+        android:paddingStart="@dimen/small_margin"
         android:text="@string/birthday_ignore_year"
-        android:textColor="@color/md_grey"
+        android:textSize="@dimen/bigger_text_size"
         android:visibility="gone"
         tools:visibility="visible" />
 </LinearLayout>

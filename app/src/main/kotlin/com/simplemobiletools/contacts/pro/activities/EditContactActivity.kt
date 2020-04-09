@@ -915,7 +915,8 @@ class EditContactActivity : ContactActivity() {
             organization = Organization(company, jobPosition)
 
             if (getNameToDisplay().isBlank()) {
-                toast("fcgvh")
+                toast(R.string.nothing_to_save)
+                finish()
                 return
             }
 
@@ -1201,7 +1202,8 @@ class EditContactActivity : ContactActivity() {
     private fun parseEvent(contentValues: ContentValues) {
         val type = contentValues.getAsInteger(CommonDataKinds.Event.DATA2) ?: DEFAULT_EVENT_TYPE
         val eventValue = contentValues.getAsString(CommonDataKinds.Event.DATA1) ?: return
-        val ignoreYearField = contentValues.getAsInteger(CommonDataKinds.Event.DATA15) == 1
+        val a= contentValues.getAsInteger(CommonDataKinds.Event.DATA14)
+        val ignoreYearField = contentValues.getAsInteger(CommonDataKinds.Event.DATA14) == 1
         val event = Event(eventValue, type, ignoreYearField)
         contact!!.events.add(event)
     }
