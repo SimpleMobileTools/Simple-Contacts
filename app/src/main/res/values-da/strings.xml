@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Anmod om de krævede tilladelser</string>
     <string name="create_new_contact">Opret ny kontakt</string>
     <string name="add_to_existing_contact">Tilføj til en eksisterende kontakt</string>
-    <string name="must_make_default_dialer">Du skal gøre denne app til standardopkaldsappen for at gøre brug af blokerede numre.</string>
-    <string name="set_as_default">Gør til standard</string>
     <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
@@ -73,7 +71,6 @@
     <string name="other">Andet</string>
 
     <!-- Phone numbers -->
-    <string name="number">Nummer</string>
     <string name="mobile">Mobil</string>
     <string name="main_number">Hovednummer</string>
     <string name="work_fax">Arbejdsfax</string>
@@ -137,16 +134,7 @@
     <string name="contact_source">Kontaktkilde</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Administrér blokerede numre</string>
-    <string name="not_blocking_anyone">Du blokerer ikke nogen</string>
-    <string name="add_a_blocked_number">Tilføj et blokeret nummer</string>
-    <string name="block_number">Blokér nummer</string>
-    <string name="block_numbers">Blokér numre</string>
-    <string name="blocked_numbers">Blokerede numre</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->

@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Vyžádat potřebná oprávnění</string>
     <string name="create_new_contact">Vytvořit nový kontakt</string>
     <string name="add_to_existing_contact">Přidat k existujícímu kontaktu</string>
-    <string name="must_make_default_dialer">Pro použití blokování čísel musíte nastavit aplikaci jako výchozí pro správu hovorů.</string>
-    <string name="set_as_default">Nastavit jako výchozí</string>
     <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
@@ -73,7 +71,6 @@
     <string name="other">Jiné</string>
 
     <!-- Phone numbers -->
-    <string name="number">Číslo</string>
     <string name="mobile">Mobil</string>
     <string name="main_number">Hlavní</string>
     <string name="work_fax">Pracovní fax</string>
@@ -137,16 +134,7 @@
     <string name="contact_source">Zdroje kontaktů</string>
     <string name="instant_messaging">Rychlé zprávy (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Spravovat blokovaná čísla</string>
-    <string name="not_blocking_anyone">Neblokujete nikoho.</string>
-    <string name="add_a_blocked_number">Přidat blokované číslo</string>
-    <string name="block_number">Blokovat číslo</string>
-    <string name="block_numbers">Blokovat čísla</string>
-    <string name="blocked_numbers">Blokovaná čísla</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Opravdu chcete vymazat %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">Kontakt bude vymazán ze všech zdrojů kontaktů.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->

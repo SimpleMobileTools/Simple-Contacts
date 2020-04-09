@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Gerekli izinleri iste</string>
     <string name="create_new_contact">Yeni kişi oluştur</string>
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
-    <string name="must_make_default_dialer">Engellenen numaraları kullanmak için bu uygulamayı varsayılan çevirici uygulaması yapmalısınız.</string>
-    <string name="set_as_default">Varsayılan olarak ayarla</string>
     <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
@@ -73,7 +71,6 @@
     <string name="other">Diğer</string>
 
     <!-- Phone numbers -->
-    <string name="number">Numara</string>
     <string name="mobile">Cep</string>
     <string name="main_number">Ana</string>
     <string name="work_fax">İş Faksı</string>
@@ -137,16 +134,7 @@
     <string name="contact_source">Kişi kaynağı</string>
     <string name="instant_messaging">Anlık mesajlaşma (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Engelli numaraları yönet</string>
-    <string name="not_blocking_anyone">Kimseyi engellemiyorsun.</string>
-    <string name="add_a_blocked_number">Engellenen numara ekle</string>
-    <string name="block_number">Numarayı engelle</string>
-    <string name="block_numbers">Numaraları engelle</string>
-    <string name="blocked_numbers">Engelli numaralar</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">%s silmek istediğinize emin misiniz?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">Kişi tüm kişi kaynaklarından kaldırılacak.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->

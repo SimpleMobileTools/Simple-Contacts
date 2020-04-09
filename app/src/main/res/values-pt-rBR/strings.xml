@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Pedir as permissões necessárias</string>
     <string name="create_new_contact">Criar novo contato</string>
     <string name="add_to_existing_contact">Adicionar um contato existente</string>
-    <string name="must_make_default_dialer">Você precisa tornar este aplicativo padrão para poder bloquear números.</string>
-    <string name="set_as_default">Definir como padrão</string>
     <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
@@ -73,7 +71,6 @@
     <string name="other">Outro</string>
 
     <!-- Phone numbers -->
-    <string name="number">Número</string>
     <string name="mobile">Celular</string>
     <string name="main_number">Principal</string>
     <string name="work_fax">Fax Comercial</string>
@@ -137,16 +134,7 @@
     <string name="contact_source">Origem do contato</string>
     <string name="instant_messaging">Mensageiro instantâneo (MI)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Gerenciar números bloqueados</string>
-    <string name="not_blocking_anyone">Não há números bloqueados.</string>
-    <string name="add_a_blocked_number">Adicionar um número a bloquear</string>
-    <string name="block_number">Bloquear número</string>
-    <string name="block_numbers">Bloquear números</string>
-    <string name="blocked_numbers">Números bloqueados</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Você tem certeza que quer deletar %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">O contato será removido de todas removido de todas as fontes de contato.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->

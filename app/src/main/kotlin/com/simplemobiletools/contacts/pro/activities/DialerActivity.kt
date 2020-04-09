@@ -9,12 +9,12 @@ import android.os.Bundle
 import android.telecom.PhoneAccount
 import android.telecom.TelecomManager
 import android.view.Menu
+import com.simplemobiletools.commons.extensions.isDefaultDialer
 import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.commons.extensions.telecomManager
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 import com.simplemobiletools.contacts.pro.R
-import com.simplemobiletools.contacts.pro.extensions.isDefaultDialer
-import com.simplemobiletools.contacts.pro.extensions.telecomManager
-import com.simplemobiletools.contacts.pro.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 
 @TargetApi(Build.VERSION_CODES.M)
 class DialerActivity : SimpleActivity() {

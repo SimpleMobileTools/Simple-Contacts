@@ -64,17 +64,6 @@ open class SimpleActivity : BaseSimpleActivity() {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
-    protected fun launchSetDefaultDialerIntent() {
-        Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, packageName).apply {
-            if (resolveActivity(packageManager) != null) {
-                startActivityForResult(this, REQUEST_CODE_SET_DEFAULT_DIALER)
-            } else {
-                toast(R.string.no_app_found)
-            }
-        }
-    }
-
     protected fun getTabIcon(position: Int): Drawable {
         val drawableId = when (position) {
             LOCATION_CONTACTS_TAB -> R.drawable.ic_person_vector

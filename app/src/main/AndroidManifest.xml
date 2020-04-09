@@ -218,7 +218,7 @@
             android:parentActivityName="com.simplemobiletools.commons.activities.AboutActivity"/>
 
         <activity
-            android:name=".activities.ManageBlockedNumbersActivity"
+            android:name="com.simplemobiletools.commons.activities.ManageBlockedNumbersActivity"
             android:label="@string/blocked_numbers"
             android:parentActivityName=".activities.SettingsActivity"/>
 

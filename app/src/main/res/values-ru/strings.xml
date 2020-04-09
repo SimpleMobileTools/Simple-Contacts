@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Запрос необходимых разрешений</string>
     <string name="create_new_contact">Создать новый контакт</string>
     <string name="add_to_existing_contact">Добавить к существующему контакту</string>
-    <string name="must_make_default_dialer">Вы должны сделать \"Simple Contacts\" приложением по умолчанию для набора номера, чтобы использовать блокировку номеров.</string>
-    <string name="set_as_default">Установить по умолчанию</string>
     <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
@@ -73,7 +71,6 @@
     <string name="other">Другой</string>
 
     <!-- Phone numbers -->
-    <string name="number">Номер</string>
     <string name="mobile">Мобильный</string>
     <string name="main_number">Основной</string>
     <string name="work_fax">Рабочий факс</string>
@@ -137,16 +134,7 @@
     <string name="contact_source">Источник контакта</string>
     <string name="instant_messaging">Мессенджеры</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Управление блокируемыми номерами</string>
-    <string name="not_blocking_anyone">Нет блокируемых номеров</string>
-    <string name="add_a_blocked_number">Добавить блокируемый номер</string>
-    <string name="block_number">Блокируемый номер</string>
-    <string name="block_numbers">Блокируемые номера</string>
-    <string name="blocked_numbers">Заблокированные номера</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Вы уверены, что хотите удалить %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">Контакт будет удалён из всех источников контактов.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->

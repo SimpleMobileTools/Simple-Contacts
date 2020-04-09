@@ -2,8 +2,8 @@
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Contactos</string>
     <string name="address">Dirección</string>
-    <string name="inserting">Insertando...</string>
-    <string name="updating">Actualizando...</string>
+    <string name="inserting">Insertando…</string>
+    <string name="updating">Actualizando…</string>
     <string name="phone_storage">Almacenamiento del teléfono</string>
     <string name="phone_storage_hidden">Almacenamiento del teléfono (No visible para otras aplicaciones)</string>
     <string name="company">Compañía</string>
@@ -17,8 +17,6 @@
     <string name="request_the_required_permissions">Solicitar los permisos requeridos</string>
     <string name="create_new_contact">Crear nuevo contacto</string>
     <string name="add_to_existing_contact">Añadir a un contacto existente</string>
-    <string name="must_make_default_dialer">Tienes que hacer esta aplicación la aplicación de marcación por defecto para hacer uso de los números bloqueados.</string>
-    <string name="set_as_default">Establecer como por defecto</string>
     <string name="nothing_to_save">Nothing to save.Contact discarded</string>
 
     <!-- Placeholders -->
@@ -73,7 +71,6 @@
     <string name="other">Otros</string>
 
     <!-- Phone numbers -->
-    <string name="number">Número</string>
     <string name="mobile">Celular</string>
     <string name="main_number">Principal</string>
     <string name="work_fax">Fax de trabajo</string>
@@ -137,16 +134,7 @@
     <string name="contact_source">Orígenes de contacto</string>
     <string name="instant_messaging">Mensaje instantáneo (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Administrar números bloqueados</string>
-    <string name="not_blocking_anyone">Aún no has bloqueado a nadie.</string>
-    <string name="add_a_blocked_number">Añadir un número bloqueado</string>
-    <string name="block_number">Bloquear número</string>
-    <string name="block_numbers">Bloquear números</string>
-    <string name="blocked_numbers">Números bloqueados</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">¿Estás seguro que quieres eliminar %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">El contacto será eliminado de todos los orígenes de contactos.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
