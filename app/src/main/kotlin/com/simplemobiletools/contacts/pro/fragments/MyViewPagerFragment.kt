@@ -2,7 +2,6 @@ package com.simplemobiletools.contacts.pro.fragments
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -150,19 +149,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             setupContactsFavoritesAdapter(contacts)
             contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
 
-            val states = arrayOf(intArrayOf(android.R.attr.state_enabled),
-                    intArrayOf(-android.R.attr.state_enabled),
-                    intArrayOf(-android.R.attr.state_checked),
-                    intArrayOf(android.R.attr.state_pressed)
-            )
-
-            val textColor = config.textColor
-            val colors = intArrayOf(textColor, textColor, textColor, textColor)
-
-            val myList = ColorStateList(states, colors)
-            letter_fastscroller.textColor = myList
+            letter_fastscroller.textColor = config.textColor.getColorStateList()
             setupLetterFastscroller(contacts)
-
             letter_fastscroller_thumb.setupWithFastScroller(letter_fastscroller)
             letter_fastscroller_thumb.textColor = config.primaryColor.getContrastColor()
         }

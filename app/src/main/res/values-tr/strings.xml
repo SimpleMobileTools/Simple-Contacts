@@ -14,12 +14,10 @@
     <string name="send_sms_to_group">Gruba SMS gönder</string>
     <string name="send_email_to_group">Gruba e-posta gönder</string>
     <string name="call_person">%s kişisini ara</string>
-    <string name="request_the_required_permissions">Gerekli izinleri iste</string>
     <string name="create_new_contact">Yeni kişi oluştur</string>
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Kişi bulunamadı.</string>
     <string name="no_contacts_with_emails">E-posta ile hiç bağlantı bulunamadı</string>
     <string name="no_contacts_with_phone_numbers">Telefon numaralarını içeren kişi bulunamadı</string>
 

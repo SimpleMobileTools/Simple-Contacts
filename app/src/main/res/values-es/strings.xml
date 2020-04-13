@@ -14,12 +14,10 @@
     <string name="send_sms_to_group">Enviar SMS a grupo</string>
     <string name="send_email_to_group">Enviar correo electrónico a grupo</string>
     <string name="call_person">Llamar a %s</string>
-    <string name="request_the_required_permissions">Solicitar los permisos requeridos</string>
     <string name="create_new_contact">Crear nuevo contacto</string>
     <string name="add_to_existing_contact">Añadir a un contacto existente</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">No se encontraron contactos.</string>
     <string name="no_contacts_with_emails">No se encontraron contactos con correo electrónico</string>
     <string name="no_contacts_with_phone_numbers">No se encontraron contactos con número de teléfono</string>
 

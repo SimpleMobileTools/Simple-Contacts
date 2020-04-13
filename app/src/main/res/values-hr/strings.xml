@@ -14,12 +14,10 @@
     <string name="send_sms_to_group">Pošalji SMS grupi</string>
     <string name="send_email_to_group">Pošalji e-poštu grupi</string>
     <string name="call_person">Nazovi %s</string>
-    <string name="request_the_required_permissions">Zatraži potrebna dopuštenja</string>
     <string name="create_new_contact">Stvori novi kontakt</string>
     <string name="add_to_existing_contact">Dodaj postojećem kontaktu</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Nisu pronađeni kontakti.</string>
     <string name="no_contacts_with_emails">Nije pronađen nijedan kontakt s e-poštom</string>
     <string name="no_contacts_with_phone_numbers">Nisu pronađeni kontakti s telefonskim brojevima</string>
 

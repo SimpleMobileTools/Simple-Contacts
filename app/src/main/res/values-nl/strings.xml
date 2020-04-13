@@ -14,12 +14,10 @@
     <string name="send_sms_to_group">SMS naar groep sturen</string>
     <string name="send_email_to_group">E-mail naar groep sturen</string>
     <string name="call_person">%s bellen</string>
-    <string name="request_the_required_permissions">Om benodigde machtigingen vragen</string>
     <string name="create_new_contact">Nieuw contact</string>
     <string name="add_to_existing_contact">Aan bestaand contact toevoegen</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Geen contacten gevonden.</string>
     <string name="no_contacts_with_emails">Geen contacten met e-mailadressen gevonden</string>
     <string name="no_contacts_with_phone_numbers">Geen contacten met telefoonnummers gevonden</string>
 

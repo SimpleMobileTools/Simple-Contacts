@@ -14,12 +14,10 @@
     <string name="send_sms_to_group">Skicka sms till grupp</string>
     <string name="send_email_to_group">Skicka e-post till grupp</string>
     <string name="call_person">Ring %s</string>
-    <string name="request_the_required_permissions">Begär de behörigheter som krävs</string>
     <string name="create_new_contact">Skapa ny kontakt</string>
     <string name="add_to_existing_contact">Lägg till i en befintlig kontakt</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Inga kontakter hittades.</string>
     <string name="no_contacts_with_emails">Inga kontakter med e-postadresser hittades</string>
     <string name="no_contacts_with_phone_numbers">Inga kontakter med telefonnummer hittades</string>
 

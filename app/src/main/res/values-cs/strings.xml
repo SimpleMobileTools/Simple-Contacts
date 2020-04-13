@@ -14,12 +14,10 @@
     <string name="send_sms_to_group">Poslat skupině SMS</string>
     <string name="send_email_to_group">Poslat skupině e-mail</string>
     <string name="call_person">Zavolat %s</string>
-    <string name="request_the_required_permissions">Vyžádat potřebná oprávnění</string>
     <string name="create_new_contact">Vytvořit nový kontakt</string>
     <string name="add_to_existing_contact">Přidat k existujícímu kontaktu</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Nenalezeny žádné kontakty.</string>
     <string name="no_contacts_with_emails">Nenalezeny žádné kontakty s e-maily</string>
     <string name="no_contacts_with_phone_numbers">Nenalezeny žádné kontakty s telefonními čísly</string>
 

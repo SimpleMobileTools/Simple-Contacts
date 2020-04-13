@@ -14,12 +14,10 @@
     <string name="send_sms_to_group">Anfon SMS at grŵp</string>
     <string name="send_email_to_group">Anfon ebost at grŵp</string>
     <string name="call_person">Galw %s</string>
-    <string name="request_the_required_permissions">Gofyn am y caniatâd sydd ei angen</string>
     <string name="create_new_contact">Creu cyswllt newydd</string>
     <string name="add_to_existing_contact">Ychwanegu at gyswllt sy\'n bodoli</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Ni chanfuwyd unrhyw gysylltiadau.</string>
     <string name="no_contacts_with_emails">Ni chanfuwyd unrhyw gysylltiadau gydag ebost</string>
     <string name="no_contacts_with_phone_numbers">Ni chanfuwyd unrhyw gysylltiadau gyda rhifau ffôn</string>
 

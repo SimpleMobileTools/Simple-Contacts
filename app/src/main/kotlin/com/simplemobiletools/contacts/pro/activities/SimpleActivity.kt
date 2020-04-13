@@ -68,7 +68,7 @@ open class SimpleActivity : BaseSimpleActivity() {
         val drawableId = when (position) {
             LOCATION_CONTACTS_TAB -> R.drawable.ic_person_vector
             LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on_vector
-            else -> R.drawable.ic_group_vector
+            else -> R.drawable.ic_people_vector
         }
 
         return resources.getColoredDrawableWithColor(drawableId, config.textColor)

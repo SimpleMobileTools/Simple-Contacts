@@ -14,12 +14,10 @@
     <string name="send_sms_to_group">Отправить SMS группе</string>
     <string name="send_email_to_group">Отправить письмо группе</string>
     <string name="call_person">Вызов %s</string>
-    <string name="request_the_required_permissions">Запрос необходимых разрешений</string>
     <string name="create_new_contact">Создать новый контакт</string>
     <string name="add_to_existing_contact">Добавить к существующему контакту</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Контакты не найдены.</string>
     <string name="no_contacts_with_emails">Контакты с адресами электронной почты не найдены</string>
     <string name="no_contacts_with_phone_numbers">Контакты с номерами телефонов не найдены</string>
 

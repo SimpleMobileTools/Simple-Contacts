@@ -14,12 +14,10 @@
     <string name="send_sms_to_group">SMS küldése csoportnak</string>
     <string name="send_email_to_group">Email küldése csoportnak</string>
     <string name="call_person">%s hívása</string>
-    <string name="request_the_required_permissions">A kívánt jogosultságok igénylése</string>
     <string name="create_new_contact">Új névjegy hozzáadása</string>
     <string name="add_to_existing_contact">Hozzáadás meglévő névjegyhez</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Nincs ilyen névjegy.</string>
     <string name="no_contacts_with_emails">Nincs emailt tartalmazó névjegy.</string>
     <string name="no_contacts_with_phone_numbers">Nincs telefonszámot tartalmazó névjegy.</string>
 
