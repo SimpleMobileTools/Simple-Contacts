@@ -10,12 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/activity_margin"
+        android:alpha="0.8"
         android:gravity="center"
         android:paddingStart="@dimen/activity_margin"
+        android:paddingTop="@dimen/activity_margin"
         android:paddingEnd="@dimen/activity_margin"
         android:text="@string/no_contacts_found"
         android:textSize="@dimen/bigger_text_size"
+        android:textStyle="italic"
         android:visibility="gone" />
 
     <com.simplemobiletools.commons.views.MyTextView
