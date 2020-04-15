@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
@@ -291,39 +290,33 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             contact_tmb.beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {
-                val placeholderImage = BitmapDrawable(resources, context.getContactLetterIcon(fullName))
-                when {
-                    contact.photoUri.isNotEmpty() -> {
-                        val options = RequestOptions()
-                                .signature(ObjectKey(contact.photoUri))
-                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .error(placeholderImage)
-                                .centerCrop()
+                val avatarName = when {
+                    contact.isABusinessContact() -> contact.getFullCompany()
+                    config.startNameWithSurname -> contact.surname
+                    else -> contact.firstName
+                }
 
-                        Glide.with(activity)
-                                .load(contact.photoUri)
-                                .transition(DrawableTransitionOptions.withCrossFade())
-                                .apply(options)
-                                .apply(RequestOptions.circleCropTransform())
-                                .into(contact_tmb)
-                    }
-                    contact.photo != null -> {
-                        val options = RequestOptions()
-                                .signature(ObjectKey(contact.hashCode()))
-                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .error(placeholderImage)
-                                .centerCrop()
+                val placeholderImage = BitmapDrawable(resources, context.getContactLetterIcon(avatarName))
+                if (contact.photoUri.isEmpty() && contact.photo == null) {
+                    contact_tmb.setImageDrawable(placeholderImage)
+                } else {
+                    val options = RequestOptions()
+                            .signature(ObjectKey(contact.getSignatureKey()))
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .error(placeholderImage)
+                            .centerCrop()
 
-                        Glide.with(activity)
-                                .load(contact.photo)
-                                .transition(DrawableTransitionOptions.withCrossFade())
-                                .apply(options)
-                                .apply(RequestOptions.circleCropTransform())
-                                .into(contact_tmb)
+                    val itemToLoad: Any? = if (contact.photoUri.isNotEmpty()) {
+                        contact.photoUri
+                    } else {
+                        contact.photo
                     }
-                    else -> {
-                        contact_tmb.setImageDrawable(placeholderImage)
-                    }
+
+                    Glide.with(activity)
+                            .load(itemToLoad)
+                            .apply(options)
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(contact_tmb)
                 }
             }
         }
