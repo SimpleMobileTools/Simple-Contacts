@@ -82,7 +82,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             this is GroupsFragment -> (fragment_list.adapter as GroupsAdapter).updateTextColor(color)
             else -> (fragment_list.adapter as ContactsAdapter).apply {
                 updateTextColor(color)
-                initDrawables()
             }
         }
     }
