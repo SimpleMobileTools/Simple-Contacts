@@ -3,7 +3,6 @@ package com.simplemobiletools.contacts.pro.helpers
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.*
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Handler
@@ -685,10 +684,10 @@ class ContactsHelper(val context: Context) {
         val storedGroups = getStoredGroupsSync()
         val uri = Data.CONTENT_URI
         val projection = getContactProjection()
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
+
+        val cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
                 val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
 
                 var prefix = ""
@@ -724,8 +723,6 @@ class ContactsHelper(val context: Context) {
                 return Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
                         accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
             }
-        } finally {
-            cursor?.close()
         }
 
         return null
@@ -802,14 +799,12 @@ class ContactsHelper(val context: Context) {
         val projection = getContactProjection()
         val selection = "(${Data.MIMETYPE} = ? OR ${Data.MIMETYPE} = ?) AND ${Data.RAW_CONTACT_ID} = ?"
         val selectionArgs = arrayOf(StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, id.toString())
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
+
+        val cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
                 return cursor.getIntValue(Data.CONTACT_ID)
             }
-        } finally {
-            cursor?.close()
         }
 
         return 0
@@ -1334,17 +1329,16 @@ class ContactsHelper(val context: Context) {
         val projection = arrayOf(Data.CONTACT_ID, Data.LOOKUP_KEY)
         val selection = "${Data.MIMETYPE} = ? AND ${Data.RAW_CONTACT_ID} = ?"
         val selectionArgs = arrayOf(StructuredName.CONTENT_ITEM_TYPE, contactId)
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
+
+        val cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
                 val id = cursor.getIntValue(Data.CONTACT_ID)
                 val lookupKey = cursor.getStringValue(Data.LOOKUP_KEY)
                 return "$lookupKey/$id"
             }
-        } finally {
-            cursor?.close()
         }
+
         return ""
     }
 
@@ -1354,14 +1348,12 @@ class ContactsHelper(val context: Context) {
         val selection = "${Data.MIMETYPE} = ? AND ${Data.RAW_CONTACT_ID} = ?"
         val selectionArgs = arrayOf(mimeType, contactId)
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
+
+        val cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
                 return cursor.getStringValue(Data._ID)
             }
-        } finally {
-            cursor?.close()
         }
         return ""
     }
