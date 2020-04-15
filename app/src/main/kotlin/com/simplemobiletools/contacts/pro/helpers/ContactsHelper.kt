@@ -1217,22 +1217,22 @@ class ContactsHelper(val context: Context) {
     }
 
     fun addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
-        val operations = ArrayList<ContentProviderOperation>()
-        contacts.forEach {
-            ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
-                withValue(Data.RAW_CONTACT_ID, it.id)
-                withValue(Data.MIMETYPE, GroupMembership.CONTENT_ITEM_TYPE)
-                withValue(GroupMembership.GROUP_ROW_ID, groupId)
-                operations.add(build())
-            }
-
-            if (operations.size % BATCH_SIZE == 0) {
-                context.contentResolver.applyBatch(AUTHORITY, operations)
-                operations.clear()
-            }
-        }
-
         try {
+            val operations = ArrayList<ContentProviderOperation>()
+            contacts.forEach {
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValue(Data.RAW_CONTACT_ID, it.id)
+                    withValue(Data.MIMETYPE, GroupMembership.CONTENT_ITEM_TYPE)
+                    withValue(GroupMembership.GROUP_ROW_ID, groupId)
+                    operations.add(build())
+                }
+
+                if (operations.size % BATCH_SIZE == 0) {
+                    context.contentResolver.applyBatch(AUTHORITY, operations)
+                    operations.clear()
+                }
+            }
+
             context.contentResolver.applyBatch(AUTHORITY, operations)
         } catch (e: Exception) {
             context.showErrorToast(e)
@@ -1240,21 +1240,25 @@ class ContactsHelper(val context: Context) {
     }
 
     fun removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
-        val operations = ArrayList<ContentProviderOperation>()
-        contacts.forEach {
-            ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
-                val selection = "${Data.CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? AND ${Data.DATA1} = ?"
-                val selectionArgs = arrayOf(it.contactId.toString(), GroupMembership.CONTENT_ITEM_TYPE, groupId.toString())
-                withSelection(selection, selectionArgs)
-                operations.add(build())
-            }
+        try {
+            val operations = ArrayList<ContentProviderOperation>()
+            contacts.forEach {
+                ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+                    val selection = "${Data.CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? AND ${Data.DATA1} = ?"
+                    val selectionArgs = arrayOf(it.contactId.toString(), GroupMembership.CONTENT_ITEM_TYPE, groupId.toString())
+                    withSelection(selection, selectionArgs)
+                    operations.add(build())
+                }
 
-            if (operations.size % BATCH_SIZE == 0) {
-                context.contentResolver.applyBatch(AUTHORITY, operations)
-                operations.clear()
+                if (operations.size % BATCH_SIZE == 0) {
+                    context.contentResolver.applyBatch(AUTHORITY, operations)
+                    operations.clear()
+                }
             }
+            context.contentResolver.applyBatch(AUTHORITY, operations)
+        } catch (e: Exception) {
+            context.showErrorToast(e)
         }
-        context.contentResolver.applyBatch(AUTHORITY, operations)
     }
 
     fun insertContact(contact: Contact): Boolean {
