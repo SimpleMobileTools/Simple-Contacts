@@ -12,16 +12,19 @@
         android:id="@+id/contact_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/medium_margin"
-        android:paddingEnd="@dimen/normal_margin"
-        android:paddingBottom="@dimen/medium_margin">
+        android:minHeight="@dimen/min_row_height"
+        android:paddingStart="@dimen/tiny_margin"
+        android:paddingTop="@dimen/normal_margin"
+        android:paddingEnd="@dimen/activity_margin"
+        android:paddingBottom="@dimen/normal_margin">
 
         <ImageView
             android:id="@+id/contact_tmb"
             android:layout_width="@dimen/normal_icon_size"
             android:layout_height="@dimen/normal_icon_size"
             android:layout_centerVertical="true"
-            android:padding="@dimen/medium_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            android:padding="@dimen/tiny_margin"
             android:src="@drawable/ic_person_vector" />
 
         <TextView
@@ -32,8 +35,8 @@
             android:layout_toEndOf="@+id/contact_tmb"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingStart="@dimen/small_margin"
-            android:paddingEnd="@dimen/small_margin"
+            android:paddingStart="@dimen/medium_margin"
+            android:paddingEnd="@dimen/activity_margin"
             android:textSize="@dimen/bigger_text_size"
             tools:text="John Doe" />
 
@@ -47,6 +50,9 @@
             android:layout_toEndOf="@+id/contact_tmb"
             android:alpha="0.6"
             android:maxLines="1"
+            android:ellipsize="end"
+            android:paddingStart="@dimen/medium_margin"
+            android:paddingEnd="@dimen/activity_margin"
             android:textSize="@dimen/bigger_text_size"
             tools:text="0123 456 789" />
 

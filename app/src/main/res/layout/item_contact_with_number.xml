@@ -48,6 +48,7 @@
             android:layout_alignStart="@+id/contact_name"
             android:layout_toEndOf="@+id/contact_tmb"
             android:alpha="0.6"
+            android:ellipsize="end"
             android:maxLines="1"
             android:paddingStart="@dimen/medium_margin"
             android:paddingEnd="@dimen/activity_margin"
