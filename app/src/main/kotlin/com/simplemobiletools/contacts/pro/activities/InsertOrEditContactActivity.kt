@@ -143,7 +143,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         insert_or_edit_tabs_holder.beVisibleIf(skippedTabs == 0)
 
         select_contact_label?.setTextColor(getAdjustedPrimaryColor())
-        new_contact_tmb?.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_new_contact_vector, config.textColor))
+        new_contact_tmb?.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_add_person_vector, config.textColor))
         new_contact_holder?.setOnClickListener {
             createNewContact()
         }
