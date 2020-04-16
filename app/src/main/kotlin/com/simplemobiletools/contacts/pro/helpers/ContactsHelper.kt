@@ -746,6 +746,11 @@ class ContactsHelper(val context: Context) {
             return sources
         }
 
+        if (!context.config.wasLocalAccountInitialized) {
+            initializeLocalPhoneAccount()
+            context.config.wasLocalAccountInitialized = true
+        }
+
         val accounts = AccountManager.get(context).accounts
         accounts.forEach {
             if (ContentResolver.getIsSyncable(it, AUTHORITY) == 1) {
@@ -764,6 +769,24 @@ class ContactsHelper(val context: Context) {
         sources.addAll(contentResolverAccounts)
 
         return sources
+    }
+
+    // make sure the local Phone contact source is initialized and available
+    // https://stackoverflow.com/a/6096508/1967672
+    private fun initializeLocalPhoneAccount() {
+        try {
+            val operations = ArrayList<ContentProviderOperation>()
+            ContentProviderOperation.newInsert(RawContacts.CONTENT_URI).apply {
+                withValue(RawContacts.ACCOUNT_NAME, null)
+                withValue(RawContacts.ACCOUNT_TYPE, null)
+                operations.add(build())
+            }
+
+            val results = context.contentResolver.applyBatch(AUTHORITY, operations)
+            val rawContactUri = results.firstOrNull()?.uri ?: return
+            context.contentResolver.delete(rawContactUri, null, null)
+        } catch (ignored: Exception) {
+        }
     }
 
     private fun getContactSourceType(accountName: String) = getDeviceContactSources().firstOrNull { it.name == accountName }?.type ?: ""

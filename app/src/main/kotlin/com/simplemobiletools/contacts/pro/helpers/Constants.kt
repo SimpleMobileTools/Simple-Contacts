@@ -23,6 +23,7 @@ const val SHOW_DIALPAD_BUTTON = "show_dialpad_button"
 const val SHOW_DIALPAD_LETTERS = "show_dialpad_letters"
 const val SPEED_DIAL = "speed_dial"
 const val LAST_EXPORT_PATH = "last_export_path"
+const val WAS_LOCAL_ACCOUNT_INITIALIZED = "was_local_account_initialized"
 
 const val CONTACT_ID = "contact_id"
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
