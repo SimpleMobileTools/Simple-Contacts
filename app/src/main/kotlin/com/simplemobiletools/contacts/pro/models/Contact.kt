@@ -1,11 +1,13 @@
 package com.simplemobiletools.contacts.pro.models
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.telephony.PhoneNumberUtils
 import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
+import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.normalizeNumber
 import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 
@@ -140,4 +142,22 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
     fun isPrivate() = source == SMT_PRIVATE
 
     fun getSignatureKey() = if (photoUri.isNotEmpty()) photoUri else hashCode()
+
+    fun getAvatarLetterName(context: Context): String {
+        var name = when {
+            isABusinessContact() -> getFullCompany()
+            context.config.startNameWithSurname -> surname
+            else -> firstName
+        }
+
+        if (name.isEmpty() && emails.isNotEmpty()) {
+            name = emails.first().value
+        }
+
+        if (name.isEmpty()) {
+            name = getNameToDisplay()
+        }
+
+        return name
+    }
 }

@@ -242,17 +242,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     private fun setupLetterFastscroller(contacts: ArrayList<Contact>) {
         letter_fastscroller.setupWithRecyclerView(fragment_list, { position ->
             try {
-                val contact = contacts[position]
-                var name = when {
-                    contact.isABusinessContact() -> contact.getFullCompany()
-                    config.startNameWithSurname -> contact.surname
-                    else -> contact.firstName
-                }
-
-                if (name.isEmpty() && contact.emails.isNotEmpty()) {
-                    name = contact.emails.first().value
-                }
-
+                val name = contacts[position].getAvatarLetterName(context)
                 var character = if (name.isNotEmpty()) name.substring(0, 1) else ""
                 if (!character.areLettersOnly()) {
                     character = "#"
