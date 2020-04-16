@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 6.9.0 *(2020-04-16)*
+----------------------------
+
+ * Use colored contact avatars with the first letter of their name to make the app happier :)
+ * Properly recognize the local Phone contact source, even when empty
+ * Fix some glitches related to the letters in the fastscroller not being correctly sorted
+ * Couple other stability, translation and UI improvements
+
 Version 6.8.0 *(2020-03-18)*
 ----------------------------
 
