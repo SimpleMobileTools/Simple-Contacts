@@ -290,8 +290,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             contact_tmb.beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {
-                val avatarName = contact.getAvatarLetterName(context)
-                val placeholderImage = BitmapDrawable(resources, context.getContactLetterIcon(avatarName))
+                val placeholderImage = BitmapDrawable(resources, context.getContactLetterIcon(fullName))
                 if (contact.photoUri.isEmpty() && contact.photo == null) {
                     contact_tmb.setImageDrawable(placeholderImage)
                 } else {
