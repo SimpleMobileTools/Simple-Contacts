@@ -601,6 +601,18 @@ class EditContactActivity : ContactActivity() {
         getPublicContactSource(contact!!.source) {
             contact_source.text = it
         }
+
+        // if the last used contact source is not available anymore, use the first available one. Could happen at ejecting SIM card
+        ContactsHelper(this).getSaveableContactSources { sources ->
+            val sourceNames = sources.map { it.name }
+            if (!sourceNames.contains(originalContactSource)) {
+                originalContactSource = sourceNames.first()
+                contact?.source = originalContactSource
+                getPublicContactSource(contact!!.source) {
+                    contact_source.text = it
+                }
+            }
+        }
     }
 
     private fun setupTypePickers() {
