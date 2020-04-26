@@ -740,6 +740,20 @@ class ContactsHelper(val context: Context) {
         return ArrayList(sources)
     }
 
+    fun getSaveableContactSources(callback: (ArrayList<ContactSource>) -> Unit) {
+        ensureBackgroundThread {
+            val ignoredTypes = arrayListOf(
+                    SIGNAL_PACKAGE,
+                    TELEGRAM_PACKAGE,
+                    WHATSAPP_PACKAGE
+            )
+
+            val contactSources = getContactSourcesSync()
+            val filteredSources = contactSources.filter { !ignoredTypes.contains(it.type) }.toMutableList() as ArrayList<ContactSource>
+            callback(filteredSources)
+        }
+    }
+
     fun getDeviceContactSources(): LinkedHashSet<ContactSource> {
         val sources = LinkedHashSet<ContactSource>()
         if (!context.hasContactPermissions()) {

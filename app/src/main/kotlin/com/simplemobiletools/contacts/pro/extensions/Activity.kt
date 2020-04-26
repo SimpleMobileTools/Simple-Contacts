@@ -55,20 +55,13 @@ fun SimpleActivity.startCall(contact: Contact) {
 }
 
 fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (newSource: String) -> Unit) {
-    ContactsHelper(this).getContactSources {
-        val ignoredTypes = arrayListOf(
-                SIGNAL_PACKAGE,
-                TELEGRAM_PACKAGE,
-                WHATSAPP_PACKAGE
-        )
-
+    ContactsHelper(this).getSaveableContactSources { sources ->
         val items = ArrayList<RadioItem>()
-        val filteredSources = it.filter { !ignoredTypes.contains(it.type) }
-        var sources = filteredSources.map { it.name }
-        var currentSourceIndex = sources.indexOfFirst { it == currentSource }
-        sources = filteredSources.map { it.publicName }
+        var sourceNames = sources.map { it.name }
+        var currentSourceIndex = sourceNames.indexOfFirst { it == currentSource }
+        sourceNames = sources.map { it.publicName }
 
-        sources.forEachIndexed { index, account ->
+        sourceNames.forEachIndexed { index, account ->
             items.add(RadioItem(index, account))
             if (currentSource == SMT_PRIVATE && account == getString(R.string.phone_storage_hidden)) {
                 currentSourceIndex = index
@@ -77,7 +70,7 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
 
         runOnUiThread {
             RadioGroupDialog(this, items, currentSourceIndex) {
-                callback(filteredSources[it as Int].name)
+                callback(sources[it as Int].name)
             }
         }
     }
