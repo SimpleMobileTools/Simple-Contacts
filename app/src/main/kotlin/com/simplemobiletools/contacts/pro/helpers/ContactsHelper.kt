@@ -1325,6 +1325,17 @@ class ContactsHelper(val context: Context) {
             val results: Array<ContentProviderResult>
             try {
                 results = context.contentResolver.applyBatch(AUTHORITY, operations)
+
+                // storing contacts on some devices seems to be messed up and they move on Phone instead, or disappear completely
+                // try storing a lighter contact version with this oldschool version too just so it wont disappear, future edits work well
+                if (getContactSourceType(contact.source).contains(".sim")) {
+                    val simUri = Uri.parse("content://icc/adn")
+                    ContentValues().apply {
+                        put("number", contact.phoneNumbers.firstOrNull()?.value ?: "")
+                        put("tag", contact.getNameToDisplay())
+                        context.contentResolver.insert(simUri, this)
+                    }
+                }
             } finally {
                 scaledSizePhotoData = null
             }
