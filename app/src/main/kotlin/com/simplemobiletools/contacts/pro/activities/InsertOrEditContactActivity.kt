@@ -38,8 +38,8 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     private var searchMenuItem: MenuItem? = null
 
     private val contactsFavoritesList = arrayListOf(
-            CONTACTS_TAB_MASK,
-            FAVORITES_TAB_MASK
+        CONTACTS_TAB_MASK,
+        FAVORITES_TAB_MASK
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,17 +116,17 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         insert_or_edit_tabs_holder.onTabSelectionChanged(
-                tabUnselectedAction = {
-                    it.icon?.applyColorFilter(config.textColor)
-                },
-                tabSelectedAction = {
-                    if (isSearchOpen) {
-                        getCurrentFragment()?.onSearchQueryChanged("")
-                        searchMenuItem?.collapseActionView()
-                    }
-                    viewpager.currentItem = it.position
-                    it.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            tabUnselectedAction = {
+                it.icon?.applyColorFilter(config.textColor)
+            },
+            tabSelectedAction = {
+                if (isSearchOpen) {
+                    getCurrentFragment()?.onSearchQueryChanged("")
+                    searchMenuItem?.collapseActionView()
                 }
+                viewpager.currentItem = it.position
+                it.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            }
         )
 
         insert_or_edit_tabs_holder.removeAllTabs()

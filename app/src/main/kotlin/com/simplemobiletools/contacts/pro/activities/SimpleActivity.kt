@@ -1,40 +1,39 @@
 package com.simplemobiletools.contacts.pro.activities
 
-import android.annotation.TargetApi
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
-import android.telecom.TelecomManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.helpers.KEY_MAILTO
+import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
+import com.simplemobiletools.contacts.pro.helpers.LOCATION_CONTACTS_TAB
+import com.simplemobiletools.contacts.pro.helpers.LOCATION_FAVORITES_TAB
 
 open class SimpleActivity : BaseSimpleActivity() {
     override fun getAppIconIDs() = arrayListOf(
-            R.mipmap.ic_launcher_red,
-            R.mipmap.ic_launcher_pink,
-            R.mipmap.ic_launcher_purple,
-            R.mipmap.ic_launcher_deep_purple,
-            R.mipmap.ic_launcher_indigo,
-            R.mipmap.ic_launcher_blue,
-            R.mipmap.ic_launcher_light_blue,
-            R.mipmap.ic_launcher_cyan,
-            R.mipmap.ic_launcher_teal,
-            R.mipmap.ic_launcher_green,
-            R.mipmap.ic_launcher_light_green,
-            R.mipmap.ic_launcher_lime,
-            R.mipmap.ic_launcher_yellow,
-            R.mipmap.ic_launcher_amber,
-            R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher_deep_orange,
-            R.mipmap.ic_launcher_brown,
-            R.mipmap.ic_launcher_blue_grey,
-            R.mipmap.ic_launcher_grey_black
+        R.mipmap.ic_launcher_red,
+        R.mipmap.ic_launcher_pink,
+        R.mipmap.ic_launcher_purple,
+        R.mipmap.ic_launcher_deep_purple,
+        R.mipmap.ic_launcher_indigo,
+        R.mipmap.ic_launcher_blue,
+        R.mipmap.ic_launcher_light_blue,
+        R.mipmap.ic_launcher_cyan,
+        R.mipmap.ic_launcher_teal,
+        R.mipmap.ic_launcher_green,
+        R.mipmap.ic_launcher_light_green,
+        R.mipmap.ic_launcher_lime,
+        R.mipmap.ic_launcher_yellow,
+        R.mipmap.ic_launcher_amber,
+        R.mipmap.ic_launcher,
+        R.mipmap.ic_launcher_deep_orange,
+        R.mipmap.ic_launcher_brown,
+        R.mipmap.ic_launcher_blue_grey,
+        R.mipmap.ic_launcher_grey_black
     )
 
     override fun getAppLauncherName() = getString(R.string.app_launcher_name)

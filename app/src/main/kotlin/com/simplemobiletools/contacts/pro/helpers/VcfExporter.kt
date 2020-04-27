@@ -2,6 +2,7 @@ package com.simplemobiletools.contacts.pro.helpers
 
 import android.net.Uri
 import android.provider.ContactsContract.CommonDataKinds
+import android.provider.ContactsContract.CommonDataKinds.*
 import android.provider.MediaStore
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.showErrorToast
@@ -15,6 +16,10 @@ import ezvcard.Ezvcard
 import ezvcard.VCard
 import ezvcard.parameter.ImageType
 import ezvcard.property.*
+import ezvcard.property.Email
+import ezvcard.property.Organization
+import ezvcard.property.Photo
+import ezvcard.property.StructuredName
 import ezvcard.util.PartialDate
 import java.io.OutputStream
 import java.util.*
@@ -67,11 +72,11 @@ class VcfExporter {
                 }
 
                 contact.events.forEach {
-                    if (it.type == CommonDataKinds.Event.TYPE_ANNIVERSARY || it.type == CommonDataKinds.Event.TYPE_BIRTHDAY) {
+                    if (it.type == Event.TYPE_ANNIVERSARY || it.type == Event.TYPE_BIRTHDAY) {
                         val dateTime = it.value.getDateTimeFromDateString()
                         if (it.value.startsWith("--")) {
                             val partialDate = PartialDate.builder().year(null).month(dateTime.monthOfYear).date(dateTime.dayOfMonth).build()
-                            if (it.type == CommonDataKinds.Event.TYPE_BIRTHDAY) {
+                            if (it.type == Event.TYPE_BIRTHDAY) {
                                 card.birthdays.add(Birthday(partialDate))
                             } else {
                                 card.anniversaries.add(Anniversary(partialDate))
@@ -82,7 +87,7 @@ class VcfExporter {
                                 set(Calendar.YEAR, dateTime.year)
                                 set(Calendar.MONTH, dateTime.monthOfYear - 1)
                                 set(Calendar.DAY_OF_MONTH, dateTime.dayOfMonth)
-                                if (it.type == CommonDataKinds.Event.TYPE_BIRTHDAY) {
+                                if (it.type == Event.TYPE_BIRTHDAY) {
                                     card.birthdays.add(Birthday(time))
                                 } else {
                                     card.anniversaries.add(Anniversary(time))
@@ -101,14 +106,14 @@ class VcfExporter {
 
                 contact.IMs.forEach {
                     val impp = when (it.type) {
-                        CommonDataKinds.Im.PROTOCOL_AIM -> Impp.aim(it.value)
-                        CommonDataKinds.Im.PROTOCOL_YAHOO -> Impp.yahoo(it.value)
-                        CommonDataKinds.Im.PROTOCOL_MSN -> Impp.msn(it.value)
-                        CommonDataKinds.Im.PROTOCOL_ICQ -> Impp.icq(it.value)
-                        CommonDataKinds.Im.PROTOCOL_SKYPE -> Impp.skype(it.value)
-                        CommonDataKinds.Im.PROTOCOL_GOOGLE_TALK -> Impp(HANGOUTS, it.value)
-                        CommonDataKinds.Im.PROTOCOL_QQ -> Impp(QQ, it.value)
-                        CommonDataKinds.Im.PROTOCOL_JABBER -> Impp(JABBER, it.value)
+                        Im.PROTOCOL_AIM -> Impp.aim(it.value)
+                        Im.PROTOCOL_YAHOO -> Impp.yahoo(it.value)
+                        Im.PROTOCOL_MSN -> Impp.msn(it.value)
+                        Im.PROTOCOL_ICQ -> Impp.icq(it.value)
+                        Im.PROTOCOL_SKYPE -> Impp.skype(it.value)
+                        Im.PROTOCOL_GOOGLE_TALK -> Impp(HANGOUTS, it.value)
+                        Im.PROTOCOL_QQ -> Impp(QQ, it.value)
+                        Im.PROTOCOL_JABBER -> Impp(JABBER, it.value)
                         else -> Impp(it.label, it.value)
                     }
 
@@ -162,14 +167,14 @@ class VcfExporter {
     }
 
     private fun getPhoneNumberTypeLabel(type: Int, label: String) = when (type) {
-        CommonDataKinds.Phone.TYPE_MOBILE -> CELL
-        CommonDataKinds.Phone.TYPE_HOME -> HOME
-        CommonDataKinds.Phone.TYPE_WORK -> WORK
-        CommonDataKinds.Phone.TYPE_MAIN -> PREF
-        CommonDataKinds.Phone.TYPE_FAX_WORK -> WORK_FAX
-        CommonDataKinds.Phone.TYPE_FAX_HOME -> HOME_FAX
-        CommonDataKinds.Phone.TYPE_PAGER -> PAGER
-        CommonDataKinds.Phone.TYPE_OTHER -> OTHER
+        Phone.TYPE_MOBILE -> CELL
+        Phone.TYPE_HOME -> HOME
+        Phone.TYPE_WORK -> WORK
+        Phone.TYPE_MAIN -> PREF
+        Phone.TYPE_FAX_WORK -> WORK_FAX
+        Phone.TYPE_FAX_HOME -> HOME_FAX
+        Phone.TYPE_PAGER -> PAGER
+        Phone.TYPE_OTHER -> OTHER
         else -> label
     }
 
@@ -182,9 +187,9 @@ class VcfExporter {
     }
 
     private fun getAddressTypeLabel(type: Int, label: String) = when (type) {
-        CommonDataKinds.StructuredPostal.TYPE_HOME -> HOME
-        CommonDataKinds.StructuredPostal.TYPE_WORK -> WORK
-        CommonDataKinds.StructuredPostal.TYPE_OTHER -> OTHER
+        StructuredPostal.TYPE_HOME -> HOME
+        StructuredPostal.TYPE_WORK -> WORK
+        StructuredPostal.TYPE_OTHER -> OTHER
         else -> label
     }
 }

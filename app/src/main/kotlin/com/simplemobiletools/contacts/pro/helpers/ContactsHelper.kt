@@ -108,8 +108,8 @@ class ContactsHelper(val context: Context) {
 
     private fun fillSourcesFromUri(uri: Uri, sources: HashSet<ContactSource>) {
         val projection = arrayOf(
-                RawContacts.ACCOUNT_NAME,
-                RawContacts.ACCOUNT_TYPE
+            RawContacts.ACCOUNT_NAME,
+            RawContacts.ACCOUNT_TYPE
         )
 
         context.queryCursor(uri, projection) { cursor ->
@@ -176,7 +176,7 @@ class ContactsHelper(val context: Context) {
             val websites = ArrayList<String>()
             val ims = ArrayList<IM>()
             val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
-                    events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
+                events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
 
             contacts.put(id, contact)
         }
@@ -252,11 +252,11 @@ class ContactsHelper(val context: Context) {
         val phoneNumbers = SparseArray<ArrayList<PhoneNumber>>()
         val uri = Phone.CONTENT_URI
         val projection = arrayOf(
-                Data.RAW_CONTACT_ID,
-                Phone.NUMBER,
-                Phone.NORMALIZED_NUMBER,
-                Phone.TYPE,
-                Phone.LABEL
+            Data.RAW_CONTACT_ID,
+            Phone.NUMBER,
+            Phone.NORMALIZED_NUMBER,
+            Phone.TYPE,
+            Phone.LABEL
         )
 
         val selection = if (contactId == null) getSourcesSelection() else "${Data.RAW_CONTACT_ID} = ?"
@@ -284,8 +284,8 @@ class ContactsHelper(val context: Context) {
         val nicknames = SparseArray<String>()
         val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                Data.RAW_CONTACT_ID,
-                Nickname.NAME
+            Data.RAW_CONTACT_ID,
+            Nickname.NAME
         )
 
         val selection = getSourcesSelection(true, contactId != null)
@@ -304,10 +304,10 @@ class ContactsHelper(val context: Context) {
         val emails = SparseArray<ArrayList<Email>>()
         val uri = CommonDataKinds.Email.CONTENT_URI
         val projection = arrayOf(
-                Data.RAW_CONTACT_ID,
-                CommonDataKinds.Email.DATA,
-                CommonDataKinds.Email.TYPE,
-                CommonDataKinds.Email.LABEL
+            Data.RAW_CONTACT_ID,
+            CommonDataKinds.Email.DATA,
+            CommonDataKinds.Email.TYPE,
+            CommonDataKinds.Email.LABEL
         )
 
         val selection = if (contactId == null) getSourcesSelection() else "${Data.RAW_CONTACT_ID} = ?"
@@ -333,10 +333,10 @@ class ContactsHelper(val context: Context) {
         val addresses = SparseArray<ArrayList<Address>>()
         val uri = StructuredPostal.CONTENT_URI
         val projection = arrayOf(
-                Data.RAW_CONTACT_ID,
-                StructuredPostal.FORMATTED_ADDRESS,
-                StructuredPostal.TYPE,
-                StructuredPostal.LABEL
+            Data.RAW_CONTACT_ID,
+            StructuredPostal.FORMATTED_ADDRESS,
+            StructuredPostal.TYPE,
+            StructuredPostal.LABEL
         )
 
         val selection = if (contactId == null) getSourcesSelection() else "${Data.RAW_CONTACT_ID} = ?"
@@ -362,10 +362,10 @@ class ContactsHelper(val context: Context) {
         val IMs = SparseArray<ArrayList<IM>>()
         val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                Data.RAW_CONTACT_ID,
-                Im.DATA,
-                Im.PROTOCOL,
-                Im.CUSTOM_PROTOCOL
+            Data.RAW_CONTACT_ID,
+            Im.DATA,
+            Im.PROTOCOL,
+            Im.CUSTOM_PROTOCOL
         )
 
         val selection = getSourcesSelection(true, contactId != null)
@@ -391,9 +391,9 @@ class ContactsHelper(val context: Context) {
         val events = SparseArray<ArrayList<Event>>()
         val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                Data.RAW_CONTACT_ID,
-                CommonDataKinds.Event.START_DATE,
-                CommonDataKinds.Event.TYPE
+            Data.RAW_CONTACT_ID,
+            CommonDataKinds.Event.START_DATE,
+            CommonDataKinds.Event.TYPE
         )
 
         val selection = getSourcesSelection(true, contactId != null)
@@ -418,8 +418,8 @@ class ContactsHelper(val context: Context) {
         val notes = SparseArray<String>()
         val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                Data.RAW_CONTACT_ID,
-                Note.NOTE
+            Data.RAW_CONTACT_ID,
+            Note.NOTE
         )
 
         val selection = getSourcesSelection(true, contactId != null)
@@ -438,9 +438,9 @@ class ContactsHelper(val context: Context) {
         val organizations = SparseArray<Organization>()
         val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                Data.RAW_CONTACT_ID,
-                CommonDataKinds.Organization.COMPANY,
-                CommonDataKinds.Organization.TITLE
+            Data.RAW_CONTACT_ID,
+            CommonDataKinds.Organization.COMPANY,
+            CommonDataKinds.Organization.TITLE
         )
 
         val selection = getSourcesSelection(true, contactId != null)
@@ -465,8 +465,8 @@ class ContactsHelper(val context: Context) {
         val websites = SparseArray<ArrayList<String>>()
         val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                Data.RAW_CONTACT_ID,
-                Website.URL
+            Data.RAW_CONTACT_ID,
+            Website.URL
         )
 
         val selection = getSourcesSelection(true, contactId != null)
@@ -494,8 +494,8 @@ class ContactsHelper(val context: Context) {
 
         val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                Data.CONTACT_ID,
-                Data.DATA1
+            Data.CONTACT_ID,
+            Data.DATA1
         )
 
         val selection = getSourcesSelection(true, contactId != null, false)
@@ -581,9 +581,9 @@ class ContactsHelper(val context: Context) {
 
         val uri = Groups.CONTENT_URI
         val projection = arrayOf(
-                Groups._ID,
-                Groups.TITLE,
-                Groups.SYSTEM_ID
+            Groups._ID,
+            Groups.TITLE,
+            Groups.SYSTEM_ID
         )
 
         val selection = "${Groups.AUTO_ADD} = ? AND ${Groups.FAVORITES} = ?"
@@ -650,8 +650,8 @@ class ContactsHelper(val context: Context) {
     fun deleteGroup(id: Long) {
         val operations = ArrayList<ContentProviderOperation>()
         val uri = ContentUris.withAppendedId(Groups.CONTENT_URI, id).buildUpon()
-                .appendQueryParameter(CALLER_IS_SYNCADAPTER, "true")
-                .build()
+            .appendQueryParameter(CALLER_IS_SYNCADAPTER, "true")
+            .build()
 
         operations.add(ContentProviderOperation.newDelete(uri).build())
 
@@ -721,7 +721,7 @@ class ContactsHelper(val context: Context) {
                 val websites = getWebsites(id)[id] ?: ArrayList()
                 val ims = getIMs(id)[id] ?: ArrayList()
                 return Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
-                        accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
+                    accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
             }
         }
 
@@ -743,9 +743,9 @@ class ContactsHelper(val context: Context) {
     fun getSaveableContactSources(callback: (ArrayList<ContactSource>) -> Unit) {
         ensureBackgroundThread {
             val ignoredTypes = arrayListOf(
-                    SIGNAL_PACKAGE,
-                    TELEGRAM_PACKAGE,
-                    WHATSAPP_PACKAGE
+                SIGNAL_PACKAGE,
+                TELEGRAM_PACKAGE,
+                WHATSAPP_PACKAGE
             )
 
             val contactSources = getContactSourcesSync()
@@ -806,19 +806,19 @@ class ContactsHelper(val context: Context) {
     private fun getContactSourceType(accountName: String) = getDeviceContactSources().firstOrNull { it.name == accountName }?.type ?: ""
 
     private fun getContactProjection() = arrayOf(
-            Data.MIMETYPE,
-            Data.CONTACT_ID,
-            Data.RAW_CONTACT_ID,
-            StructuredName.PREFIX,
-            StructuredName.GIVEN_NAME,
-            StructuredName.MIDDLE_NAME,
-            StructuredName.FAMILY_NAME,
-            StructuredName.SUFFIX,
-            StructuredName.PHOTO_URI,
-            StructuredName.PHOTO_THUMBNAIL_URI,
-            StructuredName.STARRED,
-            RawContacts.ACCOUNT_NAME,
-            RawContacts.ACCOUNT_TYPE
+        Data.MIMETYPE,
+        Data.CONTACT_ID,
+        Data.RAW_CONTACT_ID,
+        StructuredName.PREFIX,
+        StructuredName.GIVEN_NAME,
+        StructuredName.MIDDLE_NAME,
+        StructuredName.FAMILY_NAME,
+        StructuredName.SUFFIX,
+        StructuredName.PHOTO_URI,
+        StructuredName.PHOTO_THUMBNAIL_URI,
+        StructuredName.STARRED,
+        RawContacts.ACCOUNT_NAME,
+        RawContacts.ACCOUNT_TYPE
     )
 
     private fun getSortString(): String {

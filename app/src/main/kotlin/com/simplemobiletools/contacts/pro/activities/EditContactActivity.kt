@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds
+import android.provider.ContactsContract.CommonDataKinds.*
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
@@ -29,6 +30,9 @@ import com.simplemobiletools.contacts.pro.dialogs.SelectGroupsDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.*
+import com.simplemobiletools.contacts.pro.models.Email
+import com.simplemobiletools.contacts.pro.models.Event
+import com.simplemobiletools.contacts.pro.models.Organization
 import kotlinx.android.synthetic.main.activity_edit_contact.*
 import kotlinx.android.synthetic.main.item_edit_address.view.*
 import kotlinx.android.synthetic.main.item_edit_email.view.*
@@ -220,36 +224,22 @@ class EditContactActivity : ContactActivity() {
         }
 
         val textColor = config.textColor
-        contact_send_sms.applyColorFilter(textColor)
-        contact_start_call.applyColorFilter(textColor)
-        contact_send_email.applyColorFilter(textColor)
-        contact_name_image.applyColorFilter(textColor)
-        contact_numbers_image.applyColorFilter(textColor)
-        contact_emails_image.applyColorFilter(textColor)
-        contact_addresses_image.applyColorFilter(textColor)
-        contact_ims_image.applyColorFilter(textColor)
-        contact_events_image.applyColorFilter(textColor)
-        contact_notes_image.applyColorFilter(textColor)
-        contact_organization_image.applyColorFilter(textColor)
-        contact_websites_image.applyColorFilter(textColor)
-        contact_groups_image.applyColorFilter(textColor)
-        contact_source_image.applyColorFilter(textColor)
+        arrayOf(contact_send_sms, contact_start_call, contact_send_email, contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image,
+            contact_ims_image, contact_events_image, contact_notes_image, contact_organization_image, contact_websites_image, contact_groups_image,
+            contact_source_image).forEach {
+            it.applyColorFilter(textColor)
+        }
 
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        contact_numbers_add_new.applyColorFilter(adjustedPrimaryColor)
-        contact_numbers_add_new.background.applyColorFilter(textColor)
-        contact_emails_add_new.applyColorFilter(adjustedPrimaryColor)
-        contact_emails_add_new.background.applyColorFilter(textColor)
-        contact_addresses_add_new.applyColorFilter(adjustedPrimaryColor)
-        contact_addresses_add_new.background.applyColorFilter(textColor)
-        contact_ims_add_new.applyColorFilter(adjustedPrimaryColor)
-        contact_ims_add_new.background.applyColorFilter(textColor)
-        contact_events_add_new.applyColorFilter(adjustedPrimaryColor)
-        contact_events_add_new.background.applyColorFilter(textColor)
-        contact_websites_add_new.applyColorFilter(adjustedPrimaryColor)
-        contact_websites_add_new.background.applyColorFilter(textColor)
-        contact_groups_add_new.applyColorFilter(adjustedPrimaryColor)
-        contact_groups_add_new.background.applyColorFilter(textColor)
+        arrayOf(contact_numbers_add_new, contact_emails_add_new, contact_addresses_add_new, contact_ims_add_new, contact_events_add_new,
+            contact_websites_add_new, contact_groups_add_new).forEach {
+            it.applyColorFilter(adjustedPrimaryColor)
+        }
+
+        arrayOf(contact_numbers_add_new.background, contact_emails_add_new.background, contact_addresses_add_new.background, contact_ims_add_new.background,
+            contact_events_add_new.background, contact_websites_add_new.background, contact_groups_add_new.background).forEach {
+            it.applyColorFilter(textColor)
+        }
 
         contact_toggle_favorite.setOnClickListener { toggleFavorite() }
         contact_photo.setOnClickListener { trySetPhoto() }
@@ -755,20 +745,20 @@ class EditContactActivity : ContactActivity() {
 
     private fun showNumberTypePicker(numberTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(CommonDataKinds.Phone.TYPE_MOBILE, getString(R.string.mobile)),
-                RadioItem(CommonDataKinds.Phone.TYPE_HOME, getString(R.string.home)),
-                RadioItem(CommonDataKinds.Phone.TYPE_WORK, getString(R.string.work)),
-                RadioItem(CommonDataKinds.Phone.TYPE_MAIN, getString(R.string.main_number)),
-                RadioItem(CommonDataKinds.Phone.TYPE_FAX_WORK, getString(R.string.work_fax)),
-                RadioItem(CommonDataKinds.Phone.TYPE_FAX_HOME, getString(R.string.home_fax)),
-                RadioItem(CommonDataKinds.Phone.TYPE_PAGER, getString(R.string.pager)),
-                RadioItem(CommonDataKinds.Phone.TYPE_OTHER, getString(R.string.other)),
-                RadioItem(CommonDataKinds.Phone.TYPE_CUSTOM, getString(R.string.custom))
+            RadioItem(Phone.TYPE_MOBILE, getString(R.string.mobile)),
+            RadioItem(Phone.TYPE_HOME, getString(R.string.home)),
+            RadioItem(Phone.TYPE_WORK, getString(R.string.work)),
+            RadioItem(Phone.TYPE_MAIN, getString(R.string.main_number)),
+            RadioItem(Phone.TYPE_FAX_WORK, getString(R.string.work_fax)),
+            RadioItem(Phone.TYPE_FAX_HOME, getString(R.string.home_fax)),
+            RadioItem(Phone.TYPE_PAGER, getString(R.string.pager)),
+            RadioItem(Phone.TYPE_OTHER, getString(R.string.other)),
+            RadioItem(Phone.TYPE_CUSTOM, getString(R.string.custom))
         )
 
         val currentNumberTypeId = getPhoneNumberTypeId(numberTypeField.value)
         RadioGroupDialog(this, items, currentNumberTypeId) {
-            if (it as Int == CommonDataKinds.Phone.TYPE_CUSTOM) {
+            if (it as Int == Phone.TYPE_CUSTOM) {
                 CustomLabelDialog(this) {
                     numberTypeField.text = it
                 }
@@ -780,11 +770,11 @@ class EditContactActivity : ContactActivity() {
 
     private fun showEmailTypePicker(emailTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(CommonDataKinds.Email.TYPE_HOME, getString(R.string.home)),
-                RadioItem(CommonDataKinds.Email.TYPE_WORK, getString(R.string.work)),
-                RadioItem(CommonDataKinds.Email.TYPE_MOBILE, getString(R.string.mobile)),
-                RadioItem(CommonDataKinds.Email.TYPE_OTHER, getString(R.string.other)),
-                RadioItem(CommonDataKinds.Email.TYPE_CUSTOM, getString(R.string.custom))
+            RadioItem(CommonDataKinds.Email.TYPE_HOME, getString(R.string.home)),
+            RadioItem(CommonDataKinds.Email.TYPE_WORK, getString(R.string.work)),
+            RadioItem(CommonDataKinds.Email.TYPE_MOBILE, getString(R.string.mobile)),
+            RadioItem(CommonDataKinds.Email.TYPE_OTHER, getString(R.string.other)),
+            RadioItem(CommonDataKinds.Email.TYPE_CUSTOM, getString(R.string.custom))
         )
 
         val currentEmailTypeId = getEmailTypeId(emailTypeField.value)
@@ -801,15 +791,15 @@ class EditContactActivity : ContactActivity() {
 
     private fun showAddressTypePicker(addressTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(CommonDataKinds.StructuredPostal.TYPE_HOME, getString(R.string.home)),
-                RadioItem(CommonDataKinds.StructuredPostal.TYPE_WORK, getString(R.string.work)),
-                RadioItem(CommonDataKinds.StructuredPostal.TYPE_OTHER, getString(R.string.other)),
-                RadioItem(CommonDataKinds.StructuredPostal.TYPE_CUSTOM, getString(R.string.custom))
+            RadioItem(StructuredPostal.TYPE_HOME, getString(R.string.home)),
+            RadioItem(StructuredPostal.TYPE_WORK, getString(R.string.work)),
+            RadioItem(StructuredPostal.TYPE_OTHER, getString(R.string.other)),
+            RadioItem(StructuredPostal.TYPE_CUSTOM, getString(R.string.custom))
         )
 
         val currentAddressTypeId = getAddressTypeId(addressTypeField.value)
         RadioGroupDialog(this, items, currentAddressTypeId) {
-            if (it as Int == CommonDataKinds.StructuredPostal.TYPE_CUSTOM) {
+            if (it as Int == StructuredPostal.TYPE_CUSTOM) {
                 CustomLabelDialog(this) {
                     addressTypeField.text = it
                 }
@@ -821,20 +811,20 @@ class EditContactActivity : ContactActivity() {
 
     private fun showIMTypePicker(imTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(CommonDataKinds.Im.PROTOCOL_AIM, getString(R.string.aim)),
-                RadioItem(CommonDataKinds.Im.PROTOCOL_MSN, getString(R.string.windows_live)),
-                RadioItem(CommonDataKinds.Im.PROTOCOL_YAHOO, getString(R.string.yahoo)),
-                RadioItem(CommonDataKinds.Im.PROTOCOL_SKYPE, getString(R.string.skype)),
-                RadioItem(CommonDataKinds.Im.PROTOCOL_QQ, getString(R.string.qq)),
-                RadioItem(CommonDataKinds.Im.PROTOCOL_GOOGLE_TALK, getString(R.string.hangouts)),
-                RadioItem(CommonDataKinds.Im.PROTOCOL_ICQ, getString(R.string.icq)),
-                RadioItem(CommonDataKinds.Im.PROTOCOL_JABBER, getString(R.string.jabber)),
-                RadioItem(CommonDataKinds.Im.PROTOCOL_CUSTOM, getString(R.string.custom))
+            RadioItem(Im.PROTOCOL_AIM, getString(R.string.aim)),
+            RadioItem(Im.PROTOCOL_MSN, getString(R.string.windows_live)),
+            RadioItem(Im.PROTOCOL_YAHOO, getString(R.string.yahoo)),
+            RadioItem(Im.PROTOCOL_SKYPE, getString(R.string.skype)),
+            RadioItem(Im.PROTOCOL_QQ, getString(R.string.qq)),
+            RadioItem(Im.PROTOCOL_GOOGLE_TALK, getString(R.string.hangouts)),
+            RadioItem(Im.PROTOCOL_ICQ, getString(R.string.icq)),
+            RadioItem(Im.PROTOCOL_JABBER, getString(R.string.jabber)),
+            RadioItem(Im.PROTOCOL_CUSTOM, getString(R.string.custom))
         )
 
         val currentIMTypeId = getIMTypeId(imTypeField.value)
         RadioGroupDialog(this, items, currentIMTypeId) {
-            if (it as Int == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
+            if (it as Int == Im.PROTOCOL_CUSTOM) {
                 CustomLabelDialog(this) {
                     imTypeField.text = it
                 }
@@ -846,9 +836,9 @@ class EditContactActivity : ContactActivity() {
 
     private fun showEventTypePicker(eventTypeField: TextView) {
         val items = arrayListOf(
-                RadioItem(CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(R.string.anniversary)),
-                RadioItem(CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
-                RadioItem(CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other))
+            RadioItem(CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(R.string.anniversary)),
+            RadioItem(CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
+            RadioItem(CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other))
         )
 
         val currentEventTypeId = getEventTypeId(eventTypeField.value)
@@ -922,7 +912,7 @@ class EditContactActivity : ContactActivity() {
             val numberHolder = contact_numbers_holder.getChildAt(i)
             val number = numberHolder.contact_number.value
             val numberType = getPhoneNumberTypeId(numberHolder.contact_number_type.value)
-            val numberLabel = if (numberType == CommonDataKinds.Phone.TYPE_CUSTOM) numberHolder.contact_number_type.value else ""
+            val numberLabel = if (numberType == Phone.TYPE_CUSTOM) numberHolder.contact_number_type.value else ""
 
             if (number.isNotEmpty()) {
                 phoneNumbers.add(PhoneNumber(number, numberType, numberLabel, number.normalizeNumber()))
@@ -954,7 +944,7 @@ class EditContactActivity : ContactActivity() {
             val addressHolder = contact_addresses_holder.getChildAt(i)
             val address = addressHolder.contact_address.value
             val addressType = getAddressTypeId(addressHolder.contact_address_type.value)
-            val addressLabel = if (addressType == CommonDataKinds.StructuredPostal.TYPE_CUSTOM) addressHolder.contact_address_type.value else ""
+            val addressLabel = if (addressType == StructuredPostal.TYPE_CUSTOM) addressHolder.contact_address_type.value else ""
 
             if (address.isNotEmpty()) {
                 addresses.add(Address(address, addressType, addressLabel))
@@ -970,7 +960,7 @@ class EditContactActivity : ContactActivity() {
             val IMsHolder = contact_ims_holder.getChildAt(i)
             val IM = IMsHolder.contact_im.value
             val IMType = getIMTypeId(IMsHolder.contact_im_type.value)
-            val IMLabel = if (IMType == CommonDataKinds.Im.PROTOCOL_CUSTOM) IMsHolder.contact_im_type.value else ""
+            val IMLabel = if (IMType == Im.PROTOCOL_CUSTOM) IMsHolder.contact_im_type.value else ""
 
             if (IM.isNotEmpty()) {
                 IMs.add(IM(IM, IMType, IMLabel))
@@ -1128,8 +1118,8 @@ class EditContactActivity : ContactActivity() {
 
     private fun trySetPhoto() {
         val items = arrayListOf(
-                RadioItem(TAKE_PHOTO, getString(R.string.take_photo)),
-                RadioItem(CHOOSE_PHOTO, getString(R.string.choose_photo))
+            RadioItem(TAKE_PHOTO, getString(R.string.take_photo)),
+            RadioItem(CHOOSE_PHOTO, getString(R.string.choose_photo))
         )
 
         if (currentContactPhotoPath.isNotEmpty() || contact!!.photo != null) {
@@ -1147,13 +1137,13 @@ class EditContactActivity : ContactActivity() {
 
     private fun parseIntentData(data: ArrayList<ContentValues>) {
         data.forEach {
-            when (it.get(CommonDataKinds.StructuredName.MIMETYPE)) {
+            when (it.get(StructuredName.MIMETYPE)) {
                 CommonDataKinds.Email.CONTENT_ITEM_TYPE -> parseEmail(it)
-                CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE -> parseAddress(it)
+                StructuredPostal.CONTENT_ITEM_TYPE -> parseAddress(it)
                 CommonDataKinds.Organization.CONTENT_ITEM_TYPE -> parseOrganization(it)
                 CommonDataKinds.Event.CONTENT_ITEM_TYPE -> parseEvent(it)
-                CommonDataKinds.Website.CONTENT_ITEM_TYPE -> parseWebsite(it)
-                CommonDataKinds.Note.CONTENT_ITEM_TYPE -> parseNote(it)
+                Website.CONTENT_ITEM_TYPE -> parseWebsite(it)
+                Note.CONTENT_ITEM_TYPE -> parseNote(it)
             }
         }
     }
@@ -1166,9 +1156,9 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun parseAddress(contentValues: ContentValues) {
-        val type = contentValues.getAsInteger(CommonDataKinds.StructuredPostal.DATA2) ?: DEFAULT_ADDRESS_TYPE
-        val addressValue = contentValues.getAsString(CommonDataKinds.StructuredPostal.DATA4)
-                ?: contentValues.getAsString(CommonDataKinds.StructuredPostal.DATA1) ?: return
+        val type = contentValues.getAsInteger(StructuredPostal.DATA2) ?: DEFAULT_ADDRESS_TYPE
+        val addressValue = contentValues.getAsString(StructuredPostal.DATA4)
+            ?: contentValues.getAsString(StructuredPostal.DATA1) ?: return
         val address = Address(addressValue, type, "")
         contact!!.addresses.add(address)
     }
@@ -1187,12 +1177,12 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun parseWebsite(contentValues: ContentValues) {
-        val website = contentValues.getAsString(CommonDataKinds.Website.DATA1) ?: return
+        val website = contentValues.getAsString(Website.DATA1) ?: return
         contact!!.websites.add(website)
     }
 
     private fun parseNote(contentValues: ContentValues) {
-        val note = contentValues.getAsString(CommonDataKinds.Note.DATA1) ?: return
+        val note = contentValues.getAsString(Note.DATA1) ?: return
         contact!!.notes = note
     }
 
@@ -1226,15 +1216,15 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun getPhoneNumberTypeId(value: String) = when (value) {
-        getString(R.string.mobile) -> CommonDataKinds.Phone.TYPE_MOBILE
-        getString(R.string.home) -> CommonDataKinds.Phone.TYPE_HOME
-        getString(R.string.work) -> CommonDataKinds.Phone.TYPE_WORK
-        getString(R.string.main_number) -> CommonDataKinds.Phone.TYPE_MAIN
-        getString(R.string.work_fax) -> CommonDataKinds.Phone.TYPE_FAX_WORK
-        getString(R.string.home_fax) -> CommonDataKinds.Phone.TYPE_FAX_HOME
-        getString(R.string.pager) -> CommonDataKinds.Phone.TYPE_PAGER
-        getString(R.string.other) -> CommonDataKinds.Phone.TYPE_OTHER
-        else -> CommonDataKinds.Phone.TYPE_CUSTOM
+        getString(R.string.mobile) -> Phone.TYPE_MOBILE
+        getString(R.string.home) -> Phone.TYPE_HOME
+        getString(R.string.work) -> Phone.TYPE_WORK
+        getString(R.string.main_number) -> Phone.TYPE_MAIN
+        getString(R.string.work_fax) -> Phone.TYPE_FAX_WORK
+        getString(R.string.home_fax) -> Phone.TYPE_FAX_HOME
+        getString(R.string.pager) -> Phone.TYPE_PAGER
+        getString(R.string.other) -> Phone.TYPE_OTHER
+        else -> Phone.TYPE_CUSTOM
     }
 
     private fun getEmailTypeId(value: String) = when (value) {
@@ -1252,21 +1242,21 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun getAddressTypeId(value: String) = when (value) {
-        getString(R.string.home) -> CommonDataKinds.StructuredPostal.TYPE_HOME
-        getString(R.string.work) -> CommonDataKinds.StructuredPostal.TYPE_WORK
-        getString(R.string.other) -> CommonDataKinds.StructuredPostal.TYPE_OTHER
-        else -> CommonDataKinds.StructuredPostal.TYPE_CUSTOM
+        getString(R.string.home) -> StructuredPostal.TYPE_HOME
+        getString(R.string.work) -> StructuredPostal.TYPE_WORK
+        getString(R.string.other) -> StructuredPostal.TYPE_OTHER
+        else -> StructuredPostal.TYPE_CUSTOM
     }
 
     private fun getIMTypeId(value: String) = when (value) {
-        getString(R.string.aim) -> CommonDataKinds.Im.PROTOCOL_AIM
-        getString(R.string.windows_live) -> CommonDataKinds.Im.PROTOCOL_MSN
-        getString(R.string.yahoo) -> CommonDataKinds.Im.PROTOCOL_YAHOO
-        getString(R.string.skype) -> CommonDataKinds.Im.PROTOCOL_SKYPE
-        getString(R.string.qq) -> CommonDataKinds.Im.PROTOCOL_QQ
-        getString(R.string.hangouts) -> CommonDataKinds.Im.PROTOCOL_GOOGLE_TALK
-        getString(R.string.icq) -> CommonDataKinds.Im.PROTOCOL_ICQ
-        getString(R.string.jabber) -> CommonDataKinds.Im.PROTOCOL_JABBER
-        else -> CommonDataKinds.Im.PROTOCOL_CUSTOM
+        getString(R.string.aim) -> Im.PROTOCOL_AIM
+        getString(R.string.windows_live) -> Im.PROTOCOL_MSN
+        getString(R.string.yahoo) -> Im.PROTOCOL_YAHOO
+        getString(R.string.skype) -> Im.PROTOCOL_SKYPE
+        getString(R.string.qq) -> Im.PROTOCOL_QQ
+        getString(R.string.hangouts) -> Im.PROTOCOL_GOOGLE_TALK
+        getString(R.string.icq) -> Im.PROTOCOL_ICQ
+        getString(R.string.jabber) -> Im.PROTOCOL_JABBER
+        else -> Im.PROTOCOL_CUSTOM
     }
 }

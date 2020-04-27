@@ -6,6 +6,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.provider.ContactsContract.CommonDataKinds.Email
+import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
@@ -46,8 +48,8 @@ class SelectContactActivity : SimpleActivity() {
                 handlePermission(PERMISSION_WRITE_CONTACTS) {
                     if (it) {
                         specialMimeType = when (intent.data) {
-                            ContactsContract.CommonDataKinds.Email.CONTENT_URI -> ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE
-                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI -> ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE
+                            Email.CONTENT_URI -> Email.CONTENT_ITEM_TYPE
+                            Phone.CONTENT_URI -> Phone.CONTENT_ITEM_TYPE
                             else -> null
                         }
                         initContacts()
@@ -178,8 +180,8 @@ class SelectContactActivity : SimpleActivity() {
             var contacts = it.filter {
                 if (specialMimeType != null) {
                     val hasRequiredValues = when (specialMimeType) {
-                        ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE -> it.emails.isNotEmpty()
-                        ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE -> it.phoneNumbers.isNotEmpty()
+                        Email.CONTENT_ITEM_TYPE -> it.emails.isNotEmpty()
+                        Phone.CONTENT_ITEM_TYPE -> it.phoneNumbers.isNotEmpty()
                         else -> true
                     }
                     !it.isPrivate() && hasRequiredValues
@@ -242,8 +244,8 @@ class SelectContactActivity : SimpleActivity() {
         select_contact_placeholder_2.beVisibleIf(contacts.isEmpty())
         select_contact_placeholder.beVisibleIf(contacts.isEmpty())
         select_contact_placeholder.setText(when (specialMimeType) {
-            ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE -> R.string.no_contacts_with_emails
-            ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE -> R.string.no_contacts_with_phone_numbers
+            Email.CONTENT_ITEM_TYPE -> R.string.no_contacts_with_emails
+            Phone.CONTENT_ITEM_TYPE -> R.string.no_contacts_with_phone_numbers
             else -> R.string.no_contacts_found
         })
     }

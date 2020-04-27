@@ -176,19 +176,11 @@ class ViewContactActivity : ContactActivity() {
         }
 
         val textColor = config.textColor
-        contact_send_sms.applyColorFilter(textColor)
-        contact_start_call.applyColorFilter(textColor)
-        contact_send_email.applyColorFilter(textColor)
-        contact_name_image.applyColorFilter(textColor)
-        contact_numbers_image.applyColorFilter(textColor)
-        contact_emails_image.applyColorFilter(textColor)
-        contact_addresses_image.applyColorFilter(textColor)
-        contact_events_image.applyColorFilter(textColor)
-        contact_source_image.applyColorFilter(textColor)
-        contact_notes_image.applyColorFilter(textColor)
-        contact_organization_image.applyColorFilter(textColor)
-        contact_websites_image.applyColorFilter(textColor)
-        contact_groups_image.applyColorFilter(textColor)
+        arrayOf(contact_send_sms, contact_start_call, contact_send_email, contact_name_image, contact_numbers_image, contact_emails_image,
+            contact_addresses_image, contact_events_image, contact_source_image, contact_notes_image, contact_organization_image,
+            contact_websites_image, contact_groups_image).forEach {
+            it.applyColorFilter(textColor)
+        }
 
         contact_send_sms.setOnClickListener { trySendSMS() }
         contact_start_call.setOnClickListener { tryStartCall(contact!!) }
@@ -288,7 +280,7 @@ class ViewContactActivity : ContactActivity() {
             contact_nickname.copyOnLongClick(nickname)
 
             if (contact_prefix.isGone() && contact_first_name.isGone() && contact_middle_name.isGone() && contact_surname.isGone() && contact_suffix.isGone()
-                    && contact_nickname.isGone()) {
+                && contact_nickname.isGone()) {
                 contact_name_image.beInvisible()
                 (contact_photo.layoutParams as RelativeLayout.LayoutParams).bottomMargin = resources.getDimension(R.dimen.medium_margin).toInt()
             }

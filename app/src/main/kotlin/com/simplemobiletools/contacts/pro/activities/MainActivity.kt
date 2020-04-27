@@ -313,11 +313,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val intent = Intent(this, DialpadActivity::class.java)
         intent.action = Intent.ACTION_VIEW
         return ShortcutInfo.Builder(this, "launch_dialpad")
-                .setShortLabel(newEvent)
-                .setLongLabel(newEvent)
-                .setIcon(Icon.createWithBitmap(bmp))
-                .setIntent(intent)
-                .build()
+            .setShortLabel(newEvent)
+            .setLongLabel(newEvent)
+            .setIcon(Icon.createWithBitmap(bmp))
+            .setIntent(intent)
+            .build()
     }
 
     @SuppressLint("NewApi")
@@ -330,11 +330,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val intent = Intent(this, EditContactActivity::class.java)
         intent.action = Intent.ACTION_VIEW
         return ShortcutInfo.Builder(this, "create_new_contact")
-                .setShortLabel(newEvent)
-                .setLongLabel(newEvent)
-                .setIcon(Icon.createWithBitmap(bmp))
-                .setIntent(intent)
-                .build()
+            .setShortLabel(newEvent)
+            .setLongLabel(newEvent)
+            .setIcon(Icon.createWithBitmap(bmp))
+            .setIntent(intent)
+            .build()
     }
 
     private fun getCurrentFragment(): MyViewPagerFragment? {
@@ -398,17 +398,17 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         main_tabs_holder.onTabSelectionChanged(
-                tabUnselectedAction = {
-                    it.icon?.applyColorFilter(config.textColor)
-                },
-                tabSelectedAction = {
-                    if (isSearchOpen) {
-                        getCurrentFragment()?.onSearchQueryChanged("")
-                        searchMenuItem?.collapseActionView()
-                    }
-                    viewpager.currentItem = it.position
-                    it.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            tabUnselectedAction = {
+                it.icon?.applyColorFilter(config.textColor)
+            },
+            tabSelectedAction = {
+                if (isSearchOpen) {
+                    getCurrentFragment()?.onSearchQueryChanged("")
+                    searchMenuItem?.collapseActionView()
                 }
+                viewpager.currentItem = it.position
+                it.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            }
         )
 
         if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
@@ -561,10 +561,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_INDICATOR_FAST_SCROLL
 
         val faqItems = arrayListOf(
-                FAQItem(R.string.faq_1_title, R.string.faq_1_text),
-                FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
-                FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons),
-                FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons)
+            FAQItem(R.string.faq_1_title, R.string.faq_1_text),
+            FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
+            FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons),
+            FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons)
         )
 
         startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
