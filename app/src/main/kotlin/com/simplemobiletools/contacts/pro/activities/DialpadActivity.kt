@@ -104,11 +104,14 @@ class DialpadActivity : SimpleActivity() {
         return true
     }
 
-    private fun checkDialIntent() {
-        if (intent.action == Intent.ACTION_DIAL && intent.data != null && intent.dataString?.contains("tel:") == true) {
+    private fun checkDialIntent(): Boolean {
+        return if (intent.action == Intent.ACTION_DIAL && intent.data != null && intent.dataString?.contains("tel:") == true) {
             val number = Uri.decode(intent.dataString).substringAfter("tel:")
             dialpad_input.setText(number)
             dialpad_input.setSelection(number.length)
+            true
+        } else {
+            false
         }
     }
 
@@ -163,7 +166,9 @@ class DialpadActivity : SimpleActivity() {
 
     private fun gotContacts(newContacts: ArrayList<Contact>) {
         contacts = newContacts
-        checkDialIntent()
+        if (!checkDialIntent() && dialpad_input.value.isEmpty()) {
+            dialpadValueChanged("")
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.O)
