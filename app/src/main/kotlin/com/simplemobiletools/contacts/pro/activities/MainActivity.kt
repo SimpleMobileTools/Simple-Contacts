@@ -268,12 +268,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 getCurrentFragment()?.onSearchOpened()
                 isSearchOpen = true
+                main_dialpad_button.beGone()
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 getCurrentFragment()?.onSearchClosed()
                 isSearchOpen = false
+                main_dialpad_button.beVisibleIf(config.showDialpadButton)
                 return true
             }
         })
