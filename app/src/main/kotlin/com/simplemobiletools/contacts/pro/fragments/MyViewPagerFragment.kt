@@ -253,10 +253,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     else -> contact.firstName
                 }
 
-                if (name.isEmpty() && contact.emails.isNotEmpty()) {
-                    name = contact.emails.first().value
-                }
-
                 if (name.isEmpty()) {
                     name = contact.getNameToDisplay()
                 }
