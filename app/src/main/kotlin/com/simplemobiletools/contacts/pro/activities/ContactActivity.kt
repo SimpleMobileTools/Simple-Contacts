@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.provider.ContactsContract.CommonDataKinds.*
@@ -15,12 +16,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.applyColorFilter
-import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.getContrastColor
+import com.simplemobiletools.commons.extensions.getContactLetterIcon
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
-import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.sendEmailIntent
 import com.simplemobiletools.contacts.pro.extensions.sendSMSIntent
 import com.simplemobiletools.contacts.pro.extensions.shareContacts
@@ -33,13 +31,7 @@ abstract class ContactActivity : SimpleActivity() {
     protected var currentContactPhotoPath = ""
 
     fun showPhotoPlaceholder(photoView: ImageView) {
-        val background = resources.getDrawable(R.drawable.contact_circular_background)
-        background.applyColorFilter(config.primaryColor)
-        photoView.background = background
-
-        val placeholder = resources.getColoredDrawableWithColor(R.drawable.ic_person_vector, config.primaryColor.getContrastColor())
-        val padding = resources.getDimension(R.dimen.activity_margin).toInt()
-        photoView.setPadding(padding, padding, padding, padding)
+        val placeholder = BitmapDrawable(resources, getContactLetterIcon(contact?.getNameToDisplay() ?: "S"))
         photoView.setImageDrawable(placeholder)
         currentContactPhotoPath = ""
         contact?.photo = null
@@ -62,7 +54,6 @@ abstract class ContactActivity : SimpleActivity() {
             .apply(RequestOptions.circleCropTransform())
             .listener(object : RequestListener<Drawable> {
                 override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                    photoView.setPadding(0, 0, 0, 0)
                     photoView.background = ColorDrawable(0)
                     return false
                 }

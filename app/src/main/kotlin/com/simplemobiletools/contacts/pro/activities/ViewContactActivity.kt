@@ -155,10 +155,6 @@ class ViewContactActivity : ContactActivity() {
         contact_start_call.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
         contact_send_email.beVisibleIf(contact!!.emails.isNotEmpty())
 
-        val background = resources.getDrawable(R.drawable.contact_circular_background)
-        background.applyColorFilter(config.primaryColor)
-        contact_photo.background = background
-
         if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
             showPhotoPlaceholder(contact_photo)
         } else {
