@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.simplemobiletools.contacts.pro.helpers.Converters
 import com.simplemobiletools.contacts.pro.helpers.FIRST_CONTACT_ID
@@ -16,7 +17,7 @@ import com.simplemobiletools.contacts.pro.models.Group
 import com.simplemobiletools.contacts.pro.models.LocalContact
 import java.util.concurrent.Executors
 
-@Database(entities = [LocalContact::class, Group::class], version = 1)
+@Database(entities = [LocalContact::class, Group::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class ContactsDatabase : RoomDatabase() {
 
@@ -32,13 +33,14 @@ abstract class ContactsDatabase : RoomDatabase() {
                 synchronized(ContactsDatabase::class) {
                     if (db == null) {
                         db = Room.databaseBuilder(context.applicationContext, ContactsDatabase::class.java, "local_contacts.db")
-                                .addCallback(object : Callback() {
-                                    override fun onCreate(db: SupportSQLiteDatabase) {
-                                        super.onCreate(db)
-                                        increaseAutoIncrementIds()
-                                    }
-                                })
-                                .build()
+                            .addCallback(object : Callback() {
+                                override fun onCreate(db: SupportSQLiteDatabase) {
+                                    super.onCreate(db)
+                                    increaseAutoIncrementIds()
+                                }
+                            })
+                            .addMigrations(MIGRATION_1_2)
+                            .build()
                     }
                 }
             }
@@ -64,6 +66,14 @@ abstract class ContactsDatabase : RoomDatabase() {
                 db!!.GroupsDao().apply {
                     insertOrUpdate(emptyGroup)
                     deleteGroupId(FIRST_GROUP_ID)
+                }
+            }
+        }
+
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.apply {
+                    execSQL("ALTER TABLE contacts ADD COLUMN photo_uri TEXT NOT NULL DEFAULT ''")
                 }
             }
         }

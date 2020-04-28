@@ -15,6 +15,7 @@ data class LocalContact(
         @ColumnInfo(name = "suffix") var suffix: String,
         @ColumnInfo(name = "nickname") var nickname: String,
         @ColumnInfo(name = "photo", typeAffinity = ColumnInfo.BLOB) var photo: ByteArray?,
+        @ColumnInfo(name = "photo_uri") var photoUri: String,
         @ColumnInfo(name = "phone_numbers") var phoneNumbers: ArrayList<PhoneNumber>,
         @ColumnInfo(name = "emails") var emails: ArrayList<Email>,
         @ColumnInfo(name = "events") var events: ArrayList<Event>,
