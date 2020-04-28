@@ -152,10 +152,10 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                         contact_tmb.setImageDrawable(placeholderImage)
                     } else {
                         val options = RequestOptions()
-                                .signature(ObjectKey(contact.getSignatureKey()))
-                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .error(placeholderImage)
-                                .centerCrop()
+                            .signature(ObjectKey(contact.getSignatureKey()))
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .error(placeholderImage)
+                            .centerCrop()
 
                         val itemToLoad: Any? = if (contact.photoUri.isNotEmpty()) {
                             contact.photoUri
@@ -164,10 +164,10 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                         }
 
                         Glide.with(activity)
-                                .load(itemToLoad)
-                                .apply(options)
-                                .apply(RequestOptions.circleCropTransform())
-                                .into(contact_tmb)
+                            .load(itemToLoad)
+                            .apply(options)
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(contact_tmb)
                     }
                 }
             }
