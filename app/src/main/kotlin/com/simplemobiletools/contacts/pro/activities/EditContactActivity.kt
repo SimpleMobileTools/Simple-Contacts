@@ -301,8 +301,8 @@ class EditContactActivity : ContactActivity() {
         Intent("com.android.camera.action.CROP").apply {
             setDataAndType(imageUri, "image/*")
             putExtra(MediaStore.EXTRA_OUTPUT, lastPhotoIntentUri)
-            putExtra("outputX", 720)
-            putExtra("outputY", 720)
+            putExtra("outputX", 512)
+            putExtra("outputY", 512)
             putExtra("aspectX", 1)
             putExtra("aspectY", 1)
             putExtra("crop", "true")
