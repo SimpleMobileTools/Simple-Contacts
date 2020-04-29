@@ -1303,10 +1303,7 @@ class ContactsHelper(val context: Context) {
             var fullSizePhotoData: ByteArray? = null
             if (contact.photoUri.isNotEmpty()) {
                 val photoUri = Uri.parse(contact.photoUri)
-                val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, photoUri)
-
-                fullSizePhotoData = bitmap.getByteArray()
-                bitmap.recycle()
+                fullSizePhotoData = context.contentResolver.openInputStream(photoUri)?.readBytes()
             }
 
             val results = context.contentResolver.applyBatch(AUTHORITY, operations)
