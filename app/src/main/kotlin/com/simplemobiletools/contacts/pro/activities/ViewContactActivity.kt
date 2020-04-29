@@ -74,7 +74,7 @@ class ViewContactActivity : ContactActivity() {
     }
 
     override fun onBackPressed() {
-        if (contact_photo_big.isVisible()) {
+        if (contact_photo_big.alpha == 1f) {
             hideBigContactPhoto()
         } else {
             super.onBackPressed()
