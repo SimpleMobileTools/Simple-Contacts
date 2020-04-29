@@ -73,6 +73,14 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        if (contact_photo_big.isVisible()) {
+            hideBigContactPhoto()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_view_contact, menu)
         menu.apply {
@@ -177,7 +185,7 @@ class ViewContactActivity : ContactActivity() {
             }
 
             contact_photo_big.setOnClickListener {
-                contact_photo_big.animate().alpha(0f).withEndAction { it.beGone() }.start()
+                hideBigContactPhoto()
             }
         }
 
@@ -614,6 +622,10 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_vector else R.drawable.ic_star_off_vector)
+
+    private fun hideBigContactPhoto() {
+        contact_photo_big.animate().alpha(0f).withEndAction { contact_photo_big.beGone() }.start()
+    }
 
     private fun View.copyOnLongClick(value: String) {
         setOnLongClickListener {
