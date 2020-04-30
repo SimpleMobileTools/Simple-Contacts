@@ -34,6 +34,10 @@ const val ADD_NEW_CONTACT_NUMBER = "add_new_contact_number"
 const val FIRST_CONTACT_ID = 1000000
 const val FIRST_GROUP_ID = 10000L
 
+private const val PATH = "com.simplemobiletools.contacts.action."
+const val ACCEPT_CALL = PATH + "accept_call"
+const val DECLINE_CALL = PATH + "decline_call"
+
 // extras used at third party intents
 const val KEY_PHONE = "phone"
 const val KEY_NAME = "name"

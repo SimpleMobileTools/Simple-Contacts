@@ -265,6 +265,25 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".services.CallService"
+            android:permission="android.permission.BIND_INCALL_SERVICE">
+            <meta-data
+                android:name="android.telecom.IN_CALL_SERVICE_UI"
+                android:value="true" />
+
+            <intent-filter>
+                <action android:name="android.telecom.InCallService"/>
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".receivers.CallActionReceiver">
+            <intent-filter>
+                <action android:name="com.simplemobiletools.contacts.action.ACCEPT_CALL"/>
+                <action android:name="com.simplemobiletools.contacts.action.DECLINE_CALL"/>
+            </intent-filter>
+        </receiver>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
