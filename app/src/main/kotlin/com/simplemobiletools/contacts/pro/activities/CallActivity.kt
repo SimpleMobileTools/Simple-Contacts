@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.activity_call.*
 class CallActivity : SimpleActivity() {
     private val CALL_NOTIFICATION_ID = 1
 
+    private var isSpeakerOn = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
@@ -42,8 +44,17 @@ class CallActivity : SimpleActivity() {
         call_accept.setOnClickListener { }
 
         call_toggle_microphone.setOnClickListener { }
-        call_toggle_speaker.setOnClickListener { }
+        call_toggle_speaker.setOnClickListener {
+            toggleSpeaker()
+        }
+
         call_dialpad.setOnClickListener { }
+    }
+
+    private fun toggleSpeaker() {
+        isSpeakerOn = !isSpeakerOn
+        val drawable = if (isSpeakerOn) R.drawable.ic_speaker_on_vector else R.drawable.ic_speaker_off_vector
+        call_toggle_speaker.setImageDrawable(getDrawable(drawable))
     }
 
     @SuppressLint("NewApi")
