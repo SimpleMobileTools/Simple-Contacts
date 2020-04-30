@@ -13,5 +13,15 @@ class CallActivity : SimpleActivity() {
         setContentView(R.layout.activity_call)
 
         updateTextColors(call_holder)
+        initButtons()
+    }
+
+    private fun initButtons() {
+        call_decline.setOnClickListener { }
+        call_accept.setOnClickListener { }
+
+        call_toggle_microphone.setOnClickListener { }
+        call_toggle_speaker.setOnClickListener { }
+        call_dialpad.setOnClickListener { }
     }
 }
