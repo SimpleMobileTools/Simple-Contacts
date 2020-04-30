@@ -48,10 +48,10 @@
 
         <ImageView
             android:id="@+id/call_toggle_microphone"
-            android:layout_width="@dimen/dialpad_button_size"
-            android:layout_height="@dimen/dialpad_button_size"
+            android:layout_width="@dimen/normal_icon_size"
+            android:layout_height="@dimen/normal_icon_size"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="@dimen/medium_margin"
+            android:padding="@dimen/small_margin"
             android:src="@drawable/ic_microphone_vector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,10 +62,10 @@
 
         <ImageView
             android:id="@+id/call_toggle_speaker"
-            android:layout_width="@dimen/dialpad_button_size"
-            android:layout_height="@dimen/dialpad_button_size"
+            android:layout_width="@dimen/normal_icon_size"
+            android:layout_height="@dimen/normal_icon_size"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="@dimen/medium_margin"
+            android:padding="@dimen/small_margin"
             android:src="@drawable/ic_speaker_off_vector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,10 +75,10 @@
 
         <ImageView
             android:id="@+id/call_dialpad"
-            android:layout_width="@dimen/dialpad_button_size"
-            android:layout_height="@dimen/dialpad_button_size"
+            android:layout_width="@dimen/normal_icon_size"
+            android:layout_height="@dimen/normal_icon_size"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="@dimen/medium_margin"
+            android:padding="@dimen/small_margin"
             android:src="@drawable/ic_dialpad_vector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,6 +86,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.75" />
+
+        <ImageView
+            android:id="@+id/call_end"
+            android:layout_width="@dimen/dialpad_button_size"
+            android:layout_height="@dimen/dialpad_button_size"
+            android:contentDescription="@string/decline"
+            android:src="@drawable/ic_call_decline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -99,7 +111,7 @@
             android:id="@+id/call_decline"
             android:layout_width="@dimen/incoming_call_button_size"
             android:layout_height="@dimen/incoming_call_button_size"
-            android:contentDescription="@string/accept"
+            android:contentDescription="@string/decline"
             android:src="@drawable/ic_call_decline"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -53,6 +53,7 @@ class CallActivity : SimpleActivity() {
         }
 
         call_dialpad.setOnClickListener { }
+        call_end.setOnClickListener { }
     }
 
     private fun toggleSpeaker() {
