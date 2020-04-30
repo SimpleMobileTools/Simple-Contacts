@@ -111,6 +111,9 @@
     <string name="decline_call">Decline</string>
     <string name="answer_call">Answer</string>
 
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+
     <!-- Speed dial -->
     <string name="speed_dial">Speed dial</string>
     <string name="manage_speed_dial">Manage speed dial</string>
