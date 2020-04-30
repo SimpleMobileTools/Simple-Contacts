@@ -23,6 +23,7 @@ class CallActivity : SimpleActivity() {
     private val CALL_NOTIFICATION_ID = 1
 
     private var isSpeakerOn = false
+    private var isMicrophoneOn = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -43,7 +44,10 @@ class CallActivity : SimpleActivity() {
         call_decline.setOnClickListener { }
         call_accept.setOnClickListener { }
 
-        call_toggle_microphone.setOnClickListener { }
+        call_toggle_microphone.setOnClickListener {
+            toggleMicrophone()
+        }
+
         call_toggle_speaker.setOnClickListener {
             toggleSpeaker()
         }
@@ -55,6 +59,12 @@ class CallActivity : SimpleActivity() {
         isSpeakerOn = !isSpeakerOn
         val drawable = if (isSpeakerOn) R.drawable.ic_speaker_on_vector else R.drawable.ic_speaker_off_vector
         call_toggle_speaker.setImageDrawable(getDrawable(drawable))
+    }
+
+    private fun toggleMicrophone() {
+        isMicrophoneOn = !isMicrophoneOn
+        val drawable = if (isMicrophoneOn) R.drawable.ic_microphone_vector else R.drawable.ic_microphone_off_vector
+        call_toggle_microphone.setImageDrawable(getDrawable(drawable))
     }
 
     @SuppressLint("NewApi")
