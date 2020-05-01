@@ -15,7 +15,7 @@
         tools:text="Caller name" />
 
     <TextView
-        android:id="@+id/notification_caller_number"
+        android:id="@+id/notification_call_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/notification_caller_name"
@@ -34,7 +34,7 @@
         android:id="@+id/notification_actions_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/notification_caller_number"
+        android:layout_below="@+id/notification_call_status"
         android:layout_marginTop="@dimen/activity_margin"
         android:orientation="horizontal">
 

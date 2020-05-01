@@ -231,6 +231,7 @@ class CallActivity : SimpleActivity() {
 
     @SuppressLint("NewApi")
     private fun setupNotification() {
+        val callState = CallManager.getState()
         val channelId = "simple_contacts_call"
         if (isOreoPlus()) {
             val importance = NotificationManager.IMPORTANCE_DEFAULT
@@ -254,7 +255,7 @@ class CallActivity : SimpleActivity() {
         val declinePendingIntent = PendingIntent.getBroadcast(this, 1, declineCallIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val callerName = if (callContact != null && callContact!!.name.isNotEmpty()) callContact!!.name else getString(R.string.unknown_caller)
-        val contentTextId = when (CallManager.getState()) {
+        val contentTextId = when (callState) {
             Call.STATE_RINGING -> R.string.is_calling
             Call.STATE_DIALING -> R.string.dialing
             Call.STATE_DISCONNECTED -> R.string.call_ended
@@ -264,7 +265,8 @@ class CallActivity : SimpleActivity() {
 
         val collapsedView = RemoteViews(packageName, R.layout.call_notification).apply {
             setText(R.id.notification_caller_name, callerName)
-            setText(R.id.notification_caller_number, getString(contentTextId))
+            setText(R.id.notification_call_status, getString(contentTextId))
+            setVisibleIf(R.id.notification_accept_call, callState == Call.STATE_RINGING)
 
             setOnClickPendingIntent(R.id.notification_decline_call, declinePendingIntent)
             setOnClickPendingIntent(R.id.notification_accept_call, acceptPendingIntent)
@@ -281,7 +283,7 @@ class CallActivity : SimpleActivity() {
             .setCategory(Notification.CATEGORY_CALL)
             .setCustomContentView(collapsedView)
             .setOngoing(true)
-            .setUsesChronometer(CallManager.getState() == Call.STATE_ACTIVE)
+            .setUsesChronometer(callState == Call.STATE_ACTIVE)
             .setChannelId(channelId)
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
 
