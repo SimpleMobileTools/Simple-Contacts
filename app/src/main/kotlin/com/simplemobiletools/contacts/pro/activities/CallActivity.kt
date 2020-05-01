@@ -6,16 +6,17 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
+import android.graphics.*
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.telecom.Call
+import android.util.Size
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isOreoPlus
+import com.simplemobiletools.commons.helpers.isQPlus
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.helpers.ACCEPT_CALL
 import com.simplemobiletools.contacts.pro.helpers.CallManager
@@ -30,6 +31,7 @@ class CallActivity : SimpleActivity() {
     private var isSpeakerOn = false
     private var isMicrophoneOn = true
     private var callContact: CallContact? = null
+    private var callContactAvatar: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -40,6 +42,7 @@ class CallActivity : SimpleActivity() {
         initButtons()
 
         callContact = CallManager.getCallContact(applicationContext)
+        callContactAvatar = getCallContactAvatar()
         showNotification()
 
         CallManager.registerCallback(getCallCallback())
@@ -97,16 +100,9 @@ class CallActivity : SimpleActivity() {
         caller_number_label.text = callContact.number
         caller_number_label.beVisibleIf(callContact.number.isNotEmpty())
 
-        val options = RequestOptions()
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .centerCrop()
-
-        Glide.with(this)
-            .load(callContact.photoUri)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .apply(options)
-            .apply(RequestOptions.circleCropTransform())
-            .into(caller_avatar)
+        if (callContactAvatar != null) {
+            caller_avatar.setImageBitmap(callContactAvatar)
+        }
     }
 
     private fun updateCallState(state: Int) {
@@ -171,6 +167,10 @@ class CallActivity : SimpleActivity() {
 
             setOnClickPendingIntent(R.id.notification_decline_call, declinePendingIntent)
             setOnClickPendingIntent(R.id.notification_accept_call, acceptPendingIntent)
+
+            if (callContactAvatar != null) {
+                setImageViewBitmap(R.id.notification_thumbnail, getCircularBitmap(callContactAvatar!!))
+            }
         }
 
         val builder = NotificationCompat.Builder(this, channelId)
@@ -186,5 +186,38 @@ class CallActivity : SimpleActivity() {
 
         val notification = builder.build()
         notificationManager.notify(CALL_NOTIFICATION_ID, notification)
+    }
+
+    @SuppressLint("NewApi")
+    private fun getCallContactAvatar(): Bitmap? {
+        var bitmap: Bitmap? = null
+        if (callContact?.photoUri?.isNotEmpty() == true) {
+            val photoUri = Uri.parse(callContact!!.photoUri)
+            bitmap = if (isQPlus()) {
+                val tmbSize = resources.getDimension(R.dimen.contact_icons_size).toInt()
+                contentResolver.loadThumbnail(photoUri, Size(tmbSize, tmbSize), null)
+            } else {
+                MediaStore.Images.Media.getBitmap(contentResolver, photoUri)
+            }
+
+            bitmap = getCircularBitmap(bitmap!!)
+        }
+
+        return bitmap
+    }
+
+    private fun getCircularBitmap(bitmap: Bitmap): Bitmap {
+        val output = Bitmap.createBitmap(bitmap.width, bitmap.width, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(output)
+        val paint = Paint()
+        val rect = Rect(0, 0, bitmap.width, bitmap.height)
+        val radius = bitmap.width / 2.toFloat()
+
+        paint.isAntiAlias = true
+        canvas.drawARGB(0, 0, 0, 0)
+        canvas.drawCircle(radius, radius, radius, paint)
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+        canvas.drawBitmap(bitmap, rect, rect, paint)
+        return output
     }
 }

@@ -16,19 +16,26 @@
 
     <TextView
         android:id="@+id/notification_caller_number"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/notification_caller_name"
         android:alpha="0.8"
         android:textColor="@color/md_grey_black"
         tools:text="123 456 789" />
 
+    <ImageView
+        android:id="@+id/notification_thumbnail"
+        android:layout_width="@dimen/contact_icons_size"
+        android:layout_height="@dimen/contact_icons_size"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
     <LinearLayout
         android:id="@+id/notification_actions_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/notification_caller_number"
-        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginTop="@dimen/activity_margin"
         android:orientation="horizontal">
 
         <ImageView
