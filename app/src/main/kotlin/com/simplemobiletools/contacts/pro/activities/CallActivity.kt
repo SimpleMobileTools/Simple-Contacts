@@ -158,7 +158,6 @@ class CallActivity : SimpleActivity() {
     private fun callStarted() {
         incoming_call_holder.beGone()
         ongoing_call_holder.beVisible()
-        proximityWakeLock?.acquire(10 * MINUTE_SECONDS * 1000L)
         audioManager.mode = AudioManager.MODE_IN_CALL
         callTimer.scheduleAtFixedRate(getCallTimerUpdateTask(), 1000, 1000)
     }
@@ -227,6 +226,7 @@ class CallActivity : SimpleActivity() {
     private fun initProximitySensor() {
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         proximityWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "com.simplemobiletools.contacts.pro:wake_lock")
+        proximityWakeLock!!.acquire(10 * MINUTE_SECONDS * 1000L)
     }
 
     @SuppressLint("NewApi")
