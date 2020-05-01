@@ -1,20 +1,21 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.annotation.SuppressLint
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.graphics.*
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.telecom.Call
 import android.util.Size
+import android.view.WindowManager
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.isOreoMr1Plus
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.commons.helpers.isQPlus
 import com.simplemobiletools.contacts.pro.R
@@ -43,11 +44,12 @@ class CallActivity : SimpleActivity() {
 
         callContact = CallManager.getCallContact(applicationContext)
         callContactAvatar = getCallContactAvatar()
+        addLockScreenFlags()
         showNotification()
+        updateOtherPersonsInfo()
 
         CallManager.registerCallback(getCallCallback())
         updateCallState(CallManager.getState())
-        updateOtherPersonsInfo()
     }
 
     override fun onDestroy() {
@@ -131,6 +133,22 @@ class CallActivity : SimpleActivity() {
         override fun onStateChanged(call: Call, state: Int) {
             super.onStateChanged(call, state)
             updateCallState(state)
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private fun addLockScreenFlags() {
+        if (isOreoMr1Plus()) {
+            setShowWhenLocked(true)
+            setTurnScreenOn(true)
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
+        }
+
+        if (isOreoPlus()) {
+            (getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager).requestDismissKeyguard(this, null)
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
         }
     }
 
