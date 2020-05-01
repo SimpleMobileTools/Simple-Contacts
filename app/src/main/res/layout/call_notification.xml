@@ -43,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/call_notification_button_size"
             android:layout_weight="1"
+            android:background="@drawable/ripple_background"
             android:src="@drawable/ic_phone_down_red_vector" />
 
         <ImageView
@@ -50,6 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/call_notification_button_size"
             android:layout_weight="1"
+            android:background="@drawable/ripple_background"
             android:src="@drawable/ic_phone_green_vector" />
 
     </LinearLayout>
