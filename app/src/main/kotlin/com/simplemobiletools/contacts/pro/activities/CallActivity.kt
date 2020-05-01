@@ -10,9 +10,7 @@ import android.os.Bundle
 import android.telecom.Call
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
-import com.simplemobiletools.commons.extensions.notificationManager
-import com.simplemobiletools.commons.extensions.setText
-import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.helpers.ACCEPT_CALL
@@ -49,7 +47,9 @@ class CallActivity : SimpleActivity() {
             endCall()
         }
 
-        call_accept.setOnClickListener { }
+        call_accept.setOnClickListener {
+            acceptCall()
+        }
 
         call_toggle_microphone.setOnClickListener {
             toggleMicrophone()
@@ -60,7 +60,9 @@ class CallActivity : SimpleActivity() {
         }
 
         call_dialpad.setOnClickListener { }
-        call_end.setOnClickListener { }
+        call_end.setOnClickListener {
+            endCall()
+        }
     }
 
     private fun toggleSpeaker() {
@@ -77,8 +79,18 @@ class CallActivity : SimpleActivity() {
 
     private fun updateCallState(state: Int) {
         when (state) {
+            Call.STATE_ACTIVE -> callStarted()
             Call.STATE_DISCONNECTED -> endCall()
         }
+    }
+
+    private fun acceptCall() {
+        CallManager.accept()
+    }
+
+    private fun callStarted() {
+        incoming_call_holder.beGone()
+        ongoing_call_holder.beVisible()
     }
 
     private fun endCall() {
