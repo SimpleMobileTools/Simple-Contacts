@@ -23,6 +23,7 @@ import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.commons.helpers.isQPlus
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.audioManager
+import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.ACCEPT_CALL
 import com.simplemobiletools.contacts.pro.helpers.CallManager
 import com.simplemobiletools.contacts.pro.helpers.DECLINE_CALL
@@ -77,7 +78,13 @@ class CallActivity : SimpleActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        if (dialpad_wrapper.isVisible()) {
+            dialpad_wrapper.beGone()
+            return
+        } else {
+            super.onBackPressed()
+        }
+
         if (CallManager.getState() == Call.STATE_DIALING) {
             endCall()
         }
@@ -100,10 +107,15 @@ class CallActivity : SimpleActivity() {
             toggleSpeaker()
         }
 
-        call_dialpad.setOnClickListener { }
+        call_dialpad.setOnClickListener {
+            toggleDialpadVisibility()
+        }
+
         call_end.setOnClickListener {
             endCall()
         }
+
+        dialpad_wrapper.setBackgroundColor(config.backgroundColor)
     }
 
     private fun toggleSpeaker() {
@@ -118,6 +130,14 @@ class CallActivity : SimpleActivity() {
         val drawable = if (isMicrophoneOn) R.drawable.ic_microphone_vector else R.drawable.ic_microphone_off_vector
         call_toggle_microphone.setImageDrawable(getDrawable(drawable))
         audioManager.isMicrophoneMute = !isMicrophoneOn
+    }
+
+    private fun toggleDialpadVisibility() {
+        if (dialpad_wrapper.isVisible()) {
+            dialpad_wrapper.beGone()
+        } else {
+            dialpad_wrapper.beVisible()
+        }
     }
 
     private fun updateOtherPersonsInfo() {

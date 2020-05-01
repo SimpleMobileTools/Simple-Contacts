@@ -44,8 +44,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ongoing_call_holder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/call_toggle_microphone"
@@ -156,4 +155,18 @@
             app:layout_constraintTop_toBottomOf="@+id/call_accept" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:id="@+id/dialpad_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/call_status_label">
+
+        <include layout="@layout/dialpad" />
+
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
