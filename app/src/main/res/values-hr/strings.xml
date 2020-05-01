@@ -103,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Birač broja</string>
-    <string name="calling">Pozivanje</string>
-    <string name="incoming_call">Dolazni poziv</string>
-    <string name="incoming_call_from">Dolazni poziv od…</string>
-    <string name="ongoing_call">Poziv u tijeku</string>
-    <string name="disconnected">Prekinuto</string>
-    <string name="decline_call">Odbij</string>
-    <string name="answer_call">Odgovori</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Speed dial</string>

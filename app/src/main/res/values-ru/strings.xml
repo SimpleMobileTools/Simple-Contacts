@@ -103,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Номеронабиратель</string>
-    <string name="calling">Вызов</string>
-    <string name="incoming_call">Входящий вызов</string>
-    <string name="incoming_call_from">Входящий вызов от…</string>
-    <string name="ongoing_call">Исходящий вызов</string>
-    <string name="disconnected">Разъединено</string>
-    <string name="decline_call">Отклонить</string>
-    <string name="answer_call">Ответить</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Быстрый набор</string>

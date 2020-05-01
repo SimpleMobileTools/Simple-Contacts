@@ -103,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Πληκτρολόγιο</string>
-    <string name="calling">Κλήση</string>
-    <string name="incoming_call">Εισερχόμενη κλήση</string>
-    <string name="incoming_call_from">Εισερχόμενη κλήση απο…</string>
-    <string name="ongoing_call">Εξερχόμενη κλήση</string>
-    <string name="disconnected">Αποσύνδεση</string>
-    <string name="decline_call">Απόρριψη</string>
-    <string name="answer_call">Απάντηση</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Ταχεία Κλήση</string>

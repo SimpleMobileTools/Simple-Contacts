@@ -103,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Çevirici</string>
-    <string name="calling">Çağrı yapılıyor</string>
-    <string name="incoming_call">Gelen çağrı</string>
-    <string name="incoming_call_from">Gelen çağrı şundan…</string>
-    <string name="ongoing_call">Devam eden çağrı</string>
-    <string name="disconnected">Bağlantı kesildi</string>
-    <string name="decline_call">Reddet</string>
-    <string name="answer_call">Cevapla</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Hızlı arama</string>

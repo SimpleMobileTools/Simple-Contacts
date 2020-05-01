@@ -103,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Dialer</string>
-    <string name="calling">Dzwonienie</string>
-    <string name="incoming_call">Połączenie przychodzące</string>
-    <string name="incoming_call_from">Połączenie przychodzące od…</string>
-    <string name="ongoing_call">Połączenie wychodzące</string>
-    <string name="disconnected">Rozłączony</string>
-    <string name="decline_call">Odrzuć</string>
-    <string name="answer_call">Odpowiedz</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Speed dial</string>

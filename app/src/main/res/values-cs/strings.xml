@@ -103,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Telefon</string>
-    <string name="calling">Vytáčí se</string>
-    <string name="incoming_call">Příchozí hovor</string>
-    <string name="incoming_call_from">Příchozí hovor od…</string>
-    <string name="ongoing_call">Probíhající hovor</string>
-    <string name="disconnected">Ukončený hovor</string>
-    <string name="decline_call">Odmítnout</string>
-    <string name="answer_call">Přijmout</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Rychlé vytáčení</string>

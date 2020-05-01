@@ -103,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Telefon</string>
-    <string name="calling">Ringer</string>
-    <string name="incoming_call">Inkommande samtal</string>
-    <string name="incoming_call_from">Inkommande samtal från…</string>
-    <string name="ongoing_call">Pågående samtal</string>
-    <string name="disconnected">Frånkopplad</string>
-    <string name="decline_call">Avvisa</string>
-    <string name="answer_call">Svara</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Speed dial</string>
