@@ -111,6 +111,8 @@
     <string name="call_ended">Call Ended</string>
     <string name="call_ending">Call Ending</string>
     <string name="ongoing_call">Ongoing Call</string>
+    <string name="select_sim">Select a SIM for this call</string>
+    <string name="always_use_this_sim">Always use this SIM for this number</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">快速撥號</string>
