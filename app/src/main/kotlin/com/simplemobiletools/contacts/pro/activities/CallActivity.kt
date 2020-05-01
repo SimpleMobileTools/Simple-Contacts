@@ -70,6 +70,17 @@ class CallActivity : SimpleActivity() {
         if (proximityWakeLock?.isHeld == true) {
             proximityWakeLock!!.release()
         }
+
+        if (CallManager.getState() == Call.STATE_DIALING) {
+            endCall()
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (CallManager.getState() == Call.STATE_DIALING) {
+            endCall()
+        }
     }
 
     private fun initButtons() {
