@@ -35,6 +35,10 @@ class CallManager {
             }
         }
 
+        fun unregisterCallback(callback: Call.Callback) {
+            call?.unregisterCallback(callback)
+        }
+
         fun getState() = if (call == null) {
             Call.STATE_DISCONNECTED
         } else {

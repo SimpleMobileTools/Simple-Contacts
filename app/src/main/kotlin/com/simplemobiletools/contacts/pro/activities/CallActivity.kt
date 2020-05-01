@@ -15,7 +15,10 @@ import android.view.WindowManager
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.helpers.MINUTE_SECONDS
+import com.simplemobiletools.commons.helpers.isOreoMr1Plus
+import com.simplemobiletools.commons.helpers.isOreoPlus
+import com.simplemobiletools.commons.helpers.isQPlus
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.helpers.ACCEPT_CALL
 import com.simplemobiletools.contacts.pro.helpers.CallManager
@@ -48,13 +51,14 @@ class CallActivity : SimpleActivity() {
         updateOtherPersonsInfo()
         initProximitySensor()
 
-        CallManager.registerCallback(getCallCallback())
+        CallManager.registerCallback(callCallback)
         updateCallState(CallManager.getState())
     }
 
     override fun onDestroy() {
         super.onDestroy()
         notificationManager.cancel(CALL_NOTIFICATION_ID)
+        CallManager.unregisterCallback(callCallback)
     }
 
     private fun initButtons() {
@@ -133,7 +137,7 @@ class CallActivity : SimpleActivity() {
     }
 
     @SuppressLint("NewApi")
-    fun getCallCallback() = object : Call.Callback() {
+    private val callCallback = object : Call.Callback() {
         override fun onStateChanged(call: Call, state: Int) {
             super.onStateChanged(call, state)
             updateCallState(state)
@@ -158,7 +162,7 @@ class CallActivity : SimpleActivity() {
 
     private fun initProximitySensor() {
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        proximityWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "simple_contacts_proximity_wake_lock")
+        proximityWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "com.simplemobiletools.contacts.pro:wake_lock")
     }
 
     @SuppressLint("NewApi")
