@@ -54,7 +54,7 @@ class CallActivity : SimpleActivity() {
         callContact = CallManager.getCallContact(applicationContext)
         callContactAvatar = getCallContactAvatar()
         addLockScreenFlags()
-        showNotification()
+        setupNotification()
         updateOtherPersonsInfo()
         initProximitySensor()
 
@@ -134,13 +134,15 @@ class CallActivity : SimpleActivity() {
 
         val statusTextId = when (state) {
             Call.STATE_RINGING -> R.string.is_calling
-            Call.STATE_DIALING -> R.string.is_called
+            Call.STATE_DIALING -> R.string.dialing
             else -> 0
         }
 
         if (statusTextId != 0) {
             call_status_label.text = getString(statusTextId)
         }
+
+        setupNotification()
     }
 
     private fun acceptCall() {
@@ -222,7 +224,7 @@ class CallActivity : SimpleActivity() {
     }
 
     @SuppressLint("NewApi")
-    private fun showNotification() {
+    private fun setupNotification() {
         val channelId = "simple_contacts_call"
         if (isOreoPlus()) {
             val importance = NotificationManager.IMPORTANCE_DEFAULT
@@ -246,11 +248,17 @@ class CallActivity : SimpleActivity() {
         val declinePendingIntent = PendingIntent.getBroadcast(this, 1, declineCallIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val callerName = if (callContact != null && callContact!!.name.isNotEmpty()) callContact!!.name else getString(R.string.unknown_caller)
-        val contentText = getString(R.string.incoming_call)
+        val contentTextId = when (CallManager.getState()) {
+            Call.STATE_RINGING -> R.string.is_calling
+            Call.STATE_DIALING -> R.string.dialing
+            Call.STATE_DISCONNECTED -> R.string.call_ended
+            Call.STATE_DISCONNECTING -> R.string.call_ending
+            else -> R.string.ongoing_call
+        }
 
         val collapsedView = RemoteViews(packageName, R.layout.call_notification).apply {
             setText(R.id.notification_caller_name, callerName)
-            setText(R.id.notification_caller_number, contentText)
+            setText(R.id.notification_caller_number, getString(contentTextId))
 
             setOnClickPendingIntent(R.id.notification_decline_call, declinePendingIntent)
             setOnClickPendingIntent(R.id.notification_accept_call, acceptPendingIntent)
