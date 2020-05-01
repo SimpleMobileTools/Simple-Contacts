@@ -1,8 +1,10 @@
 package com.simplemobiletools.contacts.pro.extensions
 
 import android.content.Context
+import android.content.Context.AUDIO_SERVICE
 import android.content.Intent
 import android.database.Cursor
+import android.media.AudioManager
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
@@ -31,6 +33,8 @@ val Context.config: Config get() = Config.newInstance(applicationContext)
 val Context.contactsDB: ContactsDao get() = ContactsDatabase.getInstance(applicationContext).ContactsDao()
 
 val Context.groupsDB: GroupsDao get() = ContactsDatabase.getInstance(applicationContext).GroupsDao()
+
+val Context.audioManager: AudioManager get() = getSystemService(AUDIO_SERVICE) as AudioManager
 
 fun Context.getEmptyContact(): Contact {
     val originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE

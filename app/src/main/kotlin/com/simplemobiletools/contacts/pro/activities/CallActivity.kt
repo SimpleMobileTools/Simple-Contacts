@@ -5,6 +5,7 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.*
+import android.media.AudioManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.PowerManager
@@ -20,6 +21,7 @@ import com.simplemobiletools.commons.helpers.isOreoMr1Plus
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.commons.helpers.isQPlus
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.extensions.audioManager
 import com.simplemobiletools.contacts.pro.helpers.ACCEPT_CALL
 import com.simplemobiletools.contacts.pro.helpers.CallManager
 import com.simplemobiletools.contacts.pro.helpers.DECLINE_CALL
@@ -88,12 +90,14 @@ class CallActivity : SimpleActivity() {
         isSpeakerOn = !isSpeakerOn
         val drawable = if (isSpeakerOn) R.drawable.ic_speaker_on_vector else R.drawable.ic_speaker_off_vector
         call_toggle_speaker.setImageDrawable(getDrawable(drawable))
+        audioManager.isSpeakerphoneOn = isSpeakerOn
     }
 
     private fun toggleMicrophone() {
         isMicrophoneOn = !isMicrophoneOn
         val drawable = if (isMicrophoneOn) R.drawable.ic_microphone_vector else R.drawable.ic_microphone_off_vector
         call_toggle_microphone.setImageDrawable(getDrawable(drawable))
+        audioManager.isMicrophoneMute = !isMicrophoneOn
     }
 
     private fun updateOtherPersonsInfo() {
@@ -126,6 +130,7 @@ class CallActivity : SimpleActivity() {
         incoming_call_holder.beGone()
         ongoing_call_holder.beVisible()
         proximityWakeLock?.acquire(10 * MINUTE_SECONDS * 1000L)
+        audioManager.mode = AudioManager.MODE_IN_CALL
     }
 
     private fun endCall() {
@@ -133,6 +138,7 @@ class CallActivity : SimpleActivity() {
         if (proximityWakeLock?.isHeld == true) {
             proximityWakeLock!!.release()
         }
+        audioManager.mode = AudioManager.MODE_NORMAL
         finish()
     }
 
