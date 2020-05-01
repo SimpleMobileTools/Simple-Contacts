@@ -20,6 +20,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.helpers.ACCEPT_CALL
 import com.simplemobiletools.contacts.pro.helpers.CallManager
 import com.simplemobiletools.contacts.pro.helpers.DECLINE_CALL
+import com.simplemobiletools.contacts.pro.models.CallContact
 import com.simplemobiletools.contacts.pro.receivers.CallActionReceiver
 import kotlinx.android.synthetic.main.activity_call.*
 
@@ -28,6 +29,7 @@ class CallActivity : SimpleActivity() {
 
     private var isSpeakerOn = false
     private var isMicrophoneOn = true
+    private var callContact: CallContact? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -36,6 +38,8 @@ class CallActivity : SimpleActivity() {
 
         updateTextColors(call_holder)
         initButtons()
+
+        callContact = CallManager.getCallContact(applicationContext)
         showNotification()
 
         CallManager.registerCallback(getCallCallback())
@@ -84,6 +88,10 @@ class CallActivity : SimpleActivity() {
     }
 
     private fun updateOtherPersonsInfo() {
+        if (callContact == null) {
+            return
+        }
+
         val callContact = CallManager.getCallContact(applicationContext) ?: return
         caller_name_label.text = if (callContact.name.isNotEmpty()) callContact.name else getString(R.string.unknown_caller)
         caller_number_label.text = callContact.number
@@ -154,8 +162,8 @@ class CallActivity : SimpleActivity() {
         declineCallIntent.action = DECLINE_CALL
         val declinePendingIntent = PendingIntent.getBroadcast(this, 1, declineCallIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
-        val callerName = "Caller name"
-        val contentText = getString(R.string.incoming_call)
+        val callerName = if (callContact != null && callContact!!.name.isNotEmpty()) callContact!!.name else getString(R.string.unknown_caller)
+        val contentText = "${getString(R.string.incoming_call)} ${callContact?.number ?: ""}"
 
         val collapsedView = RemoteViews(packageName, R.layout.call_notification).apply {
             setText(R.id.notification_caller_name, callerName)
