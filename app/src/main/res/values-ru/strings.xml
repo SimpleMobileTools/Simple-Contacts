@@ -103,14 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Номеронабиратель</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling</string>
-    <string name="dialing">Dialing</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
+    <string name="accept">Принять</string>
+    <string name="decline">Отклонить</string>
+    <string name="unknown_caller">Неизвестный абонент</string>
+    <string name="is_calling">Вызывает</string>
+    <string name="dialing">Набор номера</string>
+    <string name="call_ended">Вызов завершён</string>
+    <string name="call_ending">Завершение вызова</string>
+    <string name="ongoing_call">Текущий вызов</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Быстрый набор</string>
@@ -155,7 +155,7 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - легко управляйте контактами</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
+    <string name="app_short_description">Простое и быстрое управление контактами, группами и избранным без рекламы.</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
