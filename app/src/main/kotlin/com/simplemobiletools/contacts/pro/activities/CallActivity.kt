@@ -159,6 +159,7 @@ class CallActivity : SimpleActivity() {
 
     private fun updateCallState(state: Int) {
         when (state) {
+            Call.STATE_RINGING -> callRinging()
             Call.STATE_ACTIVE -> callStarted()
             Call.STATE_DISCONNECTED -> endCall()
             Call.STATE_CONNECTING -> initOutgoingCallUI()
@@ -188,6 +189,10 @@ class CallActivity : SimpleActivity() {
     private fun initOutgoingCallUI() {
         incoming_call_holder.beGone()
         ongoing_call_holder.beVisible()
+    }
+
+    private fun callRinging() {
+        incoming_call_holder.beVisible()
     }
 
     private fun callStarted() {
