@@ -114,6 +114,7 @@ class LocalContactsHelper(val context: Context) {
             contactId = localContact.id!!
             thumbnailUri = ""
             photo = contactPhoto
+            photoUri = localContact.photoUri
             notes = localContact.notes
             groups = storedGroups.filter { localContact.groups.contains(it.id) } as ArrayList<Group>
             organization = Organization(localContact.company, localContact.jobPosition)

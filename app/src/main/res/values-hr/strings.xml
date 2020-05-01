@@ -14,14 +14,10 @@
     <string name="send_sms_to_group">Pošalji SMS grupi</string>
     <string name="send_email_to_group">Pošalji e-poštu grupi</string>
     <string name="call_person">Nazovi %s</string>
-    <string name="request_the_required_permissions">Zatraži potrebna dopuštenja</string>
     <string name="create_new_contact">Stvori novi kontakt</string>
     <string name="add_to_existing_contact">Dodaj postojećem kontaktu</string>
-    <string name="must_make_default_dialer">Morate napraviti ovu aplikaciju zadanom aplikacijom za biranje da biste bili u mogućnosti koristiti blokirane brojeve.</string>
-    <string name="set_as_default">Postavi na zadano</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Nisu pronađeni kontakti.</string>
     <string name="no_contacts_with_emails">Nije pronađen nijedan kontakt s e-poštom</string>
     <string name="no_contacts_with_phone_numbers">Nisu pronađeni kontakti s telefonskim brojevima</string>
 
@@ -62,19 +58,16 @@
     <string name="filter_duplicates">Pokušaj filtrirati duple kontakte</string>
     <string name="manage_shown_tabs">Upravljaj prikazanim karticama</string>
     <string name="contacts">Kontakti</string>
-    <string name="favorites">Favoriti</string>
     <string name="show_call_confirmation_dialog">Pokažite dijaloški okvir za potvrdu poziva prije pokretanja poziva</string>
     <string name="show_only_contacts_with_numbers">Prikaži samo kontakte s telefonskim brojevima</string>
     <string name="show_dialpad_letters">Prikaži slova na telefonskoj tipkovnici</string>
 
     <!-- Emails -->
-    <string name="email">E-pošta</string>
     <string name="home">Kućni</string>
     <string name="work">Posao</string>
     <string name="other">Ostalo</string>
 
     <!-- Phone numbers -->
-    <string name="number">Broj</string>
     <string name="mobile">Mobilni</string>
     <string name="main_number">Glavni</string>
     <string name="work_fax">Poslovni fax</string>
@@ -88,9 +81,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Čini se da još niste dodali nijedan kontakt u favorite.</string>
-    <string name="add_favorites">Dodaj favorite</string>
-    <string name="add_to_favorites">Dodaj u favorite</string>
-    <string name="remove_from_favorites">Ukloni iz favorita</string>
     <string name="must_be_at_edit">Morate biti na zaslonu Uređivanje da biste izmijenili kontakt</string>
 
     <!-- Search -->
@@ -113,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Birač broja</string>
-    <string name="calling">Pozivanje</string>
-    <string name="incoming_call">Dolazni poziv</string>
-    <string name="incoming_call_from">Dolazni poziv od…</string>
-    <string name="ongoing_call">Poziv u tijeku</string>
-    <string name="disconnected">Prekinuto</string>
-    <string name="decline_call">Odbij</string>
-    <string name="answer_call">Odgovori</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Speed dial</string>
@@ -134,23 +125,13 @@
     <string name="emails">E-pošte</string>
     <string name="addresses">Adrese</string>
     <string name="events">Događaji (rođendani, godišnjice)</string>
-    <string name="notes">Bilješke</string>
     <string name="organization">Organizacije</string>
     <string name="websites">Web stranice</string>
     <string name="groups">Grupe</string>
     <string name="contact_source">Izvori kontakata</string>
     <string name="instant_messaging">Brzo slanje poruka (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Upravljanje blokiranim brojevima</string>
-    <string name="not_blocking_anyone">Ne blokirate nikoga.</string>
-    <string name="add_a_blocked_number">Dodaj blokirani broj</string>
-    <string name="block_number">Blokiraj broj</string>
-    <string name="block_numbers">Blokiraj brojeve</string>
-    <string name="blocked_numbers">Blokirani brojevi</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
@@ -172,11 +153,33 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Aplikacija za upravljanje kontaktima, bez oglasa, poštujući Vašu privatnost.</string>
+    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
     <string name="app_long_description">
-        Jednostavna aplikacija za izradu ili upravljanje kontaktima iz bilo kojeg izvora. Kontakti mogu biti pohranjeni samo na Vašem uređaju, ali i sinkronizirani putem Googlea ili drugih računa. Možete prikazati svoje omiljene kontakte na zasebnom popisu.
+        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
-        Možete ju koristiti za upravljanje e-poštom i događajima. Ima mogućnost sortirati/filtrirati višestrukim parametrima, po želji može prikazati prezime prvo, zatim ime.
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+
+        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+
+        There is a lightweight dialpad at your service too, with smart contact suggestions.
+
+        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+
+        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+
+        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+
+        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+
+        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+
+        You can easily block phone numbers to avoid unwanted incoming calls.
+
+        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
 
         Ne sadrži oglase ili nepotrebne dozvole. Aplikacije je otvorenog koda, pruža prilagodljive boje.
 

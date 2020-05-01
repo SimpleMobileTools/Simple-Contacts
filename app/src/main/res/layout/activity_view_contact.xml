@@ -288,7 +288,7 @@
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
-                android:src="@drawable/ic_group_vector"
+                android:src="@drawable/ic_people_vector"
                 android:visibility="gone" />
 
             <ImageView

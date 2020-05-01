@@ -14,14 +14,10 @@
     <string name="send_sms_to_group">Send SMS til gruppe</string>
     <string name="send_email_to_group">Send email til gruppe</string>
     <string name="call_person">Ring til %s</string>
-    <string name="request_the_required_permissions">Anmod om de krævede tilladelser</string>
     <string name="create_new_contact">Opret ny kontakt</string>
     <string name="add_to_existing_contact">Tilføj til en eksisterende kontakt</string>
-    <string name="must_make_default_dialer">Du skal gøre denne app til standardopkaldsappen for at gøre brug af blokerede numre.</string>
-    <string name="set_as_default">Gør til standard</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Ingen kontakter fundet.</string>
     <string name="no_contacts_with_emails">Ingen kontakter med emails fundet</string>
     <string name="no_contacts_with_phone_numbers">Ingen kontakter med telefonnumre fundet</string>
 
@@ -62,19 +58,16 @@
     <string name="filter_duplicates">Prøv at filtrere dupletter</string>
     <string name="manage_shown_tabs">Administrer viste faner</string>
     <string name="contacts">Kontakter</string>
-    <string name="favorites">Favoritter</string>
     <string name="show_call_confirmation_dialog">Vis en opkaldsbekræftelsesdialog før du starter et opkald</string>
     <string name="show_only_contacts_with_numbers">Vis kun kontakter med telefonnumre</string>
     <string name="show_dialpad_letters">Vis bogstaver på tastaturet</string>
 
     <!-- Emails -->
-    <string name="email">Email</string>
     <string name="home">Hjem</string>
     <string name="work">Arbejde</string>
     <string name="other">Andet</string>
 
     <!-- Phone numbers -->
-    <string name="number">Nummer</string>
     <string name="mobile">Mobil</string>
     <string name="main_number">Hovednummer</string>
     <string name="work_fax">Arbejdsfax</string>
@@ -88,9 +81,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Det ser ud til, at du ikke har tilføjet nogen favoritkontakter endnu.</string>
-    <string name="add_favorites">Tilføj favoritter</string>
-    <string name="add_to_favorites">Tilføj til favoritter</string>
-    <string name="remove_from_favorites">Fjern fra favoritter</string>
     <string name="must_be_at_edit">Du skal være på skærmen Rediger for at ændre en kontakt</string>
 
     <!-- Search -->
@@ -113,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Dialer</string>
-    <string name="calling">Ringer</string>
-    <string name="incoming_call">Indkommende opkald call</string>
-    <string name="incoming_call_from">Indkommende opkald fra…</string>
-    <string name="ongoing_call">Igangværende opkald</string>
-    <string name="disconnected">Afbrudt</string>
-    <string name="decline_call">Afvis</string>
-    <string name="answer_call">Besvar</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Speed dial</string>
@@ -134,23 +125,13 @@
     <string name="emails">Emails</string>
     <string name="addresses">Adresser</string>
     <string name="events">Begivenheder (fødselsdage, årsdage)</string>
-    <string name="notes">Noter</string>
     <string name="organization">Organisation</string>
     <string name="websites">Hjemmesider</string>
     <string name="groups">Groupper</string>
     <string name="contact_source">Kontaktkilde</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Administrér blokerede numre</string>
-    <string name="not_blocking_anyone">Du blokerer ikke nogen</string>
-    <string name="add_a_blocked_number">Tilføj et blokeret nummer</string>
-    <string name="block_number">Blokér nummer</string>
-    <string name="block_numbers">Blokér numre</string>
-    <string name="blocked_numbers">Blokerede numre</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
@@ -172,11 +153,33 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">En app til dine kontakter, uden annoncer og med respekt for dit privatliv.</string>
+    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
     <string name="app_long_description">
-        En simpel app til at oprette eller administrere dine kontakter fra enhver kilde. Kontakterne kan gemmes kun på din enhed, eller synkroniseres via Google eller andre konti. Du kan vise dine foretrukne kontakter på en separat liste. 
+        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
-        Du kan også bruge den til at styre bruger-emails og begivenheder. Den har muligheden for at sortere / filtrere efter flere parametre, og vise efternavn eller fornavn først. 
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+
+        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+
+        There is a lightweight dialpad at your service too, with smart contact suggestions.
+
+        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+
+        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+
+        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+
+        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+
+        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+
+        You can easily block phone numbers to avoid unwanted incoming calls.
+
+        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
 
         Indeholder ingen annoncer eller unødvendige tilladelser. Det er fuldstændigt opensource. Appens farver kan tilpasses.
 

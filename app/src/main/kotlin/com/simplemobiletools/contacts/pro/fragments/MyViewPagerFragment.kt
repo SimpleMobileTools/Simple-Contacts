@@ -2,7 +2,6 @@ package com.simplemobiletools.contacts.pro.fragments
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -10,6 +9,7 @@ import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
+import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.GroupContactsActivity
@@ -45,7 +45,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     var skipHashComparing = false
     var forceListRedraw = false
-    var wasLetterFastScrollerSetup = false
 
     fun setupFragment(activity: SimpleActivity) {
         config = activity.config
@@ -84,7 +83,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             this is GroupsFragment -> (fragment_list.adapter as GroupsAdapter).updateTextColor(color)
             else -> (fragment_list.adapter as ContactsAdapter).apply {
                 updateTextColor(color)
-                initDrawables()
             }
         }
     }
@@ -112,8 +110,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun refreshContacts(contacts: ArrayList<Contact>) {
         if ((config.showTabs and CONTACTS_TAB_MASK == 0 && this is ContactsFragment && activity !is InsertOrEditContactActivity) ||
-                (config.showTabs and FAVORITES_TAB_MASK == 0 && this is FavoritesFragment) ||
-                (config.showTabs and GROUPS_TAB_MASK == 0 && this is GroupsFragment)) {
+            (config.showTabs and FAVORITES_TAB_MASK == 0 && this is FavoritesFragment) ||
+            (config.showTabs and GROUPS_TAB_MASK == 0 && this is GroupsFragment)) {
             return
         }
 
@@ -151,38 +149,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             setupContactsFavoritesAdapter(contacts)
             contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
 
-            if (!wasLetterFastScrollerSetup) {
-                wasLetterFastScrollerSetup = true
-
-                val states = arrayOf(intArrayOf(android.R.attr.state_enabled),
-                        intArrayOf(-android.R.attr.state_enabled),
-                        intArrayOf(-android.R.attr.state_checked),
-                        intArrayOf(android.R.attr.state_pressed)
-                )
-
-                val textColor = config.textColor
-                val colors = intArrayOf(textColor, textColor, textColor, textColor)
-
-                val myList = ColorStateList(states, colors)
-                letter_fastscroller.textColor = myList
-
-                letter_fastscroller.setupWithRecyclerView(fragment_list, { position ->
-                    try {
-                        val name = contacts[position].getNameToDisplay()
-                        var character = if (name.isNotEmpty()) name.substring(0, 1) else ""
-                        if (!character.areLettersOnly()) {
-                            character = "#"
-                        }
-
-                        FastScrollItemIndicator.Text(character.toUpperCase(Locale.getDefault()))
-                    } catch (e: Exception) {
-                        FastScrollItemIndicator.Text("")
-                    }
-                })
-
-                letter_fastscroller_thumb.setupWithFastScroller(letter_fastscroller)
-                letter_fastscroller_thumb.textColor = config.primaryColor.getContrastColor()
-            }
+            letter_fastscroller.textColor = config.textColor.getColorStateList()
+            setupLetterFastscroller(contacts)
+            letter_fastscroller_thumb.setupWithFastScroller(letter_fastscroller)
+            letter_fastscroller_thumb.textColor = config.primaryColor.getContrastColor()
         }
     }
 
@@ -270,6 +240,31 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
+    private fun setupLetterFastscroller(contacts: ArrayList<Contact>) {
+        letter_fastscroller.setupWithRecyclerView(fragment_list, { position ->
+            try {
+                val contact = contacts[position]
+                var name = when {
+                    contact.isABusinessContact() -> contact.getFullCompany()
+                    context.config.sorting and SORT_BY_SURNAME != 0 && contact.surname.isNotEmpty() -> contact.surname
+                    context.config.sorting and SORT_BY_MIDDLE_NAME != 0 && contact.middleName.isNotEmpty() -> contact.middleName
+                    context.config.sorting and SORT_BY_FIRST_NAME != 0 && contact.firstName.isNotEmpty() -> contact.firstName
+                    context.config.startNameWithSurname -> contact.surname
+                    else -> contact.firstName
+                }
+
+                if (name.isEmpty()) {
+                    name = contact.getNameToDisplay()
+                }
+
+                val character = if (name.isNotEmpty()) name.substring(0, 1) else ""
+                FastScrollItemIndicator.Text(character.toUpperCase(Locale.getDefault()))
+            } catch (e: Exception) {
+                FastScrollItemIndicator.Text("")
+            }
+        })
+    }
+
     fun fontSizeChanged() {
         if (this is GroupsFragment) {
             (fragment_list.adapter as? GroupsAdapter)?.apply {
@@ -321,6 +316,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
             fragment_placeholder.beVisibleIf(filtered.isEmpty())
             (adapter as? ContactsAdapter)?.updateItems(filtered, text.normalizeString())
+            setupLetterFastscroller(filtered)
         } else if (adapter is GroupsAdapter) {
             val filtered = groupsIgnoringSearch.filter {
                 it.title.contains(text, true)
@@ -343,6 +339,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun onSearchClosed() {
         if (fragment_list.adapter is ContactsAdapter) {
             (fragment_list.adapter as? ContactsAdapter)?.updateItems(contactsIgnoringSearch)
+            setupLetterFastscroller(contactsIgnoringSearch)
             setupViewVisibility(contactsIgnoringSearch.isNotEmpty())
         } else if (fragment_list.adapter is GroupsAdapter) {
             (fragment_list.adapter as? GroupsAdapter)?.updateItems(groupsIgnoringSearch)

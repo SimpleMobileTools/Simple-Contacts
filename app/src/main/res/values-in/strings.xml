@@ -14,14 +14,10 @@
     <string name="send_sms_to_group">Kirim SMS ke grup</string>
     <string name="send_email_to_group">Kirim surel ke grup</string>
     <string name="call_person">Panggil %s</string>
-    <string name="request_the_required_permissions">Meminta izin yang diperlukan</string>
     <string name="create_new_contact">Buat kontak baru</string>
     <string name="add_to_existing_contact">Tambah ke kontak yang ada</string>
-    <string name="must_make_default_dialer">Anda harus mengatur aplikasi ini sebagai aplikasi dialer default untuk menggunakan fitur pemblokir nomor.</string>
-    <string name="set_as_default">Tetapkan sebagai default</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Tidak ada kontak yang ditemukan.</string>
     <string name="no_contacts_with_emails">Tidak ada kontak dengan alamat surel yang ditemukan</string>
     <string name="no_contacts_with_phone_numbers">Tidak ada kontak dengan nomor telepon yang ditemukan</string>
 
@@ -62,19 +58,16 @@
     <string name="filter_duplicates">Coba sembunyikan duplikat kontak</string>
     <string name="manage_shown_tabs">Kelola tab yang ditampilkan</string>
     <string name="contacts">Kontak</string>
-    <string name="favorites">Favorit</string>
     <string name="show_call_confirmation_dialog">Tampilkan dialog konfirmasi panggilan sebelum melakukan panggilan</string>
     <string name="show_only_contacts_with_numbers">Hanya tampilkan kontak dengan nomor telepon</string>
     <string name="show_dialpad_letters">Tampilkan huruf pada tombol dial</string>
 
     <!-- Emails -->
-    <string name="email">Surel</string>
     <string name="home">Rumah</string>
     <string name="work">Kerja</string>
     <string name="other">Lainnya</string>
 
     <!-- Phone numbers -->
-    <string name="number">Nomor</string>
     <string name="mobile">Ponsel</string>
     <string name="main_number">Utama</string>
     <string name="work_fax">Faks Kerja</string>
@@ -88,9 +81,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Sepertinya anda belum menambahkan kontak favorit.</string>
-    <string name="add_favorites">Tambah favorit</string>
-    <string name="add_to_favorites">Tambah ke favorit</string>
-    <string name="remove_from_favorites">Buang dari favorit</string>
     <string name="must_be_at_edit">Anda harus berada di layar Sunting untuk mengubah kontak</string>
 
     <!-- Search -->
@@ -113,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Telepon</string>
-    <string name="calling">Memanggil</string>
-    <string name="incoming_call">Panggilan masuk</string>
-    <string name="incoming_call_from">Panggilan masuk dari…</string>
-    <string name="ongoing_call">Panggilan keluar</string>
-    <string name="disconnected">Terputus</string>
-    <string name="decline_call">Tolak</string>
-    <string name="answer_call">Jawab</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Speed dial</string>
@@ -134,23 +125,13 @@
     <string name="emails">Surel</string>
     <string name="addresses">Alamat</string>
     <string name="events">Acara (ulang tahun, hari jadi)</string>
-    <string name="notes">Catatan</string>
     <string name="organization">Organisasi</string>
     <string name="websites">Situs web</string>
     <string name="groups">Grup</string>
     <string name="contact_source">Sumber kontak</string>
     <string name="instant_messaging">Pesan singkat (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Kelola nomor yang diblokir</string>
-    <string name="not_blocking_anyone">Anda tidak memblokir siapapun.</string>
-    <string name="add_a_blocked_number">Tambahkan nomor yang diblokir</string>
-    <string name="block_number">Blokir nomor</string>
-    <string name="block_numbers">Blokir nomor</string>
-    <string name="blocked_numbers">Nomor yang diblokir</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Apakah anda yakin ingin menghapus %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">Kontak akan dihapus dari semua sumber kontak.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
@@ -172,11 +153,33 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Aplikasi untuk mengelola kontak tanpa iklan, menghargai privasi anda.</string>
+    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
     <string name="app_long_description">
-        Aplikasi sederhana untuk membuat dan mengelola kontak anda dari berbagai sumber. Kontak bisa disimpan hanya pada perangkat anda, tetapi juga disinkronisasikan melalui Google, atau akun lainnya. Anda bisa menampilkan kontak favorit anda pada daftar terpisah.
+        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
-        Anda juga bisa menggunakannya untuk mengelola surel dan acara. Memiliki kemampuan untuk mengurutkan/menyaring menggunakan banyak parameter, dan secara opsional menampilkan nama belakang sebagai awalan nama.
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+
+        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+
+        There is a lightweight dialpad at your service too, with smart contact suggestions.
+
+        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+
+        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+
+        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+
+        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+
+        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+
+        You can easily block phone numbers to avoid unwanted incoming calls.
+
+        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
 
         Tanpa iklan dan perizinan yang tidak perlu. Sepenuhnya sumber terbuka, dengan warna yang bisa disesuaikan.
 

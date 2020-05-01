@@ -138,4 +138,6 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
     }
 
     fun isPrivate() = source == SMT_PRIVATE
+
+    fun getSignatureKey() = if (photoUri.isNotEmpty()) photoUri else hashCode()
 }

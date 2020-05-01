@@ -1,13 +1,12 @@
 package com.simplemobiletools.contacts.pro.adapters
 
-import android.graphics.drawable.Drawable
+import android.graphics.drawable.BitmapDrawable
 import android.util.TypedValue
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
@@ -35,8 +34,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
     private val NEW_GROUP_ID = -1
 
-    private lateinit var contactDrawable: Drawable
-    private lateinit var businessContactDrawable: Drawable
     private var config = activity.config
     private var textToHighlight = highlightText
 
@@ -48,13 +45,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     private val itemLayout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
 
-    private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
-    private var mediumPadding = activity.resources.getDimension(R.dimen.medium_margin).toInt()
-    private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
-
     init {
         setupDragListener(true)
-        initDrawables()
     }
 
     override fun getActionMenuId() = R.menu.cab
@@ -122,11 +114,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     private fun getItemWithKey(key: Int): Contact? = contactItems.firstOrNull { it.id == key }
 
-    fun initDrawables() {
-        contactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_person_vector, textColor)
-        businessContactDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_business_vector, textColor)
-    }
-
     fun updateItems(newItems: ArrayList<Contact>, highlightText: String = "") {
         if (newItems.hashCode() != contactItems.hashCode()) {
             contactItems = newItems.clone() as ArrayList<Contact>
@@ -154,7 +141,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             resources.getQuantityString(R.plurals.delete_contacts, itemsCnt, itemsCnt)
         }
 
-        val baseString = R.string.delete_contacts_confirmation
+        val baseString = R.string.deletion_confirmation
         val question = String.format(resources.getString(baseString), items)
 
         ConfirmationDialog(activity, question) {
@@ -286,11 +273,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
             contact_name.setTextColor(textColor)
             contact_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-            if (!showContactThumbnails && !showPhoneNumbers) {
-                contact_name.setPadding(bigPadding, bigPadding, bigPadding, bigPadding)
-            } else {
-                contact_name.setPadding(if (showContactThumbnails) smallPadding else bigPadding, smallPadding, smallPadding, 0)
-            }
 
             if (contact_number != null) {
                 val phoneNumberToUse = if (textToHighlight.isEmpty()) {
@@ -302,49 +284,33 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                 val numberText = phoneNumberToUse?.value ?: ""
                 contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
                 contact_number.setTextColor(textColor)
-                contact_number.setPadding(if (showContactThumbnails) smallPadding else bigPadding, 0, smallPadding, 0)
                 contact_number.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
             }
 
             contact_tmb.beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {
-                val placeholderImage = if (contact.isABusinessContact()) businessContactDrawable else contactDrawable
-                when {
-                    contact.photoUri.isNotEmpty() -> {
-                        val options = RequestOptions()
-                                .signature(ObjectKey(contact.photoUri))
-                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .error(placeholderImage)
-                                .centerCrop()
+                val placeholderImage = BitmapDrawable(resources, context.getContactLetterIcon(fullName))
+                if (contact.photoUri.isEmpty() && contact.photo == null) {
+                    contact_tmb.setImageDrawable(placeholderImage)
+                } else {
+                    val options = RequestOptions()
+                        .signature(ObjectKey(contact.getSignatureKey()))
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .error(placeholderImage)
+                        .centerCrop()
 
-                        Glide.with(activity)
-                                .load(contact.photoUri)
-                                .transition(DrawableTransitionOptions.withCrossFade())
-                                .apply(options)
-                                .apply(RequestOptions.circleCropTransform())
-                                .into(contact_tmb)
-                        contact_tmb.setPadding(smallPadding, smallPadding, smallPadding, smallPadding)
+                    val itemToLoad: Any? = if (contact.photoUri.isNotEmpty()) {
+                        contact.photoUri
+                    } else {
+                        contact.photo
                     }
-                    contact.photo != null -> {
-                        val options = RequestOptions()
-                                .signature(ObjectKey(contact.hashCode()))
-                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .error(placeholderImage)
-                                .centerCrop()
 
-                        Glide.with(activity)
-                                .load(contact.photo)
-                                .transition(DrawableTransitionOptions.withCrossFade())
-                                .apply(options)
-                                .apply(RequestOptions.circleCropTransform())
-                                .into(contact_tmb)
-                        contact_tmb.setPadding(smallPadding, smallPadding, smallPadding, smallPadding)
-                    }
-                    else -> {
-                        contact_tmb.setPadding(mediumPadding, mediumPadding, mediumPadding, mediumPadding)
-                        contact_tmb.setImageDrawable(placeholderImage)
-                    }
+                    Glide.with(activity)
+                        .load(itemToLoad)
+                        .apply(options)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(contact_tmb)
                 }
             }
         }

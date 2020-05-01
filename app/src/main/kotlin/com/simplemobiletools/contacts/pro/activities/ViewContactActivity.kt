@@ -9,6 +9,9 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.FitCenter
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
@@ -67,6 +70,14 @@ class ViewContactActivity : ContactActivity() {
             ensureBackgroundThread {
                 initContact()
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (contact_photo_big.alpha == 1f) {
+            hideBigContactPhoto()
+        } else {
+            super.onBackPressed()
         }
     }
 
@@ -155,15 +166,18 @@ class ViewContactActivity : ContactActivity() {
         contact_start_call.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
         contact_send_email.beVisibleIf(contact!!.emails.isNotEmpty())
 
-        val background = resources.getDrawable(R.drawable.contact_circular_background)
-        background.applyColorFilter(config.primaryColor)
-        contact_photo.background = background
-
         if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
             showPhotoPlaceholder(contact_photo)
         } else {
             updateContactPhoto(contact!!.photoUri, contact_photo, contact!!.photo)
-            Glide.with(this).load(contact!!.photo ?: currentContactPhotoPath).into(contact_photo_big)
+            val options = RequestOptions()
+                .transform(FitCenter(), RoundedCorners(resources.getDimension(R.dimen.normal_margin).toInt()))
+
+            Glide.with(this)
+                .load(contact!!.photo ?: currentContactPhotoPath)
+                .apply(options)
+                .into(contact_photo_big)
+
             contact_photo.setOnClickListener {
                 contact_photo_big.alpha = 0f
                 contact_photo_big.beVisible()
@@ -171,24 +185,16 @@ class ViewContactActivity : ContactActivity() {
             }
 
             contact_photo_big.setOnClickListener {
-                contact_photo_big.animate().alpha(0f).withEndAction { it.beGone() }.start()
+                hideBigContactPhoto()
             }
         }
 
         val textColor = config.textColor
-        contact_send_sms.applyColorFilter(textColor)
-        contact_start_call.applyColorFilter(textColor)
-        contact_send_email.applyColorFilter(textColor)
-        contact_name_image.applyColorFilter(textColor)
-        contact_numbers_image.applyColorFilter(textColor)
-        contact_emails_image.applyColorFilter(textColor)
-        contact_addresses_image.applyColorFilter(textColor)
-        contact_events_image.applyColorFilter(textColor)
-        contact_source_image.applyColorFilter(textColor)
-        contact_notes_image.applyColorFilter(textColor)
-        contact_organization_image.applyColorFilter(textColor)
-        contact_websites_image.applyColorFilter(textColor)
-        contact_groups_image.applyColorFilter(textColor)
+        arrayOf(contact_send_sms, contact_start_call, contact_send_email, contact_name_image, contact_numbers_image, contact_emails_image,
+            contact_addresses_image, contact_events_image, contact_source_image, contact_notes_image, contact_organization_image,
+            contact_websites_image, contact_groups_image).forEach {
+            it.applyColorFilter(textColor)
+        }
 
         contact_send_sms.setOnClickListener { trySendSMS() }
         contact_start_call.setOnClickListener { tryStartCall(contact!!) }
@@ -288,7 +294,7 @@ class ViewContactActivity : ContactActivity() {
             contact_nickname.copyOnLongClick(nickname)
 
             if (contact_prefix.isGone() && contact_first_name.isGone() && contact_middle_name.isGone() && contact_surname.isGone() && contact_suffix.isGone()
-                    && contact_nickname.isGone()) {
+                && contact_nickname.isGone()) {
                 contact_name_image.beInvisible()
                 (contact_photo.layoutParams as RelativeLayout.LayoutParams).bottomMargin = resources.getDimension(R.dimen.medium_margin).toInt()
             }
@@ -616,6 +622,10 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_vector else R.drawable.ic_star_off_vector)
+
+    private fun hideBigContactPhoto() {
+        contact_photo_big.animate().alpha(0f).withEndAction { contact_photo_big.beGone() }.start()
+    }
 
     private fun View.copyOnLongClick(value: String) {
         setOnLongClickListener {

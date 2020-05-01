@@ -60,6 +60,14 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(SHOW_DIALPAD_LETTERS, true)
         set(showDialpadLetters) = prefs.edit().putBoolean(SHOW_DIALPAD_LETTERS, showDialpadLetters).apply()
 
+    var wasLocalAccountInitialized: Boolean
+        get() = prefs.getBoolean(WAS_LOCAL_ACCOUNT_INITIALIZED, false)
+        set(wasLocalAccountInitialized) = prefs.edit().putBoolean(WAS_LOCAL_ACCOUNT_INITIALIZED, wasLocalAccountInitialized).apply()
+
+    var lastExportPath: String
+        get() = prefs.getString(LAST_EXPORT_PATH, "")!!
+        set(lastExportPath) = prefs.edit().putString(LAST_EXPORT_PATH, lastExportPath).apply()
+
     var speedDial: String
         get() = prefs.getString(SPEED_DIAL, "")!!
         set(speedDial) = prefs.edit().putString(SPEED_DIAL, speedDial).apply()

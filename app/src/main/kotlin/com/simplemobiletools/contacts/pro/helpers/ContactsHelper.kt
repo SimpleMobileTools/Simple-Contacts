@@ -3,15 +3,12 @@ package com.simplemobiletools.contacts.pro.helpers
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.*
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
-import android.provider.ContactsContract
-import android.provider.ContactsContract.CommonDataKinds
-import android.provider.ContactsContract.CommonDataKinds.Nickname
-import android.provider.ContactsContract.CommonDataKinds.Note
+import android.provider.ContactsContract.*
+import android.provider.ContactsContract.CommonDataKinds.*
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.SparseArray
@@ -20,6 +17,9 @@ import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.models.*
+import com.simplemobiletools.contacts.pro.models.Email
+import com.simplemobiletools.contacts.pro.models.Event
+import com.simplemobiletools.contacts.pro.models.Organization
 import com.simplemobiletools.contacts.pro.overloads.times
 import java.util.*
 import kotlin.collections.ArrayList
@@ -99,7 +99,7 @@ class ContactsHelper(val context: Context) {
 
     private fun getContentResolverAccounts(): HashSet<ContactSource> {
         val sources = HashSet<ContactSource>()
-        arrayOf(ContactsContract.Groups.CONTENT_URI, ContactsContract.Settings.CONTENT_URI, ContactsContract.RawContacts.CONTENT_URI).forEach {
+        arrayOf(Groups.CONTENT_URI, Settings.CONTENT_URI, RawContacts.CONTENT_URI).forEach {
             fillSourcesFromUri(it, sources)
         }
 
@@ -108,29 +108,20 @@ class ContactsHelper(val context: Context) {
 
     private fun fillSourcesFromUri(uri: Uri, sources: HashSet<ContactSource>) {
         val projection = arrayOf(
-                ContactsContract.RawContacts.ACCOUNT_NAME,
-                ContactsContract.RawContacts.ACCOUNT_TYPE
+            RawContacts.ACCOUNT_NAME,
+            RawContacts.ACCOUNT_TYPE
         )
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, null, null, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val name = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
-                    val type = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: ""
-                    var publicName = name
-                    if (type == TELEGRAM_PACKAGE) {
-                        publicName += " (${context.getString(R.string.telegram)})"
-                    }
-
-                    val source = ContactSource(name, type, publicName)
-                    sources.add(source)
-                } while (cursor.moveToNext())
+        context.queryCursor(uri, projection) { cursor ->
+            val name = cursor.getStringValue(RawContacts.ACCOUNT_NAME) ?: ""
+            val type = cursor.getStringValue(RawContacts.ACCOUNT_TYPE) ?: ""
+            var publicName = name
+            if (type == TELEGRAM_PACKAGE) {
+                publicName += " (${context.getString(R.string.telegram)})"
             }
-        } catch (e: Exception) {
-        } finally {
-            cursor?.close()
+
+            val source = ContactSource(name, type, publicName)
+            sources.add(source)
         }
     }
 
@@ -140,64 +131,54 @@ class ContactsHelper(val context: Context) {
         }
 
         val ignoredSources = ignoredContactSources ?: context.config.ignoredContactSources
-        val uri = ContactsContract.Data.CONTENT_URI
+        val uri = Data.CONTENT_URI
         val projection = getContactProjection()
 
-        val selection = "${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+        val selection = "${Data.MIMETYPE} = ? OR ${Data.MIMETYPE} = ?"
+        val selectionArgs = arrayOf(StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
         val sortOrder = getSortString()
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, sortOrder)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
-                    val accountType = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_TYPE) ?: ""
-                    if (ignoredSources.contains("$accountName:$accountType")) {
-                        continue
-                    }
-
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    var prefix = ""
-                    var firstName = ""
-                    var middleName = ""
-                    var surname = ""
-                    var suffix = ""
-
-                    // ignore names at Organization type contacts
-                    if (cursor.getStringValue(ContactsContract.Data.MIMETYPE) == CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE) {
-                        prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
-                        firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
-                        middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
-                        surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
-                        suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
-                    }
-
-                    val nickname = ""
-                    val photoUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
-                    val numbers = ArrayList<PhoneNumber>()          // proper value is obtained below
-                    val emails = ArrayList<Email>()
-                    val addresses = ArrayList<Address>()
-                    val events = ArrayList<Event>()
-                    val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
-                    val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
-                    val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                    val notes = ""
-                    val groups = ArrayList<Group>()
-                    val organization = Organization("", "")
-                    val websites = ArrayList<String>()
-                    val ims = ArrayList<IM>()
-                    val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
-                            events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
-
-                    contacts.put(id, contact)
-                } while (cursor.moveToNext())
+        context.queryCursor(uri, projection, selection, selectionArgs, sortOrder, true) { cursor ->
+            val accountName = cursor.getStringValue(RawContacts.ACCOUNT_NAME) ?: ""
+            val accountType = cursor.getStringValue(RawContacts.ACCOUNT_TYPE) ?: ""
+            if (ignoredSources.contains("$accountName:$accountType")) {
+                return@queryCursor
             }
-        } catch (e: Exception) {
-            context.showErrorToast(e)
-        } finally {
-            cursor?.close()
+
+            val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+            var prefix = ""
+            var firstName = ""
+            var middleName = ""
+            var surname = ""
+            var suffix = ""
+
+            // ignore names at Organization type contacts
+            if (cursor.getStringValue(Data.MIMETYPE) == StructuredName.CONTENT_ITEM_TYPE) {
+                prefix = cursor.getStringValue(StructuredName.PREFIX) ?: ""
+                firstName = cursor.getStringValue(StructuredName.GIVEN_NAME) ?: ""
+                middleName = cursor.getStringValue(StructuredName.MIDDLE_NAME) ?: ""
+                surname = cursor.getStringValue(StructuredName.FAMILY_NAME) ?: ""
+                suffix = cursor.getStringValue(StructuredName.SUFFIX) ?: ""
+            }
+
+            val nickname = ""
+            val photoUri = cursor.getStringValue(StructuredName.PHOTO_URI) ?: ""
+            val numbers = ArrayList<PhoneNumber>()          // proper value is obtained below
+            val emails = ArrayList<Email>()
+            val addresses = ArrayList<Address>()
+            val events = ArrayList<Event>()
+            val starred = cursor.getIntValue(StructuredName.STARRED)
+            val contactId = cursor.getIntValue(Data.CONTACT_ID)
+            val thumbnailUri = cursor.getStringValue(StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
+            val notes = ""
+            val groups = ArrayList<Group>()
+            val organization = Organization("", "")
+            val websites = ArrayList<String>()
+            val ims = ArrayList<IM>()
+            val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
+                events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
+
+            contacts.put(id, contact)
         }
 
         val phoneNumbers = getPhoneNumbers(null)
@@ -269,41 +250,31 @@ class ContactsHelper(val context: Context) {
 
     private fun getPhoneNumbers(contactId: Int? = null): SparseArray<ArrayList<PhoneNumber>> {
         val phoneNumbers = SparseArray<ArrayList<PhoneNumber>>()
-        val uri = CommonDataKinds.Phone.CONTENT_URI
+        val uri = Phone.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Data.RAW_CONTACT_ID,
-                CommonDataKinds.Phone.NUMBER,
-                CommonDataKinds.Phone.NORMALIZED_NUMBER,
-                CommonDataKinds.Phone.TYPE,
-                CommonDataKinds.Phone.LABEL
+            Data.RAW_CONTACT_ID,
+            Phone.NUMBER,
+            Phone.NORMALIZED_NUMBER,
+            Phone.TYPE,
+            Phone.LABEL
         )
 
-        val selection = if (contactId == null) getSourcesSelection() else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selection = if (contactId == null) getSourcesSelection() else "${Data.RAW_CONTACT_ID} = ?"
         val selectionArgs = if (contactId == null) getSourcesSelectionArgs() else arrayOf(contactId.toString())
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val number = cursor.getStringValue(CommonDataKinds.Phone.NUMBER) ?: continue
-                    val normalizedNumber = cursor.getStringValue(CommonDataKinds.Phone.NORMALIZED_NUMBER) ?: number.normalizeNumber()
-                    val type = cursor.getIntValue(CommonDataKinds.Phone.TYPE)
-                    val label = cursor.getStringValue(CommonDataKinds.Phone.LABEL) ?: ""
+        context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
+            val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+            val number = cursor.getStringValue(Phone.NUMBER) ?: return@queryCursor
+            val normalizedNumber = cursor.getStringValue(Phone.NORMALIZED_NUMBER) ?: number.normalizeNumber()
+            val type = cursor.getIntValue(Phone.TYPE)
+            val label = cursor.getStringValue(Phone.LABEL) ?: ""
 
-                    if (phoneNumbers[id] == null) {
-                        phoneNumbers.put(id, ArrayList())
-                    }
-
-                    val phoneNumber = PhoneNumber(number, type, label, normalizedNumber)
-                    phoneNumbers[id].add(phoneNumber)
-                } while (cursor.moveToNext())
+            if (phoneNumbers[id] == null) {
+                phoneNumbers.put(id, ArrayList())
             }
-        } catch (e: Exception) {
-            context.showErrorToast(e)
-        } finally {
-            cursor?.close()
+
+            val phoneNumber = PhoneNumber(number, type, label, normalizedNumber)
+            phoneNumbers[id].add(phoneNumber)
         }
 
         return phoneNumbers
@@ -311,29 +282,19 @@ class ContactsHelper(val context: Context) {
 
     private fun getNicknames(contactId: Int? = null): SparseArray<String> {
         val nicknames = SparseArray<String>()
-        val uri = ContactsContract.Data.CONTENT_URI
+        val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Data.RAW_CONTACT_ID,
-                Nickname.NAME
+            Data.RAW_CONTACT_ID,
+            Nickname.NAME
         )
 
         val selection = getSourcesSelection(true, contactId != null)
         val selectionArgs = getSourcesSelectionArgs(Nickname.CONTENT_ITEM_TYPE, contactId)
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val nickname = cursor.getStringValue(Nickname.NAME) ?: continue
-                    nicknames.put(id, nickname)
-                } while (cursor.moveToNext())
-            }
-        } catch (e: Exception) {
-            context.showErrorToast(e)
-        } finally {
-            cursor?.close()
+        context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
+            val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+            val nickname = cursor.getStringValue(Nickname.NAME) ?: return@queryCursor
+            nicknames.put(id, nickname)
         }
 
         return nicknames
@@ -343,36 +304,26 @@ class ContactsHelper(val context: Context) {
         val emails = SparseArray<ArrayList<Email>>()
         val uri = CommonDataKinds.Email.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Data.RAW_CONTACT_ID,
-                CommonDataKinds.Email.DATA,
-                CommonDataKinds.Email.TYPE,
-                CommonDataKinds.Email.LABEL
+            Data.RAW_CONTACT_ID,
+            CommonDataKinds.Email.DATA,
+            CommonDataKinds.Email.TYPE,
+            CommonDataKinds.Email.LABEL
         )
 
-        val selection = if (contactId == null) getSourcesSelection() else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selection = if (contactId == null) getSourcesSelection() else "${Data.RAW_CONTACT_ID} = ?"
         val selectionArgs = if (contactId == null) getSourcesSelectionArgs() else arrayOf(contactId.toString())
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val email = cursor.getStringValue(CommonDataKinds.Email.DATA) ?: continue
-                    val type = cursor.getIntValue(CommonDataKinds.Email.TYPE)
-                    val label = cursor.getStringValue(CommonDataKinds.Email.LABEL) ?: ""
+        context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
+            val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+            val email = cursor.getStringValue(CommonDataKinds.Email.DATA) ?: return@queryCursor
+            val type = cursor.getIntValue(CommonDataKinds.Email.TYPE)
+            val label = cursor.getStringValue(CommonDataKinds.Email.LABEL) ?: ""
 
-                    if (emails[id] == null) {
-                        emails.put(id, ArrayList())
-                    }
-
-                    emails[id]!!.add(Email(email, type, label))
-                } while (cursor.moveToNext())
+            if (emails[id] == null) {
+                emails.put(id, ArrayList())
             }
-        } catch (e: Exception) {
-            context.showErrorToast(e)
-        } finally {
-            cursor?.close()
+
+            emails[id]!!.add(Email(email, type, label))
         }
 
         return emails
@@ -380,38 +331,28 @@ class ContactsHelper(val context: Context) {
 
     private fun getAddresses(contactId: Int? = null): SparseArray<ArrayList<Address>> {
         val addresses = SparseArray<ArrayList<Address>>()
-        val uri = CommonDataKinds.StructuredPostal.CONTENT_URI
+        val uri = StructuredPostal.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Data.RAW_CONTACT_ID,
-                CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS,
-                CommonDataKinds.StructuredPostal.TYPE,
-                CommonDataKinds.StructuredPostal.LABEL
+            Data.RAW_CONTACT_ID,
+            StructuredPostal.FORMATTED_ADDRESS,
+            StructuredPostal.TYPE,
+            StructuredPostal.LABEL
         )
 
-        val selection = if (contactId == null) getSourcesSelection() else "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val selection = if (contactId == null) getSourcesSelection() else "${Data.RAW_CONTACT_ID} = ?"
         val selectionArgs = if (contactId == null) getSourcesSelectionArgs() else arrayOf(contactId.toString())
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val address = cursor.getStringValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS) ?: continue
-                    val type = cursor.getIntValue(CommonDataKinds.StructuredPostal.TYPE)
-                    val label = cursor.getStringValue(CommonDataKinds.StructuredPostal.LABEL) ?: ""
+        context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
+            val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+            val address = cursor.getStringValue(StructuredPostal.FORMATTED_ADDRESS) ?: return@queryCursor
+            val type = cursor.getIntValue(StructuredPostal.TYPE)
+            val label = cursor.getStringValue(StructuredPostal.LABEL) ?: ""
 
-                    if (addresses[id] == null) {
-                        addresses.put(id, ArrayList())
-                    }
-
-                    addresses[id]!!.add(Address(address, type, label))
-                } while (cursor.moveToNext())
+            if (addresses[id] == null) {
+                addresses.put(id, ArrayList())
             }
-        } catch (e: Exception) {
-            context.showErrorToast(e)
-        } finally {
-            cursor?.close()
+
+            addresses[id]!!.add(Address(address, type, label))
         }
 
         return addresses
@@ -419,38 +360,28 @@ class ContactsHelper(val context: Context) {
 
     private fun getIMs(contactId: Int? = null): SparseArray<ArrayList<IM>> {
         val IMs = SparseArray<ArrayList<IM>>()
-        val uri = ContactsContract.Data.CONTENT_URI
+        val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Data.RAW_CONTACT_ID,
-                CommonDataKinds.Im.DATA,
-                CommonDataKinds.Im.PROTOCOL,
-                CommonDataKinds.Im.CUSTOM_PROTOCOL
+            Data.RAW_CONTACT_ID,
+            Im.DATA,
+            Im.PROTOCOL,
+            Im.CUSTOM_PROTOCOL
         )
 
         val selection = getSourcesSelection(true, contactId != null)
-        val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.Im.CONTENT_ITEM_TYPE, contactId)
+        val selectionArgs = getSourcesSelectionArgs(Im.CONTENT_ITEM_TYPE, contactId)
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val IM = cursor.getStringValue(CommonDataKinds.Im.DATA) ?: continue
-                    val type = cursor.getIntValue(CommonDataKinds.Im.PROTOCOL)
-                    val label = cursor.getStringValue(CommonDataKinds.Im.CUSTOM_PROTOCOL) ?: ""
+        context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
+            val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+            val IM = cursor.getStringValue(Im.DATA) ?: return@queryCursor
+            val type = cursor.getIntValue(Im.PROTOCOL)
+            val label = cursor.getStringValue(Im.CUSTOM_PROTOCOL) ?: ""
 
-                    if (IMs[id] == null) {
-                        IMs.put(id, ArrayList())
-                    }
-
-                    IMs[id]!!.add(IM(IM, type, label))
-                } while (cursor.moveToNext())
+            if (IMs[id] == null) {
+                IMs.put(id, ArrayList())
             }
-        } catch (e: Exception) {
-            context.showErrorToast(e)
-        } finally {
-            cursor?.close()
+
+            IMs[id]!!.add(IM(IM, type, label))
         }
 
         return IMs
@@ -458,36 +389,26 @@ class ContactsHelper(val context: Context) {
 
     private fun getEvents(contactId: Int? = null): SparseArray<ArrayList<Event>> {
         val events = SparseArray<ArrayList<Event>>()
-        val uri = ContactsContract.Data.CONTENT_URI
+        val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Data.RAW_CONTACT_ID,
-                CommonDataKinds.Event.START_DATE,
-                CommonDataKinds.Event.TYPE
+            Data.RAW_CONTACT_ID,
+            CommonDataKinds.Event.START_DATE,
+            CommonDataKinds.Event.TYPE
         )
 
         val selection = getSourcesSelection(true, contactId != null)
         val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.Event.CONTENT_ITEM_TYPE, contactId)
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val startDate = cursor.getStringValue(CommonDataKinds.Event.START_DATE) ?: continue
-                    val type = cursor.getIntValue(CommonDataKinds.Event.TYPE)
+        context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
+            val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+            val startDate = cursor.getStringValue(CommonDataKinds.Event.START_DATE) ?: return@queryCursor
+            val type = cursor.getIntValue(CommonDataKinds.Event.TYPE)
 
-                    if (events[id] == null) {
-                        events.put(id, ArrayList())
-                    }
-
-                    events[id]!!.add(Event(startDate, type))
-                } while (cursor.moveToNext())
+            if (events[id] == null) {
+                events.put(id, ArrayList())
             }
-        } catch (e: Exception) {
-            context.showErrorToast(e)
-        } finally {
-            cursor?.close()
+
+            events[id]!!.add(Event(startDate, type))
         }
 
         return events
@@ -495,29 +416,19 @@ class ContactsHelper(val context: Context) {
 
     private fun getNotes(contactId: Int? = null): SparseArray<String> {
         val notes = SparseArray<String>()
-        val uri = ContactsContract.Data.CONTENT_URI
+        val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Data.RAW_CONTACT_ID,
-                Note.NOTE
+            Data.RAW_CONTACT_ID,
+            Note.NOTE
         )
 
         val selection = getSourcesSelection(true, contactId != null)
         val selectionArgs = getSourcesSelectionArgs(Note.CONTENT_ITEM_TYPE, contactId)
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val note = cursor.getStringValue(Note.NOTE) ?: continue
-                    notes.put(id, note)
-                } while (cursor.moveToNext())
-            }
-        } catch (e: Exception) {
-            context.showErrorToast(e)
-        } finally {
-            cursor?.close()
+        context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
+            val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+            val note = cursor.getStringValue(Note.NOTE) ?: return@queryCursor
+            notes.put(id, note)
         }
 
         return notes
@@ -525,36 +436,26 @@ class ContactsHelper(val context: Context) {
 
     private fun getOrganizations(contactId: Int? = null): SparseArray<Organization> {
         val organizations = SparseArray<Organization>()
-        val uri = ContactsContract.Data.CONTENT_URI
+        val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Data.RAW_CONTACT_ID,
-                CommonDataKinds.Organization.COMPANY,
-                CommonDataKinds.Organization.TITLE
+            Data.RAW_CONTACT_ID,
+            CommonDataKinds.Organization.COMPANY,
+            CommonDataKinds.Organization.TITLE
         )
 
         val selection = getSourcesSelection(true, contactId != null)
         val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.Organization.CONTENT_ITEM_TYPE, contactId)
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val company = cursor.getStringValue(CommonDataKinds.Organization.COMPANY) ?: ""
-                    val title = cursor.getStringValue(CommonDataKinds.Organization.TITLE) ?: ""
-                    if (company.isEmpty() && title.isEmpty()) {
-                        continue
-                    }
-
-                    val organization = Organization(company, title)
-                    organizations.put(id, organization)
-                } while (cursor.moveToNext())
+        context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
+            val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+            val company = cursor.getStringValue(CommonDataKinds.Organization.COMPANY) ?: ""
+            val title = cursor.getStringValue(CommonDataKinds.Organization.TITLE) ?: ""
+            if (company.isEmpty() && title.isEmpty()) {
+                return@queryCursor
             }
-        } catch (e: Exception) {
-            context.showErrorToast(e)
-        } finally {
-            cursor?.close()
+
+            val organization = Organization(company, title)
+            organizations.put(id, organization)
         }
 
         return organizations
@@ -562,34 +463,24 @@ class ContactsHelper(val context: Context) {
 
     private fun getWebsites(contactId: Int? = null): SparseArray<ArrayList<String>> {
         val websites = SparseArray<ArrayList<String>>()
-        val uri = ContactsContract.Data.CONTENT_URI
+        val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Data.RAW_CONTACT_ID,
-                CommonDataKinds.Website.URL
+            Data.RAW_CONTACT_ID,
+            Website.URL
         )
 
         val selection = getSourcesSelection(true, contactId != null)
-        val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.Website.CONTENT_ITEM_TYPE, contactId)
+        val selectionArgs = getSourcesSelectionArgs(Website.CONTENT_ITEM_TYPE, contactId)
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
-                    val url = cursor.getStringValue(CommonDataKinds.Website.URL) ?: continue
+        context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
+            val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+            val url = cursor.getStringValue(Website.URL) ?: return@queryCursor
 
-                    if (websites[id] == null) {
-                        websites.put(id, ArrayList())
-                    }
-
-                    websites[id]!!.add(url)
-                } while (cursor.moveToNext())
+            if (websites[id] == null) {
+                websites.put(id, ArrayList())
             }
-        } catch (e: Exception) {
-            context.showErrorToast(e)
-        } finally {
-            cursor?.close()
+
+            websites[id]!!.add(url)
         }
 
         return websites
@@ -601,35 +492,25 @@ class ContactsHelper(val context: Context) {
             return groups
         }
 
-        val uri = ContactsContract.Data.CONTENT_URI
+        val uri = Data.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Data.CONTACT_ID,
-                ContactsContract.Data.DATA1
+            Data.CONTACT_ID,
+            Data.DATA1
         )
 
         val selection = getSourcesSelection(true, contactId != null, false)
-        val selectionArgs = getSourcesSelectionArgs(CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, contactId)
+        val selectionArgs = getSourcesSelectionArgs(GroupMembership.CONTENT_ITEM_TYPE, contactId)
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
-                    val newRowId = cursor.getLongValue(ContactsContract.Data.DATA1)
+        context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
+            val id = cursor.getIntValue(Data.CONTACT_ID)
+            val newRowId = cursor.getLongValue(Data.DATA1)
 
-                    val groupTitle = storedGroups.firstOrNull { it.id == newRowId }?.title ?: continue
-                    val group = Group(newRowId, groupTitle)
-                    if (groups[id] == null) {
-                        groups.put(id, ArrayList())
-                    }
-                    groups[id]!!.add(group)
-                } while (cursor.moveToNext())
+            val groupTitle = storedGroups.firstOrNull { it.id == newRowId }?.title ?: return@queryCursor
+            val group = Group(newRowId, groupTitle)
+            if (groups[id] == null) {
+                groups.put(id, ArrayList())
             }
-        } catch (e: Exception) {
-            context.showErrorToast(e)
-        } finally {
-            cursor?.close()
+            groups[id]!!.add(group)
         }
 
         return groups
@@ -640,20 +521,20 @@ class ContactsHelper(val context: Context) {
     private fun getSourcesSelection(addMimeType: Boolean = false, addContactId: Boolean = false, useRawContactId: Boolean = true): String {
         val strings = ArrayList<String>()
         if (addMimeType) {
-            strings.add("${ContactsContract.Data.MIMETYPE} = ?")
+            strings.add("${Data.MIMETYPE} = ?")
         }
 
         if (addContactId) {
-            strings.add("${if (useRawContactId) ContactsContract.Data.RAW_CONTACT_ID else ContactsContract.Data.CONTACT_ID} = ?")
+            strings.add("${if (useRawContactId) Data.RAW_CONTACT_ID else Data.CONTACT_ID} = ?")
         } else {
             // sometimes local device storage has null account_name, handle it properly
             val accountnameString = StringBuilder()
             if (displayContactSources.contains("")) {
                 accountnameString.append("(")
             }
-            accountnameString.append("${ContactsContract.RawContacts.ACCOUNT_NAME} IN (${getQuestionMarks()})")
+            accountnameString.append("${RawContacts.ACCOUNT_NAME} IN (${getQuestionMarks()})")
             if (displayContactSources.contains("")) {
-                accountnameString.append(" OR ${ContactsContract.RawContacts.ACCOUNT_NAME} IS NULL)")
+                accountnameString.append(" OR ${RawContacts.ACCOUNT_NAME} IS NULL)")
             }
             strings.add(accountnameString.toString())
         }
@@ -698,36 +579,26 @@ class ContactsHelper(val context: Context) {
             return groups
         }
 
-        val uri = ContactsContract.Groups.CONTENT_URI
+        val uri = Groups.CONTENT_URI
         val projection = arrayOf(
-                ContactsContract.Groups._ID,
-                ContactsContract.Groups.TITLE,
-                ContactsContract.Groups.SYSTEM_ID
+            Groups._ID,
+            Groups.TITLE,
+            Groups.SYSTEM_ID
         )
 
-        val selection = "${ContactsContract.Groups.AUTO_ADD} = ? AND ${ContactsContract.Groups.FAVORITES} = ?"
+        val selection = "${Groups.AUTO_ADD} = ? AND ${Groups.FAVORITES} = ?"
         val selectionArgs = arrayOf("0", "0")
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                do {
-                    val id = cursor.getLongValue(ContactsContract.Groups._ID)
-                    val title = cursor.getStringValue(ContactsContract.Groups.TITLE) ?: continue
+        context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
+            val id = cursor.getLongValue(Groups._ID)
+            val title = cursor.getStringValue(Groups.TITLE) ?: return@queryCursor
 
-                    val systemId = cursor.getStringValue(ContactsContract.Groups.SYSTEM_ID)
-                    if (groups.map { it.title }.contains(title) && systemId != null) {
-                        continue
-                    }
-
-                    groups.add(Group(id, title))
-                } while (cursor.moveToNext())
+            val systemId = cursor.getStringValue(Groups.SYSTEM_ID)
+            if (groups.map { it.title }.contains(title) && systemId != null) {
+                return@queryCursor
             }
-        } catch (e: Exception) {
-            context.showErrorToast(e)
-        } finally {
-            cursor?.close()
+
+            groups.add(Group(id, title))
         }
         return groups
     }
@@ -741,16 +612,16 @@ class ContactsHelper(val context: Context) {
         }
 
         val operations = ArrayList<ContentProviderOperation>()
-        ContentProviderOperation.newInsert(ContactsContract.Groups.CONTENT_URI).apply {
-            withValue(ContactsContract.Groups.TITLE, title)
-            withValue(ContactsContract.Groups.GROUP_VISIBLE, 1)
-            withValue(ContactsContract.Groups.ACCOUNT_NAME, accountName)
-            withValue(ContactsContract.Groups.ACCOUNT_TYPE, accountType)
+        ContentProviderOperation.newInsert(Groups.CONTENT_URI).apply {
+            withValue(Groups.TITLE, title)
+            withValue(Groups.GROUP_VISIBLE, 1)
+            withValue(Groups.ACCOUNT_NAME, accountName)
+            withValue(Groups.ACCOUNT_TYPE, accountType)
             operations.add(build())
         }
 
         try {
-            val results = context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            val results = context.contentResolver.applyBatch(AUTHORITY, operations)
             val rawId = ContentUris.parseId(results[0].uri)
             return Group(rawId, title)
         } catch (e: Exception) {
@@ -761,16 +632,16 @@ class ContactsHelper(val context: Context) {
 
     fun renameGroup(group: Group) {
         val operations = ArrayList<ContentProviderOperation>()
-        ContentProviderOperation.newUpdate(ContactsContract.Groups.CONTENT_URI).apply {
-            val selection = "${ContactsContract.Groups._ID} = ?"
+        ContentProviderOperation.newUpdate(Groups.CONTENT_URI).apply {
+            val selection = "${Groups._ID} = ?"
             val selectionArgs = arrayOf(group.id.toString())
             withSelection(selection, selectionArgs)
-            withValue(ContactsContract.Groups.TITLE, group.title)
+            withValue(Groups.TITLE, group.title)
             operations.add(build())
         }
 
         try {
-            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            context.contentResolver.applyBatch(AUTHORITY, operations)
         } catch (e: Exception) {
             context.showErrorToast(e)
         }
@@ -778,14 +649,14 @@ class ContactsHelper(val context: Context) {
 
     fun deleteGroup(id: Long) {
         val operations = ArrayList<ContentProviderOperation>()
-        val uri = ContentUris.withAppendedId(ContactsContract.Groups.CONTENT_URI, id).buildUpon()
-                .appendQueryParameter(ContactsContract.CALLER_IS_SYNCADAPTER, "true")
-                .build()
+        val uri = ContentUris.withAppendedId(Groups.CONTENT_URI, id).buildUpon()
+            .appendQueryParameter(CALLER_IS_SYNCADAPTER, "true")
+            .build()
 
         operations.add(ContentProviderOperation.newDelete(uri).build())
 
         try {
-            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            context.contentResolver.applyBatch(AUTHORITY, operations)
         } catch (e: Exception) {
             context.showErrorToast(e)
         }
@@ -798,26 +669,26 @@ class ContactsHelper(val context: Context) {
             return LocalContactsHelper(context).getContactWithId(id)
         }
 
-        val selection = "(${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?) AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, id.toString())
+        val selection = "(${Data.MIMETYPE} = ? OR ${Data.MIMETYPE} = ?) AND ${Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, id.toString())
         return parseContactCursor(selection, selectionArgs)
     }
 
     fun getContactWithLookupKey(key: String): Contact? {
-        val selection = "(${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?) AND ${ContactsContract.Data.LOOKUP_KEY} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, key)
+        val selection = "(${Data.MIMETYPE} = ? OR ${Data.MIMETYPE} = ?) AND ${Data.LOOKUP_KEY} = ?"
+        val selectionArgs = arrayOf(StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, key)
         return parseContactCursor(selection, selectionArgs)
     }
 
     private fun parseContactCursor(selection: String, selectionArgs: Array<String>): Contact? {
         val storedGroups = getStoredGroupsSync()
-        val uri = ContactsContract.Data.CONTENT_URI
+        val uri = Data.CONTENT_URI
         val projection = getContactProjection()
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                val id = cursor.getIntValue(ContactsContract.Data.RAW_CONTACT_ID)
+
+        val cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
+                val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
 
                 var prefix = ""
                 var firstName = ""
@@ -826,34 +697,32 @@ class ContactsHelper(val context: Context) {
                 var suffix = ""
 
                 // ignore names at Organization type contacts
-                if (cursor.getStringValue(ContactsContract.Data.MIMETYPE) == CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE) {
-                    prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
-                    firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
-                    middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
-                    surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
-                    suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
+                if (cursor.getStringValue(Data.MIMETYPE) == StructuredName.CONTENT_ITEM_TYPE) {
+                    prefix = cursor.getStringValue(StructuredName.PREFIX) ?: ""
+                    firstName = cursor.getStringValue(StructuredName.GIVEN_NAME) ?: ""
+                    middleName = cursor.getStringValue(StructuredName.MIDDLE_NAME) ?: ""
+                    surname = cursor.getStringValue(StructuredName.FAMILY_NAME) ?: ""
+                    suffix = cursor.getStringValue(StructuredName.SUFFIX) ?: ""
                 }
 
                 val nickname = getNicknames(id)[id] ?: ""
-                val photoUri = cursor.getStringValue(CommonDataKinds.Phone.PHOTO_URI) ?: ""
+                val photoUri = cursor.getStringValue(Phone.PHOTO_URI) ?: ""
                 val number = getPhoneNumbers(id)[id] ?: ArrayList()
                 val emails = getEmails(id)[id] ?: ArrayList()
                 val addresses = getAddresses(id)[id] ?: ArrayList()
                 val events = getEvents(id)[id] ?: ArrayList()
                 val notes = getNotes(id)[id] ?: ""
-                val accountName = cursor.getStringValue(ContactsContract.RawContacts.ACCOUNT_NAME) ?: ""
-                val starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
-                val contactId = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
+                val accountName = cursor.getStringValue(RawContacts.ACCOUNT_NAME) ?: ""
+                val starred = cursor.getIntValue(StructuredName.STARRED)
+                val contactId = cursor.getIntValue(Data.CONTACT_ID)
                 val groups = getContactGroups(storedGroups, contactId)[contactId] ?: ArrayList()
-                val thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
+                val thumbnailUri = cursor.getStringValue(StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
                 val organization = getOrganizations(id)[id] ?: Organization("", "")
                 val websites = getWebsites(id)[id] ?: ArrayList()
                 val ims = getIMs(id)[id] ?: ArrayList()
                 return Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
-                        accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
+                    accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
             }
-        } finally {
-            cursor?.close()
         }
 
         return null
@@ -865,10 +734,24 @@ class ContactsHelper(val context: Context) {
         }
     }
 
-    fun getContactSourcesSync(): ArrayList<ContactSource> {
+    private fun getContactSourcesSync(): ArrayList<ContactSource> {
         val sources = getDeviceContactSources()
         sources.add(context.getPrivateContactSource())
         return ArrayList(sources)
+    }
+
+    fun getSaveableContactSources(callback: (ArrayList<ContactSource>) -> Unit) {
+        ensureBackgroundThread {
+            val ignoredTypes = arrayListOf(
+                SIGNAL_PACKAGE,
+                TELEGRAM_PACKAGE,
+                WHATSAPP_PACKAGE
+            )
+
+            val contactSources = getContactSourcesSync()
+            val filteredSources = contactSources.filter { !ignoredTypes.contains(it.type) }.toMutableList() as ArrayList<ContactSource>
+            callback(filteredSources)
+        }
     }
 
     fun getDeviceContactSources(): LinkedHashSet<ContactSource> {
@@ -877,9 +760,14 @@ class ContactsHelper(val context: Context) {
             return sources
         }
 
+        if (!context.config.wasLocalAccountInitialized) {
+            initializeLocalPhoneAccount()
+            context.config.wasLocalAccountInitialized = true
+        }
+
         val accounts = AccountManager.get(context).accounts
         accounts.forEach {
-            if (ContentResolver.getIsSyncable(it, ContactsContract.AUTHORITY) == 1) {
+            if (ContentResolver.getIsSyncable(it, AUTHORITY) == 1) {
                 var publicName = it.name
                 if (it.type == TELEGRAM_PACKAGE) {
                     publicName += " (${context.getString(R.string.telegram)})"
@@ -897,47 +785,63 @@ class ContactsHelper(val context: Context) {
         return sources
     }
 
+    // make sure the local Phone contact source is initialized and available
+    // https://stackoverflow.com/a/6096508/1967672
+    private fun initializeLocalPhoneAccount() {
+        try {
+            val operations = ArrayList<ContentProviderOperation>()
+            ContentProviderOperation.newInsert(RawContacts.CONTENT_URI).apply {
+                withValue(RawContacts.ACCOUNT_NAME, null)
+                withValue(RawContacts.ACCOUNT_TYPE, null)
+                operations.add(build())
+            }
+
+            val results = context.contentResolver.applyBatch(AUTHORITY, operations)
+            val rawContactUri = results.firstOrNull()?.uri ?: return
+            context.contentResolver.delete(rawContactUri, null, null)
+        } catch (ignored: Exception) {
+        }
+    }
+
     private fun getContactSourceType(accountName: String) = getDeviceContactSources().firstOrNull { it.name == accountName }?.type ?: ""
 
     private fun getContactProjection() = arrayOf(
-            ContactsContract.Data.MIMETYPE,
-            ContactsContract.Data.CONTACT_ID,
-            ContactsContract.Data.RAW_CONTACT_ID,
-            CommonDataKinds.StructuredName.PREFIX,
-            CommonDataKinds.StructuredName.GIVEN_NAME,
-            CommonDataKinds.StructuredName.MIDDLE_NAME,
-            CommonDataKinds.StructuredName.FAMILY_NAME,
-            CommonDataKinds.StructuredName.SUFFIX,
-            CommonDataKinds.StructuredName.PHOTO_URI,
-            CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI,
-            CommonDataKinds.StructuredName.STARRED,
-            ContactsContract.RawContacts.ACCOUNT_NAME,
-            ContactsContract.RawContacts.ACCOUNT_TYPE
+        Data.MIMETYPE,
+        Data.CONTACT_ID,
+        Data.RAW_CONTACT_ID,
+        StructuredName.PREFIX,
+        StructuredName.GIVEN_NAME,
+        StructuredName.MIDDLE_NAME,
+        StructuredName.FAMILY_NAME,
+        StructuredName.SUFFIX,
+        StructuredName.PHOTO_URI,
+        StructuredName.PHOTO_THUMBNAIL_URI,
+        StructuredName.STARRED,
+        RawContacts.ACCOUNT_NAME,
+        RawContacts.ACCOUNT_TYPE
     )
 
     private fun getSortString(): String {
         val sorting = context.config.sorting
         return when {
-            sorting and SORT_BY_FIRST_NAME != 0 -> "${CommonDataKinds.StructuredName.GIVEN_NAME} COLLATE NOCASE"
-            sorting and SORT_BY_MIDDLE_NAME != 0 -> "${CommonDataKinds.StructuredName.MIDDLE_NAME} COLLATE NOCASE"
-            sorting and SORT_BY_SURNAME != 0 -> "${CommonDataKinds.StructuredName.FAMILY_NAME} COLLATE NOCASE"
-            else -> CommonDataKinds.Phone.NUMBER
+            sorting and SORT_BY_FIRST_NAME != 0 -> "${StructuredName.GIVEN_NAME} COLLATE NOCASE"
+            sorting and SORT_BY_MIDDLE_NAME != 0 -> "${StructuredName.MIDDLE_NAME} COLLATE NOCASE"
+            sorting and SORT_BY_SURNAME != 0 -> "${StructuredName.FAMILY_NAME} COLLATE NOCASE"
+            else -> Phone.NUMBER
         }
     }
 
     private fun getRealContactId(id: Long): Int {
-        val uri = ContactsContract.Data.CONTENT_URI
+        val uri = Data.CONTENT_URI
         val projection = getContactProjection()
-        val selection = "(${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?) AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, id.toString())
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                return cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
+        val selection = "(${Data.MIMETYPE} = ? OR ${Data.MIMETYPE} = ?) AND ${Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE, id.toString())
+
+        val cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
+                return cursor.getIntValue(Data.CONTACT_ID)
             }
-        } finally {
-            cursor?.close()
         }
 
         return 0
@@ -951,58 +855,58 @@ class ContactsHelper(val context: Context) {
 
         try {
             val operations = ArrayList<ContentProviderOperation>()
-            ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND (${ContactsContract.Data.MIMETYPE} = ? OR ${ContactsContract.Data.MIMETYPE} = ?)"
-                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+            ContentProviderOperation.newUpdate(Data.CONTENT_URI).apply {
+                val selection = "${Data.RAW_CONTACT_ID} = ? AND (${Data.MIMETYPE} = ? OR ${Data.MIMETYPE} = ?)"
+                val selectionArgs = arrayOf(contact.id.toString(), StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
-                withValue(CommonDataKinds.StructuredName.PREFIX, contact.prefix)
-                withValue(CommonDataKinds.StructuredName.GIVEN_NAME, contact.firstName)
-                withValue(CommonDataKinds.StructuredName.MIDDLE_NAME, contact.middleName)
-                withValue(CommonDataKinds.StructuredName.FAMILY_NAME, contact.surname)
-                withValue(CommonDataKinds.StructuredName.SUFFIX, contact.suffix)
+                withValue(StructuredName.PREFIX, contact.prefix)
+                withValue(StructuredName.GIVEN_NAME, contact.firstName)
+                withValue(StructuredName.MIDDLE_NAME, contact.middleName)
+                withValue(StructuredName.FAMILY_NAME, contact.surname)
+                withValue(StructuredName.SUFFIX, contact.suffix)
                 operations.add(build())
             }
 
             // delete nickname
-            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+            ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+                val selection = "${Data.RAW_CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? "
                 val selectionArgs = arrayOf(contact.id.toString(), Nickname.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 operations.add(build())
             }
 
             // add nickname
-            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
-                withValue(ContactsContract.Data.MIMETYPE, Nickname.CONTENT_ITEM_TYPE)
+            ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                withValue(Data.RAW_CONTACT_ID, contact.id)
+                withValue(Data.MIMETYPE, Nickname.CONTENT_ITEM_TYPE)
                 withValue(Nickname.NAME, contact.nickname)
                 operations.add(build())
             }
 
             // delete phone numbers
-            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
-                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+            ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+                val selection = "${Data.RAW_CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), Phone.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 operations.add(build())
             }
 
             // add phone numbers
             contact.phoneNumbers.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.Phone.NUMBER, it.value)
-                    withValue(CommonDataKinds.Phone.NORMALIZED_NUMBER, it.normalizedNumber)
-                    withValue(CommonDataKinds.Phone.TYPE, it.type)
-                    withValue(CommonDataKinds.Phone.LABEL, it.label)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValue(Data.RAW_CONTACT_ID, contact.id)
+                    withValue(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE)
+                    withValue(Phone.NUMBER, it.value)
+                    withValue(Phone.NORMALIZED_NUMBER, it.normalizedNumber)
+                    withValue(Phone.TYPE, it.type)
+                    withValue(Phone.LABEL, it.label)
                     operations.add(build())
                 }
             }
 
             // delete emails
-            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+            ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+                val selection = "${Data.RAW_CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? "
                 val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Email.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 operations.add(build())
@@ -1010,9 +914,9 @@ class ContactsHelper(val context: Context) {
 
             // add emails
             contact.emails.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValue(Data.RAW_CONTACT_ID, contact.id)
+                    withValue(Data.MIMETYPE, CommonDataKinds.Email.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Email.DATA, it.value)
                     withValue(CommonDataKinds.Email.TYPE, it.type)
                     withValue(CommonDataKinds.Email.LABEL, it.label)
@@ -1021,48 +925,48 @@ class ContactsHelper(val context: Context) {
             }
 
             // delete addresses
-            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
-                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
+            ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+                val selection = "${Data.RAW_CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), StructuredPostal.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 operations.add(build())
             }
 
             // add addresses
             contact.addresses.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, it.value)
-                    withValue(CommonDataKinds.StructuredPostal.TYPE, it.type)
-                    withValue(CommonDataKinds.StructuredPostal.LABEL, it.label)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValue(Data.RAW_CONTACT_ID, contact.id)
+                    withValue(Data.MIMETYPE, StructuredPostal.CONTENT_ITEM_TYPE)
+                    withValue(StructuredPostal.FORMATTED_ADDRESS, it.value)
+                    withValue(StructuredPostal.TYPE, it.type)
+                    withValue(StructuredPostal.LABEL, it.label)
                     operations.add(build())
                 }
             }
 
             // delete IMs
-            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
-                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Im.CONTENT_ITEM_TYPE)
+            ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+                val selection = "${Data.RAW_CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), Im.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 operations.add(build())
             }
 
             // add IMs
             contact.IMs.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Im.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.Im.DATA, it.value)
-                    withValue(CommonDataKinds.Im.PROTOCOL, it.type)
-                    withValue(CommonDataKinds.Im.CUSTOM_PROTOCOL, it.label)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValue(Data.RAW_CONTACT_ID, contact.id)
+                    withValue(Data.MIMETYPE, Im.CONTENT_ITEM_TYPE)
+                    withValue(Im.DATA, it.value)
+                    withValue(Im.PROTOCOL, it.type)
+                    withValue(Im.CUSTOM_PROTOCOL, it.label)
                     operations.add(build())
                 }
             }
 
             // delete events
-            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+            ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+                val selection = "${Data.RAW_CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? "
                 val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Event.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 operations.add(build())
@@ -1070,9 +974,9 @@ class ContactsHelper(val context: Context) {
 
             // add events
             contact.events.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Event.CONTENT_ITEM_TYPE)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValue(Data.RAW_CONTACT_ID, contact.id)
+                    withValue(Data.MIMETYPE, CommonDataKinds.Event.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Event.START_DATE, it.value)
                     withValue(CommonDataKinds.Event.TYPE, it.type)
                     operations.add(build())
@@ -1080,33 +984,33 @@ class ContactsHelper(val context: Context) {
             }
 
             // delete notes
-            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+            ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+                val selection = "${Data.RAW_CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? "
                 val selectionArgs = arrayOf(contact.id.toString(), Note.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 operations.add(build())
             }
 
             // add notes
-            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
-                withValue(ContactsContract.Data.MIMETYPE, Note.CONTENT_ITEM_TYPE)
+            ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                withValue(Data.RAW_CONTACT_ID, contact.id)
+                withValue(Data.MIMETYPE, Note.CONTENT_ITEM_TYPE)
                 withValue(Note.NOTE, contact.notes)
                 operations.add(build())
             }
 
             // delete organization
-            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
+            ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+                val selection = "${Data.RAW_CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? "
                 val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 operations.add(build())
             }
 
             // add organization
-            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
-                withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+            ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                withValue(Data.RAW_CONTACT_ID, contact.id)
+                withValue(Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                 withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
                 withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
                 withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
@@ -1115,20 +1019,20 @@ class ContactsHelper(val context: Context) {
             }
 
             // delete websites
-            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? "
-                val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Website.CONTENT_ITEM_TYPE)
+            ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+                val selection = "${Data.RAW_CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? "
+                val selectionArgs = arrayOf(contact.id.toString(), Website.CONTENT_ITEM_TYPE)
                 withSelection(selection, selectionArgs)
                 operations.add(build())
             }
 
             // add websites
             contact.websites.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Website.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.Website.URL, it)
-                    withValue(CommonDataKinds.Website.TYPE, DEFAULT_WEBSITE_TYPE)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValue(Data.RAW_CONTACT_ID, contact.id)
+                    withValue(Data.MIMETYPE, Website.CONTENT_ITEM_TYPE)
+                    withValue(Website.URL, it)
+                    withValue(Website.TYPE, DEFAULT_WEBSITE_TYPE)
                     operations.add(build())
                 }
             }
@@ -1137,9 +1041,9 @@ class ContactsHelper(val context: Context) {
             val relevantGroupIDs = getStoredGroupsSync().map { it.id }
             if (relevantGroupIDs.isNotEmpty()) {
                 val IDsString = TextUtils.join(",", relevantGroupIDs)
-                ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                    val selection = "${ContactsContract.Data.CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.DATA1} IN ($IDsString)"
-                    val selectionArgs = arrayOf(contact.contactId.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
+                ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+                    val selection = "${Data.CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? AND ${Data.DATA1} IN ($IDsString)"
+                    val selectionArgs = arrayOf(contact.contactId.toString(), GroupMembership.CONTENT_ITEM_TYPE)
                     withSelection(selection, selectionArgs)
                     operations.add(build())
                 }
@@ -1147,19 +1051,19 @@ class ContactsHelper(val context: Context) {
 
             // add groups
             contact.groups.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.GroupMembership.GROUP_ROW_ID, it.id)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValue(Data.RAW_CONTACT_ID, contact.id)
+                    withValue(Data.MIMETYPE, GroupMembership.CONTENT_ITEM_TYPE)
+                    withValue(GroupMembership.GROUP_ROW_ID, it.id)
                     operations.add(build())
                 }
             }
 
             // favorite
             try {
-                val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contact.contactId.toString())
+                val uri = Uri.withAppendedPath(Contacts.CONTENT_URI, contact.contactId.toString())
                 val contentValues = ContentValues(1)
-                contentValues.put(ContactsContract.Contacts.STARRED, contact.starred)
+                contentValues.put(Contacts.STARRED, contact.starred)
                 context.contentResolver.update(uri, contentValues, null, null)
             } catch (e: Exception) {
                 context.showErrorToast(e)
@@ -1171,7 +1075,7 @@ class ContactsHelper(val context: Context) {
                 PHOTO_REMOVED -> removePhoto(contact, operations)
             }
 
-            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            context.contentResolver.applyBatch(AUTHORITY, operations)
             return true
         } catch (e: Exception) {
             context.showErrorToast(e)
@@ -1192,10 +1096,10 @@ class ContactsHelper(val context: Context) {
             val fullSizePhotoData = bitmap.getByteArray()
             bitmap.recycle()
 
-            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                withValue(ContactsContract.Data.RAW_CONTACT_ID, contact.id)
-                withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Photo.CONTENT_ITEM_TYPE)
-                withValue(CommonDataKinds.Photo.PHOTO, scaledSizePhotoData)
+            ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                withValue(Data.RAW_CONTACT_ID, contact.id)
+                withValue(Data.MIMETYPE, Photo.CONTENT_ITEM_TYPE)
+                withValue(Photo.PHOTO, scaledSizePhotoData)
                 operations.add(build())
             }
 
@@ -1205,9 +1109,9 @@ class ContactsHelper(val context: Context) {
     }
 
     private fun removePhoto(contact: Contact, operations: ArrayList<ContentProviderOperation>): ArrayList<ContentProviderOperation> {
-        ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-            val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ?"
-            val selectionArgs = arrayOf(contact.id.toString(), CommonDataKinds.Photo.CONTENT_ITEM_TYPE)
+        ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+            val selection = "${Data.RAW_CONTACT_ID} = ? AND ${Data.MIMETYPE} = ?"
+            val selectionArgs = arrayOf(contact.id.toString(), Photo.CONTENT_ITEM_TYPE)
             withSelection(selection, selectionArgs)
             operations.add(build())
         }
@@ -1216,44 +1120,48 @@ class ContactsHelper(val context: Context) {
     }
 
     fun addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {
-        val operations = ArrayList<ContentProviderOperation>()
-        contacts.forEach {
-            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                withValue(ContactsContract.Data.RAW_CONTACT_ID, it.id)
-                withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
-                withValue(CommonDataKinds.GroupMembership.GROUP_ROW_ID, groupId)
-                operations.add(build())
-            }
-
-            if (operations.size % BATCH_SIZE == 0) {
-                context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
-                operations.clear()
-            }
-        }
-
         try {
-            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            val operations = ArrayList<ContentProviderOperation>()
+            contacts.forEach {
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValue(Data.RAW_CONTACT_ID, it.id)
+                    withValue(Data.MIMETYPE, GroupMembership.CONTENT_ITEM_TYPE)
+                    withValue(GroupMembership.GROUP_ROW_ID, groupId)
+                    operations.add(build())
+                }
+
+                if (operations.size % BATCH_SIZE == 0) {
+                    context.contentResolver.applyBatch(AUTHORITY, operations)
+                    operations.clear()
+                }
+            }
+
+            context.contentResolver.applyBatch(AUTHORITY, operations)
         } catch (e: Exception) {
             context.showErrorToast(e)
         }
     }
 
     fun removeContactsFromGroup(contacts: ArrayList<Contact>, groupId: Long) {
-        val operations = ArrayList<ContentProviderOperation>()
-        contacts.forEach {
-            ContentProviderOperation.newDelete(ContactsContract.Data.CONTENT_URI).apply {
-                val selection = "${ContactsContract.Data.CONTACT_ID} = ? AND ${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.DATA1} = ?"
-                val selectionArgs = arrayOf(it.contactId.toString(), CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE, groupId.toString())
-                withSelection(selection, selectionArgs)
-                operations.add(build())
-            }
+        try {
+            val operations = ArrayList<ContentProviderOperation>()
+            contacts.forEach {
+                ContentProviderOperation.newDelete(Data.CONTENT_URI).apply {
+                    val selection = "${Data.CONTACT_ID} = ? AND ${Data.MIMETYPE} = ? AND ${Data.DATA1} = ?"
+                    val selectionArgs = arrayOf(it.contactId.toString(), GroupMembership.CONTENT_ITEM_TYPE, groupId.toString())
+                    withSelection(selection, selectionArgs)
+                    operations.add(build())
+                }
 
-            if (operations.size % BATCH_SIZE == 0) {
-                context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
-                operations.clear()
+                if (operations.size % BATCH_SIZE == 0) {
+                    context.contentResolver.applyBatch(AUTHORITY, operations)
+                    operations.clear()
+                }
             }
+            context.contentResolver.applyBatch(AUTHORITY, operations)
+        } catch (e: Exception) {
+            context.showErrorToast(e)
         }
-        context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
     }
 
     fun insertContact(contact: Contact): Boolean {
@@ -1263,50 +1171,50 @@ class ContactsHelper(val context: Context) {
 
         try {
             val operations = ArrayList<ContentProviderOperation>()
-            ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI).apply {
-                withValue(ContactsContract.RawContacts.ACCOUNT_NAME, contact.source)
-                withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, getContactSourceType(contact.source))
+            ContentProviderOperation.newInsert(RawContacts.CONTENT_URI).apply {
+                withValue(RawContacts.ACCOUNT_NAME, contact.source)
+                withValue(RawContacts.ACCOUNT_TYPE, getContactSourceType(contact.source))
                 operations.add(build())
             }
 
             // names
-            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                withValue(CommonDataKinds.StructuredName.PREFIX, contact.prefix)
-                withValue(CommonDataKinds.StructuredName.GIVEN_NAME, contact.firstName)
-                withValue(CommonDataKinds.StructuredName.MIDDLE_NAME, contact.middleName)
-                withValue(CommonDataKinds.StructuredName.FAMILY_NAME, contact.surname)
-                withValue(CommonDataKinds.StructuredName.SUFFIX, contact.suffix)
+            ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                withValueBackReference(Data.RAW_CONTACT_ID, 0)
+                withValue(Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE)
+                withValue(StructuredName.PREFIX, contact.prefix)
+                withValue(StructuredName.GIVEN_NAME, contact.firstName)
+                withValue(StructuredName.MIDDLE_NAME, contact.middleName)
+                withValue(StructuredName.FAMILY_NAME, contact.surname)
+                withValue(StructuredName.SUFFIX, contact.suffix)
                 operations.add(build())
             }
 
             // nickname
-            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                withValue(ContactsContract.Data.MIMETYPE, Nickname.CONTENT_ITEM_TYPE)
+            ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                withValueBackReference(Data.RAW_CONTACT_ID, 0)
+                withValue(Data.MIMETYPE, Nickname.CONTENT_ITEM_TYPE)
                 withValue(Nickname.NAME, contact.nickname)
                 operations.add(build())
             }
 
             // phone numbers
             contact.phoneNumbers.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.Phone.NUMBER, it.value)
-                    withValue(CommonDataKinds.Phone.NORMALIZED_NUMBER, it.normalizedNumber)
-                    withValue(CommonDataKinds.Phone.TYPE, it.type)
-                    withValue(CommonDataKinds.Phone.LABEL, it.label)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValueBackReference(Data.RAW_CONTACT_ID, 0)
+                    withValue(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE)
+                    withValue(Phone.NUMBER, it.value)
+                    withValue(Phone.NORMALIZED_NUMBER, it.normalizedNumber)
+                    withValue(Phone.TYPE, it.type)
+                    withValue(Phone.LABEL, it.label)
                     operations.add(build())
                 }
             }
 
             // emails
             contact.emails.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValueBackReference(Data.RAW_CONTACT_ID, 0)
+                    withValue(Data.MIMETYPE, CommonDataKinds.Email.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Email.DATA, it.value)
                     withValue(CommonDataKinds.Email.TYPE, it.type)
                     withValue(CommonDataKinds.Email.LABEL, it.label)
@@ -1316,33 +1224,33 @@ class ContactsHelper(val context: Context) {
 
             // addresses
             contact.addresses.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS, it.value)
-                    withValue(CommonDataKinds.StructuredPostal.TYPE, it.type)
-                    withValue(CommonDataKinds.StructuredPostal.LABEL, it.label)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValueBackReference(Data.RAW_CONTACT_ID, 0)
+                    withValue(Data.MIMETYPE, StructuredPostal.CONTENT_ITEM_TYPE)
+                    withValue(StructuredPostal.FORMATTED_ADDRESS, it.value)
+                    withValue(StructuredPostal.TYPE, it.type)
+                    withValue(StructuredPostal.LABEL, it.label)
                     operations.add(build())
                 }
             }
 
             // IMs
             contact.IMs.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Im.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.Im.DATA, it.value)
-                    withValue(CommonDataKinds.Im.PROTOCOL, it.type)
-                    withValue(CommonDataKinds.Im.CUSTOM_PROTOCOL, it.label)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValueBackReference(Data.RAW_CONTACT_ID, 0)
+                    withValue(Data.MIMETYPE, Im.CONTENT_ITEM_TYPE)
+                    withValue(Im.DATA, it.value)
+                    withValue(Im.PROTOCOL, it.type)
+                    withValue(Im.CUSTOM_PROTOCOL, it.label)
                     operations.add(build())
                 }
             }
 
             // events
             contact.events.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Event.CONTENT_ITEM_TYPE)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValueBackReference(Data.RAW_CONTACT_ID, 0)
+                    withValue(Data.MIMETYPE, CommonDataKinds.Event.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Event.START_DATE, it.value)
                     withValue(CommonDataKinds.Event.TYPE, it.type)
                     operations.add(build())
@@ -1350,18 +1258,18 @@ class ContactsHelper(val context: Context) {
             }
 
             // notes
-            ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                withValue(ContactsContract.Data.MIMETYPE, Note.CONTENT_ITEM_TYPE)
+            ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                withValueBackReference(Data.RAW_CONTACT_ID, 0)
+                withValue(Data.MIMETYPE, Note.CONTENT_ITEM_TYPE)
                 withValue(Note.NOTE, contact.notes)
                 operations.add(build())
             }
 
             // organization
             if (contact.organization.isNotEmpty()) {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValueBackReference(Data.RAW_CONTACT_ID, 0)
+                    withValue(Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
                     withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
                     withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
                     withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
@@ -1372,53 +1280,43 @@ class ContactsHelper(val context: Context) {
 
             // websites
             contact.websites.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Website.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.Website.URL, it)
-                    withValue(CommonDataKinds.Website.TYPE, DEFAULT_WEBSITE_TYPE)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValueBackReference(Data.RAW_CONTACT_ID, 0)
+                    withValue(Data.MIMETYPE, Website.CONTENT_ITEM_TYPE)
+                    withValue(Website.URL, it)
+                    withValue(Website.TYPE, DEFAULT_WEBSITE_TYPE)
                     operations.add(build())
                 }
             }
 
             // groups
             contact.groups.forEach {
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.GroupMembership.GROUP_ROW_ID, it.id)
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValueBackReference(Data.RAW_CONTACT_ID, 0)
+                    withValue(Data.MIMETYPE, GroupMembership.CONTENT_ITEM_TYPE)
+                    withValue(GroupMembership.GROUP_ROW_ID, it.id)
                     operations.add(build())
                 }
             }
 
             // photo (inspired by https://gist.github.com/slightfoot/5985900)
             var fullSizePhotoData: ByteArray? = null
-            var scaledSizePhotoData: ByteArray?
             if (contact.photoUri.isNotEmpty()) {
                 val photoUri = Uri.parse(contact.photoUri)
-                val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, photoUri)
-
-                val thumbnailSize = context.getPhotoThumbnailSize()
-                val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize, thumbnailSize, false)
-                scaledSizePhotoData = scaledPhoto.getByteArray()
-
-                fullSizePhotoData = bitmap.getByteArray()
-                scaledPhoto.recycle()
-                bitmap.recycle()
-
-                ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).apply {
-                    withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                    withValue(ContactsContract.Data.MIMETYPE, CommonDataKinds.Photo.CONTENT_ITEM_TYPE)
-                    withValue(CommonDataKinds.Photo.PHOTO, scaledSizePhotoData)
-                    operations.add(build())
-                }
+                fullSizePhotoData = context.contentResolver.openInputStream(photoUri)?.readBytes()
             }
 
-            val results: Array<ContentProviderResult>
-            try {
-                results = context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
-            } finally {
-                scaledSizePhotoData = null
+            val results = context.contentResolver.applyBatch(AUTHORITY, operations)
+
+            // storing contacts on some devices seems to be messed up and they move on Phone instead, or disappear completely
+            // try storing a lighter contact version with this oldschool version too just so it wont disappear, future edits work well
+            if (getContactSourceType(contact.source).contains(".sim")) {
+                val simUri = Uri.parse("content://icc/adn")
+                ContentValues().apply {
+                    put("number", contact.phoneNumbers.firstOrNull()?.value ?: "")
+                    put("tag", contact.getNameToDisplay())
+                    context.contentResolver.insert(simUri, this)
+                }
             }
 
             // fullsize photo
@@ -1430,9 +1328,9 @@ class ContactsHelper(val context: Context) {
             // favorite
             val userId = getRealContactId(rawId)
             if (userId != 0 && contact.starred == 1) {
-                val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, userId.toString())
+                val uri = Uri.withAppendedPath(Contacts.CONTENT_URI, userId.toString())
                 val contentValues = ContentValues(1)
-                contentValues.put(ContactsContract.Contacts.STARRED, contact.starred)
+                contentValues.put(Contacts.STARRED, contact.starred)
                 context.contentResolver.update(uri, contentValues, null, null)
             }
 
@@ -1444,8 +1342,8 @@ class ContactsHelper(val context: Context) {
     }
 
     private fun addFullSizePhoto(contactId: Long, fullSizePhotoData: ByteArray) {
-        val baseUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, contactId)
-        val displayPhotoUri = Uri.withAppendedPath(baseUri, ContactsContract.RawContacts.DisplayPhoto.CONTENT_DIRECTORY)
+        val baseUri = ContentUris.withAppendedId(RawContacts.CONTENT_URI, contactId)
+        val displayPhotoUri = Uri.withAppendedPath(baseUri, RawContacts.DisplayPhoto.CONTENT_DIRECTORY)
         val fileDescriptor = context.contentResolver.openAssetFileDescriptor(displayPhotoUri, "rw")
         val photoStream = fileDescriptor!!.createOutputStream()
         photoStream.write(fullSizePhotoData)
@@ -1454,38 +1352,35 @@ class ContactsHelper(val context: Context) {
     }
 
     fun getContactLookupKey(contactId: String): String {
-        val uri = ContactsContract.Data.CONTENT_URI
-        val projection = arrayOf(ContactsContract.Data.CONTACT_ID, ContactsContract.Data.LOOKUP_KEY)
-        val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = arrayOf(CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, contactId)
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                val id = cursor.getIntValue(ContactsContract.Data.CONTACT_ID)
-                val lookupKey = cursor.getStringValue(ContactsContract.Data.LOOKUP_KEY)
+        val uri = Data.CONTENT_URI
+        val projection = arrayOf(Data.CONTACT_ID, Data.LOOKUP_KEY)
+        val selection = "${Data.MIMETYPE} = ? AND ${Data.RAW_CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(StructuredName.CONTENT_ITEM_TYPE, contactId)
+
+        val cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
+                val id = cursor.getIntValue(Data.CONTACT_ID)
+                val lookupKey = cursor.getStringValue(Data.LOOKUP_KEY)
                 return "$lookupKey/$id"
             }
-        } finally {
-            cursor?.close()
         }
+
         return ""
     }
 
     fun getContactMimeTypeId(contactId: String, mimeType: String): String {
-        val uri = ContactsContract.Data.CONTENT_URI
-        val projection = arrayOf(ContactsContract.Data._ID, ContactsContract.Data.RAW_CONTACT_ID, ContactsContract.Data.MIMETYPE)
-        val selection = "${ContactsContract.Data.MIMETYPE} = ? AND ${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+        val uri = Data.CONTENT_URI
+        val projection = arrayOf(Data._ID, Data.RAW_CONTACT_ID, Data.MIMETYPE)
+        val selection = "${Data.MIMETYPE} = ? AND ${Data.RAW_CONTACT_ID} = ?"
         val selectionArgs = arrayOf(mimeType, contactId)
 
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            if (cursor?.moveToFirst() == true) {
-                return cursor.getStringValue(ContactsContract.Data._ID)
+
+        val cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
+                return cursor.getStringValue(Data._ID)
             }
-        } finally {
-            cursor?.close()
         }
         return ""
     }
@@ -1512,18 +1407,18 @@ class ContactsHelper(val context: Context) {
         try {
             val operations = ArrayList<ContentProviderOperation>()
             contacts.filter { !it.isPrivate() }.map { it.contactId.toString() }.forEach {
-                val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, it)
+                val uri = Uri.withAppendedPath(Contacts.CONTENT_URI, it)
                 ContentProviderOperation.newUpdate(uri).apply {
-                    withValue(ContactsContract.Contacts.STARRED, if (addToFavorites) 1 else 0)
+                    withValue(Contacts.STARRED, if (addToFavorites) 1 else 0)
                     operations.add(build())
                 }
 
                 if (operations.size % BATCH_SIZE == 0) {
-                    context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                    context.contentResolver.applyBatch(AUTHORITY, operations)
                     operations.clear()
                 }
             }
-            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+            context.contentResolver.applyBatch(AUTHORITY, operations)
         } catch (e: Exception) {
             context.showErrorToast(e)
         }
@@ -1558,22 +1453,22 @@ class ContactsHelper(val context: Context) {
 
         return try {
             val operations = ArrayList<ContentProviderOperation>()
-            val selection = "${ContactsContract.RawContacts._ID} = ?"
+            val selection = "${RawContacts._ID} = ?"
             contacts.filter { !it.isPrivate() }.forEach {
-                ContentProviderOperation.newDelete(ContactsContract.RawContacts.CONTENT_URI).apply {
+                ContentProviderOperation.newDelete(RawContacts.CONTENT_URI).apply {
                     val selectionArgs = arrayOf(it.id.toString())
                     withSelection(selection, selectionArgs)
                     operations.add(build())
                 }
 
                 if (operations.size % BATCH_SIZE == 0) {
-                    context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                    context.contentResolver.applyBatch(AUTHORITY, operations)
                     operations.clear()
                 }
             }
 
             if (context.hasPermission(PERMISSION_WRITE_CONTACTS)) {
-                context.contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+                context.contentResolver.applyBatch(AUTHORITY, operations)
             }
             true
         } catch (e: Exception) {

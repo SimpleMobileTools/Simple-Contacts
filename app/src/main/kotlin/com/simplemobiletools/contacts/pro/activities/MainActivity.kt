@@ -1,12 +1,12 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
@@ -43,14 +43,19 @@ import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.android.synthetic.main.fragment_groups.*
 import java.io.FileOutputStream
+import java.io.OutputStream
 import java.util.*
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
+    private val PICK_IMPORT_SOURCE_INTENT = 1
+    private val PICK_EXPORT_FILE_INTENT = 2
+
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
     private var werePermissionsHandled = false
     private var isFirstResume = true
     private var isGettingContacts = false
+    private var ignoredExportContactSources = HashSet<String>()
     private var handledShowTabs = 0
 
     private var storedTextColor = 0
@@ -157,7 +162,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         }
 
-        val dialpadIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad_vector, if (isBlackAndWhiteTheme()) Color.BLACK else config.primaryColor.getContrastColor())
+        val dialpadIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad_vector, getFABIconColor())
         main_dialpad_button.apply {
             setImageDrawable(dialpadIcon)
             background.applyColorFilter(getAdjustedPrimaryColor())
@@ -217,6 +222,16 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         return true
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == PICK_IMPORT_SOURCE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
+            tryImportContactsFromFile(resultData.data!!)
+        } else if (requestCode == PICK_EXPORT_FILE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
+            val outputStream = contentResolver.openOutputStream(resultData.data!!)
+            exportContactsTo(ignoredExportContactSources, outputStream)
+        }
+    }
+
     private fun storeStateVariables() {
         config.apply {
             storedTextColor = textColor
@@ -253,12 +268,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 getCurrentFragment()?.onSearchOpened()
                 isSearchOpen = true
+                main_dialpad_button.beGone()
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 getCurrentFragment()?.onSearchClosed()
                 isSearchOpen = false
+                main_dialpad_button.beVisibleIf(config.showDialpadButton)
                 return true
             }
         })
@@ -298,11 +315,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val intent = Intent(this, DialpadActivity::class.java)
         intent.action = Intent.ACTION_VIEW
         return ShortcutInfo.Builder(this, "launch_dialpad")
-                .setShortLabel(newEvent)
-                .setLongLabel(newEvent)
-                .setIcon(Icon.createWithBitmap(bmp))
-                .setIntent(intent)
-                .build()
+            .setShortLabel(newEvent)
+            .setLongLabel(newEvent)
+            .setIcon(Icon.createWithBitmap(bmp))
+            .setIntent(intent)
+            .build()
     }
 
     @SuppressLint("NewApi")
@@ -315,11 +332,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val intent = Intent(this, EditContactActivity::class.java)
         intent.action = Intent.ACTION_VIEW
         return ShortcutInfo.Builder(this, "create_new_contact")
-                .setShortLabel(newEvent)
-                .setLongLabel(newEvent)
-                .setIcon(Icon.createWithBitmap(bmp))
-                .setIntent(intent)
-                .build()
+            .setShortLabel(newEvent)
+            .setLongLabel(newEvent)
+            .setIcon(Icon.createWithBitmap(bmp))
+            .setIntent(intent)
+            .build()
     }
 
     private fun getCurrentFragment(): MyViewPagerFragment? {
@@ -383,17 +400,17 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         main_tabs_holder.onTabSelectionChanged(
-                tabUnselectedAction = {
-                    it.icon?.applyColorFilter(config.textColor)
-                },
-                tabSelectedAction = {
-                    if (isSearchOpen) {
-                        getCurrentFragment()?.onSearchQueryChanged("")
-                        searchMenuItem?.collapseActionView()
-                    }
-                    viewpager.currentItem = it.position
-                    it.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            tabUnselectedAction = {
+                it.icon?.applyColorFilter(config.textColor)
+            },
+            tabSelectedAction = {
+                if (isSearchOpen) {
+                    getCurrentFragment()?.onSearchQueryChanged("")
+                    searchMenuItem?.collapseActionView()
                 }
+                viewpager.currentItem = it.position
+                it.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            }
         )
 
         if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
@@ -446,9 +463,17 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun tryImportContacts() {
-        handlePermission(PERMISSION_READ_STORAGE) {
-            if (it) {
-                importContacts()
+        if (isQPlus()) {
+            Intent(Intent.ACTION_GET_CONTENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "text/x-vcard"
+                startActivityForResult(this, PICK_IMPORT_SOURCE_INTENT)
+            }
+        } else {
+            handlePermission(PERMISSION_READ_STORAGE) {
+                if (it) {
+                    importContacts()
+                }
             }
         }
     }
@@ -493,28 +518,42 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun tryExportContacts() {
-        handlePermission(PERMISSION_WRITE_STORAGE) {
-            if (it) {
-                exportContacts()
+        if (isQPlus()) {
+            ExportContactsDialog(this, config.lastExportPath, true) { file, ignoredContactSources ->
+                ignoredExportContactSources = ignoredContactSources
+
+                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                    type = "text/x-vcard"
+                    putExtra(Intent.EXTRA_TITLE, file.name)
+                    addCategory(Intent.CATEGORY_OPENABLE)
+
+                    startActivityForResult(this, PICK_EXPORT_FILE_INTENT)
+                }
+            }
+        } else {
+            handlePermission(PERMISSION_WRITE_STORAGE) {
+                if (it) {
+                    ExportContactsDialog(this, config.lastExportPath, false) { file, ignoredContactSources ->
+                        getFileOutputStream(file.toFileDirItem(this), true) {
+                            exportContactsTo(ignoredContactSources, it)
+                        }
+                    }
+                }
             }
         }
     }
 
-    private fun exportContacts() {
-        FilePickerDialog(this, pickFile = false, showFAB = true) {
-            ExportContactsDialog(this, it) { file, ignoredContactSources ->
-                ContactsHelper(this).getContacts(true, ignoredContactSources) { contacts ->
-                    if (contacts.isEmpty()) {
-                        toast(R.string.no_entries_for_exporting)
-                    } else {
-                        VcfExporter().exportContacts(this, file, contacts, true) { result ->
-                            toast(when (result) {
-                                VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
-                                VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
-                                else -> R.string.exporting_failed
-                            })
-                        }
-                    }
+    private fun exportContactsTo(ignoredContactSources: HashSet<String>, outputStream: OutputStream?) {
+        ContactsHelper(this).getContacts(true, ignoredContactSources) { contacts ->
+            if (contacts.isEmpty()) {
+                toast(R.string.no_entries_for_exporting)
+            } else {
+                VcfExporter().exportContacts(this, outputStream, contacts, true) { result ->
+                    toast(when (result) {
+                        VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
+                        VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
+                        else -> R.string.exporting_failed
+                    })
                 }
             }
         }
@@ -524,10 +563,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_INDICATOR_FAST_SCROLL
 
         val faqItems = arrayListOf(
-                FAQItem(R.string.faq_1_title, R.string.faq_1_text),
-                FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
-                FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons),
-                FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons)
+            FAQItem(R.string.faq_1_title, R.string.faq_1_text),
+            FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
+            FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons),
+            FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons)
         )
 
         startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)

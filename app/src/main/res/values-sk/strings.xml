@@ -14,14 +14,10 @@
     <string name="send_sms_to_group">Poslať skupine SMS</string>
     <string name="send_email_to_group">Poslať skupine email</string>
     <string name="call_person">Zavolať %s</string>
-    <string name="request_the_required_permissions">Vyžiadať potrebné oprávnenia</string>
     <string name="create_new_contact">Vytvoriť nový kontakt</string>
     <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
-    <string name="must_make_default_dialer">Pre použitie blokovania čísel musíte nastaviť aplikáciu ako predvolenú pre správu hovorov.</string>
-    <string name="set_as_default">Nastaviť ako predvolenú</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Nenašli sa žiadne kontakty.</string>
     <string name="no_contacts_with_emails">Nenašli sa žiadne kontakty s emailami</string>
     <string name="no_contacts_with_phone_numbers">Nenašli sa žiadne kontakty s telefónnymi číslami</string>
 
@@ -62,19 +58,16 @@
     <string name="filter_duplicates">Pokúsiť sa vyfiltrovať duplicitné kontakty</string>
     <string name="manage_shown_tabs">Spravovať zobrazené karty</string>
     <string name="contacts">Kontakty</string>
-    <string name="favorites">Obľúbené</string>
     <string name="show_call_confirmation_dialog">Zobraziť pred spustením hovoru okno na jeho potvrdenie</string>
     <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
     <string name="show_dialpad_letters">Zobraziť na číselníku písmená</string>
 
     <!-- Emails -->
-    <string name="email">Email</string>
     <string name="home">Domov</string>
     <string name="work">Práca</string>
     <string name="other">Iné</string>
 
     <!-- Phone numbers -->
-    <string name="number">Číslo</string>
     <string name="mobile">Mobil</string>
     <string name="main_number">Hlavné</string>
     <string name="work_fax">Pracovný fax</string>
@@ -88,9 +81,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Zdá sa, že ste ešte nepridali žiadne obľúbené kontakty.</string>
-    <string name="add_favorites">Pridať obľúbené</string>
-    <string name="add_to_favorites">Pridať medzi obľúbené</string>
-    <string name="remove_from_favorites">Odstrániť z obľúbených</string>
     <string name="must_be_at_edit">Pre úpravu kontaktu musíte byť v Editore kontaktu</string>
 
     <!-- Search -->
@@ -113,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Telefón</string>
-    <string name="calling">Vytáča sa</string>
-    <string name="incoming_call">Prichádzajúci hovor</string>
-    <string name="incoming_call_from">Prichádzajúci hovor od…</string>
+    <string name="accept">Prijať</string>
+    <string name="decline">Odmietnuť</string>
+    <string name="unknown_caller">Neznámy volajúci</string>
+    <string name="is_calling">Vám volá</string>
+    <string name="dialing">Vytáčanie</string>
+    <string name="call_ended">Hovor ukončený</string>
+    <string name="call_ending">Hovor končí</string>
     <string name="ongoing_call">Prebiehajúci hovor</string>
-    <string name="disconnected">Ukončený hovor</string>
-    <string name="decline_call">Odmietnuť</string>
-    <string name="answer_call">Prijať</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Rýchle vytáčanie</string>
@@ -134,23 +125,13 @@
     <string name="emails">Emaily</string>
     <string name="addresses">Adresy</string>
     <string name="events">Udalosti (narodeniny, výročia)</string>
-    <string name="notes">Poznámky</string>
     <string name="organization">Firma</string>
     <string name="websites">Webstránky</string>
     <string name="groups">Skupiny</string>
     <string name="contact_source">Zdroje kontaktov</string>
     <string name="instant_messaging">Rýchle správy (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Spravovať blokované čísla</string>
-    <string name="not_blocking_anyone">Neblokujete nikoho.</string>
-    <string name="add_a_blocked_number">Pridať blokované číslo</string>
-    <string name="block_number">Blokovať číslo</string>
-    <string name="block_numbers">Blokovať čísla</string>
-    <string name="blocked_numbers">Blokované čísla</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Ste si istý, že chcete vymazať %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">Kontakt bude vymazaný zo všetkých zdrojov kontaktov.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
@@ -174,11 +155,33 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Jednoduché kontakty Pro - Rýchla správa kontaktov</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Apka na správu vašich kontaktov bez reklám, rešpektujúca vaše súkromie.</string>
+    <string name="app_short_description">Rýchly spôsob na správu kontaktov bez reklám, podporuje aj skupiny a obľúbené.</string>
     <string name="app_long_description">
-        Jednoduchá aplikácia na vytváranie, alebo správu vašich kontaktov z rôznych zdrojov. Môžu byť uložené buď iba vo vašom zariadení, alebo ich môžete aj synchronizovať cez Google, alebo iný účet. Vaše obľúbené položky viete zobraziť vo vlastnom zozname.
+        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
-        Viete ju používať aj na správu emailov a udalostí kontaktov. Ponúka možnosť zoradenia/filtrovania pomocou rôznych parametrov, voliteľné je zobrazovanie priezviska ako prvého mena.
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+
+        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+
+        There is a lightweight dialpad at your service too, with smart contact suggestions.
+
+        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+
+        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+
+        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+
+        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+
+        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+
+        You can easily block phone numbers to avoid unwanted incoming calls.
+
+        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
 
         Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje možnosť zmeny farieb.
 

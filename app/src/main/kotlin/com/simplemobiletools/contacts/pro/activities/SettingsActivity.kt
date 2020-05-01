@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import com.simplemobiletools.commons.activities.ManageBlockedNumbersActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getFontSizeText
@@ -91,10 +92,10 @@ class SettingsActivity : SimpleActivity() {
         settings_font_size.text = getFontSizeText()
         settings_font_size_holder.setOnClickListener {
             val items = arrayListOf(
-                    RadioItem(FONT_SIZE_SMALL, getString(R.string.small)),
-                    RadioItem(FONT_SIZE_MEDIUM, getString(R.string.medium)),
-                    RadioItem(FONT_SIZE_LARGE, getString(R.string.large)),
-                    RadioItem(FONT_SIZE_EXTRA_LARGE, getString(R.string.extra_large)))
+                RadioItem(FONT_SIZE_SMALL, getString(R.string.small)),
+                RadioItem(FONT_SIZE_MEDIUM, getString(R.string.medium)),
+                RadioItem(FONT_SIZE_LARGE, getString(R.string.large)),
+                RadioItem(FONT_SIZE_EXTRA_LARGE, getString(R.string.extra_large)))
 
             RadioGroupDialog(this@SettingsActivity, items, config.fontSize) {
                 config.fontSize = it as Int
@@ -165,9 +166,9 @@ class SettingsActivity : SimpleActivity() {
         settings_on_contact_click.text = getOnContactClickText()
         settings_on_contact_click_holder.setOnClickListener {
             val items = arrayListOf(
-                    RadioItem(ON_CLICK_CALL_CONTACT, getString(R.string.call_contact)),
-                    RadioItem(ON_CLICK_VIEW_CONTACT, getString(R.string.view_contact)),
-                    RadioItem(ON_CLICK_EDIT_CONTACT, getString(R.string.edit_contact)))
+                RadioItem(ON_CLICK_CALL_CONTACT, getString(R.string.call_contact)),
+                RadioItem(ON_CLICK_VIEW_CONTACT, getString(R.string.view_contact)),
+                RadioItem(ON_CLICK_EDIT_CONTACT, getString(R.string.edit_contact)))
 
             RadioGroupDialog(this@SettingsActivity, items, config.onContactClick) {
                 config.onContactClick = it as Int

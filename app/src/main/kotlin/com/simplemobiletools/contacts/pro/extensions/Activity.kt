@@ -4,9 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.sharePathIntent
-import com.simplemobiletools.commons.extensions.showErrorToast
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.BuildConfig
@@ -57,20 +55,13 @@ fun SimpleActivity.startCall(contact: Contact) {
 }
 
 fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (newSource: String) -> Unit) {
-    ContactsHelper(this).getContactSources {
-        val ignoredTypes = arrayListOf(
-                SIGNAL_PACKAGE,
-                TELEGRAM_PACKAGE,
-                WHATSAPP_PACKAGE
-        )
-
+    ContactsHelper(this).getSaveableContactSources { sources ->
         val items = ArrayList<RadioItem>()
-        val filteredSources = it.filter { !ignoredTypes.contains(it.type) }
-        var sources = filteredSources.map { it.name }
-        var currentSourceIndex = sources.indexOfFirst { it == currentSource }
-        sources = filteredSources.map { it.publicName }
+        var sourceNames = sources.map { it.name }
+        var currentSourceIndex = sourceNames.indexOfFirst { it == currentSource }
+        sourceNames = sources.map { it.publicName }
 
-        sources.forEachIndexed { index, account ->
+        sourceNames.forEachIndexed { index, account ->
             items.add(RadioItem(index, account))
             if (currentSource == SMT_PRIVATE && account == getString(R.string.phone_storage_hidden)) {
                 currentSourceIndex = index
@@ -79,7 +70,7 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
 
         runOnUiThread {
             RadioGroupDialog(this, items, currentSourceIndex) {
-                callback(filteredSources[it as Int].name)
+                callback(sources[it as Int].name)
             }
         }
     }
@@ -92,11 +83,13 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
         return
     }
 
-    VcfExporter().exportContacts(this, file, contacts, false) {
-        if (it == VcfExporter.ExportResult.EXPORT_OK) {
-            sharePathIntent(file.absolutePath, BuildConfig.APPLICATION_ID)
-        } else {
-            showErrorToast("$it")
+    getFileOutputStream(file.toFileDirItem(this), true) {
+        VcfExporter().exportContacts(this, it, contacts, false) {
+            if (it == VcfExporter.ExportResult.EXPORT_OK) {
+                sharePathIntent(file.absolutePath, BuildConfig.APPLICATION_ID)
+            } else {
+                showErrorToast("$it")
+            }
         }
     }
 }

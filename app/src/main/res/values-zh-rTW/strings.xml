@@ -14,14 +14,10 @@
     <string name="send_sms_to_group">發送簡訊給群組</string>
     <string name="send_email_to_group">發送電子郵件給群組</string>
     <string name="call_person">打電話給 %s</string>
-    <string name="request_the_required_permissions">請求必要的權限</string>
     <string name="create_new_contact">建立新聯絡人</string>
     <string name="add_to_existing_contact">添加至已存在的聯絡人</string>
-    <string name="must_make_default_dialer">你必須將這應用程式設為預設的撥號程式來使用黑名單。</string>
-    <string name="set_as_default">設為預設</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">未發現聯絡人。</string>
     <string name="no_contacts_with_emails">未發現含有電子信箱的聯絡人</string>
     <string name="no_contacts_with_phone_numbers">未發現含有電話號碼的聯絡人</string>
 
@@ -62,19 +58,16 @@
     <string name="filter_duplicates">試著過濾重複的聯絡人</string>
     <string name="manage_shown_tabs">管理顯示的頁面</string>
     <string name="contacts">聯絡人</string>
-    <string name="favorites">我的最愛</string>
     <string name="show_call_confirmation_dialog">開始通話前顯示通話確認框</string>
     <string name="show_only_contacts_with_numbers">只顯示含有電話話碼的聯絡人</string>
     <string name="show_dialpad_letters">在撥號畫面上顯示字母</string>
 
     <!-- Emails -->
-    <string name="email">電子信箱</string>
     <string name="home">住家</string>
     <string name="work">工作</string>
     <string name="other">其它</string>
 
     <!-- Phone numbers -->
-    <string name="number">號碼</string>
     <string name="mobile">手機</string>
     <string name="main_number">主用</string>
     <string name="work_fax">工作傳真</string>
@@ -88,9 +81,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">你似乎還沒加入任何我的最愛聯絡人。</string>
-    <string name="add_favorites">添加我的最愛</string>
-    <string name="add_to_favorites">加入我的最愛</string>
-    <string name="remove_from_favorites">從我的最愛移除</string>
     <string name="must_be_at_edit">你必須在編輯畫面去修改聯絡人</string>
 
     <!-- Search -->
@@ -113,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">撥號器</string>
-    <string name="calling">撥號中</string>
-    <string name="incoming_call">來電</string>
-    <string name="incoming_call_from">通話來自於…</string>
-    <string name="ongoing_call">持續通話</string>
-    <string name="disconnected">未接電話</string>
-    <string name="decline_call">掛斷電話</string>
-    <string name="answer_call">回撥</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">快速撥號</string>
@@ -134,23 +125,13 @@
     <string name="emails">電子信箱</string>
     <string name="addresses">地址</string>
     <string name="events">活動 (生日、紀念日)</string>
-    <string name="notes">筆記</string>
     <string name="organization">組織</string>
     <string name="websites">網站</string>
     <string name="groups">群組</string>
     <string name="contact_source">聯絡人來源</string>
     <string name="instant_messaging">即時通訊 (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">管理黑名單</string>
-    <string name="not_blocking_anyone">你沒有封鎖任何人</string>
-    <string name="add_a_blocked_number">添加封鎖的號碼</string>
-    <string name="block_number">封鎖號碼</string>
-    <string name="block_numbers">封鎖號碼</string>
-    <string name="blocked_numbers">黑名單</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">你確認要刪除 %s 嗎?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">這聯絡人將從全部通訊錄來源移除。</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
@@ -172,11 +153,33 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">簡易通訊錄 Pro - 輕鬆管理你的聯絡人</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">一個沒有廣告的通訊錄應用程式，用來管理聯絡人，並且尊重您的隱私。</string>
+    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
     <string name="app_long_description">
-        一個用來從任何來源建立或管理聯絡人的簡易應用程式。聯絡人只能儲存於你的裝置上，不過也能透過Google或其他帳號來同步。你能將我的最愛聯絡人顯示在獨立名單上。
+        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
-        你也能用來管理使用者信箱和活動。它能夠以多項參數來排序/篩選，以及選擇將姓氏顯示在名字前面。
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+
+        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+
+        There is a lightweight dialpad at your service too, with smart contact suggestions.
+
+        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+
+        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+
+        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+
+        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+
+        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+
+        You can easily block phone numbers to avoid unwanted incoming calls.
+
+        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
 
         不包含廣告及非必要的權限，而且完全開放原始碼，並提供自訂顏色。
 

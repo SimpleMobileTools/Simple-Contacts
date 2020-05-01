@@ -25,8 +25,6 @@ import java.util.*
 class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val refreshListener: RefreshContactsListener?, recyclerView: MyRecyclerView,
                     fastScroller: FastScroller, itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
-    private var smallPadding = activity.resources.getDimension(R.dimen.small_margin).toInt()
-    private var bigPadding = activity.resources.getDimension(R.dimen.normal_margin).toInt()
     private var textToHighlight = ""
 
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
@@ -113,7 +111,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
             resources.getQuantityString(R.plurals.delete_groups, itemsCnt, itemsCnt)
         }
 
-        val baseString = R.string.delete_contacts_confirmation
+        val baseString = R.string.deletion_confirmation
         val question = String.format(resources.getString(baseString), items)
 
         ConfirmationDialog(activity, question) {
@@ -165,17 +163,11 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
                 setTextColor(textColor)
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
                 text = groupTitle
-
-                if (showContactThumbnails) {
-                    setPadding(smallPadding, bigPadding, bigPadding, bigPadding)
-                } else {
-                    setPadding(bigPadding, bigPadding, bigPadding, bigPadding)
-                }
             }
 
             group_tmb.beVisibleIf(showContactThumbnails)
             if (showContactThumbnails) {
-                group_tmb.applyColorFilter(textColor)
+                group_tmb.setImageDrawable(activity.getColoredGroupIcon(group.title))
             }
         }
     }

@@ -14,21 +14,22 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.extensions.callContact
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.isDefaultDialer
 import com.simplemobiletools.contacts.pro.extensions.startCallIntent
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.pro.helpers.LOCATION_DIALPAD
-import com.simplemobiletools.contacts.pro.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.SpeedDial
 import kotlinx.android.synthetic.main.activity_dialpad.*
+import kotlinx.android.synthetic.main.activity_dialpad.dialpad_holder
+import kotlinx.android.synthetic.main.dialpad.*
 
 class DialpadActivity : SimpleActivity() {
     private var contacts = ArrayList<Contact>()
@@ -105,11 +106,14 @@ class DialpadActivity : SimpleActivity() {
         return true
     }
 
-    private fun checkDialIntent() {
-        if (intent.action == Intent.ACTION_DIAL && intent.data != null && intent.dataString?.contains("tel:") == true) {
+    private fun checkDialIntent(): Boolean {
+        return if (intent.action == Intent.ACTION_DIAL && intent.data != null && intent.dataString?.contains("tel:") == true) {
             val number = Uri.decode(intent.dataString).substringAfter("tel:")
             dialpad_input.setText(number)
             dialpad_input.setSelection(number.length)
+            true
+        } else {
+            false
         }
     }
 
@@ -164,7 +168,9 @@ class DialpadActivity : SimpleActivity() {
 
     private fun gotContacts(newContacts: ArrayList<Contact>) {
         contacts = newContacts
-        checkDialIntent()
+        if (!checkDialIntent() && dialpad_input.value.isEmpty()) {
+            dialpadValueChanged("")
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -174,7 +180,7 @@ class DialpadActivity : SimpleActivity() {
             val secretCode = text.substring(4, text.length - 4)
             if (isOreoPlus()) {
                 if (isDefaultDialer()) {
-                    getSystemService(TelephonyManager::class.java).sendDialerSpecialCode(secretCode)
+                    getSystemService(TelephonyManager::class.java)?.sendDialerSpecialCode(secretCode)
                 } else {
                     launchSetDefaultDialerIntent()
                 }

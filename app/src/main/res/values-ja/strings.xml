@@ -14,14 +14,10 @@
     <string name="send_sms_to_group">グループにSMSを送信</string>
     <string name="send_email_to_group">グループにメールを送信</string>
     <string name="call_person">Call %s</string>
-    <string name="request_the_required_permissions">Request the required permissions</string>
     <string name="create_new_contact">新しい連絡先を作成</string>
     <string name="add_to_existing_contact">既存の連絡先に追加</string>
-    <string name="must_make_default_dialer">You have to make this app the default dialer app to make use of blocked numbers.</string>
-    <string name="set_as_default">Set as default</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">連絡先が見つかりません.</string>
     <string name="no_contacts_with_emails">メールアドレスが登録された連絡先が見つかりません</string>
     <string name="no_contacts_with_phone_numbers">電話番号が登録された連絡先が見つかりません</string>
 
@@ -62,19 +58,16 @@
     <string name="filter_duplicates">重複した連絡先を除外する</string>
     <string name="manage_shown_tabs">表示するタブを管理</string>
     <string name="contacts">連絡先</string>
-    <string name="favorites">お気に入り</string>
     <string name="show_call_confirmation_dialog">発信する前に確認ダイアログを表示する</string>
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
     <string name="show_dialpad_letters">Show letters on the dialpad</string>
 
     <!-- Emails -->
-    <string name="email">メール</string>
     <string name="home">自宅</string>
     <string name="work">職場</string>
     <string name="other">その他</string>
 
     <!-- Phone numbers -->
-    <string name="number">番号</string>
     <string name="mobile">携帯</string>
     <string name="main_number">Main</string>
     <string name="work_fax">職場FAX</string>
@@ -88,9 +81,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">お気に入りの連絡先はまだありません</string>
-    <string name="add_favorites">お気に入りを追加</string>
-    <string name="add_to_favorites">お気に入りに追加</string>
-    <string name="remove_from_favorites">お気に入りから削除</string>
     <string name="must_be_at_edit">連絡先を編集するには編集画面に切り替えてください</string>
 
     <!-- Search -->
@@ -113,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">電話</string>
-    <string name="calling">発信中</string>
-    <string name="incoming_call">着信中</string>
-    <string name="incoming_call_from">着信中…</string>
-    <string name="ongoing_call">通話中</string>
-    <string name="disconnected">切断されました</string>
-    <string name="decline_call">拒否</string>
-    <string name="answer_call">応答</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Speed dial</string>
@@ -134,23 +125,13 @@
     <string name="emails">メール</string>
     <string name="addresses">住所</string>
     <string name="events">予定 (誕生日、記念日)</string>
-    <string name="notes">メモ</string>
     <string name="organization">所属</string>
     <string name="websites">ウェブサイト</string>
     <string name="groups">グループ</string>
     <string name="contact_source">インポート元</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">ブロックした番号を管理</string>
-    <string name="not_blocking_anyone">まだ誰もブロックしていません.</string>
-    <string name="add_a_blocked_number">ブロックする番号を追加</string>
-    <string name="block_number">Block number</string>
-    <string name="block_numbers">Block numbers</string>
-    <string name="blocked_numbers">Blocked numbers</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
@@ -172,11 +153,33 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">An app for managing your contacts without ads, respecting your privacy.</string>
+    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
     <string name="app_long_description">
-        連絡先を作成または管理するためのシンプルなアプリです。連絡先はお使いの端末上にのみ保存されますが、Googleや他のアカウントと同期することもできます。お気に入りの連絡先を別のリストとして表示することができます。
+        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
-        友人のメールアドレスや予定の管理にも使用できます。これらは複数の項目で並べ替えやフィルタリングする機能があり、名前を\"姓 名\"の順に表示することもできます。
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+
+        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+
+        There is a lightweight dialpad at your service too, with smart contact suggestions.
+
+        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+
+        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+
+        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+
+        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+
+        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+
+        You can easily block phone numbers to avoid unwanted incoming calls.
+
+        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
 
         広告や不要なアクセス許可は含まれていません。完全にオープンソースで、色のカスタマイズも可能です。
 

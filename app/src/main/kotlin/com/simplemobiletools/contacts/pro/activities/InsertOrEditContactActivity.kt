@@ -38,8 +38,8 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     private var searchMenuItem: MenuItem? = null
 
     private val contactsFavoritesList = arrayListOf(
-            CONTACTS_TAB_MASK,
-            FAVORITES_TAB_MASK
+        CONTACTS_TAB_MASK,
+        FAVORITES_TAB_MASK
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,17 +116,17 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         insert_or_edit_tabs_holder.onTabSelectionChanged(
-                tabUnselectedAction = {
-                    it.icon?.applyColorFilter(config.textColor)
-                },
-                tabSelectedAction = {
-                    if (isSearchOpen) {
-                        getCurrentFragment()?.onSearchQueryChanged("")
-                        searchMenuItem?.collapseActionView()
-                    }
-                    viewpager.currentItem = it.position
-                    it.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            tabUnselectedAction = {
+                it.icon?.applyColorFilter(config.textColor)
+            },
+            tabSelectedAction = {
+                if (isSearchOpen) {
+                    getCurrentFragment()?.onSearchQueryChanged("")
+                    searchMenuItem?.collapseActionView()
                 }
+                viewpager.currentItem = it.position
+                it.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            }
         )
 
         insert_or_edit_tabs_holder.removeAllTabs()
@@ -143,7 +143,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         insert_or_edit_tabs_holder.beVisibleIf(skippedTabs == 0)
 
         select_contact_label?.setTextColor(getAdjustedPrimaryColor())
-        new_contact_tmb?.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_new_contact_vector, config.textColor))
+        new_contact_tmb?.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_add_person_vector, config.textColor))
         new_contact_holder?.setOnClickListener {
             createNewContact()
         }

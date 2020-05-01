@@ -1,6 +1,26 @@
 Changelog
 ==========
 
+Version 6.9.0 *(2020-04-16)*
+----------------------------
+
+ * Use colored contact avatars with the first letter of their name to make the app happier :)
+ * Properly recognize the local Phone contact source, even when empty
+ * Fix some glitches related to the letters in the fastscroller not being correctly sorted
+ * Couple other stability, translation and UI improvements
+
+Version 6.8.0 *(2020-03-18)*
+----------------------------
+
+ * Remember the last used folder at contacts exporting
+ * Do not request the Storage permission on Android 10+, use Scoped Storage
+
+Version 6.7.1 *(2020-03-08)*
+----------------------------
+
+ * Fixed some letter scrollbar related glitches
+ * Added some translation and stability related improvements
+
 Version 6.7.0 *(2020-02-05)*
 ----------------------------
 

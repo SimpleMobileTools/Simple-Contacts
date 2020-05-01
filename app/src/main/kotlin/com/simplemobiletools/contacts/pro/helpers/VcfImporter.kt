@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.pro.helpers
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.provider.ContactsContract.CommonDataKinds
+import android.provider.ContactsContract.CommonDataKinds.*
 import android.widget.Toast
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
@@ -12,6 +13,9 @@ import com.simplemobiletools.contacts.pro.extensions.groupsDB
 import com.simplemobiletools.contacts.pro.extensions.normalizeNumber
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.*
 import com.simplemobiletools.contacts.pro.models.*
+import com.simplemobiletools.contacts.pro.models.Email
+import com.simplemobiletools.contacts.pro.models.Event
+import com.simplemobiletools.contacts.pro.models.Organization
 import ezvcard.Ezvcard
 import ezvcard.VCard
 import java.io.File
@@ -50,7 +54,7 @@ class VcfImporter(val activity: SimpleActivity) {
                 ezContact.telephoneNumbers.forEach {
                     val number = it.text
                     val type = getPhoneNumberTypeId(it.types.firstOrNull()?.value ?: MOBILE, it.types.getOrNull(1)?.value)
-                    val label = if (type == CommonDataKinds.Phone.TYPE_CUSTOM) {
+                    val label = if (type == Phone.TYPE_CUSTOM) {
                         it.types.firstOrNull()?.value ?: ""
                     } else {
                         ""
@@ -76,7 +80,7 @@ class VcfImporter(val activity: SimpleActivity) {
                 ezContact.addresses.forEach {
                     val address = it.streetAddress
                     val type = getAddressTypeId(it.types.firstOrNull()?.value ?: HOME)
-                    val label = if (type == CommonDataKinds.StructuredPostal.TYPE_CUSTOM) {
+                    val label = if (type == StructuredPostal.TYPE_CUSTOM) {
                         it.types.firstOrNull()?.value ?: ""
                     } else {
                         ""
@@ -115,24 +119,24 @@ class VcfImporter(val activity: SimpleActivity) {
                     val typeString = it.uri.scheme
                     val value = URLDecoder.decode(it.uri.toString().substring(it.uri.scheme.length + 1), "UTF-8")
                     val type = when {
-                        it.isAim -> CommonDataKinds.Im.PROTOCOL_AIM
-                        it.isYahoo -> CommonDataKinds.Im.PROTOCOL_YAHOO
-                        it.isMsn -> CommonDataKinds.Im.PROTOCOL_MSN
-                        it.isIcq -> CommonDataKinds.Im.PROTOCOL_ICQ
-                        it.isSkype -> CommonDataKinds.Im.PROTOCOL_SKYPE
-                        typeString == HANGOUTS -> CommonDataKinds.Im.PROTOCOL_GOOGLE_TALK
-                        typeString == QQ -> CommonDataKinds.Im.PROTOCOL_QQ
-                        typeString == JABBER -> CommonDataKinds.Im.PROTOCOL_JABBER
-                        else -> CommonDataKinds.Im.PROTOCOL_CUSTOM
+                        it.isAim -> Im.PROTOCOL_AIM
+                        it.isYahoo -> Im.PROTOCOL_YAHOO
+                        it.isMsn -> Im.PROTOCOL_MSN
+                        it.isIcq -> Im.PROTOCOL_ICQ
+                        it.isSkype -> Im.PROTOCOL_SKYPE
+                        typeString == HANGOUTS -> Im.PROTOCOL_GOOGLE_TALK
+                        typeString == QQ -> Im.PROTOCOL_QQ
+                        typeString == JABBER -> Im.PROTOCOL_JABBER
+                        else -> Im.PROTOCOL_CUSTOM
                     }
 
-                    val label = if (type == CommonDataKinds.Im.PROTOCOL_CUSTOM) URLDecoder.decode(typeString, "UTF-8") else ""
+                    val label = if (type == Im.PROTOCOL_CUSTOM) URLDecoder.decode(typeString, "UTF-8") else ""
                     val IM = IM(value, type, label)
                     IMs.add(IM)
                 }
 
                 val contact = Contact(0, prefix, firstName, middleName, surname, suffix, nickname, photoUri, phoneNumbers, emails, addresses, events,
-                        targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, IMs)
+                    targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, IMs)
 
                 // if there is no N and ORG fields at the given contact, only FN, treat it as an organization
                 if (contact.getNameToDisplay().isEmpty() && contact.organization.isEmpty() && ezContact.formattedName?.value?.isNotEmpty() == true) {
@@ -189,28 +193,28 @@ class VcfImporter(val activity: SimpleActivity) {
     }
 
     private fun getPhoneNumberTypeId(type: String, subtype: String?) = when (type.toUpperCase()) {
-        CELL -> CommonDataKinds.Phone.TYPE_MOBILE
+        CELL -> Phone.TYPE_MOBILE
         HOME -> {
             if (subtype?.toUpperCase() == FAX) {
-                CommonDataKinds.Phone.TYPE_FAX_HOME
+                Phone.TYPE_FAX_HOME
             } else {
-                CommonDataKinds.Phone.TYPE_HOME
+                Phone.TYPE_HOME
             }
         }
         WORK -> {
             if (subtype?.toUpperCase() == FAX) {
-                CommonDataKinds.Phone.TYPE_FAX_WORK
+                Phone.TYPE_FAX_WORK
             } else {
-                CommonDataKinds.Phone.TYPE_WORK
+                Phone.TYPE_WORK
             }
         }
-        PREF, MAIN -> CommonDataKinds.Phone.TYPE_MAIN
-        WORK_FAX -> CommonDataKinds.Phone.TYPE_FAX_WORK
-        HOME_FAX -> CommonDataKinds.Phone.TYPE_FAX_HOME
-        FAX -> CommonDataKinds.Phone.TYPE_FAX_WORK
-        PAGER -> CommonDataKinds.Phone.TYPE_PAGER
-        OTHER -> CommonDataKinds.Phone.TYPE_OTHER
-        else -> CommonDataKinds.Phone.TYPE_CUSTOM
+        PREF, MAIN -> Phone.TYPE_MAIN
+        WORK_FAX -> Phone.TYPE_FAX_WORK
+        HOME_FAX -> Phone.TYPE_FAX_HOME
+        FAX -> Phone.TYPE_FAX_WORK
+        PAGER -> Phone.TYPE_PAGER
+        OTHER -> Phone.TYPE_OTHER
+        else -> Phone.TYPE_CUSTOM
     }
 
     private fun getEmailTypeId(type: String) = when (type.toUpperCase()) {
@@ -222,10 +226,10 @@ class VcfImporter(val activity: SimpleActivity) {
     }
 
     private fun getAddressTypeId(type: String) = when (type.toUpperCase()) {
-        HOME -> CommonDataKinds.StructuredPostal.TYPE_HOME
-        WORK -> CommonDataKinds.StructuredPostal.TYPE_WORK
-        OTHER -> CommonDataKinds.StructuredPostal.TYPE_OTHER
-        else -> CommonDataKinds.StructuredPostal.TYPE_CUSTOM
+        HOME -> StructuredPostal.TYPE_HOME
+        WORK -> StructuredPostal.TYPE_WORK
+        OTHER -> StructuredPostal.TYPE_OTHER
+        else -> StructuredPostal.TYPE_CUSTOM
     }
 
     private fun savePhoto(byteArray: ByteArray?): String {

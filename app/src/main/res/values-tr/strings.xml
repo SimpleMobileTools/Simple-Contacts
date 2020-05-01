@@ -14,14 +14,10 @@
     <string name="send_sms_to_group">Gruba SMS gönder</string>
     <string name="send_email_to_group">Gruba e-posta gönder</string>
     <string name="call_person">%s kişisini ara</string>
-    <string name="request_the_required_permissions">Gerekli izinleri iste</string>
     <string name="create_new_contact">Yeni kişi oluştur</string>
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
-    <string name="must_make_default_dialer">Engellenen numaraları kullanmak için bu uygulamayı varsayılan çevirici uygulaması yapmalısınız.</string>
-    <string name="set_as_default">Varsayılan olarak ayarla</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Kişi bulunamadı.</string>
     <string name="no_contacts_with_emails">E-posta ile hiç bağlantı bulunamadı</string>
     <string name="no_contacts_with_phone_numbers">Telefon numaralarını içeren kişi bulunamadı</string>
 
@@ -62,19 +58,16 @@
     <string name="filter_duplicates">Çift kişileri filtrelemeyi dene</string>
     <string name="manage_shown_tabs">Gösterilen sekmeleri yönet</string>
     <string name="contacts">Kişiler</string>
-    <string name="favorites">Favoriler</string>
     <string name="show_call_confirmation_dialog">Arama başlatmadan önce arama onayı penceresi göster</string>
     <string name="show_only_contacts_with_numbers">Sadece telefon numaralarını içeren kişileri göster</string>
     <string name="show_dialpad_letters">Tuş takımında harfleri göster</string>
 
     <!-- Emails -->
-    <string name="email">E-posta</string>
     <string name="home">Ev</string>
     <string name="work">İş</string>
     <string name="other">Diğer</string>
 
     <!-- Phone numbers -->
-    <string name="number">Numara</string>
     <string name="mobile">Cep</string>
     <string name="main_number">Ana</string>
     <string name="work_fax">İş Faksı</string>
@@ -88,9 +81,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Henüz herhangi bir favori kişi eklememişsiniz.</string>
-    <string name="add_favorites">Favorileri ekle</string>
-    <string name="add_to_favorites">Favorilere ekle</string>
-    <string name="remove_from_favorites">Favorilerden kaldır</string>
     <string name="must_be_at_edit">Bir kişiyi değiştirmek için Düzen ekranında olmalısınız</string>
 
     <!-- Search -->
@@ -113,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Çevirici</string>
-    <string name="calling">Çağrı yapılıyor</string>
-    <string name="incoming_call">Gelen çağrı</string>
-    <string name="incoming_call_from">Gelen çağrı şundan…</string>
-    <string name="ongoing_call">Devam eden çağrı</string>
-    <string name="disconnected">Bağlantı kesildi</string>
-    <string name="decline_call">Reddet</string>
-    <string name="answer_call">Cevapla</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Hızlı arama</string>
@@ -134,23 +125,13 @@
     <string name="emails">E-postalar</string>
     <string name="addresses">Adresler</string>
     <string name="events">Etkinlikler (doğum günleri, yıldönümleri)</string>
-    <string name="notes">Notlar</string>
     <string name="organization">Organizasyon</string>
     <string name="websites">Web siteleri</string>
     <string name="groups">Gruplar</string>
     <string name="contact_source">Kişi kaynağı</string>
     <string name="instant_messaging">Anlık mesajlaşma (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Engelli numaraları yönet</string>
-    <string name="not_blocking_anyone">Kimseyi engellemiyorsun.</string>
-    <string name="add_a_blocked_number">Engellenen numara ekle</string>
-    <string name="block_number">Numarayı engelle</string>
-    <string name="block_numbers">Numaraları engelle</string>
-    <string name="blocked_numbers">Engelli numaralar</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">%s silmek istediğinize emin misiniz?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">Kişi tüm kişi kaynaklarından kaldırılacak.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
@@ -172,18 +153,40 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Basit Kişiler Pro - Kişilerinizi kolayca yönetin</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Reklamsız, gizliliğinize saygı duyan, kişilerinizi yönetmek için bir uygulama.</string>
+    <string name="app_short_description">Reklamsız, grup ve sık kullanılanlarla kolay ve hızlı kişi yönetimi.</string>
     <string name="app_long_description">
-        Kişilerinizi herhangi bir kaynaktan oluşturmak veya yönetmek için basit bir uygulama. Kişiler yalnızca cihazınızda saklanabilir, aynı zamanda Google veya diğer hesaplarla senkronize edilebilir. Favori kişilerinizi ayrı bir listede görüntüleyebilirsiniz.
+        Milyonlarca insan tarafından sevilen kişilerinizi yönetmek için hafif bir uygulama. Kişiler yalnızca cihazınızda depolanabilir, aynı zamanda Google veya diğer hesaplarla da senkronize edilebilir.
 
-        Kullanıcı e-postalarını ve etkinliklerini yönetmek için de kullanabilirsiniz. Birden çok parametreye göre sıralama/filtreleme, isteğe bağlı olarak soyadı ilk ad olarak görüntüleme yeteneğine sahiptir.
+        Kullanıcı e-postalarını ve etkinliklerini yönetmek için de kullanabilirsiniz. Birden fazla parametreye göre sıralama/filtreleme, isteğe bağlı olarak soyadı ilk ad olarak görüntüleme yeteneğine sahiptir.
+
+        Favori kişilerinizi veya gruplarınızı ayrı bir listede görüntüleyebilirsiniz. Gruplar toplu e-postalar veya SMS göndermek için kullanılabilir, size biraz zaman kazandırmak için bunları kolayca yeniden adlandırabilirsiniz.
+
+        Kişilerinizi aramak veya mesaj göndermek için kullanışlı düğmeler içerir. Tüm görünür alanlar istediğiniz gibi özelleştirilebilir, kullanılmayanları kolayca gizleyebilirsiniz. Arama işlevi, istediğiniz kişiyi kolayca bulabilmeniz için, verilen dizeyi görünür her kişi alanında arayacaktır.
+
+        Akıllı kişi önerileri ile hizmetinizde hafif bir tuş takımı da var.
+
+        Kolay taşıma veya verilerinizi yedeklemek için vCard biçimindeki kişileri .vcf dosyalarına dışa aktarmayı/içe aktarmayı destekler.
+
+        Bu modern ve kararlı kişi yöneticisi ile kişilerinizi diğer uygulamalarla paylaşmayarak koruyabilir, böylece kişilerinizi gizli tutabilirsiniz.
+
+        Kişi kaynağı gibi, kişi adını, e-postayı, telefon numarasını, adresi, organizasyonu, grupları ve diğer birçok özelleştirilebilir alanı da kolayca değiştirebilirsiniz. Doğum günleri, yıldönümleri veya diğer özel etkinlikler gibi kişi etkinliklerini depolamak için de kullanabilirsiniz.
+
+        Bu basit kişi düzenleyicisi, ana ekranda telefon numaralarını göstermek, kişi küçük resminin görünürlüğünü değiştirmek, yalnızca telefon numaralarına sahip kişileri göstermek, bir arama başlatmadan önce bir arama onay kutusu göstermek gibi birçok kullanışlı ayara sahiptir. Harfleri de kullanan hızlı bir çevirici ile birlikte gelir.
+
+        Kullanıcı deneyimini daha da geliştirmek için, bir kişiye tıklandığında neler olacağını özelleştirebilirsiniz. Bir çağrı başlatabilir, Ayrıntıları Görüntüle ekranına gidebilir veya seçilen kişiyi düzenleyebilirsiniz.
+
+        İstenmeyen gelen aramaları önlemek için telefon numaralarını kolayca engelleyebilirsiniz.
+
+        Potansiyel olarak istenmeyen kişileri göstermekten kaçınmak için güçlü bir dahili yinelenen kişi birleştirici vardır.
+
+        Varsayılan olarak materyal tasarımı ve koyu tema ile birlikte gelir, kolay kullanım için mükemmel kullanıcı deneyimi sağlar. İnternet erişiminin olmaması, diğer uygulamalardan daha fazla gizlilik, güvenlik ve kararlılık sağlar.
 
         Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sağlar.
 
         <b>Basit Araçlar paketinin tamamını buradan inceleyin:</b>
         https://www.simplemobiletools.com
 
-        <b>Basit Kişiler Pro'nun bağımsız web sitesi:</b>
+        <b>Basit Kişiler Pro\'nun bağımsız web sitesi:</b>
         https://www.simplemobiletools.com/contacts
 
         <b>Facebook:</b>

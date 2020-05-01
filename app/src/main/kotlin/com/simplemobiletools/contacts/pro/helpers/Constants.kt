@@ -22,6 +22,8 @@ const val SHOW_CALL_CONFIRMATION = "show_call_confirmation"
 const val SHOW_DIALPAD_BUTTON = "show_dialpad_button"
 const val SHOW_DIALPAD_LETTERS = "show_dialpad_letters"
 const val SPEED_DIAL = "speed_dial"
+const val LAST_EXPORT_PATH = "last_export_path"
+const val WAS_LOCAL_ACCOUNT_INITIALIZED = "was_local_account_initialized"
 
 const val CONTACT_ID = "contact_id"
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
@@ -31,7 +33,10 @@ const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"
 const val ADD_NEW_CONTACT_NUMBER = "add_new_contact_number"
 const val FIRST_CONTACT_ID = 1000000
 const val FIRST_GROUP_ID = 10000L
-const val REQUEST_CODE_SET_DEFAULT_DIALER = 1
+
+private const val PATH = "com.simplemobiletools.contacts.action."
+const val ACCEPT_CALL = PATH + "accept_call"
+const val DECLINE_CALL = PATH + "decline_call"
 
 // extras used at third party intents
 const val KEY_PHONE = "phone"
@@ -114,7 +119,7 @@ const val TELEGRAM_PACKAGE = "org.telegram.messenger"
 const val SIGNAL_PACKAGE = "org.thoughtcrime.securesms"
 const val WHATSAPP_PACKAGE = "com.whatsapp"
 
-fun getEmptyLocalContact() = LocalContact(0, "", "", "", "", "", "", null, ArrayList(), ArrayList(), ArrayList(), 0, ArrayList(), "", ArrayList(), "", "", ArrayList(), ArrayList())
+fun getEmptyLocalContact() = LocalContact(0, "", "", "", "", "", "", null, "", ArrayList(), ArrayList(), ArrayList(), 0, ArrayList(), "", ArrayList(), "", "", ArrayList(), ArrayList())
 
 fun getProperText(text: String, shouldNormalize: Boolean) = if (shouldNormalize) text.normalizeString() else text
 

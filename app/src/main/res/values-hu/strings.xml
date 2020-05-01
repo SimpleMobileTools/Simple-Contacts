@@ -14,14 +14,10 @@
     <string name="send_sms_to_group">SMS küldése csoportnak</string>
     <string name="send_email_to_group">Email küldése csoportnak</string>
     <string name="call_person">%s hívása</string>
-    <string name="request_the_required_permissions">A kívánt jogosultságok igénylése</string>
     <string name="create_new_contact">Új névjegy hozzáadása</string>
     <string name="add_to_existing_contact">Hozzáadás meglévő névjegyhez</string>
-    <string name="must_make_default_dialer">A zárolt telefonszámok használatához be kell állítani, hogy ez az app legyen az alapértelmezett tárcsázó.</string>
-    <string name="set_as_default">Alapértelmezés beállítása</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Nincs ilyen névjegy.</string>
     <string name="no_contacts_with_emails">Nincs emailt tartalmazó névjegy.</string>
     <string name="no_contacts_with_phone_numbers">Nincs telefonszámot tartalmazó névjegy.</string>
 
@@ -62,19 +58,16 @@
     <string name="filter_duplicates">Többszörösen felvett névjegyek kiszűrése</string>
     <string name="manage_shown_tabs">A megjelenő fülek kiválasztása</string>
     <string name="contacts">Névjegyek</string>
-    <string name="favorites">Kedvencek</string>
     <string name="show_call_confirmation_dialog">Jóváhagyás kérése telefonhívás indítása előtt</string>
     <string name="show_only_contacts_with_numbers">Csak telefonszámot tartalmazó névjegyek kijelzése</string>
     <string name="show_dialpad_letters">Betűk kijelzése a tárcsázón</string>
 
     <!-- Emails -->
-    <string name="email">Email</string>
     <string name="home">Otthon</string>
     <string name="work">Munkahely</string>
     <string name="other">Egyéb</string>
 
     <!-- Phone numbers -->
-    <string name="number">Telefonszám</string>
     <string name="mobile">Mobil</string>
     <string name="main_number">Elsődleges telefonszám</string>
     <string name="work_fax">Munkahelyi fax</string>
@@ -88,9 +81,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Úgy tűnik, hogy még nincsenek kedvencek felvéve.</string>
-    <string name="add_favorites">Kedvencek felvétele</string>
-    <string name="add_to_favorites">Hozzáadás a kedvencekhez</string>
-    <string name="remove_from_favorites">Törlés a kedvencek közül</string>
     <string name="must_be_at_edit">Névjegyet csak a szerkesztő képernyőn lehet módosítani.</string>
 
     <!-- Search -->
@@ -113,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Tárcsázó</string>
-    <string name="calling">Hívás</string>
-    <string name="incoming_call">Bejövő hívás</string>
-    <string name="incoming_call_from">Bejövő hívás innen…</string>
-    <string name="ongoing_call">Hívás folyamatban</string>
-    <string name="disconnected">Szétkapcsolt</string>
-    <string name="decline_call">Elutasítva</string>
-    <string name="answer_call">Hívásfogadás</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Speed dial</string>
@@ -134,23 +125,13 @@
     <string name="emails">Emailek</string>
     <string name="addresses">Címek</string>
     <string name="events">Események (születésnapok, évfordulók)</string>
-    <string name="notes">Jegyzetek</string>
     <string name="organization">Szervezet</string>
     <string name="websites">Weboldalak</string>
     <string name="groups">Csoportok</string>
     <string name="contact_source">Névjegy account</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Zárolt telefonszámok kezelése</string>
-    <string name="not_blocking_anyone">Nincs még zárolt szám.</string>
-    <string name="add_a_blocked_number">Zárolt telefonszám hozzáadása</string>
-    <string name="block_number">Telefonszám zárolása</string>
-    <string name="block_numbers">Telefonszámok zárolása</string>
-    <string name="blocked_numbers">Zárolt telefonszámok</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
@@ -172,11 +153,33 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Egy reklámmentes app névjegyek kezelésére, amelyik óvja a magánszférádat.</string>
+    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
     <string name="app_long_description">
-        Egy egyszerű app, amelyik az összes accountod névjegyeit képes kezelni. Bár a névjegyeket csak az eszközön tárolja, de szinkronizálható Google, vagy más accountokkal is. A kedvenceidet külön listán is kezelheted.
+        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
-        Kezelhetsz vele email-címeket és eseményeket. Képes a névjegyeket többféle paraméter rendezni és szűrni. A megjelenítést beállíthatod vezetéknév, keresztnév sorrendben is. A színeket testreszabhtod.
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+
+        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+
+        There is a lightweight dialpad at your service too, with smart contact suggestions.
+
+        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+
+        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+
+        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+
+        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+
+        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+
+        You can easily block phone numbers to avoid unwanted incoming calls.
+
+        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
 
         Nem kér szükségtelen jogosultságokat és nincs benne reklám. Teljes egészében nyílt forráskódú szoftver.
 

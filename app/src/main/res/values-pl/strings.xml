@@ -14,14 +14,10 @@
     <string name="send_sms_to_group">Wyślij SMS-a do grupy</string>
     <string name="send_email_to_group">Wyślij e-maila do grupy</string>
     <string name="call_person">Zadzwoń do: %s</string>
-    <string name="request_the_required_permissions">Wymagaj koniecznych uprawnień</string>
     <string name="create_new_contact">Utwórz nowy kontakt</string>
     <string name="add_to_existing_contact">Dodaj do istniejącego kontaktu</string>
-    <string name="must_make_default_dialer">Musisz ustawić tę aplikację jako domyślną aplikację telefoniczną, aby móc korzystać z funkcji blokowania numerów.</string>
-    <string name="set_as_default">Ustaw jako domyślną</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_found">Nie znaleziono kontaktów.</string>
     <string name="no_contacts_with_emails">Nie znaleziono kontaktów z adresami e-mail</string>
     <string name="no_contacts_with_phone_numbers">Nie znaleziono kontaktów z numerami telefonów</string>
 
@@ -62,19 +58,16 @@
     <string name="filter_duplicates">Spróbuj odfiltrować zduplikowane kontakty</string>
     <string name="manage_shown_tabs">Zarządzaj pokazywanymi sekcjami</string>
     <string name="contacts">Kontakty</string>
-    <string name="favorites">Ulubione</string>
     <string name="show_call_confirmation_dialog">Pokazuj okno potwierdzenia zadzwonienia przed zainicjonowaniem połączenia</string>
     <string name="show_only_contacts_with_numbers">Pokazuj wyłącznie kontakty z numerami telefonów</string>
     <string name="show_dialpad_letters">Pokazuj litery na panelu wybierania</string>
 
     <!-- Emails -->
-    <string name="email">E-mail</string>
     <string name="home">Dom</string>
     <string name="work">Praca</string>
     <string name="other">Inny</string>
 
     <!-- Phone numbers -->
-    <string name="number">Numer</string>
     <string name="mobile">Komórkowy</string>
     <string name="main_number">Główny</string>
     <string name="work_fax">Służbowy faks</string>
@@ -88,9 +81,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Wygląda na to, że nie dodałeś jeszcze żadnego ulubionego kontaktu.</string>
-    <string name="add_favorites">Dodaj ulubione</string>
-    <string name="add_to_favorites">Dodaj do ulubionych</string>
-    <string name="remove_from_favorites">Usuń z ulubionych</string>
     <string name="must_be_at_edit">Musisz wejść do ekranu edycji, aby zmodyfikować kontakt</string>
 
     <!-- Search -->
@@ -113,13 +103,14 @@
 
     <!-- Dialer -->
     <string name="dialer">Dialer</string>
-    <string name="calling">Dzwonienie</string>
-    <string name="incoming_call">Połączenie przychodzące</string>
-    <string name="incoming_call_from">Połączenie przychodzące od…</string>
-    <string name="ongoing_call">Połączenie wychodzące</string>
-    <string name="disconnected">Rozłączony</string>
-    <string name="decline_call">Odrzuć</string>
-    <string name="answer_call">Odpowiedz</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling</string>
+    <string name="dialing">Dialing</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Speed dial</string>
@@ -134,23 +125,13 @@
     <string name="emails">E-maile</string>
     <string name="addresses">Adresy</string>
     <string name="events">Wydarzenia (urodziny, rocznice)</string>
-    <string name="notes">Notatki</string>
     <string name="organization">Organizacja</string>
     <string name="websites">Strony internetowe</string>
     <string name="groups">Grupy</string>
     <string name="contact_source">Miejsce przechowywania kontaktu</string>
     <string name="instant_messaging">Komunikator</string>
 
-    <!-- Blocked numbers -->
-    <string name="manage_blocked_numbers">Zarządzaj zablokowanymi numerami</string>
-    <string name="not_blocking_anyone">Nie blokujesz nikogo.</string>
-    <string name="add_a_blocked_number">Dodaj numer do blokowania</string>
-    <string name="block_number">Zablokuj numer</string>
-    <string name="block_numbers">Zablokuj numery</string>
-    <string name="blocked_numbers">Zablokowane numery</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_contacts_confirmation">Are you sure you want to delete %s?</string>    <!-- Are you sure you want to delete 5 contacts? -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
 
     <!-- Are you sure you want to delete 5 contacts? -->
@@ -172,11 +153,33 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Aplikacja do zarządzania Twoimi kontaktami, bez reklam, szanująca prywatność.</string>
+    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
     <string name="app_long_description">
-        Prosta aplikacja do tworzenia lub zarządzania Twoimi kontaktami przechowywanymi w różnych miejscach. Kontakty mogą być przechowywane tylko na Twoim urządzeniu, ale również synchronizowane przez konto Google lub inne konta. Możesz wyświetlać Twoje ulubione kontakty na oddzielnej liście.
-        
-        Możesz użyć jej także do zarządzania e-mailami użytkowników i wydarzeniami. Jest zdolna do sortowania/filtrowania według wielu parametrów, opcjonalnie do wyświetlania nazwiska jako imienia.
+        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
+
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+
+        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+
+        There is a lightweight dialpad at your service too, with smart contact suggestions.
+
+        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+
+        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+
+        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+
+        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+
+        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+
+        You can easily block phone numbers to avoid unwanted incoming calls.
+
+        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
         
         Nie zawiera reklam oraz niekoniecznych uprawnień. Jest w pełni otwartoźródłowa i w pełni podatna na kolorowanie.
 
