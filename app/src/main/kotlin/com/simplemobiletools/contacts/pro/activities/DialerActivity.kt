@@ -1,10 +1,8 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.telecom.PhoneAccount
 import android.telecom.TelecomManager
@@ -16,7 +14,6 @@ import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 import com.simplemobiletools.contacts.pro.R
 
-@TargetApi(Build.VERSION_CODES.M)
 class DialerActivity : SimpleActivity() {
     private var callNumber: Uri? = null
 
