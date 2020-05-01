@@ -180,7 +180,6 @@ class CallActivity : SimpleActivity() {
             .setCategory(Notification.CATEGORY_CALL)
             .setCustomContentView(collapsedView)
             .setOngoing(true)
-            .setAutoCancel(true)
             .setChannelId(channelId)
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
 
