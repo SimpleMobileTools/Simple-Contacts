@@ -126,6 +126,7 @@ class CallActivity : SimpleActivity() {
         when (state) {
             Call.STATE_ACTIVE -> callStarted()
             Call.STATE_DISCONNECTED -> endCall()
+            Call.STATE_CONNECTING -> initOutgoingCallUI()
         }
 
         if (state == Call.STATE_DISCONNECTED || state == Call.STATE_DISCONNECTING) {
@@ -147,6 +148,11 @@ class CallActivity : SimpleActivity() {
 
     private fun acceptCall() {
         CallManager.accept()
+    }
+
+    private fun initOutgoingCallUI() {
+        incoming_call_holder.beGone()
+        ongoing_call_holder.beVisible()
     }
 
     private fun callStarted() {
