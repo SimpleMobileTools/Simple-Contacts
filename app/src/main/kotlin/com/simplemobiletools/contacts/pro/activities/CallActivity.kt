@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.*
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.MediaStore
 import android.telecom.Call
 import android.util.Size
@@ -15,9 +15,7 @@ import android.view.WindowManager
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.isOreoMr1Plus
-import com.simplemobiletools.commons.helpers.isOreoPlus
-import com.simplemobiletools.commons.helpers.isQPlus
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.helpers.ACCEPT_CALL
 import com.simplemobiletools.contacts.pro.helpers.CallManager
@@ -33,6 +31,7 @@ class CallActivity : SimpleActivity() {
     private var isMicrophoneOn = true
     private var callContact: CallContact? = null
     private var callContactAvatar: Bitmap? = null
+    private var proximityWakeLock: PowerManager.WakeLock? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -47,6 +46,7 @@ class CallActivity : SimpleActivity() {
         addLockScreenFlags()
         showNotification()
         updateOtherPersonsInfo()
+        initProximitySensor()
 
         CallManager.registerCallback(getCallCallback())
         updateCallState(CallManager.getState())
@@ -121,10 +121,14 @@ class CallActivity : SimpleActivity() {
     private fun callStarted() {
         incoming_call_holder.beGone()
         ongoing_call_holder.beVisible()
+        proximityWakeLock?.acquire(10 * MINUTE_SECONDS * 1000L)
     }
 
     private fun endCall() {
         CallManager.reject()
+        if (proximityWakeLock?.isHeld == true) {
+            proximityWakeLock!!.release()
+        }
         finish()
     }
 
@@ -150,6 +154,11 @@ class CallActivity : SimpleActivity() {
         } else {
             window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
         }
+    }
+
+    private fun initProximitySensor() {
+        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        proximityWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "simple_contacts_proximity_wake_lock")
     }
 
     @SuppressLint("NewApi")
