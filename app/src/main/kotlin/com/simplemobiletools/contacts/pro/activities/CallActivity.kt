@@ -118,6 +118,16 @@ class CallActivity : SimpleActivity() {
             Call.STATE_ACTIVE -> callStarted()
             Call.STATE_DISCONNECTED -> endCall()
         }
+
+        val statusTextId = when (state) {
+            Call.STATE_RINGING -> R.string.is_calling
+            Call.STATE_DIALING -> R.string.is_called
+            Call.STATE_DISCONNECTED -> R.string.call_ended
+            Call.STATE_DISCONNECTING -> R.string.call_ending
+            else -> R.string.empty
+        }
+
+        call_status_label.text = getString(statusTextId)
     }
 
     private fun acceptCall() {

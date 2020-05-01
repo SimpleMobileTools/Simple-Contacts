@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="package_name">com.simplemobiletools.contacts.pro</string>
+    <string name="empty"></string>
 
     <string name="im">IM</string>
     <string name="aim">AIM</string>
