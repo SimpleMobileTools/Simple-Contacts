@@ -113,6 +113,7 @@
 
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown caller</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Speed dial</string>

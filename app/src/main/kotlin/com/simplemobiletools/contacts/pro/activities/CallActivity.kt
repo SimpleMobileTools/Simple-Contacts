@@ -85,7 +85,7 @@ class CallActivity : SimpleActivity() {
 
     private fun updateOtherPersonsInfo() {
         val callContact = CallManager.getCallContact(applicationContext) ?: return
-        caller_name_label.text = callContact.name
+        caller_name_label.text = if (callContact.name.isNotEmpty()) callContact.name else getString(R.string.unknown_caller)
         caller_number_label.text = callContact.number
         caller_number_label.beVisibleIf(callContact.number.isNotEmpty())
 
