@@ -275,6 +275,7 @@ class CallActivity : SimpleActivity() {
             .setCategory(Notification.CATEGORY_CALL)
             .setCustomContentView(collapsedView)
             .setOngoing(true)
+            .setUsesChronometer(CallManager.getState() == Call.STATE_ACTIVE)
             .setChannelId(channelId)
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
 
