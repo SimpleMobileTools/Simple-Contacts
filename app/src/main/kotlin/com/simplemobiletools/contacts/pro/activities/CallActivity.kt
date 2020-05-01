@@ -107,8 +107,6 @@ class CallActivity : SimpleActivity() {
 
         val callContact = CallManager.getCallContact(applicationContext) ?: return
         caller_name_label.text = if (callContact.name.isNotEmpty()) callContact.name else getString(R.string.unknown_caller)
-        caller_number_label.text = callContact.number
-        caller_number_label.beVisibleIf(callContact.number.isNotEmpty())
 
         if (callContactAvatar != null) {
             caller_avatar.setImageBitmap(callContactAvatar)
@@ -196,7 +194,7 @@ class CallActivity : SimpleActivity() {
         val declinePendingIntent = PendingIntent.getBroadcast(this, 1, declineCallIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val callerName = if (callContact != null && callContact!!.name.isNotEmpty()) callContact!!.name else getString(R.string.unknown_caller)
-        val contentText = "${getString(R.string.incoming_call)} ${callContact?.number ?: ""}"
+        val contentText = getString(R.string.incoming_call)
 
         val collapsedView = RemoteViews(packageName, R.layout.call_notification).apply {
             setText(R.id.notification_caller_name, callerName)

@@ -8,7 +8,6 @@
     <dimen name="incoming_call_button_size">72dp</dimen>
     <dimen name="call_notification_button_size">30dp</dimen>
 
-    <dimen name="caller_name_text_size">26sp</dimen>
-    <dimen name="caller_number_text_size">20sp</dimen>
+    <dimen name="caller_name_text_size">28sp</dimen>
     <dimen name="dialpad_text_size">34sp</dimen>
 </resources>

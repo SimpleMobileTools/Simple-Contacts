@@ -29,18 +29,6 @@
         app:layout_constraintTop_toBottomOf="@+id/caller_avatar"
         tools:text="Caller name" />
 
-    <com.simplemobiletools.commons.views.MyTextView
-        android:id="@+id/caller_number_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/medium_margin"
-        android:alpha="0.8"
-        android:textSize="@dimen/caller_number_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/caller_name_label"
-        tools:text="123 456 789" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ongoing_call_holder"
         android:layout_width="match_parent"
