@@ -28,6 +28,8 @@ import com.simplemobiletools.contacts.pro.helpers.LOCATION_DIALPAD
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.SpeedDial
 import kotlinx.android.synthetic.main.activity_dialpad.*
+import kotlinx.android.synthetic.main.activity_dialpad.dialpad_holder
+import kotlinx.android.synthetic.main.dialpad.*
 
 class DialpadActivity : SimpleActivity() {
     private var contacts = ArrayList<Contact>()
