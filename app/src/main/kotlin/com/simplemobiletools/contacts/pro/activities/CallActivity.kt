@@ -225,7 +225,7 @@ class CallActivity : SimpleActivity() {
     private fun showNotification() {
         val channelId = "simple_contacts_call"
         if (isOreoPlus()) {
-            val importance = NotificationManager.IMPORTANCE_HIGH
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
             val name = "call_notification_channel"
 
             NotificationChannel(channelId, name, importance).apply {
@@ -263,7 +263,7 @@ class CallActivity : SimpleActivity() {
         val builder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.ic_phone_vector)
             .setContentIntent(openAppPendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setCategory(Notification.CATEGORY_CALL)
             .setCustomContentView(collapsedView)
             .setOngoing(true)
