@@ -7,6 +7,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
+import android.telecom.Call
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.simplemobiletools.commons.extensions.notificationManager
@@ -15,6 +16,7 @@ import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.helpers.ACCEPT_CALL
+import com.simplemobiletools.contacts.pro.helpers.CallManager
 import com.simplemobiletools.contacts.pro.helpers.DECLINE_CALL
 import com.simplemobiletools.contacts.pro.receivers.CallActionReceiver
 import kotlinx.android.synthetic.main.activity_call.*
@@ -33,6 +35,8 @@ class CallActivity : SimpleActivity() {
         updateTextColors(call_holder)
         initButtons()
         showNotification()
+        CallManager.registerCallback(getCallCallback())
+        updateCallState(CallManager.getState())
     }
 
     override fun onDestroy() {
@@ -41,7 +45,10 @@ class CallActivity : SimpleActivity() {
     }
 
     private fun initButtons() {
-        call_decline.setOnClickListener { }
+        call_decline.setOnClickListener {
+            endCall()
+        }
+
         call_accept.setOnClickListener { }
 
         call_toggle_microphone.setOnClickListener {
@@ -66,6 +73,25 @@ class CallActivity : SimpleActivity() {
         isMicrophoneOn = !isMicrophoneOn
         val drawable = if (isMicrophoneOn) R.drawable.ic_microphone_vector else R.drawable.ic_microphone_off_vector
         call_toggle_microphone.setImageDrawable(getDrawable(drawable))
+    }
+
+    private fun updateCallState(state: Int) {
+        when (state) {
+            Call.STATE_DISCONNECTED -> endCall()
+        }
+    }
+
+    private fun endCall() {
+        CallManager.reject()
+        finish()
+    }
+
+    @SuppressLint("NewApi")
+    fun getCallCallback() = object : Call.Callback() {
+        override fun onStateChanged(call: Call, state: Int) {
+            super.onStateChanged(call, state)
+            updateCallState(state)
+        }
     }
 
     @SuppressLint("NewApi")
