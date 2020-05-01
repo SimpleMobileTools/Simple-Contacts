@@ -8,6 +8,7 @@ import android.graphics.*
 import android.media.AudioManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.os.PowerManager
 import android.provider.MediaStore
 import android.telecom.Call
@@ -35,6 +36,7 @@ class CallActivity : SimpleActivity() {
 
     private var isSpeakerOn = false
     private var isMicrophoneOn = true
+    private var isCallEnded = false
     private var callDuration = 0
     private var callContact: CallContact? = null
     private var callContactAvatar: Bitmap? = null
@@ -65,6 +67,9 @@ class CallActivity : SimpleActivity() {
         notificationManager.cancel(CALL_NOTIFICATION_ID)
         CallManager.unregisterCallback(callCallback)
         callTimer.cancel()
+        if (proximityWakeLock?.isHeld == true) {
+            proximityWakeLock!!.release()
+        }
     }
 
     private fun initButtons() {
@@ -123,17 +128,18 @@ class CallActivity : SimpleActivity() {
             Call.STATE_DISCONNECTED -> endCall()
         }
 
+        if (state == Call.STATE_DISCONNECTED || state == Call.STATE_DISCONNECTING) {
+            callTimer.cancel()
+        }
+
         val statusTextId = when (state) {
             Call.STATE_RINGING -> R.string.is_calling
             Call.STATE_DIALING -> R.string.is_called
-            Call.STATE_DISCONNECTED -> R.string.call_ended
-            Call.STATE_DISCONNECTING -> R.string.call_ending
-            else -> R.string.empty
+            else -> 0
         }
 
-        call_status_label.text = getString(statusTextId)
-        if (state == Call.STATE_DISCONNECTED || state == Call.STATE_DISCONNECTING) {
-            callTimer.cancel()
+        if (statusTextId != 0) {
+            call_status_label.text = getString(statusTextId)
         }
     }
 
@@ -150,19 +156,33 @@ class CallActivity : SimpleActivity() {
     }
 
     private fun endCall() {
+        isCallEnded = true
         CallManager.reject()
         if (proximityWakeLock?.isHeld == true) {
             proximityWakeLock!!.release()
         }
+
         audioManager.mode = AudioManager.MODE_NORMAL
-        finish()
+        if (callDuration > 0) {
+            runOnUiThread {
+                call_status_label.text = "${callDuration.getFormattedDuration()} (${getString(R.string.call_ended)})"
+                Handler().postDelayed({
+                    finish()
+                }, 3000)
+            }
+        } else {
+            call_status_label.text = getString(R.string.call_ended)
+            finish()
+        }
     }
 
     private fun getCallTimerUpdateTask() = object : TimerTask() {
         override fun run() {
             callDuration++
             runOnUiThread {
-                call_status_label.text = callDuration.getFormattedDuration()
+                if (!isCallEnded) {
+                    call_status_label.text = callDuration.getFormattedDuration()
+                }
             }
         }
     }
