@@ -10,6 +10,10 @@ import android.os.Bundle
 import android.telecom.Call
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.contacts.pro.R
@@ -33,8 +37,10 @@ class CallActivity : SimpleActivity() {
         updateTextColors(call_holder)
         initButtons()
         showNotification()
+
         CallManager.registerCallback(getCallCallback())
         updateCallState(CallManager.getState())
+        updateOtherPersonsInfo()
     }
 
     override fun onDestroy() {
@@ -75,6 +81,24 @@ class CallActivity : SimpleActivity() {
         isMicrophoneOn = !isMicrophoneOn
         val drawable = if (isMicrophoneOn) R.drawable.ic_microphone_vector else R.drawable.ic_microphone_off_vector
         call_toggle_microphone.setImageDrawable(getDrawable(drawable))
+    }
+
+    private fun updateOtherPersonsInfo() {
+        val callContact = CallManager.getCallContact(applicationContext) ?: return
+        caller_name_label.text = callContact.name
+        caller_number_label.text = callContact.number
+        caller_number_label.beVisibleIf(callContact.number.isNotEmpty())
+
+        val options = RequestOptions()
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .centerCrop()
+
+        Glide.with(this)
+            .load(callContact.photoUri)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .apply(options)
+            .apply(RequestOptions.circleCropTransform())
+            .into(caller_avatar)
     }
 
     private fun updateCallState(state: Int) {

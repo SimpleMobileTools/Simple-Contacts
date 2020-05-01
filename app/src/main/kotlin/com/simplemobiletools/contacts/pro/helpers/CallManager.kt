@@ -1,8 +1,13 @@
 package com.simplemobiletools.contacts.pro.helpers
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.net.Uri
 import android.telecom.Call
 import android.telecom.VideoProfile
+import com.simplemobiletools.commons.extensions.getNameFromPhoneNumber
+import com.simplemobiletools.commons.extensions.getPhotoUriFromPhoneNumber
+import com.simplemobiletools.contacts.pro.models.CallContact
 
 // inspired by https://github.com/Chooloo/call_manage
 @SuppressLint("NewApi")
@@ -34,6 +39,28 @@ class CallManager {
             Call.STATE_DISCONNECTED
         } else {
             call!!.state
+        }
+
+        fun getCallContact(context: Context): CallContact? {
+            val callContact = CallContact("", "", "")
+            if (call == null) {
+                return callContact
+            }
+
+            val uri = Uri.decode(call!!.details.handle.toString())
+            if (uri.startsWith("tel:")) {
+                val number = uri.substringAfter("tel:")
+                callContact.number = number
+                callContact.name = context.getNameFromPhoneNumber(number)
+                callContact.photoUri = context.getPhotoUriFromPhoneNumber(number)
+            }
+
+            if (callContact.name.isEmpty() && callContact.number.isNotEmpty()) {
+                callContact.name = callContact.number
+                callContact.number = ""
+            }
+
+            return callContact
         }
     }
 }

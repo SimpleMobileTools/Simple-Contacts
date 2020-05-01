@@ -36,7 +36,7 @@ fun Context.getEmptyContact(): Contact {
     val originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
     val organization = Organization("", "")
     return Contact(0, "", "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), originalContactSource, 0, 0, "",
-            null, "", ArrayList(), organization, ArrayList(), ArrayList())
+        null, "", ArrayList(), organization, ArrayList(), ArrayList())
 }
 
 fun Context.viewContact(contact: Contact) {
@@ -226,7 +226,7 @@ fun Context.sendSMSToContacts(contacts: ArrayList<Contact>) {
     val numbers = StringBuilder()
     contacts.forEach {
         val number = it.phoneNumbers.firstOrNull { it.type == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE }
-                ?: it.phoneNumbers.firstOrNull()
+            ?: it.phoneNumbers.firstOrNull()
         if (number != null) {
             numbers.append("${number.value};")
         }
@@ -312,7 +312,7 @@ fun Context.getVisibleContactSources(): ArrayList<String> {
     val sources = getAllContactSources()
     val ignoredContactSources = config.ignoredContactSources
     return ArrayList(sources).filter { !ignoredContactSources.contains(it.getFullIdentifier()) }
-            .map { it.name }.toMutableList() as ArrayList<String>
+        .map { it.name }.toMutableList() as ArrayList<String>
 }
 
 fun Context.getAllContactSources(): ArrayList<ContactSource> {
