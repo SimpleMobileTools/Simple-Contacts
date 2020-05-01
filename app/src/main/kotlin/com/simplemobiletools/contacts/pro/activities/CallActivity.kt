@@ -28,15 +28,18 @@ import com.simplemobiletools.contacts.pro.helpers.DECLINE_CALL
 import com.simplemobiletools.contacts.pro.models.CallContact
 import com.simplemobiletools.contacts.pro.receivers.CallActionReceiver
 import kotlinx.android.synthetic.main.activity_call.*
+import java.util.*
 
 class CallActivity : SimpleActivity() {
     private val CALL_NOTIFICATION_ID = 1
 
     private var isSpeakerOn = false
     private var isMicrophoneOn = true
+    private var callDuration = 0
     private var callContact: CallContact? = null
     private var callContactAvatar: Bitmap? = null
     private var proximityWakeLock: PowerManager.WakeLock? = null
+    private var callTimer = Timer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -61,6 +64,7 @@ class CallActivity : SimpleActivity() {
         super.onDestroy()
         notificationManager.cancel(CALL_NOTIFICATION_ID)
         CallManager.unregisterCallback(callCallback)
+        callTimer.cancel()
     }
 
     private fun initButtons() {
@@ -128,6 +132,9 @@ class CallActivity : SimpleActivity() {
         }
 
         call_status_label.text = getString(statusTextId)
+        if (state == Call.STATE_DISCONNECTED || state == Call.STATE_DISCONNECTING) {
+            callTimer.cancel()
+        }
     }
 
     private fun acceptCall() {
@@ -139,6 +146,7 @@ class CallActivity : SimpleActivity() {
         ongoing_call_holder.beVisible()
         proximityWakeLock?.acquire(10 * MINUTE_SECONDS * 1000L)
         audioManager.mode = AudioManager.MODE_IN_CALL
+        callTimer.scheduleAtFixedRate(getCallTimerUpdateTask(), 1000, 1000)
     }
 
     private fun endCall() {
@@ -148,6 +156,15 @@ class CallActivity : SimpleActivity() {
         }
         audioManager.mode = AudioManager.MODE_NORMAL
         finish()
+    }
+
+    private fun getCallTimerUpdateTask() = object : TimerTask() {
+        override fun run() {
+            callDuration++
+            runOnUiThread {
+                call_status_label.text = callDuration.getFormattedDuration()
+            }
+        }
     }
 
     @SuppressLint("NewApi")
