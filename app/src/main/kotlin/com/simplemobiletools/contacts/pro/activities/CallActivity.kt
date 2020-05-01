@@ -156,13 +156,18 @@ class CallActivity : SimpleActivity() {
     }
 
     private fun endCall() {
-        isCallEnded = true
         CallManager.reject()
         if (proximityWakeLock?.isHeld == true) {
             proximityWakeLock!!.release()
         }
 
         audioManager.mode = AudioManager.MODE_NORMAL
+        if (isCallEnded) {
+            finish()
+            return
+        }
+
+        isCallEnded = true
         if (callDuration > 0) {
             runOnUiThread {
                 call_status_label.text = "${callDuration.getFormattedDuration()} (${getString(R.string.call_ended)})"
