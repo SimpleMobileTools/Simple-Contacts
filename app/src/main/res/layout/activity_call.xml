@@ -171,11 +171,25 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/dialpad_include"
             android:layout_marginStart="@dimen/dialpad_button_size"
-            android:layout_marginEnd="@dimen/dialpad_button_size"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:layout_toStartOf="@+id/dialpad_close"
             android:gravity="center"
             android:inputType="phone"
             android:textCursorDrawable="@null"
             android:textSize="@dimen/dialpad_text_size" />
+
+        <ImageView
+            android:id="@+id/dialpad_close"
+            android:layout_width="@dimen/normal_icon_size"
+            android:layout_height="@dimen/normal_icon_size"
+            android:layout_alignTop="@+id/dialpad_input"
+            android:layout_alignBottom="@+id/dialpad_input"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="@dimen/medium_margin"
+            android:src="@drawable/ic_cross_vector" />
 
         <include
             android:id="@+id/dialpad_include"

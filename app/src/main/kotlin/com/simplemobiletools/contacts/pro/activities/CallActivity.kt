@@ -111,6 +111,10 @@ class CallActivity : SimpleActivity() {
             toggleDialpadVisibility()
         }
 
+        dialpad_close.setOnClickListener {
+            dialpad_wrapper.beGone()
+        }
+
         call_end.setOnClickListener {
             endCall()
         }
