@@ -46,7 +46,7 @@ class CallManager {
         }
 
         fun getCallContact(context: Context): CallContact? {
-            val callContact = CallContact("", "")
+            val callContact = CallContact("", "", "")
             if (call == null) {
                 return callContact
             }
@@ -54,6 +54,7 @@ class CallManager {
             val uri = Uri.decode(call!!.details.handle.toString())
             if (uri.startsWith("tel:")) {
                 val number = uri.substringAfter("tel:")
+                callContact.number = number
                 callContact.name = context.getNameFromPhoneNumber(number)
                 callContact.photoUri = context.getPhotoUriFromPhoneNumber(number)
             }
