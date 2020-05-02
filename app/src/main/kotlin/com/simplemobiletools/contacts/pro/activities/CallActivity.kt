@@ -22,6 +22,7 @@ import com.simplemobiletools.commons.helpers.isOreoMr1Plus
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.commons.helpers.isQPlus
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.extensions.addCharacter
 import com.simplemobiletools.contacts.pro.extensions.audioManager
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.startCallIntent
@@ -31,6 +32,7 @@ import com.simplemobiletools.contacts.pro.helpers.DECLINE_CALL
 import com.simplemobiletools.contacts.pro.models.CallContact
 import com.simplemobiletools.contacts.pro.receivers.CallActionReceiver
 import kotlinx.android.synthetic.main.activity_call.*
+import kotlinx.android.synthetic.main.dialpad.*
 import java.util.*
 
 class CallActivity : SimpleActivity() {
@@ -120,7 +122,27 @@ class CallActivity : SimpleActivity() {
             endCall()
         }
 
+        dialpad_0_holder.setOnClickListener { dialpadPressed('0') }
+        dialpad_1.setOnClickListener { dialpadPressed('1') }
+        dialpad_2.setOnClickListener { dialpadPressed('2') }
+        dialpad_3.setOnClickListener { dialpadPressed('3') }
+        dialpad_4.setOnClickListener { dialpadPressed('4') }
+        dialpad_5.setOnClickListener { dialpadPressed('5') }
+        dialpad_6.setOnClickListener { dialpadPressed('6') }
+        dialpad_7.setOnClickListener { dialpadPressed('7') }
+        dialpad_8.setOnClickListener { dialpadPressed('8') }
+        dialpad_9.setOnClickListener { dialpadPressed('9') }
+
+        dialpad_0_holder.setOnLongClickListener { dialpadPressed('+'); true }
+        dialpad_asterisk.setOnClickListener { dialpadPressed('*') }
+        dialpad_hashtag.setOnClickListener { dialpadPressed('#') }
+
         dialpad_wrapper.setBackgroundColor(config.backgroundColor)
+    }
+
+    private fun dialpadPressed(char: Char) {
+        CallManager.keypad(char)
+        dialpad_input.addCharacter(char)
     }
 
     private fun toggleSpeaker() {

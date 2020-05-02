@@ -45,6 +45,11 @@ class CallManager {
             call!!.state
         }
 
+        fun keypad(c: Char) {
+            call?.playDtmfTone(c)
+            call?.stopDtmfTone()
+        }
+
         fun getCallContact(context: Context): CallContact? {
             val callContact = CallContact("", "", "")
             if (call == null) {
