@@ -111,8 +111,8 @@
     <string name="call_ended">Вызов завершён</string>
     <string name="call_ending">Завершение вызова</string>
     <string name="ongoing_call">Текущий вызов</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
+    <string name="select_sim">Выбор SIM для вызова</string>
+    <string name="always_use_this_sim">Запомнить выбор для этого номера</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Быстрый набор</string>
