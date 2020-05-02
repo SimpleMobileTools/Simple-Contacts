@@ -103,14 +103,16 @@
 
     <!-- Dialer -->
     <string name="dialer">Çevirici</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling</string>
-    <string name="dialing">Dialing</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
+    <string name="accept">Kabul Et</string>
+    <string name="decline">Reddet</string>
+    <string name="unknown_caller">Bilinmeyen Arama</string>
+    <string name="is_calling">Arıyor</string>
+    <string name="dialing">Çevriliyor</string>
+    <string name="call_ended">Arama Sonlandırıldı</string>
+    <string name="call_ending">Arama Sonlandırılıyor</string>
+    <string name="ongoing_call">Devam Eden Arama</string>
+    <string name="select_sim">Select a SIM for this call</string>
+    <string name="always_use_this_sim">Always use this SIM for this number</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Hızlı arama</string>
@@ -173,7 +175,7 @@
 
         Bu basit kişi düzenleyicisi, ana ekranda telefon numaralarını göstermek, kişi küçük resminin görünürlüğünü değiştirmek, yalnızca telefon numaralarına sahip kişileri göstermek, bir arama başlatmadan önce bir arama onay kutusu göstermek gibi birçok kullanışlı ayara sahiptir. Harfleri de kullanan hızlı bir çevirici ile birlikte gelir.
 
-        Kullanıcı deneyimini daha da geliştirmek için, bir kişiye tıklandığında neler olacağını özelleştirebilirsiniz. Bir çağrı başlatabilir, Ayrıntıları Görüntüle ekranına gidebilir veya seçilen kişiyi düzenleyebilirsiniz.
+        Kullanıcı deneyimini daha da geliştirmek için, bir kişiye tıklandığında neler olacağını özelleştirebilirsiniz. Bir arama başlatabilir, Ayrıntıları Görüntüle ekranına gidebilir veya seçilen kişiyi düzenleyebilirsiniz.
 
         İstenmeyen gelen aramaları önlemek için telefon numaralarını kolayca engelleyebilirsiniz.
 

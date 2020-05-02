@@ -103,14 +103,16 @@
 
     <!-- Dialer -->
     <string name="dialer">Πληκτρολόγιο</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling</string>
-    <string name="dialing">Dialing</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
+    <string name="accept">Αποδοχή</string>
+    <string name="decline">Απόρριψη</string>
+    <string name="unknown_caller">Άγνωστος</string>
+    <string name="is_calling">Καλεί</string>
+    <string name="dialing">Πληκτρολόγηση</string>
+    <string name="call_ended">Τέλος Κλήσης</string>
+    <string name="call_ending">Τερματισμός Κλήσης</string>
+    <string name="ongoing_call">Τρέχουσα κλήση</string>
+    <string name="select_sim">Επιλέξτε SIM για αυτήν την κλήση</string>
+    <string name="always_use_this_sim">Χρήση πάντα αυτής της SIM για αυτόν τον αριθμό</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Ταχεία Κλήση</string>

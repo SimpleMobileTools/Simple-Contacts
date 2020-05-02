@@ -111,6 +111,8 @@
     <string name="call_ended">Hovor ukončený</string>
     <string name="call_ending">Hovor končí</string>
     <string name="ongoing_call">Prebiehajúci hovor</string>
+    <string name="select_sim">Zvoľte SIM pre tento hovor</string>
+    <string name="always_use_this_sim">Stále použiť túto SIM pri volaní tohto čísla</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Rýchle vytáčanie</string>

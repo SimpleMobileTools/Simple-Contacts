@@ -16,11 +16,10 @@ import android.util.Size
 import android.view.WindowManager
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
+import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.MINUTE_SECONDS
-import com.simplemobiletools.commons.helpers.isOreoMr1Plus
-import com.simplemobiletools.commons.helpers.isOreoPlus
-import com.simplemobiletools.commons.helpers.isQPlus
+import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.audioManager
 import com.simplemobiletools.contacts.pro.extensions.config
@@ -159,9 +158,11 @@ class CallActivity : SimpleActivity() {
 
     private fun updateCallState(state: Int) {
         when (state) {
+            Call.STATE_RINGING -> callRinging()
             Call.STATE_ACTIVE -> callStarted()
             Call.STATE_DISCONNECTED -> endCall()
             Call.STATE_CONNECTING -> initOutgoingCallUI()
+            Call.STATE_SELECT_PHONE_ACCOUNT -> showPhoneAccountPicker()
         }
 
         if (state == Call.STATE_DISCONNECTED || state == Call.STATE_DISCONNECTING) {
@@ -190,11 +191,40 @@ class CallActivity : SimpleActivity() {
         ongoing_call_holder.beVisible()
     }
 
+    private fun callRinging() {
+        incoming_call_holder.beVisible()
+    }
+
     private fun callStarted() {
         incoming_call_holder.beGone()
         ongoing_call_holder.beVisible()
         audioManager.mode = AudioManager.MODE_IN_CALL
         callTimer.scheduleAtFixedRate(getCallTimerUpdateTask(), 1000, 1000)
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun showPhoneAccountPicker() {
+        if (!hasPermission(PERMISSION_READ_PHONE_STATE)) {
+            return
+        }
+
+        val items = ArrayList<RadioItem>()
+        telecomManager.callCapablePhoneAccounts.forEachIndexed { index, account ->
+            val phoneAccount = telecomManager.getPhoneAccount(account)
+            var label = phoneAccount.label.toString()
+            var address = phoneAccount.address.toString()
+            if (address.startsWith("tel:") && address.substringAfter("tel:").isNotEmpty()) {
+                address = Uri.decode(address.substringAfter("tel:"))
+                label += " ($address)"
+            }
+
+            val radioItem = RadioItem(index, label, phoneAccount.accountHandle)
+            items.add(radioItem)
+        }
+
+        RadioGroupDialog(this, items, titleId = R.string.select_sim) {
+
+        }
     }
 
     private fun endCall() {
