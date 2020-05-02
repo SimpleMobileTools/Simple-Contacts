@@ -288,6 +288,7 @@ class CallActivity : SimpleActivity() {
             val name = "call_notification_channel"
 
             NotificationChannel(channelId, name, importance).apply {
+                setSound(null, null)
                 notificationManager.createNotificationChannel(this)
             }
         }
@@ -333,6 +334,7 @@ class CallActivity : SimpleActivity() {
             .setCategory(Notification.CATEGORY_CALL)
             .setCustomContentView(collapsedView)
             .setOngoing(true)
+            .setSound(null)
             .setUsesChronometer(callState == Call.STATE_ACTIVE)
             .setChannelId(channelId)
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
