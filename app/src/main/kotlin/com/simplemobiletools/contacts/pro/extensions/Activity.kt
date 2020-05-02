@@ -122,19 +122,19 @@ fun SimpleActivity.callContact(contact: Contact) {
 // used at devices with multiple SIM cards
 @SuppressLint("MissingPermission")
 fun SimpleActivity.getHandleToUse(intent: Intent?, phoneNumber: String, callback: (PhoneAccountHandle) -> Unit) {
-    val defaultHandle = telecomManager.getDefaultOutgoingPhoneAccount(PhoneAccount.SCHEME_TEL)
-    when {
-        intent?.hasExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE) == true -> callback(intent.getParcelableExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE)!!)
-        config.getCustomSIM(phoneNumber)?.isNotEmpty() == true -> {
-            val storedLabel = Uri.decode(config.getCustomSIM(phoneNumber))
-            val availableSIMs = getAvailableSIMCardLabels()
-            val firstornull = availableSIMs.firstOrNull { it.label == storedLabel }?.handle ?: availableSIMs.first().handle
-            callback(firstornull)
-        }
-        defaultHandle != null -> callback(defaultHandle)
-        else -> {
-            handlePermission(PERMISSION_READ_PHONE_STATE) {
-                if (it) {
+    handlePermission(PERMISSION_READ_PHONE_STATE) {
+        if (it) {
+            val defaultHandle = telecomManager.getDefaultOutgoingPhoneAccount(PhoneAccount.SCHEME_TEL)
+            when {
+                intent?.hasExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE) == true -> callback(intent.getParcelableExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE)!!)
+                config.getCustomSIM(phoneNumber)?.isNotEmpty() == true -> {
+                    val storedLabel = Uri.decode(config.getCustomSIM(phoneNumber))
+                    val availableSIMs = getAvailableSIMCardLabels()
+                    val firstornull = availableSIMs.firstOrNull { it.label == storedLabel }?.handle ?: availableSIMs.first().handle
+                    callback(firstornull)
+                }
+                defaultHandle != null -> callback(defaultHandle)
+                else -> {
                     SelectSIMDialog(this, phoneNumber) { handle ->
                         callback(handle)
                     }
