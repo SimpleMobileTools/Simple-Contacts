@@ -106,8 +106,8 @@
     <string name="accept">Prijať</string>
     <string name="decline">Odmietnuť</string>
     <string name="unknown_caller">Neznámy volajúci</string>
-    <string name="is_calling">Vám volá</string>
-    <string name="dialing">Vytáčanie</string>
+    <string name="is_calling">Vám volá…</string>
+    <string name="dialing">Vytáčanie…</string>
     <string name="call_ended">Hovor ukončený</string>
     <string name="call_ending">Hovor končí</string>
     <string name="ongoing_call">Prebiehajúci hovor</string>

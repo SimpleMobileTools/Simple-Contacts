@@ -106,8 +106,8 @@
     <string name="accept">Kabul Et</string>
     <string name="decline">Reddet</string>
     <string name="unknown_caller">Bilinmeyen Arama</string>
-    <string name="is_calling">Arıyor</string>
-    <string name="dialing">Çevriliyor</string>
+    <string name="is_calling">Arıyor…</string>
+    <string name="dialing">Çevriliyor…</string>
     <string name="call_ended">Arama Sonlandırıldı</string>
     <string name="call_ending">Arama Sonlandırılıyor</string>
     <string name="ongoing_call">Devam Eden Arama</string>

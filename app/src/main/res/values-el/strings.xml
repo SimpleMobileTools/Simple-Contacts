@@ -106,8 +106,8 @@
     <string name="accept">Αποδοχή</string>
     <string name="decline">Απόρριψη</string>
     <string name="unknown_caller">Άγνωστος</string>
-    <string name="is_calling">Καλεί</string>
-    <string name="dialing">Πληκτρολόγηση</string>
+    <string name="is_calling">Καλεί…</string>
+    <string name="dialing">Πληκτρολόγηση…</string>
     <string name="call_ended">Τέλος Κλήσης</string>
     <string name="call_ending">Τερματισμός Κλήσης</string>
     <string name="ongoing_call">Τρέχουσα κλήση</string>
