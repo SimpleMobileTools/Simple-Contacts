@@ -64,13 +64,15 @@ class DialerActivity : SimpleActivity() {
     @SuppressLint("MissingPermission")
     private fun getHandleToUse(callback: (PhoneAccountHandle) -> Unit) {
         val defaultHandle = telecomManager.getDefaultOutgoingPhoneAccount(PhoneAccount.SCHEME_TEL)
-        if (defaultHandle != null) {
-            callback(defaultHandle)
-        } else {
-            handlePermission(PERMISSION_READ_PHONE_STATE) {
-                if (it) {
-                    SelectSIMDialog(this) { handle ->
-                        callback(handle)
+        when {
+            defaultHandle != null -> callback(defaultHandle)
+            intent.hasExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE) -> callback(intent.getParcelableExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE))
+            else -> {
+                handlePermission(PERMISSION_READ_PHONE_STATE) {
+                    if (it) {
+                        SelectSIMDialog(this) { handle ->
+                            callback(handle)
+                        }
                     }
                 }
             }
