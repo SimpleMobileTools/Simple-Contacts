@@ -18,6 +18,18 @@
     <RadioGroup
         android:id="@+id/select_sim_radio_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_margin" />
+
+    <include layout="@layout/divider" />
+
+    <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+        android:id="@+id/select_sim_remember"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        android:paddingTop="@dimen/activity_margin"
+        android:paddingBottom="@dimen/activity_margin"
+        android:text="@string/always_use_this_sim" />
 
 </LinearLayout>

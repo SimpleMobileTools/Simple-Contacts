@@ -24,6 +24,7 @@ const val SHOW_DIALPAD_LETTERS = "show_dialpad_letters"
 const val SPEED_DIAL = "speed_dial"
 const val LAST_EXPORT_PATH = "last_export_path"
 const val WAS_LOCAL_ACCOUNT_INITIALIZED = "was_local_account_initialized"
+const val REMEMBER_SIM_PREFIX = "remember_sim_"
 
 const val CONTACT_ID = "contact_id"
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
@@ -56,8 +57,8 @@ const val GROUPS_TAB_MASK = 8
 const val ALL_TABS_MASK = CONTACTS_TAB_MASK or FAVORITES_TAB_MASK or GROUPS_TAB_MASK
 
 val tabsList = arrayListOf(CONTACTS_TAB_MASK,
-        FAVORITES_TAB_MASK,
-        GROUPS_TAB_MASK
+    FAVORITES_TAB_MASK,
+    GROUPS_TAB_MASK
 )
 
 // contact photo changes

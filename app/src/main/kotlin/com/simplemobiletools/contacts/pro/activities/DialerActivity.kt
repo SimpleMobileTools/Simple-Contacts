@@ -16,6 +16,8 @@ import com.simplemobiletools.commons.helpers.PERMISSION_READ_PHONE_STATE
 import com.simplemobiletools.commons.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.SelectSIMDialog
+import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.extensions.getAvailableSIMCardLabels
 
 class DialerActivity : SimpleActivity() {
     private var callNumber: Uri? = null
@@ -46,7 +48,7 @@ class DialerActivity : SimpleActivity() {
     @SuppressLint("MissingPermission")
     private fun initOutgoingCall() {
         try {
-            getHandleToUse { handle ->
+            getHandleToUse(callNumber.toString()) { handle ->
                 Bundle().apply {
                     putParcelable(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE, handle)
                     putBoolean(TelecomManager.EXTRA_START_CALL_WITH_VIDEO_STATE, false)
@@ -62,15 +64,21 @@ class DialerActivity : SimpleActivity() {
     }
 
     @SuppressLint("MissingPermission")
-    private fun getHandleToUse(callback: (PhoneAccountHandle) -> Unit) {
+    private fun getHandleToUse(phoneNumber: String, callback: (PhoneAccountHandle) -> Unit) {
         val defaultHandle = telecomManager.getDefaultOutgoingPhoneAccount(PhoneAccount.SCHEME_TEL)
         when {
             intent.hasExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE) -> callback(intent.getParcelableExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE)!!)
+            config.getCustomSIM(phoneNumber)?.isNotEmpty() == true -> {
+                val storedLabel = Uri.decode(config.getCustomSIM(phoneNumber))
+                val availableSIMs = getAvailableSIMCardLabels()
+                val firstornull = availableSIMs.firstOrNull { it.label == storedLabel }?.handle ?: availableSIMs.first().handle
+                callback(firstornull)
+            }
             defaultHandle != null -> callback(defaultHandle)
             else -> {
                 handlePermission(PERMISSION_READ_PHONE_STATE) {
                     if (it) {
-                        SelectSIMDialog(this) { handle ->
+                        SelectSIMDialog(this, phoneNumber) { handle ->
                             callback(handle)
                         }
                     }
