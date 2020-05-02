@@ -19,9 +19,7 @@ import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
-import com.simplemobiletools.contacts.pro.extensions.callContact
-import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.startCallIntent
+import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.pro.helpers.LOCATION_DIALPAD
@@ -45,16 +43,16 @@ class DialpadActivity : SimpleActivity() {
 
         speedDialValues = config.getSpeedDialValues()
 
-        dialpad_0_holder.setOnClickListener { dialpadPressed("0", it) }
-        dialpad_1.setOnClickListener { dialpadPressed("1", it) }
-        dialpad_2.setOnClickListener { dialpadPressed("2", it) }
-        dialpad_3.setOnClickListener { dialpadPressed("3", it) }
-        dialpad_4.setOnClickListener { dialpadPressed("4", it) }
-        dialpad_5.setOnClickListener { dialpadPressed("5", it) }
-        dialpad_6.setOnClickListener { dialpadPressed("6", it) }
-        dialpad_7.setOnClickListener { dialpadPressed("7", it) }
-        dialpad_8.setOnClickListener { dialpadPressed("8", it) }
-        dialpad_9.setOnClickListener { dialpadPressed("9", it) }
+        dialpad_0_holder.setOnClickListener { dialpadPressed('0', it) }
+        dialpad_1.setOnClickListener { dialpadPressed('1', it) }
+        dialpad_2.setOnClickListener { dialpadPressed('2', it) }
+        dialpad_3.setOnClickListener { dialpadPressed('3', it) }
+        dialpad_4.setOnClickListener { dialpadPressed('4', it) }
+        dialpad_5.setOnClickListener { dialpadPressed('5', it) }
+        dialpad_6.setOnClickListener { dialpadPressed('6', it) }
+        dialpad_7.setOnClickListener { dialpadPressed('7', it) }
+        dialpad_8.setOnClickListener { dialpadPressed('8', it) }
+        dialpad_9.setOnClickListener { dialpadPressed('9', it) }
 
         dialpad_1.setOnLongClickListener { speedDial(1); true }
         dialpad_2.setOnLongClickListener { speedDial(2); true }
@@ -66,9 +64,9 @@ class DialpadActivity : SimpleActivity() {
         dialpad_8.setOnLongClickListener { speedDial(8); true }
         dialpad_9.setOnLongClickListener { speedDial(9); true }
 
-        dialpad_0_holder.setOnLongClickListener { dialpadPressed("+", null); true }
-        dialpad_asterisk.setOnClickListener { dialpadPressed("*", it) }
-        dialpad_hashtag.setOnClickListener { dialpadPressed("#", it) }
+        dialpad_0_holder.setOnLongClickListener { dialpadPressed('+', null); true }
+        dialpad_asterisk.setOnClickListener { dialpadPressed('*', it) }
+        dialpad_hashtag.setOnClickListener { dialpadPressed('#', it) }
         dialpad_clear_char.setOnClickListener { clearChar(it) }
         dialpad_clear_char.setOnLongClickListener { clearInput(); true }
         dialpad_call_button.setOnClickListener { initCall() }
@@ -130,36 +128,18 @@ class DialpadActivity : SimpleActivity() {
         }
     }
 
-    private fun dialpadPressed(char: String, view: View?) {
-        dialpad_input.dispatchKeyEvent(getKeyEvent(getCharKeyCode(char)))
+    private fun dialpadPressed(char: Char, view: View?) {
+        dialpad_input.addCharacter(char)
         view?.performHapticFeedback()
     }
 
     private fun clearChar(view: View) {
-        dialpad_input.dispatchKeyEvent(getKeyEvent(KeyEvent.KEYCODE_DEL))
+        dialpad_input.dispatchKeyEvent(dialpad_input.getKeyEvent(KeyEvent.KEYCODE_DEL))
         view.performHapticFeedback()
     }
 
     private fun clearInput() {
         dialpad_input.setText("")
-    }
-
-    private fun getKeyEvent(keyCode: Int) = KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyCode, 0)
-
-    private fun getCharKeyCode(char: String) = when (char) {
-        "0" -> KeyEvent.KEYCODE_0
-        "1" -> KeyEvent.KEYCODE_1
-        "2" -> KeyEvent.KEYCODE_2
-        "3" -> KeyEvent.KEYCODE_3
-        "4" -> KeyEvent.KEYCODE_4
-        "5" -> KeyEvent.KEYCODE_5
-        "6" -> KeyEvent.KEYCODE_6
-        "7" -> KeyEvent.KEYCODE_7
-        "8" -> KeyEvent.KEYCODE_8
-        "9" -> KeyEvent.KEYCODE_9
-        "*" -> KeyEvent.KEYCODE_STAR
-        "+" -> KeyEvent.KEYCODE_PLUS
-        else -> KeyEvent.KEYCODE_POUND
     }
 
     private fun disableKeyboardPopping() {
