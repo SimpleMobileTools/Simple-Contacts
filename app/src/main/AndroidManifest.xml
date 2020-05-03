@@ -279,10 +279,13 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".receivers.CallActionReceiver">
+        <receiver
+            android:name=".receivers.CallActionReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
-                <action android:name="com.simplemobiletools.contacts.action.ACCEPT_CALL"/>
-                <action android:name="com.simplemobiletools.contacts.action.DECLINE_CALL"/>
+                <action android:name="com.simplemobiletools.contacts.action.ACCEPT_CALL" />
+                <action android:name="com.simplemobiletools.contacts.action.DECLINE_CALL" />
             </intent-filter>
         </receiver>
 
