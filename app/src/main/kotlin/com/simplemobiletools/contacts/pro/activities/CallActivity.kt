@@ -139,6 +139,9 @@ class CallActivity : SimpleActivity() {
         dialpad_hashtag.setOnClickListener { dialpadPressed('#') }
 
         dialpad_wrapper.setBackgroundColor(config.backgroundColor)
+        arrayOf(call_toggle_microphone, call_toggle_speaker, call_dialpad, dialpad_close).forEach {
+            it.applyColorFilter(config.textColor)
+        }
     }
 
     private fun dialpadPressed(char: Char) {
