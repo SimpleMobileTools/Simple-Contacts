@@ -55,6 +55,7 @@ class CallActivity : SimpleActivity() {
         updateTextColors(call_holder)
         initButtons()
 
+        audioManager.mode = AudioManager.MODE_IN_CALL
         callContact = CallManager.getCallContact(applicationContext)
         callContactAvatar = getCallContactAvatar()
         addLockScreenFlags()
@@ -222,7 +223,6 @@ class CallActivity : SimpleActivity() {
     private fun callStarted() {
         incoming_call_holder.beGone()
         ongoing_call_holder.beVisible()
-        audioManager.mode = AudioManager.MODE_IN_CALL
         callTimer.scheduleAtFixedRate(getCallTimerUpdateTask(), 1000, 1000)
     }
 
