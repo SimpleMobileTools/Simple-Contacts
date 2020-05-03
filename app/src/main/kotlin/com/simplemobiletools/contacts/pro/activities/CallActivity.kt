@@ -59,8 +59,8 @@ class CallActivity : SimpleActivity() {
         CallManager.getCallContact(applicationContext) { contact ->
             callContact = contact
             callContactAvatar = getCallContactAvatar()
-            setupNotification()
             runOnUiThread {
+                setupNotification()
                 updateOtherPersonsInfo()
             }
         }
