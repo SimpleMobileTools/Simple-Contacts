@@ -85,11 +85,16 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 updateTextColor(color)
             }
         }
+
+        letter_fastscroller?.textColor = color.getColorStateList()
     }
 
     fun primaryColorChanged() {
         fragment_fastscroller?.updatePrimaryColor()
         fragment_fastscroller?.updateBubblePrimaryColor()
+        letter_fastscroller_thumb?.thumbColor = config.primaryColor.getColorStateList()
+        letter_fastscroller_thumb?.textColor = config.primaryColor.getContrastColor()
+
         (fragment_list.adapter as? ContactsAdapter)?.apply {
             adjustedPrimaryColor = context.getAdjustedPrimaryColor()
         }
