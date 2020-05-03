@@ -56,11 +56,16 @@ class CallActivity : SimpleActivity() {
         initButtons()
 
         audioManager.mode = AudioManager.MODE_IN_CALL
-        callContact = CallManager.getCallContact(applicationContext)
-        callContactAvatar = getCallContactAvatar()
+        CallManager.getCallContact(applicationContext) { contact ->
+            callContact = contact
+            callContactAvatar = getCallContactAvatar()
+            setupNotification()
+            runOnUiThread {
+                updateOtherPersonsInfo()
+            }
+        }
+
         addLockScreenFlags()
-        setupNotification()
-        updateOtherPersonsInfo()
         initProximitySensor()
 
         CallManager.registerCallback(callCallback)
@@ -176,8 +181,7 @@ class CallActivity : SimpleActivity() {
             return
         }
 
-        val callContact = CallManager.getCallContact(applicationContext) ?: return
-        caller_name_label.text = if (callContact.name.isNotEmpty()) callContact.name else getString(R.string.unknown_caller)
+        caller_name_label.text = if (callContact!!.name.isNotEmpty()) callContact!!.name else getString(R.string.unknown_caller)
 
         if (callContactAvatar != null) {
             caller_avatar.setImageBitmap(callContactAvatar)
