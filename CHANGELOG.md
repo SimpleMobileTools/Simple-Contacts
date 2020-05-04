@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.10.1 *(2020-05-04)*
+----------------------------
+
+ * Show the multi-SIM picker only if the app is set as the default dialer
+ * Added a couple other stability and UX improvements
+
 Version 6.10.0 *(2020-05-03)*
 ----------------------------
 
