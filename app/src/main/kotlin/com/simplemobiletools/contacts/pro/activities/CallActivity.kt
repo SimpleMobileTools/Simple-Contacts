@@ -16,19 +16,23 @@ import android.util.Size
 import android.view.WindowManager
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
-import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.*
-import com.simplemobiletools.commons.models.RadioItem
+import com.simplemobiletools.commons.helpers.MINUTE_SECONDS
+import com.simplemobiletools.commons.helpers.isOreoMr1Plus
+import com.simplemobiletools.commons.helpers.isOreoPlus
+import com.simplemobiletools.commons.helpers.isQPlus
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.extensions.addCharacter
 import com.simplemobiletools.contacts.pro.extensions.audioManager
 import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.extensions.startCallIntent
 import com.simplemobiletools.contacts.pro.helpers.ACCEPT_CALL
 import com.simplemobiletools.contacts.pro.helpers.CallManager
 import com.simplemobiletools.contacts.pro.helpers.DECLINE_CALL
 import com.simplemobiletools.contacts.pro.models.CallContact
 import com.simplemobiletools.contacts.pro.receivers.CallActionReceiver
 import kotlinx.android.synthetic.main.activity_call.*
+import kotlinx.android.synthetic.main.dialpad.*
 import java.util.*
 
 class CallActivity : SimpleActivity() {
@@ -51,11 +55,17 @@ class CallActivity : SimpleActivity() {
         updateTextColors(call_holder)
         initButtons()
 
-        callContact = CallManager.getCallContact(applicationContext)
-        callContactAvatar = getCallContactAvatar()
+        audioManager.mode = AudioManager.MODE_IN_CALL
+        CallManager.getCallContact(applicationContext) { contact ->
+            callContact = contact
+            callContactAvatar = getCallContactAvatar()
+            runOnUiThread {
+                setupNotification()
+                updateOtherPersonsInfo()
+            }
+        }
+
         addLockScreenFlags()
-        setupNotification()
-        updateOtherPersonsInfo()
         initProximitySensor()
 
         CallManager.registerCallback(callCallback)
@@ -118,7 +128,30 @@ class CallActivity : SimpleActivity() {
             endCall()
         }
 
+        dialpad_0_holder.setOnClickListener { dialpadPressed('0') }
+        dialpad_1.setOnClickListener { dialpadPressed('1') }
+        dialpad_2.setOnClickListener { dialpadPressed('2') }
+        dialpad_3.setOnClickListener { dialpadPressed('3') }
+        dialpad_4.setOnClickListener { dialpadPressed('4') }
+        dialpad_5.setOnClickListener { dialpadPressed('5') }
+        dialpad_6.setOnClickListener { dialpadPressed('6') }
+        dialpad_7.setOnClickListener { dialpadPressed('7') }
+        dialpad_8.setOnClickListener { dialpadPressed('8') }
+        dialpad_9.setOnClickListener { dialpadPressed('9') }
+
+        dialpad_0_holder.setOnLongClickListener { dialpadPressed('+'); true }
+        dialpad_asterisk.setOnClickListener { dialpadPressed('*') }
+        dialpad_hashtag.setOnClickListener { dialpadPressed('#') }
+
         dialpad_wrapper.setBackgroundColor(config.backgroundColor)
+        arrayOf(call_toggle_microphone, call_toggle_speaker, call_dialpad, dialpad_close).forEach {
+            it.applyColorFilter(config.textColor)
+        }
+    }
+
+    private fun dialpadPressed(char: Char) {
+        CallManager.keypad(char)
+        dialpad_input.addCharacter(char)
     }
 
     private fun toggleSpeaker() {
@@ -148,8 +181,7 @@ class CallActivity : SimpleActivity() {
             return
         }
 
-        val callContact = CallManager.getCallContact(applicationContext) ?: return
-        caller_name_label.text = if (callContact.name.isNotEmpty()) callContact.name else getString(R.string.unknown_caller)
+        caller_name_label.text = if (callContact!!.name.isNotEmpty()) callContact!!.name else getString(R.string.unknown_caller)
 
         if (callContactAvatar != null) {
             caller_avatar.setImageBitmap(callContactAvatar)
@@ -161,7 +193,7 @@ class CallActivity : SimpleActivity() {
             Call.STATE_RINGING -> callRinging()
             Call.STATE_ACTIVE -> callStarted()
             Call.STATE_DISCONNECTED -> endCall()
-            Call.STATE_CONNECTING -> initOutgoingCallUI()
+            Call.STATE_CONNECTING, Call.STATE_DIALING -> initOutgoingCallUI()
             Call.STATE_SELECT_PHONE_ACCOUNT -> showPhoneAccountPicker()
         }
 
@@ -198,32 +230,14 @@ class CallActivity : SimpleActivity() {
     private fun callStarted() {
         incoming_call_holder.beGone()
         ongoing_call_holder.beVisible()
-        audioManager.mode = AudioManager.MODE_IN_CALL
         callTimer.scheduleAtFixedRate(getCallTimerUpdateTask(), 1000, 1000)
     }
 
-    @SuppressLint("MissingPermission")
     private fun showPhoneAccountPicker() {
-        if (!hasPermission(PERMISSION_READ_PHONE_STATE)) {
-            return
-        }
-
-        val items = ArrayList<RadioItem>()
-        telecomManager.callCapablePhoneAccounts.forEachIndexed { index, account ->
-            val phoneAccount = telecomManager.getPhoneAccount(account)
-            var label = phoneAccount.label.toString()
-            var address = phoneAccount.address.toString()
-            if (address.startsWith("tel:") && address.substringAfter("tel:").isNotEmpty()) {
-                address = Uri.decode(address.substringAfter("tel:"))
-                label += " ($address)"
-            }
-
-            val radioItem = RadioItem(index, label, phoneAccount.accountHandle)
-            items.add(radioItem)
-        }
-
-        RadioGroupDialog(this, items, titleId = R.string.select_sim) {
-
+        if (callContact == null || callContact!!.number.isEmpty()) {
+            toast(R.string.unknown_error_occurred)
+        } else {
+            startCallIntent(callContact!!.number)
         }
     }
 
@@ -303,6 +317,7 @@ class CallActivity : SimpleActivity() {
             val name = "call_notification_channel"
 
             NotificationChannel(channelId, name, importance).apply {
+                setSound(null, null)
                 notificationManager.createNotificationChannel(this)
             }
         }
@@ -348,6 +363,7 @@ class CallActivity : SimpleActivity() {
             .setCategory(Notification.CATEGORY_CALL)
             .setCustomContentView(collapsedView)
             .setOngoing(true)
+            .setSound(null)
             .setUsesChronometer(callState == Call.STATE_ACTIVE)
             .setChannelId(channelId)
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())

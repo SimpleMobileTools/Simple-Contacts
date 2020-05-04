@@ -15,7 +15,9 @@
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.MANAGE_OWN_CALLS"/>
+    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.telecom.action.CONFIGURE_PHONE_ACCOUNT" />
 
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -278,10 +280,13 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".receivers.CallActionReceiver">
+        <receiver
+            android:name=".receivers.CallActionReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
-                <action android:name="com.simplemobiletools.contacts.action.ACCEPT_CALL"/>
-                <action android:name="com.simplemobiletools.contacts.action.DECLINE_CALL"/>
+                <action android:name="com.simplemobiletools.contacts.action.ACCEPT_CALL" />
+                <action android:name="com.simplemobiletools.contacts.action.DECLINE_CALL" />
             </intent-filter>
         </receiver>
 

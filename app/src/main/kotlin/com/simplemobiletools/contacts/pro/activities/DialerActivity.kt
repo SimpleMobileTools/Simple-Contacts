@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.telecom.PhoneAccount
 import android.telecom.TelecomManager
 import android.view.Menu
 import com.simplemobiletools.commons.extensions.isDefaultDialer
@@ -13,6 +12,7 @@ import com.simplemobiletools.commons.extensions.telecomManager
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.REQUEST_CODE_SET_DEFAULT_DIALER
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.extensions.getHandleToUse
 
 class DialerActivity : SimpleActivity() {
     private var callNumber: Uri? = null
@@ -43,11 +43,13 @@ class DialerActivity : SimpleActivity() {
     @SuppressLint("MissingPermission")
     private fun initOutgoingCall() {
         try {
-            Bundle().apply {
-                putParcelable(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE, telecomManager.getDefaultOutgoingPhoneAccount(PhoneAccount.SCHEME_TEL))
-                putBoolean(TelecomManager.EXTRA_START_CALL_WITH_VIDEO_STATE, false)
-                putBoolean(TelecomManager.EXTRA_START_CALL_WITH_SPEAKERPHONE, false)
-                telecomManager.placeCall(callNumber, this)
+            getHandleToUse(intent, callNumber.toString()) { handle ->
+                Bundle().apply {
+                    putParcelable(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE, handle)
+                    putBoolean(TelecomManager.EXTRA_START_CALL_WITH_VIDEO_STATE, false)
+                    putBoolean(TelecomManager.EXTRA_START_CALL_WITH_SPEAKERPHONE, false)
+                    telecomManager.placeCall(callNumber, this)
+                }
                 finish()
             }
         } catch (e: Exception) {

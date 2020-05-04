@@ -81,7 +81,7 @@ class LocalContactsHelper(val context: Context) {
         return scaledSizePhotoData
     }
 
-    private fun convertLocalContactToContact(localContact: LocalContact?, storedGroups: ArrayList<Group>): Contact? {
+    fun convertLocalContactToContact(localContact: LocalContact?, storedGroups: ArrayList<Group>): Contact? {
         if (localContact == null) {
             return null
         }

@@ -106,8 +106,8 @@
     <string name="accept">Принять</string>
     <string name="decline">Отклонить</string>
     <string name="unknown_caller">Неизвестный абонент</string>
-    <string name="is_calling">Вызывает</string>
-    <string name="dialing">Набор номера</string>
+    <string name="is_calling">Вызывает…</string>
+    <string name="dialing">Набор номера…</string>
     <string name="call_ended">Вызов завершён</string>
     <string name="call_ending">Завершение вызова</string>
     <string name="ongoing_call">Текущий вызов</string>

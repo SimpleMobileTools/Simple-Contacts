@@ -1,6 +1,21 @@
 Changelog
 ==========
 
+Version 6.10.1 *(2020-05-04)*
+----------------------------
+
+ * Show the multi-SIM picker only if the app is set as the default dialer
+ * Added a couple other stability and UX improvements
+
+Version 6.10.0 *(2020-05-03)*
+----------------------------
+
+ * Adding a first implementation of a Dialer, to really allow the app handle calls
+ * Increased the minimal required Android OS version to 6 Marshmallow to allow handling calls
+ * Try fixing the glitch with some saved contacts disappearing
+ * Properly handle inserting bigger resolution contact images in some cases
+ * Added a few other UX and UI improvements here and there
+
 Version 6.9.0 *(2020-04-16)*
 ----------------------------
 

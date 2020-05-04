@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:focusableInTouchMode="true"
+    android:paddingBottom="@dimen/normal_margin"
     tools:ignore="HardcodedText">
 
     <com.simplemobiletools.commons.views.MyTextView

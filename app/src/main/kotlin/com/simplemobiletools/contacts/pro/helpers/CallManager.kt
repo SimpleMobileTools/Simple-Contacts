@@ -7,6 +7,8 @@ import android.telecom.Call
 import android.telecom.VideoProfile
 import com.simplemobiletools.commons.extensions.getNameFromPhoneNumber
 import com.simplemobiletools.commons.extensions.getPhotoUriFromPhoneNumber
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.contacts.pro.extensions.contactsDB
 import com.simplemobiletools.contacts.pro.models.CallContact
 
 // inspired by https://github.com/Chooloo/call_manage
@@ -45,20 +47,41 @@ class CallManager {
             call!!.state
         }
 
-        fun getCallContact(context: Context): CallContact? {
-            val callContact = CallContact("", "")
-            if (call == null) {
-                return callContact
+        fun keypad(c: Char) {
+            call?.playDtmfTone(c)
+            call?.stopDtmfTone()
+        }
+
+        fun getCallContact(context: Context, callback: (CallContact?) -> Unit) {
+            val callContact = CallContact("", "", "")
+            if (call == null || call!!.details == null || call!!.details!!.handle == null) {
+                callback(callContact)
+                return
             }
 
             val uri = Uri.decode(call!!.details.handle.toString())
             if (uri.startsWith("tel:")) {
                 val number = uri.substringAfter("tel:")
+                callContact.number = number
                 callContact.name = context.getNameFromPhoneNumber(number)
                 callContact.photoUri = context.getPhotoUriFromPhoneNumber(number)
-            }
 
-            return callContact
+                if (callContact.name == callContact.number) {
+                    ensureBackgroundThread {
+                        val localContact = context.contactsDB.getContactWithNumber("%$number%")
+                        if (localContact != null) {
+                            val storedGroups = ContactsHelper(context).getStoredGroupsSync()
+                            val newContact = LocalContactsHelper(context).convertLocalContactToContact(localContact, storedGroups)
+                            callContact.name = newContact!!.getNameToDisplay()
+                            callContact.photoUri = newContact.photoUri
+                        }
+
+                        callback(callContact)
+                    }
+                } else {
+                    callback(callContact)
+                }
+            }
         }
     }
 }

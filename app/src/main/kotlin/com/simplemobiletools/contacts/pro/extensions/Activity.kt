@@ -1,24 +1,45 @@
 package com.simplemobiletools.contacts.pro.extensions
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.telecom.PhoneAccount
+import android.telecom.PhoneAccountHandle
+import android.telecom.TelecomManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
+import com.simplemobiletools.commons.helpers.PERMISSION_READ_PHONE_STATE
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
+import com.simplemobiletools.contacts.pro.dialogs.SelectSIMDialog
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
 
 fun SimpleActivity.startCallIntent(recipient: String) {
+    if (isDefaultDialer()) {
+        getHandleToUse(null, recipient) { handle ->
+            launchCallIntent(recipient, handle)
+        }
+    } else {
+        launchCallIntent(recipient, null)
+    }
+}
+
+fun SimpleActivity.launchCallIntent(recipient: String, handle: PhoneAccountHandle?) {
     handlePermission(PERMISSION_CALL_PHONE) {
         val action = if (it) Intent.ACTION_CALL else Intent.ACTION_DIAL
         Intent(action).apply {
             data = Uri.fromParts("tel", recipient, null)
+
+            if (handle != null) {
+                putExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE, handle)
+            }
+
             if (resolveActivity(packageManager) != null) {
                 startActivity(this)
             } else {
@@ -107,5 +128,30 @@ fun SimpleActivity.callContact(contact: Contact) {
         tryStartCall(contact)
     } else {
         toast(R.string.no_phone_number_found)
+    }
+}
+
+// used at devices with multiple SIM cards
+@SuppressLint("MissingPermission")
+fun SimpleActivity.getHandleToUse(intent: Intent?, phoneNumber: String, callback: (PhoneAccountHandle) -> Unit) {
+    handlePermission(PERMISSION_READ_PHONE_STATE) {
+        if (it) {
+            val defaultHandle = telecomManager.getDefaultOutgoingPhoneAccount(PhoneAccount.SCHEME_TEL)
+            when {
+                intent?.hasExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE) == true -> callback(intent.getParcelableExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE)!!)
+                config.getCustomSIM(phoneNumber)?.isNotEmpty() == true -> {
+                    val storedLabel = Uri.decode(config.getCustomSIM(phoneNumber))
+                    val availableSIMs = getAvailableSIMCardLabels()
+                    val firstornull = availableSIMs.firstOrNull { it.label == storedLabel }?.handle ?: availableSIMs.first().handle
+                    callback(firstornull)
+                }
+                defaultHandle != null -> callback(defaultHandle)
+                else -> {
+                    SelectSIMDialog(this, phoneNumber) { handle ->
+                        callback(handle)
+                    }
+                }
+            }
+        }
     }
 }
