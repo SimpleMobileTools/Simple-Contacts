@@ -54,7 +54,7 @@ class CallManager {
 
         fun getCallContact(context: Context, callback: (CallContact?) -> Unit) {
             val callContact = CallContact("", "", "")
-            if (call == null) {
+            if (call == null || call!!.details == null || call!!.details!!.handle == null) {
                 callback(callContact)
                 return
             }
