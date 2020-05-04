@@ -21,17 +21,29 @@ import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
 
 fun SimpleActivity.startCallIntent(recipient: String) {
+    if (isDefaultDialer()) {
+        getHandleToUse(null, recipient) { handle ->
+            launchCallIntent(recipient, handle)
+        }
+    } else {
+        launchCallIntent(recipient, null)
+    }
+}
+
+fun SimpleActivity.launchCallIntent(recipient: String, handle: PhoneAccountHandle?) {
     handlePermission(PERMISSION_CALL_PHONE) {
         val action = if (it) Intent.ACTION_CALL else Intent.ACTION_DIAL
-        getHandleToUse(null, recipient) { handle ->
-            Intent(action).apply {
-                data = Uri.fromParts("tel", recipient, null)
+        Intent(action).apply {
+            data = Uri.fromParts("tel", recipient, null)
+
+            if (handle != null) {
                 putExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE, handle)
-                if (resolveActivity(packageManager) != null) {
-                    startActivity(this)
-                } else {
-                    toast(R.string.no_app_found)
-                }
+            }
+
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
             }
         }
     }
