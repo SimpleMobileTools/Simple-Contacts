@@ -16,6 +16,11 @@
     <string name="call_person">Zavolať %s</string>
     <string name="create_new_contact">Vytvoriť nový kontakt</string>
     <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
+    <string name="dialer_moved">
+        <![CDATA[
+            Časť apky zodpovedná za správu hovorov musela byť presunutá do samostatnej novej apky Jednoduchý Telefón, prosím stiahnite si ju na <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">tomto odkaze.</a> Vďaka!
+        ]]>
+    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nenašli sa žiadne kontakty s emailami</string>
