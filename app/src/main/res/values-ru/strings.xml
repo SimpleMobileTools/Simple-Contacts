@@ -16,6 +16,11 @@
     <string name="call_person">Вызов %s</string>
     <string name="create_new_contact">Создать новый контакт</string>
     <string name="add_to_existing_contact">Добавить к существующему контакту</string>
+    <string name="dialer_moved">
+        <![CDATA[
+            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
+        ]]>
+    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Контакты с адресами электронной почты не найдены</string>
