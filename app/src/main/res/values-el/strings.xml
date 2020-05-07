@@ -18,7 +18,7 @@
     <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
     <string name="dialer_moved">
         <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
+            Η ενότητα της εφαρμογής που είναι υπεύθυνη για το χειρισμό κλήσεων έπρεπε να μετακινηθεί σε μια ξεχωριστή νέα εφαρμογή Simple Dialer, κάνετε λήψη από αυτόν <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">τον σύνδεσμο.</a> Ευχαριστώ!
         ]]>
     </string>
 
