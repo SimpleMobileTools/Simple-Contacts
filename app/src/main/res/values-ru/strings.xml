@@ -164,33 +164,33 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Простое и быстрое управление контактами, группами и избранным без рекламы.</string>
     <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
+        Лёгкое приложение для управления контактами, которое нравится миллионам людей. Контакты могут храниться только на устройстве, но также синхронизироваться через Google или другие аккаунты.
 
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+        Вы также можете использовать его для управления электронной почтой и событиями контактов. Есть возможность сортировать/фильтровать по нескольким параметрам, при необходимости отображать фамилию в качестве имени.
 
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+        Избранные контакты или группы можно отобразить в отдельном списке. Группы можно использовать для для экономии времени при множественной отправке электронных писем или SMS. Для удобства группы можно переименовывать.
 
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+        В приложении есть удобные кнопки для вызова или отправки текстовых сообщений вашим контактам. Все отображаемые поля настраиваются по вашему усмотрению, можно скрыть неиспользуемые. Функция поиска будет искать заданную строку в каждом отображаемом поле контакта, чтобы вы могли быстро найти нужный контакт.
 
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
+        К вашим услугам также имеется функция простого набора номера с умными предложениями по контактам.
 
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+        Приложение поддерживает экспорт/импорт контактов в формате vCard в файлы .vcf для облегчения миграции или резервного копирования данных.
 
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+        С помощью этого современного и стабильного менеджера вы можете защитить свои контакты, не передавая их другим приложениям, что поможет сохранить свои контакты в тайне.
 
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+        Как и в случае с источником контактов, вы также можете легко изменить имя контакта, его электронную почту, номер телефона, адрес, организацию, группы и многие другие настраиваемые поля. Вы также можете использовать приложение для хранения событий контактов, таких как дни рождения, юбилеи или любые другие пользовательские события.
 
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+        Этот простой редактор контактов имеет множество удобных настроек, таких как отображение телефонных номеров на главном экране, переключение видимости фотографий контактов, отображение только контактов с телефонными номерами, отображение диалога подтверждения перед началом вызова. Содержит быстрый номеронабиратель, который также использует буквы.
 
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+        Чтобы улучшить взаимодействие с пользователем, вы можете настроить, что будет происходить при нажатии на контакт. Можно либо инициировать вызов, либо перейти на экран просмотра сведений, либо отредактировать выбранный контакт.
 
-        You can easily block phone numbers to avoid unwanted incoming calls.
+        Вы можете легко заблокировать телефонные номера, чтобы избежать нежелательных входящих звонков.
 
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+        Чтобы избежать отображения потенциально нежелательных контактов, приложение имеет мощную встроенную функцию слияния дубликатов контактов.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Приложение выпускается с материальным дизайном и тёмной темой по умолчанию, что обеспечивает удобное использование. Отсутствие доступа в интернет обеспечивает вам больше приватности, безопасности и стабильности, чем в других приложениях.
 
-        Не содержит рекламы или ненужных разрешений, полностью с открытым исходным кодом. Есть возможность настраивать цвета.
+        Не содержит рекламы или ненужных разрешений, полностью с открытым исходным кодом. Есть возможность настраивать цвета интерфейса.
 
         <b>Ознакомьтесь с полным набором приложений серии Simple здесь:</b>
         https://www.simplemobiletools.com
