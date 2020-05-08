@@ -9,7 +9,6 @@ import android.telecom.TelecomManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_PHONE_STATE
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.BuildConfig
@@ -27,25 +26,6 @@ fun SimpleActivity.startCallIntent(recipient: String) {
         }
     } else {
         launchCallIntent(recipient, null)
-    }
-}
-
-fun SimpleActivity.launchCallIntent(recipient: String, handle: PhoneAccountHandle?) {
-    handlePermission(PERMISSION_CALL_PHONE) {
-        val action = if (it) Intent.ACTION_CALL else Intent.ACTION_DIAL
-        Intent(action).apply {
-            data = Uri.fromParts("tel", recipient, null)
-
-            if (handle != null) {
-                putExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE, handle)
-            }
-
-            if (resolveActivity(packageManager) != null) {
-                startActivity(this)
-            } else {
-                toast(R.string.no_app_found)
-            }
-        }
     }
 }
 
