@@ -183,7 +183,7 @@ class EditContactActivity : ContactActivity() {
         if (((contact!!.id == 0 && action == Intent.ACTION_INSERT) || action == ADD_NEW_CONTACT_NUMBER) && intent.extras != null) {
             val phoneNumber = getPhoneNumberFromIntent(intent)
             if (phoneNumber != null) {
-                contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, "", phoneNumber.normalizeNumber()))
+                contact!!.phoneNumbers.add(PhoneNumber(phoneNumber, DEFAULT_PHONE_NUMBER_TYPE, "", phoneNumber.normalizePhoneNumber()))
                 if (phoneNumber.isNotEmpty() && action == ADD_NEW_CONTACT_NUMBER) {
                     highlightLastPhoneNumber = true
                 }

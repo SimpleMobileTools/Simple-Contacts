@@ -10,7 +10,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
+import com.simplemobiletools.commons.extensions.getTextSize
+import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
@@ -146,7 +150,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                         else -> contact.firstName
                     }
 
-                    val placeholderImage = BitmapDrawable(resources, context.getContactLetterIcon(avatarName))
+                    val placeholderImage = BitmapDrawable(resources, ContactsHelper(context).getContactLetterIcon(avatarName))
 
                     if (contact.photoUri.isEmpty() && contact.photo == null) {
                         contact_tmb.setImageDrawable(placeholderImage)
