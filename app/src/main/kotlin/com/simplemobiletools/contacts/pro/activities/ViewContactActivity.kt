@@ -244,15 +244,8 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun openWith() {
-        Intent().apply {
-            action = ContactsContract.QuickContact.ACTION_QUICK_CONTACT
-            data = getContactPublicUri(contact!!)
-            if (resolveActivity(packageManager) != null) {
-                startActivity(this)
-            } else {
-                toast(R.string.no_app_found)
-            }
-        }
+        val uri = getContactPublicUri(contact!!)
+        launchViewContactIntent(uri)
     }
 
     private fun setupFavorite() {

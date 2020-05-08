@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.telecom.Call
 import android.telecom.VideoProfile
+import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.extensions.contactsDB
 import com.simplemobiletools.contacts.pro.models.CallContact
@@ -59,11 +60,10 @@ class CallManager {
 
             val uri = Uri.decode(call!!.details.handle.toString())
             if (uri.startsWith("tel:")) {
-                val contactsHelper = com.simplemobiletools.commons.helpers.ContactsHelper(context)
                 val number = uri.substringAfter("tel:")
                 callContact.number = number
-                callContact.name = contactsHelper.getNameFromPhoneNumber(number)
-                callContact.photoUri = contactsHelper.getPhotoUriFromPhoneNumber(number)
+                callContact.name = SimpleContactsHelper(context).getNameFromPhoneNumber(number)
+                callContact.photoUri = SimpleContactsHelper(context).getPhotoUriFromPhoneNumber(number)
 
                 if (callContact.name == callContact.number) {
                     ensureBackgroundThread {

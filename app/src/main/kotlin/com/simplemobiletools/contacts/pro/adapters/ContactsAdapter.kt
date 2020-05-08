@@ -19,6 +19,7 @@ import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.getTextSize
 import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
@@ -299,7 +300,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             findViewById<TextView>(R.id.item_contact_image).beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {
-                val placeholderImage = BitmapDrawable(resources, com.simplemobiletools.commons.helpers.ContactsHelper(context).getContactLetterIcon(fullName))
+                val placeholderImage = BitmapDrawable(resources, SimpleContactsHelper(context).getContactLetterIcon(fullName))
                 if (contact.photoUri.isEmpty() && contact.photo == null) {
                     findViewById<ImageView>(R.id.item_contact_image).setImageDrawable(placeholderImage)
                 } else {

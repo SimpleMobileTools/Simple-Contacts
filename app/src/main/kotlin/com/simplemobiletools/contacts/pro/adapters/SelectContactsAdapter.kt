@@ -14,7 +14,7 @@ import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.getTextSize
 import com.simplemobiletools.commons.extensions.highlightTextPart
-import com.simplemobiletools.commons.helpers.ContactsHelper
+import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
@@ -150,7 +150,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                         else -> contact.firstName
                     }
 
-                    val placeholderImage = BitmapDrawable(resources, ContactsHelper(context).getContactLetterIcon(avatarName))
+                    val placeholderImage = BitmapDrawable(resources, SimpleContactsHelper(context).getContactLetterIcon(avatarName))
 
                     if (contact.photoUri.isEmpty() && contact.photo == null) {
                         contact_tmb.setImageDrawable(placeholderImage)
