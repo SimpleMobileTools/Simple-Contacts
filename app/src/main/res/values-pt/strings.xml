@@ -15,10 +15,10 @@
     <string name="send_email_to_group">Enviar e-mail para o grupo</string>
     <string name="call_person">Ligar a %s</string>
     <string name="create_new_contact">Criar novo contacto</string>
-    <string name="add_to_existing_contact">Adicionar a contacto existente</string>
+    <string name="add_to_existing_contact">Adicionar a um contacto existente</string>
     <string name="dialer_moved">
         <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
+            A parte da aplicação responsável pela gestão de chamadas foi movida para uma nova aplicação com o nome Simple Dialer. Pode descarregar a aplicação <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">aqui.</a> Obrigado!
         ]]>
     </string>
 
@@ -104,20 +104,20 @@
 
     <!-- Dialpad -->
     <string name="dialpad">Marcador</string>
-    <string name="add_number_to_contact">Adicionar número a um contacto</string>
+    <string name="add_number_to_contact">Adicionar número a um contacto existente</string>
 
     <!-- Dialer -->
     <string name="dialer">Marcador</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
+    <string name="accept">Aceitar</string>
+    <string name="decline">Recusar</string>
+    <string name="unknown_caller">Desconhecido</string>
+    <string name="is_calling">Está a chamar…</string>
+    <string name="dialing">A ligar…</string>
+    <string name="call_ended">Chamada terminada</string>
+    <string name="call_ending">A terminar chamada</string>
+    <string name="ongoing_call">Chamada em curso</string>
+    <string name="select_sim">Selecione um SIM para esta chamada</string>
+    <string name="always_use_this_sim">Utilizar sempre este SIM para ligar a este número</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Ligação rápida</string>
@@ -190,10 +190,10 @@
 
         Não contém anúncios ou permissões desnecessárias. É totalmente open source e permite personalização de cores.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Consulte todas as aplicações Simple Tools aqui:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple Contacts Pro:</b>
+        <b>Site da aplicação Simple Contacts Pro:</b>
         https://www.simplemobiletools.com/contacts
 
         <b>Facebook:</b>
