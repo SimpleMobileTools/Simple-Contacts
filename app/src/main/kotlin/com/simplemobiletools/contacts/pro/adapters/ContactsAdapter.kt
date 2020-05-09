@@ -15,10 +15,7 @@ import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
-import com.simplemobiletools.commons.extensions.getTextSize
-import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.RadioItem
@@ -273,7 +270,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                 if (fullName.contains(textToHighlight, true)) {
                     fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
                 } else {
-                    highlightTextFromNumbers(fullName, textToHighlight, adjustedPrimaryColor)
+                    fullName.highlightTextFromNumbers(textToHighlight, adjustedPrimaryColor)
                 }
             }
 

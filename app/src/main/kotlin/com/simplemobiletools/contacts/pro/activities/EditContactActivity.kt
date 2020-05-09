@@ -911,7 +911,7 @@ class EditContactActivity : ContactActivity() {
             val numberLabel = if (numberType == Phone.TYPE_CUSTOM) numberHolder.contact_number_type.value else ""
 
             if (number.isNotEmpty()) {
-                phoneNumbers.add(PhoneNumber(number, numberType, numberLabel, number.normalizeNumber()))
+                phoneNumbers.add(PhoneNumber(number, numberType, numberLabel, number.normalizePhoneNumber()))
             }
         }
         return phoneNumbers

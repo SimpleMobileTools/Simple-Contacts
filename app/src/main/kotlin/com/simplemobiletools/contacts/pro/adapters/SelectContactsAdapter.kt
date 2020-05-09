@@ -10,17 +10,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
-import com.simplemobiletools.commons.extensions.getTextSize
-import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.helpers.highlightTextFromNumbers
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.item_add_favorite_with_number.view.*
 import java.util.*
@@ -113,7 +109,7 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                     if (fullName.contains(textToHighlight, true)) {
                         fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
                     } else {
-                        highlightTextFromNumbers(fullName, textToHighlight, adjustedPrimaryColor)
+                        fullName.highlightTextFromNumbers(textToHighlight, adjustedPrimaryColor)
                     }
                 }
 

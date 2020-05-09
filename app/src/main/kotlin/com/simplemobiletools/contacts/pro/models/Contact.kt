@@ -2,11 +2,11 @@ package com.simplemobiletools.contacts.pro.models
 
 import android.graphics.Bitmap
 import android.telephony.PhoneNumberUtils
+import com.simplemobiletools.commons.extensions.normalizePhoneNumber
 import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
-import com.simplemobiletools.contacts.pro.extensions.normalizeNumber
 import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 
 data class Contact(var id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var nickname: String,
@@ -109,8 +109,8 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
 
     fun getStringToCompare(): String {
         return copy(id = 0, prefix = "", firstName = getNameToDisplay().toLowerCase(), middleName = "", surname = "", suffix = "", nickname = "", photoUri = "",
-                phoneNumbers = ArrayList(), emails = ArrayList(), events = ArrayList(), source = "", addresses = ArrayList(), starred = 0, contactId = 0,
-                thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", ""), IMs = ArrayList()).toString()
+            phoneNumbers = ArrayList(), emails = ArrayList(), events = ArrayList(), source = "", addresses = ArrayList(), starred = 0, contactId = 0,
+            thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", ""), IMs = ArrayList()).toString()
     }
 
     fun getHashToCompare() = getStringToCompare().hashCode()
@@ -125,12 +125,12 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
 
     fun doesContainPhoneNumber(text: String, convertLetters: Boolean): Boolean {
         return if (text.isNotEmpty()) {
-            val normalizedText = if (convertLetters) text.normalizeNumber() else text
+            val normalizedText = if (convertLetters) text.normalizePhoneNumber() else text
             phoneNumbers.any {
                 PhoneNumberUtils.compare(it.normalizedNumber, normalizedText) ||
                         it.value.contains(text) ||
                         it.normalizedNumber?.contains(normalizedText) == true ||
-                        it.value.normalizeNumber().contains(normalizedText)
+                        it.value.normalizePhoneNumber().contains(normalizedText)
             }
         } else {
             false

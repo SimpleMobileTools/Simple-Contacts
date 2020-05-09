@@ -1,6 +1,5 @@
 package com.simplemobiletools.contacts.pro.extensions
 
-import android.telephony.PhoneNumberUtils
 import android.widget.TextView
 import com.simplemobiletools.commons.helpers.getDateFormats
 import org.joda.time.DateTime
@@ -33,5 +32,3 @@ fun String.getDateTimeFromDateString(viewToUpdate: TextView? = null): DateTime {
     }
     return date
 }
-
-fun String.normalizeNumber() = PhoneNumberUtils.normalizeNumber(this)

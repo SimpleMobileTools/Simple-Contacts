@@ -5,12 +5,12 @@ import android.graphics.BitmapFactory
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.CommonDataKinds.*
 import android.widget.Toast
+import com.simplemobiletools.commons.extensions.normalizePhoneNumber
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.getCachePhoto
 import com.simplemobiletools.contacts.pro.extensions.getCachePhotoUri
 import com.simplemobiletools.contacts.pro.extensions.groupsDB
-import com.simplemobiletools.contacts.pro.extensions.normalizeNumber
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.*
 import com.simplemobiletools.contacts.pro.models.*
 import com.simplemobiletools.contacts.pro.models.Email
@@ -60,7 +60,7 @@ class VcfImporter(val activity: SimpleActivity) {
                         ""
                     }
 
-                    phoneNumbers.add(PhoneNumber(number, type, label, number.normalizeNumber()))
+                    phoneNumbers.add(PhoneNumber(number, type, label, number.normalizePhoneNumber()))
                 }
 
                 val emails = ArrayList<Email>()

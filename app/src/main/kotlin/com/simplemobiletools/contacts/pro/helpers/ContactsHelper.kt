@@ -265,7 +265,7 @@ class ContactsHelper(val context: Context) {
         context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
             val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
             val number = cursor.getStringValue(Phone.NUMBER) ?: return@queryCursor
-            val normalizedNumber = cursor.getStringValue(Phone.NORMALIZED_NUMBER) ?: number.normalizeNumber()
+            val normalizedNumber = cursor.getStringValue(Phone.NORMALIZED_NUMBER) ?: number.normalizePhoneNumber()
             val type = cursor.getIntValue(Phone.TYPE)
             val label = cursor.getStringValue(Phone.LABEL) ?: ""
 
