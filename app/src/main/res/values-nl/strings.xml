@@ -18,7 +18,7 @@
     <string name="add_to_existing_contact">Aan bestaand contact toevoegen</string>
     <string name="dialer_moved">
         <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
+            Het gedeelte om telefoongesprekken te beheren moest worden afgesplitst naar een aparte app genaamd Eenvoudige Telefoon. Download de app via <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Bedankt!
         ]]>
     </string>
 
@@ -108,16 +108,16 @@
 
     <!-- Dialer -->
     <string name="dialer">Bellen</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
+    <string name="accept">Beantwoorden</string>
+    <string name="decline">Weigeren</string>
+    <string name="unknown_caller">Nummer onbekend</string>
+    <string name="is_calling">Bellen…</string>
+    <string name="dialing">Bellen…</string>
+    <string name="call_ended">Gesprek beëindigd</string>
+    <string name="call_ending">Gesprek beëindigen</string>
+    <string name="ongoing_call">Gesprek gaande</string>
+    <string name="select_sim">Selecteer de SIM-kaart voor dit gesprek</string>
+    <string name="always_use_this_sim">Voor dit nummer altijd deze SIM-kaart gebruiken</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Snelkiezer</string>
