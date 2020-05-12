@@ -141,12 +141,6 @@
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Η επαφή θα καταργηθεί από όλες τις πηγές επαφών.</string>
 
-    <!-- Are you sure you want to delete 5 contacts? -->
-    <plurals name="delete_contacts">
-        <item quantity="one">%d επαφή</item>
-        <item quantity="other">%d επαφές</item>
-    </plurals>
-
     <plurals name="delete_groups">
         <item quantity="one">%d ομάδα</item>
         <item quantity="other">%d ομάδες</item>

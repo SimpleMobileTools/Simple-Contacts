@@ -19,7 +19,7 @@ class SpeedDialAdapter(activity: SimpleActivity, var speedDialValues: ArrayList<
         setupDragListener(true)
     }
 
-    override fun getActionMenuId() = R.menu.cab_speed_dial
+    override fun getActionMenuId() = R.menu.cab_delete_only
 
     override fun prepareActionMode(menu: Menu) {}
 

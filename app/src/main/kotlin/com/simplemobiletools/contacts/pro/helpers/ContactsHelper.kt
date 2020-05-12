@@ -14,13 +14,13 @@ import android.text.TextUtils
 import android.util.SparseArray
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.overloads.times
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.models.*
 import com.simplemobiletools.contacts.pro.models.Email
 import com.simplemobiletools.contacts.pro.models.Event
 import com.simplemobiletools.contacts.pro.models.Organization
-import com.simplemobiletools.contacts.pro.overloads.times
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -516,7 +516,7 @@ class ContactsHelper(val context: Context) {
         return groups
     }
 
-    private fun getQuestionMarks() = "?,".times(displayContactSources.filter { it.isNotEmpty() }.size).trimEnd(',')
+    private fun getQuestionMarks() = ("?," * displayContactSources.filter { it.isNotEmpty() }.size).trimEnd(',')
 
     private fun getSourcesSelection(addMimeType: Boolean = false, addContactId: Boolean = false, useRawContactId: Boolean = true): String {
         val strings = ArrayList<String>()

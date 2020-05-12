@@ -317,7 +317,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                         .load(itemToLoad)
                         .apply(options)
                         .apply(RequestOptions.circleCropTransform())
-                        .into(findViewById<ImageView>(R.id.item_contact_image))
+                        .into(findViewById(R.id.item_contact_image))
                 }
             }
         }
