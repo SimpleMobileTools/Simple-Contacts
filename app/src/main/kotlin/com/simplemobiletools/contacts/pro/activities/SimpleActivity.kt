@@ -6,10 +6,10 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
+import com.simplemobiletools.commons.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.KEY_MAILTO
-import com.simplemobiletools.contacts.pro.helpers.KEY_PHONE
 import com.simplemobiletools.contacts.pro.helpers.LOCATION_CONTACTS_TAB
 import com.simplemobiletools.contacts.pro.helpers.LOCATION_FAVORITES_TAB
 

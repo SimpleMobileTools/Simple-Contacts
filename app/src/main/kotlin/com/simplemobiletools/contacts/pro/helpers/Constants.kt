@@ -36,7 +36,6 @@ const val ACCEPT_CALL = PATH + "accept_call"
 const val DECLINE_CALL = PATH + "decline_call"
 
 // extras used at third party intents
-const val KEY_PHONE = "phone"
 const val KEY_NAME = "name"
 const val KEY_EMAIL = "email"
 const val KEY_MAILTO = "mailto"
