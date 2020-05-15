@@ -1,7 +1,7 @@
 Changelog
 ==========
 
-Version 6.10.1 *(2020-05-06)*
+Version 6.10.2 *(2020-05-06)*
 ----------------------------
 
  * Removing the READ_CALL_LOG permission
