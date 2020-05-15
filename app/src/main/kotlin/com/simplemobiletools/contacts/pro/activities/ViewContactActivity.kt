@@ -338,6 +338,12 @@ class ViewContactActivity : ContactActivity() {
             contact_numbers_image.beGone()
             contact_numbers_holder.beGone()
         }
+
+        // make sure the Call and SMS buttons are visible if any phone number is shown
+        if (phoneNumbers.isNotEmpty()) {
+            contact_send_sms.beVisible()
+            contact_start_call.beVisible()
+        }
     }
 
     // a contact cannot have different emails per contact source. Such contacts are handled as separate ones, not duplicates of each other
