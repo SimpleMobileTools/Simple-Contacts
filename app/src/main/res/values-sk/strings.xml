@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Zobraziť pred spustením hovoru okno na jeho potvrdenie</string>
     <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
     <string name="show_dialpad_letters">Zobraziť na číselníku písmená</string>
+    <string name="show_private_contacts">Zobraziť súkromné kontakty Jednoduchému Telefónu a Jednoduchému Správcovi Súborov</string>
 
     <!-- Emails -->
     <string name="home">Domov</string>
@@ -140,13 +141,6 @@
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Kontakt bude vymazaný zo všetkých zdrojov kontaktov.</string>
-
-    <!-- Are you sure you want to delete 5 contacts? -->
-    <plurals name="delete_contacts">
-        <item quantity="one">%d kontakt</item>
-        <item quantity="few">%d kontakty</item>
-        <item quantity="other">%d kontaktov</item>
-    </plurals>
 
     <plurals name="delete_groups">
         <item quantity="one">%d skupinu</item>

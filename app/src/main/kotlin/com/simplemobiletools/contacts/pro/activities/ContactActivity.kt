@@ -16,7 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.getContactLetterIcon
+import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.sendEmailIntent
@@ -31,7 +31,7 @@ abstract class ContactActivity : SimpleActivity() {
     protected var currentContactPhotoPath = ""
 
     fun showPhotoPlaceholder(photoView: ImageView) {
-        val placeholder = BitmapDrawable(resources, getContactLetterIcon(contact?.getNameToDisplay() ?: "A"))
+        val placeholder = BitmapDrawable(resources, SimpleContactsHelper(this).getContactLetterIcon(contact?.getNameToDisplay() ?: "A"))
         photoView.setImageDrawable(placeholder)
         currentContactPhotoPath = ""
         contact?.photo = null

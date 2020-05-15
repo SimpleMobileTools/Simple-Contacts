@@ -6,7 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
+import com.simplemobiletools.commons.extensions.getTextSize
+import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -167,7 +171,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
             group_tmb.beVisibleIf(showContactThumbnails)
             if (showContactThumbnails) {
-                group_tmb.setImageDrawable(activity.getColoredGroupIcon(group.title))
+                group_tmb.setImageDrawable(SimpleContactsHelper(activity).getColoredGroupIcon(group.title))
             }
         }
     }

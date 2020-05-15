@@ -14,13 +14,13 @@ import android.text.TextUtils
 import android.util.SparseArray
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.overloads.times
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.models.*
 import com.simplemobiletools.contacts.pro.models.Email
 import com.simplemobiletools.contacts.pro.models.Event
 import com.simplemobiletools.contacts.pro.models.Organization
-import com.simplemobiletools.contacts.pro.overloads.times
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -265,7 +265,7 @@ class ContactsHelper(val context: Context) {
         context.queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
             val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
             val number = cursor.getStringValue(Phone.NUMBER) ?: return@queryCursor
-            val normalizedNumber = cursor.getStringValue(Phone.NORMALIZED_NUMBER) ?: number.normalizeNumber()
+            val normalizedNumber = cursor.getStringValue(Phone.NORMALIZED_NUMBER) ?: number.normalizePhoneNumber()
             val type = cursor.getIntValue(Phone.TYPE)
             val label = cursor.getStringValue(Phone.LABEL) ?: ""
 
@@ -516,7 +516,7 @@ class ContactsHelper(val context: Context) {
         return groups
     }
 
-    private fun getQuestionMarks() = "?,".times(displayContactSources.filter { it.isNotEmpty() }.size).trimEnd(',')
+    private fun getQuestionMarks() = ("?," * displayContactSources.filter { it.isNotEmpty() }.size).trimEnd(',')
 
     private fun getSourcesSelection(addMimeType: Boolean = false, addContactId: Boolean = false, useRawContactId: Boolean = true): String {
         val strings = ArrayList<String>()
@@ -1349,24 +1349,6 @@ class ContactsHelper(val context: Context) {
         photoStream.write(fullSizePhotoData)
         photoStream.close()
         fileDescriptor.close()
-    }
-
-    fun getContactLookupKey(contactId: String): String {
-        val uri = Data.CONTENT_URI
-        val projection = arrayOf(Data.CONTACT_ID, Data.LOOKUP_KEY)
-        val selection = "${Data.MIMETYPE} = ? AND ${Data.RAW_CONTACT_ID} = ?"
-        val selectionArgs = arrayOf(StructuredName.CONTENT_ITEM_TYPE, contactId)
-
-        val cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-        cursor?.use {
-            if (cursor.moveToFirst()) {
-                val id = cursor.getIntValue(Data.CONTACT_ID)
-                val lookupKey = cursor.getStringValue(Data.LOOKUP_KEY)
-                return "$lookupKey/$id"
-            }
-        }
-
-        return ""
     }
 
     fun getContactMimeTypeId(contactId: String, mimeType: String): String {

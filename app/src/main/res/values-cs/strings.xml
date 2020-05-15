@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Před zahájením hovoru zobrazit potvrzovací dialog</string>
     <string name="show_only_contacts_with_numbers">Zobrazit jen kontakty s telefonními čísly</string>
     <string name="show_dialpad_letters">Zobrazit na číselníku písmena</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">Domov</string>
@@ -140,13 +141,6 @@
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Kontakt bude vymazán ze všech zdrojů kontaktů.</string>
-
-    <!-- Are you sure you want to delete 5 contacts? -->
-    <plurals name="delete_contacts">
-        <item quantity="one">%d kontakt</item>
-        <item quantity="few">%d kontakty</item>
-        <item quantity="other">%d kontaktů</item>
-    </plurals>
 
     <plurals name="delete_groups">
         <item quantity="one">%d skupinu</item>

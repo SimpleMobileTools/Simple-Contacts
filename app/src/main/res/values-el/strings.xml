@@ -18,7 +18,7 @@
     <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
     <string name="dialer_moved">
         <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
+            Η ενότητα της εφαρμογής που είναι υπεύθυνη για το χειρισμό κλήσεων έπρεπε να μετακινηθεί σε μια ξεχωριστή νέα εφαρμογή Simple Dialer, κάνετε λήψη από αυτόν <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">τον σύνδεσμο.</a> Ευχαριστώ!
         ]]>
     </string>
 
@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Εμφάνιση διαλόγου επιβεβαίωσης πριν από την έναρξη μιας κλήσης</string>
     <string name="show_only_contacts_with_numbers">Προβολή όλων των Επαφών με αριθμούς τηλεφώνου</string>
     <string name="show_dialpad_letters">Εμφάνιση γραμμάτων στην πληκτρολόγιο</string>
+    <string name="show_private_contacts">Εμφάνιση ιδιωτικών επαφών σε Simple Dialer και Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">Οικία</string>
@@ -140,12 +141,6 @@
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Η επαφή θα καταργηθεί από όλες τις πηγές επαφών.</string>
-
-    <!-- Are you sure you want to delete 5 contacts? -->
-    <plurals name="delete_contacts">
-        <item quantity="one">%d επαφή</item>
-        <item quantity="other">%d επαφές</item>
-    </plurals>
 
     <plurals name="delete_groups">
         <item quantity="one">%d ομάδα</item>

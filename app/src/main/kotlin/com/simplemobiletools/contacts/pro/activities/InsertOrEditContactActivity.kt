@@ -13,6 +13,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.KEY_PHONE
 import com.simplemobiletools.commons.helpers.PERMISSION_GET_ACCOUNTS
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS

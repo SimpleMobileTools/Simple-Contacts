@@ -17,6 +17,7 @@ import com.simplemobiletools.commons.extensions.telecomManager
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
+import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
@@ -310,7 +311,7 @@ fun Context.getContactPublicUri(contact: Contact): Uri {
     val lookupKey = if (contact.isPrivate()) {
         "local_${contact.id}"
     } else {
-        ContactsHelper(this).getContactLookupKey(contact.id.toString())
+        SimpleContactsHelper(this).getContactLookupKey(contact.id.toString())
     }
     return Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey)
 }

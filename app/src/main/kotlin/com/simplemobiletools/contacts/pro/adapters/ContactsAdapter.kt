@@ -5,6 +5,9 @@ import android.util.TypedValue
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -13,6 +16,7 @@ import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
@@ -25,7 +29,6 @@ import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.interfaces.RemoveFromGroupListener
 import com.simplemobiletools.contacts.pro.models.Contact
-import kotlinx.android.synthetic.main.item_contact_with_number.view.*
 import java.util.*
 
 class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val refreshListener: RefreshContactsListener?,
@@ -255,26 +258,28 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isDestroyed && !activity.isFinishing) {
-            Glide.with(activity).clear(holder.itemView.contact_tmb)
+            Glide.with(activity).clear(holder.itemView.findViewById<ImageView>(R.id.item_contact_image))
         }
     }
 
     private fun setupView(view: View, contact: Contact) {
         view.apply {
-            contact_frame?.isSelected = selectedKeys.contains(contact.id)
+            findViewById<FrameLayout>(R.id.item_contact_frame)?.isSelected = selectedKeys.contains(contact.id)
             val fullName = contact.getNameToDisplay()
-            contact_name.text = if (textToHighlight.isEmpty()) fullName else {
+            findViewById<TextView>(R.id.item_contact_name).text = if (textToHighlight.isEmpty()) fullName else {
                 if (fullName.contains(textToHighlight, true)) {
                     fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
                 } else {
-                    highlightTextFromNumbers(fullName, textToHighlight, adjustedPrimaryColor)
+                    fullName.highlightTextFromNumbers(textToHighlight, adjustedPrimaryColor)
                 }
             }
 
-            contact_name.setTextColor(textColor)
-            contact_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+            findViewById<TextView>(R.id.item_contact_name).apply {
+                setTextColor(textColor)
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+            }
 
-            if (contact_number != null) {
+            if (findViewById<TextView>(R.id.item_contact_number) != null) {
                 val phoneNumberToUse = if (textToHighlight.isEmpty()) {
                     contact.phoneNumbers.firstOrNull()
                 } else {
@@ -282,17 +287,19 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                 }
 
                 val numberText = phoneNumberToUse?.value ?: ""
-                contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
-                contact_number.setTextColor(textColor)
-                contact_number.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+                findViewById<TextView>(R.id.item_contact_number).apply {
+                    text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
+                    setTextColor(textColor)
+                    setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+                }
             }
 
-            contact_tmb.beVisibleIf(showContactThumbnails)
+            findViewById<TextView>(R.id.item_contact_image).beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {
-                val placeholderImage = BitmapDrawable(resources, context.getContactLetterIcon(fullName))
+                val placeholderImage = BitmapDrawable(resources, SimpleContactsHelper(context).getContactLetterIcon(fullName))
                 if (contact.photoUri.isEmpty() && contact.photo == null) {
-                    contact_tmb.setImageDrawable(placeholderImage)
+                    findViewById<ImageView>(R.id.item_contact_image).setImageDrawable(placeholderImage)
                 } else {
                     val options = RequestOptions()
                         .signature(ObjectKey(contact.getSignatureKey()))
@@ -310,7 +317,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                         .load(itemToLoad)
                         .apply(options)
                         .apply(RequestOptions.circleCropTransform())
-                        .into(contact_tmb)
+                        .into(findViewById(R.id.item_contact_image))
                 }
             }
         }

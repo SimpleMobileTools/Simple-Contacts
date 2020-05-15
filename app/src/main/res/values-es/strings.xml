@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Mostrar un cuadro de confirmación antes de iniciar una llamada</string>
     <string name="show_only_contacts_with_numbers">Solo mostrar contactos con números telefónicos</string>
     <string name="show_dialpad_letters">Mostrar letras en el teclado de marcación</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">Casa</string>
@@ -140,12 +141,6 @@
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">El contacto será eliminado de todos los orígenes de contactos.</string>
-
-    <!-- Are you sure you want to delete 5 contacts? -->
-    <plurals name="delete_contacts">
-        <item quantity="one">%d contacto</item>
-        <item quantity="other">%d contactos</item>
-    </plurals>
 
     <plurals name="delete_groups">
         <item quantity="one">%d groupo</item>

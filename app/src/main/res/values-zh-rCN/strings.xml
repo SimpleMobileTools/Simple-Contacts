@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">开始通话前显示通话确认框</string>
     <string name="show_only_contacts_with_numbers">只显示含有电话话码的联系人</string>
     <string name="show_dialpad_letters">在拨号界面上显示字母</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">住家</string>
@@ -140,12 +141,6 @@
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
-
-    <!-- Are you sure you want to delete 5 contacts? -->
-    <plurals name="delete_contacts">
-        <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacts</item>
-    </plurals>
 
     <plurals name="delete_groups">
         <item quantity="one">%d group</item>

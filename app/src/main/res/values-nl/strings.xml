@@ -18,7 +18,7 @@
     <string name="add_to_existing_contact">Aan bestaand contact toevoegen</string>
     <string name="dialer_moved">
         <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
+            Het gedeelte om telefoongesprekken te beheren moest worden afgesplitst naar een aparte app genaamd Eenvoudige Telefoon. Download de app via <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Bedankt!
         ]]>
     </string>
 
@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Om bevestiging vragen voor het bellen</string>
     <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummers tonen</string>
     <string name="show_dialpad_letters">Letters op het toetsenblok tonen</string>
+    <string name="show_private_contacts">Privécontacten in Eenvoudige Telefoon en Eenvoudige Berichten tonen</string>
 
     <!-- Emails -->
     <string name="home">Thuis</string>
@@ -108,16 +109,16 @@
 
     <!-- Dialer -->
     <string name="dialer">Bellen</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
+    <string name="accept">Beantwoorden</string>
+    <string name="decline">Weigeren</string>
+    <string name="unknown_caller">Nummer onbekend</string>
+    <string name="is_calling">Inkomend gesprek…</string>
+    <string name="dialing">Bellen…</string>
+    <string name="call_ended">Gesprek beëindigd</string>
+    <string name="call_ending">Gesprek beëindigen</string>
+    <string name="ongoing_call">Gesprek gaande</string>
+    <string name="select_sim">Selecteer de SIM-kaart voor dit gesprek</string>
+    <string name="always_use_this_sim">Voor dit nummer altijd deze SIM-kaart gebruiken</string>
 
     <!-- Speed dial -->
     <string name="speed_dial">Snelkiezer</string>
@@ -141,12 +142,6 @@
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">De contactpersoon zal worden verwijderd uit alle accounts.</string>
 
-    <!-- Are you sure you want to delete 5 contacts? -->
-    <plurals name="delete_contacts">
-        <item quantity="one">%d contact</item>
-        <item quantity="other">%d contacten</item>
-    </plurals>
-
     <plurals name="delete_groups">
         <item quantity="one">%d groep</item>
         <item quantity="other">%d groepen</item>
@@ -160,21 +155,21 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Eenvoudig Adresboek Pro - Snel contacten beheren</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
+    <string name="app_short_description">Eenvoudig en snel contactbeheer met groepen en favorieten, zonder advertenties</string>
     <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
+        Een eenvoudige app om contacten aan te maken en te beheren. Contacten kunnen lokaal opgeslagen worden, of gesynchroniseerd via Google en andere accounts.
 
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+        De app is ook te gebruiken voor het beheren van e-mailadressen en gebeurtenissen gekoppeld aan contacten. Sorteren en filteren is mogelijk op basis van verschillende parameters en zowel voor- als achternaam kan als eerste worden getoond.
 
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+        Favoriete contacten kunnen in een aparte lijst worden getoond. E-mails of sms\'jes kunnen naar hele groepen worden gestuurd om tijd te besparen.
 
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+        Er zijn knoppen om direct een contacpersoon te bellen of te sms\'en. De zichtbaarheid van de gegevensvelden zijn naar voorkeur aan te passen, zodat ongebruikte velden geen ruimte in beslag nemen. De zoekfunctie zal in alle zichtbare velden speuren naar de opgegeven tekst.
 
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
+        De app bevat ook een lichtgewicht telefoonkiezer met snelle contactsuggesties tijdens het invoeren.
 
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+        Het importeren/exporteren van contacten in vCard-formaat (.vcf) wordt ondersteund voor het gemakkelijk overzetten of backuppen van de gegevens.
 
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+        Met deze moderne en stabiele app kunnen contactpersonen worden beschermd door ze niet te delen met andere apps en zo privé te houden.
 
         Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
 

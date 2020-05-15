@@ -244,15 +244,8 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun openWith() {
-        Intent().apply {
-            action = ContactsContract.QuickContact.ACTION_QUICK_CONTACT
-            data = getContactPublicUri(contact!!)
-            if (resolveActivity(packageManager) != null) {
-                startActivity(this)
-            } else {
-                toast(R.string.no_app_found)
-            }
-        }
+        val uri = getContactPublicUri(contact!!)
+        launchViewContactIntent(uri)
     }
 
     private fun setupFavorite() {
@@ -344,6 +337,12 @@ class ViewContactActivity : ContactActivity() {
         } else {
             contact_numbers_image.beGone()
             contact_numbers_holder.beGone()
+        }
+
+        // make sure the Call and SMS buttons are visible if any phone number is shown
+        if (phoneNumbers.isNotEmpty()) {
+            contact_send_sms.beVisible()
+            contact_start_call.beVisible()
         }
     }
 
