@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Mostrar diálogo para confirmar a chamada antes de ligar</string>
     <string name="show_only_contacts_with_numbers">Mostar apenas os contatos com número de telefone</string>
     <string name="show_dialpad_letters">Mostrar letras no discador</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">Residencial</string>

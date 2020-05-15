@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">開始通話前顯示通話確認框</string>
     <string name="show_only_contacts_with_numbers">只顯示含有電話話碼的聯絡人</string>
     <string name="show_dialpad_letters">在撥號畫面上顯示字母</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">住家</string>

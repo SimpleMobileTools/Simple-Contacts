@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Näytä puhelun vahvistusruutu</string>
     <string name="show_only_contacts_with_numbers">Näytä ainoastaan numerolliset kontaktit</string>
     <string name="show_dialpad_letters">Näytä kirjaimet puhelimessa</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">Koti</string>

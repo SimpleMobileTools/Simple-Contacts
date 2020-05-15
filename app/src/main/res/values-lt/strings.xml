@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="show_dialpad_letters">Show letters on the dialpad</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">Namų</string>

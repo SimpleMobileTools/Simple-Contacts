@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Показывать диалог подтверждения вызова</string>
     <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
     <string name="show_dialpad_letters">Показывать буквы на кнопках набора номера</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">Домашний</string>

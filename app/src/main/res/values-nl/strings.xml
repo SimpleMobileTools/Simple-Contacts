@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Om bevestiging vragen voor het bellen</string>
     <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummers tonen</string>
     <string name="show_dialpad_letters">Letters op het toetsenblok tonen</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">Thuis</string>

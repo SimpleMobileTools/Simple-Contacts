@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Zobraziť pred spustením hovoru okno na jeho potvrdenie</string>
     <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
     <string name="show_dialpad_letters">Zobraziť na číselníku písmená</string>
+    <string name="show_private_contacts">Zobraziť súkromné kontakty Jednoduchému Telefónu a Jednoduchému Správcovi Súborov</string>
 
     <!-- Emails -->
     <string name="home">Domov</string>

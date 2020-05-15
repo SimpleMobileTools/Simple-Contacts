@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Vis en opkaldsbekræftelsesdialog før du starter et opkald</string>
     <string name="show_only_contacts_with_numbers">Vis kun kontakter med telefonnumre</string>
     <string name="show_dialpad_letters">Vis bogstaver på tastaturet</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">Hjem</string>

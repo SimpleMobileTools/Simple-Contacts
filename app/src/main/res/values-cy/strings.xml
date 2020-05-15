@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Dangos deialog i gadarnhau cyn gwneud galwad</string>
     <string name="show_only_contacts_with_numbers">Dangos dim ond cysylltiadau gyda rhifau ffôn</string>
     <string name="show_dialpad_letters">Dangos llythrennau ar y pad deialu</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">Cartref</string>

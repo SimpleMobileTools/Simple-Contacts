@@ -66,6 +66,7 @@
     <string name="show_call_confirmation_dialog">Tampilkan dialog konfirmasi panggilan sebelum melakukan panggilan</string>
     <string name="show_only_contacts_with_numbers">Hanya tampilkan kontak dengan nomor telepon</string>
     <string name="show_dialpad_letters">Tampilkan huruf pada tombol dial</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
     <string name="home">Rumah</string>
