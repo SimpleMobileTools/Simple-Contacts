@@ -66,7 +66,7 @@
     <string name="show_call_confirmation_dialog">Om bevestiging vragen voor het bellen</string>
     <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummers tonen</string>
     <string name="show_dialpad_letters">Letters op het toetsenblok tonen</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">Privécontacten in Eenvoudige Telefoon en Eenvoudige Berichten tonen</string>
 
     <!-- Emails -->
     <string name="home">Thuis</string>
@@ -169,7 +169,7 @@
 
         Het importeren/exporteren van contacten in vCard-formaat (.vcf) wordt ondersteund voor het gemakkelijk overzetten of backuppen van de gegevens.
 
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+        Met deze moderne en stabiele app kunnen contactpersonen worden beschermd door ze niet te delen met andere apps en zo privé te houden.
 
         Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
 
