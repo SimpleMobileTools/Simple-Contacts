@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
 import com.simplemobiletools.commons.extensions.getChoppedList
+import com.simplemobiletools.commons.models.SimpleContact
 import com.simplemobiletools.contacts.pro.extensions.contactsDB
 import com.simplemobiletools.contacts.pro.extensions.getByteArray
 import com.simplemobiletools.contacts.pro.extensions.getEmptyContact
@@ -104,7 +105,6 @@ class LocalContactsHelper(val context: Context) {
             surname = localContact.surname
             suffix = localContact.suffix
             nickname = localContact.nickname
-            photoUri = ""
             phoneNumbers = localContact.phoneNumbers
             emails = localContact.emails
             addresses = localContact.addresses
@@ -152,4 +152,14 @@ class LocalContactsHelper(val context: Context) {
             IMs = contact.IMs
         }
     }
+
+    private fun convertContactToSimpleContact(contact: Contact?): SimpleContact? {
+        return if (contact == null || contact.phoneNumbers.isEmpty()) {
+            null
+        } else {
+            SimpleContact(contact.id, 0, contact.getNameToDisplay(), contact.photoUri, contact.phoneNumbers.first().value)
+        }
+    }
+
+    fun getPrivateSimpleContactsSync() = getAllContacts().mapNotNull { convertContactToSimpleContact(it) }
 }

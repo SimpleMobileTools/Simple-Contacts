@@ -73,6 +73,10 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getString(SPEED_DIAL, "")!!
         set(speedDial) = prefs.edit().putString(SPEED_DIAL, speedDial).apply()
 
+    var showPrivateContacts: Boolean
+        get() = prefs.getBoolean(SHOW_PRIVATE_CONTACTS, true)
+        set(showPrivateContacts) = prefs.edit().putBoolean(SHOW_PRIVATE_CONTACTS, showPrivateContacts).apply()
+
     fun saveCustomSIM(number: String, SIMlabel: String) {
         prefs.edit().putString(REMEMBER_SIM_PREFIX + number, Uri.encode(SIMlabel)).apply()
     }

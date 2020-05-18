@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/settings_scrollview"
     android:layout_width="match_parent"
@@ -29,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/customize_colors"/>
+                android:text="@string/customize_colors" />
 
         </RelativeLayout>
 
@@ -52,7 +51,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/use_english_language"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -73,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/manage_shown_contact_fields"/>
+                android:text="@string/manage_shown_contact_fields" />
 
         </RelativeLayout>
 
@@ -94,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/manage_shown_tabs"/>
+                android:text="@string/manage_shown_tabs" />
 
         </RelativeLayout>
 
@@ -115,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/manage_blocked_numbers"/>
+                android:text="@string/manage_blocked_numbers" />
 
         </RelativeLayout>
 
@@ -136,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/manage_speed_dial"/>
+                android:text="@string/manage_speed_dial" />
 
         </RelativeLayout>
 
@@ -159,7 +158,7 @@
                 android:layout_toStartOf="@+id/settings_font_size"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingRight="@dimen/medium_margin"
-                android:text="@string/font_size"/>
+                android:text="@string/font_size" />
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_font_size"
@@ -168,7 +167,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/medium_margin"
                 android:background="@null"
-                android:clickable="false"/>
+                android:clickable="false" />
 
         </RelativeLayout>
 
@@ -191,7 +190,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/show_contact_thumbnails"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -214,7 +213,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/show_phone_numbers"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -237,7 +236,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/show_only_contacts_with_numbers"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -260,7 +259,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/start_name_with_surname"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -283,7 +282,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/show_call_confirmation_dialog"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -306,7 +305,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/show_dialpad_button"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -329,7 +328,30 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/show_dialpad_letters"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/settings_show_private_contacts_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:background="?attr/selectableItemBackground"
+            android:paddingStart="@dimen/normal_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:paddingEnd="@dimen/normal_margin"
+            android:paddingBottom="@dimen/activity_margin">
+
+            <com.simplemobiletools.commons.views.MySwitchCompat
+                android:id="@+id/settings_show_private_contacts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:paddingStart="@dimen/medium_margin"
+                android:text="@string/show_private_contacts"
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -352,7 +374,7 @@
                 android:layout_toStartOf="@+id/settings_on_contact_click"
                 android:paddingStart="@dimen/medium_margin"
                 android:paddingEnd="@dimen/medium_margin"
-                android:text="@string/on_contact_click"/>
+                android:text="@string/on_contact_click" />
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_on_contact_click"
@@ -361,7 +383,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/small_margin"
                 android:background="@null"
-                android:clickable="false"/>
+                android:clickable="false" />
 
         </RelativeLayout>
     </LinearLayout>

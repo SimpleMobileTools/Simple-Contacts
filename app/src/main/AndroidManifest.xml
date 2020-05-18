@@ -299,6 +299,11 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
+        <provider
+            android:name=".contentproviders.MyContactsContentProvider"
+            android:authorities="com.simplemobiletools.commons.contactsprovider"
+            android:exported="true"/>
+
         <activity-alias
             android:name=".activities.SplashActivity.Red"
             android:enabled="false"
