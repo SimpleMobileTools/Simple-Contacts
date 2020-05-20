@@ -157,7 +157,7 @@ class LocalContactsHelper(val context: Context) {
         return if (contact == null || contact.phoneNumbers.isEmpty()) {
             null
         } else {
-            SimpleContact(contact.id, 0, contact.getNameToDisplay(), contact.photoUri, contact.phoneNumbers.first().value)
+            SimpleContact(contact.id, contact.id, contact.getNameToDisplay(), contact.photoUri, contact.phoneNumbers.first().value)
         }
     }
 
