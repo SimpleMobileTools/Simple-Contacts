@@ -1,11 +1,7 @@
 package com.simplemobiletools.contacts.pro.helpers
 
 import android.content.Context
-import android.net.Uri
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.simplemobiletools.commons.helpers.BaseConfig
-import com.simplemobiletools.contacts.pro.models.SpeedDial
 
 class Config(context: Context) : BaseConfig(context) {
     companion object {
@@ -72,26 +68,6 @@ class Config(context: Context) : BaseConfig(context) {
     var showPrivateContacts: Boolean
         get() = prefs.getBoolean(SHOW_PRIVATE_CONTACTS, true)
         set(showPrivateContacts) = prefs.edit().putBoolean(SHOW_PRIVATE_CONTACTS, showPrivateContacts).apply()
-
-    fun saveCustomSIM(number: String, SIMlabel: String) {
-        prefs.edit().putString(REMEMBER_SIM_PREFIX + number, Uri.encode(SIMlabel)).apply()
-    }
-
-    fun getCustomSIM(number: String) = prefs.getString(REMEMBER_SIM_PREFIX + number, "")
-
-    fun getSpeedDialValues(): ArrayList<SpeedDial> {
-        val speedDialType = object : TypeToken<List<SpeedDial>>() {}.type
-        val speedDialValues = Gson().fromJson<ArrayList<SpeedDial>>(speedDial, speedDialType) ?: ArrayList(1)
-
-        for (i in 1..9) {
-            val speedDial = SpeedDial(i, "", "")
-            if (speedDialValues.firstOrNull { it.id == i } == null) {
-                speedDialValues.add(speedDial)
-            }
-        }
-
-        return speedDialValues
-    }
 
     var wasDialerMigrationShown: Boolean
         get() = prefs.getBoolean(WAS_DIALER_MIGRATION_SHOWN, false)
