@@ -6,7 +6,6 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ShortcutInfo
-import android.content.pm.ShortcutManager
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
@@ -294,33 +293,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun checkShortcuts() {
         val appIconColor = config.appIconColor
         if (isNougatMR1Plus() && config.lastHandledShortcutColor != appIconColor) {
-            val launchDialpad = getLaunchDialpadShortcut(appIconColor)
             val createNewContact = getCreateNewContactShortcut(appIconColor)
 
-            val manager = getSystemService(ShortcutManager::class.java)
             try {
-                manager.dynamicShortcuts = Arrays.asList(launchDialpad, createNewContact)
+                shortcutManager.dynamicShortcuts = Arrays.asList(createNewContact)
                 config.lastHandledShortcutColor = appIconColor
             } catch (ignored: Exception) {
             }
         }
-    }
-
-    @SuppressLint("NewApi")
-    private fun getLaunchDialpadShortcut(appIconColor: Int): ShortcutInfo {
-        val newEvent = getString(R.string.dialpad)
-        val drawable = resources.getDrawable(R.drawable.shortcut_dialpad)
-        (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_dialpad_background).applyColorFilter(appIconColor)
-        val bmp = drawable.convertToBitmap()
-
-        val intent = Intent(this, DialpadActivity::class.java)
-        intent.action = Intent.ACTION_VIEW
-        return ShortcutInfo.Builder(this, "launch_dialpad")
-            .setShortLabel(newEvent)
-            .setLongLabel(newEvent)
-            .setIcon(Icon.createWithBitmap(bmp))
-            .setIntent(intent)
-            .build()
     }
 
     @SuppressLint("NewApi")
@@ -459,8 +439,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchDialpad() {
-        val intent = Intent(applicationContext, DialpadActivity::class.java)
-        startActivity(intent)
+        Intent(Intent.ACTION_DIAL).apply {
+            startActivity(this)
+        }
     }
 
     private fun tryImportContacts() {
