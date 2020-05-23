@@ -4,7 +4,6 @@
     <string name="address">Διεύθυνση</string>
     <string name="inserting">Εισαγωγή…</string>
     <string name="updating">Ενημέρωση…</string>
-    <string name="phone_storage">Μνήμη τηλεφώνου</string>
     <string name="phone_storage_hidden">Μνήμη τηλεφώνου (κρυφές από άλλες εφαρμογές)</string>
     <string name="company">Εταιρεία</string>
     <string name="job_position">Θέση Εργασίας</string>
@@ -29,7 +28,6 @@
     <string name="new_contact">Νέα επαφή</string>
     <string name="edit_contact">Επεξεργασία επαφής</string>
     <string name="select_contact">Επιλογή επαφής</string>
-    <string name="select_contacts">Επιλογή επαφών</string>
     <string name="first_name">Όνομα</string>
     <string name="middle_name">Μεσαίο όνομα</string>
     <string name="surname">Επώνυμο</string>
@@ -60,12 +58,10 @@
     <string name="call_contact">Κλήση επαφής</string>
     <string name="view_contact">Εμφάνιση λεπτομερειών επαφής</string>
     <string name="manage_shown_contact_fields">Διαχείριση εμφανιζόμενων πεδίων επαφής</string>
-    <string name="filter_duplicates">Δοκιμάστε το φιλτράρισμα διπλότυπων επαφών</string>
     <string name="manage_shown_tabs">Διαχείριση εμφανιζόμενων καρτελών</string>
     <string name="contacts">Επαφές</string>
     <string name="show_call_confirmation_dialog">Εμφάνιση διαλόγου επιβεβαίωσης πριν από την έναρξη μιας κλήσης</string>
     <string name="show_only_contacts_with_numbers">Προβολή όλων των Επαφών με αριθμούς τηλεφώνου</string>
-    <string name="show_dialpad_letters">Εμφάνιση γραμμάτων στην πληκτρολόγιο</string>
     <string name="show_private_contacts">Εμφάνιση ιδιωτικών επαφών σε Απλή Κλήση και Απλός SMS Messenger</string>
 
     <!-- Emails -->
@@ -107,26 +103,7 @@
     <string name="dialpad">Πληκτρολόγιο</string>
     <string name="add_number_to_contact">Προσθήκη επαφής σε αριθμό</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Πληκτρολόγιο</string>
-    <string name="accept">Αποδοχή</string>
-    <string name="decline">Απόρριψη</string>
-    <string name="unknown_caller">Άγνωστος</string>
-    <string name="is_calling">Καλεί…</string>
-    <string name="dialing">Πληκτρολόγηση…</string>
-    <string name="call_ended">Τέλος Κλήσης</string>
-    <string name="call_ending">Τερματισμός Κλήσης</string>
-    <string name="ongoing_call">Τρέχουσα κλήση</string>
-    <string name="select_sim">Επιλέξτε SIM για αυτήν την κλήση</string>
-    <string name="always_use_this_sim">Χρήση πάντα αυτής της SIM για αυτόν τον αριθμό</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Ταχεία Κλήση</string>
-    <string name="manage_speed_dial">Διαχείριση Ταχείας Κλήσης</string>
-    <string name="speed_dial_label">Κάντε κλικ σε έναν αριθμό για να αντιστοιχίσετε μια επαφή σε αυτόν. Στη συνέχεια, μπορείτε να καλέσετε γρήγορα τη δεδομένη επαφή πατώντας τον αριθμό αυτόν στο πληκτρολόγιο.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Επιλογή εμφάνισης πεδίων</string>
     <string name="prefix">Πρόθεμα</string>
     <string name="suffix">Κατάληξη</string>
     <string name="phone_numbers">Αριθμοί Τηλεφώνων</string>

@@ -4,7 +4,6 @@
     <string name="address">Addres</string>
     <string name="inserting">Toevoegen…</string>
     <string name="updating">Updaten…</string>
-    <string name="phone_storage">Telefoonopslag</string>
     <string name="phone_storage_hidden">Telefoonopslag (niet zichtbaar voor andere apps)</string>
     <string name="company">Bedrijf</string>
     <string name="job_position">Titel</string>
@@ -29,7 +28,6 @@
     <string name="new_contact">Nieuw contact</string>
     <string name="edit_contact">Contact bewerken</string>
     <string name="select_contact">Contact kiezen</string>
-    <string name="select_contacts">Contacten kiezen</string>
     <string name="first_name">Voornaam</string>
     <string name="middle_name">Tweede voornaam</string>
     <string name="surname">Achternaam</string>
@@ -60,12 +58,10 @@
     <string name="call_contact">Contact bellen</string>
     <string name="view_contact">Details tonen</string>
     <string name="manage_shown_contact_fields">Contactvelden tonen/verbergen</string>
-    <string name="filter_duplicates">Probeer dubbele contacten weg te filteren</string>
     <string name="manage_shown_tabs">Tabs tonen/verbergen</string>
     <string name="contacts">Contacten</string>
     <string name="show_call_confirmation_dialog">Om bevestiging vragen voor het bellen</string>
     <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummers tonen</string>
-    <string name="show_dialpad_letters">Letters op het toetsenblok tonen</string>
     <string name="show_private_contacts">Privécontacten in Eenvoudige Telefoon en Eenvoudige Berichten tonen</string>
 
     <!-- Emails -->
@@ -107,26 +103,7 @@
     <string name="dialpad">Toetsenblok</string>
     <string name="add_number_to_contact">Nummer aan contact toevoegen</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Bellen</string>
-    <string name="accept">Beantwoorden</string>
-    <string name="decline">Weigeren</string>
-    <string name="unknown_caller">Nummer onbekend</string>
-    <string name="is_calling">Inkomend gesprek…</string>
-    <string name="dialing">Bellen…</string>
-    <string name="call_ended">Gesprek beëindigd</string>
-    <string name="call_ending">Gesprek beëindigen</string>
-    <string name="ongoing_call">Gesprek gaande</string>
-    <string name="select_sim">Selecteer de SIM-kaart voor dit gesprek</string>
-    <string name="always_use_this_sim">Voor dit nummer altijd deze SIM-kaart gebruiken</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Snelkiezer</string>
-    <string name="manage_speed_dial">Snelkiezer bewerken</string>
-    <string name="speed_dial_label">Klik op een cijfer om er een contact aan te koppelen. Vervolgens kan dit contact direct gebeld worden door in de kiezer lang op het gekoppelde cijfer te drukken.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Kies zichtbare velden</string>
     <string name="prefix">Voorvoegsel</string>
     <string name="suffix">Achtervoegsel van naam</string>
     <string name="phone_numbers">Telefoonnummers</string>

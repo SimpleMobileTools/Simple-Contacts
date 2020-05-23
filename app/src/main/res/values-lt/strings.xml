@@ -4,7 +4,6 @@
     <string name="address">Adresas</string>
     <string name="inserting">Įterpiama…</string>
     <string name="updating">Atnaujinama…</string>
-    <string name="phone_storage">Telefono atmintis</string>
     <string name="phone_storage_hidden">Telefono atmintis (nematoma kitų programėlių)</string>
     <string name="company">Company</string>
     <string name="job_position">Job position</string>
@@ -29,7 +28,6 @@
     <string name="new_contact">Naujas kontaktas</string>
     <string name="edit_contact">Redaguoti kontaktą</string>
     <string name="select_contact">Pasirinkti kontaktą</string>
-    <string name="select_contacts">pasirinkti kontaktus</string>
     <string name="first_name">Vardas</string>
     <string name="middle_name">Antras vardas</string>
     <string name="surname">Pavardė</string>
@@ -60,12 +58,10 @@
     <string name="call_contact">Skambinti kontaktui</string>
     <string name="view_contact">Žiūrėti kontakto detales</string>
     <string name="manage_shown_contact_fields">Manage shown contact fields</string>
-    <string name="filter_duplicates">Try filtering out duplicate contacts</string>
     <string name="manage_shown_tabs">Manage shown tabs</string>
     <string name="contacts">Contacts</string>
     <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
-    <string name="show_dialpad_letters">Show letters on the dialpad</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
@@ -107,26 +103,7 @@
     <string name="dialpad">Dialpad</string>
     <string name="add_number_to_contact">Add number to contact</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Dialer</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Pasirinkti rodomus laukelius</string>
     <string name="prefix">Priešdėlis</string>
     <string name="suffix">Priesaga</string>
     <string name="phone_numbers">Telefonų numeriai</string>

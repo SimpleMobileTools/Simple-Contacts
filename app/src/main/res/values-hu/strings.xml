@@ -4,7 +4,6 @@
     <string name="address">Cím</string>
     <string name="inserting">Hozzáadás…</string>
     <string name="updating">Módosítás…</string>
-    <string name="phone_storage">Telefon tárhely</string>
     <string name="phone_storage_hidden">Telefon tárhely (a többi app számára nem látható)</string>
     <string name="company">Cégnév</string>
     <string name="job_position">Munkakör</string>
@@ -29,7 +28,6 @@
     <string name="new_contact">Új névjegy</string>
     <string name="edit_contact">Névjegy módosítása</string>
     <string name="select_contact">Névjegy kiválasztása</string>
-    <string name="select_contacts">Névjegyek kiválasztása</string>
     <string name="first_name">Keresztnév</string>
     <string name="middle_name">Középső név</string>
     <string name="surname">Vezetéknév</string>
@@ -60,12 +58,10 @@
     <string name="call_contact">Telefonhívás indítása</string>
     <string name="view_contact">Részletek megjelenítése</string>
     <string name="manage_shown_contact_fields">A megjelenő mezők kiválasztása</string>
-    <string name="filter_duplicates">Többszörösen felvett névjegyek kiszűrése</string>
     <string name="manage_shown_tabs">A megjelenő fülek kiválasztása</string>
     <string name="contacts">Névjegyek</string>
     <string name="show_call_confirmation_dialog">Jóváhagyás kérése telefonhívás indítása előtt</string>
     <string name="show_only_contacts_with_numbers">Csak telefonszámot tartalmazó névjegyek kijelzése</string>
-    <string name="show_dialpad_letters">Betűk kijelzése a tárcsázón</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
@@ -107,26 +103,7 @@
     <string name="dialpad">Tárcsázó</string>
     <string name="add_number_to_contact">Telefonszám hozzáadása névjegyhez</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Tárcsázó</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">A megjelenített mezők kiválasztása</string>
     <string name="prefix">Megszólítás</string>
     <string name="suffix">Toldalék</string>
     <string name="phone_numbers">Telefonszámok</string>

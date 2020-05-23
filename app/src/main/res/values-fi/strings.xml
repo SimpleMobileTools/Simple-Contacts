@@ -4,7 +4,6 @@
     <string name="address">Osoite</string>
     <string name="inserting">Sijoitetaan</string>
     <string name="updating">Päivitetään</string>
-    <string name="phone_storage">Puhelimen muisti</string>
     <string name="phone_storage_hidden">Puhelimen muisti piilotettu</string>
     <string name="company">Yritys</string>
     <string name="job_position">Ammatti</string>
@@ -29,7 +28,6 @@
     <string name="new_contact">Uusi kontakti</string>
     <string name="edit_contact">Muokkaa kontaktia</string>
     <string name="select_contact">Valitse kontakti</string>
-    <string name="select_contacts">Valitse kontaktit</string>
     <string name="first_name">Etunimi</string>
     <string name="middle_name">Toinen nimi</string>
     <string name="surname">Sukunimi</string>
@@ -60,12 +58,10 @@
     <string name="call_contact">Soita kontaktiin</string>
     <string name="view_contact">Näytä kontakti</string>
     <string name="manage_shown_contact_fields">Muuta näytettyjä kontaktialueita</string>
-    <string name="filter_duplicates">Suodata kaksoiskappaleet</string>
     <string name="manage_shown_tabs">Muuta näytettyjä palkkeja</string>
     <string name="contacts">Kontaktit</string>
     <string name="show_call_confirmation_dialog">Näytä puhelun vahvistusruutu</string>
     <string name="show_only_contacts_with_numbers">Näytä ainoastaan numerolliset kontaktit</string>
-    <string name="show_dialpad_letters">Näytä kirjaimet puhelimessa</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
@@ -107,26 +103,7 @@
     <string name="dialpad">Näppäimistö</string>
     <string name="add_number_to_contact">Lisää numero kontakteihin</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Vastaaja</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Valitse näytettävät palkit</string>
     <string name="prefix">Alku</string>
     <string name="suffix">Pääte</string>
     <string name="phone_numbers">Puhelinnumero</string>

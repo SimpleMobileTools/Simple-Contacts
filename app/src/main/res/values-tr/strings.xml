@@ -4,7 +4,6 @@
     <string name="address">Adres</string>
     <string name="inserting">Ekleniyor…</string>
     <string name="updating">Güncelleniyor…</string>
-    <string name="phone_storage">Telefon belleği</string>
     <string name="phone_storage_hidden">Telefon belleği (diğer uygulamalar tarafından görülmez)</string>
     <string name="company">Şirket</string>
     <string name="job_position">İş pozisyonu</string>
@@ -29,7 +28,6 @@
     <string name="new_contact">Yeni kişi</string>
     <string name="edit_contact">Kişiyi düzenle</string>
     <string name="select_contact">Kişi seç</string>
-    <string name="select_contacts">Kişileri seç</string>
     <string name="first_name">Adı</string>
     <string name="middle_name">Göbek adı</string>
     <string name="surname">Soyadı</string>
@@ -60,12 +58,10 @@
     <string name="call_contact">Kişiyi ara</string>
     <string name="view_contact">Kişi bilgilerini göster</string>
     <string name="manage_shown_contact_fields">Görüntülenecek kişi alanlarını yönet</string>
-    <string name="filter_duplicates">Çift kişileri filtrelemeyi dene</string>
     <string name="manage_shown_tabs">Gösterilen sekmeleri yönet</string>
     <string name="contacts">Kişiler</string>
     <string name="show_call_confirmation_dialog">Arama başlatmadan önce arama onayı penceresi göster</string>
     <string name="show_only_contacts_with_numbers">Sadece telefon numaralarını içeren kişileri göster</string>
-    <string name="show_dialpad_letters">Tuş takımında harfleri göster</string>
     <string name="show_private_contacts">Özel kişileri Basit Çevirici ve Basit SMS Messenger\'a göster</string>
 
     <!-- Emails -->
@@ -107,26 +103,7 @@
     <string name="dialpad">Tuş takımı</string>
     <string name="add_number_to_contact">Kişiye numara ekle</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Çevirici</string>
-    <string name="accept">Kabul Et</string>
-    <string name="decline">Reddet</string>
-    <string name="unknown_caller">Bilinmeyen Arama</string>
-    <string name="is_calling">Arıyor…</string>
-    <string name="dialing">Çevriliyor…</string>
-    <string name="call_ended">Arama Sonlandırıldı</string>
-    <string name="call_ending">Arama Sonlandırılıyor</string>
-    <string name="ongoing_call">Devam Eden Arama</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Hızlı arama</string>
-    <string name="manage_speed_dial">Hızlı aramayı yönet</string>
-    <string name="speed_dial_label">Bir kişiyi bir numaraya atamak için numaraya tıklayın. Daha sonra atanan kişiyi çeviricide atanan numaraya uzun basarak hızlıca arayabilirsiniz.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Görüntülenecek alanları seç</string>
     <string name="prefix">Önek</string>
     <string name="suffix">Sonek</string>
     <string name="phone_numbers">Telefon numaraları</string>

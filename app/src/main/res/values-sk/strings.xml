@@ -4,7 +4,6 @@
     <string name="address">Adresa</string>
     <string name="inserting">Vytvára sa…</string>
     <string name="updating">Upravuje sa…</string>
-    <string name="phone_storage">Úložisko mobilu</string>
     <string name="phone_storage_hidden">Úložisko mobilu (neviditeľné pre ostatné apky)</string>
     <string name="company">Firma</string>
     <string name="job_position">Pracovná pozícia</string>
@@ -29,7 +28,6 @@
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
     <string name="select_contact">Zvoľte kontakt</string>
-    <string name="select_contacts">Zvoľte kontakty</string>
     <string name="first_name">Krstné meno</string>
     <string name="middle_name">Stredné meno</string>
     <string name="surname">Priezvisko</string>
@@ -60,12 +58,10 @@
     <string name="call_contact">Zavolať kontakt</string>
     <string name="view_contact">Zobraziť údaje kontaktu</string>
     <string name="manage_shown_contact_fields">Spravovať zobrazené polia kontaktov</string>
-    <string name="filter_duplicates">Pokúsiť sa vyfiltrovať duplicitné kontakty</string>
     <string name="manage_shown_tabs">Spravovať zobrazené karty</string>
     <string name="contacts">Kontakty</string>
     <string name="show_call_confirmation_dialog">Zobraziť pred spustením hovoru okno na jeho potvrdenie</string>
     <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
-    <string name="show_dialpad_letters">Zobraziť na číselníku písmená</string>
     <string name="show_private_contacts">Zobraziť súkromné kontakty Jednoduchému Telefónu a Jednoduchému Správcovi Súborov</string>
 
     <!-- Emails -->
@@ -107,26 +103,7 @@
     <string name="dialpad">Číselník</string>
     <string name="add_number_to_contact">Pridať číslo kontaktu</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Telefón</string>
-    <string name="accept">Prijať</string>
-    <string name="decline">Odmietnuť</string>
-    <string name="unknown_caller">Neznámy volajúci</string>
-    <string name="is_calling">Vám volá…</string>
-    <string name="dialing">Vytáčanie…</string>
-    <string name="call_ended">Hovor ukončený</string>
-    <string name="call_ending">Hovor končí</string>
-    <string name="ongoing_call">Prebiehajúci hovor</string>
-    <string name="select_sim">Zvoľte SIM pre tento hovor</string>
-    <string name="always_use_this_sim">Stále použiť túto SIM pri volaní tohto čísla</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Rýchle vytáčanie</string>
-    <string name="manage_speed_dial">Spravovať rýchle vytáčanie</string>
-    <string name="speed_dial_label">Pre priradenie kontaktu kliknite na číslo. Následne viete daný kontakt rýchlo vytočiť dlhým podržaním čísla na číselníku.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Zvoľte polia na zobrazenie</string>
     <string name="prefix">Titul pred menom</string>
     <string name="suffix">Titul za priezviskom</string>
     <string name="phone_numbers">Telefónne čísla</string>

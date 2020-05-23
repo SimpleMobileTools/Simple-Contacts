@@ -4,7 +4,6 @@
     <string name="address">地址</string>
     <string name="inserting">添加中…</string>
     <string name="updating">更新中…</string>
-    <string name="phone_storage">手機空間</string>
     <string name="phone_storage_hidden">手機空間 (其他程式不可見)</string>
     <string name="company">公司</string>
     <string name="job_position">職位</string>
@@ -29,7 +28,6 @@
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>
     <string name="select_contact">選擇聯絡人</string>
-    <string name="select_contacts">選擇聯絡人</string>
     <string name="first_name">名字</string>
     <string name="middle_name">中間名</string>
     <string name="surname">姓氏</string>
@@ -60,12 +58,10 @@
     <string name="call_contact">打電話給聯絡人</string>
     <string name="view_contact">顯示聯絡人資料</string>
     <string name="manage_shown_contact_fields">管理顯示的聯絡人欄位</string>
-    <string name="filter_duplicates">試著過濾重複的聯絡人</string>
     <string name="manage_shown_tabs">管理顯示的頁面</string>
     <string name="contacts">聯絡人</string>
     <string name="show_call_confirmation_dialog">開始通話前顯示通話確認框</string>
     <string name="show_only_contacts_with_numbers">只顯示含有電話話碼的聯絡人</string>
-    <string name="show_dialpad_letters">在撥號畫面上顯示字母</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
@@ -107,26 +103,7 @@
     <string name="dialpad">撥號畫面</string>
     <string name="add_number_to_contact">添加號碼至通訊錄</string>
 
-    <!-- Dialer -->
-    <string name="dialer">撥號器</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">快速撥號</string>
-    <string name="manage_speed_dial">管理快速撥號</string>
-    <string name="speed_dial_label">點擊一個數字以分配一個聯絡人給它。然後你可以在撥號器上，長按指定的數字來快速撥號給指定的聯絡人。</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">選擇要顯示的欄位</string>
     <string name="prefix">前缀</string>
     <string name="suffix">後綴</string>
     <string name="phone_numbers">電話號碼</string>

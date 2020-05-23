@@ -4,7 +4,6 @@
     <string name="address">العنوان</string>
     <string name="inserting">إضافة…</string>
     <string name="updating">تحديث…</string>
-    <string name="phone_storage">ذاكرة الهاتف</string>
     <string name="phone_storage_hidden">ذاكرة الهاتف (غير مرئية من قبل التطبيقات الأخرى)</string>
     <string name="company">الشركة</string>
     <string name="job_position">الوظيفة</string>
@@ -29,7 +28,6 @@
     <string name="new_contact">جهة اتصال جديدة</string>
     <string name="edit_contact">تعديل جهة اتصالل</string>
     <string name="select_contact">اختيار جهة اتصال</string>
-    <string name="select_contacts">اختيار جهات اتصال</string>
     <string name="first_name">الاسم</string>
     <string name="middle_name">اسم الأب</string>
     <string name="surname">الشهرة</string>
@@ -60,12 +58,10 @@
     <string name="call_contact">اتصال بجهة</string>
     <string name="view_contact">عرض تفاصيل جهة الاتصال</string>
     <string name="manage_shown_contact_fields">إدارة حقول جهات الاتصال المعروضة</string>
-    <string name="filter_duplicates">محاولة تصفية جهات الاتصال المكررة</string>
     <string name="manage_shown_tabs">إدارة التابات المعروضة</string>
     <string name="contacts">جهات الاتصال</string>
     <string name="show_call_confirmation_dialog">إظهار مربع حوار تأكيد الاتصال قبل بدء مكالمة</string>
     <string name="show_only_contacts_with_numbers">إظهار جهات الإتصال التي لديها أرقام هواتف فقط</string>
-    <string name="show_dialpad_letters">عرض الحروف على لوحة الاتصال</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
@@ -107,26 +103,7 @@
     <string name="dialpad">لوحة الاتصال</string>
     <string name="add_number_to_contact">إضافة رقم الى جهة اتصال</string>
 
-    <!-- Dialer -->
-    <string name="dialer">المتصل</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">حدد الحقول لعرضها</string>
     <string name="prefix">بادئة</string>
     <string name="suffix">لاحقة</string>
     <string name="phone_numbers">ارقام الهاتف</string>

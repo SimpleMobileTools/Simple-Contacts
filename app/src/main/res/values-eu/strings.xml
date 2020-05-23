@@ -4,7 +4,6 @@
     <string name="address">Helbidea</string>
     <string name="inserting">Txertatzen…</string>
     <string name="updating">Eguneratzen…</string>
-    <string name="phone_storage">Telefono memoria</string>
     <string name="phone_storage_hidden">Telefono memoria (beste aplikazioentzat ikustezina)</string>
     <string name="company">Enpresa</string>
     <string name="job_position">Lanpostua</string>
@@ -29,7 +28,6 @@
     <string name="new_contact">Kontaktu berria</string>
     <string name="edit_contact">Editatu taldea</string>
     <string name="select_contact">Hautatu kontaktuak</string>
-    <string name="select_contacts">Hautatu kontaktuak</string>
     <string name="first_name">Izena</string>
     <string name="middle_name">Erdiko izena</string>
     <string name="surname">Abizena</string>
@@ -60,12 +58,10 @@
     <string name="call_contact">Kontaktua deitu</string>
     <string name="view_contact">Ikusi kontaktu detaileak</string>
     <string name="manage_shown_contact_fields">Kudeatu erakutsitako kontaktu eremuak</string>
-    <string name="filter_duplicates">Saiatu bikoiztutako kontaktuak iragazten</string>
     <string name="manage_shown_tabs">Kudeatu erakutsitako fitxak</string>
     <string name="contacts">Kontaktuak</string>
     <string name="show_call_confirmation_dialog">Erakutsi egiaztatze mezua dei bat hasi baino lehen</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
-    <string name="show_dialpad_letters">Show letters on the dialpad</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
 
     <!-- Emails -->
@@ -107,26 +103,7 @@
     <string name="dialpad">Dialpad</string>
     <string name="add_number_to_contact">Add number to contact</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Dialer</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Hautatu erakusteko eremuak</string>
     <string name="prefix">Aurrizkia</string>
     <string name="suffix">Atzizkia</string>
     <string name="phone_numbers">Telefono zenbakiak</string>
