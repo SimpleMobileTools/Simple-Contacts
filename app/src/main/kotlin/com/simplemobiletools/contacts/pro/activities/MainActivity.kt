@@ -55,7 +55,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isFirstResume = true
     private var isGettingContacts = false
     private var ignoredExportContactSources = HashSet<String>()
-    private var handledShowTabs = 0
 
     private var storedTextColor = 0
     private var storedBackgroundColor = 0
@@ -71,9 +70,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
 
+        storeStateVariables()
         setupTabColors()
         checkContactPermissions()
-        storeStateVariables()
         checkWhatsNewDialog()
         checkDialerMigrationDialog()
     }
@@ -339,7 +338,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun setupTabColors() {
-        handledShowTabs = config.showTabs
         val lastUsedPage = getDefaultTab()
         main_tabs_holder.apply {
             background = ColorDrawable(config.backgroundColor)
@@ -596,11 +594,28 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, groups_fragment)
 
     private fun getDefaultTab(): Int {
+        val showTabsMask = config.showTabs
         return when (config.defaultTab) {
             TAB_LAST_USED -> config.lastUsedViewPagerPage
             TAB_CONTACTS -> 0
-            TAB_FAVORITES -> 1
-            else -> 2
+            TAB_FAVORITES -> {
+                if (showTabsMask and TAB_CONTACTS > 0) {
+                    1
+                } else {
+                    0
+                }
+            }
+            else -> {
+                if (showTabsMask and TAB_CONTACTS > 0) {
+                    if (showTabsMask and TAB_FAVORITES > 0) {
+                        2
+                    } else {
+                        1
+                    }
+                } else {
+                    0
+                }
+            }
         }
     }
 
