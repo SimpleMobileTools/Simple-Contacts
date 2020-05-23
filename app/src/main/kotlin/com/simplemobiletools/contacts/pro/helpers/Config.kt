@@ -96,4 +96,8 @@ class Config(context: Context) : BaseConfig(context) {
 
         return speedDialValues
     }
+
+    var wasDialerMigrationShown: Boolean
+        get() = prefs.getBoolean(WAS_DIALER_MIGRATION_SHOWN, false)
+        set(wasDialerMigrationShown) = prefs.edit().putBoolean(WAS_DIALER_MIGRATION_SHOWN, wasDialerMigrationShown).apply()
 }
