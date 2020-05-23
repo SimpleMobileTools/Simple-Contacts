@@ -1,6 +1,5 @@
 package com.simplemobiletools.contacts.pro.extensions
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Context.AUDIO_SERVICE
 import android.content.Intent
@@ -13,7 +12,6 @@ import android.provider.ContactsContract
 import androidx.core.content.FileProvider
 import com.simplemobiletools.commons.extensions.getIntValue
 import com.simplemobiletools.commons.extensions.hasPermission
-import com.simplemobiletools.commons.extensions.telecomManager
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
@@ -29,7 +27,6 @@ import com.simplemobiletools.contacts.pro.interfaces.GroupsDao
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.ContactSource
 import com.simplemobiletools.contacts.pro.models.Organization
-import com.simplemobiletools.contacts.pro.models.SIMAccount
 import java.io.File
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
@@ -330,20 +327,3 @@ fun Context.getAllContactSources(): ArrayList<ContactSource> {
 }
 
 fun Context.getPrivateContactSource() = ContactSource(SMT_PRIVATE, SMT_PRIVATE, getString(R.string.phone_storage_hidden))
-
-@SuppressLint("MissingPermission")
-fun Context.getAvailableSIMCardLabels(): ArrayList<SIMAccount> {
-    val SIMAccounts = ArrayList<SIMAccount>()
-    telecomManager.callCapablePhoneAccounts.forEach { account ->
-        val phoneAccount = telecomManager.getPhoneAccount(account)
-        var label = phoneAccount.label.toString()
-        var address = phoneAccount.address.toString()
-        if (address.startsWith("tel:") && address.substringAfter("tel:").isNotEmpty()) {
-            address = Uri.decode(address.substringAfter("tel:"))
-            label += " ($address)"
-        }
-        val SIM = SIMAccount(phoneAccount.accountHandle, label)
-        SIMAccounts.add(SIM)
-    }
-    return SIMAccounts
-}
