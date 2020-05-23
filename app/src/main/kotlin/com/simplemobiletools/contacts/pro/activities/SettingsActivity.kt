@@ -35,7 +35,6 @@ class SettingsActivity : SimpleActivity() {
         setupManageShownContactFields()
         setupManageShownTabs()
         setupManageBlockedNumbers()
-        setupManageSpeedDial()
         setupFontSize()
         setupUseEnglish()
         setupShowContactThumbnails()
@@ -80,12 +79,6 @@ class SettingsActivity : SimpleActivity() {
         settings_manage_blocked_numbers_holder.beVisibleIf(isNougatPlus())
         settings_manage_blocked_numbers_holder.setOnClickListener {
             startActivity(Intent(this, ManageBlockedNumbersActivity::class.java))
-        }
-    }
-
-    private fun setupManageSpeedDial() {
-        settings_manage_speed_dial_holder.setOnClickListener {
-            startActivity(Intent(this, ManageSpeedDialActivity::class.java))
         }
     }
 
