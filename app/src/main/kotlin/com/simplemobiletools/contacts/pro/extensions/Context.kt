@@ -35,8 +35,6 @@ val Context.contactsDB: ContactsDao get() = ContactsDatabase.getInstance(applica
 
 val Context.groupsDB: GroupsDao get() = ContactsDatabase.getInstance(applicationContext).GroupsDao()
 
-val Context.audioManager: AudioManager get() = getSystemService(AUDIO_SERVICE) as AudioManager
-
 fun Context.getEmptyContact(): Contact {
     val originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
     val organization = Organization("", "")

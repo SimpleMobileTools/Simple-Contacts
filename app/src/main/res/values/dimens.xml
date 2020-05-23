@@ -4,10 +4,4 @@
     <dimen name="contact_actions_size">48dp</dimen>
     <dimen name="contact_icons_size">40dp</dimen>
     <dimen name="dialpad_button_size">60dp</dimen>
-    <dimen name="incoming_call_button_size">72dp</dimen>
-    <dimen name="call_notification_button_size">30dp</dimen>
-
-    <dimen name="caller_name_text_size">34sp</dimen>
-    <dimen name="call_status_text_size">20sp</dimen>
-    <dimen name="dialpad_text_size">34sp</dimen>
 </resources>
