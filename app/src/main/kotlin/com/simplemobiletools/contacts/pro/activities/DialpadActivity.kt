@@ -77,11 +77,6 @@ class DialpadActivity : SimpleActivity() {
         val callIcon = resources.getColoredDrawableWithColor(R.drawable.ic_phone_vector, if (isBlackAndWhiteTheme()) Color.BLACK else config.primaryColor.getContrastColor())
         dialpad_call_button.setImageDrawable(callIcon)
         dialpad_call_button.background.applyColorFilter(getAdjustedPrimaryColor())
-
-        val showLetters = config.showDialpadLetters
-        arrayOf(dialpad_2_letters, dialpad_3_letters, dialpad_4_letters, dialpad_5_letters, dialpad_6_letters, dialpad_7_letters, dialpad_8_letters, dialpad_9_letters).forEach {
-            it.beVisibleIf(showLetters)
-        }
     }
 
     override fun onResume() {
@@ -171,7 +166,7 @@ class DialpadActivity : SimpleActivity() {
             return
         }
 
-        val showLetters = config.showDialpadLetters
+        val showLetters = true
         (dialpad_list.adapter as? ContactsAdapter)?.finishActMode()
         val filtered = contacts.filter {
             val convertedName = PhoneNumberUtils.convertKeypadLettersToDigits(it.getNameToDisplay().normalizeString())

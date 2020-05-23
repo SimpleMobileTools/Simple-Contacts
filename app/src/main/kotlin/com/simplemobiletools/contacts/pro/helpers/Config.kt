@@ -57,10 +57,6 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(SHOW_DIALPAD_BUTTON, true)
         set(showDialpadButton) = prefs.edit().putBoolean(SHOW_DIALPAD_BUTTON, showDialpadButton).apply()
 
-    var showDialpadLetters: Boolean
-        get() = prefs.getBoolean(SHOW_DIALPAD_LETTERS, true)
-        set(showDialpadLetters) = prefs.edit().putBoolean(SHOW_DIALPAD_LETTERS, showDialpadLetters).apply()
-
     var wasLocalAccountInitialized: Boolean
         get() = prefs.getBoolean(WAS_LOCAL_ACCOUNT_INITIALIZED, false)
         set(wasLocalAccountInitialized) = prefs.edit().putBoolean(WAS_LOCAL_ACCOUNT_INITIALIZED, wasLocalAccountInitialized).apply()

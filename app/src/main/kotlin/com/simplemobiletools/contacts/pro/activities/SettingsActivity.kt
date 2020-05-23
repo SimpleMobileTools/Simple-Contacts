@@ -41,7 +41,6 @@ class SettingsActivity : SimpleActivity() {
         setupStartNameWithSurname()
         setupShowCallConfirmation()
         setupShowDialpadButton()
-        setupShowDialpadLetters()
         setupShowPrivateContacts()
         setupOnContactClick()
         updateTextColors(settings_holder)
@@ -134,14 +133,6 @@ class SettingsActivity : SimpleActivity() {
         settings_show_dialpad_button_holder.setOnClickListener {
             settings_show_dialpad_button.toggle()
             config.showDialpadButton = settings_show_dialpad_button.isChecked
-        }
-    }
-
-    private fun setupShowDialpadLetters() {
-        settings_show_dialpad_letters.isChecked = config.showDialpadLetters
-        settings_show_dialpad_letters_holder.setOnClickListener {
-            settings_show_dialpad_letters.toggle()
-            config.showDialpadLetters = settings_show_dialpad_letters.isChecked
         }
     }
 
