@@ -2,6 +2,9 @@ package com.simplemobiletools.contacts.pro.helpers
 
 import android.provider.ContactsContract.CommonDataKinds
 import com.simplemobiletools.commons.extensions.normalizeString
+import com.simplemobiletools.commons.helpers.TAB_CONTACTS
+import com.simplemobiletools.commons.helpers.TAB_FAVORITES
+import com.simplemobiletools.commons.helpers.TAB_GROUPS
 import com.simplemobiletools.contacts.pro.models.LocalContact
 
 // shared prefs
@@ -47,14 +50,11 @@ const val LOCATION_GROUP_CONTACTS = 2
 const val LOCATION_DIALPAD = 3
 const val LOCATION_INSERT_OR_EDIT = 4
 
-const val CONTACTS_TAB_MASK = 1
-const val FAVORITES_TAB_MASK = 2
-const val GROUPS_TAB_MASK = 8
-const val ALL_TABS_MASK = CONTACTS_TAB_MASK or FAVORITES_TAB_MASK or GROUPS_TAB_MASK
+const val ALL_TABS_MASK = TAB_CONTACTS or TAB_FAVORITES or TAB_GROUPS
 
-val tabsList = arrayListOf(CONTACTS_TAB_MASK,
-    FAVORITES_TAB_MASK,
-    GROUPS_TAB_MASK
+val tabsList = arrayListOf(TAB_CONTACTS,
+    TAB_FAVORITES,
+    TAB_GROUPS
 )
 
 // contact photo changes

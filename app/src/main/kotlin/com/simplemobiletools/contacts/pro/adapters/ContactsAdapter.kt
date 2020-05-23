@@ -16,8 +16,7 @@ import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.SimpleContactsHelper
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -137,9 +136,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     private fun askConfirmDelete() {
         val itemsCnt = selectedKeys.size
-        val firstItem = getSelectedItems().first()
         val items = if (itemsCnt == 1) {
-            "\"${firstItem.getNameToDisplay()}\""
+            "\"${getSelectedItems().first().getNameToDisplay()}\""
         } else {
             resources.getQuantityString(R.plurals.delete_contacts, itemsCnt, itemsCnt)
         }
@@ -176,7 +174,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                         finishActMode()
                     } else {
                         removeSelectedItems(positions)
-                        refreshListener?.refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+                        refreshListener?.refreshContacts(TAB_CONTACTS or TAB_FAVORITES)
                     }
                 }
             }
@@ -192,7 +190,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
         if (location == LOCATION_FAVORITES_TAB) {
             ContactsHelper(activity).removeFavorites(contactsToRemove)
             if (contactItems.isEmpty()) {
-                refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
+                refreshListener?.refreshContacts(TAB_FAVORITES)
                 finishActMode()
             } else {
                 removeSelectedItems(positions)
@@ -205,7 +203,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     private fun addToFavorites() {
         ContactsHelper(activity).addFavorites(getSelectedItems())
-        refreshListener?.refreshContacts(FAVORITES_TAB_MASK)
+        refreshListener?.refreshContacts(TAB_FAVORITES)
         finishActMode()
     }
 
@@ -227,14 +225,14 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
                 CreateNewGroupDialog(activity) {
                     ensureBackgroundThread {
                         activity.addContactsToGroup(selectedContacts, it.id!!.toLong())
-                        refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+                        refreshListener?.refreshContacts(TAB_GROUPS)
                     }
                     finishActMode()
                 }
             } else {
                 ensureBackgroundThread {
                     activity.addContactsToGroup(selectedContacts, it.toLong())
-                    refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+                    refreshListener?.refreshContacts(TAB_GROUPS)
                 }
                 finishActMode()
             }

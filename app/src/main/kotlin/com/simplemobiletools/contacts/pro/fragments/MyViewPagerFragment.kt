@@ -8,9 +8,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
-import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
-import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.GroupContactsActivity
 import com.simplemobiletools.contacts.pro.activities.InsertOrEditContactActivity
@@ -108,15 +106,15 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         if (this !is GroupsFragment) {
             (fragment_list.adapter as? ContactsAdapter)?.apply {
                 config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
-                (this@MyViewPagerFragment.activity!! as MainActivity).refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+                (this@MyViewPagerFragment.activity!! as MainActivity).refreshContacts(TAB_CONTACTS or TAB_FAVORITES)
             }
         }
     }
 
     fun refreshContacts(contacts: ArrayList<Contact>) {
-        if ((config.showTabs and CONTACTS_TAB_MASK == 0 && this is ContactsFragment && activity !is InsertOrEditContactActivity) ||
-            (config.showTabs and FAVORITES_TAB_MASK == 0 && this is FavoritesFragment) ||
-            (config.showTabs and GROUPS_TAB_MASK == 0 && this is GroupsFragment)) {
+        if ((config.showTabs and TAB_CONTACTS == 0 && this is ContactsFragment && activity !is InsertOrEditContactActivity) ||
+            (config.showTabs and TAB_FAVORITES == 0 && this is FavoritesFragment) ||
+            (config.showTabs and TAB_GROUPS == 0 && this is GroupsFragment)) {
             return
         }
 

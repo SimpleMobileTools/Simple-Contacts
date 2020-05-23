@@ -342,15 +342,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun getCurrentFragment(): MyViewPagerFragment? {
         val showTabs = config.showTabs
         val fragments = arrayListOf<MyViewPagerFragment>()
-        if (showTabs and CONTACTS_TAB_MASK != 0) {
+        if (showTabs and TAB_CONTACTS != 0) {
             fragments.add(contacts_fragment)
         }
 
-        if (showTabs and FAVORITES_TAB_MASK != 0) {
+        if (showTabs and TAB_FAVORITES != 0) {
             fragments.add(favorites_fragment)
         }
 
-        if (showTabs and GROUPS_TAB_MASK != 0) {
+        if (showTabs and TAB_GROUPS != 0) {
             fragments.add(groups_fragment)
         }
 
@@ -446,14 +446,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
-            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+            refreshContacts(TAB_CONTACTS or TAB_FAVORITES)
         }
     }
 
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
             contacts_fragment?.forceListRedraw = true
-            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+            refreshContacts(TAB_CONTACTS or TAB_FAVORITES)
         }
     }
 
@@ -590,16 +590,16 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 return@getContacts
             }
 
-            if (refreshTabsMask and CONTACTS_TAB_MASK != 0) {
+            if (refreshTabsMask and TAB_CONTACTS != 0) {
                 contacts_fragment?.refreshContacts(contacts)
             }
 
-            if (refreshTabsMask and FAVORITES_TAB_MASK != 0) {
+            if (refreshTabsMask and TAB_FAVORITES != 0) {
                 favorites_fragment?.refreshContacts(contacts)
             }
 
-            if (refreshTabsMask and GROUPS_TAB_MASK != 0) {
-                if (refreshTabsMask == GROUPS_TAB_MASK) {
+            if (refreshTabsMask and TAB_GROUPS != 0) {
+                if (refreshTabsMask == TAB_GROUPS) {
                     groups_fragment.skipHashComparing = true
                 }
                 groups_fragment?.refreshContacts(contacts)

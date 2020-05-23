@@ -13,10 +13,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.KEY_PHONE
-import com.simplemobiletools.commons.helpers.PERMISSION_GET_ACCOUNTS
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.pro.dialogs.ChangeSortingDialog
@@ -39,8 +36,8 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     private var searchMenuItem: MenuItem? = null
 
     private val contactsFavoritesList = arrayListOf(
-        CONTACTS_TAB_MASK,
-        FAVORITES_TAB_MASK
+        TAB_CONTACTS,
+        TAB_FAVORITES
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -133,7 +130,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         insert_or_edit_tabs_holder.removeAllTabs()
         var skippedTabs = 0
         contactsFavoritesList.forEachIndexed { index, value ->
-            if (config.showTabs and value == 0 && value == FAVORITES_TAB_MASK) {
+            if (config.showTabs and value == 0 && value == TAB_FAVORITES) {
                 skippedTabs++
             } else {
                 val tab = insert_or_edit_tabs_holder.newTab().setIcon(getTabIcon(index))
@@ -220,11 +217,11 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
                 return@getContacts
             }
 
-            if (refreshTabsMask and CONTACTS_TAB_MASK != 0) {
+            if (refreshTabsMask and TAB_CONTACTS != 0) {
                 contacts_fragment?.refreshContacts(contacts)
             }
 
-            if (refreshTabsMask and FAVORITES_TAB_MASK != 0) {
+            if (refreshTabsMask and TAB_FAVORITES != 0) {
                 favorites_fragment?.refreshContacts(contacts)
             }
         }
@@ -298,9 +295,9 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     fun getTabsMask(): Int {
-        var mask = CONTACTS_TAB_MASK
-        if (config.showTabs and FAVORITES_TAB_MASK != 0) {
-            mask += FAVORITES_TAB_MASK
+        var mask = TAB_CONTACTS
+        if (config.showTabs and TAB_FAVORITES != 0) {
+            mask += TAB_FAVORITES
         }
         return mask
     }
