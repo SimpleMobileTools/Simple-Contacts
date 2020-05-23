@@ -1,16 +1,15 @@
 package com.simplemobiletools.contacts.pro.activities
 
-import android.annotation.TargetApi
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
-import com.simplemobiletools.commons.activities.ManageBlockedNumbersActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getFontSizeText
 import com.simplemobiletools.commons.extensions.updateTextColors
-import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.helpers.FONT_SIZE_EXTRA_LARGE
+import com.simplemobiletools.commons.helpers.FONT_SIZE_LARGE
+import com.simplemobiletools.commons.helpers.FONT_SIZE_MEDIUM
+import com.simplemobiletools.commons.helpers.FONT_SIZE_SMALL
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
@@ -34,7 +33,6 @@ class SettingsActivity : SimpleActivity() {
         setupCustomizeColors()
         setupManageShownContactFields()
         setupManageShownTabs()
-        setupManageBlockedNumbers()
         setupFontSize()
         setupUseEnglish()
         setupShowContactThumbnails()
@@ -70,15 +68,6 @@ class SettingsActivity : SimpleActivity() {
     private fun setupManageShownTabs() {
         settings_manage_tabs_holder.setOnClickListener {
             ManageVisibleTabsDialog(this)
-        }
-    }
-
-    // support for device-wise blocking came on Android 7, rely only on that
-    @TargetApi(Build.VERSION_CODES.N)
-    private fun setupManageBlockedNumbers() {
-        settings_manage_blocked_numbers_holder.beVisibleIf(isNougatPlus())
-        settings_manage_blocked_numbers_holder.setOnClickListener {
-            startActivity(Intent(this, ManageBlockedNumbersActivity::class.java))
         }
     }
 
