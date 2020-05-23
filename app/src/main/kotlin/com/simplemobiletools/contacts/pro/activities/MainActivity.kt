@@ -598,20 +598,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         return when (config.defaultTab) {
             TAB_LAST_USED -> config.lastUsedViewPagerPage
             TAB_CONTACTS -> 0
-            TAB_FAVORITES -> {
-                if (showTabsMask and TAB_CONTACTS > 0) {
-                    1
-                } else {
-                    0
-                }
-            }
+            TAB_FAVORITES -> if (showTabsMask and TAB_CONTACTS > 0) 1 else 0
             else -> {
                 if (showTabsMask and TAB_CONTACTS > 0) {
-                    if (showTabsMask and TAB_FAVORITES > 0) {
-                        2
-                    } else {
-                        1
-                    }
+                    if (showTabsMask and TAB_FAVORITES > 0) 2 else 1
                 } else {
                     0
                 }
