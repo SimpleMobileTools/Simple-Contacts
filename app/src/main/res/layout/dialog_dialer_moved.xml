@@ -23,6 +23,6 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/medium_margin"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_launcher_dialer" />
+        android:src="@drawable/ic_dialer" />
 
 </RelativeLayout>
