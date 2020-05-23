@@ -340,7 +340,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun setupTabColors() {
         handledShowTabs = config.showTabs
-        val lastUsedPage = config.lastUsedViewPagerPage
+        val lastUsedPage = getDefaultTab()
         main_tabs_holder.apply {
             background = ColorDrawable(config.backgroundColor)
             setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
@@ -406,14 +406,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 skippedTabs++
             } else {
                 val tab = main_tabs_holder.newTab().setIcon(getTabIcon(index))
-                main_tabs_holder.addTab(tab, index - skippedTabs, config.lastUsedViewPagerPage == index - skippedTabs)
+                main_tabs_holder.addTab(tab, index - skippedTabs, getDefaultTab() == index - skippedTabs)
             }
         }
 
         // selecting the proper tab sometimes glitches, add an extra selector to make sure we have it right
         main_tabs_holder.onGlobalLayout {
             Handler().postDelayed({
-                main_tabs_holder.getTabAt(config.lastUsedViewPagerPage)?.select()
+                main_tabs_holder.getTabAt(getDefaultTab())?.select()
                 invalidateOptionsMenu()
             }, 100L)
         }
@@ -563,7 +563,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         if (viewpager.adapter == null) {
             viewpager.adapter = ViewPagerAdapter(this, tabsList, config.showTabs)
-            viewpager.currentItem = config.lastUsedViewPagerPage
+            viewpager.currentItem = getDefaultTab()
         }
 
         ContactsHelper(this).getContacts { contacts ->
@@ -594,6 +594,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, groups_fragment)
+
+    private fun getDefaultTab(): Int {
+        return when (config.defaultTab) {
+            TAB_LAST_USED -> config.lastUsedViewPagerPage
+            TAB_CONTACTS -> 0
+            TAB_FAVORITES -> 1
+            else -> 2
+        }
+    }
 
     private fun checkDialerMigrationDialog() {
         if (config.appRunCount < 3) {

@@ -98,6 +98,38 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/settings_default_tab_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:background="?attr/selectableItemBackground"
+            android:paddingLeft="@dimen/normal_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:paddingRight="@dimen/normal_margin"
+            android:paddingBottom="@dimen/activity_margin">
+
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/settings_default_tab_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/settings_default_tab"
+                android:paddingLeft="@dimen/medium_margin"
+                android:paddingRight="@dimen/medium_margin"
+                android:text="@string/default_tab_to_open" />
+
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/settings_default_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:background="@null"
+                android:clickable="false" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/settings_font_size_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

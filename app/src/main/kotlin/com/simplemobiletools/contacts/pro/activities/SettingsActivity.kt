@@ -3,13 +3,11 @@ package com.simplemobiletools.contacts.pro.activities
 import android.os.Bundle
 import android.view.Menu
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
+import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getFontSizeText
 import com.simplemobiletools.commons.extensions.updateTextColors
-import com.simplemobiletools.commons.helpers.FONT_SIZE_EXTRA_LARGE
-import com.simplemobiletools.commons.helpers.FONT_SIZE_LARGE
-import com.simplemobiletools.commons.helpers.FONT_SIZE_MEDIUM
-import com.simplemobiletools.commons.helpers.FONT_SIZE_SMALL
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
@@ -43,6 +41,7 @@ class SettingsActivity : SimpleActivity() {
         setupShowDialpadButton()
         setupShowPrivateContacts()
         setupOnContactClick()
+        setupDefaultTab()
         updateTextColors(settings_holder)
         invalidateOptionsMenu()
     }
@@ -69,6 +68,29 @@ class SettingsActivity : SimpleActivity() {
             ManageVisibleTabsDialog(this)
         }
     }
+
+    private fun setupDefaultTab() {
+        settings_default_tab.text = getDefaultTabText()
+        settings_default_tab_holder.setOnClickListener {
+            val items = arrayListOf(
+                RadioItem(TAB_CONTACTS, getString(R.string.contacts_tab)),
+                RadioItem(TAB_FAVORITES, getString(R.string.favorites_tab)),
+                RadioItem(TAB_GROUPS, getString(R.string.groups_tab)),
+                RadioItem(TAB_LAST_USED, getString(R.string.last_used_tab)))
+
+            RadioGroupDialog(this@SettingsActivity, items, config.defaultTab) {
+                config.defaultTab = it as Int
+                settings_default_tab.text = getDefaultTabText()
+            }
+        }
+    }
+
+    private fun getDefaultTabText() = getString(when (baseConfig.defaultTab) {
+        TAB_CONTACTS -> R.string.contacts_tab
+        TAB_FAVORITES -> R.string.favorites_tab
+        TAB_GROUPS -> R.string.groups_tab
+        else -> R.string.last_used_tab
+    })
 
     private fun setupFontSize() {
         settings_font_size.text = getFontSizeText()
