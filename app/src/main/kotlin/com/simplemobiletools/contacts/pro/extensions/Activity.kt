@@ -1,5 +1,7 @@
 package com.simplemobiletools.contacts.pro.extensions
 
+import android.content.Intent
+import android.net.Uri
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
@@ -12,7 +14,16 @@ import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
 
 fun SimpleActivity.startCallIntent(recipient: String) {
-    launchCallIntent(recipient, null)
+    val action = Intent.ACTION_CALL
+    Intent(action).apply {
+        data = Uri.fromParts("tel", recipient, null)
+
+        if (resolveActivity(packageManager) != null) {
+            startActivity(this)
+        } else {
+            toast(R.string.no_app_found)
+        }
+    }
 }
 
 fun SimpleActivity.tryStartCall(contact: Contact) {
