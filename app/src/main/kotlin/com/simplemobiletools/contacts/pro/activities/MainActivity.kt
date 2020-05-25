@@ -438,7 +438,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun launchDialpad() {
         Intent(Intent.ACTION_DIAL).apply {
-            startActivity(this)
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
+            }
         }
     }
 
