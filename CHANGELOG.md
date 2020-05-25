@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.11.1 *(2020-05-25)*
+----------------------------
+
+ * Use Call action at clicking the phone icon, not just Dial
+ * Use a nicer app icon on some older Android versions
+
 Version 6.11.0 *(2020-05-23)*
 ----------------------------
 
