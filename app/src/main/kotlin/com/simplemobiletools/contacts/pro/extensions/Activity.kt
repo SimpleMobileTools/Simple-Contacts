@@ -5,6 +5,7 @@ import android.net.Uri
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
@@ -14,14 +15,16 @@ import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
 
 fun SimpleActivity.startCallIntent(recipient: String) {
-    val action = Intent.ACTION_CALL
-    Intent(action).apply {
-        data = Uri.fromParts("tel", recipient, null)
+    handlePermission(PERMISSION_CALL_PHONE) {
+        val action = if (it) Intent.ACTION_CALL else Intent.ACTION_DIAL
+        Intent(action).apply {
+            data = Uri.fromParts("tel", recipient, null)
 
-        if (resolveActivity(packageManager) != null) {
-            startActivity(this)
-        } else {
-            toast(R.string.no_app_found)
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
+            }
         }
     }
 }
