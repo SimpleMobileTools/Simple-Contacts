@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">简约通讯录</string>
-    <string name="app_launcher_name">简约通讯录</string>
+    <string name="app_name">简易通讯录</string>
+    <string name="app_launcher_name">简易通讯录</string>
     <string name="address">地址</string>
     <string name="inserting">添加中…</string>
     <string name="updating">更新中…</string>
@@ -17,7 +17,7 @@
     <string name="add_to_existing_contact">添加至已存在的联系人</string>
     <string name="dialer_moved">
         <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
+            该应用负责通话处理的部分被移动之一个独立的新应用简易拨号器，请前往<a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">此链接下载。</a> 谢谢！
         ]]>
     </string>
 
@@ -57,15 +57,15 @@
     <string name="on_contact_click">点击联系人</string>
     <string name="call_contact">打电话给联系人</string>
     <string name="view_contact">显示联系人资料</string>
-    <string name="manage_shown_contact_fields">管理显示的联系人栏位</string>
+    <string name="manage_shown_contact_fields">管理显示的联系人字段</string>
     <string name="manage_shown_tabs">管理显示的页面</string>
     <string name="contacts">联系人</string>
     <string name="show_call_confirmation_dialog">开始通话前显示通话确认框</string>
     <string name="show_only_contacts_with_numbers">只显示含有电话话码的联系人</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">显示私密联系人给简易拨号器和简易短信</string>
 
     <!-- Emails -->
-    <string name="home">住家</string>
+    <string name="home">家庭</string>
     <string name="work">工作</string>
     <string name="other">其它</string>
 
@@ -73,7 +73,7 @@
     <string name="mobile">手机</string>
     <string name="main_number">主用</string>
     <string name="work_fax">工作传真</string>
-    <string name="home_fax">住家传真</string>
+    <string name="home_fax">家庭传真</string>
     <string name="pager">呼叫器</string>
     <string name="no_phone_number_found">未发现电话号码</string>
 
@@ -88,7 +88,7 @@
     <!-- Search -->
     <string name="search_contacts">搜索联系人</string>
     <string name="search_favorites">搜索我的收藏</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">搜索群组</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">导入联系人</string>
@@ -117,22 +117,22 @@
     <string name="instant_messaging">即时通讯 (IM)</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_from_all_sources">该联系人将会被从所有联系人来源移除。</string>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d 群组</item>
+        <item quantity="other">%d 群组</item>
     </plurals>
 
     <!-- FAQ -->
-    <string name="faq_1_title">我想要更改在通讯录会看到哪些栏位。我能这么做吗?</string>
-    <string name="faq_1_text">可以，你要做的是到[设置] -> [管理显示的联系人栏位]。在那里，你可以选择应该看到什么栏位。其中有些甚至默认是关闭的，所以你可能会在那里发现一些新的。</string>
+    <string name="faq_1_title">我想要更改在通讯录会看到哪些字段。我能这么做吗?</string>
+    <string name="faq_1_text">可以，你要做的是到[设置] -> [管理显示的联系人字段]。在那里，你可以选择应该看到什么字段。其中有些甚至默认是关闭的，所以你可能会在那里发现一些新的。</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">简易通讯录 Pro - 轻松管理你的联系人</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
+    <string name="app_short_description">简单快速无广告的联系人管理，亦可处理群组和收藏。</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
@@ -162,7 +162,7 @@
 
         不包含广告及非必要的权限，而且完全开放源代码，并提供自定义颜色。
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>于此查看简易工具系列全套:</b>
         https://www.simplemobiletools.com
 
         <b>Standalone website of Simple Contacts Pro:</b>
