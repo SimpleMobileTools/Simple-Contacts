@@ -28,9 +28,6 @@
     <string name="new_contact">Cyswllt newydd</string>
     <string name="edit_contact">Golygu\'r cyswllt</string>
     <string name="select_contact">Dewis cyswllt</string>
-    <string name="first_name">Enw cyntaf</string>
-    <string name="middle_name">Enw canol</string>
-    <string name="surname">Cyfenw</string>
     <string name="nickname">Llys enw</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">Cael gwared â\'r llun</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Dangos enw gyda\'r cyfenw gyntaf</string>
     <string name="show_phone_numbers">Dangos rhifau ffôn ar y brif sgrin</string>
     <string name="show_contact_thumbnails">Dangos mân luniau cysylltiadau</string>
     <string name="show_dialpad_button">Dangos botwm pad deialu ar y brif sgrin</string>

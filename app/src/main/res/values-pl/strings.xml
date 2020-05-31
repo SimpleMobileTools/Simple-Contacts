@@ -28,9 +28,6 @@
     <string name="new_contact">Nowy kontakt</string>
     <string name="edit_contact">Edytuj kontakt</string>
     <string name="select_contact">Wybierz kontakt</string>
-    <string name="first_name">Pierwsze imię</string>
-    <string name="middle_name">Drugie imię</string>
-    <string name="surname">Nazwisko</string>
     <string name="nickname">Pseudonim</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">Usuń zdjęcie</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Zacznij nazwę od nazwiska</string>
     <string name="show_phone_numbers">Pokazuj numery telefonów na ekranie głównym</string>
     <string name="show_contact_thumbnails">Pokazuj miniatury kontaktów</string>
     <string name="show_dialpad_button">Pokazuj przycisk panelu wybierania numeru na ekranie głównym</string>

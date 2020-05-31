@@ -28,9 +28,6 @@
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>
     <string name="select_contact">選擇聯絡人</string>
-    <string name="first_name">名字</string>
-    <string name="middle_name">中間名</string>
-    <string name="surname">姓氏</string>
     <string name="nickname">暱稱</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">移除相片</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">姓氏在前</string>
     <string name="show_phone_numbers">主畫面顯示電話號碼</string>
     <string name="show_contact_thumbnails">顯示聯絡人縮圖</string>
     <string name="show_dialpad_button">在主畫面顯示撥號按鈕</string>

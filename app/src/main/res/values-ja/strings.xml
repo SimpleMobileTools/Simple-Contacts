@@ -28,9 +28,6 @@
     <string name="new_contact">新しい連絡先</string>
     <string name="edit_contact">連絡先を編集</string>
     <string name="select_contact">連絡先を選択</string>
-    <string name="first_name">名</string>
-    <string name="middle_name">ミドルネーム</string>
-    <string name="surname">姓</string>
     <string name="nickname">ニックネーム</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">写真を削除</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">姓を先に表示</string>
     <string name="show_phone_numbers">メイン画面に電話番号を表示</string>
     <string name="show_contact_thumbnails">連絡先のサムネイルを表示</string>
     <string name="show_dialpad_button">メイン画面にダイヤルパッドを表示</string>

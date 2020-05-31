@@ -28,9 +28,6 @@
     <string name="new_contact">Nieuw contact</string>
     <string name="edit_contact">Contact bewerken</string>
     <string name="select_contact">Contact kiezen</string>
-    <string name="first_name">Voornaam</string>
-    <string name="middle_name">Tweede voornaam</string>
-    <string name="surname">Achternaam</string>
     <string name="nickname">Bijnaam</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">Foto verwijderen</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Beginnen met achternaam</string>
     <string name="show_phone_numbers">Telefoonnummers in hoofdscherm tonen</string>
     <string name="show_contact_thumbnails">Contactafbeelding tonen</string>
     <string name="show_dialpad_button">Knop voor toetsenblok in hoofdscherm tonen</string>

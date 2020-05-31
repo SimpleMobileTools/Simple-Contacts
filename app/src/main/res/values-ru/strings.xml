@@ -28,9 +28,6 @@
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
     <string name="select_contact">Выбрать контакт</string>
-    <string name="first_name">Имя</string>
-    <string name="middle_name">Отчество</string>
-    <string name="surname">Фамилия</string>
     <string name="nickname">Псевдоним</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">Удалить фото</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Показывать сначала фамилию</string>
     <string name="show_phone_numbers">Показывать номера телефонов на главном экране</string>
     <string name="show_contact_thumbnails">Показывать фото контакта</string>
     <string name="show_dialpad_button">Показывать кнопку набора номера на главном экране</string>

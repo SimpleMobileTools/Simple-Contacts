@@ -28,9 +28,6 @@
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigér kontakt</string>
     <string name="select_contact">Vælg kontakt</string>
-    <string name="first_name">Fornavn</string>
-    <string name="middle_name">Mellemnavn</string>
-    <string name="surname">Efternavn</string>
     <string name="nickname">Kaldenavn</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">Fjern foto</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Start navn med efternavn</string>
     <string name="show_phone_numbers">Vis telefonnumre på hovedskærmen</string>
     <string name="show_contact_thumbnails">Vis kontakt miniature-billede</string>
     <string name="show_dialpad_button">Vis en opkaldstasteknap på hovedskærmen</string>

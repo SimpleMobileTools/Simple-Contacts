@@ -28,9 +28,6 @@
     <string name="new_contact">Naujas kontaktas</string>
     <string name="edit_contact">Redaguoti kontaktą</string>
     <string name="select_contact">Pasirinkti kontaktą</string>
-    <string name="first_name">Vardas</string>
-    <string name="middle_name">Antras vardas</string>
-    <string name="surname">Pavardė</string>
     <string name="nickname">Nickname</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">Pašalinti nuotrauką</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Pavardė rodoma pirma</string>
     <string name="show_phone_numbers">Rodyti telefono numerius pagrindiniame programos ekrane</string>
     <string name="show_contact_thumbnails">Rodyti kontaktų miniatiūras</string>
     <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
