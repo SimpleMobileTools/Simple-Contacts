@@ -28,9 +28,6 @@
     <string name="new_contact">Új névjegy</string>
     <string name="edit_contact">Névjegy módosítása</string>
     <string name="select_contact">Névjegy kiválasztása</string>
-    <string name="first_name">Keresztnév</string>
-    <string name="middle_name">Középső név</string>
-    <string name="surname">Vezetéknév</string>
     <string name="nickname">Becenév</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">Fénykép törlése</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Vezetéknév, keresztnév sorrend</string>
     <string name="show_phone_numbers">Telefonszámok kijelzése a névjegylistán</string>
     <string name="show_contact_thumbnails">Névjegy bélyeg kijelzése</string>
     <string name="show_dialpad_button">Tárcsáző kijelzése a névjegylistán</string>

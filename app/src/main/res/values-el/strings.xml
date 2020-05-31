@@ -28,9 +28,6 @@
     <string name="new_contact">Νέα επαφή</string>
     <string name="edit_contact">Επεξεργασία επαφής</string>
     <string name="select_contact">Επιλογή επαφής</string>
-    <string name="first_name">Όνομα</string>
-    <string name="middle_name">Μεσαίο όνομα</string>
-    <string name="surname">Επώνυμο</string>
     <string name="nickname">Ψευδώνυμο</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">Αφαίρεση φωτογραφίας</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Εμφάνιση πρώτα το επώνυμο</string>
     <string name="show_phone_numbers">Εμφάνιση τηλεφωνικών αριθμών στην κύρια οθόνη</string>
     <string name="show_contact_thumbnails">Εμφάνιση μικρογραφιών επαφής</string>
     <string name="show_dialpad_button">Προβολή ενός κουμπίου πληκτρολογίου στην κύρια οθόνη</string>

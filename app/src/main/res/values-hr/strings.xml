@@ -28,9 +28,6 @@
     <string name="new_contact">Novi kontakt</string>
     <string name="edit_contact">Uredi kontakt</string>
     <string name="select_contact">Odaberi kontakt</string>
-    <string name="first_name">Ime</string>
-    <string name="middle_name">Srednje ime</string>
-    <string name="surname">Prezime</string>
     <string name="nickname">Nadimak</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">Ukloni fotografiju</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Započnite imena s prezimenima</string>
     <string name="show_phone_numbers">Prikaži telefonske brojeve na glavnom zaslonu</string>
     <string name="show_contact_thumbnails">Prikaži sličice kontakata</string>
     <string name="show_dialpad_button">Show a dialpad button on the main screen</string>

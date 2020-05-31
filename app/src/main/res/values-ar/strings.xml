@@ -28,9 +28,6 @@
     <string name="new_contact">جهة اتصال جديدة</string>
     <string name="edit_contact">تعديل جهة اتصالل</string>
     <string name="select_contact">اختيار جهة اتصال</string>
-    <string name="first_name">الاسم</string>
-    <string name="middle_name">اسم الأب</string>
-    <string name="surname">الشهرة</string>
     <string name="nickname">اللقب</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">ازالة الصورة</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">الاسم يبدأ بالشهرة</string>
     <string name="show_phone_numbers">عرض أرقام الهاتف على الشاشة الرئيسية</string>
     <string name="show_contact_thumbnails">عرض صور مصغرة لجهات الإتصال</string>
     <string name="show_dialpad_button">عرض زر لوحة الإتصال على الشاشةالرئيسية</string>

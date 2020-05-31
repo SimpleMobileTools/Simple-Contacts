@@ -28,9 +28,6 @@
     <string name="new_contact">Kontaktu berria</string>
     <string name="edit_contact">Editatu taldea</string>
     <string name="select_contact">Hautatu kontaktuak</string>
-    <string name="first_name">Izena</string>
-    <string name="middle_name">Erdiko izena</string>
-    <string name="surname">Abizena</string>
     <string name="nickname">Nickname</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">Kendu argazkia</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Abizenaren arabera sailkatu</string>
     <string name="show_phone_numbers">Erakutsi telefono zenbakiak pantaila nagusian</string>
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
     <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
