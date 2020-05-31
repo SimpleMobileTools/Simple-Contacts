@@ -28,9 +28,6 @@
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>
     <string name="select_contact">Välj kontakt</string>
-    <string name="first_name">Förnamn</string>
-    <string name="middle_name">Mellannamn</string>
-    <string name="surname">Efternamn</string>
     <string name="nickname">Smeknamn</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">Ta bort foto</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Visa efternamn först</string>
     <string name="show_phone_numbers">Visa telefonnummer i huvudvyn</string>
     <string name="show_contact_thumbnails">Visa kontaktminiatyrer</string>
     <string name="show_dialpad_button">Visa en knappsatsknapp i huvudvyn</string>

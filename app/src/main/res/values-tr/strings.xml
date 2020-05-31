@@ -28,9 +28,6 @@
     <string name="new_contact">Yeni kişi</string>
     <string name="edit_contact">Kişiyi düzenle</string>
     <string name="select_contact">Kişi seç</string>
-    <string name="first_name">Adı</string>
-    <string name="middle_name">Göbek adı</string>
-    <string name="surname">Soyadı</string>
     <string name="nickname">Takma adı</string>
 
     <!-- Groups -->
@@ -50,7 +47,6 @@
     <string name="remove_photo">Fotoğrafı kaldır</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Soyadı ile başla</string>
     <string name="show_phone_numbers">Ana ekranda telefon numaralarını göster</string>
     <string name="show_contact_thumbnails">Kişi küçük resimlerini göster</string>
     <string name="show_dialpad_button">Ana ekranda tuş takımı düğmesini göster</string>
