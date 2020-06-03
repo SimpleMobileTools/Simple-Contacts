@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.12.0 *(2020-06-03)*
+----------------------------
+
+ * Added sorting by full name, which is the way most people expect sorting to work
+ * Improve searching, do not reset it at opening a contact
+ * Some translation and stability improvements
+
 Version 6.11.3 *(2020-05-26)*
 ----------------------------
 
