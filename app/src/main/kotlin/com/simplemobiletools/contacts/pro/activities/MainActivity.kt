@@ -170,17 +170,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         isFirstResume = false
         checkShortcuts()
-        invalidateOptionsMenu()
     }
 
     override fun onPause() {
         super.onPause()
         storeStateVariables()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        searchMenuItem?.collapseActionView()
     }
 
     override fun onDestroy() {
