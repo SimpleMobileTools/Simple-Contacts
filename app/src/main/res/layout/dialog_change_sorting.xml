@@ -44,6 +44,14 @@
                 android:paddingTop="@dimen/medium_margin"
                 android:text="@string/surname"/>
 
+            <com.simplemobiletools.commons.views.MyCompatRadioButton
+                android:id="@+id/sorting_dialog_radio_full_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/medium_margin"
+                android:paddingTop="@dimen/medium_margin"
+                android:text="@string/full_name"/>
+
         </RadioGroup>
 
         <include

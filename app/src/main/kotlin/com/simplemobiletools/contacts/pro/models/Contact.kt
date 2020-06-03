@@ -6,6 +6,7 @@ import com.simplemobiletools.commons.extensions.normalizePhoneNumber
 import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
 import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
+import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 
@@ -32,9 +33,13 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
                 firstString = middleName.normalizeString()
                 secondString = other.middleName.normalizeString()
             }
-            else -> {
+            sorting and SORT_BY_SURNAME != 0 -> {
                 firstString = surname.normalizeString()
                 secondString = other.surname.normalizeString()
+            }
+            else -> {
+                firstString = getNameToDisplay().normalizeString()
+                secondString = other.getNameToDisplay().normalizeString()
             }
         }
 
