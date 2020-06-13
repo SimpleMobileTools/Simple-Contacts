@@ -40,9 +40,8 @@ class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayL
 
             view.apply {
                 select_contact_list.adapter = SelectContactsAdapter(activity, allContacts, initiallySelectedContacts, allowSelectMultiple,
-                        select_contact_list, select_contact_fastscroller, contactClickCallback)
+                    select_contact_list, select_contact_fastscroller, contactClickCallback)
 
-                select_contact_fastscroller.allowBubbleDisplay = true
                 select_contact_fastscroller.setViews(select_contact_list) {
                     select_contact_fastscroller.updateBubbleText(allContacts[it].getBubbleText())
                 }

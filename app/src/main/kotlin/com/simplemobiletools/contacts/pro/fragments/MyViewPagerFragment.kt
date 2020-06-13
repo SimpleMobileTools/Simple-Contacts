@@ -355,7 +355,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     private fun updateViewStuff() {
         context.updateTextColors(fragment_wrapper.parent as ViewGroup)
         fragment_fastscroller?.updateBubbleColors()
-        fragment_fastscroller?.allowBubbleDisplay = true
         fragment_placeholder_2?.setTextColor(context.getAdjustedPrimaryColor())
         letter_fastscroller_thumb?.fontSize = context.getTextSize()
     }
