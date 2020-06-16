@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.12.1 *(2020-06-16)*
+----------------------------
+
+ * Properly check phone numbers at Search too
+ * Fixed a glitch with wrong contacts being listed
+
 Version 6.12.0 *(2020-06-03)*
 ----------------------------
 
