@@ -178,9 +178,7 @@ class ContactsHelper(val context: Context) {
             val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
                 events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
 
-            if (contacts[id] == null) {
-                contacts.put(id, contact)
-            }
+            contacts.put(id, contact)
         }
 
         val phoneNumbers = getPhoneNumbers(null)
