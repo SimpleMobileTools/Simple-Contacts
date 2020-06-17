@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 6.12.2 *(2020-06-17)*
+----------------------------
+
+ * Reverting a check at fetching contacts, let's show more contacts rather than less
+
 Version 6.12.1 *(2020-06-16)*
 ----------------------------
 
