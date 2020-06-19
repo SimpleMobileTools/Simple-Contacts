@@ -24,7 +24,7 @@ class MyContactsContentProvider : ContentProvider() {
                 MyContactsContentProvider.COL_PHONE_NUMBER)
             )
 
-            LocalContactsHelper(context!!).getPrivateSimpleContactsSync().forEach {
+            LocalContactsHelper(context!!).getPrivateSimpleContactsSync(selection == MyContactsContentProvider.FAVORITES_ONLY).forEach {
                 matrixCursor.newRow()
                     .add(MyContactsContentProvider.COL_RAW_ID, it.rawId)
                     .add(MyContactsContentProvider.COL_CONTACT_ID, it.contactId)

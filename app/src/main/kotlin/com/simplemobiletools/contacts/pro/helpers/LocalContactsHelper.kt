@@ -17,8 +17,8 @@ import com.simplemobiletools.contacts.pro.models.LocalContact
 import com.simplemobiletools.contacts.pro.models.Organization
 
 class LocalContactsHelper(val context: Context) {
-    fun getAllContacts(): ArrayList<Contact> {
-        val contacts = context.contactsDB.getContacts()
+    fun getAllContacts(favoritesOnly: Boolean = false): ArrayList<Contact> {
+        val contacts = if (favoritesOnly) context.contactsDB.getFavoriteContacts() else context.contactsDB.getContacts()
         val storedGroups = ContactsHelper(context).getStoredGroupsSync()
         return contacts.map { convertLocalContactToContact(it, storedGroups) }.toMutableList() as ArrayList<Contact>
     }
@@ -161,5 +161,5 @@ class LocalContactsHelper(val context: Context) {
         }
     }
 
-    fun getPrivateSimpleContactsSync() = getAllContacts().mapNotNull { convertContactToSimpleContact(it) }
+    fun getPrivateSimpleContactsSync(favoritesOnly: Boolean) = getAllContacts(favoritesOnly).mapNotNull { convertContactToSimpleContact(it) }
 }
