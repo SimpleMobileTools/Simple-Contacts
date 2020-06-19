@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 6.12.3 *(2020-06-19)*
+----------------------------
+
+ * Adding some private contact handling related improvements
+
 Version 6.12.2 *(2020-06-17)*
 ----------------------------
 
