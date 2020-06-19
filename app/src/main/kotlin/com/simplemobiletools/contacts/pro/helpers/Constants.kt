@@ -24,9 +24,7 @@ const val WAS_LOCAL_ACCOUNT_INITIALIZED = "was_local_account_initialized"
 const val SHOW_PRIVATE_CONTACTS = "show_private_contacts"
 const val WAS_DIALER_MIGRATION_SHOWN = "was_dialer_migration_shown"
 
-const val CONTACT_ID = "contact_id"
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
-const val IS_PRIVATE = "is_private"
 const val GROUP = "group"
 const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"
 const val ADD_NEW_CONTACT_NUMBER = "add_new_contact_number"

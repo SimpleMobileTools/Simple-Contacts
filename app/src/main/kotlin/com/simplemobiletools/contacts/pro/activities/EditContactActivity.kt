@@ -20,9 +20,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
