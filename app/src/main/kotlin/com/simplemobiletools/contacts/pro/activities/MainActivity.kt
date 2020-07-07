@@ -220,8 +220,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (requestCode == PICK_IMPORT_SOURCE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
             tryImportContactsFromFile(resultData.data!!)
         } else if (requestCode == PICK_EXPORT_FILE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
-            val outputStream = contentResolver.openOutputStream(resultData.data!!)
-            exportContactsTo(ignoredExportContactSources, outputStream)
+            try {
+                val outputStream = contentResolver.openOutputStream(resultData.data!!)
+                exportContactsTo(ignoredExportContactSources, outputStream)
+            } catch (e: Exception) {
+                showErrorToast(e)
+            }
         }
     }
 
