@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 6.12.4 *(2020-07-08)*
+----------------------------
+
+ * Adding some smaller translation, stability and UX improvements
+
 Version 6.12.3 *(2020-06-19)*
 ----------------------------
 
