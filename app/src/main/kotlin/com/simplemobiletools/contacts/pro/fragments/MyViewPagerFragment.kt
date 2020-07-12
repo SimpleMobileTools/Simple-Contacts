@@ -79,7 +79,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun textColorChanged(color: Int) {
         when {
             this is GroupsFragment -> (fragment_list.adapter as GroupsAdapter).updateTextColor(color)
-            else -> (fragment_list.adapter as ContactsAdapter).apply {
+            else -> (fragment_list.adapter as? ContactsAdapter)?.apply {
                 updateTextColor(color)
             }
         }
