@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 6.12.5 *(2020-07-12)*
+----------------------------
+
+ * Adding some improvements related to contacts having multiple phone numbers
+
 Version 6.12.4 *(2020-07-08)*
 ----------------------------
 
