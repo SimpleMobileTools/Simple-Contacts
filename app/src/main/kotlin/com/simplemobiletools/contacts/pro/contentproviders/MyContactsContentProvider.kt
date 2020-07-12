@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
+import com.google.gson.Gson
 import com.simplemobiletools.commons.helpers.MyContactsContentProvider
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.LocalContactsHelper
@@ -21,16 +22,17 @@ class MyContactsContentProvider : ContentProvider() {
                 MyContactsContentProvider.COL_CONTACT_ID,
                 MyContactsContentProvider.COL_NAME,
                 MyContactsContentProvider.COL_PHOTO_URI,
-                MyContactsContentProvider.COL_PHONE_NUMBER)
+                MyContactsContentProvider.COL_PHONE_NUMBERS)
             )
 
             LocalContactsHelper(context!!).getPrivateSimpleContactsSync(selection == MyContactsContentProvider.FAVORITES_ONLY).forEach {
+                val phoneNumbers = Gson().toJson(it.phoneNumbers)
                 matrixCursor.newRow()
                     .add(MyContactsContentProvider.COL_RAW_ID, it.rawId)
                     .add(MyContactsContentProvider.COL_CONTACT_ID, it.contactId)
                     .add(MyContactsContentProvider.COL_NAME, it.name)
                     .add(MyContactsContentProvider.COL_PHOTO_URI, it.photoUri)
-                    .add(MyContactsContentProvider.COL_PHONE_NUMBER, it.phoneNumber)
+                    .add(MyContactsContentProvider.COL_PHONE_NUMBERS, phoneNumbers)
             }
 
             return matrixCursor

@@ -157,7 +157,8 @@ class LocalContactsHelper(val context: Context) {
         return if (contact == null || contact.phoneNumbers.isEmpty()) {
             null
         } else {
-            SimpleContact(contact.id, contact.id, contact.getNameToDisplay(), contact.photoUri, contact.phoneNumbers.first().value)
+            val phoneNumbers = contact.phoneNumbers.map { it.value }.toMutableList() as ArrayList<String>
+            SimpleContact(contact.id, contact.id, contact.getNameToDisplay(), contact.photoUri, phoneNumbers)
         }
     }
 
