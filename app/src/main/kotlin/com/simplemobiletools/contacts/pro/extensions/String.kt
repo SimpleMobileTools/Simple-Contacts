@@ -20,7 +20,7 @@ fun String.getDateTimeFromDateString(viewToUpdate: TextView? = null): DateTime {
 
             val hasYear = format.contains("y")
             if (!hasYear) {
-                localPattern = localPattern.replace("y", "").trim()
+                localPattern = localPattern.replace("y", "").replace(",", "").trim()
                 date = date.withYear(DateTime().year)
             }
 

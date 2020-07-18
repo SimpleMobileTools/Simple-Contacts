@@ -1,7 +1,6 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.content.ClipData
 import android.content.ContentValues
 import android.content.Intent
@@ -24,6 +23,7 @@ import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
+import com.simplemobiletools.contacts.pro.dialogs.MyDatePickerDialog
 import com.simplemobiletools.contacts.pro.dialogs.SelectGroupsDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
@@ -39,8 +39,6 @@ import kotlinx.android.synthetic.main.item_edit_im.view.*
 import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
 import kotlinx.android.synthetic.main.item_edit_website.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
 
 class EditContactActivity : ContactActivity() {
     private val INTENT_TAKE_PHOTO = 1
@@ -689,19 +687,13 @@ class EditContactActivity : ContactActivity() {
 
         val eventField = eventHolder.contact_event
         eventField.setOnClickListener {
-            val setDateListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                eventHolder.contact_event_remove.beVisible()
-                val date = DateTime().withDate(year, monthOfYear + 1, dayOfMonth).withTimeAtStartOfDay()
-                val formatted = date.toString(DateTimeFormat.mediumDate())
+            MyDatePickerDialog(this, eventField.tag?.toString() ?: "") { dateTag ->
                 eventField.apply {
-                    text = formatted
-                    tag = date.toString("yyyy-MM-dd")
+                    dateTag.getDateTimeFromDateString(this)
+                    tag = dateTag
                     alpha = 1f
                 }
             }
-
-            val date = (eventField.tag?.toString() ?: "").getDateTimeFromDateString()
-            DatePickerDialog(this, getDialogTheme(), setDateListener, date.year, date.monthOfYear - 1, date.dayOfMonth).show()
         }
 
         eventHolder.contact_event_remove.apply {
