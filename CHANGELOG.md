@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.12.6 *(2020-07-18)*
+----------------------------
+
+ * Allow adding contact events without specifying a year
+ * Always show the contacts middle name after the first name
+ * Make sure groups are properly sorted by name
+
 Version 6.12.5 *(2020-07-12)*
 ----------------------------
 
