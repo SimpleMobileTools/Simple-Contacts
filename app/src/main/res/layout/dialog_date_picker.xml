@@ -3,7 +3,8 @@
     android:id="@+id/dialog_holder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal">
+    android:layout_gravity="center_horizontal"
+    android:background="@color/theme_dark_background_color">
 
     <DatePicker
         android:id="@+id/date_picker"
