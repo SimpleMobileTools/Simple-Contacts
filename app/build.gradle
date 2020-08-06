@@ -17,8 +17,8 @@ android {
         applicationId "com.simplemobiletools.contacts.pro"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 74
-        versionName "6.12.6"
+        versionCode 75
+        versionName "6.12.7"
         setProperty("archivesBaseName", "contacts")
     }
 
