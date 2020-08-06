@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.12.7 *(2020-08-06)*
+----------------------------
+
+ * Do not require the Telephony hardware feature for installing the app
+ * Some translation and UX improvements
+
 Version 6.12.6 *(2020-07-18)*
 ----------------------------
 
