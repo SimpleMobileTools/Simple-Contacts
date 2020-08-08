@@ -229,7 +229,7 @@ fun Context.sendSMSToContacts(contacts: ArrayList<Contact>) {
         val number = it.phoneNumbers.firstOrNull { it.type == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE }
             ?: it.phoneNumbers.firstOrNull()
         if (number != null) {
-            numbers.append("${number.value};")
+            numbers.append("${Uri.encode(number.value)};")
         }
 
         val uriString = "smsto:${numbers.toString().trimEnd(';')}"
