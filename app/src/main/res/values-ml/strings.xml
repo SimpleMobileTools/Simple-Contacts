@@ -126,9 +126,9 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - നിങ്ങളുടെ കോൺ‌ടാക്റ്റുകൾ‌ എളുപ്പത്തിൽ‌ മാനേജുചെയ്യുക</string>
+    <string name="app_title">Simple Contacts Pro - കോൺ‌ടാക്റ്റുകൾ‌ എളുപ്പത്തിൽ‌ മാനേജുചെയ്യുക</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A premium app for contact management with no ads, supports groups and favorites</string>
+    <string name="app_short_description">കോൺ‌ടാക്റ്റ് മാനേജുമെന്റിനായി ലളിതവും മനോഹരവുമായ ഒരു ആപ്ലിക്കേഷൻ</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
