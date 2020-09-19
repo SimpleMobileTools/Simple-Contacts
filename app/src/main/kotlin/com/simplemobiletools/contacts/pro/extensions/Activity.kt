@@ -2,6 +2,8 @@ package com.simplemobiletools.contacts.pro.extensions
 
 import android.content.Intent
 import android.net.Uri
+import android.provider.ContactsContract.CommonDataKinds.BaseTypes
+import android.provider.ContactsContract.CommonDataKinds.Phone
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
@@ -46,7 +48,7 @@ fun SimpleActivity.startCall(contact: Contact) {
     } else if (numbers.size > 1) {
         val items = ArrayList<RadioItem>()
         numbers.forEachIndexed { index, phoneNumber ->
-            items.add(RadioItem(index, phoneNumber.value, phoneNumber.value))
+            items.add(RadioItem(index, "${phoneNumber.value} (${getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)})", phoneNumber.value))
         }
 
         RadioGroupDialog(this, items) {
@@ -108,5 +110,22 @@ fun SimpleActivity.callContact(contact: Contact) {
         tryStartCall(contact)
     } else {
         toast(R.string.no_phone_number_found)
+    }
+}
+
+fun SimpleActivity.getPhoneNumberTypeText(type: Int, label: String): String {
+    return if (type == BaseTypes.TYPE_CUSTOM) {
+        label
+    } else {
+        getString(when (type) {
+            Phone.TYPE_MOBILE -> R.string.mobile
+            Phone.TYPE_HOME -> R.string.home
+            Phone.TYPE_WORK -> R.string.work
+            Phone.TYPE_MAIN -> R.string.main_number
+            Phone.TYPE_FAX_WORK -> R.string.work_fax
+            Phone.TYPE_FAX_HOME -> R.string.home_fax
+            Phone.TYPE_PAGER -> R.string.pager
+            else -> R.string.other
+        })
     }
 }
