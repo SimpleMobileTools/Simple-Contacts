@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.13.0 *(2020-09-19)*
+----------------------------
+
+ * Fixed search with non UTF characters
+ * Added many smaller translation and UX improvements
+
 Version 6.12.7 *(2020-08-06)*
 ----------------------------
 
