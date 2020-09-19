@@ -24,7 +24,7 @@
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_customize_colors"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
@@ -68,7 +68,7 @@
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_manage_contact_fields"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
@@ -89,7 +89,7 @@
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_manage_tabs"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
