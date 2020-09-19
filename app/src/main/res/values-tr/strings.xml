@@ -15,11 +15,6 @@
     <string name="call_person">%s kişisini ara</string>
     <string name="create_new_contact">Yeni kişi oluştur</string>
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            Uygulamanın Çağrı işlemeden sorumlu kısmı, ayrı Basit Çevirici adlı yeni bir uygulamaya taşındı, lütfen <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">bu bağlantıdan</a> indirin. Teşekkürler!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">E-posta ile hiç bağlantı bulunamadı</string>

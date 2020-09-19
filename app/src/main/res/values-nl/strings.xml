@@ -15,11 +15,6 @@
     <string name="call_person">%s bellen</string>
     <string name="create_new_contact">Nieuw contact</string>
     <string name="add_to_existing_contact">Aan bestaand contact toevoegen</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            Het gedeelte om telefoongesprekken te beheren moest worden afgesplitst naar een aparte app genaamd Eenvoudige Telefoon. Download de app via <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Bedankt!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Geen contacten met e-mailadressen gevonden</string>

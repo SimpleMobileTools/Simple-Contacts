@@ -15,11 +15,6 @@
     <string name="call_person">打电话给 %s</string>
     <string name="create_new_contact">建立新联系人</string>
     <string name="add_to_existing_contact">添加至已存在的联系人</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            该应用负责通话处理的部分被移动至一个独立的新应用简易拨号器，请前往<a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">此链接下载。</a> 谢谢！
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">未发现含有电子邮箱的联系人</string>

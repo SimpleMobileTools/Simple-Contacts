@@ -26,7 +26,10 @@ import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.pro.databases.ContactsDatabase
-import com.simplemobiletools.contacts.pro.dialogs.*
+import com.simplemobiletools.contacts.pro.dialogs.ChangeSortingDialog
+import com.simplemobiletools.contacts.pro.dialogs.ExportContactsDialog
+import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
+import com.simplemobiletools.contacts.pro.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getTempFile
 import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
@@ -74,7 +77,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         setupTabColors()
         checkContactPermissions()
         checkWhatsNewDialog()
-        checkDialerMigrationDialog()
     }
 
     private fun checkContactPermissions() {
@@ -608,17 +610,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                     0
                 }
             }
-        }
-    }
-
-    private fun checkDialerMigrationDialog() {
-        if (config.appRunCount < 3) {
-            config.wasDialerMigrationShown = true
-        }
-
-        if (!config.wasDialerMigrationShown) {
-            config.wasDialerMigrationShown = true
-            DialerMovedDialog(this)
         }
     }
 

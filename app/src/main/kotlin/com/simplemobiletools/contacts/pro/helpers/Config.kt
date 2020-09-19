@@ -64,8 +64,4 @@ class Config(context: Context) : BaseConfig(context) {
     var showPrivateContacts: Boolean
         get() = prefs.getBoolean(SHOW_PRIVATE_CONTACTS, true)
         set(showPrivateContacts) = prefs.edit().putBoolean(SHOW_PRIVATE_CONTACTS, showPrivateContacts).apply()
-
-    var wasDialerMigrationShown: Boolean
-        get() = prefs.getBoolean(WAS_DIALER_MIGRATION_SHOWN, false)
-        set(wasDialerMigrationShown) = prefs.edit().putBoolean(WAS_DIALER_MIGRATION_SHOWN, wasDialerMigrationShown).apply()
 }

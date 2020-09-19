@@ -15,11 +15,6 @@
     <string name="call_person">Soita</string>
     <string name="create_new_contact">Luo uusi yhteystieto</string>
     <string name="add_to_existing_contact">Lisää olemassa olevaan yhteystietoon</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            Sovelluksen soitto-ominaisuus on siirretty erilliseen puhelinsovellukseen. Voita ladata sen <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">täältä.</a> Kiitos!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Sähköpostillisia yhteystietoja ei löytynyt</string>

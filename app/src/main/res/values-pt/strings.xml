@@ -15,11 +15,6 @@
     <string name="call_person">Ligar a %s</string>
     <string name="create_new_contact">Criar novo contacto</string>
     <string name="add_to_existing_contact">Adicionar a um contacto existente</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            A parte da aplicação responsável pela gestão de chamadas foi movida para uma nova aplicação com o nome Simple Dialer. Pode descarregar a aplicação <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">aqui.</a> Obrigado!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Não existem contactos com endereço de e-mail</string>

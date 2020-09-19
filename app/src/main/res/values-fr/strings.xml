@@ -15,11 +15,6 @@
      <string name="call_person">Appeler %s</string>
      <string name="create_new_contact">Créer un nouveau contact</string>
      <string name="add_to_existing_contact">Ajouter à un contact existant</string>
-     <string name="dialer_moved">
-        <![CDATA[
-            La partie de l\’appli qui gère la gestion des appels a dû être déplacée dans une nouvelle appli Simple composeur séparée. Veuillez la télécharger <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">ici.</a> Merci !
-        ]]>
-     </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Aucun contact avec des adresses courriel n\’a été trouvé</string>
