@@ -41,7 +41,7 @@ class CreateNewGroupDialog(val activity: BaseSimpleActivity, val callback: (newG
 
                                 val items = ArrayList<RadioItem>()
                                 contactSources.forEachIndexed { index, contactSource ->
-                                    items.add(RadioItem(index, contactSource.name))
+                                    items.add(RadioItem(index, contactSource.publicName))
                                 }
 
                                 activity.runOnUiThread {
