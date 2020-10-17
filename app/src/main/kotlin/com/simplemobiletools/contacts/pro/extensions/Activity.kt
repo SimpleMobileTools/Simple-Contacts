@@ -15,6 +15,8 @@ import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
+import java.io.BufferedReader
+import java.io.ByteArrayOutputStream
 
 fun SimpleActivity.startCallIntent(recipient: String) {
     handlePermission(PERMISSION_CALL_PHONE) {
@@ -94,6 +96,16 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
                 showErrorToast("$it")
             }
         }
+    }
+}
+
+fun BaseSimpleActivity.shareQRContact(contact: Contact):String {
+    val temp = VcfExporter().exportContact(this, contact, false)
+
+    if (temp.isNullOrEmpty()) {
+        return "Error"
+    } else {
+        return temp
     }
 }
 

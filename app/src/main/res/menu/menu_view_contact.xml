@@ -7,6 +7,11 @@
         android:title="@string/edit_contact"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/shareQR"
+        android:icon="@drawable/ic_qr_code"
+        android:title="@string/shareQR"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/share"
         android:icon="@drawable/ic_share_vector"
         android:title="@string/share"

@@ -100,6 +100,7 @@ class ViewContactActivity : ContactActivity() {
         when (item.itemId) {
             R.id.edit -> launchEditContact(contact!!)
             R.id.share -> shareContact(fullContact!!)
+            R.id.shareQR -> shareContactQR(contact!!)
             R.id.open_with -> openWith()
             R.id.delete -> deleteContactFromAllSources()
             else -> return super.onOptionsItemSelected(item)

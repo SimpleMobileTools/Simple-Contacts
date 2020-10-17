@@ -1,10 +1,12 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.app.Dialog
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.provider.ContactsContract.CommonDataKinds.*
+import android.view.Window
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -14,6 +16,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.google.zxing.BarcodeFormat
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.helpers.SimpleContactsHelper
@@ -22,6 +26,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.sendEmailIntent
 import com.simplemobiletools.contacts.pro.extensions.sendSMSIntent
 import com.simplemobiletools.contacts.pro.extensions.shareContacts
+import com.simplemobiletools.contacts.pro.extensions.shareQRContact
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.models.Contact
 import java.util.*
@@ -77,6 +82,21 @@ abstract class ContactActivity : SimpleActivity() {
 
     fun shareContact(contact: Contact) {
         shareContacts(arrayListOf(contact))
+    }
+
+    fun shareContactQR(contact: Contact) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(true)
+        dialog.setContentView(R.layout.dialog_qr_view)
+
+        val QRImage = dialog.findViewById<ImageView>(R.id.qr_imageviev)
+
+        val bitmap = BarcodeEncoder().encodeBitmap(shareQRContact(contact), BarcodeFormat.QR_CODE, 512, 512)
+
+        QRImage.setImageBitmap(bitmap)
+
+        dialog.show()
     }
 
     fun trySendSMS() {

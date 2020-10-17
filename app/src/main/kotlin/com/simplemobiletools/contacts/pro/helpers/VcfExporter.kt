@@ -166,6 +166,73 @@ class VcfExporter {
         })
     }
 
+    fun exportContact(activity: BaseSimpleActivity, contact: Contact, showExportingToast: Boolean): String? {
+        try {
+
+            if (showExportingToast) {
+                activity.toast(R.string.exporting)
+            }
+
+            val strBuffer = StringBuffer("BEGIN:VCARD").append("\n").append("VERSION:4.0").append("\n")
+
+            strBuffer.append("N:")
+
+            if (contact.surname.isNotEmpty()) {
+                strBuffer.append(contact.surname)
+            }
+            if (contact.firstName.isNotEmpty()) {
+                strBuffer.append(";").append(contact.firstName)
+            }
+            if (contact.middleName.isNotEmpty()) {
+                strBuffer.append(";").append(contact.middleName)
+            }
+
+            strBuffer.append("\n")
+
+            if (contact.nickname.isNotEmpty()) {
+                strBuffer.append("NICKNAME:").append(contact.nickname).append("\n")
+            }
+
+            contact.phoneNumbers.forEach {
+                val phoneNumber = Telephone(it.value)
+                phoneNumber.parameters.addType(getPhoneNumberTypeLabel(it.type, it.label))
+                strBuffer.append("TEL:").append(phoneNumber.text).append("\n")
+            }
+
+            contact.emails.forEach {
+                val email = Email(it.value)
+                email.parameters.addType(getEmailTypeLabel(it.type, it.label))
+                strBuffer.append("EMAIL;TYPE=INTERNET:").append(email.value).append("\n")
+            }
+
+            contact.addresses.forEach {
+                val address = Address()
+                address.streetAddress = it.value
+                address.parameters.addType(getAddressTypeLabel(it.type, it.label))
+                strBuffer.append("ADR:;;").append(address.streetAddress).append("\n")
+            }
+
+            if (contact.notes.isNotEmpty()) {
+                strBuffer.append("NOTE:").append(contact.notes).append("\n")
+            }
+
+            if (contact.organization.isNotEmpty()) {
+                strBuffer.append("ORG:").append(contact.organization.company).append("\n")
+            }
+
+            contact.websites.forEach {
+                strBuffer.append("URL:").append(it).append("\n")
+            }
+
+            strBuffer.append("END:VCARD")
+
+            return strBuffer.toString()
+        } catch (e: Exception) {
+            return null
+            activity.showErrorToast(e)
+        }
+    }
+
     private fun getPhoneNumberTypeLabel(type: Int, label: String) = when (type) {
         Phone.TYPE_MOBILE -> CELL
         Phone.TYPE_HOME -> HOME

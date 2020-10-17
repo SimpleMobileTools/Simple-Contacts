@@ -62,6 +62,7 @@ dependencies {
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.5'
     implementation 'com.github.tibbi:IndicatorFastScroll:08f512858a'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0' // Last release support SDK 19
 
     kapt "androidx.room:room-compiler:2.2.5"
     implementation "androidx.room:room-runtime:2.2.5"
