@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">分享QR码</string>
+    <string name="app_name">简易通讯录</string>
     <string name="app_launcher_name">简易通讯录</string>
     <string name="address">地址</string>
     <string name="inserting">添加中…</string>
