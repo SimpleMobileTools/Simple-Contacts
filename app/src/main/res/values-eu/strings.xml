@@ -53,7 +53,7 @@
     <string name="contacts">Kontaktuak</string>
     <string name="show_call_confirmation_dialog">Erakutsi egiaztatze mezua dei bat hasi baino lehen</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">Etxea</string>

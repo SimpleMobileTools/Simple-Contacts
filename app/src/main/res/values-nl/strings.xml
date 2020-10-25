@@ -53,7 +53,7 @@
     <string name="contacts">Contacten</string>
     <string name="show_call_confirmation_dialog">Om bevestiging vragen voor het bellen</string>
     <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummers tonen</string>
-    <string name="show_private_contacts">Privécontacten in Eenvoudige Telefoon en Eenvoudige Berichten tonen</string>
+    <string name="show_private_contacts">Privécontacten in Eenvoudige Telefoon, Eenvoudige Berichten tonen en Eenvoudige Agenda Pro</string>
 
     <!-- Emails -->
     <string name="home">Thuis</string>

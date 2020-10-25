@@ -53,7 +53,7 @@
     <string name="contacts">Επαφές</string>
     <string name="show_call_confirmation_dialog">Εμφάνιση διαλόγου επιβεβαίωσης πριν από την έναρξη μιας κλήσης</string>
     <string name="show_only_contacts_with_numbers">Προβολή όλων των Επαφών με αριθμούς τηλεφώνου</string>
-    <string name="show_private_contacts">Εμφάνιση ιδιωτικών επαφών σε Απλή Κλήση και Απλός SMS Messenger</string>
+    <string name="show_private_contacts">Εμφάνιση ιδιωτικών επαφών σε Απλή Κλήση, Απλός SMS Messenger και Απλό Ημερολόγιο Pro</string>
 
     <!-- Emails -->
     <string name="home">Οικία</string>

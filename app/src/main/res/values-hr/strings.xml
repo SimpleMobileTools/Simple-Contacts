@@ -53,7 +53,7 @@
     <string name="contacts">Kontakti</string>
     <string name="show_call_confirmation_dialog">Pokažite dijaloški okvir za potvrdu poziva prije pokretanja poziva</string>
     <string name="show_only_contacts_with_numbers">Prikaži samo kontakte s telefonskim brojevima</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">Kućni</string>

@@ -53,7 +53,7 @@
     <string name="contacts">جهات الاتصال</string>
     <string name="show_call_confirmation_dialog">إظهار مربع حوار تأكيد الاتصال قبل بدء مكالمة</string>
     <string name="show_only_contacts_with_numbers">إظهار جهات الإتصال التي لديها أرقام هواتف فقط</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">المنزل</string>

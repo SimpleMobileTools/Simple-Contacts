@@ -53,7 +53,7 @@
     <string name="contacts">Kontakte</string>
     <string name="show_call_confirmation_dialog">Bestätigungsdialog zeigen, bevor ein Anruf durchgeführt wird</string>
     <string name="show_only_contacts_with_numbers">Nur Kontakte mit Telefonnummern anzeigen</string>
-    <string name="show_private_contacts">Zeige private Kontakte in Schlichtem Telefon und SMS Messenger</string>
+    <string name="show_private_contacts">Zeige private Kontakte in Schlichtem Telefon, SMS Messenger und Kalender Pro</string>
 
     <!-- Emails -->
     <string name="home">Privat</string>

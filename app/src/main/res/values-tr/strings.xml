@@ -53,7 +53,7 @@
     <string name="contacts">Kişiler</string>
     <string name="show_call_confirmation_dialog">Arama başlatmadan önce arama onayı penceresi göster</string>
     <string name="show_only_contacts_with_numbers">Sadece telefon numaralarını içeren kişileri göster</string>
-    <string name="show_private_contacts">Özel kişileri Basit Çevirici ve Basit SMS Messenger\'a göster</string>
+    <string name="show_private_contacts">Özel kişileri Basit Çevirici, Basit SMS Messenger ve Basit Takvim Pro\'a göster</string>
 
     <!-- Emails -->
     <string name="home">Ev</string>

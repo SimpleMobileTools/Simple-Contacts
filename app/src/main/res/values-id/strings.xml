@@ -53,7 +53,7 @@
     <string name="contacts">Kontak</string>
     <string name="show_call_confirmation_dialog">Tampilkan dialog konfirmasi panggilan sebelum melakukan panggilan</string>
     <string name="show_only_contacts_with_numbers">Hanya tampilkan kontak dengan nomor telepon</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">Rumah</string>

@@ -53,7 +53,7 @@
     <string name="contacts">Контакты</string>
     <string name="show_call_confirmation_dialog">Показывать диалог подтверждения вызова</string>
     <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
-    <string name="show_private_contacts">Показывать личные контакты в Simple Dialer и Simple SMS Messenger</string>
+    <string name="show_private_contacts">Показывать личные контакты в Simple Dialer, Simple SMS Messenger и Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">Домашний</string>

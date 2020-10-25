@@ -45,7 +45,7 @@
     <string name="show_phone_numbers">Näytä puhelinnumerot</string>
     <string name="show_contact_thumbnails">Näytä yhteystietojen kuvakkeet</string>
     <string name="show_dialpad_button">Näytä soittimen painike</string>
-    <string name="on_contact_click">Yhteystietoa painaessa...</string>
+    <string name="on_contact_click">Yhteystietoa painaessa…</string>
     <string name="call_contact">Soita</string>
     <string name="view_contact">Näytä yhteystieto</string>
     <string name="manage_shown_contact_fields">Valitse, mitkä yhteystietojen kentät näytetään</string>
@@ -53,7 +53,7 @@
     <string name="contacts">Yhteystiedot</string>
     <string name="show_call_confirmation_dialog">Näytä puhelun vahvistusruutu</string>
     <string name="show_only_contacts_with_numbers">Näytä ainoastaan numerolliset yhteystiedot</string>
-    <string name="show_private_contacts">Näytä yksityiset yhteystiedot sovelluksissa Simple Dialer ja Simple SMS Messenger</string>
+    <string name="show_private_contacts">Näytä yksityiset yhteystiedot sovelluksissa Simple Dialer, Simple SMS Messenger ja Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">Koti</string>
