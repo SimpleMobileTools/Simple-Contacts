@@ -92,14 +92,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         fragment_fastscroller?.updateBubblePrimaryColor()
         letter_fastscroller_thumb?.thumbColor = config.primaryColor.getColorStateList()
         letter_fastscroller_thumb?.textColor = config.primaryColor.getContrastColor()
-
-        (fragment_list.adapter as? ContactsAdapter)?.apply {
-            adjustedPrimaryColor = context.getAdjustedPrimaryColor()
-        }
-
-        (fragment_list.adapter as? GroupsAdapter)?.apply {
-            adjustedPrimaryColor = context.getAdjustedPrimaryColor()
-        }
     }
 
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
@@ -298,7 +290,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 getProperText(it.getNameToDisplay(), shouldNormalize).contains(text, true) ||
                         getProperText(it.nickname, shouldNormalize).contains(text, true) ||
                         it.phoneNumbers.any {
-                            text.normalizePhoneNumber().isNotEmpty() && (it.normalizedNumber ?: it.value).contains(text.normalizePhoneNumber(), true)
+                            text.normalizePhoneNumber().isNotEmpty() && (it.normalizedNumber
+                                ?: it.value).contains(text.normalizePhoneNumber(), true)
                         } ||
                         it.emails.any { it.value.contains(text, true) } ||
                         it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||

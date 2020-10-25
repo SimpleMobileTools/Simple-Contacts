@@ -39,7 +39,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
     private var config = activity.config
     private var textToHighlight = highlightText
 
-    var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
     var startNameWithSurname = config.startNameWithSurname
     var showContactThumbnails = config.showContactThumbnails
     var showPhoneNumbers = config.showPhoneNumbers
