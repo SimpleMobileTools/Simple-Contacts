@@ -221,6 +221,7 @@ class EditContactActivity : ContactActivity() {
 
         contact_toggle_favorite.setOnClickListener { toggleFavorite() }
         contact_photo.setOnClickListener { trySetPhoto() }
+        contact_change_photo.setOnClickListener { trySetPhoto() }
         contact_send_sms.setOnClickListener { trySendSMS() }
         contact_start_call.setOnClickListener { tryStartCall(contact!!) }
         contact_send_email.setOnClickListener { trySendEmail() }
@@ -1136,7 +1137,10 @@ class EditContactActivity : ContactActivity() {
             when (it as Int) {
                 TAKE_PHOTO -> startTakePhotoIntent()
                 CHOOSE_PHOTO -> startChoosePhotoIntent()
-                else -> showPhotoPlaceholder(contact_photo)
+                else -> {
+                    showPhotoPlaceholder(contact_photo)
+                    contact_photo_bottom_shadow.beGone()
+                }
             }
         }
     }

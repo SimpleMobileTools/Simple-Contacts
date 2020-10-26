@@ -39,10 +39,22 @@
                 android:layout_height="@dimen/contact_actions_size"
                 android:layout_alignStart="@+id/contact_photo"
                 android:layout_alignBottom="@id/contact_photo"
-                android:layout_margin="@dimen/medium_margin"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="@dimen/tiny_margin"
                 android:src="@drawable/ic_star_off_vector" />
+
+            <ImageView
+                android:id="@+id/contact_change_photo"
+                android:layout_width="@dimen/contact_actions_size"
+                android:layout_height="@dimen/contact_actions_size"
+                android:layout_above="@+id/contact_toggle_favorite"
+                android:layout_alignStart="@+id/contact_photo"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/medium_margin"
+                android:src="@drawable/ic_camera_vector" />
 
             <LinearLayout
                 android:id="@+id/contact_actions_holder"
