@@ -182,13 +182,13 @@ class ViewContactActivity : ContactActivity() {
             val path = contact!!.photoUri
             currentContactPhotoPath = path
 
-            val options = RequestOptions()
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .centerCrop()
-
             if (isDestroyed || isFinishing) {
                 return
             }
+
+            val options = RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .centerCrop()
 
             val wantedWidth = realScreenSize.x
             val wantedHeight = resources.getDimension(R.dimen.top_contact_image_height).toInt()
@@ -202,6 +202,7 @@ class ViewContactActivity : ContactActivity() {
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                         contact_photo.background = ColorDrawable(0)
                         contact_photo_bottom_shadow.beVisible()
+                        contact_photo_divider.beInvisible()
                         return false
                     }
 
