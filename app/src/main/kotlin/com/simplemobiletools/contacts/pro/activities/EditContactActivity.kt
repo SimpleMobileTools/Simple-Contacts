@@ -12,9 +12,12 @@ import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.CommonDataKinds.*
 import android.provider.MediaStore
-import android.view.*
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
@@ -69,6 +72,7 @@ class EditContactActivity : ContactActivity() {
 
         contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         contact_wrapper.background = ColorDrawable(config.backgroundColor)
+        setupMenu()
 
         val action = intent.action
         isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT || action == ADD_NEW_CONTACT_NUMBER
@@ -97,33 +101,6 @@ class EditContactActivity : ContactActivity() {
     override fun onResume() {
         super.onResume()
         window.statusBarColor = Color.TRANSPARENT
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_edit_contact, menu)
-        if (wasActivityInitialized) {
-            menu.findItem(R.id.delete).isVisible = contact?.id != 0
-            menu.findItem(R.id.share).isVisible = contact?.id != 0
-            menu.findItem(R.id.open_with).isVisible = contact?.id != 0 && contact?.isPrivate() == false
-        }
-
-        updateMenuItemColors(menu, true)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (contact == null) {
-            return true
-        }
-
-        when (item.itemId) {
-            R.id.save -> saveContact()
-            R.id.share -> shareContact(contact!!)
-            R.id.open_with -> openWith()
-            R.id.delete -> deleteContact()
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
@@ -267,7 +244,41 @@ class EditContactActivity : ContactActivity() {
         numberViewToColor?.setTextColor(adjustedPrimaryColor)
         emailViewToColor?.setTextColor(adjustedPrimaryColor)
         wasActivityInitialized = true
-        invalidateOptionsMenu()
+
+        contact_toolbar.menu.apply {
+            findItem(R.id.delete).isVisible = contact?.id != 0
+            findItem(R.id.share).isVisible = contact?.id != 0
+            findItem(R.id.open_with).isVisible = contact?.id != 0 && contact?.isPrivate() == false
+        }
+    }
+
+    private fun setupMenu() {
+        (contact_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
+        contact_toolbar.menu.apply {
+            findItem(R.id.save).setOnMenuItemClickListener {
+                saveContact()
+                true
+            }
+
+            findItem(R.id.share).setOnMenuItemClickListener {
+                shareContact(contact!!)
+                true
+            }
+
+            findItem(R.id.open_with).setOnMenuItemClickListener {
+                openWith()
+                true
+            }
+
+            findItem(R.id.delete).setOnMenuItemClickListener {
+                deleteContact()
+                true
+            }
+        }
+
+        contact_toolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun openWith() {
