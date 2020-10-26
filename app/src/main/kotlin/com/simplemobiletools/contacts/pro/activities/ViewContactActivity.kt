@@ -3,11 +3,20 @@ package com.simplemobiletools.contacts.pro.activities
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.CONTACT_ID
@@ -77,8 +86,8 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupMenu() {
-        (activity_track_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
-        activity_track_toolbar.menu.apply {
+        (contact_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
+        contact_toolbar.menu.apply {
             findItem(R.id.share).setOnMenuItemClickListener {
                 shareContact(fullContact!!)
                 true
@@ -100,7 +109,7 @@ class ViewContactActivity : ContactActivity() {
             }
         }
 
-        activity_track_toolbar.setNavigationOnClickListener {
+        contact_toolbar.setNavigationOnClickListener {
             finish()
         }
     }
@@ -168,8 +177,40 @@ class ViewContactActivity : ContactActivity() {
 
         if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
             showPhotoPlaceholder(contact_photo)
+            contact_photo_bottom_shadow.beGone()
         } else {
-            updateContactPhoto(contact!!.photoUri, contact_photo, contact!!.photo)
+            val path = contact!!.photoUri
+            currentContactPhotoPath = path
+
+            val options = RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .centerCrop()
+
+            if (isDestroyed || isFinishing) {
+                return
+            }
+
+            val wantedWidth = realScreenSize.x
+            val wantedHeight = resources.getDimension(R.dimen.top_contact_image_height).toInt()
+
+            Glide.with(this)
+                .load(contact!!.photo ?: path)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .apply(options)
+                .override(wantedWidth, wantedHeight)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        contact_photo.background = ColorDrawable(0)
+                        contact_photo_bottom_shadow.beVisible()
+                        return false
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        showPhotoPlaceholder(contact_photo)
+                        contact_photo_bottom_shadow.beGone()
+                        return true
+                    }
+                }).into(contact_photo)
         }
 
         val textColor = config.textColor
@@ -184,7 +225,7 @@ class ViewContactActivity : ContactActivity() {
         contact_send_email.setOnClickListener { trySendEmail() }
 
         updateTextColors(contact_scrollview)
-        activity_track_toolbar.menu.findItem(R.id.open_with).isVisible = contact?.isPrivate() == false
+        contact_toolbar.menu.findItem(R.id.open_with).isVisible = contact?.isPrivate() == false
     }
 
     private fun setupViewContact() {
