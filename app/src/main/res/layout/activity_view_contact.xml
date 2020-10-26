@@ -59,8 +59,8 @@
                     android:layout_height="@dimen/contact_actions_size"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:paddingLeft="@dimen/small_margin"
-                    android:paddingRight="@dimen/small_margin"
+                    android:paddingStart="@dimen/small_margin"
+                    android:paddingEnd="@dimen/small_margin"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_email_vector" />
 
@@ -71,8 +71,8 @@
                     android:layout_marginStart="@dimen/normal_margin"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:paddingLeft="@dimen/small_margin"
-                    android:paddingRight="@dimen/small_margin"
+                    android:paddingStart="@dimen/small_margin"
+                    android:paddingEnd="@dimen/small_margin"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_phone_vector" />
 
@@ -83,8 +83,8 @@
                     android:layout_marginStart="@dimen/normal_margin"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:paddingLeft="@dimen/small_margin"
-                    android:paddingRight="@dimen/small_margin"
+                    android:paddingStart="@dimen/small_margin"
+                    android:paddingEnd="@dimen/small_margin"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_sms_vector" />
 

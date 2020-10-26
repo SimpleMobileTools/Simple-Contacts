@@ -5,15 +5,14 @@ import android.content.ClipData
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.CommonDataKinds.*
 import android.provider.MediaStore
-import android.view.Menu
-import android.view.MenuItem
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -60,12 +59,16 @@ class EditContactActivity : ContactActivity() {
     private var originalContactSource = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        useDynamicTheme = false
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_contact)
 
         if (checkAppSideloading()) {
             return
         }
+
+        contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        contact_wrapper.background = ColorDrawable(config.backgroundColor)
 
         val action = intent.action
         isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT || action == ADD_NEW_CONTACT_NUMBER
@@ -89,6 +92,11 @@ class EditContactActivity : ContactActivity() {
         } else {
             initContact()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        window.statusBarColor = Color.TRANSPARENT
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

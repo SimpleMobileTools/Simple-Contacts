@@ -103,7 +103,8 @@
 
         <activity
             android:name=".activities.EditContactActivity"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/TranslucentTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.EDIT"/>
