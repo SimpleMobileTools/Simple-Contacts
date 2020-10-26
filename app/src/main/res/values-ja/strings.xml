@@ -15,6 +15,9 @@
     <string name="call_person">Call %s</string>
     <string name="create_new_contact">新しい連絡先を作成</string>
     <string name="add_to_existing_contact">既存の連絡先に追加</string>
+    <string name="voice_call_number">Voice call %s</string>
+    <string name="video_call_number">Video call %s</string>
+    <string name="message_number">Message %s</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">メールアドレスが登録された連絡先が見つかりません</string>

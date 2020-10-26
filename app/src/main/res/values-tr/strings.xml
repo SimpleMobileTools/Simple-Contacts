@@ -15,6 +15,9 @@
     <string name="call_person">%s kişisini ara</string>
     <string name="create_new_contact">Yeni kişi oluştur</string>
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
+    <string name="voice_call_number">Voice call %s</string>
+    <string name="video_call_number">Video call %s</string>
+    <string name="message_number">Message %s</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">E-posta ile hiç bağlantı bulunamadı</string>
