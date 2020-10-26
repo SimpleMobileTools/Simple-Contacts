@@ -190,9 +190,6 @@ class EditContactActivity : ContactActivity() {
         }
 
         setupTypePickers()
-        contact_send_sms.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
-        contact_start_call.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
-        contact_send_email.beVisibleIf(contact!!.emails.isNotEmpty())
 
         if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
             showPhotoPlaceholder(contact_photo)
@@ -202,7 +199,7 @@ class EditContactActivity : ContactActivity() {
         }
 
         val textColor = config.textColor
-        arrayOf(contact_send_sms, contact_start_call, contact_send_email, contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image,
+        arrayOf(contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image,
             contact_ims_image, contact_events_image, contact_notes_image, contact_organization_image, contact_websites_image, contact_groups_image,
             contact_source_image).forEach {
             it.applyColorFilter(textColor)
@@ -222,9 +219,6 @@ class EditContactActivity : ContactActivity() {
         contact_toggle_favorite.setOnClickListener { toggleFavorite() }
         contact_photo.setOnClickListener { trySetPhoto() }
         contact_change_photo.setOnClickListener { trySetPhoto() }
-        contact_send_sms.setOnClickListener { trySendSMS() }
-        contact_start_call.setOnClickListener { tryStartCall(contact!!) }
-        contact_send_email.setOnClickListener { trySendEmail() }
         contact_numbers_add_new.setOnClickListener { addNewPhoneNumberField() }
         contact_emails_add_new.setOnClickListener { addNewEmailField() }
         contact_addresses_add_new.setOnClickListener { addNewAddressField() }
