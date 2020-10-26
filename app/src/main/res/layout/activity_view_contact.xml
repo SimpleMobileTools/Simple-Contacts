@@ -9,6 +9,7 @@
         android:id="@+id/contact_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scrollbars="none"
         android:visibility="gone">
 
         <RelativeLayout
@@ -20,6 +21,7 @@
                 android:id="@+id/contact_photo"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/top_contact_image_height"
+                android:layout_marginBottom="@dimen/normal_margin"
                 android:src="@drawable/ic_person_vector" />
 
             <ImageView
@@ -29,15 +31,6 @@
                 android:layout_alignBottom="@+id/contact_photo"
                 android:background="@drawable/gradient_background"
                 android:contentDescription="@null" />
-
-            <ImageView
-                android:id="@+id/contact_photo_divider"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_below="@+id/contact_photo"
-                android:layout_marginBottom="@dimen/normal_margin"
-                android:background="@color/divider_grey"
-                android:importantForAccessibility="no" />
 
             <ImageView
                 android:id="@+id/contact_toggle_favorite"
@@ -101,7 +94,7 @@
                 android:id="@+id/contact_name_image"
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
-                android:layout_below="@+id/contact_photo_divider"
+                android:layout_below="@+id/contact_photo"
                 android:layout_marginStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
@@ -112,7 +105,7 @@
                 android:id="@+id/contact_prefix"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_photo_divider"
+                android:layout_below="@+id/contact_photo"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:background="?attr/selectableItemBackground"

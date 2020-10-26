@@ -202,7 +202,6 @@ class ViewContactActivity : ContactActivity() {
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                         contact_photo.background = ColorDrawable(0)
                         contact_photo_bottom_shadow.beVisible()
-                        contact_photo_divider.beInvisible()
                         return false
                     }
 

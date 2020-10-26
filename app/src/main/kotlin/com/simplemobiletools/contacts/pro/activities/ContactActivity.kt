@@ -1,11 +1,14 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.provider.ContactsContract.CommonDataKinds.*
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -16,7 +19,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.helpers.SimpleContactsHelper
+import com.simplemobiletools.commons.extensions.getContrastColor
+import com.simplemobiletools.commons.extensions.getNameLetter
+import com.simplemobiletools.commons.extensions.realScreenSize
+import com.simplemobiletools.commons.helpers.letterBackgroundColors
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.sendEmailIntent
@@ -31,7 +37,7 @@ abstract class ContactActivity : SimpleActivity() {
     protected var currentContactPhotoPath = ""
 
     fun showPhotoPlaceholder(photoView: ImageView) {
-        val placeholder = BitmapDrawable(resources, SimpleContactsHelper(this).getContactLetterIcon(contact?.getNameToDisplay() ?: "A"))
+        val placeholder = BitmapDrawable(resources, getBigLetterPlaceholder(contact?.getNameToDisplay() ?: "A"))
         photoView.setImageDrawable(placeholder)
         currentContactPhotoPath = ""
         contact?.photo = null
@@ -157,5 +163,36 @@ abstract class ContactActivity : SimpleActivity() {
         Event.TYPE_ANNIVERSARY -> R.string.anniversary
         Event.TYPE_BIRTHDAY -> R.string.birthday
         else -> R.string.other
+    }
+
+    private fun getBigLetterPlaceholder(name: String): Bitmap {
+        val letter = name.getNameLetter()
+        val height = resources.getDimension(R.dimen.top_contact_image_height).toInt()
+        val bitmap = Bitmap.createBitmap(realScreenSize.x, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        val view = TextView(this)
+        view.layout(0, 0, bitmap.width, bitmap.height)
+
+        val circlePaint = Paint().apply {
+            color = letterBackgroundColors[Math.abs(name.hashCode()) % letterBackgroundColors.size].toInt()
+            isAntiAlias = true
+            style = Paint.Style.FILL
+        }
+
+        val wantedTextSize = bitmap.height / 2f
+        val textPaint = Paint().apply {
+            color = circlePaint.color.getContrastColor()
+            isAntiAlias = true
+            textAlign = Paint.Align.CENTER
+            textSize = wantedTextSize
+        }
+
+        canvas.drawPaint(circlePaint)
+
+        val xPos = canvas.width / 2f
+        val yPos = canvas.height / 2 - (textPaint.descent() + textPaint.ascent()) / 2
+        canvas.drawText(letter, xPos, yPos, textPaint)
+        view.draw(canvas)
+        return bitmap
     }
 }
