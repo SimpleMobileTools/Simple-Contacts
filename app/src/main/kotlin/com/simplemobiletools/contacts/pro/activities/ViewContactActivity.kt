@@ -8,10 +8,6 @@ import android.provider.ContactsContract
 import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.FitCenter
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.CONTACT_ID
@@ -77,14 +73,6 @@ class ViewContactActivity : ContactActivity() {
             ensureBackgroundThread {
                 initContact()
             }
-        }
-    }
-
-    override fun onBackPressed() {
-        if (contact_photo_big.alpha == 1f) {
-            hideBigContactPhoto()
-        } else {
-            super.onBackPressed()
         }
     }
 
@@ -182,23 +170,6 @@ class ViewContactActivity : ContactActivity() {
             showPhotoPlaceholder(contact_photo)
         } else {
             updateContactPhoto(contact!!.photoUri, contact_photo, contact!!.photo)
-            val options = RequestOptions()
-                .transform(FitCenter(), RoundedCorners(resources.getDimension(R.dimen.normal_margin).toInt()))
-
-            Glide.with(this)
-                .load(contact!!.photo ?: currentContactPhotoPath)
-                .apply(options)
-                .into(contact_photo_big)
-
-            contact_photo.setOnClickListener {
-                contact_photo_big.alpha = 0f
-                contact_photo_big.beVisible()
-                contact_photo_big.animate().alpha(1f).start()
-            }
-
-            contact_photo_big.setOnClickListener {
-                hideBigContactPhoto()
-            }
         }
 
         val textColor = config.textColor
@@ -633,10 +604,6 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_vector else R.drawable.ic_star_off_vector)
-
-    private fun hideBigContactPhoto() {
-        contact_photo_big.animate().alpha(0f).withEndAction { contact_photo_big.beGone() }.start()
-    }
 
     private fun View.copyOnLongClick(value: String) {
         setOnLongClickListener {

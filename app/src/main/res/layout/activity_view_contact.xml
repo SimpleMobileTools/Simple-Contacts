@@ -428,18 +428,6 @@
     </ScrollView>
 
     <ImageView
-        android:id="@+id/contact_photo_big"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0"
-        android:background="#88000000"
-        android:clickable="true"
-        android:padding="@dimen/activity_margin"
-        android:scaleType="fitCenter"
-        android:src="@drawable/img_write_storage"
-        android:visibility="gone" />
-
-    <ImageView
         android:id="@+id/activity_track_top_shadow"
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_shadow_height"
