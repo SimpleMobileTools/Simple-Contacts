@@ -69,7 +69,8 @@
         <activity
             android:name=".activities.ViewContactActivity"
             android:label="@string/details"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/TranslucentTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>

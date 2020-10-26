@@ -1,10 +1,10 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
@@ -44,6 +44,7 @@ class ViewContactActivity : ContactActivity() {
     private val COMPARABLE_PHONE_NUMBER_LENGTH = 9
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        useDynamicTheme = false
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_contact)
 
@@ -52,10 +53,14 @@ class ViewContactActivity : ContactActivity() {
         }
 
         showFields = config.showContactFields
+        contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        contact_wrapper.background = ColorDrawable(config.backgroundColor)
+        setupMenu()
     }
 
     override fun onResume() {
         super.onResume()
+        window.statusBarColor = Color.TRANSPARENT
         isViewIntent = intent.action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT || intent.action == Intent.ACTION_VIEW
         if (isViewIntent) {
             handlePermission(PERMISSION_READ_CONTACTS) {
@@ -83,28 +88,33 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_view_contact, menu)
-        menu.apply {
-            findItem(R.id.open_with).isVisible = contact?.isPrivate() == false
-            updateMenuItemColors(this)
-        }
-        return true
-    }
+    private fun setupMenu() {
+        (activity_track_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
+        activity_track_toolbar.menu.apply {
+            findItem(R.id.share).setOnMenuItemClickListener {
+                shareContact(fullContact!!)
+                true
+            }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (contact == null) {
-            return true
+            findItem(R.id.edit).setOnMenuItemClickListener {
+                launchEditContact(contact!!)
+                true
+            }
+
+            findItem(R.id.open_with).setOnMenuItemClickListener {
+                openWith()
+                true
+            }
+
+            findItem(R.id.delete).setOnMenuItemClickListener {
+                deleteContactFromAllSources()
+                true
+            }
         }
 
-        when (item.itemId) {
-            R.id.edit -> launchEditContact(contact!!)
-            R.id.share -> shareContact(fullContact!!)
-            R.id.open_with -> openWith()
-            R.id.delete -> deleteContactFromAllSources()
-            else -> return super.onOptionsItemSelected(item)
+        activity_track_toolbar.setNavigationOnClickListener {
+            finish()
         }
-        return true
     }
 
     private fun initContact() {
@@ -203,7 +213,7 @@ class ViewContactActivity : ContactActivity() {
         contact_send_email.setOnClickListener { trySendEmail() }
 
         updateTextColors(contact_scrollview)
-        invalidateOptionsMenu()
+        activity_track_toolbar.menu.findItem(R.id.open_with).isVisible = contact?.isPrivate() == false
     }
 
     private fun setupViewContact() {
