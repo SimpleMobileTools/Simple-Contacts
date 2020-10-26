@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Ez duzu oraindik gogokorik gehitu.</string>
-    <string name="must_be_at_edit">Kontaktu bat aldatzeko edizio pantailan egon behar zara</string>
 
     <!-- Search -->
     <string name="search_contacts">Bilatu kontaktuak</string>

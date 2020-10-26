@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Atrodo jog Jūs dar neįvedėte nė vieno mėgiamiausiojo kontakto.</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 
     <!-- Search -->
     <string name="search_contacts">Ieškoti kontaktų</string>

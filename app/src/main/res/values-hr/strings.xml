@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Čini se da još niste dodali nijedan kontakt u favorite.</string>
-    <string name="must_be_at_edit">Morate biti na zaslonu Uređivanje da biste izmijenili kontakt</string>
 
     <!-- Search -->
     <string name="search_contacts">Pretraži kontakte</string>

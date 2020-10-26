@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Anscheinend haben Sie bisher keine Kontakte zu den Favoriten hinzugefügt.</string>
-    <string name="must_be_at_edit">Sie müssen sich im Bearbeitungsmodus befinden, um einen Kontakt zu bearbeiten.</string>
 
     <!-- Search -->
     <string name="search_contacts">Kontakte durchsuchen</string>

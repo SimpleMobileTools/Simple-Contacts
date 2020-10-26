@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Görünür, hələlik heçbir sevimli kontakt əlavə etməmisiniz.</string>
-    <string name="must_be_at_edit">Kontaktı dəyişmək üçün İdarə et ekranında olmalısınız</string>
 
     <!-- Search -->
     <string name="search_contacts">Kontaktları axtar</string>

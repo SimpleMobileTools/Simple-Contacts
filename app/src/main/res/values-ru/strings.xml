@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Похоже, вы ещё не добавили избранные контакты.</string>
-    <string name="must_be_at_edit">Для изменения контакта необходимо находиться на экране редактирования</string>
 
     <!-- Search -->
     <string name="search_contacts">Поиск контактов</string>

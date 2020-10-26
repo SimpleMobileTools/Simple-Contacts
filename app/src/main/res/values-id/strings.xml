@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Sepertinya anda belum menambahkan kontak favorit.</string>
-    <string name="must_be_at_edit">Anda harus berada di layar Sunting untuk mengubah kontak</string>
 
     <!-- Search -->
     <string name="search_contacts">Cari kontak</string>

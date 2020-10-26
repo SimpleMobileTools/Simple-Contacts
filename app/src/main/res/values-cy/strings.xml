@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Ymddangosir nad wyt wedi ychwanegu unrhyw ffefrynnau eto.</string>
-    <string name="must_be_at_edit">Rhaid bod ar y sgrin golygu er mwyn addasu cyswllt</string>
 
     <!-- Search -->
     <string name="search_contacts">Chwilio\'r cysylltiadau</string>

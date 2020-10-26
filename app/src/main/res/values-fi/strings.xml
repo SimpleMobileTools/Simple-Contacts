@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Ei suosikkeja</string>
-    <string name="must_be_at_edit">Täytyy olla muokkaustilassa</string>
 
     <!-- Search -->
     <string name="search_contacts">Etsi yhteystietoja</string>

@@ -275,11 +275,23 @@ class ViewContactActivity : ContactActivity() {
     private fun setupFavorite() {
         contact_toggle_favorite.apply {
             beVisible()
-            setImageDrawable(getStarDrawable(contact!!.starred == 1))
             tag = contact!!.starred
+            setImageDrawable(getStarDrawable(tag == 1))
             applyColorFilter(config.textColor)
+
             setOnClickListener {
-                toast(R.string.must_be_at_edit)
+                val newIsStarred = if (tag == 1) 0 else 1
+                ensureBackgroundThread {
+                    val contacts = arrayListOf(contact!!)
+                    if (newIsStarred == 1) {
+                        ContactsHelper(context).addFavorites(contacts)
+                    } else {
+                        ContactsHelper(context).removeFavorites(contacts)
+                    }
+                }
+                contact!!.starred = newIsStarred
+                tag = contact!!.starred
+                setImageDrawable(getStarDrawable(tag == 1))
             }
         }
     }

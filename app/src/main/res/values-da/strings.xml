@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Det ser ud til, at du ikke har tilføjet nogen favoritkontakter endnu.</string>
-    <string name="must_be_at_edit">Du skal være på skærmen Rediger for at ændre en kontakt</string>
 
     <!-- Search -->
     <string name="search_contacts">Søg kontakter</string>

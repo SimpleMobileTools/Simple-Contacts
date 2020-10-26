@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Úgy tűnik, hogy még nincsenek kedvencek felvéve.</string>
-    <string name="must_be_at_edit">Névjegyet csak a szerkesztő képernyőn lehet módosítani.</string>
 
     <!-- Search -->
     <string name="search_contacts">Névjegyek keresése</string>

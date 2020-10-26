@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">자주 사용하는 연락처가 아직 등록되지 않았습니다.</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 
     <!-- Search -->
     <string name="search_contacts">연락처 검색</string>

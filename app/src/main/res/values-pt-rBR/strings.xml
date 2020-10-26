@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Parece que você ainda não adicionou nenhum contato favorito.</string>
-    <string name="must_be_at_edit">Você deve estar na tela de edição para modificar um contato</string>
 
     <!-- Search -->
     <string name="search_contacts">Procurar contatos</string>

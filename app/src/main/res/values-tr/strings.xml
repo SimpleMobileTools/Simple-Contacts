@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Henüz herhangi bir favori kişi eklememişsiniz.</string>
-    <string name="must_be_at_edit">Bir kişiyi değiştirmek için Düzen ekranında olmalısınız</string>
 
     <!-- Search -->
     <string name="search_contacts">Kişileri ara</string>

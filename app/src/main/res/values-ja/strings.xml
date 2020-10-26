@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">お気に入りの連絡先はまだありません</string>
-    <string name="must_be_at_edit">連絡先を編集するには編集画面に切り替えてください</string>
 
     <!-- Search -->
     <string name="search_contacts">連絡先を検索</string>

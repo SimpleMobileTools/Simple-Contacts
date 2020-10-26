@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Vypadá to, že jste ještě nepřidali žádné oblíbené kontakty.</string>
-    <string name="must_be_at_edit">Pro úpravu kontaktu musíte být v Editoru kontaktu</string>
 
     <!-- Search -->
     <string name="search_contacts">Hledat v kontaktech</string>

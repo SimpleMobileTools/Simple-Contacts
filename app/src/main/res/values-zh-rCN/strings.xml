@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">您似乎还没加入任何我的收藏联系人。</string>
-    <string name="must_be_at_edit">您必须在编辑页面去修改联系人</string>
 
     <!-- Search -->
     <string name="search_contacts">搜索联系人</string>

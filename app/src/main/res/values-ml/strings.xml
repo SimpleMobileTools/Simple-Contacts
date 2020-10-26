@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">നിങ്ങൾ ഇതുവരെ പ്രിയപ്പെട്ട കോൺ‌ടാക്റ്റുകളൊന്നും ചേർത്തിട്ടില്ലെന്ന് തോന്നുന്നു.</string>
-    <string name="must_be_at_edit">ഒരു കോൺ‌ടാക്റ്റ് തിരുത്താൻ നിങ്ങൾ എഡിറ്റ് സ്ക്രീനിൽ ആയിരിക്കണം</string>
 
     <!-- Search -->
     <string name="search_contacts">കോൺ‌ടാക്റ്റുകൾ തിരയുക</string>

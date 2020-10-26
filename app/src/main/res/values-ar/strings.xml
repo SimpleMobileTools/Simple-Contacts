@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">يبدو أنك لم تضف أية جهة اتصال مفضلة حتى الآن.</string>
-    <string name="must_be_at_edit">يجب أن تكون في شاشة التعديل لتعديل جهة اتصال</string>
 
     <!-- Search -->
     <string name="search_contacts">بحث في جهات الاتصال</string>

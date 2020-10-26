@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Φαίνεται ότι δεν έχετε προσθέσει αγαπημένες επαφές ακόμη.</string>
-    <string name="must_be_at_edit">Πρέπει να είστε στην οθόνη "Επεξεργασία" για να τροποποιήσετε μια επαφή</string>
 
     <!-- Search -->
     <string name="search_contacts">Αναζήτηση επαφών</string>

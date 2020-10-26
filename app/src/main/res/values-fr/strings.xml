@@ -72,7 +72,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Il semble que vous n\’avez pas encore ajouté de contacts favoris</string>
-    <string name="must_be_at_edit">Vous devez être sur l\’écran Modifier pour modifier un contact</string>
 
     <!-- Search -->
     <string name="search_contacts">Chercher dans les contacts</string>

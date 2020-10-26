@@ -74,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Er zijn nog geen favorieten toegevoegd.</string>
-    <string name="must_be_at_edit">Ga naar Contact bewerken om gegevens aan te passen</string>
 
     <!-- Search -->
     <string name="search_contacts">Contacten zoeken</string>
