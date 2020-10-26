@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/contact_number_holder"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingEnd="@dimen/activity_margin">
 
     <com.simplemobiletools.commons.views.MyEditText
         android:id="@+id/contact_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/contact_number_type"
         android:layout_toStartOf="@+id/contact_number_type"
         android:hint="@string/number"
         android:inputType="phone"
@@ -18,22 +17,21 @@
         android:maxLines="1"
         android:singleLine="true"
         android:textCursorDrawable="@null"
-        android:textSize="@dimen/bigger_text_size"/>
+        android:textSize="@dimen/bigger_text_size" />
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/contact_number_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/contact_number"
         android:layout_alignBottom="@+id/contact_number"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/contact_number"
         android:layout_centerVertical="true"
         android:background="?attr/selectableItemBackground"
         android:gravity="center"
         android:paddingStart="@dimen/medium_margin"
         android:paddingEnd="@dimen/medium_margin"
         android:text="@string/mobile"
-        android:textSize="@dimen/bigger_text_size"/>
+        android:textSize="@dimen/bigger_text_size" />
 
 </RelativeLayout>
