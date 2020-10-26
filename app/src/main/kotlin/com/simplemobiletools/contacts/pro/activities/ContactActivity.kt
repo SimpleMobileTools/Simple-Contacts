@@ -19,9 +19,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.getContrastColor
-import com.simplemobiletools.commons.extensions.getNameLetter
-import com.simplemobiletools.commons.extensions.realScreenSize
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.letterBackgroundColors
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
@@ -43,29 +41,35 @@ abstract class ContactActivity : SimpleActivity() {
         contact?.photo = null
     }
 
-    fun updateContactPhoto(path: String, photoView: ImageView, bitmap: Bitmap? = null) {
+    fun updateContactPhoto(path: String, photoView: ImageView, bottomShadow: ImageView, bitmap: Bitmap? = null) {
         currentContactPhotoPath = path
-        val options = RequestOptions()
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .centerCrop()
 
         if (isDestroyed || isFinishing) {
             return
         }
 
+        val options = RequestOptions()
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .centerCrop()
+
+        val wantedWidth = realScreenSize.x
+        val wantedHeight = resources.getDimension(R.dimen.top_contact_image_height).toInt()
+
         Glide.with(this)
             .load(bitmap ?: path)
             .transition(DrawableTransitionOptions.withCrossFade())
             .apply(options)
-            .apply(RequestOptions.circleCropTransform())
+            .override(wantedWidth, wantedHeight)
             .listener(object : RequestListener<Drawable> {
                 override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                     photoView.background = ColorDrawable(0)
+                    bottomShadow.beVisible()
                     return false
                 }
 
                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                     showPhotoPlaceholder(photoView)
+                    bottomShadow.beGone()
                     return true
                 }
             }).into(photoView)

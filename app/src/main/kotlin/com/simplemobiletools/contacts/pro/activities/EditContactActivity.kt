@@ -108,7 +108,7 @@ class EditContactActivity : ContactActivity() {
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri, resultData?.data)
-                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString(), contact_photo)
+                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString(), contact_photo, contact_photo_bottom_shadow)
             }
         }
     }
@@ -196,8 +196,9 @@ class EditContactActivity : ContactActivity() {
 
         if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
             showPhotoPlaceholder(contact_photo)
+            contact_photo_bottom_shadow.beGone()
         } else {
-            updateContactPhoto(contact!!.photoUri, contact_photo, contact!!.photo)
+            updateContactPhoto(contact!!.photoUri, contact_photo, contact_photo_bottom_shadow, contact!!.photo)
         }
 
         val textColor = config.textColor

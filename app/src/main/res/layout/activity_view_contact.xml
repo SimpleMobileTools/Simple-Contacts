@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contact_wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -22,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/top_contact_image_height"
                 android:layout_marginBottom="@dimen/normal_margin"
-                android:src="@drawable/ic_person_vector" />
+                tools:src="@drawable/ic_person_vector" />
 
             <ImageView
                 android:id="@+id/contact_photo_bottom_shadow"
@@ -39,6 +40,7 @@
                 android:layout_alignStart="@+id/contact_photo"
                 android:layout_alignBottom="@id/contact_photo"
                 android:layout_margin="@dimen/medium_margin"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="@dimen/tiny_margin"
                 android:src="@drawable/ic_star_off_vector"
                 android:visibility="gone" />

@@ -16,27 +16,30 @@
         <RelativeLayout
             android:id="@+id/contact_holder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/normal_margin"
-            android:paddingTop="@dimen/activity_margin"
-            android:paddingEnd="@dimen/normal_margin"
-            android:paddingBottom="@dimen/medium_margin">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/contact_photo"
-                android:layout_width="@dimen/contact_photo_size"
-                android:layout_height="@dimen/contact_photo_size"
-                android:layout_marginBottom="@dimen/normal_margin" />
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/top_contact_image_height"
+                android:layout_marginBottom="@dimen/normal_margin"
+                tools:src="@drawable/ic_person_vector" />
+
+            <ImageView
+                android:id="@+id/contact_photo_bottom_shadow"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/top_shadow_height"
+                android:layout_alignBottom="@+id/contact_photo"
+                android:background="@drawable/gradient_background"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/contact_toggle_favorite"
                 android:layout_width="@dimen/contact_actions_size"
                 android:layout_height="@dimen/contact_actions_size"
-                android:layout_alignTop="@+id/contact_photo"
+                android:layout_alignStart="@+id/contact_photo"
                 android:layout_alignBottom="@id/contact_photo"
-                android:layout_marginStart="@dimen/medium_margin"
-                android:layout_toEndOf="@+id/contact_photo"
-                android:adjustViewBounds="true"
+                android:layout_margin="@dimen/medium_margin"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="@dimen/tiny_margin"
                 android:src="@drawable/ic_star_off_vector" />
@@ -47,7 +50,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/contact_photo"
                 android:layout_alignBottom="@id/contact_photo"
-                android:gravity="center_vertical|end">
+                android:gravity="bottom|end"
+                android:paddingEnd="@dimen/medium_margin"
+                android:paddingBottom="@dimen/medium_margin">
 
                 <ImageView
                     android:id="@+id/contact_send_email"
