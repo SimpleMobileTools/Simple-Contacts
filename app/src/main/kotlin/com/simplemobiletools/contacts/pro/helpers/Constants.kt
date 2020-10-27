@@ -106,9 +106,11 @@ const val DEFAULT_IM_TYPE = CommonDataKinds.Im.PROTOCOL_SKYPE
 const val TELEGRAM_PACKAGE = "org.telegram.messenger"
 const val SIGNAL_PACKAGE = "org.thoughtcrime.securesms"
 const val WHATSAPP_PACKAGE = "com.whatsapp"
+const val VIBER_PACKAGE = "com.viber.voip"
 
 const val WHATSAPP = "whatsapp"
 const val SIGNAL = "signal"
+const val VIBER = "viber"
 
 const val SOCIAL_VOICE_CALL = 0
 const val SOCIAL_VIDEO_CALL = 1

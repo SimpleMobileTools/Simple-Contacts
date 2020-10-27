@@ -550,6 +550,14 @@ class ViewContactActivity : ContactActivity() {
                             showSignalActions(key.id)
                         }
                     }
+
+                    if (value.toLowerCase() == VIBER) {
+                        contact_source_image.setImageDrawable(getPackageDrawable(VIBER_PACKAGE))
+                        contact_source_image.beVisible()
+                        contact_source_image.setOnClickListener {
+                            showViberActions(key.id)
+                        }
+                    }
                 }
             }
 
@@ -614,6 +622,22 @@ class ViewContactActivity : ContactActivity() {
     private fun showSignalActions(contactId: Int) {
         ensureBackgroundThread {
             val actions = getSignalActions(contactId)
+            runOnUiThread {
+                ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
+                    Intent(Intent.ACTION_VIEW).apply {
+                        val uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, action.dataId)
+                        setDataAndType(uri, action.mimetype)
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(this)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showViberActions(contactId: Int) {
+        ensureBackgroundThread {
+            val actions = getViberActions(contactId)
             runOnUiThread {
                 ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
                     Intent(Intent.ACTION_VIEW).apply {

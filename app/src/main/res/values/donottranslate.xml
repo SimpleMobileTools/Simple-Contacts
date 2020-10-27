@@ -12,6 +12,7 @@
     <string name="icq">ICQ</string>
     <string name="jabber">Jabber</string>
     <string name="telegram">Telegram</string>
+    <string name="viber">Viber</string>
 
     <!-- Release notes -->
     <string name="release_56">Added an initial implementation of Speed Dial, contacts can be set in the app settings</string>
