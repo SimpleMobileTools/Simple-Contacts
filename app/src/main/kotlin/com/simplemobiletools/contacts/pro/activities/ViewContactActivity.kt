@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.content.ContentUris
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -16,6 +17,7 @@ import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
+import com.simplemobiletools.contacts.pro.dialogs.ChooseSocialDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.*
@@ -539,7 +541,7 @@ class ViewContactActivity : ContactActivity() {
                         contact_source_image.setImageResource(R.drawable.ic_logo_whatsapp)
                         contact_source_image.beVisible()
                         contact_source_image.setOnClickListener {
-
+                            showWhatsAppActions()
                         }
                     }
                 }
@@ -584,6 +586,22 @@ class ViewContactActivity : ContactActivity() {
             contact_organization_image.beGone()
             contact_organization_company.beGone()
             contact_organization_job_position.beGone()
+        }
+    }
+
+    private fun showWhatsAppActions() {
+        ensureBackgroundThread {
+            val actions = getWhatsAppActions(contact!!.id)
+            runOnUiThread {
+                ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
+                    Intent(Intent.ACTION_VIEW).apply {
+                        val uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, action.dataId)
+                        setDataAndType(uri, action.mimetype)
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(this)
+                    }
+                }
+            }
         }
     }
 

@@ -109,6 +109,10 @@ const val WHATSAPP_PACKAGE = "com.whatsapp"
 
 const val WHATSAPP = "whatsapp"
 
+const val SOCIAL_VOICE_CALL = 0
+const val SOCIAL_VIDEO_CALL = 1
+const val SOCIAL_MESSAGE = 2
+
 fun getEmptyLocalContact() = LocalContact(0, "", "", "", "", "", "", null, "", ArrayList(), ArrayList(), ArrayList(), 0, ArrayList(), "", ArrayList(), "", "", ArrayList(), ArrayList())
 
 fun getProperText(text: String, shouldNormalize: Boolean) = if (shouldNormalize) text.normalizeString() else text

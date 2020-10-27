@@ -1,18 +1,14 @@
 package com.simplemobiletools.contacts.pro.extensions
 
 import android.content.Context
-import android.content.Context.AUDIO_SERVICE
 import android.content.Intent
 import android.database.Cursor
-import android.media.AudioManager
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.provider.ContactsContract
 import androidx.core.content.FileProvider
-import com.simplemobiletools.commons.extensions.getIntValue
-import com.simplemobiletools.commons.extensions.hasPermission
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
@@ -25,6 +21,7 @@ import com.simplemobiletools.contacts.pro.interfaces.GroupsDao
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.ContactSource
 import com.simplemobiletools.contacts.pro.models.Organization
+import com.simplemobiletools.contacts.pro.models.SocialAction
 import java.io.File
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
@@ -323,3 +320,32 @@ fun Context.getAllContactSources(): ArrayList<ContactSource> {
 }
 
 fun Context.getPrivateContactSource() = ContactSource(SMT_PRIVATE, SMT_PRIVATE, getString(R.string.phone_storage_hidden))
+
+fun Context.getWhatsAppActions(id: Int): ArrayList<SocialAction> {
+    val uri = ContactsContract.Data.CONTENT_URI
+    val projection = arrayOf(
+        ContactsContract.Data._ID,
+        ContactsContract.Data.DATA3,
+        ContactsContract.Data.MIMETYPE
+    )
+
+    val socialActions = ArrayList<SocialAction>()
+    var curActionId = 0
+    val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+    val selectionArgs = arrayOf(id.toString())
+    queryCursor(uri, projection, selection, selectionArgs, null, true) { cursor ->
+        val mimetype = cursor.getStringValue(ContactsContract.Data.MIMETYPE)
+        val type = when (mimetype) {
+            "vnd.android.cursor.item/vnd.com.whatsapp.profile" -> SOCIAL_MESSAGE
+            "vnd.android.cursor.item/vnd.com.whatsapp.voip.call" -> SOCIAL_VOICE_CALL
+            "vnd.android.cursor.item/vnd.com.whatsapp.video.call" -> SOCIAL_VIDEO_CALL
+            else -> return@queryCursor
+        }
+
+        val label = cursor.getStringValue(ContactsContract.Data.DATA3)
+        val realID = cursor.getLongValue(ContactsContract.Data._ID)
+        val socialAction = SocialAction(curActionId++, type, label, mimetype, realID)
+        socialActions.add(socialAction)
+    }
+    return socialActions
+}
