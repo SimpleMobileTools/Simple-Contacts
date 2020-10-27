@@ -236,14 +236,14 @@ fun Context.sendSMSToContacts(contacts: ArrayList<Contact>) {
         if (number != null) {
             numbers.append("${Uri.encode(number.value)};")
         }
+    }
 
-        val uriString = "smsto:${numbers.toString().trimEnd(';')}"
-        Intent(Intent.ACTION_SENDTO, Uri.parse(uriString)).apply {
-            if (resolveActivity(packageManager) != null) {
-                startActivity(this)
-            } else {
-                toast(R.string.no_app_found)
-            }
+    val uriString = "smsto:${numbers.toString().trimEnd(';')}"
+    Intent(Intent.ACTION_SENDTO, Uri.parse(uriString)).apply {
+        if (resolveActivity(packageManager) != null) {
+            startActivity(this)
+        } else {
+            toast(R.string.no_app_found)
         }
     }
 }
