@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.13.1 *(2020-10-27)*
+----------------------------
+
+ * Redesigned the View and Edit screens, use bigger contact image
+ * Added quick action buttons to Viber, WhatsApp, Telegram and Signal contacts
+ * Added some UX and translation improvements
+
 Version 6.13.0 *(2020-09-19)*
 ----------------------------
 
