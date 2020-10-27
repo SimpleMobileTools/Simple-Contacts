@@ -10,21 +10,19 @@
     <ImageView
         android:id="@+id/item_social_image"
         android:layout_width="@dimen/normal_icon_size"
-        android:padding="@dimen/small_margin"
         android:layout_height="@dimen/normal_icon_size"
-        android:src="@drawable/ic_logo_whatsapp" />
+        android:padding="@dimen/medium_margin"
+        android:src="@drawable/ic_phone_vector" />
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/item_social_label"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignTop="@+id/item_social_image"
-        android:layout_alignBottom="@+id/item_social_image"
+        android:layout_height="@dimen/normal_icon_size"
         android:layout_toEndOf="@+id/item_social_image"
         android:gravity="center_vertical"
         android:lines="1"
         android:maxLines="1"
-        android:paddingStart="@dimen/normal_margin"
+        android:paddingStart="@dimen/small_margin"
         android:paddingEnd="@dimen/normal_margin"
         android:singleLine="true"
         android:textSize="@dimen/bigger_text_size"

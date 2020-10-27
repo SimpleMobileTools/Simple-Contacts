@@ -2,7 +2,9 @@ package com.simplemobiletools.contacts.pro.extensions
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.LauncherApps
 import android.database.Cursor
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
@@ -326,7 +328,8 @@ fun Context.getWhatsAppActions(id: Int): ArrayList<SocialAction> {
     val projection = arrayOf(
         ContactsContract.Data._ID,
         ContactsContract.Data.DATA3,
-        ContactsContract.Data.MIMETYPE
+        ContactsContract.Data.MIMETYPE,
+        ContactsContract.Data.ACCOUNT_TYPE_AND_DATA_SET
     )
 
     val socialActions = ArrayList<SocialAction>()
@@ -344,8 +347,29 @@ fun Context.getWhatsAppActions(id: Int): ArrayList<SocialAction> {
 
         val label = cursor.getStringValue(ContactsContract.Data.DATA3)
         val realID = cursor.getLongValue(ContactsContract.Data._ID)
-        val socialAction = SocialAction(curActionId++, type, label, mimetype, realID)
+        val packageName = cursor.getStringValue(ContactsContract.Data.ACCOUNT_TYPE_AND_DATA_SET)
+        val socialAction = SocialAction(curActionId++, type, label, mimetype, realID, packageName)
         socialActions.add(socialAction)
     }
     return socialActions
+}
+
+fun Context.getPackageDrawable(packageName: String): Drawable? {
+    var drawable: Drawable? = null
+    try {
+        // try getting the properly colored launcher icons
+        val launcher = getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
+        val activityList = launcher.getActivityList(packageName, android.os.Process.myUserHandle())[0]
+        drawable = activityList.getBadgedIcon(0)
+    } catch (ignored: Exception) {
+    }
+
+    if (drawable == null) {
+        try {
+            drawable = packageManager.getApplicationIcon(packageName)
+        } catch (ignored: Exception) {
+        }
+    }
+
+    return drawable
 }

@@ -538,7 +538,7 @@ class ViewContactActivity : ContactActivity() {
                     }
 
                     if (value.toLowerCase() == WHATSAPP) {
-                        contact_source_image.setImageResource(R.drawable.ic_logo_whatsapp)
+                        contact_source_image.setImageDrawable(getPackageDrawable(WHATSAPP_PACKAGE))
                         contact_source_image.beVisible()
                         contact_source_image.setOnClickListener {
                             showWhatsAppActions()

@@ -5,8 +5,10 @@ import android.view.ViewGroup
 import android.widget.RadioGroup
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
+import com.simplemobiletools.commons.extensions.beGone
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.extensions.getPackageDrawable
 import com.simplemobiletools.contacts.pro.models.SocialAction
 import kotlinx.android.synthetic.main.dialog_choose_social.view.*
 import kotlinx.android.synthetic.main.item_choose_social.view.*
@@ -23,6 +25,13 @@ class ChooseSocialDialog(val activity: Activity, actions: ArrayList<SocialAction
                 setOnClickListener {
                     callback(action)
                     dialog.dismiss()
+                }
+
+                val drawable = activity.getPackageDrawable(action.packageName)
+                if (drawable == null) {
+                    item_social_image.beGone()
+                } else {
+                    item_social_image.setImageDrawable(drawable)
                 }
             }
 

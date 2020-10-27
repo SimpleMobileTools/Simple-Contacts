@@ -32,6 +32,6 @@
         android:layout_marginEnd="@dimen/normal_margin"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/small_margin"
-        tools:src="@drawable/ic_logo_whatsapp" />
+        tools:src="@drawable/ic_phone_vector" />
 
 </RelativeLayout>
