@@ -176,9 +176,8 @@ class ViewContactActivity : ContactActivity() {
         }
 
         val textColor = config.textColor
-        arrayOf(contact_send_sms, contact_start_call, contact_send_email, contact_name_image, contact_numbers_image, contact_emails_image,
-            contact_addresses_image, contact_events_image, contact_source_image, contact_notes_image, contact_organization_image,
-            contact_websites_image, contact_groups_image).forEach {
+        arrayOf(contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_events_image, contact_source_image,
+            contact_notes_image, contact_organization_image, contact_websites_image, contact_groups_image).forEach {
             it.applyColorFilter(textColor)
         }
 
@@ -239,7 +238,6 @@ class ViewContactActivity : ContactActivity() {
             beVisible()
             tag = contact!!.starred
             setImageDrawable(getStarDrawable(tag == 1))
-            applyColorFilter(config.textColor)
 
             setOnClickListener {
                 val newIsStarred = if (tag == 1) 0 else 1
