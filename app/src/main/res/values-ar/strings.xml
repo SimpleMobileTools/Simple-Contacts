@@ -15,9 +15,6 @@
     <string name="call_person">Call %s</string>
     <string name="create_new_contact">إنشاء جهة إتصال</string>
     <string name="add_to_existing_contact">إضافة إلى جهة موجودة</string>
-    <string name="voice_call_number">Voice call %s</string>
-    <string name="video_call_number">Video call %s</string>
-    <string name="message_number">Message %s</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">لا توجد جهات اتصال بهذا البريد الالكتروني</string>

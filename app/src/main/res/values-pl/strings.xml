@@ -15,9 +15,6 @@
     <string name="call_person">Zadzwoń do: %s</string>
     <string name="create_new_contact">Utwórz nowy kontakt</string>
     <string name="add_to_existing_contact">Dodaj do istniejącego kontaktu</string>
-    <string name="voice_call_number">Voice call %s</string>
-    <string name="video_call_number">Video call %s</string>
-    <string name="message_number">Message %s</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nie znaleziono kontaktów z adresami e-mail</string>

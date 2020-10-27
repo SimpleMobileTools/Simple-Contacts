@@ -15,9 +15,6 @@
     <string name="call_person">വിളിക്കുക %s</string>
     <string name="create_new_contact">പുതിയ കോൺ‌ടാക്റ്റ് സൃഷ്‌ടിക്കുക</string>
     <string name="add_to_existing_contact">നിലവിലുള്ള കോൺ‌ടാക്റ്റിലേക്ക് ചേർക്കുക</string>
-    <string name="voice_call_number">Voice call %s</string>
-    <string name="video_call_number">Video call %s</string>
-    <string name="message_number">Message %s</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">ഇമെയിലുകളില്ലാത്ത കോൺടാക്റ്റുകൾ കണ്ടെത്തിയില്ല</string>
