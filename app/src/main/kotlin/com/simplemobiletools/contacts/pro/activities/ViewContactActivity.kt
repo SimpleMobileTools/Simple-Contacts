@@ -541,7 +541,15 @@ class ViewContactActivity : ContactActivity() {
                         contact_source_image.setImageDrawable(getPackageDrawable(WHATSAPP_PACKAGE))
                         contact_source_image.beVisible()
                         contact_source_image.setOnClickListener {
-                            showWhatsAppActions()
+                            showWhatsAppActions(key.id)
+                        }
+                    }
+
+                    if (value.toLowerCase() == SIGNAL) {
+                        contact_source_image.setImageDrawable(getPackageDrawable(SIGNAL_PACKAGE))
+                        contact_source_image.beVisible()
+                        contact_source_image.setOnClickListener {
+                            showSignalActions(key.id)
                         }
                     }
                 }
@@ -589,9 +597,25 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun showWhatsAppActions() {
+    private fun showWhatsAppActions(contactId: Int) {
         ensureBackgroundThread {
-            val actions = getWhatsAppActions(contact!!.id)
+            val actions = getWhatsAppActions(contactId)
+            runOnUiThread {
+                ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
+                    Intent(Intent.ACTION_VIEW).apply {
+                        val uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, action.dataId)
+                        setDataAndType(uri, action.mimetype)
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(this)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showSignalActions(contactId: Int) {
+        ensureBackgroundThread {
+            val actions = getSignalActions(contactId)
             runOnUiThread {
                 ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
                     Intent(Intent.ACTION_VIEW).apply {

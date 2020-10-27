@@ -108,6 +108,7 @@ const val SIGNAL_PACKAGE = "org.thoughtcrime.securesms"
 const val WHATSAPP_PACKAGE = "com.whatsapp"
 
 const val WHATSAPP = "whatsapp"
+const val SIGNAL = "signal"
 
 const val SOCIAL_VOICE_CALL = 0
 const val SOCIAL_VIDEO_CALL = 1
