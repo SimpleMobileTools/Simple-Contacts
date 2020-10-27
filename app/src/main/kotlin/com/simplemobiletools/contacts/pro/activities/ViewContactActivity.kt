@@ -11,7 +11,10 @@ import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.helpers.CONTACT_ID
+import com.simplemobiletools.commons.helpers.IS_PRIVATE
+import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.dialogs.ChooseSocialDialog
@@ -536,7 +539,7 @@ class ViewContactActivity : ContactActivity() {
                         contact_source_image.setImageDrawable(getPackageDrawable(WHATSAPP_PACKAGE))
                         contact_source_image.beVisible()
                         contact_source_image.setOnClickListener {
-                            showWhatsAppActions(key.id)
+                            showSocialActions(key.id)
                         }
                     }
 
@@ -544,7 +547,7 @@ class ViewContactActivity : ContactActivity() {
                         contact_source_image.setImageDrawable(getPackageDrawable(SIGNAL_PACKAGE))
                         contact_source_image.beVisible()
                         contact_source_image.setOnClickListener {
-                            showSignalActions(key.id)
+                            showSocialActions(key.id)
                         }
                     }
 
@@ -552,7 +555,7 @@ class ViewContactActivity : ContactActivity() {
                         contact_source_image.setImageDrawable(getPackageDrawable(VIBER_PACKAGE))
                         contact_source_image.beVisible()
                         contact_source_image.setOnClickListener {
-                            showViberActions(key.id)
+                            showSocialActions(key.id)
                         }
                     }
 
@@ -560,7 +563,7 @@ class ViewContactActivity : ContactActivity() {
                         contact_source_image.setImageDrawable(getPackageDrawable(TELEGRAM_PACKAGE))
                         contact_source_image.beVisible()
                         contact_source_image.setOnClickListener {
-                            showTelegramActions(key.id)
+                            showSocialActions(key.id)
                         }
                     }
                 }
@@ -608,57 +611,9 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun showWhatsAppActions(contactId: Int) {
+    private fun showSocialActions(contactId: Int) {
         ensureBackgroundThread {
-            val actions = getWhatsAppActions(contactId)
-            runOnUiThread {
-                ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
-                    Intent(Intent.ACTION_VIEW).apply {
-                        val uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, action.dataId)
-                        setDataAndType(uri, action.mimetype)
-                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(this)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun showSignalActions(contactId: Int) {
-        ensureBackgroundThread {
-            val actions = getSignalActions(contactId)
-            runOnUiThread {
-                ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
-                    Intent(Intent.ACTION_VIEW).apply {
-                        val uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, action.dataId)
-                        setDataAndType(uri, action.mimetype)
-                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(this)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun showViberActions(contactId: Int) {
-        ensureBackgroundThread {
-            val actions = getViberActions(contactId)
-            runOnUiThread {
-                ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
-                    Intent(Intent.ACTION_VIEW).apply {
-                        val uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, action.dataId)
-                        setDataAndType(uri, action.mimetype)
-                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(this)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun showTelegramActions(contactId: Int) {
-        ensureBackgroundThread {
-            val actions = getTelegramActions(contactId)
+            val actions = getSocialActions(contactId)
             runOnUiThread {
                 ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
                     Intent(Intent.ACTION_VIEW).apply {

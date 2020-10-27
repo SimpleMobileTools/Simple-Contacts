@@ -329,7 +329,7 @@ fun Context.getAllContactSources(): ArrayList<ContactSource> {
 
 fun Context.getPrivateContactSource() = ContactSource(SMT_PRIVATE, SMT_PRIVATE, getString(R.string.phone_storage_hidden))
 
-fun Context.getWhatsAppActions(id: Int): ArrayList<SocialAction> {
+fun Context.getSocialActions(id: Int): ArrayList<SocialAction> {
     val uri = ContactsContract.Data.CONTENT_URI
     val projection = arrayOf(
         ContactsContract.Data._ID,
@@ -345,98 +345,21 @@ fun Context.getWhatsAppActions(id: Int): ArrayList<SocialAction> {
     queryCursor(uri, projection, selection, selectionArgs, null, true) { cursor ->
         val mimetype = cursor.getStringValue(ContactsContract.Data.MIMETYPE)
         val type = when (mimetype) {
+            // WhatsApp
             "vnd.android.cursor.item/vnd.com.whatsapp.profile" -> SOCIAL_MESSAGE
             "vnd.android.cursor.item/vnd.com.whatsapp.voip.call" -> SOCIAL_VOICE_CALL
             "vnd.android.cursor.item/vnd.com.whatsapp.video.call" -> SOCIAL_VIDEO_CALL
-            else -> return@queryCursor
-        }
 
-        val label = cursor.getStringValue(ContactsContract.Data.DATA3)
-        val realID = cursor.getLongValue(ContactsContract.Data._ID)
-        val packageName = cursor.getStringValue(ContactsContract.Data.ACCOUNT_TYPE_AND_DATA_SET)
-        val socialAction = SocialAction(curActionId++, type, label, mimetype, realID, packageName)
-        socialActions.add(socialAction)
-    }
-    return socialActions
-}
-
-fun Context.getSignalActions(id: Int): ArrayList<SocialAction> {
-    val uri = ContactsContract.Data.CONTENT_URI
-    val projection = arrayOf(
-        ContactsContract.Data._ID,
-        ContactsContract.Data.DATA3,
-        ContactsContract.Data.MIMETYPE,
-        ContactsContract.Data.ACCOUNT_TYPE_AND_DATA_SET
-    )
-
-    val socialActions = ArrayList<SocialAction>()
-    var curActionId = 0
-    val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-    val selectionArgs = arrayOf(id.toString())
-    queryCursor(uri, projection, selection, selectionArgs, null, true) { cursor ->
-        val mimetype = cursor.getStringValue(ContactsContract.Data.MIMETYPE)
-        val type = when (mimetype) {
-            "vnd.android.cursor.item/vnd.org.thoughtcrime.securesms.contact" -> SOCIAL_MESSAGE
-            "vnd.android.cursor.item/vnd.org.thoughtcrime.securesms.call" -> SOCIAL_VOICE_CALL
-            else -> return@queryCursor
-        }
-
-        val label = cursor.getStringValue(ContactsContract.Data.DATA3)
-        val realID = cursor.getLongValue(ContactsContract.Data._ID)
-        val packageName = cursor.getStringValue(ContactsContract.Data.ACCOUNT_TYPE_AND_DATA_SET)
-        val socialAction = SocialAction(curActionId++, type, label, mimetype, realID, packageName)
-        socialActions.add(socialAction)
-    }
-    return socialActions
-}
-
-fun Context.getViberActions(id: Int): ArrayList<SocialAction> {
-    val uri = ContactsContract.Data.CONTENT_URI
-    val projection = arrayOf(
-        ContactsContract.Data._ID,
-        ContactsContract.Data.DATA3,
-        ContactsContract.Data.MIMETYPE,
-        ContactsContract.Data.ACCOUNT_TYPE_AND_DATA_SET
-    )
-
-    val socialActions = ArrayList<SocialAction>()
-    var curActionId = 0
-    val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-    val selectionArgs = arrayOf(id.toString())
-    queryCursor(uri, projection, selection, selectionArgs, null, true) { cursor ->
-        val mimetype = cursor.getStringValue(ContactsContract.Data.MIMETYPE)
-        val type = when (mimetype) {
+            // Viber
             "vnd.android.cursor.item/vnd.com.viber.voip.viber_number_call" -> SOCIAL_VOICE_CALL
             "vnd.android.cursor.item/vnd.com.viber.voip.viber_out_call_viber" -> SOCIAL_VOICE_CALL
             "vnd.android.cursor.item/vnd.com.viber.voip.viber_number_message" -> SOCIAL_MESSAGE
-            else -> return@queryCursor
-        }
 
-        val label = cursor.getStringValue(ContactsContract.Data.DATA3)
-        val realID = cursor.getLongValue(ContactsContract.Data._ID)
-        val packageName = cursor.getStringValue(ContactsContract.Data.ACCOUNT_TYPE_AND_DATA_SET)
-        val socialAction = SocialAction(curActionId++, type, label, mimetype, realID, packageName)
-        socialActions.add(socialAction)
-    }
-    return socialActions
-}
+            // Signal
+            "vnd.android.cursor.item/vnd.org.thoughtcrime.securesms.contact" -> SOCIAL_MESSAGE
+            "vnd.android.cursor.item/vnd.org.thoughtcrime.securesms.call" -> SOCIAL_VOICE_CALL
 
-fun Context.getTelegramActions(id: Int): ArrayList<SocialAction> {
-    val uri = ContactsContract.Data.CONTENT_URI
-    val projection = arrayOf(
-        ContactsContract.Data._ID,
-        ContactsContract.Data.DATA3,
-        ContactsContract.Data.MIMETYPE,
-        ContactsContract.Data.ACCOUNT_TYPE_AND_DATA_SET
-    )
-
-    val socialActions = ArrayList<SocialAction>()
-    var curActionId = 0
-    val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
-    val selectionArgs = arrayOf(id.toString())
-    queryCursor(uri, projection, selection, selectionArgs, null, true) { cursor ->
-        val mimetype = cursor.getStringValue(ContactsContract.Data.MIMETYPE)
-        val type = when (mimetype) {
+            // Telegram
             "vnd.android.cursor.item/vnd.org.telegram.messenger.android.call" -> SOCIAL_VOICE_CALL
             "vnd.android.cursor.item/vnd.org.telegram.messenger.android.call.video" -> SOCIAL_VIDEO_CALL
             "vnd.android.cursor.item/vnd.org.telegram.messenger.android.profile" -> SOCIAL_MESSAGE
@@ -449,7 +372,6 @@ fun Context.getTelegramActions(id: Int): ArrayList<SocialAction> {
         val socialAction = SocialAction(curActionId++, type, label, mimetype, realID, packageName)
         socialActions.add(socialAction)
     }
-
     return socialActions
 }
 
