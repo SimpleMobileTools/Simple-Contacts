@@ -22,17 +22,24 @@ class MyContactsContentProvider : ContentProvider() {
                 MyContactsContentProvider.COL_CONTACT_ID,
                 MyContactsContentProvider.COL_NAME,
                 MyContactsContentProvider.COL_PHOTO_URI,
-                MyContactsContentProvider.COL_PHONE_NUMBERS)
+                MyContactsContentProvider.COL_PHONE_NUMBERS,
+                MyContactsContentProvider.COL_BIRTHDAYS,
+                MyContactsContentProvider.COL_ANNIVERSARIES)
             )
 
             LocalContactsHelper(context!!).getPrivateSimpleContactsSync(selection == MyContactsContentProvider.FAVORITES_ONLY).forEach {
                 val phoneNumbers = Gson().toJson(it.phoneNumbers)
+                val birthdays = Gson().toJson(it.birthdays)
+                val anniversaries = Gson().toJson(it.anniversaries)
+
                 matrixCursor.newRow()
                     .add(MyContactsContentProvider.COL_RAW_ID, it.rawId)
                     .add(MyContactsContentProvider.COL_CONTACT_ID, it.contactId)
                     .add(MyContactsContentProvider.COL_NAME, it.name)
                     .add(MyContactsContentProvider.COL_PHOTO_URI, it.photoUri)
                     .add(MyContactsContentProvider.COL_PHONE_NUMBERS, phoneNumbers)
+                    .add(MyContactsContentProvider.COL_BIRTHDAYS, birthdays)
+                    .add(MyContactsContentProvider.COL_ANNIVERSARIES, anniversaries)
             }
 
             return matrixCursor

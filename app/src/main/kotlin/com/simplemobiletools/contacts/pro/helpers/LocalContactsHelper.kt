@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.provider.ContactsContract.CommonDataKinds.Event
 import android.provider.MediaStore
 import com.simplemobiletools.commons.extensions.getChoppedList
 import com.simplemobiletools.commons.models.SimpleContact
@@ -158,7 +159,9 @@ class LocalContactsHelper(val context: Context) {
             null
         } else {
             val phoneNumbers = contact.phoneNumbers.map { it.value }.toMutableList() as ArrayList<String>
-            SimpleContact(contact.id, contact.id, contact.getNameToDisplay(), contact.photoUri, phoneNumbers)
+            val birthdays = contact.events.filter { it.type == Event.TYPE_BIRTHDAY }.map { it.value }.toMutableList() as ArrayList<String>
+            val anniversaries = contact.events.filter { it.type == Event.TYPE_ANNIVERSARY }.map { it.value }.toMutableList() as ArrayList<String>
+            SimpleContact(contact.id, contact.id, contact.getNameToDisplay(), contact.photoUri, phoneNumbers, birthdays, anniversaries)
         }
     }
 
