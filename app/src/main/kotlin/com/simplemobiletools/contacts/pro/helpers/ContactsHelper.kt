@@ -117,7 +117,7 @@ class ContactsHelper(val context: Context) {
             val type = cursor.getStringValue(RawContacts.ACCOUNT_TYPE) ?: ""
             var publicName = name
             if (type == TELEGRAM_PACKAGE) {
-                publicName += " (${context.getString(R.string.telegram)})"
+                publicName = context.getString(R.string.telegram)
             }
 
             val source = ContactSource(name, type, publicName)
