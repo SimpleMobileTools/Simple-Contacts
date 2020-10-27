@@ -11,10 +11,7 @@ import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.CONTACT_ID
-import com.simplemobiletools.commons.helpers.IS_PRIVATE
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.dialogs.ChooseSocialDialog
@@ -558,6 +555,14 @@ class ViewContactActivity : ContactActivity() {
                             showViberActions(key.id)
                         }
                     }
+
+                    if (value.toLowerCase() == TELEGRAM) {
+                        contact_source_image.setImageDrawable(getPackageDrawable(TELEGRAM_PACKAGE))
+                        contact_source_image.beVisible()
+                        contact_source_image.setOnClickListener {
+                            showTelegramActions(key.id)
+                        }
+                    }
                 }
             }
 
@@ -638,6 +643,22 @@ class ViewContactActivity : ContactActivity() {
     private fun showViberActions(contactId: Int) {
         ensureBackgroundThread {
             val actions = getViberActions(contactId)
+            runOnUiThread {
+                ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
+                    Intent(Intent.ACTION_VIEW).apply {
+                        val uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, action.dataId)
+                        setDataAndType(uri, action.mimetype)
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(this)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showTelegramActions(contactId: Int) {
+        ensureBackgroundThread {
+            val actions = getTelegramActions(contactId)
             runOnUiThread {
                 ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
                     Intent(Intent.ACTION_VIEW).apply {
