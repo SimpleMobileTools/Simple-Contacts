@@ -71,7 +71,6 @@ class EditContactActivity : ContactActivity() {
         }
 
         contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        contact_wrapper.background = ColorDrawable(config.backgroundColor)
         setupMenu()
 
         val action = intent.action

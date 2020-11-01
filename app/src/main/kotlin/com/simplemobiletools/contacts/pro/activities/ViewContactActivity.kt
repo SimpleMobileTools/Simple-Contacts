@@ -52,7 +52,6 @@ class ViewContactActivity : ContactActivity() {
 
         showFields = config.showContactFields
         contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        contact_wrapper.background = ColorDrawable(config.backgroundColor)
         setupMenu()
     }
 
