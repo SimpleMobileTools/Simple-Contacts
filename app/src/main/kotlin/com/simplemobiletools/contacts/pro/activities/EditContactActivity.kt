@@ -62,7 +62,7 @@ class EditContactActivity : ContactActivity() {
     private var originalContactSource = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        useDynamicTheme = false
+        showTransparentTop = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_contact)
 
@@ -96,11 +96,6 @@ class EditContactActivity : ContactActivity() {
         } else {
             initContact()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        window.statusBarColor = Color.TRANSPARENT
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {

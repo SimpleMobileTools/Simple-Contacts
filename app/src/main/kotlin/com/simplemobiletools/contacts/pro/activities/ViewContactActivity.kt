@@ -42,7 +42,7 @@ class ViewContactActivity : ContactActivity() {
     private val COMPARABLE_PHONE_NUMBER_LENGTH = 9
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        useDynamicTheme = false
+        showTransparentTop = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_contact)
 
@@ -58,7 +58,6 @@ class ViewContactActivity : ContactActivity() {
 
     override fun onResume() {
         super.onResume()
-        window.statusBarColor = Color.TRANSPARENT
         isViewIntent = intent.action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT || intent.action == Intent.ACTION_VIEW
         if (isViewIntent) {
             handlePermission(PERMISSION_READ_CONTACTS) {
