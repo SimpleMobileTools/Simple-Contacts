@@ -4,7 +4,6 @@
     <string name="address">Adres</string>
     <string name="inserting">Dodawanie…</string>
     <string name="updating">Aktualizowanie…</string>
-    <string name="phone_storage">Pamięć telefonu</string>
     <string name="phone_storage_hidden">Pamięć telefonu (niewidoczna dla innych aplikacji)</string>
     <string name="company">Firma</string>
     <string name="job_position">Stanowisko</string>
@@ -16,11 +15,6 @@
     <string name="call_person">Zadzwoń do: %s</string>
     <string name="create_new_contact">Utwórz nowy kontakt</string>
     <string name="add_to_existing_contact">Dodaj do istniejącego kontaktu</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nie znaleziono kontaktów z adresami e-mail</string>
@@ -29,10 +23,6 @@
     <string name="new_contact">Nowy kontakt</string>
     <string name="edit_contact">Edytuj kontakt</string>
     <string name="select_contact">Wybierz kontakt</string>
-    <string name="select_contacts">Wybierz kontakty</string>
-    <string name="first_name">Pierwsze imię</string>
-    <string name="middle_name">Drugie imię</string>
-    <string name="surname">Nazwisko</string>
     <string name="nickname">Pseudonim</string>
 
     <!-- Groups -->
@@ -52,7 +42,6 @@
     <string name="remove_photo">Usuń zdjęcie</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Zacznij nazwę od nazwiska</string>
     <string name="show_phone_numbers">Pokazuj numery telefonów na ekranie głównym</string>
     <string name="show_contact_thumbnails">Pokazuj miniatury kontaktów</string>
     <string name="show_dialpad_button">Pokazuj przycisk panelu wybierania numeru na ekranie głównym</string>
@@ -60,13 +49,11 @@
     <string name="call_contact">Zadzwoń do konataktu</string>
     <string name="view_contact">Pokaż szczegóły kontaktu</string>
     <string name="manage_shown_contact_fields">Zarządzaj pokazywanymi polami kontaktu</string>
-    <string name="filter_duplicates">Spróbuj odfiltrować zduplikowane kontakty</string>
     <string name="manage_shown_tabs">Zarządzaj pokazywanymi sekcjami</string>
     <string name="contacts">Kontakty</string>
     <string name="show_call_confirmation_dialog">Pokazuj okno potwierdzenia zadzwonienia przed zainicjonowaniem połączenia</string>
     <string name="show_only_contacts_with_numbers">Pokazuj wyłącznie kontakty z numerami telefonów</string>
-    <string name="show_dialpad_letters">Pokazuj litery na panelu wybierania</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">Dom</string>
@@ -87,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Wygląda na to, że nie dodałeś jeszcze żadnego ulubionego kontaktu.</string>
-    <string name="must_be_at_edit">Musisz wejść do ekranu edycji, aby zmodyfikować kontakt</string>
 
     <!-- Search -->
     <string name="search_contacts">Szukaj kontaktów</string>
@@ -107,26 +93,7 @@
     <string name="dialpad">Panel wybierania</string>
     <string name="add_number_to_contact">Dodaj numer do kontaktu</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Dialer</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Wybierz pola do pokazywania</string>
     <string name="prefix">Prefiks</string>
     <string name="suffix">Sufiks</string>
     <string name="phone_numbers">Numery telefonów</string>

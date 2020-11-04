@@ -5,30 +5,23 @@
     package="com.simplemobiletools.contacts.pro"
     android:installLocation="auto">
 
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.telecom.action.CONFIGURE_PHONE_ACCOUNT" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
 
-    <uses-feature
-        android:name="android.hardware.telephony"
-        android:required="false"/>
-
     <uses-permission
         android:name="android.permission.USE_FINGERPRINT"
         tools:node="remove"/>
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <application
         android:name=".App"
@@ -65,12 +58,6 @@
         </activity>
 
         <activity
-            android:name=".activities.CallActivity"
-            android:label="@string/ongoing_call"
-            android:screenOrientation="portrait"
-            android:showOnLockScreen="true"/>
-
-        <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/settings"
             android:parentActivityName=".activities.MainActivity"/>
@@ -82,7 +69,8 @@
         <activity
             android:name=".activities.ViewContactActivity"
             android:label="@string/details"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/TranslucentTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -115,7 +103,8 @@
 
         <activity
             android:name=".activities.EditContactActivity"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/TranslucentTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.EDIT"/>
@@ -225,70 +214,6 @@
             android:label="@string/frequently_asked_questions"
             android:parentActivityName="com.simplemobiletools.commons.activities.AboutActivity"/>
 
-        <activity
-            android:name="com.simplemobiletools.commons.activities.ManageBlockedNumbersActivity"
-            android:label="@string/blocked_numbers"
-            android:parentActivityName=".activities.SettingsActivity"/>
-
-        <activity
-            android:name=".activities.ManageSpeedDialActivity"
-            android:label="@string/speed_dial"
-            android:parentActivityName=".activities.SettingsActivity"/>
-
-        <activity
-            android:name=".activities.DialpadActivity"
-            android:label="@string/dialpad"
-            android:parentActivityName=".activities.MainActivity">
-
-            <intent-filter>
-                <action android:name="android.intent.action.DIAL"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:scheme="tel"/>
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.DIAL"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".activities.DialerActivity"
-            android:label="@string/dialer"
-            android:theme="@style/Theme.Transparent">
-
-            <intent-filter>
-                <action android:name="android.intent.action.CALL"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:scheme="tel"/>
-            </intent-filter>
-        </activity>
-
-        <service
-            android:name=".services.CallService"
-            android:permission="android.permission.BIND_INCALL_SERVICE">
-            <meta-data
-                android:name="android.telecom.IN_CALL_SERVICE_UI"
-                android:value="true" />
-
-            <intent-filter>
-                <action android:name="android.telecom.InCallService"/>
-            </intent-filter>
-        </service>
-
-        <receiver
-            android:name=".receivers.CallActionReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.simplemobiletools.contacts.action.ACCEPT_CALL" />
-                <action android:name="com.simplemobiletools.contacts.action.DECLINE_CALL" />
-            </intent-filter>
-        </receiver>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -298,6 +223,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
+
+        <provider
+            android:name=".contentproviders.MyContactsContentProvider"
+            android:authorities="com.simplemobiletools.commons.contactsprovider"
+            android:exported="true"/>
 
         <activity-alias
             android:name=".activities.SplashActivity.Red"

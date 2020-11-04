@@ -4,7 +4,6 @@
     <string name="address">Adresa</string>
     <string name="inserting">Vytváří se…</string>
     <string name="updating">Upravuje se…</string>
-    <string name="phone_storage">Úložiště telefonu</string>
     <string name="phone_storage_hidden">Úložiště telefonu (neviditelné pro ostatní apky)</string>
     <string name="company">Firma</string>
     <string name="job_position">Pracovní pozice</string>
@@ -16,11 +15,6 @@
     <string name="call_person">Zavolat %s</string>
     <string name="create_new_contact">Vytvořit nový kontakt</string>
     <string name="add_to_existing_contact">Přidat k existujícímu kontaktu</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nenalezeny žádné kontakty s e-maily</string>
@@ -29,10 +23,6 @@
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upravit kontakt</string>
     <string name="select_contact">Zvolte kontakt</string>
-    <string name="select_contacts">Zvolte kontakty</string>
-    <string name="first_name">Křestní jméno</string>
-    <string name="middle_name">Prostřední jméno</string>
-    <string name="surname">Příjmení</string>
     <string name="nickname">Přezdívka</string>
 
     <!-- Groups -->
@@ -52,7 +42,6 @@
     <string name="remove_photo">Odstranit fotku</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Nejprve příjmení</string>
     <string name="show_phone_numbers">Zobrazit telefonní čísla na hlavní obrazovce</string>
     <string name="show_contact_thumbnails">Zobrazit obrázky kontaktů</string>
     <string name="show_dialpad_button">Zobrazit tlačítko číselníku na hlavní obrazovce</string>
@@ -60,13 +49,11 @@
     <string name="call_contact">Zavolat kontakt</string>
     <string name="view_contact">Zobrazit údaje kontaktu</string>
     <string name="manage_shown_contact_fields">Spravovat zobrazená pole kontaktů</string>
-    <string name="filter_duplicates">Pokusit se vyfiltrovat duplicitní kontakty</string>
     <string name="manage_shown_tabs">Spravovat zobrazené karty</string>
     <string name="contacts">Kontakty</string>
     <string name="show_call_confirmation_dialog">Před zahájením hovoru zobrazit potvrzovací dialog</string>
     <string name="show_only_contacts_with_numbers">Zobrazit jen kontakty s telefonními čísly</string>
-    <string name="show_dialpad_letters">Zobrazit na číselníku písmena</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">Domov</string>
@@ -87,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Vypadá to, že jste ještě nepřidali žádné oblíbené kontakty.</string>
-    <string name="must_be_at_edit">Pro úpravu kontaktu musíte být v Editoru kontaktu</string>
 
     <!-- Search -->
     <string name="search_contacts">Hledat v kontaktech</string>
@@ -107,26 +93,7 @@
     <string name="dialpad">Číselník</string>
     <string name="add_number_to_contact">Přidat číslo kontaktu</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Telefon</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Rychlé vytáčení</string>
-    <string name="manage_speed_dial">Spravovat rychlé vytáčení</string>
-    <string name="speed_dial_label">Pro přiřazení kontaktu klepněte na číslo. Následně můžete daný kontakt rychle vytočit dlouhým podržením čísla na číselníku.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Zvolte pole k zobrazení</string>
     <string name="prefix">Titul před jménem</string>
     <string name="suffix">Titul za příjmením</string>
     <string name="phone_numbers">Telefonní čísla</string>

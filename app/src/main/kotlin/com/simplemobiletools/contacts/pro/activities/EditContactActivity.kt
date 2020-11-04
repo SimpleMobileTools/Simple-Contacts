@@ -1,31 +1,31 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.content.ClipData
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.CommonDataKinds.*
 import android.provider.MediaStore
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
+import com.simplemobiletools.contacts.pro.dialogs.MyDatePickerDialog
 import com.simplemobiletools.contacts.pro.dialogs.SelectGroupsDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
@@ -41,8 +41,6 @@ import kotlinx.android.synthetic.main.item_edit_im.view.*
 import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
 import kotlinx.android.synthetic.main.item_edit_website.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
 
 class EditContactActivity : ContactActivity() {
     private val INTENT_TAKE_PHOTO = 1
@@ -64,12 +62,16 @@ class EditContactActivity : ContactActivity() {
     private var originalContactSource = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        showTransparentTop = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_contact)
 
         if (checkAppSideloading()) {
             return
         }
+
+        contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        setupMenu()
 
         val action = intent.action
         isThirdPartyIntent = action == Intent.ACTION_EDIT || action == Intent.ACTION_INSERT || action == ADD_NEW_CONTACT_NUMBER
@@ -95,39 +97,12 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_edit_contact, menu)
-        if (wasActivityInitialized) {
-            menu.findItem(R.id.delete).isVisible = contact?.id != 0
-            menu.findItem(R.id.share).isVisible = contact?.id != 0
-            menu.findItem(R.id.open_with).isVisible = contact?.id != 0 && contact?.isPrivate() == false
-        }
-
-        updateMenuItemColors(menu, true)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (contact == null) {
-            return true
-        }
-
-        when (item.itemId) {
-            R.id.save -> saveContact()
-            R.id.share -> shareContact(contact!!)
-            R.id.open_with -> openWith()
-            R.id.delete -> deleteContact()
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri, resultData?.data)
-                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString(), contact_photo)
+                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString(), contact_photo, contact_photo_bottom_shadow)
             }
         }
     }
@@ -209,20 +184,17 @@ class EditContactActivity : ContactActivity() {
         }
 
         setupTypePickers()
-        contact_send_sms.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
-        contact_start_call.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
-        contact_send_email.beVisibleIf(contact!!.emails.isNotEmpty())
 
         if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
             showPhotoPlaceholder(contact_photo)
+            contact_photo_bottom_shadow.beGone()
         } else {
-            updateContactPhoto(contact!!.photoUri, contact_photo, contact!!.photo)
+            updateContactPhoto(contact!!.photoUri, contact_photo, contact_photo_bottom_shadow, contact!!.photo)
         }
 
         val textColor = config.textColor
-        arrayOf(contact_send_sms, contact_start_call, contact_send_email, contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image,
-            contact_ims_image, contact_events_image, contact_notes_image, contact_organization_image, contact_websites_image, contact_groups_image,
-            contact_source_image).forEach {
+        arrayOf(contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_ims_image, contact_events_image,
+            contact_notes_image, contact_organization_image, contact_websites_image, contact_groups_image, contact_source_image).forEach {
             it.applyColorFilter(textColor)
         }
 
@@ -239,9 +211,7 @@ class EditContactActivity : ContactActivity() {
 
         contact_toggle_favorite.setOnClickListener { toggleFavorite() }
         contact_photo.setOnClickListener { trySetPhoto() }
-        contact_send_sms.setOnClickListener { trySendSMS() }
-        contact_start_call.setOnClickListener { tryStartCall(contact!!) }
-        contact_send_email.setOnClickListener { trySendEmail() }
+        contact_change_photo.setOnClickListener { trySetPhoto() }
         contact_numbers_add_new.setOnClickListener { addNewPhoneNumberField() }
         contact_emails_add_new.setOnClickListener { addNewEmailField() }
         contact_addresses_add_new.setOnClickListener { addNewAddressField() }
@@ -256,14 +226,47 @@ class EditContactActivity : ContactActivity() {
         contact_toggle_favorite.apply {
             setImageDrawable(getStarDrawable(contact!!.starred == 1))
             tag = contact!!.starred
-            applyColorFilter(textColor)
         }
 
         updateTextColors(contact_scrollview)
         numberViewToColor?.setTextColor(adjustedPrimaryColor)
         emailViewToColor?.setTextColor(adjustedPrimaryColor)
         wasActivityInitialized = true
-        invalidateOptionsMenu()
+
+        contact_toolbar.menu.apply {
+            findItem(R.id.delete).isVisible = contact?.id != 0
+            findItem(R.id.share).isVisible = contact?.id != 0
+            findItem(R.id.open_with).isVisible = contact?.id != 0 && contact?.isPrivate() == false
+        }
+    }
+
+    private fun setupMenu() {
+        (contact_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
+        contact_toolbar.menu.apply {
+            findItem(R.id.save).setOnMenuItemClickListener {
+                saveContact()
+                true
+            }
+
+            findItem(R.id.share).setOnMenuItemClickListener {
+                shareContact(contact!!)
+                true
+            }
+
+            findItem(R.id.open_with).setOnMenuItemClickListener {
+                openWith()
+                true
+            }
+
+            findItem(R.id.delete).setOnMenuItemClickListener {
+                deleteContact()
+                true
+            }
+        }
+
+        contact_toolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun openWith() {
@@ -691,19 +694,13 @@ class EditContactActivity : ContactActivity() {
 
         val eventField = eventHolder.contact_event
         eventField.setOnClickListener {
-            val setDateListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                eventHolder.contact_event_remove.beVisible()
-                val date = DateTime().withDate(year, monthOfYear + 1, dayOfMonth).withTimeAtStartOfDay()
-                val formatted = date.toString(DateTimeFormat.mediumDate())
+            MyDatePickerDialog(this, eventField.tag?.toString() ?: "") { dateTag ->
                 eventField.apply {
-                    text = formatted
-                    tag = date.toString("yyyy-MM-dd")
+                    dateTag.getDateTimeFromDateString(this)
+                    tag = dateTag
                     alpha = 1f
                 }
             }
-
-            val date = (eventField.tag?.toString() ?: "").getDateTimeFromDateString()
-            DatePickerDialog(this, getDialogTheme(), setDateListener, date.year, date.monthOfYear - 1, date.dayOfMonth).show()
         }
 
         eventHolder.contact_event_remove.apply {
@@ -1126,7 +1123,10 @@ class EditContactActivity : ContactActivity() {
             when (it as Int) {
                 TAKE_PHOTO -> startTakePhotoIntent()
                 CHOOSE_PHOTO -> startChoosePhotoIntent()
-                else -> showPhotoPlaceholder(contact_photo)
+                else -> {
+                    showPhotoPlaceholder(contact_photo)
+                    contact_photo_bottom_shadow.beGone()
+                }
             }
         }
     }

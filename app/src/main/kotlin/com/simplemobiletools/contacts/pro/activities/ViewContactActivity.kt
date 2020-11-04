@@ -1,23 +1,23 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.content.ContentUris
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.FitCenter
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.CONTACT_ID
+import com.simplemobiletools.commons.helpers.IS_PRIVATE
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
+import com.simplemobiletools.contacts.pro.dialogs.ChooseSocialDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.*
@@ -42,6 +42,7 @@ class ViewContactActivity : ContactActivity() {
     private val COMPARABLE_PHONE_NUMBER_LENGTH = 9
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        showTransparentTop = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_contact)
 
@@ -50,6 +51,8 @@ class ViewContactActivity : ContactActivity() {
         }
 
         showFields = config.showContactFields
+        contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        setupMenu()
     }
 
     override fun onResume() {
@@ -73,36 +76,33 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        if (contact_photo_big.alpha == 1f) {
-            hideBigContactPhoto()
-        } else {
-            super.onBackPressed()
-        }
-    }
+    private fun setupMenu() {
+        (contact_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
+        contact_toolbar.menu.apply {
+            findItem(R.id.share).setOnMenuItemClickListener {
+                shareContact(fullContact!!)
+                true
+            }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_view_contact, menu)
-        menu.apply {
-            findItem(R.id.open_with).isVisible = contact?.isPrivate() == false
-            updateMenuItemColors(this)
-        }
-        return true
-    }
+            findItem(R.id.edit).setOnMenuItemClickListener {
+                launchEditContact(contact!!)
+                true
+            }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (contact == null) {
-            return true
+            findItem(R.id.open_with).setOnMenuItemClickListener {
+                openWith()
+                true
+            }
+
+            findItem(R.id.delete).setOnMenuItemClickListener {
+                deleteContactFromAllSources()
+                true
+            }
         }
 
-        when (item.itemId) {
-            R.id.edit -> launchEditContact(contact!!)
-            R.id.share -> shareContact(fullContact!!)
-            R.id.open_with -> openWith()
-            R.id.delete -> deleteContactFromAllSources()
-            else -> return super.onOptionsItemSelected(item)
+        contact_toolbar.setNavigationOnClickListener {
+            finish()
         }
-        return true
     }
 
     private fun initContact() {
@@ -168,31 +168,14 @@ class ViewContactActivity : ContactActivity() {
 
         if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
             showPhotoPlaceholder(contact_photo)
+            contact_photo_bottom_shadow.beGone()
         } else {
-            updateContactPhoto(contact!!.photoUri, contact_photo, contact!!.photo)
-            val options = RequestOptions()
-                .transform(FitCenter(), RoundedCorners(resources.getDimension(R.dimen.normal_margin).toInt()))
-
-            Glide.with(this)
-                .load(contact!!.photo ?: currentContactPhotoPath)
-                .apply(options)
-                .into(contact_photo_big)
-
-            contact_photo.setOnClickListener {
-                contact_photo_big.alpha = 0f
-                contact_photo_big.beVisible()
-                contact_photo_big.animate().alpha(1f).start()
-            }
-
-            contact_photo_big.setOnClickListener {
-                hideBigContactPhoto()
-            }
+            updateContactPhoto(contact!!.photoUri, contact_photo, contact_photo_bottom_shadow, contact!!.photo)
         }
 
         val textColor = config.textColor
-        arrayOf(contact_send_sms, contact_start_call, contact_send_email, contact_name_image, contact_numbers_image, contact_emails_image,
-            contact_addresses_image, contact_events_image, contact_source_image, contact_notes_image, contact_organization_image,
-            contact_websites_image, contact_groups_image).forEach {
+        arrayOf(contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_events_image, contact_source_image,
+            contact_notes_image, contact_organization_image, contact_websites_image, contact_groups_image).forEach {
             it.applyColorFilter(textColor)
         }
 
@@ -201,7 +184,7 @@ class ViewContactActivity : ContactActivity() {
         contact_send_email.setOnClickListener { trySendEmail() }
 
         updateTextColors(contact_scrollview)
-        invalidateOptionsMenu()
+        contact_toolbar.menu.findItem(R.id.open_with).isVisible = contact?.isPrivate() == false
     }
 
     private fun setupViewContact() {
@@ -251,11 +234,22 @@ class ViewContactActivity : ContactActivity() {
     private fun setupFavorite() {
         contact_toggle_favorite.apply {
             beVisible()
-            setImageDrawable(getStarDrawable(contact!!.starred == 1))
             tag = contact!!.starred
-            applyColorFilter(config.textColor)
+            setImageDrawable(getStarDrawable(tag == 1))
+
             setOnClickListener {
-                toast(R.string.must_be_at_edit)
+                val newIsStarred = if (tag == 1) 0 else 1
+                ensureBackgroundThread {
+                    val contacts = arrayListOf(contact!!)
+                    if (newIsStarred == 1) {
+                        ContactsHelper(context).addFavorites(contacts)
+                    } else {
+                        ContactsHelper(context).removeFavorites(contacts)
+                    }
+                }
+                contact!!.starred = newIsStarred
+                tag = contact!!.starred
+                setImageDrawable(getStarDrawable(tag == 1))
             }
         }
     }
@@ -289,7 +283,6 @@ class ViewContactActivity : ContactActivity() {
             if (contact_prefix.isGone() && contact_first_name.isGone() && contact_middle_name.isGone() && contact_surname.isGone() && contact_suffix.isGone()
                 && contact_nickname.isGone()) {
                 contact_name_image.beInvisible()
-                (contact_photo.layoutParams as RelativeLayout.LayoutParams).bottomMargin = resources.getDimension(R.dimen.medium_margin).toInt()
             }
         }
     }
@@ -539,6 +532,38 @@ class ViewContactActivity : ContactActivity() {
                     contact_source.setOnClickListener {
                         launchEditContact(key)
                     }
+
+                    if (value.toLowerCase() == WHATSAPP) {
+                        contact_source_image.setImageDrawable(getPackageDrawable(WHATSAPP_PACKAGE))
+                        contact_source_image.beVisible()
+                        contact_source_image.setOnClickListener {
+                            showSocialActions(key.id)
+                        }
+                    }
+
+                    if (value.toLowerCase() == SIGNAL) {
+                        contact_source_image.setImageDrawable(getPackageDrawable(SIGNAL_PACKAGE))
+                        contact_source_image.beVisible()
+                        contact_source_image.setOnClickListener {
+                            showSocialActions(key.id)
+                        }
+                    }
+
+                    if (value.toLowerCase() == VIBER) {
+                        contact_source_image.setImageDrawable(getPackageDrawable(VIBER_PACKAGE))
+                        contact_source_image.beVisible()
+                        contact_source_image.setOnClickListener {
+                            showSocialActions(key.id)
+                        }
+                    }
+
+                    if (value.toLowerCase() == TELEGRAM) {
+                        contact_source_image.setImageDrawable(getPackageDrawable(TELEGRAM_PACKAGE))
+                        contact_source_image.beVisible()
+                        contact_source_image.setOnClickListener {
+                            showSocialActions(key.id)
+                        }
+                    }
                 }
             }
 
@@ -584,6 +609,22 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
+    private fun showSocialActions(contactId: Int) {
+        ensureBackgroundThread {
+            val actions = getSocialActions(contactId)
+            runOnUiThread {
+                ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
+                    Intent(Intent.ACTION_VIEW).apply {
+                        val uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, action.dataId)
+                        setDataAndType(uri, action.mimetype)
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(this)
+                    }
+                }
+            }
+        }
+    }
+
     private fun getDuplicateContacts(callback: () -> Unit) {
         ContactsHelper(this).getDuplicatesOfContact(contact!!, false) { contacts ->
             ensureBackgroundThread {
@@ -621,10 +662,6 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_vector else R.drawable.ic_star_off_vector)
-
-    private fun hideBigContactPhoto() {
-        contact_photo_big.animate().alpha(0f).withEndAction { contact_photo_big.beGone() }.start()
-    }
 
     private fun View.copyOnLongClick(value: String) {
         setOnLongClickListener {

@@ -1,6 +1,86 @@
 Changelog
 ==========
 
+Version 6.13.1 *(2020-10-27)*
+----------------------------
+
+ * Redesigned the View and Edit screens, use bigger contact image
+ * Added quick action buttons to Viber, WhatsApp, Telegram and Signal contacts
+ * Added some UX and translation improvements
+
+Version 6.13.0 *(2020-09-19)*
+----------------------------
+
+ * Fixed search with non UTF characters
+ * Added many smaller translation and UX improvements
+
+Version 6.12.7 *(2020-08-06)*
+----------------------------
+
+ * Do not require the Telephony hardware feature for installing the app
+ * Some translation and UX improvements
+
+Version 6.12.6 *(2020-07-18)*
+----------------------------
+
+ * Allow adding contact events without specifying a year
+ * Always show the contacts middle name after the first name
+ * Make sure groups are properly sorted by name
+
+Version 6.12.5 *(2020-07-12)*
+----------------------------
+
+ * Adding some improvements related to contacts having multiple phone numbers
+
+Version 6.12.4 *(2020-07-08)*
+----------------------------
+
+ * Adding some smaller translation, stability and UX improvements
+
+Version 6.12.3 *(2020-06-19)*
+----------------------------
+
+ * Adding some private contact handling related improvements
+
+Version 6.12.2 *(2020-06-17)*
+----------------------------
+
+ * Reverting a check at fetching contacts, let's show more contacts rather than less
+
+Version 6.12.1 *(2020-06-16)*
+----------------------------
+
+ * Properly check phone numbers at Search too
+ * Fixed a glitch with wrong contacts being listed
+
+Version 6.12.0 *(2020-06-03)*
+----------------------------
+
+ * Added sorting by full name, which is the way most people expect sorting to work
+ * Improve searching, do not reset it at opening a contact
+ * Some translation and stability improvements
+
+Version 6.11.3 *(2020-05-26)*
+----------------------------
+
+ * Properly handle call initiating
+
+Version 6.11.1 *(2020-05-25)*
+----------------------------
+
+ * Use Call action at clicking the phone icon, not just Dial
+ * Use a nicer app icon on some older Android versions
+
+Version 6.11.0 *(2020-05-23)*
+----------------------------
+
+ * All calling related functions with many improvements have been moved into the new Simple Dialer app, please get it from https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer
+ * Added a toggle for accessing privately stored contacts by Simple Dialer and Simple SMS Messenger apps
+ * Removed many no longer needed permissions
+ * Lowered the minimal required OS version back to 21 (Android 5, Lollipop)
+ * Allow customizing the default tab at startup
+ * Added a couple other UI and translation improvements
+
 Version 6.10.2 *(2020-05-06)*
 ----------------------------
 

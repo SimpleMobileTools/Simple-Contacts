@@ -4,7 +4,6 @@
     <string name="address">Адрес</string>
     <string name="inserting">Добавление…</string>
     <string name="updating">Обновление…</string>
-    <string name="phone_storage">Память устройства</string>
     <string name="phone_storage_hidden">Память устройства (не видна другим приложениям)</string>
     <string name="company">Организация</string>
     <string name="job_position">Должность</string>
@@ -16,11 +15,6 @@
     <string name="call_person">Вызов %s</string>
     <string name="create_new_contact">Создать новый контакт</string>
     <string name="add_to_existing_contact">Добавить к существующему контакту</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            Часть приложения, отвечающая за обработку вызовов, перенесена в новое отдельное приложение \"Телефон\", загрузите его по <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">данной ссылке</a>. Спасибо!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Контакты с адресами электронной почты не найдены</string>
@@ -29,10 +23,6 @@
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
     <string name="select_contact">Выбрать контакт</string>
-    <string name="select_contacts">Выбрать контакты</string>
-    <string name="first_name">Имя</string>
-    <string name="middle_name">Отчество</string>
-    <string name="surname">Фамилия</string>
     <string name="nickname">Псевдоним</string>
 
     <!-- Groups -->
@@ -52,7 +42,6 @@
     <string name="remove_photo">Удалить фото</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Показывать сначала фамилию</string>
     <string name="show_phone_numbers">Показывать номера телефонов на главном экране</string>
     <string name="show_contact_thumbnails">Показывать фото контакта</string>
     <string name="show_dialpad_button">Показывать кнопку набора номера на главном экране</string>
@@ -60,13 +49,11 @@
     <string name="call_contact">Вызов контакта</string>
     <string name="view_contact">Просмотр подробностей</string>
     <string name="manage_shown_contact_fields">Управление отображаемыми полями контактов</string>
-    <string name="filter_duplicates">Отфильтровывать повторяющиеся контакты</string>
     <string name="manage_shown_tabs">Управление отображаемыми вкладками</string>
     <string name="contacts">Контакты</string>
     <string name="show_call_confirmation_dialog">Показывать диалог подтверждения вызова</string>
     <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
-    <string name="show_dialpad_letters">Показывать буквы на кнопках набора номера</string>
-    <string name="show_private_contacts">Показывать личные контакты в Simple Dialer и Simple SMS Messenger</string>
+    <string name="show_private_contacts">Показывать личные контакты в Simple Dialer, Simple SMS Messenger и Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">Домашний</string>
@@ -87,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Похоже, вы ещё не добавили избранные контакты.</string>
-    <string name="must_be_at_edit">Для изменения контакта необходимо находиться на экране редактирования</string>
 
     <!-- Search -->
     <string name="search_contacts">Поиск контактов</string>
@@ -107,26 +93,7 @@
     <string name="dialpad">Набор номера</string>
     <string name="add_number_to_contact">Добавить номер к контакту</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Номеронабиратель</string>
-    <string name="accept">Принять</string>
-    <string name="decline">Отклонить</string>
-    <string name="unknown_caller">Неизвестный абонент</string>
-    <string name="is_calling">Вызывает…</string>
-    <string name="dialing">Набор номера…</string>
-    <string name="call_ended">Вызов завершён</string>
-    <string name="call_ending">Завершение вызова</string>
-    <string name="ongoing_call">Текущий вызов</string>
-    <string name="select_sim">Выбор SIM для вызова</string>
-    <string name="always_use_this_sim">Запомнить выбор для этого номера</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Быстрый набор</string>
-    <string name="manage_speed_dial">Управление быстрым набором</string>
-    <string name="speed_dial_label">Нажмите на цифру, чтобы назначить ей контакт. Затем вы сможете быстро звонить данному контакту долгим нажитием на указанную цифру в номеронабирателе.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Выберите отображаемые поля</string>
     <string name="prefix">Префикс</string>
     <string name="suffix">Суффикс</string>
     <string name="phone_numbers">Телефонные номера</string>

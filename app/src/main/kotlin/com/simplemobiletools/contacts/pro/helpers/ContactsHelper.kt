@@ -117,7 +117,7 @@ class ContactsHelper(val context: Context) {
             val type = cursor.getStringValue(RawContacts.ACCOUNT_TYPE) ?: ""
             var publicName = name
             if (type == TELEGRAM_PACKAGE) {
-                publicName += " (${context.getString(R.string.telegram)})"
+                publicName = context.getString(R.string.telegram)
             }
 
             val source = ContactSource(name, type, publicName)
@@ -770,7 +770,9 @@ class ContactsHelper(val context: Context) {
             if (ContentResolver.getIsSyncable(it, AUTHORITY) == 1) {
                 var publicName = it.name
                 if (it.type == TELEGRAM_PACKAGE) {
-                    publicName += " (${context.getString(R.string.telegram)})"
+                    publicName = context.getString(R.string.telegram)
+                } else if (it.type == VIBER_PACKAGE) {
+                    publicName = context.getString(R.string.viber)
                 }
                 val contactSource = ContactSource(it.name, it.type, publicName)
                 sources.add(contactSource)

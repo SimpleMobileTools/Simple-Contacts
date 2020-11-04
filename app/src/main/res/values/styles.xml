@@ -1,19 +1,5 @@
 <resources>
 
-    <style name="AppTheme" parent="AppTheme.Base"/>
-
-    <style name="DialpadNumberStyle">
-        <item name="android:gravity">center</item>
-        <item name="android:paddingBottom">@dimen/normal_margin</item>
-        <item name="android:paddingTop">@dimen/normal_margin</item>
-        <item name="android:textSize">@dimen/dialpad_text_size</item>
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-    </style>
-
-    <style name="DialpadLetterStyle">
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:textSize">@dimen/smaller_text_size</item>
-        <item name="android:alpha">0.8</item>
-    </style>
+    <style name="AppTheme" parent="AppTheme.Base" />
 
 </resources>

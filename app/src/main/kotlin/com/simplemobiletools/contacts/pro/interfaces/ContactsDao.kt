@@ -11,6 +11,9 @@ interface ContactsDao {
     @Query("SELECT * FROM contacts")
     fun getContacts(): List<LocalContact>
 
+    @Query("SELECT * FROM contacts WHERE starred = 1")
+    fun getFavoriteContacts(): List<LocalContact>
+
     @Query("SELECT * FROM contacts WHERE id = :id")
     fun getContactWithId(id: Int): LocalContact?
 

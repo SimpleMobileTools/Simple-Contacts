@@ -1,0 +1,2 @@
+ * Do not require the Telephony hardware feature for installing the app
+ * Some translation and UX improvements

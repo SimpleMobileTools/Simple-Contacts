@@ -1,12 +1,9 @@
 package com.simplemobiletools.contacts.pro.activities
 
-import android.annotation.TargetApi
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
-import com.simplemobiletools.commons.activities.ManageBlockedNumbersActivity
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
+import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getFontSizeText
 import com.simplemobiletools.commons.extensions.updateTextColors
@@ -34,8 +31,6 @@ class SettingsActivity : SimpleActivity() {
         setupCustomizeColors()
         setupManageShownContactFields()
         setupManageShownTabs()
-        setupManageBlockedNumbers()
-        setupManageSpeedDial()
         setupFontSize()
         setupUseEnglish()
         setupShowContactThumbnails()
@@ -44,8 +39,9 @@ class SettingsActivity : SimpleActivity() {
         setupStartNameWithSurname()
         setupShowCallConfirmation()
         setupShowDialpadButton()
-        setupShowDialpadLetters()
+        setupShowPrivateContacts()
         setupOnContactClick()
+        setupDefaultTab()
         updateTextColors(settings_holder)
         invalidateOptionsMenu()
     }
@@ -73,20 +69,28 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    // support for device-wise blocking came on Android 7, rely only on that
-    @TargetApi(Build.VERSION_CODES.N)
-    private fun setupManageBlockedNumbers() {
-        settings_manage_blocked_numbers_holder.beVisibleIf(isNougatPlus())
-        settings_manage_blocked_numbers_holder.setOnClickListener {
-            startActivity(Intent(this, ManageBlockedNumbersActivity::class.java))
+    private fun setupDefaultTab() {
+        settings_default_tab.text = getDefaultTabText()
+        settings_default_tab_holder.setOnClickListener {
+            val items = arrayListOf(
+                RadioItem(TAB_CONTACTS, getString(R.string.contacts_tab)),
+                RadioItem(TAB_FAVORITES, getString(R.string.favorites_tab)),
+                RadioItem(TAB_GROUPS, getString(R.string.groups_tab)),
+                RadioItem(TAB_LAST_USED, getString(R.string.last_used_tab)))
+
+            RadioGroupDialog(this@SettingsActivity, items, config.defaultTab) {
+                config.defaultTab = it as Int
+                settings_default_tab.text = getDefaultTabText()
+            }
         }
     }
 
-    private fun setupManageSpeedDial() {
-        settings_manage_speed_dial_holder.setOnClickListener {
-            startActivity(Intent(this, ManageSpeedDialActivity::class.java))
-        }
-    }
+    private fun getDefaultTabText() = getString(when (baseConfig.defaultTab) {
+        TAB_CONTACTS -> R.string.contacts_tab
+        TAB_FAVORITES -> R.string.favorites_tab
+        TAB_GROUPS -> R.string.groups_tab
+        else -> R.string.last_used_tab
+    })
 
     private fun setupFontSize() {
         settings_font_size.text = getFontSizeText()
@@ -154,11 +158,11 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupShowDialpadLetters() {
-        settings_show_dialpad_letters.isChecked = config.showDialpadLetters
-        settings_show_dialpad_letters_holder.setOnClickListener {
-            settings_show_dialpad_letters.toggle()
-            config.showDialpadLetters = settings_show_dialpad_letters.isChecked
+    private fun setupShowPrivateContacts() {
+        settings_show_private_contacts.isChecked = config.showPrivateContacts
+        settings_show_private_contacts_holder.setOnClickListener {
+            settings_show_private_contacts.toggle()
+            config.showPrivateContacts = settings_show_private_contacts.isChecked
         }
     }
 

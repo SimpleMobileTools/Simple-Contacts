@@ -4,7 +4,6 @@
     <string name="address">Alamat</string>
     <string name="inserting">Menyimpan…</string>
     <string name="updating">Memperbarui…</string>
-    <string name="phone_storage">Penyimpanan telepon</string>
     <string name="phone_storage_hidden">Penyimpanan telepon (tidak terlihat oleh aplikasi lain)</string>
     <string name="company">Perusahaan</string>
     <string name="job_position">Jabatan</string>
@@ -16,11 +15,6 @@
     <string name="call_person">Panggil %s</string>
     <string name="create_new_contact">Buat kontak baru</string>
     <string name="add_to_existing_contact">Tambah ke kontak yang ada</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Tidak ada kontak dengan alamat surel yang ditemukan</string>
@@ -29,10 +23,6 @@
     <string name="new_contact">Kontak baru</string>
     <string name="edit_contact">Sunting kontak</string>
     <string name="select_contact">Pilih kontak</string>
-    <string name="select_contacts">Pilih kontak</string>
-    <string name="first_name">Nama depan</string>
-    <string name="middle_name">Nama tengah</string>
-    <string name="surname">Nama belakang</string>
     <string name="nickname">Nama panggilan</string>
 
     <!-- Groups -->
@@ -52,7 +42,6 @@
     <string name="remove_photo">Buang foto</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Nama dimulai dengan nama belakang</string>
     <string name="show_phone_numbers">Tampilkan nomor telepon pada layar utama</string>
     <string name="show_contact_thumbnails">Tampilkan foto kontak</string>
     <string name="show_dialpad_button">Tampilkan tombol dial pada layar utama</string>
@@ -60,13 +49,11 @@
     <string name="call_contact">Panggil kontak</string>
     <string name="view_contact">Lihat detail kontak</string>
     <string name="manage_shown_contact_fields">Kelola ruas kontak yang ditampilkan</string>
-    <string name="filter_duplicates">Coba sembunyikan duplikat kontak</string>
     <string name="manage_shown_tabs">Kelola tab yang ditampilkan</string>
     <string name="contacts">Kontak</string>
     <string name="show_call_confirmation_dialog">Tampilkan dialog konfirmasi panggilan sebelum melakukan panggilan</string>
     <string name="show_only_contacts_with_numbers">Hanya tampilkan kontak dengan nomor telepon</string>
-    <string name="show_dialpad_letters">Tampilkan huruf pada tombol dial</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">Rumah</string>
@@ -87,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Sepertinya anda belum menambahkan kontak favorit.</string>
-    <string name="must_be_at_edit">Anda harus berada di layar Sunting untuk mengubah kontak</string>
 
     <!-- Search -->
     <string name="search_contacts">Cari kontak</string>
@@ -107,26 +93,7 @@
     <string name="dialpad">Telepon</string>
     <string name="add_number_to_contact">Tambah nomor ke kontak</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Telepon</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Pilih ruas untuk ditampilkan</string>
     <string name="prefix">Awalan</string>
     <string name="suffix">Akhiran</string>
     <string name="phone_numbers">Nomor telepon</string>

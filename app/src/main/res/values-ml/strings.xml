@@ -1,0 +1,172 @@
+<resources>
+    <string name="app_name">Simple Contacts</string>
+    <string name="app_launcher_name">Contacts</string>
+    <string name="address">വിലാസം</string>
+    <string name="inserting">ചേർക്കുന്നു…</string>
+    <string name="updating">പുതുക്കുന്നു…</string>
+    <string name="phone_storage_hidden">ഫോൺ സ്റ്റോറേജ് (മറ്റ് അപ്ലിക്കേഷനുകൾക്ക് ദൃശ്യമല്ല)</string>
+    <string name="company">കമ്പനി</string>
+    <string name="job_position">ഉദ്യോഗ സ്ഥാനം</string>
+    <string name="website">വെബ്സൈറ്റ്</string>
+    <string name="send_sms_to_contacts">കോൺ‌ടാക്റ്റുകളിലേക്ക് SMS അയയ്ക്കുക</string>
+    <string name="send_email_to_contacts">കോൺ‌ടാക്റ്റുകളിലേക്ക് ഇമെയിൽ അയയ്‌ക്കുക</string>
+    <string name="send_sms_to_group">ഗ്രൂപ്പിലേക്ക് SMS അയയ്ക്കുക</string>
+    <string name="send_email_to_group">ഗ്രൂപ്പിലേക്ക് ഇമെയിൽ അയയ്ക്കുക</string>
+    <string name="call_person">വിളിക്കുക %s</string>
+    <string name="create_new_contact">പുതിയ കോൺ‌ടാക്റ്റ് സൃഷ്‌ടിക്കുക</string>
+    <string name="add_to_existing_contact">നിലവിലുള്ള കോൺ‌ടാക്റ്റിലേക്ക് ചേർക്കുക</string>
+
+    <!-- Placeholders -->
+    <string name="no_contacts_with_emails">ഇമെയിലുകളില്ലാത്ത കോൺടാക്റ്റുകൾ കണ്ടെത്തിയില്ല</string>
+    <string name="no_contacts_with_phone_numbers">ഫോൺ നമ്പറുകളില്ലാത്ത കോൺടാക്റ്റുകൾ കണ്ടെത്തിയില്ല</string>
+
+    <string name="new_contact">പുതിയ കോൺ‌ടാക്റ്റ്</string>
+    <string name="edit_contact">കോൺ‌ടാക്റ്റ് എഡിറ്റുചെയ്യുക</string>
+    <string name="select_contact">കോൺടാക്റ്റ് തിരഞ്ഞെടുക്കുക</string>
+    <string name="nickname">വിളിപ്പേര്</string>
+
+    <!-- Groups -->
+    <string name="no_groups">ഗ്രൂപ്പുകളൊന്നുമില്ല</string>
+    <string name="create_new_group">പുതിയ ഗ്രൂപ്പ് സൃഷ്ടിക്കുക</string>
+    <string name="remove_from_group">ഗ്രൂപ്പിൽ നിന്ന് നീക്കംചെയ്യുക</string>
+    <string name="no_group_participants">ഈ ഗ്രൂപ്പ് ശൂന്യമാണ്</string>
+    <string name="add_contacts">കോൺ‌ടാക്റ്റുകൾ‌ ചേർ‌ക്കുക</string>
+    <string name="no_group_created">ഉപകരണത്തിൽ കോൺടാക്റ്റ് ഗ്രൂപ്പുകളൊന്നുമില്ല</string>
+    <string name="create_group">ഗ്രൂപ്പ് സൃഷ്ടിക്കുക</string>
+    <string name="add_to_group">ഗ്രൂപ്പിലേക്ക് ചേർക്കുക</string>
+    <string name="create_group_under_account">അക്കൗണ്ടിന് കീഴിൽ ഗ്രൂപ്പ് സൃഷ്ടിക്കുക</string>
+
+    <!-- Photo -->
+    <string name="take_photo">ഫോട്ടോ എടുക്കുക</string>
+    <string name="choose_photo">ഫോട്ടോ തിരഞ്ഞെടുക്കുക</string>
+    <string name="remove_photo">ഫോട്ടോ നീക്കംചെയ്യുക</string>
+
+    <!-- Settings -->
+    <string name="show_phone_numbers">മുഖ്യ സ്ക്രീനിൽ ഫോൺ നമ്പറുകൾ കാണിക്കുക</string>
+    <string name="show_contact_thumbnails">കോണ്ടാക്ടിന്റെ ലഘുചിത്രങ്ങൾ കാണിക്കുക</string>
+    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
+    <string name="on_contact_click">On contact click</string>
+    <string name="call_contact">കോണ്ടാക്ടിനെ വിളിക്കുക </string>
+    <string name="view_contact">കോൺ‌ടാക്റ്റ് വിശദാംശങ്ങൾ‌ കാണുക</string>
+    <string name="manage_shown_contact_fields">കോൺടാക്റ്റ് ഫീൽഡുകൾ കാണിക്കുന്നത്‌ നിയന്ത്രിക്കുക</string>
+    <string name="manage_shown_tabs">ടാബുകൾ കാണിക്കുന്നത്‌ നിയന്ത്രിക്കുക</string>
+    <string name="contacts">കോണ്ടാക്ടുകൾ </string>
+    <string name="show_call_confirmation_dialog">ഒരു കോൾ ആരംഭിക്കുന്നതിന് മുമ്പ്, കോൾ സ്ഥിരീകരണ ഡയലോഗ് കാണിക്കുക</string>
+    <string name="show_only_contacts_with_numbers">ഫോൺ നമ്പറുകളുള്ള കോൺടാക്റ്റുകൾ മാത്രം കാണിക്കുക</string>
+    <string name="show_private_contacts">Simple Dialer-ലേക്കും  Simple Messenger-ലേക്കും സ്വകാര്യ കോൺടാക്റ്റുകൾ കാണിക്കുക</string>
+
+    <!-- Emails -->
+    <string name="home">വീട്</string>
+    <string name="work">ജോലി</string>
+    <string name="other">മറ്റുള്ളവ</string>
+
+    <!-- Phone numbers -->
+    <string name="mobile">മൊബൈൽ</string>
+    <string name="main_number">പ്രധാനമായ</string>
+    <string name="work_fax">Work Fax</string>
+    <string name="home_fax">Home Fax</string>
+    <string name="pager">പേജർ</string>
+    <string name="no_phone_number_found">ഫോൺ നമ്പറുകളൊന്നും കണ്ടെത്തിയില്ല</string>
+
+    <!-- Events -->
+    <string name="birthday">ജന്മദിനം</string>
+    <string name="anniversary">വാർഷികം</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">നിങ്ങൾ ഇതുവരെ പ്രിയപ്പെട്ട കോൺ‌ടാക്റ്റുകളൊന്നും ചേർത്തിട്ടില്ലെന്ന് തോന്നുന്നു.</string>
+
+    <!-- Search -->
+    <string name="search_contacts">കോൺ‌ടാക്റ്റുകൾ തിരയുക</string>
+    <string name="search_favorites">പ്രിയങ്കരങ്ങൾ തിരയുക</string>
+    <string name="search_groups">ഗ്രൂപ്പുകൾ തിരയുക</string>
+
+    <!-- Export / Import -->
+    <string name="import_contacts">കോൺ‌ടാക്റ്റുകൾ‌ ഇറക്കുമതി ചെയ്യുക</string>
+    <string name="export_contacts">കോൺ‌ടാക്റ്റുകൾ എക്‌സ്‌പോർട്ടുചെയ്യുക</string>
+    <string name="import_contacts_from_vcf">.vcf ഫയലിൽ നിന്ന് കോൺടാക്റ്റുകൾ ഇമ്പോർട്ടുചെയ്യുക</string>
+    <string name="export_contacts_to_vcf">.vcf ഫയലിലേക്ക് കോൺടാക്റ്റുകൾ എക്‌സ്‌പോർട്ടുചെയ്യുക</string>
+    <string name="target_contact_source">കോണ്ടാക്ടിന്റെ ഉറവിടം ലക്ഷ്യമാക്കുക</string>
+    <string name="include_contact_sources">കോണ്ടാക്ടിന്റെ ഉറവിടങ്ങൾ ഉൾപ്പെടുത്തുക</string>
+    <string name="filename_without_vcf">ഫയലിന്റെ പേര്(.vcf കൂടാതെ)</string>
+
+    <!-- Dialpad -->
+    <string name="dialpad">ഡയൽപാഡ്</string>
+    <string name="add_number_to_contact">കോൺ‌ടാക്റ്റിലേക്ക് നമ്പർ ചേർക്കുക</string>
+
+    <!-- Visible fields -->
+    <string name="prefix">ഉപസർഗം </string>
+    <string name="suffix">പ്രത്യയം</string>
+    <string name="phone_numbers">ഫോൺ നമ്പറുകൾ</string>
+    <string name="emails">ഇമെയിലുകൾ</string>
+    <string name="addresses">വിലാസങ്ങൾ</string>
+    <string name="events">ഇവന്റുകൾ (ജന്മദിനങ്ങൾ, വാർഷികങ്ങൾ)</string>
+    <string name="organization">വെബ്‌സൈറ്റുകൾ</string>
+    <string name="websites">വെബ്‌സൈറ്റുകൾ</string>
+    <string name="groups">ഗ്രൂപ്പുകൾ</string>
+    <string name="contact_source">കോൺ‌ടാക്റ്റ് ഉറവിടം</string>
+    <string name="instant_messaging">തത്സമയ സന്ദേശം അയക്കൽ</string>
+
+    <!-- Confirmation dialog -->
+    <string name="delete_from_all_sources">എല്ലാ കോൺ‌ടാക്റ്റ് ഉറവിടങ്ങളിൽ‌ നിന്നും ഈ കോൺ‌ടാക്റ്റ് നീക്കംചെയ്യും.</string>
+
+    <plurals name="delete_groups">
+        <item quantity="one">%d group</item>
+        <item quantity="other">%d groups</item>
+    </plurals>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">കോൺ‌ടാക്റ്റുകളിൽ ദൃശ്യമാകുന്ന ഫീൽഡുകൾ മാറ്റാൻ ഞാൻ ആഗ്രഹിക്കുന്നു. എനിക്ക് അത് ചെയ്യാൻ സാധിക്കുമോ?</string>
+    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - കോൺടാക്റ്റുകൾ മാനേജ്‌ചെയ്യുക</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">കോൺ‌ടാക്റ്റ് മാനേജുമെന്റിനായി ലളിതവും മനോഹരവുമായ ഒരു ആപ്ലിക്കേഷൻ</string>
+    <string name="app_long_description">
+        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
+
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+
+        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+
+        There is a lightweight dialpad at your service too, with smart contact suggestions.
+
+        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+
+        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+
+        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+
+        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+
+        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+
+        You can easily block phone numbers to avoid unwanted incoming calls.
+
+        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+
+        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+
+        <b>Check out the full suite of Simple Tools here:</b>
+        https://www.simplemobiletools.com
+
+        <b>Standalone website of Simple Contacts Pro:</b>
+        https://www.simplemobiletools.com/contacts
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>

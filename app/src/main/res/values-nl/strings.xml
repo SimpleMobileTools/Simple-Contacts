@@ -4,7 +4,6 @@
     <string name="address">Addres</string>
     <string name="inserting">Toevoegen…</string>
     <string name="updating">Updaten…</string>
-    <string name="phone_storage">Telefoonopslag</string>
     <string name="phone_storage_hidden">Telefoonopslag (niet zichtbaar voor andere apps)</string>
     <string name="company">Bedrijf</string>
     <string name="job_position">Titel</string>
@@ -16,11 +15,6 @@
     <string name="call_person">%s bellen</string>
     <string name="create_new_contact">Nieuw contact</string>
     <string name="add_to_existing_contact">Aan bestaand contact toevoegen</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            Het gedeelte om telefoongesprekken te beheren moest worden afgesplitst naar een aparte app genaamd Eenvoudige Telefoon. Download de app via <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Bedankt!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Geen contacten met e-mailadressen gevonden</string>
@@ -29,10 +23,6 @@
     <string name="new_contact">Nieuw contact</string>
     <string name="edit_contact">Contact bewerken</string>
     <string name="select_contact">Contact kiezen</string>
-    <string name="select_contacts">Contacten kiezen</string>
-    <string name="first_name">Voornaam</string>
-    <string name="middle_name">Tweede voornaam</string>
-    <string name="surname">Achternaam</string>
     <string name="nickname">Bijnaam</string>
 
     <!-- Groups -->
@@ -52,7 +42,6 @@
     <string name="remove_photo">Foto verwijderen</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Beginnen met achternaam</string>
     <string name="show_phone_numbers">Telefoonnummers in hoofdscherm tonen</string>
     <string name="show_contact_thumbnails">Contactafbeelding tonen</string>
     <string name="show_dialpad_button">Knop voor toetsenblok in hoofdscherm tonen</string>
@@ -60,13 +49,11 @@
     <string name="call_contact">Contact bellen</string>
     <string name="view_contact">Details tonen</string>
     <string name="manage_shown_contact_fields">Contactvelden tonen/verbergen</string>
-    <string name="filter_duplicates">Probeer dubbele contacten weg te filteren</string>
     <string name="manage_shown_tabs">Tabs tonen/verbergen</string>
     <string name="contacts">Contacten</string>
     <string name="show_call_confirmation_dialog">Om bevestiging vragen voor het bellen</string>
     <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummers tonen</string>
-    <string name="show_dialpad_letters">Letters op het toetsenblok tonen</string>
-    <string name="show_private_contacts">Privécontacten in Eenvoudige Telefoon en Eenvoudige Berichten tonen</string>
+    <string name="show_private_contacts">Privécontacten in Eenvoudige Telefoon, Eenvoudige Berichten tonen en Eenvoudige Agenda Pro</string>
 
     <!-- Emails -->
     <string name="home">Thuis</string>
@@ -87,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Er zijn nog geen favorieten toegevoegd.</string>
-    <string name="must_be_at_edit">Ga naar Contact bewerken om gegevens aan te passen</string>
 
     <!-- Search -->
     <string name="search_contacts">Contacten zoeken</string>
@@ -107,26 +93,7 @@
     <string name="dialpad">Toetsenblok</string>
     <string name="add_number_to_contact">Nummer aan contact toevoegen</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Bellen</string>
-    <string name="accept">Beantwoorden</string>
-    <string name="decline">Weigeren</string>
-    <string name="unknown_caller">Nummer onbekend</string>
-    <string name="is_calling">Inkomend gesprek…</string>
-    <string name="dialing">Bellen…</string>
-    <string name="call_ended">Gesprek beëindigd</string>
-    <string name="call_ending">Gesprek beëindigen</string>
-    <string name="ongoing_call">Gesprek gaande</string>
-    <string name="select_sim">Selecteer de SIM-kaart voor dit gesprek</string>
-    <string name="always_use_this_sim">Voor dit nummer altijd deze SIM-kaart gebruiken</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Snelkiezer</string>
-    <string name="manage_speed_dial">Snelkiezer bewerken</string>
-    <string name="speed_dial_label">Klik op een cijfer om er een contact aan te koppelen. Vervolgens kan dit contact direct gebeld worden door in de kiezer lang op het gekoppelde cijfer te drukken.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Kies zichtbare velden</string>
     <string name="prefix">Voorvoegsel</string>
     <string name="suffix">Achtervoegsel van naam</string>
     <string name="phone_numbers">Telefoonnummers</string>
@@ -171,17 +138,17 @@
 
         Met deze moderne en stabiele app kunnen contactpersonen worden beschermd door ze niet te delen met andere apps en zo privé te houden.
 
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+        Naam, adres, telefoonnummer, e-mail, organisatie, groepen en vele andere velden zijn gemakkelijk aan te passen. Contacten kunnen worden verplaatst naar een andere account. Ook datums van verjaardagen en jubileums zijn op te slaan.
 
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+        Er zijn vele handige functies, zoals het tonen van telefoonnummers in het hoofdscherm, het tonen/verbergen van contactafbeeldingen, het alleen weergeven van contacten tonen met een telefoonnummer en het vooraf om bevestiging vragen bij het beginnen van een gesprek. De app bevat een snelkiezer waarin ook op naam gezocht kan worden.
 
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+        Om de gebruikerservaring nog verder te verbeteren, kan worden gekozen wat er gebeurt bij een klik op een contact: er kan direct gebeld worden, de details kunnen worden geopend of het contact kan direct bewerkt worden.
 
-        You can easily block phone numbers to avoid unwanted incoming calls.
+        Telefoonnummers kunnen eenvoudig worden geblokkeerd om ongewenste gesprekken te voorkomen.
 
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+        Om potentieel ongewenste vermeldingen van contacten te voorkomen, kan de app dubbele contacten samenvoegen.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        De app is ontworpen volgens material design en heeft standaard een donker thema. De app heeft geen toegang tot het internet nodig en voorziet van meer privacy, veiligheid en stabiliteit dan andere apps.
 
         Bevat geen advertenties of onnodige machtigingen. Volledig open-source. Kleuren van de app kunnen worden aangepast.
 

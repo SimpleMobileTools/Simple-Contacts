@@ -4,7 +4,6 @@
     <string name="address">住所</string>
     <string name="inserting">挿入中…</string>
     <string name="updating">更新中…</string>
-    <string name="phone_storage">内部ストレージ</string>
     <string name="phone_storage_hidden">内部ストレージ (他のアプリからは表示されません)</string>
     <string name="company">会社</string>
     <string name="job_position">役職</string>
@@ -16,11 +15,6 @@
     <string name="call_person">Call %s</string>
     <string name="create_new_contact">新しい連絡先を作成</string>
     <string name="add_to_existing_contact">既存の連絡先に追加</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">メールアドレスが登録された連絡先が見つかりません</string>
@@ -29,10 +23,6 @@
     <string name="new_contact">新しい連絡先</string>
     <string name="edit_contact">連絡先を編集</string>
     <string name="select_contact">連絡先を選択</string>
-    <string name="select_contacts">連絡先を選択</string>
-    <string name="first_name">名</string>
-    <string name="middle_name">ミドルネーム</string>
-    <string name="surname">姓</string>
     <string name="nickname">ニックネーム</string>
 
     <!-- Groups -->
@@ -52,7 +42,6 @@
     <string name="remove_photo">写真を削除</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">姓を先に表示</string>
     <string name="show_phone_numbers">メイン画面に電話番号を表示</string>
     <string name="show_contact_thumbnails">連絡先のサムネイルを表示</string>
     <string name="show_dialpad_button">メイン画面にダイヤルパッドを表示</string>
@@ -60,13 +49,11 @@
     <string name="call_contact">連絡先に発信</string>
     <string name="view_contact">連絡先の詳細を表示</string>
     <string name="manage_shown_contact_fields">連絡先に表示するフィールドを管理</string>
-    <string name="filter_duplicates">重複した連絡先を除外する</string>
     <string name="manage_shown_tabs">表示するタブを管理</string>
     <string name="contacts">連絡先</string>
     <string name="show_call_confirmation_dialog">発信する前に確認ダイアログを表示する</string>
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
-    <string name="show_dialpad_letters">Show letters on the dialpad</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">自宅</string>
@@ -87,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">お気に入りの連絡先はまだありません</string>
-    <string name="must_be_at_edit">連絡先を編集するには編集画面に切り替えてください</string>
 
     <!-- Search -->
     <string name="search_contacts">連絡先を検索</string>
@@ -107,26 +93,7 @@
     <string name="dialpad">ダイヤルパッド</string>
     <string name="add_number_to_contact">連絡先に番号を追加</string>
 
-    <!-- Dialer -->
-    <string name="dialer">電話</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">表示する項目を選択</string>
     <string name="prefix">敬称（名前の前）</string>
     <string name="suffix">敬称（名前の後）</string>
     <string name="phone_numbers">電話番号</string>

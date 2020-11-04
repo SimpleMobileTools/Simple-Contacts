@@ -4,7 +4,6 @@
     <string name="address">Dirección</string>
     <string name="inserting">Insertando…</string>
     <string name="updating">Actualizando…</string>
-    <string name="phone_storage">Almacenamiento del teléfono</string>
     <string name="phone_storage_hidden">Almacenamiento del teléfono (No visible para otras aplicaciones)</string>
     <string name="company">Compañía</string>
     <string name="job_position">Puesto de trabajo</string>
@@ -16,11 +15,6 @@
     <string name="call_person">Llamar a %s</string>
     <string name="create_new_contact">Crear nuevo contacto</string>
     <string name="add_to_existing_contact">Añadir a un contacto existente</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">No se encontraron contactos con correo electrónico</string>
@@ -29,10 +23,6 @@
     <string name="new_contact">Nuevo contacto</string>
     <string name="edit_contact">Editar contacto</string>
     <string name="select_contact">Seleccionar contacto</string>
-    <string name="select_contacts">Seleccionar contactos</string>
-    <string name="first_name">Primer nombre</string>
-    <string name="middle_name">Segundo nombre</string>
-    <string name="surname">Apellido</string>
     <string name="nickname">Alias</string>
 
     <!-- Groups -->
@@ -52,7 +42,6 @@
     <string name="remove_photo">Eliminar foto</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Mostrar nombre por apellido</string>
     <string name="show_phone_numbers">Mostrar números de teléfono en la pantalla principal</string>
     <string name="show_contact_thumbnails">Mostrar minaturas de contactos</string>
     <string name="show_dialpad_button">Mostrar botón de marcación en la pantalla principal</string>
@@ -60,13 +49,11 @@
     <string name="call_contact">Llamar contacto</string>
     <string name="view_contact">Ver detalles del contacto</string>
     <string name="manage_shown_contact_fields">Administrar campos del contacto mostrados</string>
-    <string name="filter_duplicates">Intentar foltrar contactos duplicados</string>
     <string name="manage_shown_tabs">Administrar pestañas mostradas</string>
     <string name="contacts">Contactos</string>
     <string name="show_call_confirmation_dialog">Mostrar un cuadro de confirmación antes de iniciar una llamada</string>
     <string name="show_only_contacts_with_numbers">Solo mostrar contactos con números telefónicos</string>
-    <string name="show_dialpad_letters">Mostrar letras en el teclado de marcación</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">Casa</string>
@@ -87,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Parece que aún no has añadido ningún contacto favorito.</string>
-    <string name="must_be_at_edit">Debes estar en la Pantalla de Edición para modificar un contacto</string>
 
     <!-- Search -->
     <string name="search_contacts">Buscar contactos</string>
@@ -107,26 +93,7 @@
     <string name="dialpad">Teclado de marcación</string>
     <string name="add_number_to_contact">Añadir número a contacto</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Marcador</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Seleccionar campos a mostrar</string>
     <string name="prefix">Prefijo</string>
     <string name="suffix">Sufijo</string>
     <string name="phone_numbers">Números de teléfono</string>
@@ -155,7 +122,7 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Administra tus contactos</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
+    <string name="app_short_description">La mejor app de gestión de contactos con soporte de la función de grupos</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 

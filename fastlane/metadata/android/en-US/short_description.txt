@@ -1,1 +1,1 @@
-A contacts app for managing your contacts without ads.
+A premium app for contact management with no ads, supports groups and favorites

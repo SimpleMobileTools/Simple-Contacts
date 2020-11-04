@@ -73,7 +73,9 @@ class VcfImporter(val activity: SimpleActivity) {
                         ""
                     }
 
-                    emails.add(Email(email, type, label))
+                    if (email.isNotEmpty()) {
+                        emails.add(Email(email, type, label))
+                    }
                 }
 
                 val addresses = ArrayList<Address>()

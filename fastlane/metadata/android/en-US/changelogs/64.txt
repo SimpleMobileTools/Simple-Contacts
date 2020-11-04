@@ -1,0 +1,6 @@
+ * All calling related functions with many improvements have been moved into the new Simple Dialer app, please get it from https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer
+ * Added a toggle for accessing privately stored contacts by Simple Dialer and Simple SMS Messenger apps
+ * Removed many no longer needed permissions
+ * Lowered the minimal required OS version back to 21 (Android 5, Lollipop)
+ * Allow customizing the default tab at startup
+ * Added a couple other UI and translation improvements

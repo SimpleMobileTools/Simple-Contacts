@@ -1,0 +1,3 @@
+ * Redesigned the View and Edit screens, use bigger contact image
+ * Added quick action buttons to Viber, WhatsApp, Telegram and Signal contacts
+ * Added some UX and translation improvements

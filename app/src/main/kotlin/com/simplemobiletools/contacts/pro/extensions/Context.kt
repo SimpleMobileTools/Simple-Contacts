@@ -1,23 +1,17 @@
 package com.simplemobiletools.contacts.pro.extensions
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Context.AUDIO_SERVICE
 import android.content.Intent
+import android.content.pm.LauncherApps
 import android.database.Cursor
-import android.media.AudioManager
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.provider.ContactsContract
 import androidx.core.content.FileProvider
-import com.simplemobiletools.commons.extensions.getIntValue
-import com.simplemobiletools.commons.extensions.hasPermission
-import com.simplemobiletools.commons.extensions.telecomManager
-import com.simplemobiletools.commons.extensions.toast
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
-import com.simplemobiletools.commons.helpers.SimpleContactsHelper
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
@@ -29,7 +23,7 @@ import com.simplemobiletools.contacts.pro.interfaces.GroupsDao
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.ContactSource
 import com.simplemobiletools.contacts.pro.models.Organization
-import com.simplemobiletools.contacts.pro.models.SIMAccount
+import com.simplemobiletools.contacts.pro.models.SocialAction
 import java.io.File
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
@@ -37,8 +31,6 @@ val Context.config: Config get() = Config.newInstance(applicationContext)
 val Context.contactsDB: ContactsDao get() = ContactsDatabase.getInstance(applicationContext).ContactsDao()
 
 val Context.groupsDB: GroupsDao get() = ContactsDatabase.getInstance(applicationContext).GroupsDao()
-
-val Context.audioManager: AudioManager get() = getSystemService(AUDIO_SERVICE) as AudioManager
 
 fun Context.getEmptyContact(): Contact {
     val originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
@@ -201,7 +193,10 @@ fun Context.getPublicContactSource(source: String, callback: (String) -> Unit) {
                 var newSource = source
                 for (contactSource in it) {
                     if (contactSource.name == source && contactSource.type == TELEGRAM_PACKAGE) {
-                        newSource += " (${getString(R.string.telegram)})"
+                        newSource = getString(R.string.telegram)
+                        break
+                    } else if (contactSource.name == source && contactSource.type == VIBER_PACKAGE) {
+                        newSource = getString(R.string.viber)
                         break
                     }
                 }
@@ -220,7 +215,10 @@ fun Context.getPublicContactSourceSync(source: String, contactSources: ArrayList
             var newSource = source
             for (contactSource in contactSources) {
                 if (contactSource.name == source && contactSource.type == TELEGRAM_PACKAGE) {
-                    newSource += " (${getString(R.string.telegram)})"
+                    newSource = getString(R.string.telegram)
+                    break
+                } else if (contactSource.name == source && contactSource.type == VIBER_PACKAGE) {
+                    newSource = getString(R.string.viber)
                     break
                 }
             }
@@ -236,16 +234,16 @@ fun Context.sendSMSToContacts(contacts: ArrayList<Contact>) {
         val number = it.phoneNumbers.firstOrNull { it.type == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE }
             ?: it.phoneNumbers.firstOrNull()
         if (number != null) {
-            numbers.append("${number.value};")
+            numbers.append("${Uri.encode(number.value)};")
         }
+    }
 
-        val uriString = "smsto:${numbers.toString().trimEnd(';')}"
-        Intent(Intent.ACTION_SENDTO, Uri.parse(uriString)).apply {
-            if (resolveActivity(packageManager) != null) {
-                startActivity(this)
-            } else {
-                toast(R.string.no_app_found)
-            }
+    val uriString = "smsto:${numbers.toString().trimEnd(';')}"
+    Intent(Intent.ACTION_SENDTO, Uri.parse(uriString)).apply {
+        if (resolveActivity(packageManager) != null) {
+            startActivity(this)
+        } else {
+            toast(R.string.no_app_found)
         }
     }
 }
@@ -331,19 +329,69 @@ fun Context.getAllContactSources(): ArrayList<ContactSource> {
 
 fun Context.getPrivateContactSource() = ContactSource(SMT_PRIVATE, SMT_PRIVATE, getString(R.string.phone_storage_hidden))
 
-@SuppressLint("MissingPermission")
-fun Context.getAvailableSIMCardLabels(): ArrayList<SIMAccount> {
-    val SIMAccounts = ArrayList<SIMAccount>()
-    telecomManager.callCapablePhoneAccounts.forEach { account ->
-        val phoneAccount = telecomManager.getPhoneAccount(account)
-        var label = phoneAccount.label.toString()
-        var address = phoneAccount.address.toString()
-        if (address.startsWith("tel:") && address.substringAfter("tel:").isNotEmpty()) {
-            address = Uri.decode(address.substringAfter("tel:"))
-            label += " ($address)"
+fun Context.getSocialActions(id: Int): ArrayList<SocialAction> {
+    val uri = ContactsContract.Data.CONTENT_URI
+    val projection = arrayOf(
+        ContactsContract.Data._ID,
+        ContactsContract.Data.DATA3,
+        ContactsContract.Data.MIMETYPE,
+        ContactsContract.Data.ACCOUNT_TYPE_AND_DATA_SET
+    )
+
+    val socialActions = ArrayList<SocialAction>()
+    var curActionId = 0
+    val selection = "${ContactsContract.Data.RAW_CONTACT_ID} = ?"
+    val selectionArgs = arrayOf(id.toString())
+    queryCursor(uri, projection, selection, selectionArgs, null, true) { cursor ->
+        val mimetype = cursor.getStringValue(ContactsContract.Data.MIMETYPE)
+        val type = when (mimetype) {
+            // WhatsApp
+            "vnd.android.cursor.item/vnd.com.whatsapp.profile" -> SOCIAL_MESSAGE
+            "vnd.android.cursor.item/vnd.com.whatsapp.voip.call" -> SOCIAL_VOICE_CALL
+            "vnd.android.cursor.item/vnd.com.whatsapp.video.call" -> SOCIAL_VIDEO_CALL
+
+            // Viber
+            "vnd.android.cursor.item/vnd.com.viber.voip.viber_number_call" -> SOCIAL_VOICE_CALL
+            "vnd.android.cursor.item/vnd.com.viber.voip.viber_out_call_viber" -> SOCIAL_VOICE_CALL
+            "vnd.android.cursor.item/vnd.com.viber.voip.viber_out_call_none_viber" -> SOCIAL_VOICE_CALL
+            "vnd.android.cursor.item/vnd.com.viber.voip.viber_number_message" -> SOCIAL_MESSAGE
+
+            // Signal
+            "vnd.android.cursor.item/vnd.org.thoughtcrime.securesms.contact" -> SOCIAL_MESSAGE
+            "vnd.android.cursor.item/vnd.org.thoughtcrime.securesms.call" -> SOCIAL_VOICE_CALL
+
+            // Telegram
+            "vnd.android.cursor.item/vnd.org.telegram.messenger.android.call" -> SOCIAL_VOICE_CALL
+            "vnd.android.cursor.item/vnd.org.telegram.messenger.android.call.video" -> SOCIAL_VIDEO_CALL
+            "vnd.android.cursor.item/vnd.org.telegram.messenger.android.profile" -> SOCIAL_MESSAGE
+            else -> return@queryCursor
         }
-        val SIM = SIMAccount(phoneAccount.accountHandle, label)
-        SIMAccounts.add(SIM)
+
+        val label = cursor.getStringValue(ContactsContract.Data.DATA3)
+        val realID = cursor.getLongValue(ContactsContract.Data._ID)
+        val packageName = cursor.getStringValue(ContactsContract.Data.ACCOUNT_TYPE_AND_DATA_SET)
+        val socialAction = SocialAction(curActionId++, type, label, mimetype, realID, packageName)
+        socialActions.add(socialAction)
     }
-    return SIMAccounts
+    return socialActions
+}
+
+fun Context.getPackageDrawable(packageName: String): Drawable? {
+    var drawable: Drawable? = null
+    try {
+        // try getting the properly colored launcher icons
+        val launcher = getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
+        val activityList = launcher.getActivityList(packageName, android.os.Process.myUserHandle())[0]
+        drawable = activityList.getBadgedIcon(0)
+    } catch (ignored: Exception) {
+    }
+
+    if (drawable == null) {
+        try {
+            drawable = packageManager.getApplicationIcon(packageName)
+        } catch (ignored: Exception) {
+        }
+    }
+
+    return drawable
 }

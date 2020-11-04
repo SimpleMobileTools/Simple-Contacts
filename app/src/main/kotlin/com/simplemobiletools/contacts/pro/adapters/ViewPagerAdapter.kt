@@ -3,12 +3,12 @@ package com.simplemobiletools.contacts.pro.adapters
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
+import com.simplemobiletools.commons.helpers.TAB_CONTACTS
+import com.simplemobiletools.commons.helpers.TAB_FAVORITES
+import com.simplemobiletools.commons.helpers.TAB_GROUPS
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
-import com.simplemobiletools.contacts.pro.helpers.CONTACTS_TAB_MASK
-import com.simplemobiletools.contacts.pro.helpers.FAVORITES_TAB_MASK
-import com.simplemobiletools.contacts.pro.helpers.GROUPS_TAB_MASK
 
 class ViewPagerAdapter(val activity: SimpleActivity, val currTabsList: ArrayList<Int>, val showTabs: Int) : PagerAdapter() {
 
@@ -34,15 +34,15 @@ class ViewPagerAdapter(val activity: SimpleActivity, val currTabsList: ArrayList
 
     private fun getFragment(position: Int): Int {
         val fragments = arrayListOf<Int>()
-        if (showTabs and CONTACTS_TAB_MASK != 0) {
+        if (showTabs and TAB_CONTACTS != 0) {
             fragments.add(R.layout.fragment_contacts)
         }
 
-        if (showTabs and FAVORITES_TAB_MASK != 0) {
+        if (showTabs and TAB_FAVORITES != 0) {
             fragments.add(R.layout.fragment_favorites)
         }
 
-        if (showTabs and GROUPS_TAB_MASK != 0) {
+        if (showTabs and TAB_GROUPS != 0) {
             fragments.add(R.layout.fragment_groups)
         }
 

@@ -2,6 +2,9 @@ package com.simplemobiletools.contacts.pro.helpers
 
 import android.provider.ContactsContract.CommonDataKinds
 import com.simplemobiletools.commons.extensions.normalizeString
+import com.simplemobiletools.commons.helpers.TAB_CONTACTS
+import com.simplemobiletools.commons.helpers.TAB_FAVORITES
+import com.simplemobiletools.commons.helpers.TAB_GROUPS
 import com.simplemobiletools.contacts.pro.models.LocalContact
 
 // shared prefs
@@ -9,31 +12,23 @@ const val SHOW_CONTACT_THUMBNAILS = "show_contact_thumbnails"
 const val SHOW_PHONE_NUMBERS = "show_phone_numbers"
 const val SHOW_ONLY_CONTACTS_WITH_NUMBERS = "show_only_contacts_with_numbers"
 const val IGNORED_CONTACT_SOURCES = "ignored_contact_sources_2"
-const val START_NAME_WITH_SURNAME = "start_name_with_surname"
 const val LAST_USED_CONTACT_SOURCE = "last_used_contact_source"
 const val ON_CONTACT_CLICK = "on_contact_click"
 const val SHOW_CONTACT_FIELDS = "show_contact_fields"
 const val SHOW_TABS = "show_tabs"
 const val SHOW_CALL_CONFIRMATION = "show_call_confirmation"
 const val SHOW_DIALPAD_BUTTON = "show_dialpad_button"
-const val SHOW_DIALPAD_LETTERS = "show_dialpad_letters"
 const val SPEED_DIAL = "speed_dial"
 const val LAST_EXPORT_PATH = "last_export_path"
 const val WAS_LOCAL_ACCOUNT_INITIALIZED = "was_local_account_initialized"
-const val REMEMBER_SIM_PREFIX = "remember_sim_"
+const val SHOW_PRIVATE_CONTACTS = "show_private_contacts"
 
-const val CONTACT_ID = "contact_id"
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
-const val IS_PRIVATE = "is_private"
 const val GROUP = "group"
 const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"
 const val ADD_NEW_CONTACT_NUMBER = "add_new_contact_number"
 const val FIRST_CONTACT_ID = 1000000
 const val FIRST_GROUP_ID = 10000L
-
-private const val PATH = "com.simplemobiletools.contacts.action."
-const val ACCEPT_CALL = PATH + "accept_call"
-const val DECLINE_CALL = PATH + "decline_call"
 
 // extras used at third party intents
 const val KEY_NAME = "name"
@@ -46,14 +41,11 @@ const val LOCATION_GROUP_CONTACTS = 2
 const val LOCATION_DIALPAD = 3
 const val LOCATION_INSERT_OR_EDIT = 4
 
-const val CONTACTS_TAB_MASK = 1
-const val FAVORITES_TAB_MASK = 2
-const val GROUPS_TAB_MASK = 8
-const val ALL_TABS_MASK = CONTACTS_TAB_MASK or FAVORITES_TAB_MASK or GROUPS_TAB_MASK
+const val ALL_TABS_MASK = TAB_CONTACTS or TAB_FAVORITES or TAB_GROUPS
 
-val tabsList = arrayListOf(CONTACTS_TAB_MASK,
-    FAVORITES_TAB_MASK,
-    GROUPS_TAB_MASK
+val tabsList = arrayListOf(TAB_CONTACTS,
+    TAB_FAVORITES,
+    TAB_GROUPS
 )
 
 // contact photo changes
@@ -114,6 +106,16 @@ const val DEFAULT_IM_TYPE = CommonDataKinds.Im.PROTOCOL_SKYPE
 const val TELEGRAM_PACKAGE = "org.telegram.messenger"
 const val SIGNAL_PACKAGE = "org.thoughtcrime.securesms"
 const val WHATSAPP_PACKAGE = "com.whatsapp"
+const val VIBER_PACKAGE = "com.viber.voip"
+
+const val WHATSAPP = "whatsapp"
+const val SIGNAL = "signal"
+const val VIBER = "viber"
+const val TELEGRAM = "telegram"
+
+const val SOCIAL_VOICE_CALL = 0
+const val SOCIAL_VIDEO_CALL = 1
+const val SOCIAL_MESSAGE = 2
 
 fun getEmptyLocalContact() = LocalContact(0, "", "", "", "", "", "", null, "", ArrayList(), ArrayList(), ArrayList(), 0, ArrayList(), "", ArrayList(), "", "", ArrayList(), ArrayList())
 

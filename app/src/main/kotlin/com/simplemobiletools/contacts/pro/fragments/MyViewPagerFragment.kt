@@ -8,9 +8,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
-import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
-import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.GroupContactsActivity
 import com.simplemobiletools.contacts.pro.activities.InsertOrEditContactActivity
@@ -81,7 +79,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun textColorChanged(color: Int) {
         when {
             this is GroupsFragment -> (fragment_list.adapter as GroupsAdapter).updateTextColor(color)
-            else -> (fragment_list.adapter as ContactsAdapter).apply {
+            else -> (fragment_list.adapter as? ContactsAdapter)?.apply {
                 updateTextColor(color)
             }
         }
@@ -94,29 +92,21 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         fragment_fastscroller?.updateBubblePrimaryColor()
         letter_fastscroller_thumb?.thumbColor = config.primaryColor.getColorStateList()
         letter_fastscroller_thumb?.textColor = config.primaryColor.getContrastColor()
-
-        (fragment_list.adapter as? ContactsAdapter)?.apply {
-            adjustedPrimaryColor = context.getAdjustedPrimaryColor()
-        }
-
-        (fragment_list.adapter as? GroupsAdapter)?.apply {
-            adjustedPrimaryColor = context.getAdjustedPrimaryColor()
-        }
     }
 
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
         if (this !is GroupsFragment) {
             (fragment_list.adapter as? ContactsAdapter)?.apply {
                 config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
-                (this@MyViewPagerFragment.activity!! as MainActivity).refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+                (this@MyViewPagerFragment.activity!! as MainActivity).refreshContacts(TAB_CONTACTS or TAB_FAVORITES)
             }
         }
     }
 
     fun refreshContacts(contacts: ArrayList<Contact>) {
-        if ((config.showTabs and CONTACTS_TAB_MASK == 0 && this is ContactsFragment && activity !is InsertOrEditContactActivity) ||
-            (config.showTabs and FAVORITES_TAB_MASK == 0 && this is FavoritesFragment) ||
-            (config.showTabs and GROUPS_TAB_MASK == 0 && this is GroupsFragment)) {
+        if ((config.showTabs and TAB_CONTACTS == 0 && this is ContactsFragment && activity !is InsertOrEditContactActivity) ||
+            (config.showTabs and TAB_FAVORITES == 0 && this is FavoritesFragment) ||
+            (config.showTabs and TAB_GROUPS == 0 && this is GroupsFragment)) {
             return
         }
 
@@ -172,7 +162,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 }
             }
 
-            storedGroups = storedGroups.asSequence().sortedWith(compareBy { it.title.normalizeString() }).toMutableList() as ArrayList<Group>
+            storedGroups = storedGroups.asSequence().sortedWith(compareBy { it.title.toLowerCase().normalizeString() }).toMutableList() as ArrayList<Group>
 
             fragment_placeholder_2.beVisibleIf(storedGroups.isEmpty())
             fragment_placeholder.beVisibleIf(storedGroups.isEmpty())
@@ -296,11 +286,13 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         val adapter = fragment_list.adapter
         if (adapter is ContactsAdapter) {
             val shouldNormalize = text.normalizeString() == text
-            val convertLetters = config.showDialpadLetters
             val filtered = contactsIgnoringSearch.filter {
                 getProperText(it.getNameToDisplay(), shouldNormalize).contains(text, true) ||
                         getProperText(it.nickname, shouldNormalize).contains(text, true) ||
-                        it.doesContainPhoneNumber(text, convertLetters) ||
+                        it.phoneNumbers.any {
+                            text.normalizePhoneNumber().isNotEmpty() && (it.normalizedNumber
+                                ?: it.value).contains(text.normalizePhoneNumber(), true)
+                        } ||
                         it.emails.any { it.value.contains(text, true) } ||
                         it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
                         it.IMs.any { it.value.contains(text, true) } ||
@@ -359,7 +351,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     private fun updateViewStuff() {
         context.updateTextColors(fragment_wrapper.parent as ViewGroup)
         fragment_fastscroller?.updateBubbleColors()
-        fragment_fastscroller?.allowBubbleDisplay = true
         fragment_placeholder_2?.setTextColor(context.getAdjustedPrimaryColor())
         letter_fastscroller_thumb?.fontSize = context.getTextSize()
     }

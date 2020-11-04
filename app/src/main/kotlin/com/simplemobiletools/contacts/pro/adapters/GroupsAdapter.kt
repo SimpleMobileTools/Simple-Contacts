@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.getTextSize
 import com.simplemobiletools.commons.extensions.highlightTextPart
 import com.simplemobiletools.commons.helpers.SimpleContactsHelper
+import com.simplemobiletools.commons.helpers.TAB_GROUPS
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -20,7 +20,6 @@ import com.simplemobiletools.contacts.pro.dialogs.RenameGroupDialog
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.groupsDB
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
-import com.simplemobiletools.contacts.pro.helpers.GROUPS_TAB_MASK
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.models.Group
 import kotlinx.android.synthetic.main.item_group.view.*
@@ -30,8 +29,6 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
                     fastScroller: FastScroller, itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private var textToHighlight = ""
-
-    var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
     var showContactThumbnails = activity.config.showContactThumbnails
     var fontSize = activity.getTextSize()
 
@@ -102,7 +99,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
         val group = getItemWithKey(selectedKeys.first()) ?: return
         RenameGroupDialog(activity, group) {
             finishActMode()
-            refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+            refreshListener?.refreshContacts(TAB_GROUPS)
         }
     }
 
@@ -143,7 +140,7 @@ class GroupsAdapter(activity: SimpleActivity, var groups: ArrayList<Group>, val 
 
         activity.runOnUiThread {
             if (groups.isEmpty()) {
-                refreshListener?.refreshContacts(GROUPS_TAB_MASK)
+                refreshListener?.refreshContacts(TAB_GROUPS)
                 finishActMode()
             } else {
                 removeSelectedItems(positions)

@@ -1,10 +1,9 @@
 <resources>
-    <string name="app_name">简约通讯录</string>
-    <string name="app_launcher_name">简约通讯录</string>
+    <string name="app_name">简易通讯录</string>
+    <string name="app_launcher_name">通讯录</string>
     <string name="address">地址</string>
     <string name="inserting">添加中…</string>
     <string name="updating">更新中…</string>
-    <string name="phone_storage">手机空间</string>
     <string name="phone_storage_hidden">手机空间 (其他程序不可见)</string>
     <string name="company">公司</string>
     <string name="job_position">职位</string>
@@ -16,11 +15,6 @@
     <string name="call_person">打电话给 %s</string>
     <string name="create_new_contact">建立新联系人</string>
     <string name="add_to_existing_contact">添加至已存在的联系人</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">未发现含有电子邮箱的联系人</string>
@@ -29,10 +23,6 @@
     <string name="new_contact">新联系人</string>
     <string name="edit_contact">编辑联系人</string>
     <string name="select_contact">选择联系人</string>
-    <string name="select_contacts">选择联系人</string>
-    <string name="first_name">名字</string>
-    <string name="middle_name">中间名</string>
-    <string name="surname">姓氏</string>
     <string name="nickname">昵称</string>
 
     <!-- Groups -->
@@ -52,24 +42,21 @@
     <string name="remove_photo">移除照片</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">姓氏在前</string>
     <string name="show_phone_numbers">主页面显示电话号码</string>
     <string name="show_contact_thumbnails">显示联系人缩图</string>
     <string name="show_dialpad_button">在主页面显示拨号按钮</string>
     <string name="on_contact_click">点击联系人</string>
     <string name="call_contact">打电话给联系人</string>
     <string name="view_contact">显示联系人资料</string>
-    <string name="manage_shown_contact_fields">管理显示的联系人栏位</string>
-    <string name="filter_duplicates">试着过滤重复的联系人</string>
+    <string name="manage_shown_contact_fields">管理显示的联系人字段</string>
     <string name="manage_shown_tabs">管理显示的页面</string>
     <string name="contacts">联系人</string>
     <string name="show_call_confirmation_dialog">开始通话前显示通话确认框</string>
     <string name="show_only_contacts_with_numbers">只显示含有电话话码的联系人</string>
-    <string name="show_dialpad_letters">在拨号界面上显示字母</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">显示私密联系人给简易拨号器和简易短信</string>
 
     <!-- Emails -->
-    <string name="home">住家</string>
+    <string name="home">家庭</string>
     <string name="work">工作</string>
     <string name="other">其它</string>
 
@@ -77,7 +64,7 @@
     <string name="mobile">手机</string>
     <string name="main_number">主用</string>
     <string name="work_fax">工作传真</string>
-    <string name="home_fax">住家传真</string>
+    <string name="home_fax">家庭传真</string>
     <string name="pager">呼叫器</string>
     <string name="no_phone_number_found">未发现电话号码</string>
 
@@ -86,13 +73,12 @@
     <string name="anniversary">纪念日</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">你似乎还没加入任何我的收藏联系人。</string>
-    <string name="must_be_at_edit">你必须在编辑页面去修改联系人</string>
+    <string name="no_favorites">您似乎还没加入任何我的收藏联系人。</string>
 
     <!-- Search -->
     <string name="search_contacts">搜索联系人</string>
     <string name="search_favorites">搜索我的收藏</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">搜索群组</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">导入联系人</string>
@@ -107,26 +93,7 @@
     <string name="dialpad">拨号界面</string>
     <string name="add_number_to_contact">添加号码至通讯录</string>
 
-    <!-- Dialer -->
-    <string name="dialer">拨号器</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">选择要显示的栏位</string>
     <string name="prefix">前缀</string>
     <string name="suffix">后缀</string>
     <string name="phone_numbers">电话号码</string>
@@ -140,55 +107,55 @@
     <string name="instant_messaging">即时通讯 (IM)</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_from_all_sources">该联系人将会被从所有联系人来源移除。</string>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d 群组</item>
+        <item quantity="other">%d 群组</item>
     </plurals>
 
     <!-- FAQ -->
-    <string name="faq_1_title">我想要更改在通讯录会看到哪些栏位。我能这么做吗?</string>
-    <string name="faq_1_text">可以，你要做的是到[设置] -> [管理显示的联系人栏位]。在那里，你可以选择应该看到什么栏位。其中有些甚至默认是关闭的，所以你可能会在那里发现一些新的。</string>
+    <string name="faq_1_title">我想要更改在通讯录会看到哪些字段。我能这么做吗?</string>
+    <string name="faq_1_text">可以，您要做的是到[设置] -> [管理显示的联系人字段]。在那里，您可以选择应该看到什么字段。其中有些甚至默认是关闭的，所以您可能会在那里发现一些新的。</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">简易通讯录 Pro - 轻松管理您的联系人</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
+    <string name="app_short_description">简单快速无广告的联系人管理，亦可处理群组和收藏。</string>
     <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
+        得到百万人喜爱的轻量级联系人管理应用。联系人可以仅保存在您的设备上，但也可以通过 Google 或者其他账户同步。
 
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+        您也可以使用它管理用户电子邮件地址和活动。它具备依据多个参数进行排序和过滤的能力，也可选将姓氏显示在前。
 
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+        您可以在一个分开的列表显示您收藏的联系人或者群组。群组可以被用来批量发送电子邮件或者短信，为节省时间，您也可以轻易将其重命名。
 
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+        它具备呼叫或者短信您联系的便捷按钮。所有可见的字段均可以依据您的意愿自定义，当然也可以轻易的隐藏不使用的。搜索功能会在联系人的全部可见字段搜索指定的字符串，使您便捷的找到所需的联系人。
 
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
+        同时具备一个轻量级的拨号盘，具备智能联系人推荐功能。
 
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+        它支持将 vCard 格式导出和导入为 .vcf 文件，方便您迁移或者备份您的数据。
 
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+        借助此现代化且稳定的联系人管理器，您可以保护您的通讯录不被其他应用共用，从而保持您的通讯录私密性。
 
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+        如同联系人来源，您可以轻松的更改联系人名字、电子邮件、电话号码、地址、组织、群组和许多其他自定义字段。您也可以使用它来保存联系人活动，比如生日、纪念日或者其他任何自定义的类型。
 
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+        此款简易联系人编辑器包含许多便捷的设定，诸如在主屏幕显示电话号码、切换联系人缩略图可见性、仅显示包含电话号码的联系人和在发起呼叫前显示确认对话框。它还包括一个使用字母的快速拨号器。
 
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+        为了更好的提升用户体验，您可以自定义点击联系人时的行为。您可以发起呼叫、前往详情查看页面或者编辑选定的联系人。
 
-        You can easily block phone numbers to avoid unwanted incoming calls.
+        您可以阻止某个电话号码来避免不需要的呼入来电。
 
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+        为了避免显示可能不想要的联系人，它内建有一个重复联系人合并工具。
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        它遵循质感设计且默认应用黑暗模式，提供便于使用的极佳的用户体验。相对于其他应用，不包含互联网访问给予您更佳的隐私、保密性和稳定性。
 
-        不包含广告及非必要的权限，而且完全开放源代码，并提供自定义颜色。
+        不包含广告和不必要的权限。它完全开放源代码，提供可自定义的颜色。
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>于此查看简易工具系列全套:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple Contacts Pro:</b>
+        <b>简易通讯录 Pro 的独立网站:</b>
         https://www.simplemobiletools.com/contacts
 
         <b>Facebook:</b>

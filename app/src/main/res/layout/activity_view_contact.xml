@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contact_wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,32 +10,36 @@
         android:id="@+id/contact_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scrollbars="none"
         android:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/contact_holder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/normal_margin"
-            android:paddingTop="@dimen/activity_margin"
-            android:paddingRight="@dimen/normal_margin"
-            android:paddingBottom="@dimen/medium_margin">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/contact_photo"
-                android:layout_width="@dimen/contact_photo_size"
-                android:layout_height="@dimen/contact_photo_size"
-                android:layout_marginBottom="@dimen/normal_margin" />
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/top_contact_image_height"
+                android:layout_marginBottom="@dimen/normal_margin"
+                tools:src="@drawable/ic_person_vector" />
+
+            <ImageView
+                android:id="@+id/contact_photo_bottom_shadow"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/top_shadow_height"
+                android:layout_alignBottom="@+id/contact_photo"
+                android:background="@drawable/gradient_background"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/contact_toggle_favorite"
                 android:layout_width="@dimen/contact_actions_size"
                 android:layout_height="@dimen/contact_actions_size"
-                android:layout_alignTop="@+id/contact_photo"
+                android:layout_alignStart="@+id/contact_photo"
                 android:layout_alignBottom="@id/contact_photo"
-                android:layout_marginStart="@dimen/medium_margin"
-                android:layout_toEndOf="@+id/contact_photo"
-                android:adjustViewBounds="true"
+                android:layout_margin="@dimen/medium_margin"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="@dimen/tiny_margin"
                 android:src="@drawable/ic_star_off_vector"
@@ -41,11 +47,13 @@
 
             <LinearLayout
                 android:id="@+id/contact_actions_holder"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/contact_photo"
+                android:layout_alignEnd="@+id/contact_photo"
                 android:layout_alignBottom="@id/contact_photo"
-                android:gravity="center_vertical|end">
+                android:gravity="bottom|end"
+                android:paddingEnd="@dimen/medium_margin"
+                android:paddingBottom="@dimen/medium_margin">
 
                 <ImageView
                     android:id="@+id/contact_send_email"
@@ -53,8 +61,8 @@
                     android:layout_height="@dimen/contact_actions_size"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:paddingLeft="@dimen/small_margin"
-                    android:paddingRight="@dimen/small_margin"
+                    android:paddingStart="@dimen/small_margin"
+                    android:paddingEnd="@dimen/small_margin"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_email_vector" />
 
@@ -65,8 +73,8 @@
                     android:layout_marginStart="@dimen/normal_margin"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:paddingLeft="@dimen/small_margin"
-                    android:paddingRight="@dimen/small_margin"
+                    android:paddingStart="@dimen/small_margin"
+                    android:paddingEnd="@dimen/small_margin"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_phone_vector" />
 
@@ -77,8 +85,8 @@
                     android:layout_marginStart="@dimen/normal_margin"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:paddingLeft="@dimen/small_margin"
-                    android:paddingRight="@dimen/small_margin"
+                    android:paddingStart="@dimen/small_margin"
+                    android:paddingEnd="@dimen/small_margin"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_sms_vector" />
 
@@ -89,6 +97,7 @@
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
                 android:layout_below="@+id/contact_photo"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
@@ -106,6 +115,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/small_margin"
                 android:paddingTop="@dimen/normal_margin"
+                android:paddingEnd="@dimen/normal_margin"
                 android:paddingBottom="@dimen/normal_margin"
                 android:singleLine="true"
                 android:textSize="@dimen/bigger_text_size" />
@@ -122,6 +132,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/small_margin"
                 android:paddingTop="@dimen/normal_margin"
+                android:paddingEnd="@dimen/normal_margin"
                 android:paddingBottom="@dimen/normal_margin"
                 android:singleLine="true"
                 android:textSize="@dimen/bigger_text_size" />
@@ -138,6 +149,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/small_margin"
                 android:paddingTop="@dimen/normal_margin"
+                android:paddingEnd="@dimen/normal_margin"
                 android:paddingBottom="@dimen/normal_margin"
                 android:singleLine="true"
                 android:textSize="@dimen/bigger_text_size" />
@@ -154,6 +166,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/small_margin"
                 android:paddingTop="@dimen/normal_margin"
+                android:paddingEnd="@dimen/normal_margin"
                 android:paddingBottom="@dimen/normal_margin"
                 android:singleLine="true"
                 android:textSize="@dimen/bigger_text_size" />
@@ -170,6 +183,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/small_margin"
                 android:paddingTop="@dimen/normal_margin"
+                android:paddingEnd="@dimen/normal_margin"
                 android:paddingBottom="@dimen/normal_margin"
                 android:singleLine="true"
                 android:textSize="@dimen/bigger_text_size" />
@@ -186,6 +200,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/small_margin"
                 android:paddingTop="@dimen/normal_margin"
+                android:paddingEnd="@dimen/normal_margin"
                 android:paddingBottom="@dimen/normal_margin"
                 android:singleLine="true"
                 android:textSize="@dimen/bigger_text_size" />
@@ -195,6 +210,7 @@
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
                 android:layout_alignTop="@+id/contact_numbers_holder"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
@@ -206,6 +222,7 @@
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
                 android:layout_alignTop="@+id/contact_emails_holder"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
@@ -217,6 +234,7 @@
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
                 android:layout_alignTop="@+id/contact_addresses_holder"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
@@ -228,6 +246,7 @@
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
                 android:layout_alignTop="@+id/contact_ims_holder"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
@@ -239,6 +258,7 @@
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
                 android:layout_alignTop="@+id/contact_events_holder"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
@@ -250,6 +270,7 @@
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
                 android:layout_alignTop="@+id/contact_notes"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
@@ -261,6 +282,7 @@
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
                 android:layout_alignTop="@+id/contact_organization_company"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
@@ -272,6 +294,7 @@
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
                 android:layout_alignTop="@+id/contact_websites_holder"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
@@ -283,6 +306,7 @@
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
                 android:layout_alignTop="@+id/contact_groups_holder"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
@@ -294,6 +318,7 @@
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
                 android:layout_alignTop="@+id/contact_sources_holder"
+                android:layout_marginStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
@@ -307,7 +332,6 @@
                 android:layout_below="@+id/contact_nickname"
                 android:layout_toEndOf="@+id/contact_numbers_image"
                 android:orientation="vertical"
-                android:paddingStart="@dimen/small_margin"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -317,7 +341,6 @@
                 android:layout_below="@+id/contact_numbers_holder"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:orientation="vertical"
-                android:paddingStart="@dimen/small_margin"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -327,7 +350,6 @@
                 android:layout_below="@+id/contact_emails_holder"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:orientation="vertical"
-                android:paddingStart="@dimen/small_margin"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -337,7 +359,6 @@
                 android:layout_below="@+id/contact_addresses_holder"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:orientation="vertical"
-                android:paddingStart="@dimen/small_margin"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -365,7 +386,6 @@
                 android:layout_below="@+id/contact_websites_holder"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:orientation="vertical"
-                android:paddingStart="@dimen/small_margin"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -375,7 +395,6 @@
                 android:layout_below="@+id/contact_groups_holder"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:orientation="vertical"
-                android:paddingStart="@dimen/small_margin"
                 android:visibility="gone" />
 
             <com.simplemobiletools.commons.views.MyTextView
@@ -427,15 +446,28 @@
     </ScrollView>
 
     <ImageView
-        android:id="@+id/contact_photo_big"
+        android:id="@+id/contact_photo_top_shadow"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0"
-        android:background="#88000000"
-        android:clickable="true"
-        android:padding="@dimen/activity_margin"
-        android:scaleType="fitCenter"
-        android:src="@drawable/img_write_storage"
-        android:visibility="gone" />
+        android:layout_height="@dimen/top_shadow_height"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/gradient_background_flipped"
+        android:contentDescription="@null" />
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/contact_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/contact_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/menu_view_contact"
+            app:navigationIcon="@drawable/ic_arrow_left_vector" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 </RelativeLayout>

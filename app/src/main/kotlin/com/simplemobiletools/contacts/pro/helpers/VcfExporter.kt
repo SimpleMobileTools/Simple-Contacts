@@ -5,11 +5,11 @@ import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.CommonDataKinds.*
 import android.provider.MediaStore
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
+import com.simplemobiletools.commons.extensions.getDateTimeFromDateString
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.getByteArray
-import com.simplemobiletools.contacts.pro.extensions.getDateTimeFromDateString
 import com.simplemobiletools.contacts.pro.helpers.VcfExporter.ExportResult.EXPORT_FAIL
 import com.simplemobiletools.contacts.pro.models.Contact
 import ezvcard.Ezvcard

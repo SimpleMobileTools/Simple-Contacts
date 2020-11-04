@@ -4,7 +4,6 @@
     <string name="address">Адреса</string>
     <string name="inserting">Триває додавання…</string>
     <string name="updating">Триває оновлення…</string>
-    <string name="phone_storage">Пам\'ять пристрою</string>
     <string name="phone_storage_hidden">Пам\'ять пристрою (прихована від інших додатків)</string>
     <string name="company">Компанія</string>
     <string name="job_position">Посада</string>
@@ -16,11 +15,6 @@
     <string name="call_person">Телефонувати %s</string>
     <string name="create_new_contact">Створити новий контакт</string>
     <string name="add_to_existing_contact">Додати до існуючого контакту</string>
-    <string name="dialer_moved">
-        <![CDATA[
-            The part of the app responsible for Call handling had to be moved into a separate new app Simple Dialer, please download it on <a href="https://play.google.com/store/apps/details?id=com.simplemobiletools.dialer">this link.</a> Thanks!
-        ]]>
-    </string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Не знайдено контактів з електронною поштою</string>
@@ -29,10 +23,6 @@
     <string name="new_contact">Новий контакт</string>
     <string name="edit_contact">Редагувати контакт</string>
     <string name="select_contact">Обрати контакт</string>
-    <string name="select_contacts">Обрати контакти</string>
-    <string name="first_name">Ім\'я</string>
-    <string name="middle_name">По-батькові</string>
-    <string name="surname">Прізвище</string>
     <string name="nickname">Прізвисько</string>
 
     <!-- Groups -->
@@ -52,7 +42,6 @@
     <string name="remove_photo">Видалити фото</string>
 
     <!-- Settings -->
-    <string name="start_name_with_surname">Показувати спочатку прізвище</string>
     <string name="show_phone_numbers">Показувати телефонні номери у списку контактів</string>
     <string name="show_contact_thumbnails">Показувати фото контакту</string>
     <string name="show_dialpad_button">Показувати панель набору номерів на головному екрані</string>
@@ -60,13 +49,11 @@
     <string name="call_contact">Телефонувати контакту</string>
     <string name="view_contact">Переглянути деталі контакту</string>
     <string name="manage_shown_contact_fields">Керування полями контактів, що відображаються</string>
-    <string name="filter_duplicates">Фільтрувати контакти, що дублюються</string>
     <string name="manage_shown_tabs">Керування вкладками, що відображаються</string>
     <string name="contacts">Контакти</string>
     <string name="show_call_confirmation_dialog">Показувати діалог підтвердження виклику</string>
     <string name="show_only_contacts_with_numbers">Показувати лише контакти з телефонними номерами</string>
-    <string name="show_dialpad_letters">Показувати літери на панелі набору</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer and Simple SMS Messenger</string>
+    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
     <!-- Emails -->
     <string name="home">Домашній</string>
@@ -87,7 +74,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Здається, ви ще не додали улюблені контакти.</string>
-    <string name="must_be_at_edit">Для того, щоб змінити контакт, необхідно відкрити меню редагування</string>
 
     <!-- Search -->
     <string name="search_contacts">Пошук контактів</string>
@@ -107,26 +93,7 @@
     <string name="dialpad">Панель набору</string>
     <string name="add_number_to_contact">Додати номер до контакту</string>
 
-    <!-- Dialer -->
-    <string name="dialer">Набір номера</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
-    <string name="unknown_caller">Unknown Caller</string>
-    <string name="is_calling">Is Calling…</string>
-    <string name="dialing">Dialing…</string>
-    <string name="call_ended">Call Ended</string>
-    <string name="call_ending">Call Ending</string>
-    <string name="ongoing_call">Ongoing Call</string>
-    <string name="select_sim">Select a SIM for this call</string>
-    <string name="always_use_this_sim">Always use this SIM for this number</string>
-
-    <!-- Speed dial -->
-    <string name="speed_dial">Speed dial</string>
-    <string name="manage_speed_dial">Manage speed dial</string>
-    <string name="speed_dial_label">Click on a number to assign a contact to it. You can then quickly call the given contact by long pressing the given number at the dialer.</string>
-
     <!-- Visible fields -->
-    <string name="select_fields_to_show">Обрати поля контактних даних</string>
     <string name="prefix">Префікс</string>
     <string name="suffix">Суфікс</string>
     <string name="phone_numbers">Телефонні номери</string>

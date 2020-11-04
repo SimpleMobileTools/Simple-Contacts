@@ -6,7 +6,6 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ShortcutInfo
-import android.content.pm.ShortcutManager
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
@@ -35,8 +34,10 @@ import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getTempFile
 import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
-import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.helpers.ALL_TABS_MASK
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
+import com.simplemobiletools.contacts.pro.helpers.VcfExporter
+import com.simplemobiletools.contacts.pro.helpers.tabsList
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
@@ -57,7 +58,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isFirstResume = true
     private var isGettingContacts = false
     private var ignoredExportContactSources = HashSet<String>()
-    private var handledShowTabs = 0
 
     private var storedTextColor = 0
     private var storedBackgroundColor = 0
@@ -73,9 +73,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
 
+        storeStateVariables()
         setupTabColors()
         checkContactPermissions()
-        storeStateVariables()
         checkWhatsNewDialog()
     }
 
@@ -172,17 +172,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         isFirstResume = false
         checkShortcuts()
-        invalidateOptionsMenu()
     }
 
     override fun onPause() {
         super.onPause()
         storeStateVariables()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        searchMenuItem?.collapseActionView()
     }
 
     override fun onDestroy() {
@@ -228,8 +222,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (requestCode == PICK_IMPORT_SOURCE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
             tryImportContactsFromFile(resultData.data!!)
         } else if (requestCode == PICK_EXPORT_FILE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
-            val outputStream = contentResolver.openOutputStream(resultData.data!!)
-            exportContactsTo(ignoredExportContactSources, outputStream)
+            try {
+                val outputStream = contentResolver.openOutputStream(resultData.data!!)
+                exportContactsTo(ignoredExportContactSources, outputStream)
+            } catch (e: Exception) {
+                showErrorToast(e)
+            }
         }
     }
 
@@ -294,33 +292,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun checkShortcuts() {
         val appIconColor = config.appIconColor
         if (isNougatMR1Plus() && config.lastHandledShortcutColor != appIconColor) {
-            val launchDialpad = getLaunchDialpadShortcut(appIconColor)
             val createNewContact = getCreateNewContactShortcut(appIconColor)
 
-            val manager = getSystemService(ShortcutManager::class.java)
             try {
-                manager.dynamicShortcuts = Arrays.asList(launchDialpad, createNewContact)
+                shortcutManager.dynamicShortcuts = Arrays.asList(createNewContact)
                 config.lastHandledShortcutColor = appIconColor
             } catch (ignored: Exception) {
             }
         }
-    }
-
-    @SuppressLint("NewApi")
-    private fun getLaunchDialpadShortcut(appIconColor: Int): ShortcutInfo {
-        val newEvent = getString(R.string.dialpad)
-        val drawable = resources.getDrawable(R.drawable.shortcut_dialpad)
-        (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_dialpad_background).applyColorFilter(appIconColor)
-        val bmp = drawable.convertToBitmap()
-
-        val intent = Intent(this, DialpadActivity::class.java)
-        intent.action = Intent.ACTION_VIEW
-        return ShortcutInfo.Builder(this, "launch_dialpad")
-            .setShortLabel(newEvent)
-            .setLongLabel(newEvent)
-            .setIcon(Icon.createWithBitmap(bmp))
-            .setIntent(intent)
-            .build()
     }
 
     @SuppressLint("NewApi")
@@ -343,15 +322,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun getCurrentFragment(): MyViewPagerFragment? {
         val showTabs = config.showTabs
         val fragments = arrayListOf<MyViewPagerFragment>()
-        if (showTabs and CONTACTS_TAB_MASK != 0) {
+        if (showTabs and TAB_CONTACTS != 0) {
             fragments.add(contacts_fragment)
         }
 
-        if (showTabs and FAVORITES_TAB_MASK != 0) {
+        if (showTabs and TAB_FAVORITES != 0) {
             fragments.add(favorites_fragment)
         }
 
-        if (showTabs and GROUPS_TAB_MASK != 0) {
+        if (showTabs and TAB_GROUPS != 0) {
             fragments.add(groups_fragment)
         }
 
@@ -359,8 +338,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun setupTabColors() {
-        handledShowTabs = config.showTabs
-        val lastUsedPage = config.lastUsedViewPagerPage
+        val lastUsedPage = getDefaultTab()
         main_tabs_holder.apply {
             background = ColorDrawable(config.backgroundColor)
             setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
@@ -426,14 +404,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 skippedTabs++
             } else {
                 val tab = main_tabs_holder.newTab().setIcon(getTabIcon(index))
-                main_tabs_holder.addTab(tab, index - skippedTabs, config.lastUsedViewPagerPage == index - skippedTabs)
+                main_tabs_holder.addTab(tab, index - skippedTabs, getDefaultTab() == index - skippedTabs)
             }
         }
 
         // selecting the proper tab sometimes glitches, add an extra selector to make sure we have it right
         main_tabs_holder.onGlobalLayout {
             Handler().postDelayed({
-                main_tabs_holder.getTabAt(config.lastUsedViewPagerPage)?.select()
+                main_tabs_holder.getTabAt(getDefaultTab())?.select()
                 invalidateOptionsMenu()
             }, 100L)
         }
@@ -447,20 +425,25 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this) {
-            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+            refreshContacts(TAB_CONTACTS or TAB_FAVORITES)
         }
     }
 
     fun showFilterDialog() {
         FilterContactSourcesDialog(this) {
             contacts_fragment?.forceListRedraw = true
-            refreshContacts(CONTACTS_TAB_MASK or FAVORITES_TAB_MASK)
+            refreshContacts(TAB_CONTACTS or TAB_FAVORITES)
         }
     }
 
     private fun launchDialpad() {
-        val intent = Intent(applicationContext, DialpadActivity::class.java)
-        startActivity(intent)
+        Intent(Intent.ACTION_DIAL).apply {
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
+            }
+        }
     }
 
     private fun tryImportContacts() {
@@ -567,14 +550,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             FAQItem(R.string.faq_1_title, R.string.faq_1_text),
             FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
             FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons),
-            FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons)
+            FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons),
+            FAQItem(R.string.faq_9_title_commons, R.string.faq_9_text_commons)
         )
 
         startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
     }
 
     override fun refreshContacts(refreshTabsMask: Int) {
-        if (isDestroyed || isFinishing || isGettingContacts) {
+        if (isDestroyed || isFinishing || isGettingContacts || isSearchOpen) {
             return
         }
 
@@ -582,7 +566,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         if (viewpager.adapter == null) {
             viewpager.adapter = ViewPagerAdapter(this, tabsList, config.showTabs)
-            viewpager.currentItem = config.lastUsedViewPagerPage
+            viewpager.currentItem = getDefaultTab()
         }
 
         ContactsHelper(this).getContacts { contacts ->
@@ -591,16 +575,16 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 return@getContacts
             }
 
-            if (refreshTabsMask and CONTACTS_TAB_MASK != 0) {
+            if (refreshTabsMask and TAB_CONTACTS != 0) {
                 contacts_fragment?.refreshContacts(contacts)
             }
 
-            if (refreshTabsMask and FAVORITES_TAB_MASK != 0) {
+            if (refreshTabsMask and TAB_FAVORITES != 0) {
                 favorites_fragment?.refreshContacts(contacts)
             }
 
-            if (refreshTabsMask and GROUPS_TAB_MASK != 0) {
-                if (refreshTabsMask == GROUPS_TAB_MASK) {
+            if (refreshTabsMask and TAB_GROUPS != 0) {
+                if (refreshTabsMask == TAB_GROUPS) {
                     groups_fragment.skipHashComparing = true
                 }
                 groups_fragment?.refreshContacts(contacts)
@@ -613,6 +597,22 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, groups_fragment)
+
+    private fun getDefaultTab(): Int {
+        val showTabsMask = config.showTabs
+        return when (config.defaultTab) {
+            TAB_LAST_USED -> config.lastUsedViewPagerPage
+            TAB_CONTACTS -> 0
+            TAB_FAVORITES -> if (showTabsMask and TAB_CONTACTS > 0) 1 else 0
+            else -> {
+                if (showTabsMask and TAB_CONTACTS > 0) {
+                    if (showTabsMask and TAB_FAVORITES > 0) 2 else 1
+                } else {
+                    0
+                }
+            }
+        }
+    }
 
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {

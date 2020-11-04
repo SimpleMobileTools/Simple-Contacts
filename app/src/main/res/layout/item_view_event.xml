@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
+    android:paddingStart="@dimen/small_margin"
     android:paddingTop="@dimen/normal_margin"
+    android:paddingEnd="@dimen/normal_margin"
     android:paddingBottom="@dimen/normal_margin">
 
     <com.simplemobiletools.commons.views.MyTextView
@@ -27,8 +29,8 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:paddingLeft="@dimen/medium_margin"
-        android:paddingRight="@dimen/medium_margin"
+        android:paddingStart="@dimen/medium_margin"
+        android:paddingEnd="@dimen/medium_margin"
         android:text="@string/home"
         android:textSize="@dimen/bigger_text_size" />
 

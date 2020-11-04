@@ -4,8 +4,10 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.provider.ContactsContract.CommonDataKinds.Event
 import android.provider.MediaStore
 import com.simplemobiletools.commons.extensions.getChoppedList
+import com.simplemobiletools.commons.models.SimpleContact
 import com.simplemobiletools.contacts.pro.extensions.contactsDB
 import com.simplemobiletools.contacts.pro.extensions.getByteArray
 import com.simplemobiletools.contacts.pro.extensions.getEmptyContact
@@ -16,8 +18,8 @@ import com.simplemobiletools.contacts.pro.models.LocalContact
 import com.simplemobiletools.contacts.pro.models.Organization
 
 class LocalContactsHelper(val context: Context) {
-    fun getAllContacts(): ArrayList<Contact> {
-        val contacts = context.contactsDB.getContacts()
+    fun getAllContacts(favoritesOnly: Boolean = false): ArrayList<Contact> {
+        val contacts = if (favoritesOnly) context.contactsDB.getFavoriteContacts() else context.contactsDB.getContacts()
         val storedGroups = ContactsHelper(context).getStoredGroupsSync()
         return contacts.map { convertLocalContactToContact(it, storedGroups) }.toMutableList() as ArrayList<Contact>
     }
@@ -104,7 +106,6 @@ class LocalContactsHelper(val context: Context) {
             surname = localContact.surname
             suffix = localContact.suffix
             nickname = localContact.nickname
-            photoUri = ""
             phoneNumbers = localContact.phoneNumbers
             emails = localContact.emails
             addresses = localContact.addresses
@@ -152,4 +153,17 @@ class LocalContactsHelper(val context: Context) {
             IMs = contact.IMs
         }
     }
+
+    private fun convertContactToSimpleContact(contact: Contact?): SimpleContact? {
+        return if (contact == null || contact.phoneNumbers.isEmpty()) {
+            null
+        } else {
+            val phoneNumbers = contact.phoneNumbers.map { it.value }.toMutableList() as ArrayList<String>
+            val birthdays = contact.events.filter { it.type == Event.TYPE_BIRTHDAY }.map { it.value }.toMutableList() as ArrayList<String>
+            val anniversaries = contact.events.filter { it.type == Event.TYPE_ANNIVERSARY }.map { it.value }.toMutableList() as ArrayList<String>
+            SimpleContact(contact.id, contact.id, contact.getNameToDisplay(), contact.photoUri, phoneNumbers, birthdays, anniversaries)
+        }
+    }
+
+    fun getPrivateSimpleContactsSync(favoritesOnly: Boolean) = getAllContacts(favoritesOnly).mapNotNull { convertContactToSimpleContact(it) }
 }
