@@ -53,7 +53,7 @@
     <string name="contacts">Contactos</string>
     <string name="show_call_confirmation_dialog">Mostrar un cuadro de confirmación antes de iniciar una llamada</string>
     <string name="show_only_contacts_with_numbers">Solo mostrar contactos con números telefónicos</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
+    <string name="show_private_contacts">Mostrar contactos privados a Marcador Simple, Mensajería SMS Simple y Calendario Simple Pro</string>
 
     <!-- Emails -->
     <string name="home">Casa</string>
@@ -115,7 +115,7 @@
     </plurals>
 
     <!-- FAQ -->
-    <string name="faq_1_title">Quiero cambiar qué acmpos son visibles en loos contactos. ¿Puedo hacerlo?</string>
+    <string name="faq_1_title">Quiero cambiar qué campos son visibles en los contactos. ¿Puedo hacerlo?</string>
     <string name="faq_1_text">Sí, todo lo que tienes que hacer es ir a Ajustes -> Administrar campos del contacto mostrados. Ahí puedes seleccionar que campos deberían ser visibles. Algunos de ellos están desactivados por defecto, así que podrías encontrar algunos nuevos ahí.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
@@ -124,35 +124,35 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">La mejor app de gestión de contactos con soporte de la función de grupos</string>
     <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
+        Una ligera aplicación para administrar tus contactos amada por millones. Los contactos pueden ser almacenados únicamente en tu dispositivo, per otambién sincronizarlos vía Google u otras cuentas.
 
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+        Puedes usarla para administrar correos electrónicos de usuarios y eventos también. Tiene la habilidad de ordenar/filtrar por múltiples parámetros y, opcionalmente, mostrar el apellido como el nombre.
 
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+        Puedes mostrar tus contáctos favoritos o grupos en listas separadas. Los grupos pueden ser usados para enviar correos electrónicos o SMS por lotes, para ahorrate algo de tiempo, y puedes renombrarlos fácilmente.
 
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+        Contiene prácticos botones para llamar o mensajear a tus contactos. Todos los campos visibles pueden ser personalizados a tu gusto, y fácilmente puedes ocultar los que no uses. La función de búsqueda buscará el texto dado en cada campo de contacto visible, para hacer más fácil encontrar el contacto deseado.
 
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
+        También tiene un ligero teclado de marcado a tu servicio, con sugerencias de contactos inteligentes.
 
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+        Soporta exportar/importar contactos en formato vCard a archivos .vcf, para fácil migración o respaldo de tu información.
 
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+        Con este moderno y estable gestor de contactos puedes proteger tus contactos no compartiéndolos con otras aplicaciones, así puedes mantener tus contactos privados.
 
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+        Como el origen del contacto, fácilmente también puedes cambiar el nombre del contacto, correo electrónico, número de teléfono, dirección, organización, grupos y muchos otros campos personalizables. Puedes usarlo para almacenar eventos de contactos también, como cumpleaños, aniversarios, o cualqueir otro personalizado.
 
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+        Este simple editor de contactos tiene varios ajustes prácticos como mostrar números de teléfono en la pantalla principal, alternar entre mostrar la miniatura del contacto, mostrar sólamente contactos con números de teléfono, mostrar un diálogo de confirmar llamada antes de iniciarla. Incluye un marcador rápido que también hace uso de las letras.
 
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+        Para mejorar la experiencia de usuario aún más, puedes personalizar lo que pasa al tocar un contacto. Puedes iniciar una llamada, ir a la Vista de detalles o editar el contacto seleccionado.
 
-        You can easily block phone numbers to avoid unwanted incoming calls.
+        Puedes bloquear números de teléfono fácilmente para evitar llamadas indeseadas.
 
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+        Para evitar mosrar contactos potencialmente indeseados, tiene un poderoso fusionador de contactos duplicados.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Incluye diseño material y tema obscuro por defecto, provee una gran experiencia de usuario para uso sencillo. La falta del acceso a internet te da más privacidad, seguridad y estabilidad que otras aplicaciones.
 
-        No contiene anuncios o permisos innecesarios. Es complétamente de código abierto, provee colores personalziables.
+        No contiene anuncios o permisos innecesarios. Es completamente de código abierto, provee colores personalizables.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Mira la suite completa de herramientas Simples aquí:</b>
         https://www.simplemobiletools.com
 
         <b>Standalone website of Simple Contacts Pro:</b>
