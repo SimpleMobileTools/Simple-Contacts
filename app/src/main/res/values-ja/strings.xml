@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Simple Contacts</string>
+    <string name="app_name">Simpleコンタクト</string>
     <string name="app_launcher_name">連絡先</string>
     <string name="address">住所</string>
     <string name="inserting">挿入中…</string>
@@ -12,7 +12,7 @@
     <string name="send_email_to_contacts">連絡先にメールを送信</string>
     <string name="send_sms_to_group">グループにSMSを送信</string>
     <string name="send_email_to_group">グループにメールを送信</string>
-    <string name="call_person">Call %s</string>
+    <string name="call_person">%sに発信</string>
     <string name="create_new_contact">新しい連絡先を作成</string>
     <string name="add_to_existing_contact">既存の連絡先に追加</string>
 
@@ -53,7 +53,7 @@
     <string name="contacts">連絡先</string>
     <string name="show_call_confirmation_dialog">発信する前に確認ダイアログを表示する</string>
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
+    <string name="show_private_contacts">Simpleダイヤラー、Simpleショートメール、SimpleカレンダーProに個人の連絡先を表示</string>
 
     <!-- Emails -->
     <string name="home">自宅</string>
@@ -62,7 +62,7 @@
 
     <!-- Phone numbers -->
     <string name="mobile">携帯</string>
-    <string name="main_number">Main</string>
+    <string name="main_number">メイン</string>
     <string name="work_fax">職場FAX</string>
     <string name="home_fax">自宅FAX</string>
     <string name="pager">ポケベル</string>
@@ -78,15 +78,15 @@
     <!-- Search -->
     <string name="search_contacts">連絡先を検索</string>
     <string name="search_favorites">お気に入りを検索</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">グループを検索</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">連絡先をインポート</string>
     <string name="export_contacts">連絡先をエクスポート</string>
     <string name="import_contacts_from_vcf">.vcfファイルから連絡先をインポート</string>
     <string name="export_contacts_to_vcf">連絡先を.vcfファイルにエクスポート</string>
-    <string name="target_contact_source">Target contact source</string>
-    <string name="include_contact_sources">Include contact sources</string>
+    <string name="target_contact_source">対象となる連絡先のソース</string>
+    <string name="include_contact_sources">連絡先のソースを含める</string>
     <string name="filename_without_vcf">ファイル名 (.vcfを含めない)</string>
 
     <!-- Dialpad -->
@@ -104,14 +104,14 @@
     <string name="websites">ウェブサイト</string>
     <string name="groups">グループ</string>
     <string name="contact_source">インポート元</string>
-    <string name="instant_messaging">Instant messaging (IM)</string>
+    <string name="instant_messaging">インスタントメッセージ(IM)</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_from_all_sources">全ての連絡先ソースから連絡先を消去します</string>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d件のグループ</item>
+        <item quantity="other">%d件のグループ</item>
     </plurals>
 
     <!-- FAQ -->
