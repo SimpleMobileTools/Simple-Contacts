@@ -65,7 +65,7 @@
     <string name="main_number">Standaard</string>
     <string name="work_fax">Fax Werk</string>
     <string name="home_fax">Fax Thuis</string>
-    <string name="pager">Pager</string>
+    <string name="pager">Pieper</string>
     <string name="no_phone_number_found">Geen telefoonnummers gevonden</string>
 
     <!-- Events -->
