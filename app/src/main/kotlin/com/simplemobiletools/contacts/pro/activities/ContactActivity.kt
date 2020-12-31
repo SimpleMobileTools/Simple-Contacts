@@ -24,7 +24,6 @@ import com.simplemobiletools.commons.helpers.letterBackgroundColors
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.sendEmailIntent
-import com.simplemobiletools.contacts.pro.extensions.sendSMSIntent
 import com.simplemobiletools.contacts.pro.extensions.shareContacts
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.models.Contact
@@ -92,7 +91,7 @@ abstract class ContactActivity : SimpleActivity() {
     fun trySendSMS() {
         val numbers = contact!!.phoneNumbers
         if (numbers.size == 1) {
-            sendSMSIntent(numbers.first().value)
+            launchSendSMSIntent(numbers.first().value)
         } else if (numbers.size > 1) {
             val items = ArrayList<RadioItem>()
             numbers.forEachIndexed { index, phoneNumber ->
@@ -100,7 +99,7 @@ abstract class ContactActivity : SimpleActivity() {
             }
 
             RadioGroupDialog(this, items) {
-                sendSMSIntent(it as String)
+                launchSendSMSIntent(it as String)
             }
         }
     }

@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.ContactsContract.CommonDataKinds.Event
 import android.provider.MediaStore
-import com.simplemobiletools.commons.extensions.getChoppedList
 import com.simplemobiletools.commons.models.SimpleContact
 import com.simplemobiletools.contacts.pro.extensions.contactsDB
 import com.simplemobiletools.contacts.pro.extensions.getByteArray
@@ -56,7 +55,7 @@ class LocalContactsHelper(val context: Context) {
     }
 
     fun deleteContactIds(ids: MutableList<Long>) {
-        ids.getChoppedList().forEach {
+        ids.chunked(30).forEach {
             context.contactsDB.deleteContactIds(it)
         }
     }

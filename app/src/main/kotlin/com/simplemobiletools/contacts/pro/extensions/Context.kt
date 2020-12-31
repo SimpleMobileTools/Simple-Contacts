@@ -66,17 +66,6 @@ fun Context.sendEmailIntent(recipient: String) {
     }
 }
 
-fun Context.sendSMSIntent(recipient: String) {
-    Intent(Intent.ACTION_SENDTO).apply {
-        data = Uri.fromParts("smsto", recipient, null)
-        if (resolveActivity(packageManager) != null) {
-            startActivity(this)
-        } else {
-            toast(R.string.no_app_found)
-        }
-    }
-}
-
 fun Context.sendAddressIntent(address: String) {
     val location = Uri.encode(address)
     val uri = Uri.parse("geo:0,0?q=$location")
