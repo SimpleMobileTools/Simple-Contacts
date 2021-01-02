@@ -188,6 +188,7 @@ abstract class ContactActivity : SimpleActivity() {
             isAntiAlias = true
             textAlign = Paint.Align.CENTER
             textSize = wantedTextSize
+            style = Paint.Style.FILL
         }
 
         canvas.drawPaint(circlePaint)
