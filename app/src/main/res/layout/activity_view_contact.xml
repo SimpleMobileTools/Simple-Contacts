@@ -104,7 +104,7 @@
                 android:src="@drawable/ic_person_vector" />
 
             <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/contact_prefix"
+                android:id="@+id/contact_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/contact_photo"
@@ -117,91 +117,7 @@
                 android:paddingTop="@dimen/normal_margin"
                 android:paddingEnd="@dimen/normal_margin"
                 android:paddingBottom="@dimen/normal_margin"
-                android:singleLine="true"
-                android:textSize="@dimen/bigger_text_size" />
-
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/contact_first_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_prefix"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/contact_name_image"
-                android:background="?attr/selectableItemBackground"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingStart="@dimen/small_margin"
-                android:paddingTop="@dimen/normal_margin"
-                android:paddingEnd="@dimen/normal_margin"
-                android:paddingBottom="@dimen/normal_margin"
-                android:singleLine="true"
-                android:textSize="@dimen/bigger_text_size" />
-
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/contact_middle_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_first_name"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/contact_name_image"
-                android:background="?attr/selectableItemBackground"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingStart="@dimen/small_margin"
-                android:paddingTop="@dimen/normal_margin"
-                android:paddingEnd="@dimen/normal_margin"
-                android:paddingBottom="@dimen/normal_margin"
-                android:singleLine="true"
-                android:textSize="@dimen/bigger_text_size" />
-
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/contact_surname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_middle_name"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/contact_name_image"
-                android:background="?attr/selectableItemBackground"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingStart="@dimen/small_margin"
-                android:paddingTop="@dimen/normal_margin"
-                android:paddingEnd="@dimen/normal_margin"
-                android:paddingBottom="@dimen/normal_margin"
-                android:singleLine="true"
-                android:textSize="@dimen/bigger_text_size" />
-
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/contact_suffix"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_surname"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/contact_name_image"
-                android:background="?attr/selectableItemBackground"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingStart="@dimen/small_margin"
-                android:paddingTop="@dimen/normal_margin"
-                android:paddingEnd="@dimen/normal_margin"
-                android:paddingBottom="@dimen/normal_margin"
-                android:singleLine="true"
-                android:textSize="@dimen/bigger_text_size" />
-
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/contact_nickname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_suffix"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/contact_name_image"
-                android:background="?attr/selectableItemBackground"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingStart="@dimen/small_margin"
-                android:paddingTop="@dimen/normal_margin"
-                android:paddingEnd="@dimen/normal_margin"
-                android:paddingBottom="@dimen/normal_margin"
+                android:tooltipText="John Doe"
                 android:singleLine="true"
                 android:textSize="@dimen/bigger_text_size" />
 
@@ -329,7 +245,7 @@
                 android:id="@+id/contact_numbers_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_nickname"
+                android:layout_below="@+id/contact_name"
                 android:layout_toEndOf="@+id/contact_numbers_image"
                 android:orientation="vertical"
                 android:visibility="gone" />

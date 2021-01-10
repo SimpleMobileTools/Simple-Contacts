@@ -250,36 +250,11 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupNames() {
-        contact!!.apply {
-            contact_prefix.text = prefix
-            contact_prefix.beVisibleIf(prefix.isNotEmpty() && showFields and SHOW_PREFIX_FIELD != 0)
-            contact_prefix.copyOnLongClick(prefix)
-
-            contact_first_name.text = firstName
-            contact_first_name.beVisibleIf(firstName.isNotEmpty() && showFields and SHOW_FIRST_NAME_FIELD != 0)
-            contact_first_name.copyOnLongClick(firstName)
-
-            contact_middle_name.text = middleName
-            contact_middle_name.beVisibleIf(middleName.isNotEmpty() && showFields and SHOW_MIDDLE_NAME_FIELD != 0)
-            contact_middle_name.copyOnLongClick(middleName)
-
-            contact_surname.text = surname
-            contact_surname.beVisibleIf(surname.isNotEmpty() && showFields and SHOW_SURNAME_FIELD != 0)
-            contact_surname.copyOnLongClick(surname)
-
-            contact_suffix.text = suffix
-            contact_suffix.beVisibleIf(suffix.isNotEmpty() && showFields and SHOW_SUFFIX_FIELD != 0)
-            contact_suffix.copyOnLongClick(suffix)
-
-            contact_nickname.text = nickname
-            contact_nickname.beVisibleIf(nickname.isNotEmpty() && showFields and SHOW_NICKNAME_FIELD != 0)
-            contact_nickname.copyOnLongClick(nickname)
-
-            if (contact_prefix.isGone() && contact_first_name.isGone() && contact_middle_name.isGone() && contact_surname.isGone() && contact_suffix.isGone()
-                && contact_nickname.isGone()) {
-                contact_name_image.beInvisible()
-            }
-        }
+        val displayName = contact!!.getNameToDisplay()
+        contact_name.text = displayName
+        contact_name.copyOnLongClick(displayName)
+        contact_name.beVisibleIf(displayName.isNotEmpty() && !contact!!.isABusinessContact())
+        contact_name_image.beInvisibleIf(contact_name.isGone())
     }
 
     private fun setupPhoneNumbers() {
