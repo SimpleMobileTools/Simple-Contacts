@@ -134,52 +134,53 @@ class ContactsHelper(val context: Context) {
         val uri = Data.CONTENT_URI
         val projection = getContactProjection()
 
-        val selection = "${Data.MIMETYPE} = ? OR ${Data.MIMETYPE} = ?"
-        val selectionArgs = arrayOf(StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
-        val sortOrder = getSortString()
+        arrayOf(CommonDataKinds.Organization.CONTENT_ITEM_TYPE, StructuredName.CONTENT_ITEM_TYPE).forEach { mimetype ->
+            val selection = "${Data.MIMETYPE} = ?"
+            val selectionArgs = arrayOf(mimetype)
+            val sortOrder = getSortString()
 
-        context.queryCursor(uri, projection, selection, selectionArgs, sortOrder, true) { cursor ->
-            val accountName = cursor.getStringValue(RawContacts.ACCOUNT_NAME) ?: ""
-            val accountType = cursor.getStringValue(RawContacts.ACCOUNT_TYPE) ?: ""
-            if (ignoredSources.contains("$accountName:$accountType")) {
-                return@queryCursor
+            context.queryCursor(uri, projection, selection, selectionArgs, sortOrder, true) { cursor ->
+                val accountName = cursor.getStringValue(RawContacts.ACCOUNT_NAME) ?: ""
+                val accountType = cursor.getStringValue(RawContacts.ACCOUNT_TYPE) ?: ""
+                if (ignoredSources.contains("$accountName:$accountType")) {
+                    return@queryCursor
+                }
+
+                val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+                var prefix = ""
+                var firstName = ""
+                var middleName = ""
+                var surname = ""
+                var suffix = ""
+
+                // ignore names at Organization type contacts
+                if (mimetype == StructuredName.CONTENT_ITEM_TYPE) {
+                    prefix = cursor.getStringValue(StructuredName.PREFIX) ?: ""
+                    firstName = cursor.getStringValue(StructuredName.GIVEN_NAME) ?: ""
+                    middleName = cursor.getStringValue(StructuredName.MIDDLE_NAME) ?: ""
+                    surname = cursor.getStringValue(StructuredName.FAMILY_NAME) ?: ""
+                    suffix = cursor.getStringValue(StructuredName.SUFFIX) ?: ""
+                }
+
+                val nickname = ""
+                val photoUri = cursor.getStringValue(StructuredName.PHOTO_URI) ?: ""
+                val numbers = ArrayList<PhoneNumber>()          // proper value is obtained below
+                val emails = ArrayList<Email>()
+                val addresses = ArrayList<Address>()
+                val events = ArrayList<Event>()
+                val starred = cursor.getIntValue(StructuredName.STARRED)
+                val contactId = cursor.getIntValue(Data.CONTACT_ID)
+                val thumbnailUri = cursor.getStringValue(StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
+                val notes = ""
+                val groups = ArrayList<Group>()
+                val organization = Organization("", "")
+                val websites = ArrayList<String>()
+                val ims = ArrayList<IM>()
+                val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
+                    events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype)
+
+                contacts.put(id, contact)
             }
-
-            val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
-            var prefix = ""
-            var firstName = ""
-            var middleName = ""
-            var surname = ""
-            var suffix = ""
-            val mimetype = cursor.getStringValue(Data.MIMETYPE)
-
-            // ignore names at Organization type contacts
-            if (mimetype == StructuredName.CONTENT_ITEM_TYPE) {
-                prefix = cursor.getStringValue(StructuredName.PREFIX) ?: ""
-                firstName = cursor.getStringValue(StructuredName.GIVEN_NAME) ?: ""
-                middleName = cursor.getStringValue(StructuredName.MIDDLE_NAME) ?: ""
-                surname = cursor.getStringValue(StructuredName.FAMILY_NAME) ?: ""
-                suffix = cursor.getStringValue(StructuredName.SUFFIX) ?: ""
-            }
-
-            val nickname = ""
-            val photoUri = cursor.getStringValue(StructuredName.PHOTO_URI) ?: ""
-            val numbers = ArrayList<PhoneNumber>()          // proper value is obtained below
-            val emails = ArrayList<Email>()
-            val addresses = ArrayList<Address>()
-            val events = ArrayList<Event>()
-            val starred = cursor.getIntValue(StructuredName.STARRED)
-            val contactId = cursor.getIntValue(Data.CONTACT_ID)
-            val thumbnailUri = cursor.getStringValue(StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-            val notes = ""
-            val groups = ArrayList<Group>()
-            val organization = Organization("", "")
-            val websites = ArrayList<String>()
-            val ims = ArrayList<IM>()
-            val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
-                events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype)
-
-            contacts.put(id, contact)
         }
 
         val phoneNumbers = getPhoneNumbers(null)
