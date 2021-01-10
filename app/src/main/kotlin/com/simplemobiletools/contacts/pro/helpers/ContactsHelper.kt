@@ -154,7 +154,7 @@ class ContactsHelper(val context: Context) {
             val mimetype = cursor.getStringValue(Data.MIMETYPE)
 
             // ignore names at Organization type contacts
-            if (cursor.getStringValue(Data.MIMETYPE) == StructuredName.CONTENT_ITEM_TYPE) {
+            if (mimetype == StructuredName.CONTENT_ITEM_TYPE) {
                 prefix = cursor.getStringValue(StructuredName.PREFIX) ?: ""
                 firstName = cursor.getStringValue(StructuredName.GIVEN_NAME) ?: ""
                 middleName = cursor.getStringValue(StructuredName.MIDDLE_NAME) ?: ""
@@ -1012,14 +1012,16 @@ class ContactsHelper(val context: Context) {
             }
 
             // add organization
-            ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
-                withValue(Data.RAW_CONTACT_ID, contact.id)
-                withValue(Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
-                withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
-                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
-                withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
-                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
-                operations.add(build())
+            if (contact.organization.isNotEmpty()) {
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValue(Data.RAW_CONTACT_ID, contact.id)
+                    withValue(Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
+                    withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
+                    withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
+                    withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
+                    operations.add(build())
+                }
             }
 
             // delete websites
