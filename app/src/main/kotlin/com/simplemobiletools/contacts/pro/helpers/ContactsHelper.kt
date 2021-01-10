@@ -748,7 +748,8 @@ class ContactsHelper(val context: Context) {
             val ignoredTypes = arrayListOf(
                 SIGNAL_PACKAGE,
                 TELEGRAM_PACKAGE,
-                WHATSAPP_PACKAGE
+                WHATSAPP_PACKAGE,
+                THREEMA_PACKAGE
             )
 
             val contactSources = getContactSourcesSync()

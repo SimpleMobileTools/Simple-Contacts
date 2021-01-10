@@ -2,8 +2,6 @@ package com.simplemobiletools.contacts.pro.activities
 
 import android.content.ContentUris
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
@@ -11,10 +9,7 @@ import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.CONTACT_ID
-import com.simplemobiletools.commons.helpers.IS_PRIVATE
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.dialogs.ChooseSocialDialog
