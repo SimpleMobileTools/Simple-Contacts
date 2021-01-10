@@ -101,6 +101,7 @@ const val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
 const val DEFAULT_ORGANIZATION_TYPE = CommonDataKinds.Organization.TYPE_WORK
 const val DEFAULT_WEBSITE_TYPE = CommonDataKinds.Website.TYPE_HOMEPAGE
 const val DEFAULT_IM_TYPE = CommonDataKinds.Im.PROTOCOL_SKYPE
+const val DEFAULT_MIMETYPE = CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
 
 // apps with special handling
 const val TELEGRAM_PACKAGE = "org.telegram.messenger"

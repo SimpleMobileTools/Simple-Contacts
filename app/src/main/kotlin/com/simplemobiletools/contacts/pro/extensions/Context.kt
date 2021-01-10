@@ -36,7 +36,7 @@ fun Context.getEmptyContact(): Contact {
     val originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
     val organization = Organization("", "")
     return Contact(0, "", "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), originalContactSource, 0, 0, "",
-        null, "", ArrayList(), organization, ArrayList(), ArrayList())
+        null, "", ArrayList(), organization, ArrayList(), ArrayList(), DEFAULT_MIMETYPE)
 }
 
 fun Context.viewContact(contact: Contact) {

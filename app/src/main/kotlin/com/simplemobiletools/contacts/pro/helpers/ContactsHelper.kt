@@ -151,6 +151,7 @@ class ContactsHelper(val context: Context) {
             var middleName = ""
             var surname = ""
             var suffix = ""
+            val mimetype = cursor.getStringValue(Data.MIMETYPE)
 
             // ignore names at Organization type contacts
             if (cursor.getStringValue(Data.MIMETYPE) == StructuredName.CONTENT_ITEM_TYPE) {
@@ -176,7 +177,7 @@ class ContactsHelper(val context: Context) {
             val websites = ArrayList<String>()
             val ims = ArrayList<IM>()
             val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
-                events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
+                events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype)
 
             contacts.put(id, contact)
         }
@@ -695,9 +696,10 @@ class ContactsHelper(val context: Context) {
                 var middleName = ""
                 var surname = ""
                 var suffix = ""
+                val mimetype = cursor.getStringValue(Data.MIMETYPE)
 
                 // ignore names at Organization type contacts
-                if (cursor.getStringValue(Data.MIMETYPE) == StructuredName.CONTENT_ITEM_TYPE) {
+                if (mimetype == StructuredName.CONTENT_ITEM_TYPE) {
                     prefix = cursor.getStringValue(StructuredName.PREFIX) ?: ""
                     firstName = cursor.getStringValue(StructuredName.GIVEN_NAME) ?: ""
                     middleName = cursor.getStringValue(StructuredName.MIDDLE_NAME) ?: ""
@@ -721,7 +723,7 @@ class ContactsHelper(val context: Context) {
                 val websites = getWebsites(id)[id] ?: ArrayList()
                 val ims = getIMs(id)[id] ?: ArrayList()
                 return Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
-                    accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
+                    accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype)
             }
         }
 
@@ -858,8 +860,8 @@ class ContactsHelper(val context: Context) {
         try {
             val operations = ArrayList<ContentProviderOperation>()
             ContentProviderOperation.newUpdate(Data.CONTENT_URI).apply {
-                val selection = "${Data.RAW_CONTACT_ID} = ? AND (${Data.MIMETYPE} = ? OR ${Data.MIMETYPE} = ?)"
-                val selectionArgs = arrayOf(contact.id.toString(), StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                val selection = "${Data.RAW_CONTACT_ID} = ? AND ${Data.MIMETYPE} = ?"
+                val selectionArgs = arrayOf(contact.id.toString(), contact.mimetype)
                 withSelection(selection, selectionArgs)
                 withValue(StructuredName.PREFIX, contact.prefix)
                 withValue(StructuredName.GIVEN_NAME, contact.firstName)
