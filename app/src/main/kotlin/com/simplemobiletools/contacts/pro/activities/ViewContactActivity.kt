@@ -559,6 +559,14 @@ class ViewContactActivity : ContactActivity() {
                             showSocialActions(key.id)
                         }
                     }
+
+                    if (value.toLowerCase() == THREEMA) {
+                        contact_source_image.setImageDrawable(getPackageDrawable(THREEMA_PACKAGE))
+                        contact_source_image.beVisible()
+                        contact_source_image.setOnClickListener {
+                            showSocialActions(key.id)
+                        }
+                    }
                 }
             }
 
