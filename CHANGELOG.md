@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 6.14.0 *(2021-01-10)*
+----------------------------
+
+ * Always fetch the same contacts, no matter what sorting is set
+ * Fix an organization updating related issue
+ * Merge names into 1 line at the View Details screen
+ * Improve Threema contact handling
+
 Version 6.13.2 *(2021-01-02)*
 ----------------------------
 
