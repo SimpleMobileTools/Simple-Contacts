@@ -2,17 +2,17 @@
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Yhteystiedot</string>
     <string name="address">Osoite</string>
-    <string name="inserting">Sijoitetaan</string>
-    <string name="updating">Päivitetään</string>
-    <string name="phone_storage_hidden">Puhelimen muisti piilotettu</string>
+    <string name="inserting">Sijoitetaan...</string>
+    <string name="updating">Päivitetään...</string>
+    <string name="phone_storage_hidden">Puhelimen muisti (piilotettu muilta sovelluksilta)</string>
     <string name="company">Yritys</string>
     <string name="job_position">Ammatti</string>
-    <string name="website">Internet-sivu</string>
+    <string name="website">Verkkosivu</string>
     <string name="send_sms_to_contacts">Lähetä tekstiviesti yhteystiedoille</string>
     <string name="send_email_to_contacts">Lähetä sähköposti yhteystiedoille</string>
     <string name="send_sms_to_group">Lähetä tekstiviesti ryhmälle</string>
     <string name="send_email_to_group">Lähetä sähköposti ryhmälle</string>
-    <string name="call_person">Soita</string>
+    <string name="call_person">Soita %s</string>
     <string name="create_new_contact">Luo uusi yhteystieto</string>
     <string name="add_to_existing_contact">Lisää olemassa olevaan yhteystietoon</string>
 
@@ -30,8 +30,8 @@
     <string name="create_new_group">Luo uusi ryhmä</string>
     <string name="remove_from_group">Poista ryhmästä</string>
     <string name="no_group_participants">Ryhmä on tyhjä</string>
-    <string name="add_contacts">Lisää yhteystietoja</string>
-    <string name="no_group_created">Ryhmää ei luotu</string>
+    <string name="add_contacts">Lisää yhteystietoihin</string>
+    <string name="no_group_created">Laitteessa ei ole yhteistietoryhmiä</string>
     <string name="create_group">Luo ryhmä</string>
     <string name="add_to_group">Lisää ryhmään</string>
     <string name="create_group_under_account">Luo ryhmä tilille</string>
@@ -42,16 +42,16 @@
     <string name="remove_photo">Poista kuva</string>
 
     <!-- Settings -->
-    <string name="show_phone_numbers">Näytä puhelinnumerot</string>
+    <string name="show_phone_numbers">Näytä puhelinnumerot päänäytöllä</string>
     <string name="show_contact_thumbnails">Näytä yhteystietojen kuvakkeet</string>
-    <string name="show_dialpad_button">Näytä soittimen painike</string>
-    <string name="on_contact_click">Yhteystietoa painaessa…</string>
+    <string name="show_dialpad_button">Näytä numeronvalitsin-painike päänäytöllä</string>
+    <string name="on_contact_click">Yhteystietoa painaessa</string>
     <string name="call_contact">Soita</string>
     <string name="view_contact">Näytä yhteystieto</string>
     <string name="manage_shown_contact_fields">Valitse, mitkä yhteystietojen kentät näytetään</string>
     <string name="manage_shown_tabs">Valitse sovelluksen välilehdet</string>
     <string name="contacts">Yhteystiedot</string>
-    <string name="show_call_confirmation_dialog">Näytä puhelun vahvistusruutu</string>
+    <string name="show_call_confirmation_dialog">Näytä soiton vahvistusruutu ennen soittoa</string>
     <string name="show_only_contacts_with_numbers">Näytä ainoastaan numerolliset yhteystiedot</string>
     <string name="show_private_contacts">Näytä yksityiset yhteystiedot sovelluksissa Simple Dialer, Simple SMS Messenger ja Simple Calendar Pro</string>
 
@@ -62,9 +62,9 @@
 
     <!-- Phone numbers -->
     <string name="mobile">Matkapuhelin</string>
-    <string name="main_number">Päänumero</string>
-    <string name="work_fax">Työfaxi</string>
-    <string name="home_fax">Kotifaxi</string>
+    <string name="main_number">Oletus</string>
+    <string name="work_fax">Faksi (työ)</string>
+    <string name="home_fax">Faksi (koti)</string>
     <string name="pager">Hakulaite</string>
     <string name="no_phone_number_found">Puhelinnumeroa ei löytynyt</string>
 
@@ -73,7 +73,7 @@
     <string name="anniversary">Vuosipäivä</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Ei suosikkeja</string>
+    <string name="no_favorites">Näyttää siltä, että et ole vielä lisännyt suosikkikontakteja.</string>
 
     <!-- Search -->
     <string name="search_contacts">Etsi yhteystietoja</string>
@@ -83,25 +83,25 @@
     <!-- Export / Import -->
     <string name="import_contacts">Tuo yhteystietoja</string>
     <string name="export_contacts">Vie yhteystietoja</string>
-    <string name="import_contacts_from_vcf">Tuo .vcf yhteystietoja</string>
-    <string name="export_contacts_to_vcf">Vie .vcf yhteystietoja</string>
-    <string name="target_contact_source">Kohdenna yhteystiedon lähde</string>
+    <string name="import_contacts_from_vcf">Tuo yhteystietoja .vcf-tiedostosta</string>
+    <string name="export_contacts_to_vcf">Vie yhteystietoja .vcf-tiedostoon</string>
+    <string name="target_contact_source">Yhteystietojen lähde</string>
     <string name="include_contact_sources">Sisällytä yhteystiedon lähteet</string>
-    <string name="filename_without_vcf">Tiedostonimi ilman .vcf-päätettä</string>
+    <string name="filename_without_vcf">Tiedostonimi (ilman .vcf-päätettä)</string>
 
     <!-- Dialpad -->
-    <string name="dialpad">Näppäimistö</string>
+    <string name="dialpad">Numeronvalitsin</string>
     <string name="add_number_to_contact">Lisää numero yhteystietoihin</string>
 
     <!-- Visible fields -->
-    <string name="prefix">Alku</string>
-    <string name="suffix">Pääte</string>
-    <string name="phone_numbers">Puhelinnumero</string>
+    <string name="prefix">Etuliite</string>
+    <string name="suffix">Jälkiliite</string>
+    <string name="phone_numbers">Puhelinnumerot</string>
     <string name="emails">Sähköpostit</string>
     <string name="addresses">Osoitteet</string>
-    <string name="events">Tapahtumat</string>
-    <string name="organization">Organisaatio</string>
-    <string name="websites">Internetsivut</string>
+    <string name="events">Tapahtumat (syntymäpäivät, vuosipäivät)</string>
+    <string name="organization">Yritys</string>
+    <string name="websites">Verkkosivut</string>
     <string name="groups">Ryhmät</string>
     <string name="contact_source">Yhteystiedon lähde</string>
     <string name="instant_messaging">Pikaviestin</string>
@@ -110,13 +110,13 @@
     <string name="delete_from_all_sources">Yhteystieto poistetaan kaikista lähteistä.</string>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d ryhmä</item>
+        <item quantity="one">%d ryhmän</item>
         <item quantity="other">%d ryhmää</item>
     </plurals>
 
     <!-- FAQ -->
-    <string name="faq_1_title">Voinko  valita, mitkä täytettävät kentät näytetään yhteystiedon ominaisuuksissa?</string>
-    <string name="faq_1_text">Kyllä. Mene asetuksiin -> Valitse täytettävät kentät. Voit valita, mitkä kentät näytetään. Osa kentistä on oletuksena piilotettuna, , joten saatat löytää joitain uusia.</string>
+    <string name="faq_1_title">Voinko valita, mitkä täytettävät kentät näytetään yhteystiedon ominaisuuksissa?</string>
+    <string name="faq_1_text">Kyllä. Mene asetuksiin -> Valitse täytettävät kentät. Voit valita, mitkä kentät näytetään. Osa kentistä on oletuksena piilotettuna, joten saatat löytää joitain uusia.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
