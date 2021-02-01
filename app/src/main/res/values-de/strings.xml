@@ -124,38 +124,38 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Verwalten Sie Ihre Kontakte professionell, schnell und sicher mit dieser App</string>
     <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
+        Eine simple App um deine Kontakte zu verwalten, die von Millionen Menschen geliebt wird. Die Kontakte können entweder lokal auf dem Gerät gespeichert oder via Google und anderen Accounts synchronisiert werden.
 
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+        Sie können die App auch nutzen, um Emails und Events der Kontakte zu speichern. Die App hat die Fähigkeit, mit verschiedenen Parametern zu suchen und zu sortieren und kann wahlweise den Vornamen an erster Stelle anzeigen.
 
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+        Ihre Lieblingskontakte oder -gruppen können in einer seperaten Liste angezeigt werden. Gruppen können dafür genutzt werden, um einen Stapel an Emails oder SMS zu versenden, was Ihnen Zeit erspart. Zudem können Sie diese einfach umbennen.
 
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+        Es sind nützliche Buttons verfügbar, um Ihre Kontakte anzurufen oder ihnen zu schreiben. Alle angezeigten Felder können nach Ihren Wünschen angepasst werden, alle ungenutzen Felder können ausgeblendet werden. Die Suchfunktion wird den angegebenen String in jedem sichtbaren Kontaktfeld suchen, sodass Sie Ihren gewüschten Kontakt einfach finden können.
 
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
+        Es gibt ein einfaches Wählfeld, mit intelligenten Kontaktvervollständigungen.
 
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+        Kontakte können im vCard-Format als .vcf Dateien exportiert und importiert werden, um einfach zu migrieren oder ein Backup zu erstellen.
 
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+        Mit diesem modernen und stabilen Kontakte Manager können Sie Ihre Kontakte schützen, indem diese nicht mit andern Apps geteilt werden, sodass Ihre Kontakte privat bleiben.
 
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+        Genauso wie die Kontaktquelle, können Sie ebnso einfach den Kontaktnamen, dessen Email, Telefonnummer, Addresse, Organisation, Gruppe und viele andere Felder anpassen. Sie können auch Events wie Geburtstage, Feiern oder benutzerdefinierte Events angeben.
 
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+        Dieser einfache Kontakte-Editor hat viele nützliche Einstellungen - zum Beispiel kann es die Telefonnummer im Hauptbildschirm anzeigen, das Kontake-Vorschaubild ein- und ausblenden, nur Kontakte mit Telefonnummern anzeigen und eine Anrufsbestätigung anzeigen, bevor der Anruf gestartet wird. Das schnelle Wahlfeld unterstützt auch Buchstaben.
 
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+        Um die Nutzererfahrung noch mehr zu verbessern, können Sie anpassen, was passiert, wenn Sie auf den Kontakt drücken. Entweder kann ein Anruf gestartet, der Kontakt angepasst (editiert) oder Details angeigt werden.
 
-        You can easily block phone numbers to avoid unwanted incoming calls.
+        Um ungewollte Anrufe zu vermeiden, können Anrufe einfach blockiert werden.
+        
+        Um zu verhindern, dass potentiell ungewollte Kontakte angezeigt werden, führt die App Duplikate automatisch zusammen.
 
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Die App beinhaltet standardmäßig material design und Dunkelmodus, um großartige Nutzererfahrungen und einfache Nutzung zu ermöglichen. Da die App keine Internetverbindung besitzt, bietet die App Ihnen mehr Datenschutz, Sicherheit und Stabilität als andere Apps.
 
         Enthält keine Werbung oder unnötige Berechtigungen. Vollständig quelloffen. Die Farben sind anpassbar.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Entdecke die gesamte Serie an schlichten Apps hier:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple Contacts Pro:</b>
+        <b>Standalone Webseite von Simple Contacts Pro:</b>
         https://www.simplemobiletools.com/contacts
 
         <b>Facebook:</b>
