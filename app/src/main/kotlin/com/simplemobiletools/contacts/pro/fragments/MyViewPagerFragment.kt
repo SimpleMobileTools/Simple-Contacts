@@ -61,7 +61,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
 
             fragment_placeholder_2?.underlineText()
-            updateViewStuff()
 
             when {
                 this is FavoritesFragment -> {
@@ -76,22 +75,24 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
-    fun textColorChanged(color: Int) {
+    fun setupColors(textColor: Int, adjustedPrimaryColor: Int) {
         when {
-            this is GroupsFragment -> (fragment_list.adapter as GroupsAdapter).updateTextColor(color)
+            this is GroupsFragment -> (fragment_list.adapter as? GroupsAdapter)?.updateTextColor(textColor)
             else -> (fragment_list.adapter as? ContactsAdapter)?.apply {
-                updateTextColor(color)
+                updateTextColor(textColor)
             }
         }
 
-        letter_fastscroller?.textColor = color.getColorStateList()
-    }
-
-    fun primaryColorChanged() {
+        letter_fastscroller?.textColor = textColor.getColorStateList()
         fragment_fastscroller?.updatePrimaryColor()
         fragment_fastscroller?.updateBubblePrimaryColor()
-        letter_fastscroller_thumb?.thumbColor = config.primaryColor.getColorStateList()
-        letter_fastscroller_thumb?.textColor = config.primaryColor.getContrastColor()
+
+        letter_fastscroller_thumb?.fontSize = context.getTextSize()
+        letter_fastscroller_thumb?.textColor = adjustedPrimaryColor.getContrastColor()
+        letter_fastscroller_thumb?.thumbColor = adjustedPrimaryColor.getColorStateList()
+
+        context.updateTextColors(fragment_wrapper.parent as ViewGroup)
+        fragment_placeholder_2?.setTextColor(adjustedPrimaryColor)
     }
 
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
@@ -143,11 +144,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         } else {
             setupContactsFavoritesAdapter(contacts)
             contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
-
-            letter_fastscroller.textColor = config.textColor.getColorStateList()
             setupLetterFastscroller(contacts)
             letter_fastscroller_thumb.setupWithFastScroller(letter_fastscroller)
-            letter_fastscroller_thumb.textColor = config.primaryColor.getContrastColor()
         }
     }
 
@@ -274,10 +272,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
-    fun onActivityResume() {
-        updateViewStuff()
-    }
-
     fun finishActMode() {
         (fragment_list.adapter as? MyRecyclerViewAdapter)?.finishActMode()
     }
@@ -288,18 +282,18 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             val shouldNormalize = text.normalizeString() == text
             val filtered = contactsIgnoringSearch.filter {
                 getProperText(it.getNameToDisplay(), shouldNormalize).contains(text, true) ||
-                        getProperText(it.nickname, shouldNormalize).contains(text, true) ||
-                        it.phoneNumbers.any {
-                            text.normalizePhoneNumber().isNotEmpty() && (it.normalizedNumber
-                                ?: it.value).contains(text.normalizePhoneNumber(), true)
-                        } ||
-                        it.emails.any { it.value.contains(text, true) } ||
-                        it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
-                        it.IMs.any { it.value.contains(text, true) } ||
-                        getProperText(it.notes, shouldNormalize).contains(text, true) ||
-                        getProperText(it.organization.company, shouldNormalize).contains(text, true) ||
-                        getProperText(it.organization.jobPosition, shouldNormalize).contains(text, true) ||
-                        it.websites.any { it.contains(text, true) }
+                    getProperText(it.nickname, shouldNormalize).contains(text, true) ||
+                    it.phoneNumbers.any {
+                        text.normalizePhoneNumber().isNotEmpty() && (it.normalizedNumber
+                            ?: it.value).contains(text.normalizePhoneNumber(), true)
+                    } ||
+                    it.emails.any { it.value.contains(text, true) } ||
+                    it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
+                    it.IMs.any { it.value.contains(text, true) } ||
+                    getProperText(it.notes, shouldNormalize).contains(text, true) ||
+                    getProperText(it.organization.company, shouldNormalize).contains(text, true) ||
+                    getProperText(it.organization.jobPosition, shouldNormalize).contains(text, true) ||
+                    it.websites.any { it.contains(text, true) }
             } as ArrayList
 
             filtered.sortBy {
@@ -346,13 +340,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         if (this is FavoritesFragment) {
             fragment_placeholder.text = activity?.getString(R.string.no_favorites)
         }
-    }
-
-    private fun updateViewStuff() {
-        context.updateTextColors(fragment_wrapper.parent as ViewGroup)
-        fragment_fastscroller?.updateBubbleColors()
-        fragment_placeholder_2?.setTextColor(context.getAdjustedPrimaryColor())
-        letter_fastscroller_thumb?.fontSize = context.getTextSize()
     }
 
     private fun setupViewVisibility(hasItemsToShow: Boolean) {
