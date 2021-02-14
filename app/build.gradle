@@ -60,7 +60,7 @@ dependencies {
     implementation 'com.simplemobiletools:commons:5.33.30'
     implementation 'joda-time:joda-time:2.10.1'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.5'
-    implementation 'com.github.tibbi:IndicatorFastScroll:08f512858a'
+    implementation 'com.github.tibbi:IndicatorFastScroll:c7ef0c82e5'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     kapt "androidx.room:room-compiler:2.2.6"

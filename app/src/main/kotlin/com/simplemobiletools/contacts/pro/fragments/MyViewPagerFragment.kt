@@ -83,10 +83,11 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
         }
 
-        letter_fastscroller?.textColor = textColor.getColorStateList()
         fragment_fastscroller?.updatePrimaryColor()
         fragment_fastscroller?.updateBubblePrimaryColor()
 
+        letter_fastscroller?.textColor = textColor.getColorStateList()
+        letter_fastscroller?.pressedTextColor = adjustedPrimaryColor
         letter_fastscroller_thumb?.fontSize = context.getTextSize()
         letter_fastscroller_thumb?.textColor = adjustedPrimaryColor.getContrastColor()
         letter_fastscroller_thumb?.thumbColor = adjustedPrimaryColor.getColorStateList()
