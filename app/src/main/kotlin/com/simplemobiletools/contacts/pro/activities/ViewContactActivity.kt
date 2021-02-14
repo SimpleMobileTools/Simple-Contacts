@@ -600,7 +600,11 @@ class ViewContactActivity : ContactActivity() {
                         contact_ringtone.text = it?.title
 
                         ensureBackgroundThread {
-                            ContactsHelper(this).updateRingtone(contact!!.contactId.toString(), it?.uri ?: "")
+                            if (contact!!.isPrivate()) {
+                                LocalContactsHelper(this).updateRingtone(contact!!.contactId, it?.uri ?: "")
+                            } else {
+                                ContactsHelper(this).updateRingtone(contact!!.contactId.toString(), it?.uri ?: "")
+                            }
                         }
                     }, onAlarmSoundDeleted = {}
                 )

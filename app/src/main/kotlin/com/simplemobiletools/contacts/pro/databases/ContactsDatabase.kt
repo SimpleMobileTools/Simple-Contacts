@@ -17,7 +17,7 @@ import com.simplemobiletools.contacts.pro.models.Group
 import com.simplemobiletools.contacts.pro.models.LocalContact
 import java.util.concurrent.Executors
 
-@Database(entities = [LocalContact::class, Group::class], version = 2)
+@Database(entities = [LocalContact::class, Group::class], version = 3)
 @TypeConverters(Converters::class)
 abstract class ContactsDatabase : RoomDatabase() {
 
@@ -40,6 +40,7 @@ abstract class ContactsDatabase : RoomDatabase() {
                                 }
                             })
                             .addMigrations(MIGRATION_1_2)
+                            .addMigrations(MIGRATION_2_3)
                             .build()
                     }
                 }
@@ -74,6 +75,14 @@ abstract class ContactsDatabase : RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.apply {
                     execSQL("ALTER TABLE contacts ADD COLUMN photo_uri TEXT NOT NULL DEFAULT ''")
+                }
+            }
+        }
+
+        private val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.apply {
+                    execSQL("ALTER TABLE contacts ADD COLUMN ringtone TEXT DEFAULT ''")
                 }
             }
         }

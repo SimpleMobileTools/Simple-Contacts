@@ -67,6 +67,10 @@ class LocalContactsHelper(val context: Context) {
         }
     }
 
+    fun updateRingtone(id: Int, ringtone: String) {
+        context.contactsDB.updateRingtone(ringtone, id)
+    }
+
     private fun getPhotoByteArray(uri: String): ByteArray {
         if (uri.isEmpty()) {
             return ByteArray(0)
@@ -82,7 +86,7 @@ class LocalContactsHelper(val context: Context) {
         return scaledSizePhotoData
     }
 
-    fun convertLocalContactToContact(localContact: LocalContact?, storedGroups: ArrayList<Group>): Contact? {
+    private fun convertLocalContactToContact(localContact: LocalContact?, storedGroups: ArrayList<Group>): Contact? {
         if (localContact == null) {
             return null
         }
@@ -120,6 +124,7 @@ class LocalContactsHelper(val context: Context) {
             organization = Organization(localContact.company, localContact.jobPosition)
             websites = localContact.websites
             IMs = localContact.IMs
+            ringtone = localContact.ringtone
         }
     }
 
@@ -150,6 +155,7 @@ class LocalContactsHelper(val context: Context) {
             jobPosition = contact.organization.jobPosition
             websites = contact.websites
             IMs = contact.IMs
+            ringtone = contact.ringtone
         }
     }
 

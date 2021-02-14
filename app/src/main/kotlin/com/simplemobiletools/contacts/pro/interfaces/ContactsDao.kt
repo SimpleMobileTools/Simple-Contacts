@@ -23,6 +23,9 @@ interface ContactsDao {
     @Query("UPDATE contacts SET starred = :isStarred WHERE id = :id")
     fun updateStarred(isStarred: Int, id: Int)
 
+    @Query("UPDATE contacts SET ringtone = :ringtone WHERE id = :id")
+    fun updateRingtone(ringtone: String, id: Int)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrUpdate(contact: LocalContact): Long
 
