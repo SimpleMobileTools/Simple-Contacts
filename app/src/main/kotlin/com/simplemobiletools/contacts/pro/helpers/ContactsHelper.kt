@@ -28,7 +28,7 @@ class ContactsHelper(val context: Context) {
     private val BATCH_SIZE = 50
     private var displayContactSources = ArrayList<String>()
 
-    fun getContacts(getAll: Boolean = false, ignoredContactSources: HashSet<String> = HashSet(), callback: (ArrayList<Contact>) -> Unit) {
+    fun getContacts(getAll: Boolean = false, gettingDuplicates: Boolean = false, ignoredContactSources: HashSet<String> = HashSet(), callback: (ArrayList<Contact>) -> Unit) {
         ensureBackgroundThread {
             val contacts = SparseArray<Contact>()
             displayContactSources = context.getVisibleContactSources()
@@ -43,7 +43,7 @@ class ContactsHelper(val context: Context) {
                 }
             }
 
-            getDeviceContacts(contacts, ignoredContactSources)
+            getDeviceContacts(contacts, ignoredContactSources, gettingDuplicates)
 
             if (displayContactSources.contains(SMT_PRIVATE)) {
                 LocalContactsHelper(context).getAllContacts().forEach {
@@ -125,7 +125,7 @@ class ContactsHelper(val context: Context) {
         }
     }
 
-    private fun getDeviceContacts(contacts: SparseArray<Contact>, ignoredContactSources: HashSet<String>?) {
+    private fun getDeviceContacts(contacts: SparseArray<Contact>, ignoredContactSources: HashSet<String>?, gettingDuplicates: Boolean) {
         if (!context.hasContactPermissions()) {
             return
         }
@@ -142,6 +142,7 @@ class ContactsHelper(val context: Context) {
             context.queryCursor(uri, projection, selection, selectionArgs, sortOrder, true) { cursor ->
                 val accountName = cursor.getStringValue(RawContacts.ACCOUNT_NAME) ?: ""
                 val accountType = cursor.getStringValue(RawContacts.ACCOUNT_TYPE) ?: ""
+
                 if (ignoredSources.contains("$accountName:$accountType")) {
                     return@queryCursor
                 }
@@ -162,16 +163,25 @@ class ContactsHelper(val context: Context) {
                     suffix = cursor.getStringValue(StructuredName.SUFFIX) ?: ""
                 }
 
+                var photoUri = ""
+                var starred = 0
+                var contactId = 0
+                var thumbnailUri = ""
+                var ringtone: String? = null
+
+                if (!gettingDuplicates) {
+                    photoUri = cursor.getStringValue(StructuredName.PHOTO_URI) ?: ""
+                    starred = cursor.getIntValue(StructuredName.STARRED)
+                    contactId = cursor.getIntValue(Data.CONTACT_ID)
+                    thumbnailUri = cursor.getStringValue(StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
+                    ringtone = cursor.getStringValue(StructuredName.CUSTOM_RINGTONE)
+                }
+
                 val nickname = ""
-                val photoUri = cursor.getStringValue(StructuredName.PHOTO_URI) ?: ""
                 val numbers = ArrayList<PhoneNumber>()          // proper value is obtained below
                 val emails = ArrayList<Email>()
                 val addresses = ArrayList<Address>()
                 val events = ArrayList<Event>()
-                val starred = cursor.getIntValue(StructuredName.STARRED)
-                val ringtone = cursor.getStringValue(StructuredName.CUSTOM_RINGTONE)
-                val contactId = cursor.getIntValue(Data.CONTACT_ID)
-                val thumbnailUri = cursor.getStringValue(StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
                 val notes = ""
                 val groups = ArrayList<Group>()
                 val organization = Organization("", "")
@@ -184,28 +194,33 @@ class ContactsHelper(val context: Context) {
             }
         }
 
+        val emails = getEmails()
+        var size = emails.size()
+        for (i in 0 until size) {
+            val key = emails.keyAt(i)
+            contacts[key]?.emails = emails.valueAt(i)
+        }
+
+        val organizations = getOrganizations()
+        size = organizations.size()
+        for (i in 0 until size) {
+            val key = organizations.keyAt(i)
+            contacts[key]?.organization = organizations.valueAt(i)
+        }
+
+        // no need to fetch some fields if we are only getting duplicates of the current contact
+        if (gettingDuplicates) {
+            return
+        }
+
         val phoneNumbers = getPhoneNumbers(null)
-        var size = phoneNumbers.size()
+        size = phoneNumbers.size()
         for (i in 0 until size) {
             val key = phoneNumbers.keyAt(i)
             if (contacts[key] != null) {
                 val numbers = phoneNumbers.valueAt(i)
                 contacts[key].phoneNumbers = numbers
             }
-        }
-
-        val nicknames = getNicknames()
-        size = nicknames.size()
-        for (i in 0 until size) {
-            val key = nicknames.keyAt(i)
-            contacts[key]?.nickname = nicknames.valueAt(i)
-        }
-
-        val emails = getEmails()
-        size = emails.size()
-        for (i in 0 until size) {
-            val key = emails.keyAt(i)
-            contacts[key]?.emails = emails.valueAt(i)
         }
 
         val addresses = getAddresses()
@@ -234,13 +249,6 @@ class ContactsHelper(val context: Context) {
         for (i in 0 until size) {
             val key = notes.keyAt(i)
             contacts[key]?.notes = notes.valueAt(i)
-        }
-
-        val organizations = getOrganizations()
-        size = organizations.size()
-        for (i in 0 until size) {
-            val key = organizations.keyAt(i)
-            contacts[key]?.organization = organizations.valueAt(i)
         }
 
         val websites = getWebsites()
@@ -1489,7 +1497,7 @@ class ContactsHelper(val context: Context) {
 
     fun getDuplicatesOfContact(contact: Contact, addOriginal: Boolean, callback: (ArrayList<Contact>) -> Unit) {
         ensureBackgroundThread {
-            getContacts(true) { contacts ->
+            getContacts(true, true) { contacts ->
                 val duplicates = contacts.filter { it.id != contact.id && it.getHashToCompare() == contact.getHashToCompare() }.toMutableList() as ArrayList<Contact>
                 if (addOriginal) {
                     duplicates.add(contact)

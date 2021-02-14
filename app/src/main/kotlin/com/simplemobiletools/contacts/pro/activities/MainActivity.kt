@@ -510,7 +510,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun exportContactsTo(ignoredContactSources: HashSet<String>, outputStream: OutputStream?) {
-        ContactsHelper(this).getContacts(true, ignoredContactSources) { contacts ->
+        ContactsHelper(this).getContacts(true, false, ignoredContactSources) { contacts ->
             if (contacts.isEmpty()) {
                 toast(R.string.no_entries_for_exporting)
             } else {

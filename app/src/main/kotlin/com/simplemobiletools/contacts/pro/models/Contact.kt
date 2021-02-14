@@ -113,7 +113,7 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
     fun getStringToCompare(): String {
         return copy(id = 0, prefix = "", firstName = getNameToDisplay().toLowerCase(), middleName = "", surname = "", suffix = "", nickname = "", photoUri = "",
             phoneNumbers = ArrayList(), emails = ArrayList(), events = ArrayList(), source = "", addresses = ArrayList(), starred = 0, contactId = 0,
-            thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", ""), IMs = ArrayList()).toString()
+            thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", ""), IMs = ArrayList(), ringtone = "").toString()
     }
 
     fun getHashToCompare() = getStringToCompare().hashCode()
