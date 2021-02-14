@@ -2,6 +2,7 @@ package com.simplemobiletools.contacts.pro.activities
 
 import android.content.ContentUris
 import android.content.Intent
+import android.media.AudioManager
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
+import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
@@ -589,6 +591,20 @@ class ViewContactActivity : ContactActivity() {
             }
 
             contact_ringtone.copyOnLongClick(contact_ringtone.text.toString())
+
+            contact_ringtone.setOnClickListener {
+                val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
+                SelectAlarmSoundDialog(this, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
+                    onAlarmPicked = {
+                        contact!!.ringtone = it?.uri
+                        contact_ringtone.text = it?.title
+
+                        ensureBackgroundThread {
+                            ContactsHelper(this).updateRingtone(contact!!.contactId.toString(), it?.uri ?: "")
+                        }
+                    }, onAlarmSoundDeleted = {}
+                )
+            }
         } else {
             contact_ringtone_image.beGone()
             contact_ringtone.beGone()

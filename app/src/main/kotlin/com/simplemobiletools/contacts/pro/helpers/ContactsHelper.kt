@@ -1424,6 +1424,21 @@ class ContactsHelper(val context: Context) {
         LocalContactsHelper(context).toggleFavorites(localContacts, addToFavorites)
     }
 
+    fun updateRingtone(contactId: String, newUri: String) {
+        try {
+            val operations = ArrayList<ContentProviderOperation>()
+            val uri = Uri.withAppendedPath(Contacts.CONTENT_URI, contactId)
+            ContentProviderOperation.newUpdate(uri).apply {
+                withValue(Contacts.CUSTOM_RINGTONE, newUri)
+                operations.add(build())
+            }
+
+            context.contentResolver.applyBatch(AUTHORITY, operations)
+        } catch (e: Exception) {
+            context.showErrorToast(e)
+        }
+    }
+
     fun deleteContact(originalContact: Contact, deleteClones: Boolean = false, callback: (success: Boolean) -> Unit) {
         ensureBackgroundThread {
             if (deleteClones) {
