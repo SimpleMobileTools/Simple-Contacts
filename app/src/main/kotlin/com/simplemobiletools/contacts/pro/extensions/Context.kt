@@ -80,8 +80,14 @@ fun Context.sendAddressIntent(address: String) {
 }
 
 fun Context.openWebsiteIntent(url: String) {
+    val website = if (url.startsWith("http")) {
+        url
+    } else {
+        "https://$url"
+    }
+
     Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse(url)
+        data = Uri.parse(website)
         if (resolveActivity(packageManager) != null) {
             startActivity(this)
         } else {
