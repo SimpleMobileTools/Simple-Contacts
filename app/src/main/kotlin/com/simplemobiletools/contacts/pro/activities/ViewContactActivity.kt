@@ -596,16 +596,8 @@ class ViewContactActivity : ContactActivity() {
                 val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
                 SelectAlarmSoundDialog(this, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
                     onAlarmPicked = {
-                        contact!!.ringtone = it?.uri
                         contact_ringtone.text = it?.title
-
-                        ensureBackgroundThread {
-                            if (contact!!.isPrivate()) {
-                                LocalContactsHelper(this).updateRingtone(contact!!.contactId, it?.uri ?: "")
-                            } else {
-                                ContactsHelper(this).updateRingtone(contact!!.contactId.toString(), it?.uri ?: "")
-                            }
-                        }
+                        ringtoneUpdated(it?.uri)
                     }, onAlarmSoundDeleted = {}
                 )
             }
@@ -648,6 +640,23 @@ class ViewContactActivity : ContactActivity() {
                         startActivity(this)
                     }
                 }
+            }
+        }
+    }
+
+    override fun customRingtoneSelected(ringtonePath: String) {
+        contact_ringtone.text = ringtonePath.getFilenameFromPath()
+        ringtoneUpdated(ringtonePath)
+    }
+
+    private fun ringtoneUpdated(path: String?) {
+        contact!!.ringtone = path
+
+        ensureBackgroundThread {
+            if (contact!!.isPrivate()) {
+                LocalContactsHelper(this).updateRingtone(contact!!.contactId, path ?: "")
+            } else {
+                ContactsHelper(this).updateRingtone(contact!!.contactId.toString(), path ?: "")
             }
         }
     }

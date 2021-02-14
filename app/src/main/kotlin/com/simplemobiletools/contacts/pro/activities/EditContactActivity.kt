@@ -1242,6 +1242,11 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
+    override fun customRingtoneSelected(ringtonePath: String) {
+        contact!!.ringtone = ringtonePath
+        contact_ringtone.text = ringtonePath.getFilenameFromPath()
+    }
+
     private fun getPhoneNumberTypeId(value: String) = when (value) {
         getString(R.string.mobile) -> Phone.TYPE_MOBILE
         getString(R.string.home) -> Phone.TYPE_HOME
