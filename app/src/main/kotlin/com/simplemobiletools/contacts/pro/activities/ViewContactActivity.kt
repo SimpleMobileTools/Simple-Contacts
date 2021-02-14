@@ -586,8 +586,9 @@ class ViewContactActivity : ContactActivity() {
                     contact_ringtone.text = ringtoneTitle
                 }
             } else {
-                val default = getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE)
-                contact_ringtone.text = default.title
+                contact_ringtone_image.beGone()
+                contact_ringtone.beGone()
+                return
             }
 
             contact_ringtone.copyOnLongClick(contact_ringtone.text.toString())
