@@ -105,6 +105,7 @@
     <string name="groups">Ryhmät</string>
     <string name="contact_source">Yhteystiedon lähde</string>
     <string name="instant_messaging">Pikaviestin</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Yhteystieto poistetaan kaikista lähteistä.</string>

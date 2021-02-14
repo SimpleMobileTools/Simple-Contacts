@@ -105,6 +105,7 @@
     <string name="groups">グループ</string>
     <string name="contact_source">インポート元</string>
     <string name="instant_messaging">インスタントメッセージ(IM)</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">全ての連絡先ソースから連絡先を消去します</string>

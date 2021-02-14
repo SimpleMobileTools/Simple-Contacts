@@ -169,6 +169,7 @@ class ContactsHelper(val context: Context) {
                 val addresses = ArrayList<Address>()
                 val events = ArrayList<Event>()
                 val starred = cursor.getIntValue(StructuredName.STARRED)
+                val ringtone = cursor.getStringValue(StructuredName.CUSTOM_RINGTONE)
                 val contactId = cursor.getIntValue(Data.CONTACT_ID)
                 val thumbnailUri = cursor.getStringValue(StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
                 val notes = ""
@@ -177,7 +178,7 @@ class ContactsHelper(val context: Context) {
                 val websites = ArrayList<String>()
                 val ims = ArrayList<IM>()
                 val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
-                    events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype)
+                    events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype, ringtone)
 
                 contacts.put(id, contact)
             }
@@ -717,6 +718,7 @@ class ContactsHelper(val context: Context) {
                 val notes = getNotes(id)[id] ?: ""
                 val accountName = cursor.getStringValue(RawContacts.ACCOUNT_NAME) ?: ""
                 val starred = cursor.getIntValue(StructuredName.STARRED)
+                val ringtone = cursor.getStringValue(StructuredName.CUSTOM_RINGTONE)
                 val contactId = cursor.getIntValue(Data.CONTACT_ID)
                 val groups = getContactGroups(storedGroups, contactId)[contactId] ?: ArrayList()
                 val thumbnailUri = cursor.getStringValue(StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
@@ -724,7 +726,7 @@ class ContactsHelper(val context: Context) {
                 val websites = getWebsites(id)[id] ?: ArrayList()
                 val ims = getIMs(id)[id] ?: ArrayList()
                 return Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
-                    accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype)
+                    accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype, ringtone)
             }
         }
 
@@ -823,6 +825,7 @@ class ContactsHelper(val context: Context) {
         StructuredName.PHOTO_URI,
         StructuredName.PHOTO_THUMBNAIL_URI,
         StructuredName.STARRED,
+        StructuredName.CUSTOM_RINGTONE,
         RawContacts.ACCOUNT_NAME,
         RawContacts.ACCOUNT_TYPE
     )

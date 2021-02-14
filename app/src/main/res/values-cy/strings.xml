@@ -105,6 +105,7 @@
     <string name="groups">Grwpiau</string>
     <string name="contact_source">Ffynhonnell gyswllt</string>
     <string name="instant_messaging">Negesu ar unwaith (IM)</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>

@@ -105,6 +105,7 @@
     <string name="groups">群组</string>
     <string name="contact_source">联系人来源</string>
     <string name="instant_messaging">即时通讯 (IM)</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">该联系人将会被从所有联系人来源移除。</string>
