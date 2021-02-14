@@ -576,9 +576,13 @@ class ViewContactActivity : ContactActivity() {
 
             val ringtone = contact!!.ringtone
             if (ringtone != null && ringtone.isNotEmpty()) {
-                val contactRingtone = RingtoneManager.getRingtone(this, Uri.parse(ringtone))
-                val ringtoneTitle = contactRingtone.getTitle(this)
-                contact_ringtone.text = ringtoneTitle
+                if (ringtone == SILENT) {
+                    contact_ringtone.text = getString(R.string.no_sound)
+                } else {
+                    val contactRingtone = RingtoneManager.getRingtone(this, Uri.parse(ringtone))
+                    val ringtoneTitle = contactRingtone.getTitle(this)
+                    contact_ringtone.text = ringtoneTitle
+                }
             } else {
                 val default = getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE)
                 contact_ringtone.text = default.title
