@@ -2,6 +2,8 @@ package com.simplemobiletools.contacts.pro.activities
 
 import android.content.ContentUris
 import android.content.Intent
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
@@ -170,7 +172,7 @@ class ViewContactActivity : ContactActivity() {
 
         val textColor = config.textColor
         arrayOf(contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_events_image, contact_source_image,
-            contact_notes_image, contact_organization_image, contact_websites_image, contact_groups_image).forEach {
+            contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image).forEach {
             it.applyColorFilter(textColor)
         }
 
@@ -212,6 +214,7 @@ class ViewContactActivity : ContactActivity() {
         setupGroups()
         setupContactSources()
         setupNotes()
+        setupRingtone()
         setupOrganization()
         updateTextColors(contact_scrollview)
     }
@@ -563,6 +566,20 @@ class ViewContactActivity : ContactActivity() {
         } else {
             contact_notes_image.beGone()
             contact_notes.beGone()
+        }
+    }
+
+    private fun setupRingtone() {
+        val ringtone = contact!!.ringtone
+        if (ringtone != null && ringtone.isNotEmpty() && showFields and SHOW_RINGTONE != 0) {
+            val contactRingtone = RingtoneManager.getRingtone(this, Uri.parse(ringtone))
+            contact_ringtone.text = contactRingtone.getTitle(this)
+            contact_ringtone_image.beVisible()
+            contact_ringtone.beVisible()
+            contact_ringtone.setOnClickListener { }
+        } else {
+            contact_ringtone_image.beGone()
+            contact_ringtone.beGone()
         }
     }
 

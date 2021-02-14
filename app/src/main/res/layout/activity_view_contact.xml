@@ -117,9 +117,9 @@
                 android:paddingTop="@dimen/normal_margin"
                 android:paddingEnd="@dimen/normal_margin"
                 android:paddingBottom="@dimen/normal_margin"
-                android:tooltipText="John Doe"
                 android:singleLine="true"
-                android:textSize="@dimen/bigger_text_size" />
+                android:textSize="@dimen/bigger_text_size"
+                android:tooltipText="John Doe" />
 
             <ImageView
                 android:id="@+id/contact_numbers_image"
@@ -191,6 +191,18 @@
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
                 android:src="@drawable/ic_label_vector"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/contact_ringtone_image"
+                android:layout_width="@dimen/contact_icons_size"
+                android:layout_height="@dimen/contact_icons_size"
+                android:layout_alignTop="@+id/contact_ringtone"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/small_margin"
+                android:paddingBottom="@dimen/small_margin"
+                android:src="@drawable/ic_bell_vector"
                 android:visibility="gone" />
 
             <ImageView
@@ -329,10 +341,25 @@
                 android:visibility="gone" />
 
             <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/contact_organization_company"
+                android:id="@+id/contact_ringtone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/contact_notes"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/contact_ringtone_image"
+                android:background="?attr/selectableItemBackground"
+                android:lineSpacingExtra="@dimen/medium_margin"
+                android:paddingStart="@dimen/small_margin"
+                android:paddingTop="@dimen/normal_margin"
+                android:paddingBottom="@dimen/normal_margin"
+                android:textSize="@dimen/bigger_text_size"
+                android:visibility="gone" />
+
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/contact_organization_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_ringtone"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/contact_organization_image"
                 android:background="?attr/selectableItemBackground"
