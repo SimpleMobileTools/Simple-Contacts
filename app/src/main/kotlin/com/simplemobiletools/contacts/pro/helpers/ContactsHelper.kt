@@ -1070,11 +1070,12 @@ class ContactsHelper(val context: Context) {
                 }
             }
 
-            // favorite
+            // favorite, ringtone
             try {
                 val uri = Uri.withAppendedPath(Contacts.CONTENT_URI, contact.contactId.toString())
-                val contentValues = ContentValues(1)
+                val contentValues = ContentValues(2)
                 contentValues.put(Contacts.STARRED, contact.starred)
+                contentValues.put(Contacts.CUSTOM_RINGTONE, contact.ringtone)
                 context.contentResolver.update(uri, contentValues, null, null)
             } catch (e: Exception) {
                 context.showErrorToast(e)
@@ -1336,12 +1337,13 @@ class ContactsHelper(val context: Context) {
                 addFullSizePhoto(rawId, fullSizePhotoData)
             }
 
-            // favorite
+            // favorite, ringtone
             val userId = getRealContactId(rawId)
-            if (userId != 0 && contact.starred == 1) {
+            if (userId != 0) {
                 val uri = Uri.withAppendedPath(Contacts.CONTENT_URI, userId.toString())
-                val contentValues = ContentValues(1)
+                val contentValues = ContentValues(2)
                 contentValues.put(Contacts.STARRED, contact.starred)
+                contentValues.put(Contacts.CUSTOM_RINGTONE, contact.ringtone)
                 context.contentResolver.update(uri, contentValues, null, null)
             }
 

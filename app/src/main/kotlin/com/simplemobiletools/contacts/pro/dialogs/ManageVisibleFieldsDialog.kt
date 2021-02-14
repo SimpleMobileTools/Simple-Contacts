@@ -30,7 +30,7 @@ class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity) {
             put(SHOW_WEBSITES_FIELD, R.id.manage_visible_fields_websites)
             put(SHOW_GROUPS_FIELD, R.id.manage_visible_fields_groups)
             put(SHOW_CONTACT_SOURCE_FIELD, R.id.manage_visible_fields_contact_source)
-            put(SHOW_RINGTONE, R.id.manage_ringtone)
+            put(SHOW_RINGTONE_FIELD, R.id.manage_ringtone)
         }
 
         val showContactFields = activity.config.showContactFields

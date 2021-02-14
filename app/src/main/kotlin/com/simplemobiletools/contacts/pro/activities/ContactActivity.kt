@@ -30,6 +30,7 @@ import com.simplemobiletools.contacts.pro.models.Contact
 import java.util.*
 
 abstract class ContactActivity : SimpleActivity() {
+    protected val PICK_RINGTONE_INTENT_ID = 1000
     protected var contact: Contact? = null
     protected var currentContactPhotoPath = ""
 

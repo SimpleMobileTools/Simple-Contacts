@@ -570,13 +570,21 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupRingtone() {
-        val ringtone = contact!!.ringtone
-        if (ringtone != null && ringtone.isNotEmpty() && showFields and SHOW_RINGTONE != 0) {
-            val contactRingtone = RingtoneManager.getRingtone(this, Uri.parse(ringtone))
-            contact_ringtone.text = contactRingtone.getTitle(this)
+        if (showFields and SHOW_RINGTONE_FIELD != 0) {
             contact_ringtone_image.beVisible()
             contact_ringtone.beVisible()
-            contact_ringtone.setOnClickListener { }
+
+            val ringtone = contact!!.ringtone
+            if (ringtone != null && ringtone.isNotEmpty()) {
+                val contactRingtone = RingtoneManager.getRingtone(this, Uri.parse(ringtone))
+                val ringtoneTitle = contactRingtone.getTitle(this)
+                contact_ringtone.text = ringtoneTitle
+            } else {
+                val default = getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE)
+                contact_ringtone.text = default.title
+            }
+
+            contact_ringtone.copyOnLongClick(contact_ringtone.text.toString())
         } else {
             contact_ringtone_image.beGone()
             contact_ringtone.beGone()
