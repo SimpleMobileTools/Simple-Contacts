@@ -83,17 +83,16 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
         }
 
+        context.updateTextColors(fragment_wrapper.parent as ViewGroup)
         fragment_fastscroller?.updatePrimaryColor()
         fragment_fastscroller?.updateBubblePrimaryColor()
+        fragment_placeholder_2?.setTextColor(adjustedPrimaryColor)
 
         letter_fastscroller?.textColor = textColor.getColorStateList()
         letter_fastscroller?.pressedTextColor = adjustedPrimaryColor
         letter_fastscroller_thumb?.fontSize = context.getTextSize()
         letter_fastscroller_thumb?.textColor = adjustedPrimaryColor.getContrastColor()
         letter_fastscroller_thumb?.thumbColor = adjustedPrimaryColor.getColorStateList()
-
-        context.updateTextColors(fragment_wrapper.parent as ViewGroup)
-        fragment_placeholder_2?.setTextColor(adjustedPrimaryColor)
     }
 
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
