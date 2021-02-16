@@ -2,19 +2,18 @@ package com.simplemobiletools.contacts.pro.activities
 
 import android.content.ContentUris
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.media.AudioManager
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
+import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.CONTACT_ID
-import com.simplemobiletools.commons.helpers.IS_PRIVATE
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.dialogs.ChooseSocialDialog
@@ -175,7 +174,7 @@ class ViewContactActivity : ContactActivity() {
 
         val textColor = config.textColor
         arrayOf(contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_events_image, contact_source_image,
-            contact_notes_image, contact_organization_image, contact_websites_image, contact_groups_image).forEach {
+            contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image).forEach {
             it.applyColorFilter(textColor)
         }
 
@@ -217,6 +216,7 @@ class ViewContactActivity : ContactActivity() {
         setupGroups()
         setupContactSources()
         setupNotes()
+        setupRingtone()
         setupOrganization()
         updateTextColors(contact_scrollview)
     }
@@ -255,36 +255,11 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupNames() {
-        contact!!.apply {
-            contact_prefix.text = prefix
-            contact_prefix.beVisibleIf(prefix.isNotEmpty() && showFields and SHOW_PREFIX_FIELD != 0)
-            contact_prefix.copyOnLongClick(prefix)
-
-            contact_first_name.text = firstName
-            contact_first_name.beVisibleIf(firstName.isNotEmpty() && showFields and SHOW_FIRST_NAME_FIELD != 0)
-            contact_first_name.copyOnLongClick(firstName)
-
-            contact_middle_name.text = middleName
-            contact_middle_name.beVisibleIf(middleName.isNotEmpty() && showFields and SHOW_MIDDLE_NAME_FIELD != 0)
-            contact_middle_name.copyOnLongClick(middleName)
-
-            contact_surname.text = surname
-            contact_surname.beVisibleIf(surname.isNotEmpty() && showFields and SHOW_SURNAME_FIELD != 0)
-            contact_surname.copyOnLongClick(surname)
-
-            contact_suffix.text = suffix
-            contact_suffix.beVisibleIf(suffix.isNotEmpty() && showFields and SHOW_SUFFIX_FIELD != 0)
-            contact_suffix.copyOnLongClick(suffix)
-
-            contact_nickname.text = nickname
-            contact_nickname.beVisibleIf(nickname.isNotEmpty() && showFields and SHOW_NICKNAME_FIELD != 0)
-            contact_nickname.copyOnLongClick(nickname)
-
-            if (contact_prefix.isGone() && contact_first_name.isGone() && contact_middle_name.isGone() && contact_surname.isGone() && contact_suffix.isGone()
-                && contact_nickname.isGone()) {
-                contact_name_image.beInvisible()
-            }
-        }
+        val displayName = contact!!.getNameToDisplay()
+        contact_name.text = displayName
+        contact_name.copyOnLongClick(displayName)
+        contact_name.beVisibleIf(displayName.isNotEmpty() && !contact!!.isABusinessContact())
+        contact_name_image.beInvisibleIf(contact_name.isGone())
     }
 
     private fun setupPhoneNumbers() {
@@ -564,6 +539,14 @@ class ViewContactActivity : ContactActivity() {
                             showSocialActions(key.id)
                         }
                     }
+
+                    if (value.toLowerCase() == THREEMA) {
+                        contact_source_image.setImageDrawable(getPackageDrawable(THREEMA_PACKAGE))
+                        contact_source_image.beVisible()
+                        contact_source_image.setOnClickListener {
+                            showSocialActions(key.id)
+                        }
+                    }
                 }
             }
 
@@ -585,6 +568,43 @@ class ViewContactActivity : ContactActivity() {
         } else {
             contact_notes_image.beGone()
             contact_notes.beGone()
+        }
+    }
+
+    private fun setupRingtone() {
+        if (showFields and SHOW_RINGTONE_FIELD != 0) {
+            contact_ringtone_image.beVisible()
+            contact_ringtone.beVisible()
+
+            val ringtone = contact!!.ringtone
+            if (ringtone != null && ringtone.isNotEmpty()) {
+                if (ringtone == SILENT) {
+                    contact_ringtone.text = getString(R.string.no_sound)
+                } else {
+                    val contactRingtone = RingtoneManager.getRingtone(this, Uri.parse(ringtone))
+                    val ringtoneTitle = contactRingtone.getTitle(this)
+                    contact_ringtone.text = ringtoneTitle
+                }
+            } else {
+                contact_ringtone_image.beGone()
+                contact_ringtone.beGone()
+                return
+            }
+
+            contact_ringtone.copyOnLongClick(contact_ringtone.text.toString())
+
+            contact_ringtone.setOnClickListener {
+                val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
+                SelectAlarmSoundDialog(this, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
+                    onAlarmPicked = {
+                        contact_ringtone.text = it?.title
+                        ringtoneUpdated(it?.uri)
+                    }, onAlarmSoundDeleted = {}
+                )
+            }
+        } else {
+            contact_ringtone_image.beGone()
+            contact_ringtone.beGone()
         }
     }
 
@@ -621,6 +641,23 @@ class ViewContactActivity : ContactActivity() {
                         startActivity(this)
                     }
                 }
+            }
+        }
+    }
+
+    override fun customRingtoneSelected(ringtonePath: String) {
+        contact_ringtone.text = ringtonePath.getFilenameFromPath()
+        ringtoneUpdated(ringtonePath)
+    }
+
+    private fun ringtoneUpdated(path: String?) {
+        contact!!.ringtone = path
+
+        ensureBackgroundThread {
+            if (contact!!.isPrivate()) {
+                LocalContactsHelper(this).updateRingtone(contact!!.contactId, path ?: "")
+            } else {
+                ContactsHelper(this).updateRingtone(contact!!.contactId.toString(), path ?: "")
             }
         }
     }

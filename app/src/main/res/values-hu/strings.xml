@@ -105,6 +105,7 @@
     <string name="groups">Csoportok</string>
     <string name="contact_source">Névjegy account</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>

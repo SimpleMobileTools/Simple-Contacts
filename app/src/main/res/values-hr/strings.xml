@@ -105,6 +105,7 @@
     <string name="groups">Grupe</string>
     <string name="contact_source">Izvori kontakata</string>
     <string name="instant_messaging">Brzo slanje poruka (IM)</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>

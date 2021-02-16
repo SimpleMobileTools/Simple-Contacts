@@ -1,11 +1,13 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.provider.ContactsContract.CommonDataKinds.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,15 +26,24 @@ import com.simplemobiletools.commons.helpers.letterBackgroundColors
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.sendEmailIntent
-import com.simplemobiletools.contacts.pro.extensions.sendSMSIntent
 import com.simplemobiletools.contacts.pro.extensions.shareContacts
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.models.Contact
 import java.util.*
 
 abstract class ContactActivity : SimpleActivity() {
+    protected val PICK_RINGTONE_INTENT_ID = 1500
     protected var contact: Contact? = null
     protected var currentContactPhotoPath = ""
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == PICK_RINGTONE_INTENT_ID && resultCode == RESULT_OK && resultData != null && resultData.dataString != null) {
+            customRingtoneSelected(Uri.decode(resultData.dataString!!))
+        }
+    }
+
+    abstract fun customRingtoneSelected(ringtonePath: String)
 
     fun showPhotoPlaceholder(photoView: ImageView) {
         val placeholder = BitmapDrawable(resources, getBigLetterPlaceholder(contact?.getNameToDisplay() ?: "A"))
@@ -92,7 +103,7 @@ abstract class ContactActivity : SimpleActivity() {
     fun trySendSMS() {
         val numbers = contact!!.phoneNumbers
         if (numbers.size == 1) {
-            sendSMSIntent(numbers.first().value)
+            launchSendSMSIntent(numbers.first().value)
         } else if (numbers.size > 1) {
             val items = ArrayList<RadioItem>()
             numbers.forEachIndexed { index, phoneNumber ->
@@ -100,7 +111,7 @@ abstract class ContactActivity : SimpleActivity() {
             }
 
             RadioGroupDialog(this, items) {
-                sendSMSIntent(it as String)
+                launchSendSMSIntent(it as String)
             }
         }
     }
@@ -189,6 +200,7 @@ abstract class ContactActivity : SimpleActivity() {
             isAntiAlias = true
             textAlign = Paint.Align.CENTER
             textSize = wantedTextSize
+            style = Paint.Style.FILL
         }
 
         canvas.drawPaint(circlePaint)

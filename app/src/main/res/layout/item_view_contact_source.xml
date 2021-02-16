@@ -32,6 +32,7 @@
         android:layout_marginEnd="@dimen/normal_margin"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/small_margin"
+        android:visibility="gone"
         tools:src="@drawable/ic_phone_vector" />
 
 </RelativeLayout>

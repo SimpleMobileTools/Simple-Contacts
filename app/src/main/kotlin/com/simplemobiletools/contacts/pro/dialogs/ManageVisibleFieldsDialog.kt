@@ -30,6 +30,7 @@ class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity) {
             put(SHOW_WEBSITES_FIELD, R.id.manage_visible_fields_websites)
             put(SHOW_GROUPS_FIELD, R.id.manage_visible_fields_groups)
             put(SHOW_CONTACT_SOURCE_FIELD, R.id.manage_visible_fields_contact_source)
+            put(SHOW_RINGTONE_FIELD, R.id.manage_ringtone)
         }
 
         val showContactFields = activity.config.showContactFields
@@ -38,11 +39,11 @@ class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity) {
         }
 
         AlertDialog.Builder(activity)
-                .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
-                .setNegativeButton(R.string.cancel, null)
-                .create().apply {
-                    activity.setupDialogStuff(view, this)
-                }
+            .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
+            .setNegativeButton(R.string.cancel, null)
+            .create().apply {
+                activity.setupDialogStuff(view, this)
+            }
     }
 
     private fun dialogConfirmed() {

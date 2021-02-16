@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/manage_visible_fields_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -11,136 +10,144 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingStart="@dimen/activity_margin"
-        android:paddingEnd="@dimen/activity_margin"
-        android:paddingTop="@dimen/activity_margin">
+        android:paddingTop="@dimen/activity_margin"
+        android:paddingEnd="@dimen/activity_margin">
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_prefix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/prefix"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/prefix" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/first_name"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/first_name" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_middle_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/middle_name"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/middle_name" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_surname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/surname"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/surname" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_suffix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/suffix"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/suffix" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/nickname"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/nickname" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_phone_numbers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/phone_numbers"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/phone_numbers" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_emails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/emails"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/emails" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_addresses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/addresses"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/addresses" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_ims"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/instant_messaging"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/instant_messaging" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/events"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/events" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/notes"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/notes" />
+
+        <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+            android:id="@+id/manage_ringtone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/activity_margin"
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/ringtone" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_organization"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/organization"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/organization" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_websites"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/websites"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/websites" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_groups"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/groups"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/groups" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/manage_visible_fields_contact_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/contact_source"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/contact_source" />
 
     </LinearLayout>
 </ScrollView>

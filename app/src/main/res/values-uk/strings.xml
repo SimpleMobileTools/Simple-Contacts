@@ -105,6 +105,7 @@
     <string name="groups">Групи</string>
     <string name="contact_source">Походження контакту</string>
     <string name="instant_messaging">Мессенджери</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>

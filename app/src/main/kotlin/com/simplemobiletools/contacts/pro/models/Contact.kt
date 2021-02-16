@@ -13,8 +13,9 @@ import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 data class Contact(var id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var nickname: String,
                    var photoUri: String, var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>,
                    var events: ArrayList<Event>, var source: String, var starred: Int, var contactId: Int, var thumbnailUri: String, var photo: Bitmap?, var notes: String,
-                   var groups: ArrayList<Group>, var organization: Organization, var websites: ArrayList<String>, var IMs: ArrayList<IM>) :
-        Comparable<Contact> {
+                   var groups: ArrayList<Group>, var organization: Organization, var websites: ArrayList<String>, var IMs: ArrayList<IM>, var mimetype: String,
+                   var ringtone: String?) :
+    Comparable<Contact> {
     companion object {
         var sorting = 0
         var startWithSurname = false
@@ -71,7 +72,7 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
             } else if (firstString.isNotEmpty() && secondString.isEmpty()) {
                 -1
             } else {
-                if (firstString.toLowerCase() == secondString.toLowerCase()) {
+                if (firstString.equals(secondString, ignoreCase = true)) {
                     getNameToDisplay().compareTo(other.getNameToDisplay(), true)
                 } else {
                     firstString.compareTo(secondString, true)
@@ -112,7 +113,7 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
     fun getStringToCompare(): String {
         return copy(id = 0, prefix = "", firstName = getNameToDisplay().toLowerCase(), middleName = "", surname = "", suffix = "", nickname = "", photoUri = "",
             phoneNumbers = ArrayList(), emails = ArrayList(), events = ArrayList(), source = "", addresses = ArrayList(), starred = 0, contactId = 0,
-            thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", ""), IMs = ArrayList()).toString()
+            thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", ""), IMs = ArrayList(), ringtone = "").toString()
     }
 
     fun getHashToCompare() = getStringToCompare().hashCode()
@@ -130,9 +131,9 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
             val normalizedText = if (convertLetters) text.normalizePhoneNumber() else text
             phoneNumbers.any {
                 PhoneNumberUtils.compare(it.normalizedNumber, normalizedText) ||
-                        it.value.contains(text) ||
-                        it.normalizedNumber?.contains(normalizedText) == true ||
-                        it.value.normalizePhoneNumber().contains(normalizedText)
+                    it.value.contains(text) ||
+                    it.normalizedNumber?.contains(normalizedText) == true ||
+                    it.value.normalizePhoneNumber().contains(normalizedText)
             }
         } else {
             false

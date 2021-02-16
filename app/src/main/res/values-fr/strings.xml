@@ -103,6 +103,7 @@
     <string name="groups">Groupe</string>
     <string name="contact_source">Source du contact</string>
     <string name="instant_messaging">Messagerie instantanée (MI)</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Le contact sera supprimé de toutes les sources de contacts.</string>

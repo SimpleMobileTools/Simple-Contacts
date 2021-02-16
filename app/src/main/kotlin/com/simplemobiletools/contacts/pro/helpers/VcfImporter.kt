@@ -115,6 +115,7 @@ class VcfImporter(val activity: SimpleActivity) {
                 val photoData = ezContact.photos.firstOrNull()?.data
                 val photo = null
                 val thumbnailUri = savePhoto(photoData)
+                val ringtone = null
 
                 val IMs = ArrayList<IM>()
                 ezContact.impps.forEach {
@@ -138,11 +139,16 @@ class VcfImporter(val activity: SimpleActivity) {
                 }
 
                 val contact = Contact(0, prefix, firstName, middleName, surname, suffix, nickname, photoUri, phoneNumbers, emails, addresses, events,
-                    targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, IMs)
+                    targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, IMs, DEFAULT_MIMETYPE, ringtone)
 
                 // if there is no N and ORG fields at the given contact, only FN, treat it as an organization
                 if (contact.getNameToDisplay().isEmpty() && contact.organization.isEmpty() && ezContact.formattedName?.value?.isNotEmpty() == true) {
                     contact.organization.company = ezContact.formattedName.value
+                    contact.mimetype = CommonDataKinds.Organization.CONTENT_ITEM_TYPE
+                }
+
+                if (contact.isABusinessContact()) {
+                    contact.mimetype = CommonDataKinds.Organization.CONTENT_ITEM_TYPE
                 }
 
                 if (ContactsHelper(activity).insertContact(contact)) {

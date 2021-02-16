@@ -5,8 +5,8 @@ import android.content.ClipData
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.media.AudioManager
+import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds
@@ -20,6 +20,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
+import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
@@ -184,6 +185,7 @@ class EditContactActivity : ContactActivity() {
         }
 
         setupTypePickers()
+        setupRingtone()
 
         if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
             showPhotoPlaceholder(contact_photo)
@@ -194,7 +196,7 @@ class EditContactActivity : ContactActivity() {
 
         val textColor = config.textColor
         arrayOf(contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_ims_image, contact_events_image,
-            contact_notes_image, contact_organization_image, contact_websites_image, contact_groups_image, contact_source_image).forEach {
+            contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image, contact_source_image).forEach {
             it.applyColorFilter(textColor)
         }
 
@@ -380,6 +382,10 @@ class EditContactActivity : ContactActivity() {
         val areNotesVisible = showFields and SHOW_NOTES_FIELD != 0
         contact_notes.beVisibleIf(areNotesVisible)
         contact_notes_image.beVisibleIf(areNotesVisible)
+
+        val isRingtoneVisible = showFields and SHOW_RINGTONE_FIELD != 0
+        contact_ringtone.beVisibleIf(isRingtoneVisible)
+        contact_ringtone_image.beVisibleIf(isRingtoneVisible)
     }
 
     private fun setupEditContact() {
@@ -478,6 +484,31 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupNotes() {
         contact_notes.setText(contact!!.notes)
+    }
+
+    private fun setupRingtone() {
+        contact_ringtone.setOnClickListener {
+            val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
+            SelectAlarmSoundDialog(this, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
+                onAlarmPicked = {
+                    contact!!.ringtone = it?.uri
+                    contact_ringtone.text = it?.title
+                }, onAlarmSoundDeleted = {}
+            )
+        }
+
+        val ringtone = contact!!.ringtone
+        if (ringtone != null && ringtone.isNotEmpty()) {
+            if (ringtone == SILENT) {
+                contact_ringtone.text = getString(R.string.no_sound)
+            } else {
+                val contactRingtone = RingtoneManager.getRingtone(this, Uri.parse(ringtone))
+                contact_ringtone.text = contactRingtone.getTitle(this)
+            }
+        } else {
+            val default = getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE)
+            contact_ringtone.text = default.title
+        }
     }
 
     private fun setupOrganization() {
@@ -1209,6 +1240,11 @@ class EditContactActivity : ContactActivity() {
                 toast(R.string.no_app_found)
             }
         }
+    }
+
+    override fun customRingtoneSelected(ringtonePath: String) {
+        contact!!.ringtone = ringtonePath
+        contact_ringtone.text = ringtonePath.getFilenameFromPath()
     }
 
     private fun getPhoneNumberTypeId(value: String) = when (value) {

@@ -105,6 +105,7 @@
     <string name="groups">ഗ്രൂപ്പുകൾ</string>
     <string name="contact_source">കോൺ‌ടാക്റ്റ് ഉറവിടം</string>
     <string name="instant_messaging">തത്സമയ സന്ദേശം അയക്കൽ</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">എല്ലാ കോൺ‌ടാക്റ്റ് ഉറവിടങ്ങളിൽ‌ നിന്നും ഈ കോൺ‌ടാക്റ്റ് നീക്കംചെയ്യും.</string>

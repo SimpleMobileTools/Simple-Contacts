@@ -87,11 +87,11 @@
     <string name="export_contacts_to_vcf">Εξαγωγή επαφών σε .vcf αρχείο</string>
     <string name="target_contact_source">Προορισμός πηγής επαφής</string>
     <string name="include_contact_sources">Συμπερίληψη πηγών επαφών</string>
-    <string name="filename_without_vcf">Όνομα αρχείου (χωρίς .vcf)</string>
+    <string name="filename_without_vcf">Όνομα αρχείου (εκτός .vcf)</string>
 
     <!-- Dialpad -->
     <string name="dialpad">Πληκτρολόγιο</string>
-    <string name="add_number_to_contact">Προσθήκη επαφής σε αριθμό</string>
+    <string name="add_number_to_contact">Προσθήκη αριθμού σε επαφή</string>
 
     <!-- Visible fields -->
     <string name="prefix">Πρόθεμα</string>
@@ -105,6 +105,7 @@
     <string name="groups">Ομάδες</string>
     <string name="contact_source">Προέλευση επαφής</string>
     <string name="instant_messaging">Αμεσο μήνυμα (IM)</string>
+    <string name="ringtone">Ήχος κλήσης</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Η επαφή θα καταργηθεί από όλες τις πηγές επαφών.</string>

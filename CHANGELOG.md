@@ -1,6 +1,28 @@
 Changelog
 ==========
 
+Version 6.14.1 *(2021-02-15)*
+----------------------------
+
+ * Allow customizing the ringtone per contact (Ringtone has to be enabled as a customizable field in the app settings)
+ * Added a White theme with special handling
+ * Added some letter fastscroller related improvements
+ * Some performance, stability and translation related improvements
+ * Please rate the app if you like it :)
+
+Version 6.14.0 *(2021-01-10)*
+----------------------------
+
+ * Always fetch the same contacts, no matter what sorting is set
+ * Fix an organization updating related issue
+ * Merge names into 1 line at the View Details screen
+ * Improve Threema contact handling
+
+Version 6.13.2 *(2021-01-02)*
+----------------------------
+
+ * Added some translation, stability and UX improvements
+
 Version 6.13.1 *(2020-10-27)*
 ----------------------------
 

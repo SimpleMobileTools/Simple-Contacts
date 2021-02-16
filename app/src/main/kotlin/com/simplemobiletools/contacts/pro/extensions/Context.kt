@@ -36,7 +36,7 @@ fun Context.getEmptyContact(): Contact {
     val originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
     val organization = Organization("", "")
     return Contact(0, "", "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), originalContactSource, 0, 0, "",
-        null, "", ArrayList(), organization, ArrayList(), ArrayList())
+        null, "", ArrayList(), organization, ArrayList(), ArrayList(), DEFAULT_MIMETYPE, null)
 }
 
 fun Context.viewContact(contact: Contact) {
@@ -66,17 +66,6 @@ fun Context.sendEmailIntent(recipient: String) {
     }
 }
 
-fun Context.sendSMSIntent(recipient: String) {
-    Intent(Intent.ACTION_SENDTO).apply {
-        data = Uri.fromParts("smsto", recipient, null)
-        if (resolveActivity(packageManager) != null) {
-            startActivity(this)
-        } else {
-            toast(R.string.no_app_found)
-        }
-    }
-}
-
 fun Context.sendAddressIntent(address: String) {
     val location = Uri.encode(address)
     val uri = Uri.parse("geo:0,0?q=$location")
@@ -91,8 +80,14 @@ fun Context.sendAddressIntent(address: String) {
 }
 
 fun Context.openWebsiteIntent(url: String) {
+    val website = if (url.startsWith("http")) {
+        url
+    } else {
+        "https://$url"
+    }
+
     Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse(url)
+        data = Uri.parse(website)
         if (resolveActivity(packageManager) != null) {
             startActivity(this)
         } else {
@@ -364,6 +359,10 @@ fun Context.getSocialActions(id: Int): ArrayList<SocialAction> {
             "vnd.android.cursor.item/vnd.org.telegram.messenger.android.call" -> SOCIAL_VOICE_CALL
             "vnd.android.cursor.item/vnd.org.telegram.messenger.android.call.video" -> SOCIAL_VIDEO_CALL
             "vnd.android.cursor.item/vnd.org.telegram.messenger.android.profile" -> SOCIAL_MESSAGE
+
+            // Threema
+            "vnd.android.cursor.item/vnd.ch.threema.app.profile" -> SOCIAL_MESSAGE
+            "vnd.android.cursor.item/vnd.ch.threema.app.call" -> SOCIAL_VOICE_CALL
             else -> return@queryCursor
         }
 

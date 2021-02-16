@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.ContactsContract.CommonDataKinds.Event
 import android.provider.MediaStore
-import com.simplemobiletools.commons.extensions.getChoppedList
 import com.simplemobiletools.commons.models.SimpleContact
 import com.simplemobiletools.contacts.pro.extensions.contactsDB
 import com.simplemobiletools.contacts.pro.extensions.getByteArray
@@ -56,7 +55,7 @@ class LocalContactsHelper(val context: Context) {
     }
 
     fun deleteContactIds(ids: MutableList<Long>) {
-        ids.getChoppedList().forEach {
+        ids.chunked(30).forEach {
             context.contactsDB.deleteContactIds(it)
         }
     }
@@ -66,6 +65,10 @@ class LocalContactsHelper(val context: Context) {
         ids.forEach {
             context.contactsDB.updateStarred(isStarred, it)
         }
+    }
+
+    fun updateRingtone(id: Int, ringtone: String) {
+        context.contactsDB.updateRingtone(ringtone, id)
     }
 
     private fun getPhotoByteArray(uri: String): ByteArray {
@@ -83,7 +86,7 @@ class LocalContactsHelper(val context: Context) {
         return scaledSizePhotoData
     }
 
-    fun convertLocalContactToContact(localContact: LocalContact?, storedGroups: ArrayList<Group>): Contact? {
+    private fun convertLocalContactToContact(localContact: LocalContact?, storedGroups: ArrayList<Group>): Contact? {
         if (localContact == null) {
             return null
         }
@@ -121,6 +124,7 @@ class LocalContactsHelper(val context: Context) {
             organization = Organization(localContact.company, localContact.jobPosition)
             websites = localContact.websites
             IMs = localContact.IMs
+            ringtone = localContact.ringtone
         }
     }
 
@@ -151,6 +155,7 @@ class LocalContactsHelper(val context: Context) {
             jobPosition = contact.organization.jobPosition
             websites = contact.websites
             IMs = contact.IMs
+            ringtone = contact.ringtone
         }
     }
 

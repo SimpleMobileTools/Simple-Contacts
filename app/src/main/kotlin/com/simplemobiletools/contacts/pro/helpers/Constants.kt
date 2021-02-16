@@ -93,6 +93,7 @@ const val SHOW_CONTACT_SOURCE_FIELD = 4096
 const val SHOW_WEBSITES_FIELD = 8192
 const val SHOW_NICKNAME_FIELD = 16384
 const val SHOW_IMS_FIELD = 32768
+const val SHOW_RINGTONE_FIELD = 65536
 
 const val DEFAULT_EMAIL_TYPE = CommonDataKinds.Email.TYPE_HOME
 const val DEFAULT_PHONE_NUMBER_TYPE = CommonDataKinds.Phone.TYPE_MOBILE
@@ -101,22 +102,25 @@ const val DEFAULT_EVENT_TYPE = CommonDataKinds.Event.TYPE_BIRTHDAY
 const val DEFAULT_ORGANIZATION_TYPE = CommonDataKinds.Organization.TYPE_WORK
 const val DEFAULT_WEBSITE_TYPE = CommonDataKinds.Website.TYPE_HOMEPAGE
 const val DEFAULT_IM_TYPE = CommonDataKinds.Im.PROTOCOL_SKYPE
+const val DEFAULT_MIMETYPE = CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
 
 // apps with special handling
 const val TELEGRAM_PACKAGE = "org.telegram.messenger"
 const val SIGNAL_PACKAGE = "org.thoughtcrime.securesms"
 const val WHATSAPP_PACKAGE = "com.whatsapp"
 const val VIBER_PACKAGE = "com.viber.voip"
+const val THREEMA_PACKAGE = "ch.threema.app"
 
 const val WHATSAPP = "whatsapp"
 const val SIGNAL = "signal"
 const val VIBER = "viber"
 const val TELEGRAM = "telegram"
+const val THREEMA = "threema"
 
 const val SOCIAL_VOICE_CALL = 0
 const val SOCIAL_VIDEO_CALL = 1
 const val SOCIAL_MESSAGE = 2
 
-fun getEmptyLocalContact() = LocalContact(0, "", "", "", "", "", "", null, "", ArrayList(), ArrayList(), ArrayList(), 0, ArrayList(), "", ArrayList(), "", "", ArrayList(), ArrayList())
+fun getEmptyLocalContact() = LocalContact(0, "", "", "", "", "", "", null, "", ArrayList(), ArrayList(), ArrayList(), 0, ArrayList(), "", ArrayList(), "", "", ArrayList(), ArrayList(), null)
 
 fun getProperText(text: String, shouldNormalize: Boolean) = if (shouldNormalize) text.normalizeString() else text

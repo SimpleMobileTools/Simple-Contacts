@@ -65,7 +65,7 @@
     <string name="main_number">Standaard</string>
     <string name="work_fax">Fax Werk</string>
     <string name="home_fax">Fax Thuis</string>
-    <string name="pager">Pager</string>
+    <string name="pager">Pieper</string>
     <string name="no_phone_number_found">Geen telefoonnummers gevonden</string>
 
     <!-- Events -->
@@ -105,6 +105,7 @@
     <string name="groups">Groepen</string>
     <string name="contact_source">Account</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">De contactpersoon zal worden verwijderd uit alle accounts.</string>

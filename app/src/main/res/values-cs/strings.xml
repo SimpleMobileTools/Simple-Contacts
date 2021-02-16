@@ -105,6 +105,7 @@
     <string name="groups">Skupiny</string>
     <string name="contact_source">Zdroje kontaktů</string>
     <string name="instant_messaging">Rychlé zprávy (IM)</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Kontakt bude vymazán ze všech zdrojů kontaktů.</string>

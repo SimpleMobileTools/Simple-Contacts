@@ -105,6 +105,7 @@
     <string name="groups">Grupper</string>
     <string name="contact_source">Kontaktkälla</string>
     <string name="instant_messaging">Snabbmeddelanden (IM)</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Kontakten kommer att tas bort från alla kontaktkällor.</string>

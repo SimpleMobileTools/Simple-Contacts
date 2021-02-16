@@ -105,6 +105,7 @@
     <string name="groups">Grupy</string>
     <string name="contact_source">Miejsce przechowywania kontaktu</string>
     <string name="instant_messaging">Komunikator</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>

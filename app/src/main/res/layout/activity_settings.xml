@@ -161,6 +161,39 @@
 
         </RelativeLayout>
 
+
+        <RelativeLayout
+            android:id="@+id/settings_on_contact_click_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:background="?attr/selectableItemBackground"
+            android:paddingStart="@dimen/normal_margin"
+            android:paddingTop="@dimen/bigger_margin"
+            android:paddingEnd="@dimen/normal_margin"
+            android:paddingBottom="@dimen/bigger_margin">
+
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/settings_on_contact_click_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/settings_on_contact_click"
+                android:paddingStart="@dimen/medium_margin"
+                android:paddingEnd="@dimen/medium_margin"
+                android:text="@string/on_contact_click" />
+
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/settings_on_contact_click"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:background="@null"
+                android:clickable="false" />
+
+        </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/settings_show_contact_thumbnails_holder"
             android:layout_width="match_parent"
@@ -319,38 +352,6 @@
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/show_private_contacts"
                 app:switchPadding="@dimen/medium_margin" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/settings_on_contact_click_holder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:background="?attr/selectableItemBackground"
-            android:paddingStart="@dimen/normal_margin"
-            android:paddingTop="@dimen/bigger_margin"
-            android:paddingEnd="@dimen/normal_margin"
-            android:paddingBottom="@dimen/bigger_margin">
-
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/settings_on_contact_click_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/settings_on_contact_click"
-                android:paddingStart="@dimen/medium_margin"
-                android:paddingEnd="@dimen/medium_margin"
-                android:text="@string/on_contact_click" />
-
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/settings_on_contact_click"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/small_margin"
-                android:background="@null"
-                android:clickable="false" />
 
         </RelativeLayout>
     </LinearLayout>

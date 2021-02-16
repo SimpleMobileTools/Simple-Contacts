@@ -105,6 +105,7 @@
     <string name="groups">Gruplar</string>
     <string name="contact_source">Kişi kaynağı</string>
     <string name="instant_messaging">Anlık mesajlaşma (IM)</string>
+    <string name="ringtone">Zil sesi</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Kişi tüm kişi kaynaklarından kaldırılacak.</string>

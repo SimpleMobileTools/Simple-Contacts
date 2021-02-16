@@ -59,9 +59,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var isGettingContacts = false
     private var ignoredExportContactSources = HashSet<String>()
 
-    private var storedTextColor = 0
-    private var storedBackgroundColor = 0
-    private var storedPrimaryColor = 0
     private var storedShowContactThumbnails = false
     private var storedShowPhoneNumbers = false
     private var storedStartNameWithSurname = false
@@ -114,29 +111,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         }
 
-        val configTextColor = config.textColor
-        if (storedTextColor != configTextColor) {
-            getInactiveTabIndexes(viewpager.currentItem).forEach {
-                main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(configTextColor)
-            }
-            getAllFragments().forEach {
-                it?.textColorChanged(configTextColor)
-            }
+        val adjustedPrimaryColor = getAdjustedPrimaryColor()
+        main_tabs_holder.background = ColorDrawable(config.backgroundColor)
+        main_tabs_holder.setSelectedTabIndicatorColor(adjustedPrimaryColor)
+        getAllFragments().forEach {
+            it?.setupColors(config.textColor, adjustedPrimaryColor)
         }
 
-        val configBackgroundColor = config.backgroundColor
-        if (storedBackgroundColor != configBackgroundColor) {
-            main_tabs_holder.background = ColorDrawable(configBackgroundColor)
-        }
-
-        val configPrimaryColor = config.primaryColor
-        if (storedPrimaryColor != configPrimaryColor) {
-            main_tabs_holder.setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
-            main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
-            getAllFragments().forEach {
-                it?.primaryColorChanged()
-            }
-        }
+        updateTabColors()
 
         val configStartNameWithSurname = config.startNameWithSurname
         if (storedStartNameWithSurname != configStartNameWithSurname) {
@@ -156,17 +138,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 initFragments()
             } else {
                 refreshContacts(ALL_TABS_MASK)
-
-                getAllFragments().forEach {
-                    it?.onActivityResume()
-                }
             }
         }
 
-        val dialpadIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad_vector, getFABIconColor())
+        val dialpadIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad_vector, adjustedPrimaryColor.getContrastColor())
         main_dialpad_button.apply {
             setImageDrawable(dialpadIcon)
-            background.applyColorFilter(getAdjustedPrimaryColor())
+            background.applyColorFilter(adjustedPrimaryColor)
             beVisibleIf(config.showDialpadButton)
         }
 
@@ -233,9 +211,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun storeStateVariables() {
         config.apply {
-            storedTextColor = textColor
-            storedBackgroundColor = backgroundColor
-            storedPrimaryColor = primaryColor
             storedShowContactThumbnails = showContactThumbnails
             storedShowPhoneNumbers = showPhoneNumbers
             storedStartNameWithSurname = startNameWithSurname
@@ -278,6 +253,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 return true
             }
         })
+    }
+
+    private fun updateTabColors() {
+        getInactiveTabIndexes(viewpager.currentItem).forEach {
+            main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(config.textColor)
+        }
+        main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
     }
 
     private fun getSearchString(): Int {
@@ -528,7 +510,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun exportContactsTo(ignoredContactSources: HashSet<String>, outputStream: OutputStream?) {
-        ContactsHelper(this).getContacts(true, ignoredContactSources) { contacts ->
+        ContactsHelper(this).getContacts(true, false, ignoredContactSources) { contacts ->
             if (contacts.isEmpty()) {
                 toast(R.string.no_entries_for_exporting)
             } else {
@@ -567,6 +549,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         if (viewpager.adapter == null) {
             viewpager.adapter = ViewPagerAdapter(this, tabsList, config.showTabs)
             viewpager.currentItem = getDefaultTab()
+            updateTabColors()
         }
 
         ContactsHelper(this).getContacts { contacts ->

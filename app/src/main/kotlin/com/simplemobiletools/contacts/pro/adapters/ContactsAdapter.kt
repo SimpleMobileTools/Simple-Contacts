@@ -15,7 +15,10 @@ import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getTextSize
+import com.simplemobiletools.commons.extensions.highlightTextFromNumbers
+import com.simplemobiletools.commons.extensions.highlightTextPart
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller

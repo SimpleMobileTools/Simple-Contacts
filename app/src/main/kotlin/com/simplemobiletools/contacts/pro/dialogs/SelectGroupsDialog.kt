@@ -2,6 +2,7 @@ package com.simplemobiletools.contacts.pro.dialogs
 
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.contacts.pro.R
@@ -51,11 +52,12 @@ class SelectGroupsDialog(val activity: SimpleActivity, val selectedGroups: Array
             item_checkbox_holder.setOnClickListener {
                 item_checkbox.toggle()
             }
+
             item_checkbox.apply {
                 isChecked = selectedGroups.contains(group)
                 text = group.title
                 tag = group.id
-                setColors(config.textColor, config.primaryColor, config.backgroundColor)
+                setColors(config.textColor, activity.getAdjustedPrimaryColor(), config.backgroundColor)
             }
             view.dialog_groups_holder.addView(this)
         }

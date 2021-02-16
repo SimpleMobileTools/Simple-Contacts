@@ -28,7 +28,7 @@ class ContactsHelper(val context: Context) {
     private val BATCH_SIZE = 50
     private var displayContactSources = ArrayList<String>()
 
-    fun getContacts(getAll: Boolean = false, ignoredContactSources: HashSet<String> = HashSet(), callback: (ArrayList<Contact>) -> Unit) {
+    fun getContacts(getAll: Boolean = false, gettingDuplicates: Boolean = false, ignoredContactSources: HashSet<String> = HashSet(), callback: (ArrayList<Contact>) -> Unit) {
         ensureBackgroundThread {
             val contacts = SparseArray<Contact>()
             displayContactSources = context.getVisibleContactSources()
@@ -43,7 +43,7 @@ class ContactsHelper(val context: Context) {
                 }
             }
 
-            getDeviceContacts(contacts, ignoredContactSources)
+            getDeviceContacts(contacts, ignoredContactSources, gettingDuplicates)
 
             if (displayContactSources.contains(SMT_PRIVATE)) {
                 LocalContactsHelper(context).getAllContacts().forEach {
@@ -125,7 +125,7 @@ class ContactsHelper(val context: Context) {
         }
     }
 
-    private fun getDeviceContacts(contacts: SparseArray<Contact>, ignoredContactSources: HashSet<String>?) {
+    private fun getDeviceContacts(contacts: SparseArray<Contact>, ignoredContactSources: HashSet<String>?, gettingDuplicates: Boolean) {
         if (!context.hasContactPermissions()) {
             return
         }
@@ -134,75 +134,93 @@ class ContactsHelper(val context: Context) {
         val uri = Data.CONTENT_URI
         val projection = getContactProjection()
 
-        val selection = "${Data.MIMETYPE} = ? OR ${Data.MIMETYPE} = ?"
-        val selectionArgs = arrayOf(StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
-        val sortOrder = getSortString()
+        arrayOf(CommonDataKinds.Organization.CONTENT_ITEM_TYPE, StructuredName.CONTENT_ITEM_TYPE).forEach { mimetype ->
+            val selection = "${Data.MIMETYPE} = ?"
+            val selectionArgs = arrayOf(mimetype)
+            val sortOrder = getSortString()
 
-        context.queryCursor(uri, projection, selection, selectionArgs, sortOrder, true) { cursor ->
-            val accountName = cursor.getStringValue(RawContacts.ACCOUNT_NAME) ?: ""
-            val accountType = cursor.getStringValue(RawContacts.ACCOUNT_TYPE) ?: ""
-            if (ignoredSources.contains("$accountName:$accountType")) {
-                return@queryCursor
+            context.queryCursor(uri, projection, selection, selectionArgs, sortOrder, true) { cursor ->
+                val accountName = cursor.getStringValue(RawContacts.ACCOUNT_NAME) ?: ""
+                val accountType = cursor.getStringValue(RawContacts.ACCOUNT_TYPE) ?: ""
+
+                if (ignoredSources.contains("$accountName:$accountType")) {
+                    return@queryCursor
+                }
+
+                val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+                var prefix = ""
+                var firstName = ""
+                var middleName = ""
+                var surname = ""
+                var suffix = ""
+
+                // ignore names at Organization type contacts
+                if (mimetype == StructuredName.CONTENT_ITEM_TYPE) {
+                    prefix = cursor.getStringValue(StructuredName.PREFIX) ?: ""
+                    firstName = cursor.getStringValue(StructuredName.GIVEN_NAME) ?: ""
+                    middleName = cursor.getStringValue(StructuredName.MIDDLE_NAME) ?: ""
+                    surname = cursor.getStringValue(StructuredName.FAMILY_NAME) ?: ""
+                    suffix = cursor.getStringValue(StructuredName.SUFFIX) ?: ""
+                }
+
+                var photoUri = ""
+                var starred = 0
+                var contactId = 0
+                var thumbnailUri = ""
+                var ringtone: String? = null
+
+                if (!gettingDuplicates) {
+                    photoUri = cursor.getStringValue(StructuredName.PHOTO_URI) ?: ""
+                    starred = cursor.getIntValue(StructuredName.STARRED)
+                    contactId = cursor.getIntValue(Data.CONTACT_ID)
+                    thumbnailUri = cursor.getStringValue(StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
+                    ringtone = cursor.getStringValue(StructuredName.CUSTOM_RINGTONE)
+                }
+
+                val nickname = ""
+                val numbers = ArrayList<PhoneNumber>()          // proper value is obtained below
+                val emails = ArrayList<Email>()
+                val addresses = ArrayList<Address>()
+                val events = ArrayList<Event>()
+                val notes = ""
+                val groups = ArrayList<Group>()
+                val organization = Organization("", "")
+                val websites = ArrayList<String>()
+                val ims = ArrayList<IM>()
+                val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
+                    events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype, ringtone)
+
+                contacts.put(id, contact)
             }
+        }
 
-            val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
-            var prefix = ""
-            var firstName = ""
-            var middleName = ""
-            var surname = ""
-            var suffix = ""
+        val emails = getEmails()
+        var size = emails.size()
+        for (i in 0 until size) {
+            val key = emails.keyAt(i)
+            contacts[key]?.emails = emails.valueAt(i)
+        }
 
-            // ignore names at Organization type contacts
-            if (cursor.getStringValue(Data.MIMETYPE) == StructuredName.CONTENT_ITEM_TYPE) {
-                prefix = cursor.getStringValue(StructuredName.PREFIX) ?: ""
-                firstName = cursor.getStringValue(StructuredName.GIVEN_NAME) ?: ""
-                middleName = cursor.getStringValue(StructuredName.MIDDLE_NAME) ?: ""
-                surname = cursor.getStringValue(StructuredName.FAMILY_NAME) ?: ""
-                suffix = cursor.getStringValue(StructuredName.SUFFIX) ?: ""
-            }
+        val organizations = getOrganizations()
+        size = organizations.size()
+        for (i in 0 until size) {
+            val key = organizations.keyAt(i)
+            contacts[key]?.organization = organizations.valueAt(i)
+        }
 
-            val nickname = ""
-            val photoUri = cursor.getStringValue(StructuredName.PHOTO_URI) ?: ""
-            val numbers = ArrayList<PhoneNumber>()          // proper value is obtained below
-            val emails = ArrayList<Email>()
-            val addresses = ArrayList<Address>()
-            val events = ArrayList<Event>()
-            val starred = cursor.getIntValue(StructuredName.STARRED)
-            val contactId = cursor.getIntValue(Data.CONTACT_ID)
-            val thumbnailUri = cursor.getStringValue(StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-            val notes = ""
-            val groups = ArrayList<Group>()
-            val organization = Organization("", "")
-            val websites = ArrayList<String>()
-            val ims = ArrayList<IM>()
-            val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
-                events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
-
-            contacts.put(id, contact)
+        // no need to fetch some fields if we are only getting duplicates of the current contact
+        if (gettingDuplicates) {
+            return
         }
 
         val phoneNumbers = getPhoneNumbers(null)
-        var size = phoneNumbers.size()
+        size = phoneNumbers.size()
         for (i in 0 until size) {
             val key = phoneNumbers.keyAt(i)
             if (contacts[key] != null) {
                 val numbers = phoneNumbers.valueAt(i)
                 contacts[key].phoneNumbers = numbers
             }
-        }
-
-        val nicknames = getNicknames()
-        size = nicknames.size()
-        for (i in 0 until size) {
-            val key = nicknames.keyAt(i)
-            contacts[key]?.nickname = nicknames.valueAt(i)
-        }
-
-        val emails = getEmails()
-        size = emails.size()
-        for (i in 0 until size) {
-            val key = emails.keyAt(i)
-            contacts[key]?.emails = emails.valueAt(i)
         }
 
         val addresses = getAddresses()
@@ -231,13 +249,6 @@ class ContactsHelper(val context: Context) {
         for (i in 0 until size) {
             val key = notes.keyAt(i)
             contacts[key]?.notes = notes.valueAt(i)
-        }
-
-        val organizations = getOrganizations()
-        size = organizations.size()
-        for (i in 0 until size) {
-            val key = organizations.keyAt(i)
-            contacts[key]?.organization = organizations.valueAt(i)
         }
 
         val websites = getWebsites()
@@ -695,9 +706,10 @@ class ContactsHelper(val context: Context) {
                 var middleName = ""
                 var surname = ""
                 var suffix = ""
+                val mimetype = cursor.getStringValue(Data.MIMETYPE)
 
                 // ignore names at Organization type contacts
-                if (cursor.getStringValue(Data.MIMETYPE) == StructuredName.CONTENT_ITEM_TYPE) {
+                if (mimetype == StructuredName.CONTENT_ITEM_TYPE) {
                     prefix = cursor.getStringValue(StructuredName.PREFIX) ?: ""
                     firstName = cursor.getStringValue(StructuredName.GIVEN_NAME) ?: ""
                     middleName = cursor.getStringValue(StructuredName.MIDDLE_NAME) ?: ""
@@ -714,6 +726,7 @@ class ContactsHelper(val context: Context) {
                 val notes = getNotes(id)[id] ?: ""
                 val accountName = cursor.getStringValue(RawContacts.ACCOUNT_NAME) ?: ""
                 val starred = cursor.getIntValue(StructuredName.STARRED)
+                val ringtone = cursor.getStringValue(StructuredName.CUSTOM_RINGTONE)
                 val contactId = cursor.getIntValue(Data.CONTACT_ID)
                 val groups = getContactGroups(storedGroups, contactId)[contactId] ?: ArrayList()
                 val thumbnailUri = cursor.getStringValue(StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
@@ -721,7 +734,7 @@ class ContactsHelper(val context: Context) {
                 val websites = getWebsites(id)[id] ?: ArrayList()
                 val ims = getIMs(id)[id] ?: ArrayList()
                 return Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
-                    accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims)
+                    accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype, ringtone)
             }
         }
 
@@ -745,7 +758,8 @@ class ContactsHelper(val context: Context) {
             val ignoredTypes = arrayListOf(
                 SIGNAL_PACKAGE,
                 TELEGRAM_PACKAGE,
-                WHATSAPP_PACKAGE
+                WHATSAPP_PACKAGE,
+                THREEMA_PACKAGE
             )
 
             val contactSources = getContactSourcesSync()
@@ -819,6 +833,7 @@ class ContactsHelper(val context: Context) {
         StructuredName.PHOTO_URI,
         StructuredName.PHOTO_THUMBNAIL_URI,
         StructuredName.STARRED,
+        StructuredName.CUSTOM_RINGTONE,
         RawContacts.ACCOUNT_NAME,
         RawContacts.ACCOUNT_TYPE
     )
@@ -858,8 +873,8 @@ class ContactsHelper(val context: Context) {
         try {
             val operations = ArrayList<ContentProviderOperation>()
             ContentProviderOperation.newUpdate(Data.CONTENT_URI).apply {
-                val selection = "${Data.RAW_CONTACT_ID} = ? AND (${Data.MIMETYPE} = ? OR ${Data.MIMETYPE} = ?)"
-                val selectionArgs = arrayOf(contact.id.toString(), StructuredName.CONTENT_ITEM_TYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                val selection = "${Data.RAW_CONTACT_ID} = ? AND ${Data.MIMETYPE} = ?"
+                val selectionArgs = arrayOf(contact.id.toString(), contact.mimetype)
                 withSelection(selection, selectionArgs)
                 withValue(StructuredName.PREFIX, contact.prefix)
                 withValue(StructuredName.GIVEN_NAME, contact.firstName)
@@ -1010,14 +1025,16 @@ class ContactsHelper(val context: Context) {
             }
 
             // add organization
-            ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
-                withValue(Data.RAW_CONTACT_ID, contact.id)
-                withValue(Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
-                withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
-                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
-                withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
-                withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
-                operations.add(build())
+            if (contact.organization.isNotEmpty()) {
+                ContentProviderOperation.newInsert(Data.CONTENT_URI).apply {
+                    withValue(Data.RAW_CONTACT_ID, contact.id)
+                    withValue(Data.MIMETYPE, CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
+                    withValue(CommonDataKinds.Organization.COMPANY, contact.organization.company)
+                    withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
+                    withValue(CommonDataKinds.Organization.TITLE, contact.organization.jobPosition)
+                    withValue(CommonDataKinds.Organization.TYPE, DEFAULT_ORGANIZATION_TYPE)
+                    operations.add(build())
+                }
             }
 
             // delete websites
@@ -1061,11 +1078,12 @@ class ContactsHelper(val context: Context) {
                 }
             }
 
-            // favorite
+            // favorite, ringtone
             try {
                 val uri = Uri.withAppendedPath(Contacts.CONTENT_URI, contact.contactId.toString())
-                val contentValues = ContentValues(1)
+                val contentValues = ContentValues(2)
                 contentValues.put(Contacts.STARRED, contact.starred)
+                contentValues.put(Contacts.CUSTOM_RINGTONE, contact.ringtone)
                 context.contentResolver.update(uri, contentValues, null, null)
             } catch (e: Exception) {
                 context.showErrorToast(e)
@@ -1327,12 +1345,13 @@ class ContactsHelper(val context: Context) {
                 addFullSizePhoto(rawId, fullSizePhotoData)
             }
 
-            // favorite
+            // favorite, ringtone
             val userId = getRealContactId(rawId)
-            if (userId != 0 && contact.starred == 1) {
+            if (userId != 0) {
                 val uri = Uri.withAppendedPath(Contacts.CONTENT_URI, userId.toString())
-                val contentValues = ContentValues(1)
+                val contentValues = ContentValues(2)
                 contentValues.put(Contacts.STARRED, contact.starred)
+                contentValues.put(Contacts.CUSTOM_RINGTONE, contact.ringtone)
                 context.contentResolver.update(uri, contentValues, null, null)
             }
 
@@ -1413,6 +1432,21 @@ class ContactsHelper(val context: Context) {
         LocalContactsHelper(context).toggleFavorites(localContacts, addToFavorites)
     }
 
+    fun updateRingtone(contactId: String, newUri: String) {
+        try {
+            val operations = ArrayList<ContentProviderOperation>()
+            val uri = Uri.withAppendedPath(Contacts.CONTENT_URI, contactId)
+            ContentProviderOperation.newUpdate(uri).apply {
+                withValue(Contacts.CUSTOM_RINGTONE, newUri)
+                operations.add(build())
+            }
+
+            context.contentResolver.applyBatch(AUTHORITY, operations)
+        } catch (e: Exception) {
+            context.showErrorToast(e)
+        }
+    }
+
     fun deleteContact(originalContact: Contact, deleteClones: Boolean = false, callback: (success: Boolean) -> Unit) {
         ensureBackgroundThread {
             if (deleteClones) {
@@ -1463,7 +1497,7 @@ class ContactsHelper(val context: Context) {
 
     fun getDuplicatesOfContact(contact: Contact, addOriginal: Boolean, callback: (ArrayList<Contact>) -> Unit) {
         ensureBackgroundThread {
-            getContacts(true) { contacts ->
+            getContacts(true, true) { contacts ->
                 val duplicates = contacts.filter { it.id != contact.id && it.getHashToCompare() == contact.getHashToCompare() }.toMutableList() as ArrayList<Contact>
                 if (addOriginal) {
                     duplicates.add(contact)
