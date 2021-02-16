@@ -105,7 +105,7 @@
     <string name="groups">Группы</string>
     <string name="contact_source">Источник контакта</string>
     <string name="instant_messaging">Мессенджеры</string>
-    <string name="ringtone">Ringtone</string>
+    <string name="ringtone">Cигнал вызова</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Контакт будет удалён из всех источников контактов.</string>
