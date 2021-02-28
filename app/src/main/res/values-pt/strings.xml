@@ -49,7 +49,7 @@
     <string name="call_contact">Ligar</string>
     <string name="view_contact">Ver detalhes</string>
     <string name="manage_shown_contact_fields">Gerir campos a mostrar</string>
-    <string name="manage_shown_tabs">Gerir separadores a exibir</string>
+    <string name="manage_shown_tabs">Gerir separadores a mostrar</string>
     <string name="contacts">Contactos</string>
     <string name="show_call_confirmation_dialog">Mostrar diálogo para confirmar a chamada</string>
     <string name="show_only_contacts_with_numbers">Mostrar apenas contactos com número de telefone</string>
@@ -73,7 +73,7 @@
     <string name="anniversary">Aniversário</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Parece que ainda não adicionou contactos aos favoritos</string>
+    <string name="no_favorites">Ainda não adicionou contactos aos favoritos</string>
 
     <!-- Search -->
     <string name="search_contacts">Pesquisar nos contactos</string>
@@ -91,7 +91,7 @@
 
     <!-- Dialpad -->
     <string name="dialpad">Marcador</string>
-    <string name="add_number_to_contact">Adicionar número a um contacto existente</string>
+    <string name="add_number_to_contact">Adicionar a um contacto existente</string>
 
     <!-- Visible fields -->
     <string name="prefix">Prefixo</string>
