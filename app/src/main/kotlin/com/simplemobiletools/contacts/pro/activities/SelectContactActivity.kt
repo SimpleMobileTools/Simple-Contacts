@@ -126,15 +126,15 @@ class SelectContactActivity : SimpleActivity() {
             val shouldNormalize = text.normalizeString() == text
             val filtered = contactsIgnoringSearch.filter {
                 getProperText(it.getNameToDisplay(), shouldNormalize).contains(text, true) ||
-                        getProperText(it.nickname, shouldNormalize).contains(text, true) ||
-                        it.doesContainPhoneNumber(text, false) ||
-                        it.emails.any { it.value.contains(text, true) } ||
-                        it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
-                        it.IMs.any { it.value.contains(text, true) } ||
-                        getProperText(it.notes, shouldNormalize).contains(text, true) ||
-                        getProperText(it.organization.company, shouldNormalize).contains(text, true) ||
-                        getProperText(it.organization.jobPosition, shouldNormalize).contains(text, true) ||
-                        it.websites.any { it.contains(text, true) }
+                    getProperText(it.nickname, shouldNormalize).contains(text, true) ||
+                    it.doesContainPhoneNumber(text, false) ||
+                    it.emails.any { it.value.contains(text, true) } ||
+                    it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
+                    it.IMs.any { it.value.contains(text, true) } ||
+                    getProperText(it.notes, shouldNormalize).contains(text, true) ||
+                    getProperText(it.organization.company, shouldNormalize).contains(text, true) ||
+                    getProperText(it.organization.jobPosition, shouldNormalize).contains(text, true) ||
+                    it.websites.any { it.contains(text, true) }
             } as ArrayList
 
             filtered.sortBy {
@@ -201,6 +201,7 @@ class SelectContactActivity : SimpleActivity() {
                     select_contact_list.adapter = this
                 }
 
+                select_contact_list.scheduleLayoutAnimation()
                 select_contact_fastscroller.setViews(select_contact_list) {
                     select_contact_fastscroller.updateBubbleText(contacts[it].getBubbleText())
                 }

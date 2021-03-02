@@ -294,7 +294,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    fun getTabsMask(): Int {
+    private fun getTabsMask(): Int {
         var mask = TAB_CONTACTS
         if (config.showTabs and TAB_FAVORITES != 0) {
             mask += TAB_FAVORITES
