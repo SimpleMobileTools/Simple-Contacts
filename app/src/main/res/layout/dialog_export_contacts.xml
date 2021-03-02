@@ -32,7 +32,7 @@
             android:paddingBottom="@dimen/small_margin" />
 
         <com.simplemobiletools.commons.views.MyTextInputLayout
-            android:id="@+id/new_playlist_hint"
+            android:id="@+id/export_contacts_filename_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/filename_without_vcf">
