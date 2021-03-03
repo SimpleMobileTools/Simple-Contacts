@@ -57,7 +57,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:5.34.5'
+    implementation 'com.simplemobiletools:commons:5.34.6'
     implementation 'joda-time:joda-time:2.10.3'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.10.5'
     implementation 'com.github.tibbi:IndicatorFastScroll:c3de1d040a'
