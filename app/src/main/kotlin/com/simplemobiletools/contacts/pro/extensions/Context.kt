@@ -264,7 +264,7 @@ fun Context.sendEmailToContacts(contacts: ArrayList<Contact>) {
     }
 }
 
-fun Context.getTempFile(): File? {
+fun Context.getTempFile(filename: String = DEFAULT_FILE_NAME): File? {
     val folder = File(cacheDir, "contacts")
     if (!folder.exists()) {
         if (!folder.mkdir()) {
@@ -273,7 +273,7 @@ fun Context.getTempFile(): File? {
         }
     }
 
-    return File(folder, "contacts.vcf")
+    return File(folder, filename)
 }
 
 fun Context.addContactsToGroup(contacts: ArrayList<Contact>, groupId: Long) {

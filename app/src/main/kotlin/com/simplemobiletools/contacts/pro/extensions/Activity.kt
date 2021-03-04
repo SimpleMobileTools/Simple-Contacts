@@ -80,7 +80,13 @@ fun SimpleActivity.showContactSourcePicker(currentSource: String, callback: (new
 }
 
 fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
-    val file = getTempFile()
+    val filename = if (contacts.size == 1) {
+        "${contacts.first().getNameToDisplay()}.vcf"
+    } else {
+        DEFAULT_FILE_NAME
+    }
+
+    val file = getTempFile(filename)
     if (file == null) {
         toast(R.string.unknown_error_occurred)
         return
