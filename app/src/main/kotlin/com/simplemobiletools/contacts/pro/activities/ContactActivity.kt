@@ -231,12 +231,19 @@ abstract class ContactActivity : SimpleActivity() {
     protected fun getDefaultRingtoneUri() = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_RINGTONE)
 
     protected fun getRingtonePickerIntent(): Intent {
+        val defaultRingtoneUri = getDefaultRingtoneUri()
+        val currentRingtoneUri = if (contact!!.ringtone != null) {
+            Uri.parse(contact!!.ringtone)
+        } else {
+            defaultRingtoneUri
+        }
+
         return Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
             putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
             putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
             putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_RINGTONE)
-            putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, getDefaultRingtoneUri())
-            putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(contact!!.ringtone))
+            putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, defaultRingtoneUri)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, currentRingtoneUri)
         }
     }
 }
