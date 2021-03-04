@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.app.Activity
 import android.content.ContentUris
 import android.content.Intent
 import android.media.AudioManager
@@ -39,6 +40,7 @@ class ViewContactActivity : ContactActivity() {
     private var fullContact: Contact? = null    // contact with all fields filled from duplicates
 
     private val COMPARABLE_PHONE_NUMBER_LENGTH = 9
+    private val INTENT_SELECT_RINGTONE = 600
 
     override fun onCreate(savedInstanceState: Bundle?) {
         showTransparentTop = true
@@ -71,6 +73,22 @@ class ViewContactActivity : ContactActivity() {
         } else {
             ensureBackgroundThread {
                 initContact()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == INTENT_SELECT_RINGTONE && resultCode == Activity.RESULT_OK && resultData != null) {
+            val extras = resultData.extras
+            if (extras?.containsKey(RingtoneManager.EXTRA_RINGTONE_PICKED_URI) == true) {
+                val uri = extras.getParcelable<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI) ?: return
+                try {
+                    updateRingtoneText(uri)
+                    ringtoneUpdated(uri.toString())
+                } catch (e: Exception) {
+                    showErrorToast(e)
+                }
             }
         }
     }
@@ -583,9 +601,7 @@ class ViewContactActivity : ContactActivity() {
                 if (ringtone == SILENT) {
                     contact_ringtone.text = getString(R.string.no_sound)
                 } else {
-                    val contactRingtone = RingtoneManager.getRingtone(this, Uri.parse(ringtone))
-                    val ringtoneTitle = contactRingtone.getTitle(this)
-                    contact_ringtone.text = ringtoneTitle
+                    updateRingtoneText(Uri.parse(ringtone))
                 }
             } else {
                 contact_ringtone_image.beGone()
@@ -596,18 +612,38 @@ class ViewContactActivity : ContactActivity() {
             contact_ringtone.copyOnLongClick(contact_ringtone.text.toString())
 
             contact_ringtone.setOnClickListener {
-                val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
-                SelectAlarmSoundDialog(this, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
-                    onAlarmPicked = {
-                        contact_ringtone.text = it?.title
-                        ringtoneUpdated(it?.uri)
-                    }, onAlarmSoundDeleted = {}
-                )
+                Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+                    putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
+                    putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+                    putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_RINGTONE)
+                    putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, getDefaultRingtoneUri())
+                    putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(contact!!.ringtone))
+
+                    if (resolveActivity(packageManager) != null) {
+                        startActivityForResult(this, INTENT_SELECT_RINGTONE)
+                    } else {
+                        val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
+                        SelectAlarmSoundDialog(this@ViewContactActivity, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
+                            onAlarmPicked = {
+                                contact_ringtone.text = it?.title
+                                ringtoneUpdated(it?.uri)
+                            }, onAlarmSoundDeleted = {}
+                        )
+                    }
+                }
             }
         } else {
             contact_ringtone_image.beGone()
             contact_ringtone.beGone()
         }
+    }
+
+    private fun getDefaultRingtoneUri() = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_RINGTONE)
+
+    private fun updateRingtoneText(uri: Uri) {
+        val contactRingtone = RingtoneManager.getRingtone(this, uri)
+        val ringtoneTitle = contactRingtone.getTitle(this)
+        contact_ringtone.text = ringtoneTitle
     }
 
     private fun setupOrganization() {
