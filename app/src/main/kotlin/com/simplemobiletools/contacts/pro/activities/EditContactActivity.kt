@@ -488,13 +488,18 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupRingtone() {
         contact_ringtone.setOnClickListener {
-            val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
-            SelectAlarmSoundDialog(this, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
-                onAlarmPicked = {
-                    contact!!.ringtone = it?.uri
-                    contact_ringtone.text = it?.title
-                }, onAlarmSoundDeleted = {}
-            )
+            val ringtonePickerIntent = getRingtonePickerIntent()
+            if (ringtonePickerIntent.resolveActivity(packageManager) != null) {
+                startActivityForResult(ringtonePickerIntent, INTENT_SELECT_RINGTONE)
+            } else {
+                val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
+                SelectAlarmSoundDialog(this, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
+                    onAlarmPicked = {
+                        contact!!.ringtone = it?.uri
+                        contact_ringtone.text = it?.title
+                    }, onAlarmSoundDeleted = {}
+                )
+            }
         }
 
         val ringtone = contact!!.ringtone
@@ -502,8 +507,7 @@ class EditContactActivity : ContactActivity() {
             if (ringtone == SILENT) {
                 contact_ringtone.text = getString(R.string.no_sound)
             } else {
-                val contactRingtone = RingtoneManager.getRingtone(this, Uri.parse(ringtone))
-                contact_ringtone.text = contactRingtone.getTitle(this)
+                systemRingtoneSelected(Uri.parse(ringtone))
             }
         } else {
             val default = getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE)
@@ -1245,6 +1249,12 @@ class EditContactActivity : ContactActivity() {
     override fun customRingtoneSelected(ringtonePath: String) {
         contact!!.ringtone = ringtonePath
         contact_ringtone.text = ringtonePath.getFilenameFromPath()
+    }
+
+    override fun systemRingtoneSelected(uri: Uri) {
+        contact!!.ringtone = uri.toString()
+        val contactRingtone = RingtoneManager.getRingtone(this, uri)
+        contact_ringtone.text = contactRingtone.getTitle(this)
     }
 
     private fun getPhoneNumberTypeId(value: String) = when (value) {

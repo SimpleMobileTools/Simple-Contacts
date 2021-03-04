@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -7,6 +8,7 @@ import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.media.RingtoneManager
 import android.net.Uri
 import android.provider.ContactsContract.CommonDataKinds.*
 import android.widget.ImageView
@@ -33,6 +35,8 @@ import java.util.*
 
 abstract class ContactActivity : SimpleActivity() {
     protected val PICK_RINGTONE_INTENT_ID = 1500
+    protected val INTENT_SELECT_RINGTONE = 600
+
     protected var contact: Contact? = null
     protected var currentContactPhotoPath = ""
 
@@ -40,10 +44,22 @@ abstract class ContactActivity : SimpleActivity() {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (requestCode == PICK_RINGTONE_INTENT_ID && resultCode == RESULT_OK && resultData != null && resultData.dataString != null) {
             customRingtoneSelected(Uri.decode(resultData.dataString!!))
+        } else if (requestCode == INTENT_SELECT_RINGTONE && resultCode == Activity.RESULT_OK && resultData != null) {
+            val extras = resultData.extras
+            if (extras?.containsKey(RingtoneManager.EXTRA_RINGTONE_PICKED_URI) == true) {
+                val uri = extras.getParcelable<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI) ?: return
+                try {
+                    systemRingtoneSelected(uri)
+                } catch (e: Exception) {
+                    showErrorToast(e)
+                }
+            }
         }
     }
 
     abstract fun customRingtoneSelected(ringtonePath: String)
+
+    abstract fun systemRingtoneSelected(uri: Uri)
 
     fun showPhotoPlaceholder(photoView: ImageView) {
         val placeholder = BitmapDrawable(resources, getBigLetterPlaceholder(contact?.getNameToDisplay() ?: "A"))
@@ -210,5 +226,17 @@ abstract class ContactActivity : SimpleActivity() {
         canvas.drawText(letter, xPos, yPos, textPaint)
         view.draw(canvas)
         return bitmap
+    }
+
+    protected fun getDefaultRingtoneUri() = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_RINGTONE)
+
+    protected fun getRingtonePickerIntent(): Intent {
+        return Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+            putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_RINGTONE)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, getDefaultRingtoneUri())
+            putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(contact!!.ringtone))
+        }
     }
 }
