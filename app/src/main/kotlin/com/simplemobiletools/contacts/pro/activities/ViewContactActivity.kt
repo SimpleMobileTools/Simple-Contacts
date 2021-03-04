@@ -196,7 +196,9 @@ class ViewContactActivity : ContactActivity() {
             runOnUiThread {
                 setupContactDetails()
                 getDuplicateContacts {
-                    setupContactDetails()
+                    if (duplicateContacts.isNotEmpty()) {
+                        setupContactDetails()
+                    }
                 }
             }
         }
