@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.14.2 *(2021-03-04)*
+----------------------------
+
+ * Use the system ringtone picker at customizing contact ringtone
+ * Use the contacts name as the filename at sharing a single one
+ * Added some design, stability and translation improvements
+
 Version 6.14.1 *(2021-02-15)*
 ----------------------------
 
