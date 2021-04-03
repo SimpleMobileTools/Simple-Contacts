@@ -27,7 +27,10 @@ class MyContactsContentProvider : ContentProvider() {
                 MyContactsContentProvider.COL_ANNIVERSARIES)
             )
 
-            LocalContactsHelper(context!!).getPrivateSimpleContactsSync(selection == MyContactsContentProvider.FAVORITES_ONLY).forEach {
+            val favoritesOnly = selectionArgs?.getOrNull(0)?.equals("1") ?: false
+            val withPhoneNumbersOnly = selectionArgs?.getOrNull(1)?.equals("1") ?: true
+
+            LocalContactsHelper(context!!).getPrivateSimpleContactsSync(favoritesOnly, withPhoneNumbersOnly).forEach {
                 val phoneNumbers = Gson().toJson(it.phoneNumbers)
                 val birthdays = Gson().toJson(it.birthdays)
                 val anniversaries = Gson().toJson(it.anniversaries)

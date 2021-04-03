@@ -159,8 +159,8 @@ class LocalContactsHelper(val context: Context) {
         }
     }
 
-    private fun convertContactToSimpleContact(contact: Contact?): SimpleContact? {
-        return if (contact == null || contact.phoneNumbers.isEmpty()) {
+    private fun convertContactToSimpleContact(contact: Contact?, withPhoneNumbersOnly: Boolean): SimpleContact? {
+        return if (contact == null || (withPhoneNumbersOnly && contact.phoneNumbers.isEmpty())) {
             null
         } else {
             val phoneNumbers = contact.phoneNumbers.map { it.value }.toMutableList() as ArrayList<String>
@@ -170,5 +170,7 @@ class LocalContactsHelper(val context: Context) {
         }
     }
 
-    fun getPrivateSimpleContactsSync(favoritesOnly: Boolean) = getAllContacts(favoritesOnly).mapNotNull { convertContactToSimpleContact(it) }
+    fun getPrivateSimpleContactsSync(favoritesOnly: Boolean, withPhoneNumbersOnly: Boolean) = getAllContacts(favoritesOnly).mapNotNull {
+        convertContactToSimpleContact(it, withPhoneNumbersOnly)
+    }
 }

@@ -34,10 +34,7 @@ import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getTempFile
 import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
-import com.simplemobiletools.contacts.pro.helpers.ALL_TABS_MASK
-import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
-import com.simplemobiletools.contacts.pro.helpers.VcfExporter
-import com.simplemobiletools.contacts.pro.helpers.tabsList
+import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
