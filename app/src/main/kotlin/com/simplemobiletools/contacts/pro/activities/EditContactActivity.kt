@@ -293,7 +293,12 @@ class EditContactActivity : ContactActivity() {
         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, primaryUri)
         if (bitmap == null) {
             imageUri = backupUri
-            bitmap = MediaStore.Images.Media.getBitmap(contentResolver, backupUri) ?: return
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, backupUri) ?: return
+            } catch (e: Exception) {
+                showErrorToast(e)
+                return
+            }
 
             // we might have received an URI which we have no permission to send further, so just copy the received image in a new uri (for example from Google Photos)
             val newFile = getCachePhoto()
