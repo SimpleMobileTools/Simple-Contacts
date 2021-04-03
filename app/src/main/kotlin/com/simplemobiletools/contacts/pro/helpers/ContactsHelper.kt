@@ -633,7 +633,7 @@ class ContactsHelper(val context: Context) {
 
         try {
             val results = context.contentResolver.applyBatch(AUTHORITY, operations)
-            val rawId = ContentUris.parseId(results[0].uri)
+            val rawId = ContentUris.parseId(results[0].uri!!)
             return Group(rawId, title)
         } catch (e: Exception) {
             context.showErrorToast(e)
@@ -1340,7 +1340,7 @@ class ContactsHelper(val context: Context) {
             }
 
             // fullsize photo
-            val rawId = ContentUris.parseId(results[0].uri)
+            val rawId = ContentUris.parseId(results[0].uri!!)
             if (contact.photoUri.isNotEmpty() && fullSizePhotoData != null) {
                 addFullSizePhoto(rawId, fullSizePhotoData)
             }
