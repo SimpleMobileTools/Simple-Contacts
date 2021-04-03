@@ -3,6 +3,7 @@ package com.simplemobiletools.contacts.pro.activities
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.SearchManager
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ShortcutInfo
@@ -417,10 +418,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun launchDialpad() {
         Intent(Intent.ACTION_DIAL).apply {
-            if (resolveActivity(packageManager) != null) {
+            try {
                 startActivity(this)
-            } else {
+            } catch (e: ActivityNotFoundException) {
                 toast(R.string.no_app_found)
+            } catch (e: Exception) {
+                showErrorToast(e)
             }
         }
     }
