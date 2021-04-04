@@ -21,12 +21,7 @@ fun SimpleActivity.startCallIntent(recipient: String) {
         val action = if (it) Intent.ACTION_CALL else Intent.ACTION_DIAL
         Intent(action).apply {
             data = Uri.fromParts("tel", recipient, null)
-
-            if (resolveActivity(packageManager) != null) {
-                startActivity(this)
-            } else {
-                toast(R.string.no_app_found)
-            }
+            launchActivityIntent(this)
         }
     }
 }

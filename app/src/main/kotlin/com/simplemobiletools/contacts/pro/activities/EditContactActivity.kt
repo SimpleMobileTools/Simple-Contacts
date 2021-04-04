@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ContentValues
 import android.content.Intent
@@ -275,11 +276,7 @@ class EditContactActivity : ContactActivity() {
         Intent().apply {
             action = Intent.ACTION_EDIT
             data = getContactPublicUri(contact!!)
-            if (resolveActivity(packageManager) != null) {
-                startActivity(this)
-            } else {
-                toast(R.string.no_app_found)
-            }
+            launchActivityIntent(this)
         }
     }
 
@@ -320,10 +317,13 @@ class EditContactActivity : ContactActivity() {
             putExtra("scaleUpIfNeeded", "true")
             clipData = ClipData("Attachment", arrayOf("text/primaryUri-list"), ClipData.Item(lastPhotoIntentUri))
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-            if (resolveActivity(packageManager) != null) {
+
+            try {
                 startActivityForResult(this, INTENT_CROP_PHOTO)
-            } else {
+            } catch (e: ActivityNotFoundException) {
                 toast(R.string.no_app_found)
+            } catch (e: Exception) {
+                showErrorToast(e)
             }
         }
     }
@@ -494,9 +494,9 @@ class EditContactActivity : ContactActivity() {
     private fun setupRingtone() {
         contact_ringtone.setOnClickListener {
             val ringtonePickerIntent = getRingtonePickerIntent()
-            if (ringtonePickerIntent.resolveActivity(packageManager) != null) {
+            try {
                 startActivityForResult(ringtonePickerIntent, INTENT_SELECT_RINGTONE)
-            } else {
+            } catch (e: Exception) {
                 val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
                 SelectAlarmSoundDialog(this, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
                     onAlarmPicked = {
@@ -1227,10 +1227,13 @@ class EditContactActivity : ContactActivity() {
         lastPhotoIntentUri = uri
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
             putExtra(MediaStore.EXTRA_OUTPUT, uri)
-            if (resolveActivity(packageManager) != null) {
+
+            try {
                 startActivityForResult(this, INTENT_TAKE_PHOTO)
-            } else {
+            } catch (e: ActivityNotFoundException) {
                 toast(R.string.no_app_found)
+            } catch (e: Exception) {
+                showErrorToast(e)
             }
         }
     }
@@ -1243,10 +1246,13 @@ class EditContactActivity : ContactActivity() {
             clipData = ClipData("Attachment", arrayOf("text/uri-list"), ClipData.Item(uri))
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             putExtra(MediaStore.EXTRA_OUTPUT, uri)
-            if (resolveActivity(packageManager) != null) {
+
+            try {
                 startActivityForResult(this, INTENT_CHOOSE_PHOTO)
-            } else {
+            } catch (e: ActivityNotFoundException) {
                 toast(R.string.no_app_found)
+            } catch (e: Exception) {
+                showErrorToast(e)
             }
         }
     }

@@ -58,11 +58,7 @@ fun Context.editContact(contact: Contact) {
 fun Context.sendEmailIntent(recipient: String) {
     Intent(Intent.ACTION_SENDTO).apply {
         data = Uri.fromParts(KEY_MAILTO, recipient, null)
-        if (resolveActivity(packageManager) != null) {
-            startActivity(this)
-        } else {
-            toast(R.string.no_app_found)
-        }
+        launchActivityIntent(this)
     }
 }
 
@@ -71,11 +67,7 @@ fun Context.sendAddressIntent(address: String) {
     val uri = Uri.parse("geo:0,0?q=$location")
 
     Intent(Intent.ACTION_VIEW, uri).apply {
-        if (resolveActivity(packageManager) != null) {
-            startActivity(this)
-        } else {
-            toast(R.string.no_app_found)
-        }
+        launchActivityIntent(this)
     }
 }
 
@@ -88,11 +80,7 @@ fun Context.openWebsiteIntent(url: String) {
 
     Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse(website)
-        if (resolveActivity(packageManager) != null) {
-            startActivity(this)
-        } else {
-            toast(R.string.no_app_found)
-        }
+        launchActivityIntent(this)
     }
 }
 
@@ -235,11 +223,7 @@ fun Context.sendSMSToContacts(contacts: ArrayList<Contact>) {
 
     val uriString = "smsto:${numbers.toString().trimEnd(';')}"
     Intent(Intent.ACTION_SENDTO, Uri.parse(uriString)).apply {
-        if (resolveActivity(packageManager) != null) {
-            startActivity(this)
-        } else {
-            toast(R.string.no_app_found)
-        }
+        launchActivityIntent(this)
     }
 }
 
@@ -256,11 +240,7 @@ fun Context.sendEmailToContacts(contacts: ArrayList<Contact>) {
     Intent(Intent.ACTION_SEND_MULTIPLE).apply {
         type = "message/rfc822"
         putExtra(Intent.EXTRA_EMAIL, emails.toTypedArray())
-        if (resolveActivity(packageManager) != null) {
-            startActivity(this)
-        } else {
-            toast(R.string.no_app_found)
-        }
+        launchActivityIntent(this)
     }
 }
 

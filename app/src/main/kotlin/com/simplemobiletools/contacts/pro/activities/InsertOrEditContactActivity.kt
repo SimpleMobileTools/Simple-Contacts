@@ -2,6 +2,7 @@ package com.simplemobiletools.contacts.pro.activities
 
 import android.app.Activity
 import android.app.SearchManager
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
@@ -269,10 +270,12 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
                 putExtra(KEY_EMAIL, email)
             }
 
-            if (resolveActivity(packageManager) != null) {
+            try {
                 startActivityForResult(this, START_INSERT_ACTIVITY)
-            } else {
+            } catch (e: ActivityNotFoundException) {
                 toast(R.string.no_app_found)
+            } catch (e: Exception) {
+                showErrorToast(e)
             }
         }
     }

@@ -595,9 +595,9 @@ class ViewContactActivity : ContactActivity() {
 
             contact_ringtone.setOnClickListener {
                 val ringtonePickerIntent = getRingtonePickerIntent()
-                if (ringtonePickerIntent.resolveActivity(packageManager) != null) {
+                try {
                     startActivityForResult(ringtonePickerIntent, INTENT_SELECT_RINGTONE)
-                } else {
+                } catch (e: Exception) {
                     val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
                     SelectAlarmSoundDialog(this@ViewContactActivity, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
                         onAlarmPicked = {
