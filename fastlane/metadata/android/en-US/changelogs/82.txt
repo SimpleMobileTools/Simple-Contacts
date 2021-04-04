@@ -1,0 +1,2 @@
+ * Fixing some glitches on Android 11+
+ * Some stability and translation improvements

@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.14.3 *(2021-04-04)*
+----------------------------
+
+ * Fixing some glitches on Android 11+
+ * Some stability and translation improvements
+
 Version 6.14.2 *(2021-03-04)*
 ----------------------------
 
