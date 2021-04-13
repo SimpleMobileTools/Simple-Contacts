@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Eenvoudig Adresboek</string>
     <string name="app_launcher_name">Contacten</string>
-    <string name="address">Addres</string>
+    <string name="address">Adres</string>
     <string name="inserting">Toevoegen…</string>
     <string name="updating">Updaten…</string>
     <string name="phone_storage_hidden">Telefoonopslag (niet zichtbaar voor andere apps)</string>
