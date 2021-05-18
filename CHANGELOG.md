@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 6.15.0 *(2021-05-18)*
+----------------------------
+
+ * Allow creating contact shortcuts on Android 8+
+ * Show the passed years at events, like age at birthdays
+ * Show more items at the top menus
+ * Some stability and translation improvements
+
 Version 6.14.3 *(2021-04-04)*
 ----------------------------
 
