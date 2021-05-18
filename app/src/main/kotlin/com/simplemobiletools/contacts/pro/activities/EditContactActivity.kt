@@ -547,7 +547,7 @@ class EditContactActivity : ContactActivity() {
 
             (eventHolder as ViewGroup).apply {
                 val contactEvent = contact_event.apply {
-                    event.value.getDateTimeFromDateString(this)
+                    event.value.getDateTimeFromDateString(true, this)
                     tag = event.value
                     alpha = 1f
                 }
@@ -736,7 +736,7 @@ class EditContactActivity : ContactActivity() {
         eventField.setOnClickListener {
             MyDatePickerDialog(this, eventField.tag?.toString() ?: "") { dateTag ->
                 eventField.apply {
-                    dateTag.getDateTimeFromDateString(this)
+                    dateTag.getDateTimeFromDateString(true, this)
                     tag = dateTag
                     alpha = 1f
                 }

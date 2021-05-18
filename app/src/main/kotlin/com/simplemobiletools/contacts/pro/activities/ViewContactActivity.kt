@@ -416,7 +416,7 @@ class ViewContactActivity : ContactActivity() {
             events.forEach {
                 layoutInflater.inflate(R.layout.item_view_event, contact_events_holder, false).apply {
                     contact_events_holder.addView(this)
-                    it.value.getDateTimeFromDateString(contact_event)
+                    it.value.getDateTimeFromDateString(true, contact_event)
                     contact_event_type.setText(getEventTextId(it.type))
                     copyOnLongClick(it.value)
                 }
