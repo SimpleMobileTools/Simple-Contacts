@@ -638,12 +638,14 @@ class ViewContactActivity : ContactActivity() {
         ensureBackgroundThread {
             val actions = getSocialActions(contactId)
             runOnUiThread {
-                ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
-                    Intent(Intent.ACTION_VIEW).apply {
-                        val uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, action.dataId)
-                        setDataAndType(uri, action.mimetype)
-                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(this)
+                if (!isDestroyed && !isFinishing) {
+                    ChooseSocialDialog(this@ViewContactActivity, actions) { action ->
+                        Intent(Intent.ACTION_VIEW).apply {
+                            val uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, action.dataId)
+                            setDataAndType(uri, action.mimetype)
+                            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(this)
+                        }
                     }
                 }
             }
