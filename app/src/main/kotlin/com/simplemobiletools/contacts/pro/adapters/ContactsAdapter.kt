@@ -1,6 +1,13 @@
 package com.simplemobiletools.contacts.pro.adapters
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
+import android.graphics.drawable.LayerDrawable
 import android.util.TypedValue
 import android.view.Menu
 import android.view.View
@@ -15,16 +22,14 @@ import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getTextSize
-import com.simplemobiletools.commons.extensions.highlightTextFromNumbers
-import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
+import com.simplemobiletools.contacts.pro.activities.ViewContactActivity
 import com.simplemobiletools.contacts.pro.dialogs.CreateNewGroupDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
@@ -66,6 +71,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             findItem(R.id.cab_delete).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_GROUP_CONTACTS
             findItem(R.id.cab_select_all).isVisible = location != LOCATION_DIALPAD
             findItem(R.id.cab_share).isVisible = location != LOCATION_DIALPAD
+            findItem(R.id.cab_create_shortcut).isVisible = isOreoPlus() && isOneItemSelected() && (location == LOCATION_FAVORITES_TAB || location == LOCATION_CONTACTS_TAB)
 
             if (location == LOCATION_GROUP_CONTACTS) {
                 findItem(R.id.cab_remove).title = activity.getString(R.string.remove_from_group)
@@ -86,6 +92,7 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             R.id.cab_share -> shareContacts()
             R.id.cab_send_sms_to_contacts -> sendSMSToContacts()
             R.id.cab_send_email_to_contacts -> sendEmailToContacts()
+            R.id.cab_create_shortcut -> createShortcut()
             R.id.cab_remove -> removeContacts()
             R.id.cab_delete -> askConfirmDelete()
         }
@@ -251,6 +258,71 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
 
     private fun sendEmailToContacts() {
         activity.sendEmailToContacts(getSelectedItems())
+    }
+
+    @SuppressLint("NewApi")
+    private fun createShortcut() {
+        val manager = activity.getSystemService(ShortcutManager::class.java)
+        if (manager.isRequestPinShortcutSupported) {
+            val contact = getSelectedItems().first()
+            val drawable = resources.getDrawable(R.drawable.shortcut_contact).mutate()
+            getShortcutImage(contact, drawable) {
+                val intent = Intent(activity, ViewContactActivity::class.java)
+                intent.action = Intent.ACTION_VIEW
+                intent.putExtra(CONTACT_ID, contact.id)
+                intent.putExtra(IS_PRIVATE, contact.isPrivate())
+                intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY
+
+                val shortcut = ShortcutInfo.Builder(activity, contact.hashCode().toString())
+                    .setShortLabel(contact.getNameToDisplay())
+                    .setIcon(Icon.createWithBitmap(drawable.convertToBitmap()))
+                    .setIntent(intent)
+                    .build()
+
+                manager.requestPinShortcut(shortcut, null)
+            }
+        }
+    }
+
+    private fun getShortcutImage(contact: Contact, drawable: Drawable, callback: () -> Unit) {
+        val appIconColor = baseConfig.appIconColor
+        (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_contact_background).applyColorFilter(appIconColor)
+        val placeholderImage = BitmapDrawable(resources, SimpleContactsHelper(activity).getContactLetterIcon(contact.getNameToDisplay()))
+        if (contact.photoUri.isEmpty() && contact.photo == null) {
+            drawable.setDrawableByLayerId(R.id.shortcut_contact_image, placeholderImage)
+            callback()
+        } else {
+            ensureBackgroundThread {
+                val options = RequestOptions()
+                    .signature(ObjectKey(contact.getSignatureKey()))
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .error(placeholderImage)
+
+                val size = activity.resources.getDimension(R.dimen.shortcut_size).toInt()
+                val itemToLoad: Any? = if (contact.photoUri.isNotEmpty()) {
+                    contact.photoUri
+                } else {
+                    contact.photo
+                }
+
+                val builder = Glide.with(activity)
+                    .asDrawable()
+                    .load(itemToLoad)
+                    .apply(options)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(size, size)
+
+                try {
+                    val bitmap = builder.get()
+                    drawable.setDrawableByLayerId(R.id.shortcut_contact_image, bitmap)
+                } catch (e: Exception) {
+                }
+
+                activity.runOnUiThread {
+                    callback()
+                }
+            }
+        }
     }
 
     private fun getSelectedItems() = contactItems.filter { selectedKeys.contains(it.id) } as ArrayList<Contact>
