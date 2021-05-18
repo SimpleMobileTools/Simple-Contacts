@@ -5,19 +5,19 @@
         android:id="@+id/save"
         android:icon="@drawable/ic_check_vector"
         android:title="@string/save"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/share"
         android:icon="@drawable/ic_share_vector"
         android:title="@string/share"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/open_with"
-        android:title="@string/open_with"
-        app:showAsAction="never"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/delete"
         android:icon="@drawable/ic_delete_vector"
         android:title="@string/delete"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/open_with"
+        android:title="@string/open_with"
+        app:showAsAction="never"/>
 </menu>
