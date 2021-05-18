@@ -69,8 +69,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             findItem(R.id.cab_send_sms_to_contacts).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
             findItem(R.id.cab_send_email_to_contacts).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
             findItem(R.id.cab_delete).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_GROUP_CONTACTS
-            findItem(R.id.cab_select_all).isVisible = location != LOCATION_DIALPAD
-            findItem(R.id.cab_share).isVisible = location != LOCATION_DIALPAD
             findItem(R.id.cab_create_shortcut).isVisible = isOreoPlus() && isOneItemSelected() && (location == LOCATION_FAVORITES_TAB || location == LOCATION_CONTACTS_TAB)
 
             if (location == LOCATION_GROUP_CONTACTS) {
