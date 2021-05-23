@@ -49,7 +49,6 @@
     <string name="call_contact">打電話給聯絡人</string>
     <string name="view_contact">顯示聯絡人資料</string>
     <string name="manage_shown_contact_fields">管理顯示的聯絡人欄位</string>
-    <string name="manage_shown_tabs">管理顯示的頁面</string>
     <string name="contacts">聯絡人</string>
     <string name="show_call_confirmation_dialog">開始通話前顯示通話確認框</string>
     <string name="show_only_contacts_with_numbers">只顯示含有電話話碼的聯絡人</string>

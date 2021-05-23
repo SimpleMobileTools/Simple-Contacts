@@ -49,7 +49,6 @@
     <string name="call_contact">Κλήση επαφής</string>
     <string name="view_contact">Εμφάνιση λεπτομερειών επαφής</string>
     <string name="manage_shown_contact_fields">Διαχείριση εμφανιζόμενων πεδίων επαφής</string>
-    <string name="manage_shown_tabs">Διαχείριση εμφανιζόμενων καρτελών</string>
     <string name="contacts">Επαφές</string>
     <string name="show_call_confirmation_dialog">Εμφάνιση διαλόγου επιβεβαίωσης πριν από την έναρξη μιας κλήσης</string>
     <string name="show_only_contacts_with_numbers">Προβολή όλων των Επαφών με αριθμούς τηλεφώνου</string>

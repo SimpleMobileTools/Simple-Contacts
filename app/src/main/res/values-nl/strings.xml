@@ -49,7 +49,6 @@
     <string name="call_contact">Contact bellen</string>
     <string name="view_contact">Details tonen</string>
     <string name="manage_shown_contact_fields">Contactvelden tonen/verbergen</string>
-    <string name="manage_shown_tabs">Tabs tonen/verbergen</string>
     <string name="contacts">Contacten</string>
     <string name="show_call_confirmation_dialog">Om bevestiging vragen voor het bellen</string>
     <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummers tonen</string>

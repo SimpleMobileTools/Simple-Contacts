@@ -49,7 +49,6 @@
     <string name="call_contact">Panggil kontak</string>
     <string name="view_contact">Lihat detail kontak</string>
     <string name="manage_shown_contact_fields">Kelola ruas kontak yang ditampilkan</string>
-    <string name="manage_shown_tabs">Kelola tab yang ditampilkan</string>
     <string name="contacts">Kontak</string>
     <string name="show_call_confirmation_dialog">Tampilkan dialog konfirmasi panggilan sebelum melakukan panggilan</string>
     <string name="show_only_contacts_with_numbers">Hanya tampilkan kontak dengan nomor telepon</string>

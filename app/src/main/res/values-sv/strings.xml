@@ -49,7 +49,6 @@
     <string name="call_contact">Ring kontakt</string>
     <string name="view_contact">Visa kontaktuppgifter</string>
     <string name="manage_shown_contact_fields">Välj vilka kontaktfält som ska visas</string>
-    <string name="manage_shown_tabs">Välj vilka flikar som ska visas</string>
     <string name="contacts">Kontakter</string>
     <string name="show_call_confirmation_dialog">Visa en bekräftelsedialogruta före uppringning</string>
     <string name="show_only_contacts_with_numbers">Visa bara kontakter med telefonnummer</string>

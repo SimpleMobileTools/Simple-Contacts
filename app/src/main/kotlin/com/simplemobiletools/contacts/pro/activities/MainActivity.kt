@@ -314,7 +314,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             fragments.add(groups_fragment)
         }
 
-        return fragments[viewpager.currentItem]
+        return fragments.getOrNull(viewpager.currentItem)
     }
 
     private fun setupTabColors() {

@@ -49,7 +49,6 @@
     <string name="call_contact">Zadzwoń do konataktu</string>
     <string name="view_contact">Pokaż szczegóły kontaktu</string>
     <string name="manage_shown_contact_fields">Zarządzaj pokazywanymi polami kontaktu</string>
-    <string name="manage_shown_tabs">Zarządzaj pokazywanymi sekcjami</string>
     <string name="contacts">Kontakty</string>
     <string name="show_call_confirmation_dialog">Pokazuj okno potwierdzenia zadzwonienia przed zainicjonowaniem połączenia</string>
     <string name="show_only_contacts_with_numbers">Pokazuj wyłącznie kontakty z numerami telefonów</string>

@@ -49,7 +49,6 @@
     <string name="call_contact">Kontaktua deitu</string>
     <string name="view_contact">Ikusi kontaktu detaileak</string>
     <string name="manage_shown_contact_fields">Kudeatu erakutsitako kontaktu eremuak</string>
-    <string name="manage_shown_tabs">Kudeatu erakutsitako fitxak</string>
     <string name="contacts">Kontaktuak</string>
     <string name="show_call_confirmation_dialog">Erakutsi egiaztatze mezua dei bat hasi baino lehen</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>

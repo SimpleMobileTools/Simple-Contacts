@@ -49,7 +49,6 @@
     <string name="call_contact">Soita</string>
     <string name="view_contact">Näytä yhteystieto</string>
     <string name="manage_shown_contact_fields">Valitse, mitkä yhteystietojen kentät näytetään</string>
-    <string name="manage_shown_tabs">Valitse sovelluksen välilehdet</string>
     <string name="contacts">Yhteystiedot</string>
     <string name="show_call_confirmation_dialog">Näytä soiton vahvistusruutu ennen soittoa</string>
     <string name="show_only_contacts_with_numbers">Näytä ainoastaan numerolliset yhteystiedot</string>

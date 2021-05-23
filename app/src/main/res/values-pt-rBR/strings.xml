@@ -49,7 +49,6 @@
     <string name="call_contact">Ligar para o contato</string>
     <string name="view_contact">Exibir detalhes do contato</string>
     <string name="manage_shown_contact_fields">Gerenciar os campos visíveis</string>
-    <string name="manage_shown_tabs">Gerenciar abas visíveis</string>
     <string name="contacts">Contatos</string>
     <string name="show_call_confirmation_dialog">Mostrar diálogo para confirmar a chamada antes de ligar</string>
     <string name="show_only_contacts_with_numbers">Mostar apenas os contatos com número de telefone</string>

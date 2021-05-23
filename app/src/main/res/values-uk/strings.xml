@@ -49,7 +49,6 @@
     <string name="call_contact">Телефонувати контакту</string>
     <string name="view_contact">Переглянути деталі контакту</string>
     <string name="manage_shown_contact_fields">Керування полями контактів, що відображаються</string>
-    <string name="manage_shown_tabs">Керування вкладками, що відображаються</string>
     <string name="contacts">Контакти</string>
     <string name="show_call_confirmation_dialog">Показувати діалог підтвердження виклику</string>
     <string name="show_only_contacts_with_numbers">Показувати лише контакти з телефонними номерами</string>

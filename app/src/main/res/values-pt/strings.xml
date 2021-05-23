@@ -49,7 +49,6 @@
     <string name="call_contact">Ligar</string>
     <string name="view_contact">Ver detalhes</string>
     <string name="manage_shown_contact_fields">Gerir campos a mostrar</string>
-    <string name="manage_shown_tabs">Gerir separadores a mostrar</string>
     <string name="contacts">Contactos</string>
     <string name="show_call_confirmation_dialog">Mostrar diálogo para confirmar a chamada</string>
     <string name="show_only_contacts_with_numbers">Mostrar apenas contactos com número de telefone</string>

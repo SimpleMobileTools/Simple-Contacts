@@ -49,7 +49,6 @@
     <string name="call_contact">കോണ്ടാക്ടിനെ വിളിക്കുക </string>
     <string name="view_contact">കോൺ‌ടാക്റ്റ് വിശദാംശങ്ങൾ‌ കാണുക</string>
     <string name="manage_shown_contact_fields">കോൺടാക്റ്റ് ഫീൽഡുകൾ കാണിക്കുന്നത്‌ നിയന്ത്രിക്കുക</string>
-    <string name="manage_shown_tabs">ടാബുകൾ കാണിക്കുന്നത്‌ നിയന്ത്രിക്കുക</string>
     <string name="contacts">കോണ്ടാക്ടുകൾ </string>
     <string name="show_call_confirmation_dialog">ഒരു കോൾ ആരംഭിക്കുന്നതിന് മുമ്പ്, കോൾ സ്ഥിരീകരണ ഡയലോഗ് കാണിക്കുക</string>
     <string name="show_only_contacts_with_numbers">ഫോൺ നമ്പറുകളുള്ള കോൺടാക്റ്റുകൾ മാത്രം കാണിക്കുക</string>

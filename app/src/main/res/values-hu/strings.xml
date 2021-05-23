@@ -49,7 +49,6 @@
     <string name="call_contact">Telefonhívás indítása</string>
     <string name="view_contact">Részletek megjelenítése</string>
     <string name="manage_shown_contact_fields">A megjelenő mezők kiválasztása</string>
-    <string name="manage_shown_tabs">A megjelenő fülek kiválasztása</string>
     <string name="contacts">Névjegyek</string>
     <string name="show_call_confirmation_dialog">Jóváhagyás kérése telefonhívás indítása előtt</string>
     <string name="show_only_contacts_with_numbers">Csak telefonszámot tartalmazó névjegyek kijelzése</string>

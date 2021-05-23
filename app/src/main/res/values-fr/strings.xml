@@ -47,7 +47,6 @@
     <string name="call_contact">Appeler le contact</string>
     <string name="view_contact">Afficher les détails du contact</string>
     <string name="manage_shown_contact_fields">Gérér l\’affichage des champs des contacts</string>
-    <string name="manage_shown_tabs">Gérer les onglets affichés</string>
     <string name="contacts">Contacts</string>
     <string name="show_call_confirmation_dialog">Afficher une confirmation avant de faire un appel</string>
     <string name="show_only_contacts_with_numbers">N\’afficher que les contacts avec un numéro de téléphone</string>

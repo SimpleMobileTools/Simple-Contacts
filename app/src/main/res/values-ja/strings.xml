@@ -49,7 +49,6 @@
     <string name="call_contact">連絡先に発信</string>
     <string name="view_contact">連絡先の詳細を表示</string>
     <string name="manage_shown_contact_fields">連絡先に表示するフィールドを管理</string>
-    <string name="manage_shown_tabs">表示するタブを管理</string>
     <string name="contacts">連絡先</string>
     <string name="show_call_confirmation_dialog">発信する前に確認ダイアログを表示する</string>
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>

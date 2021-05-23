@@ -49,7 +49,6 @@
     <string name="call_contact">Kontakta zəng et</string>
     <string name="view_contact">Kontakt detallarına bax</string>
     <string name="manage_shown_contact_fields">Göstərilən kontakt sahəsini idarə et</string>
-    <string name="manage_shown_tabs">Göstərilən nişanları idarə et</string>
     <string name="contacts">Kontaktlar</string>
     <string name="show_call_confirmation_dialog">Zəngə başlamazdan əvvəl zəng təsdiq pəncərəsi göstər</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>

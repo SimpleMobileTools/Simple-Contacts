@@ -49,7 +49,6 @@
     <string name="call_contact">Zavolať kontakt</string>
     <string name="view_contact">Zobraziť údaje kontaktu</string>
     <string name="manage_shown_contact_fields">Spravovať zobrazené polia kontaktov</string>
-    <string name="manage_shown_tabs">Spravovať zobrazené karty</string>
     <string name="contacts">Kontakty</string>
     <string name="show_call_confirmation_dialog">Zobraziť pred spustením hovoru okno na jeho potvrdenie</string>
     <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
