@@ -1,12 +1,13 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.app.Activity
+import android.content.Intent
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
-import com.simplemobiletools.commons.extensions.underlineText
-import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
@@ -26,6 +27,25 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     private var groupContacts = ArrayList<Contact>()
     private var wasInit = false
     lateinit var group: Group
+
+    protected val INTENT_SELECT_RINGTONE = 600
+
+    protected var contact: Contact? = null
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == INTENT_SELECT_RINGTONE && resultCode == Activity.RESULT_OK && resultData != null) {
+            val extras = resultData.extras
+            if (extras?.containsKey(RingtoneManager.EXTRA_RINGTONE_PICKED_URI) == true) {
+                val uri = extras.getParcelable<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI) ?: return
+                try {
+                    setRingtoneOnSelected(uri)
+                } catch (e: Exception) {
+                    showErrorToast(e)
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +84,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         when (item.itemId) {
             R.id.send_sms_to_group -> sendSMSToGroup()
             R.id.send_email_to_group -> sendEmailToGroup()
+            R.id.assign_ringtone_to_group -> assignRingtoneToGroup()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -98,6 +119,15 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
 
     private fun sendEmailToGroup() {
         sendEmailToContacts(groupContacts)
+    }
+
+    private fun assignRingtoneToGroup() {
+        val ringtonePickerIntent = getRingtonePickerIntent()
+        try {
+            startActivityForResult(ringtonePickerIntent, INTENT_SELECT_RINGTONE)
+        } catch (e: Exception) {
+            toast(e.toString())
+        }
     }
 
     private fun updateContacts(contacts: ArrayList<Contact>) {
@@ -136,4 +166,26 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
             }
         }
     }
+
+    private fun getDefaultRingtoneUri() = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_RINGTONE)
+
+    private fun getRingtonePickerIntent(): Intent {
+        val defaultRingtoneUri = getDefaultRingtoneUri()
+
+        return Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+            putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_RINGTONE)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, defaultRingtoneUri)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, defaultRingtoneUri)
+        }
+    }
+    private fun setRingtoneOnSelected(uri: Uri) {
+//        val contactRingtone = RingtoneManager.getRingtone(this, uri)
+//        group_ringtone.text = contactRingtone.getTitle(this)
+        groupContacts.forEach{
+            ContactsHelper(this).updateRingtone(it.contactId.toString(), uri.toString())
+        }
+    }
+
 }
