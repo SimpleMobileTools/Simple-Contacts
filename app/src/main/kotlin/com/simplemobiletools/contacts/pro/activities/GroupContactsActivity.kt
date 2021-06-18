@@ -180,8 +180,8 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
             putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, defaultRingtoneUri)
         }
     }
+    
     private fun setRingtoneOnSelected(uri: Uri) {
-        //Assign ringtone to each contacts
         groupContacts.forEach{
             ContactsHelper(this).updateRingtone(it.contactId.toString(), uri.toString())
         }
