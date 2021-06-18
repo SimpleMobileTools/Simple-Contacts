@@ -181,8 +181,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         }
     }
     private fun setRingtoneOnSelected(uri: Uri) {
-//        val contactRingtone = RingtoneManager.getRingtone(this, uri)
-//        group_ringtone.text = contactRingtone.getTitle(this)
+        //Assign ringtone to each contacts
         groupContacts.forEach{
             ContactsHelper(this).updateRingtone(it.contactId.toString(), uri.toString())
         }
