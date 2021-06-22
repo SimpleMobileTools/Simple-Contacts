@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Proste Kontakty</string>
+    <string name="app_name">Proste kontakty</string>
     <string name="app_launcher_name">Kontakty</string>
     <string name="address">Adres</string>
     <string name="inserting">Dodawanie…</string>
@@ -9,9 +9,9 @@
     <string name="job_position">Stanowisko</string>
     <string name="website">Strona internetowa</string>
     <string name="send_sms_to_contacts">Wyślij SMS-a do kontaktów</string>
-    <string name="send_email_to_contacts">Wyślij e-maila do kontaktów</string>
+    <string name="send_email_to_contacts">Wyślij e-mail do kontaktów</string>
     <string name="send_sms_to_group">Wyślij SMS-a do grupy</string>
-    <string name="send_email_to_group">Wyślij e-maila do grupy</string>
+    <string name="send_email_to_group">Wyślij e-mail do grupy</string>
     <string name="call_person">Zadzwoń do: %s</string>
     <string name="create_new_contact">Utwórz nowy kontakt</string>
     <string name="add_to_existing_contact">Dodaj do istniejącego kontaktu</string>
@@ -43,16 +43,16 @@
 
     <!-- Settings -->
     <string name="show_phone_numbers">Pokazuj numery telefonów na ekranie głównym</string>
-    <string name="show_contact_thumbnails">Pokazuj miniatury kontaktów</string>
+    <string name="show_contact_thumbnails">Pokazuj miniaturki kontaktów</string>
     <string name="show_dialpad_button">Pokazuj przycisk panelu wybierania numeru na ekranie głównym</string>
     <string name="on_contact_click">Przy naciśnięciu kontaktu</string>
-    <string name="call_contact">Zadzwoń do konataktu</string>
+    <string name="call_contact">Zadzwoń do kontaktu</string>
     <string name="view_contact">Pokaż szczegóły kontaktu</string>
     <string name="manage_shown_contact_fields">Zarządzaj pokazywanymi polami kontaktu</string>
     <string name="contacts">Kontakty</string>
-    <string name="show_call_confirmation_dialog">Pokazuj okno potwierdzenia zadzwonienia przed zainicjonowaniem połączenia</string>
+    <string name="show_call_confirmation_dialog">Pokazuj okno potwierdzenia zadzwonienia przed zainicjowaniem połączenia</string>
     <string name="show_only_contacts_with_numbers">Pokazuj wyłącznie kontakty z numerami telefonów</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
+    <string name="show_private_contacts">Pokazuj prywatne kontakty Prostemu telefonowi, Prostym wiadomościom SMS i Prostemu kalendarzowi Pro</string>
 
     <!-- Emails -->
     <string name="home">Dom</string>
@@ -77,7 +77,7 @@
     <!-- Search -->
     <string name="search_contacts">Szukaj kontaktów</string>
     <string name="search_favorites">Szukaj ulubionych</string>
-    <string name="search_groups">Search groups</string>
+    <string name="search_groups">Szukaj grup</string>
 
     <!-- Export / Import -->
     <string name="import_contacts">Importuj kontakty</string>
@@ -85,7 +85,7 @@
     <string name="import_contacts_from_vcf">Importuj kontakty z pliku .vcf</string>
     <string name="export_contacts_to_vcf">Eksportuj kontakty do pliku .vcf</string>
     <string name="target_contact_source">Wybierz miejsce przechowywania kontaktów</string>
-    <string name="include_contact_sources">Obejmuj kontakty z następujących źródeł:</string>
+    <string name="include_contact_sources">Uwzględnij kontakty z następujących źródeł:</string>
     <string name="filename_without_vcf">Nazwa pliku (bez .vcf)</string>
 
     <!-- Dialpad -->
@@ -104,58 +104,59 @@
     <string name="groups">Grupy</string>
     <string name="contact_source">Miejsce przechowywania kontaktu</string>
     <string name="instant_messaging">Komunikator</string>
-    <string name="ringtone">Ringtone</string>
+    <string name="ringtone">Dzwonek</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_from_all_sources">Kontakt zostanie usunięty ze wszystkich miejsc przechowywania go.</string>
 
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d grupę</item>
+        <item quantity="few">%d grupy</item>
+        <item quantity="other">%d grup</item>
     </plurals>
 
     <!-- FAQ -->
     <string name="faq_1_title">Chcę zmienić, które pola są widoczne w kontaktach. Czy mogę to zrobić?</string>
-    <string name="faq_1_text">Tak, wszystko, co musisz zrobić, to wejść do Ustawień -> Zarządzaj pokazywanymi polami kontaktu. Możesz tam wybrać, które pola mają być wyświetlane. Niektóre z nich są nawet domyślnie wyłączone, więc możesz znaleźć tam wiele z nich nowych.</string>
+    <string name="faq_1_text">Tak. Wszystko, co musisz zrobić, to wejść do Ustawień -> Zarządzaj pokazywanymi polami kontaktu. Możesz tam wybrać, które pola mają być wyświetlane. Niektóre z nich są nawet domyślnie wyłączone, więc możesz znaleźć tam kilka nowych.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">Proste kontakty Pro - Łatwo zarządzaj kontaktami</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
+    <string name="app_short_description">Łatwe i szybkie zarządzanie kontaktami bez reklam, z obsługą grup i ulubionych.</string>
     <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
+        Lekka aplikacja do zarządzania kontaktami, uwielbiana przez miliony. Kontakty mogą być przechowywane tylko na Twoim urządzeniu, ale także synchronizowane przez Google lub inne konta.
 
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+        Możesz ją również używać do zarządzania e-mailami i wydarzeniami. Posiada możliwość sortowania/filtrowania według wielu parametrów, opcjonalnie wyświetla nazwisko jako imię.
 
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+        Możesz wyświetlić swoje ulubione kontakty lub grupy na osobnej liście. Grupy mogą być używane do wysyłania zbiorczych e-maili lub SMS-ów, aby zaoszczędzić trochę czasu; możesz łatwo zmienić ich nazwy. 
 
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+        Zawiera przydatne przyciski do dzwonienia lub wysyłania wiadomości tekstowych do kontaktów. Wszystkie widoczne pola można dowolnie dostosowywać, a nieużywane łatwo ukryć. Funkcja wyszukiwania przeszuka podany ciąg w każdym widocznym polu kontaktu, aby łatwo znaleźć żądany kontakt.
 
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
+        Do Twojej dyspozycji jest również lekki panel wybierania z inteligentnymi sugestiami kontaktów.
 
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+        Aplikacja obsługuje eksportowanie/importowanie kontaktów w formacie vCard do plików .vcf, co ułatwia migrację lub tworzenie kopii zapasowych Twoich danych.
 
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+        Dzięki temu nowoczesnemu i stabilnemu menedżerowi kontaktów możesz chronić swoje kontakty, nie udostępniając ich innym aplikacjom, tym samym zachowując ich prywatność.
 
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+        Podobnie jak w przypadku miejsca przechowywania kontaktu możesz również łatwo zmienić nazwę kontaktu, e-mail, numer telefonu, adres, organizację, grupy i wiele innych niestandardowych pól. Możesz również przechowywać wydarzenia związane z kontaktami, takie jak urodziny, rocznice lub inne niestandardowe.
 
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+        Ten prosty edytor kontaktów ma wiele przydatnych ustawień, takich jak wyświetlanie numerów telefonów na ekranie głównym, przełączanie widoczności miniaturek kontaktów, wyświetlanie wyłącznie kontaktów z numerami telefonów, wyświetlanie okna dialogowego potwierdzenia połączenia przed nawiązaniem połączenia. Jest wyposażony w szybki panel wybierania, który także wykorzystuje litery.
 
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+        Aby jeszcze bardziej poprawić doświadczenie użytkowania, możesz dostosować to, co dzieje się po kliknięciu kontaktu. Możesz zainicjować połączenie, przejść do ekranu wyświetlania szczegółów lub edytować wybrany kontakt.
 
-        You can easily block phone numbers to avoid unwanted incoming calls.
+        Możesz łatwo blokować numery telefonów, aby uniknąć niechcianych połączeń przychodzących.
 
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+        Aby uniknąć pokazywania potencjalnie niechcianych kontaktów, aplikacja ma wbudowaną funkcję scalania zduplikowanych kontaktów.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Domyślnie jest wyposażona w Material Design i ciemny motyw, zapewniając doskonałe doświadczenie użytkownika dla łatwego użytkowania. Brak dostępu do Internetu zapewnia większą prywatność, bezpieczeństwo i stabilność niż inne aplikacje.
         
-        Nie zawiera reklam oraz niekoniecznych uprawnień. Jest w pełni otwartoźródłowa i w pełni podatna na kolorowanie.
+        Nie zawiera reklam ani niepotrzebnych uprawnień. Jest w pełni otwartoźródłowa, zapewnia konfigurowalną kolorystykę.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Sprawdź pełen zestaw od Simple Tools tutaj:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple Contacts Pro:</b>
+        <b>Strona internetowa Prostych kontaktów Pro:</b>
         https://www.simplemobiletools.com/contacts
 
         <b>Facebook:</b>
