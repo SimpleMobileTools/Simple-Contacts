@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">കോൺ‌ടാക്റ്റുകളിലേക്ക് ഇമെയിൽ അയയ്‌ക്കുക</string>
     <string name="send_sms_to_group">ഗ്രൂപ്പിലേക്ക് SMS അയയ്ക്കുക</string>
     <string name="send_email_to_group">ഗ്രൂപ്പിലേക്ക് ഇമെയിൽ അയയ്ക്കുക</string>
-    <string name="call_person">വിളിക്കുക %s</string>
     <string name="create_new_contact">പുതിയ കോൺ‌ടാക്റ്റ് സൃഷ്‌ടിക്കുക</string>
     <string name="add_to_existing_contact">നിലവിലുള്ള കോൺ‌ടാക്റ്റിലേക്ക് ചേർക്കുക</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">കോൺ‌ടാക്റ്റ് വിശദാംശങ്ങൾ‌ കാണുക</string>
     <string name="manage_shown_contact_fields">കോൺടാക്റ്റ് ഫീൽഡുകൾ കാണിക്കുന്നത്‌ നിയന്ത്രിക്കുക</string>
     <string name="contacts">കോണ്ടാക്ടുകൾ </string>
-    <string name="show_call_confirmation_dialog">ഒരു കോൾ ആരംഭിക്കുന്നതിന് മുമ്പ്, കോൾ സ്ഥിരീകരണ ഡയലോഗ് കാണിക്കുക</string>
     <string name="show_only_contacts_with_numbers">ഫോൺ നമ്പറുകളുള്ള കോൺടാക്റ്റുകൾ മാത്രം കാണിക്കുക</string>
     <string name="show_private_contacts">Simple Dialer-ലേക്കും  Simple Messenger-ലേക്കും സ്വകാര്യ കോൺടാക്റ്റുകൾ കാണിക്കുക</string>
 

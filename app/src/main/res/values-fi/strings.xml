@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">Lähetä sähköposti yhteystiedoille</string>
     <string name="send_sms_to_group">Lähetä tekstiviesti ryhmälle</string>
     <string name="send_email_to_group">Lähetä sähköposti ryhmälle</string>
-    <string name="call_person">Soita %s</string>
     <string name="create_new_contact">Luo uusi yhteystieto</string>
     <string name="add_to_existing_contact">Lisää olemassa olevaan yhteystietoon</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">Näytä yhteystieto</string>
     <string name="manage_shown_contact_fields">Valitse, mitkä yhteystietojen kentät näytetään</string>
     <string name="contacts">Yhteystiedot</string>
-    <string name="show_call_confirmation_dialog">Näytä soiton vahvistusruutu ennen soittoa</string>
     <string name="show_only_contacts_with_numbers">Näytä ainoastaan numerolliset yhteystiedot</string>
     <string name="show_private_contacts">Näytä yksityiset yhteystiedot sovelluksissa Simple Dialer, Simple SMS Messenger ja Simple Calendar Pro</string>
 

@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">E-mail naar contacten sturen</string>
     <string name="send_sms_to_group">SMS naar groep sturen</string>
     <string name="send_email_to_group">E-mail naar groep sturen</string>
-    <string name="call_person">%s bellen</string>
     <string name="create_new_contact">Nieuw contact</string>
     <string name="add_to_existing_contact">Aan bestaand contact toevoegen</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">Details tonen</string>
     <string name="manage_shown_contact_fields">Contactvelden tonen/verbergen</string>
     <string name="contacts">Contacten</string>
-    <string name="show_call_confirmation_dialog">Om bevestiging vragen voor het bellen</string>
     <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummers tonen</string>
     <string name="show_private_contacts">Privécontacten in Eenvoudige Telefoon, Eenvoudige Berichten tonen en Eenvoudige Agenda Pro</string>
 

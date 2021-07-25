@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">Poslať kontaktom email</string>
     <string name="send_sms_to_group">Poslať skupine SMS</string>
     <string name="send_email_to_group">Poslať skupine email</string>
-    <string name="call_person">Zavolať %s</string>
     <string name="create_new_contact">Vytvoriť nový kontakt</string>
     <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">Zobraziť údaje kontaktu</string>
     <string name="manage_shown_contact_fields">Spravovať zobrazené polia kontaktov</string>
     <string name="contacts">Kontakty</string>
-    <string name="show_call_confirmation_dialog">Zobraziť pred spustením hovoru okno na jeho potvrdenie</string>
     <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
     <string name="show_private_contacts">Zobraziť súkromné kontakty Jednoduchému Telefónu, Jednoduchému SMS Správcovi a Jednoduchému Kalendáru Pro</string>
 

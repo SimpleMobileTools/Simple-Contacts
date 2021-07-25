@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">Надіслати електронний лист контактам</string>
     <string name="send_sms_to_group">Надіслати SMS групі контактів</string>
     <string name="send_email_to_group">Надіслати електронний лист групі контактів</string>
-    <string name="call_person">Телефонувати %s</string>
     <string name="create_new_contact">Створити новий контакт</string>
     <string name="add_to_existing_contact">Додати до існуючого контакту</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">Переглянути деталі контакту</string>
     <string name="manage_shown_contact_fields">Керування полями контактів, що відображаються</string>
     <string name="contacts">Контакти</string>
-    <string name="show_call_confirmation_dialog">Показувати діалог підтвердження виклику</string>
     <string name="show_only_contacts_with_numbers">Показувати лише контакти з телефонними номерами</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 

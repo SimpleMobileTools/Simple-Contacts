@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">連絡先にメールを送信</string>
     <string name="send_sms_to_group">グループにSMSを送信</string>
     <string name="send_email_to_group">グループにメールを送信</string>
-    <string name="call_person">%sに発信</string>
     <string name="create_new_contact">新しい連絡先を作成</string>
     <string name="add_to_existing_contact">既存の連絡先に追加</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">連絡先の詳細を表示</string>
     <string name="manage_shown_contact_fields">連絡先に表示するフィールドを管理</string>
     <string name="contacts">連絡先</string>
-    <string name="show_call_confirmation_dialog">発信する前に確認ダイアログを表示する</string>
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
     <string name="show_private_contacts">Simpleダイヤラー、Simpleショートメール、SimpleカレンダーProに個人の連絡先を表示</string>
 

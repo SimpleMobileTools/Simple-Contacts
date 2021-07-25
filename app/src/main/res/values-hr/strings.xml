@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">Pošalji e-poštu kontaktima</string>
     <string name="send_sms_to_group">Pošalji SMS grupi</string>
     <string name="send_email_to_group">Pošalji e-poštu grupi</string>
-    <string name="call_person">Nazovi %s</string>
     <string name="create_new_contact">Stvori novi kontakt</string>
     <string name="add_to_existing_contact">Dodaj postojećem kontaktu</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">Prikaži pojedinosti o kontaktu</string>
     <string name="manage_shown_contact_fields">Upravljaj prikazanim poljima kontakta</string>
     <string name="contacts">Kontakti</string>
-    <string name="show_call_confirmation_dialog">Pokažite dijaloški okvir za potvrdu poziva prije pokretanja poziva</string>
     <string name="show_only_contacts_with_numbers">Prikaži samo kontakte s telefonskim brojevima</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 

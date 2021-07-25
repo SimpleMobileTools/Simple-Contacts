@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">Send email til kontakter</string>
     <string name="send_sms_to_group">Send SMS til gruppe</string>
     <string name="send_email_to_group">Send email til gruppe</string>
-    <string name="call_person">Ring til %s</string>
     <string name="create_new_contact">Opret ny kontakt</string>
     <string name="add_to_existing_contact">Tilføj til en eksisterende kontakt</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">Vis kontakt detaljer</string>
     <string name="manage_shown_contact_fields">Administrer viste kontaktfelter</string>
     <string name="contacts">Kontakter</string>
-    <string name="show_call_confirmation_dialog">Vis en opkaldsbekræftelsesdialog før du starter et opkald</string>
     <string name="show_only_contacts_with_numbers">Vis kun kontakter med telefonnumre</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 

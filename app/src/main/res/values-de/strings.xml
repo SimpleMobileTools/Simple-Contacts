@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">E-Mail an Kontakte senden</string>
     <string name="send_sms_to_group">SMS an Gruppe senden</string>
     <string name="send_email_to_group">E-Mail an Gruppe senden</string>
-    <string name="call_person">%s anrufen</string>
     <string name="create_new_contact">Neuen Kontakt erstellen</string>
     <string name="add_to_existing_contact">Zu einem existierenden Kontakt hinzufügen</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">Kontaktdetails anzeigen</string>
     <string name="manage_shown_contact_fields">Sichtbare Kontaktfelder bearbeiten</string>
     <string name="contacts">Kontakte</string>
-    <string name="show_call_confirmation_dialog">Bestätigungsdialog zeigen, bevor ein Anruf durchgeführt wird</string>
     <string name="show_only_contacts_with_numbers">Nur Kontakte mit Telefonnummern anzeigen</string>
     <string name="show_private_contacts">Zeige private Kontakte in Schlichtem Telefon, SMS Messenger und Kalender Pro</string>
 

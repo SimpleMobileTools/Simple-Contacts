@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">Enviar e-mail aos contactos</string>
     <string name="send_sms_to_group">Enviar SMS para o grupo</string>
     <string name="send_email_to_group">Enviar e-mail para o grupo</string>
-    <string name="call_person">Ligar a %s</string>
     <string name="create_new_contact">Criar novo contacto</string>
     <string name="add_to_existing_contact">Adicionar a um contacto existente</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">Ver detalhes</string>
     <string name="manage_shown_contact_fields">Gerir campos a mostrar</string>
     <string name="contacts">Contactos</string>
-    <string name="show_call_confirmation_dialog">Mostrar diálogo para confirmar a chamada</string>
     <string name="show_only_contacts_with_numbers">Mostrar apenas contactos com número de telefone</string>
     <string name="show_private_contacts">Mostrar contactos privados em Simple Dialer, Simple SMS Messenger e em Simple Calendar Pro</string>
 

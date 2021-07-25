@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">Wyślij e-mail do kontaktów</string>
     <string name="send_sms_to_group">Wyślij SMS-a do grupy</string>
     <string name="send_email_to_group">Wyślij e-mail do grupy</string>
-    <string name="call_person">Zadzwoń do: %s</string>
     <string name="create_new_contact">Utwórz nowy kontakt</string>
     <string name="add_to_existing_contact">Dodaj do istniejącego kontaktu</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">Pokaż szczegóły kontaktu</string>
     <string name="manage_shown_contact_fields">Zarządzaj pokazywanymi polami kontaktu</string>
     <string name="contacts">Kontakty</string>
-    <string name="show_call_confirmation_dialog">Pokazuj okno potwierdzenia zadzwonienia przed zainicjowaniem połączenia</string>
     <string name="show_only_contacts_with_numbers">Pokazuj wyłącznie kontakty z numerami telefonów</string>
     <string name="show_private_contacts">Pokazuj prywatne kontakty Prostemu telefonowi, Prostym wiadomościom SMS i Prostemu kalendarzowi Pro</string>
 

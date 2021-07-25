@@ -10,12 +10,12 @@ import android.provider.ContactsContract
 import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
+import com.simplemobiletools.commons.dialogs.CallConfirmationDialog
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
-import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.dialogs.ChooseSocialDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
@@ -173,8 +173,10 @@ class ViewContactActivity : ContactActivity() {
         }
 
         val textColor = config.textColor
-        arrayOf(contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_events_image, contact_source_image,
-            contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image).forEach {
+        arrayOf(
+            contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_events_image, contact_source_image,
+            contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image
+        ).forEach {
             it.applyColorFilter(textColor)
         }
 
@@ -599,11 +601,17 @@ class ViewContactActivity : ContactActivity() {
                     startActivityForResult(ringtonePickerIntent, INTENT_SELECT_RINGTONE)
                 } catch (e: Exception) {
                     val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
-                    SelectAlarmSoundDialog(this@ViewContactActivity, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
+                    SelectAlarmSoundDialog(this@ViewContactActivity,
+                        currentRingtone,
+                        AudioManager.STREAM_RING,
+                        PICK_RINGTONE_INTENT_ID,
+                        RingtoneManager.TYPE_RINGTONE,
+                        true,
                         onAlarmPicked = {
                             contact_ringtone.text = it?.title
                             ringtoneUpdated(it?.uri)
-                        }, onAlarmSoundDeleted = {}
+                        },
+                        onAlarmSoundDeleted = {}
                     )
                 }
             }

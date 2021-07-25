@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">Send email to contacts</string>
     <string name="send_sms_to_group">Send SMS to group</string>
     <string name="send_email_to_group">Send email to group</string>
-    <string name="call_person">Call %s</string>
     <string name="create_new_contact">Create new contact</string>
     <string name="add_to_existing_contact">Add to an existing contact</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">Žiūrėti kontakto detales</string>
     <string name="manage_shown_contact_fields">Manage shown contact fields</string>
     <string name="contacts">Contacts</string>
-    <string name="show_call_confirmation_dialog">Show a call confirmation dialog before initiating a call</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 

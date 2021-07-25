@@ -5,6 +5,7 @@ import android.net.Uri
 import android.provider.ContactsContract.CommonDataKinds.BaseTypes
 import android.provider.ContactsContract.CommonDataKinds.Phone
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
+import com.simplemobiletools.commons.dialogs.CallConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
@@ -12,7 +13,6 @@ import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
-import com.simplemobiletools.contacts.pro.dialogs.CallConfirmationDialog
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
 
@@ -118,15 +118,17 @@ fun SimpleActivity.getPhoneNumberTypeText(type: Int, label: String): String {
     return if (type == BaseTypes.TYPE_CUSTOM) {
         label
     } else {
-        getString(when (type) {
-            Phone.TYPE_MOBILE -> R.string.mobile
-            Phone.TYPE_HOME -> R.string.home
-            Phone.TYPE_WORK -> R.string.work
-            Phone.TYPE_MAIN -> R.string.main_number
-            Phone.TYPE_FAX_WORK -> R.string.work_fax
-            Phone.TYPE_FAX_HOME -> R.string.home_fax
-            Phone.TYPE_PAGER -> R.string.pager
-            else -> R.string.other
-        })
+        getString(
+            when (type) {
+                Phone.TYPE_MOBILE -> R.string.mobile
+                Phone.TYPE_HOME -> R.string.home
+                Phone.TYPE_WORK -> R.string.work
+                Phone.TYPE_MAIN -> R.string.main_number
+                Phone.TYPE_FAX_WORK -> R.string.work_fax
+                Phone.TYPE_FAX_HOME -> R.string.home_fax
+                Phone.TYPE_PAGER -> R.string.pager
+                else -> R.string.other
+            }
+        )
     }
 }

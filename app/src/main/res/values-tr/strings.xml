@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">Kişilere e-posta gönder</string>
     <string name="send_sms_to_group">Gruba SMS gönder</string>
     <string name="send_email_to_group">Gruba e-posta gönder</string>
-    <string name="call_person">%s kişisini ara</string>
     <string name="create_new_contact">Yeni kişi oluştur</string>
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">Kişi bilgilerini göster</string>
     <string name="manage_shown_contact_fields">Görüntülenecek kişi alanlarını yönet</string>
     <string name="contacts">Kişiler</string>
-    <string name="show_call_confirmation_dialog">Arama başlatmadan önce arama onayı penceresi göster</string>
     <string name="show_only_contacts_with_numbers">Sadece telefon numaralarını içeren kişileri göster</string>
     <string name="show_private_contacts">Özel kişileri Basit Çevirici, Basit SMS Messenger ve Basit Takvim Pro\'a göster</string>
 

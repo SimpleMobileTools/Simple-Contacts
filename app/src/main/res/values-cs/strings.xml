@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">Poslat kontaktům e-mail</string>
     <string name="send_sms_to_group">Poslat skupině SMS</string>
     <string name="send_email_to_group">Poslat skupině e-mail</string>
-    <string name="call_person">Zavolat %s</string>
     <string name="create_new_contact">Vytvořit nový kontakt</string>
     <string name="add_to_existing_contact">Přidat k existujícímu kontaktu</string>
 
@@ -50,7 +49,6 @@
     <string name="view_contact">Zobrazit údaje kontaktu</string>
     <string name="manage_shown_contact_fields">Spravovat zobrazená pole kontaktů</string>
     <string name="contacts">Kontakty</string>
-    <string name="show_call_confirmation_dialog">Před zahájením hovoru zobrazit potvrzovací dialog</string>
     <string name="show_only_contacts_with_numbers">Zobrazit jen kontakty s telefonními čísly</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
