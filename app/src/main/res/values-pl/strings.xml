@@ -46,22 +46,22 @@
     <string name="show_dialpad_button">Pokazuj przycisk panelu wybierania numeru na ekranie głównym</string>
     <string name="on_contact_click">Przy naciśnięciu kontaktu</string>
     <string name="call_contact">Zadzwoń do kontaktu</string>
-    <string name="view_contact">Pokaż szczegóły kontaktu</string>
-    <string name="manage_shown_contact_fields">Zarządzaj pokazywanymi polami kontaktu</string>
+    <string name="view_contact">Zobacz szczegóły kontaktu</string>
+    <string name="manage_shown_contact_fields">Zarządzaj wyświetlanymi polami kontaktów</string>
     <string name="contacts">Kontakty</string>
-    <string name="show_only_contacts_with_numbers">Pokazuj wyłącznie kontakty z numerami telefonów</string>
+    <string name="show_only_contacts_with_numbers">Pokazuj tylko kontakty z numerami telefonów</string>
     <string name="show_private_contacts">Pokazuj prywatne kontakty Prostemu telefonowi, Prostym wiadomościom SMS i Prostemu kalendarzowi Pro</string>
 
     <!-- Emails -->
-    <string name="home">Dom</string>
-    <string name="work">Praca</string>
+    <string name="home">Domowy</string>
+    <string name="work">Służbowy</string>
     <string name="other">Inny</string>
 
     <!-- Phone numbers -->
     <string name="mobile">Komórkowy</string>
     <string name="main_number">Główny</string>
-    <string name="work_fax">Służbowy faks</string>
-    <string name="home_fax">Domowy faks</string>
+    <string name="work_fax">Faks służbowy</string>
+    <string name="home_fax">Faks domowy</string>
     <string name="pager">Pager</string>
     <string name="no_phone_number_found">Nie znaleziono numeru telefonu</string>
 
@@ -70,7 +70,7 @@
     <string name="anniversary">Rocznica</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Wygląda na to, że nie dodałeś jeszcze żadnego ulubionego kontaktu.</string>
+    <string name="no_favorites">Wygląda na to, że nie dodałeś(-aś) jeszcze żadnego ulubionego kontaktu</string>
 
     <!-- Search -->
     <string name="search_contacts">Szukaj kontaktów</string>
@@ -82,7 +82,7 @@
     <string name="export_contacts">Eksportuj kontakty</string>
     <string name="import_contacts_from_vcf">Importuj kontakty z pliku .vcf</string>
     <string name="export_contacts_to_vcf">Eksportuj kontakty do pliku .vcf</string>
-    <string name="target_contact_source">Wybierz miejsce przechowywania kontaktów</string>
+    <string name="target_contact_source">Wybierz miejsce przechowywania kontaktów:</string>
     <string name="include_contact_sources">Uwzględnij kontakty z następujących źródeł:</string>
     <string name="filename_without_vcf">Nazwa pliku (bez .vcf)</string>
 
@@ -101,7 +101,7 @@
     <string name="websites">Strony internetowe</string>
     <string name="groups">Grupy</string>
     <string name="contact_source">Miejsce przechowywania kontaktu</string>
-    <string name="instant_messaging">Komunikator</string>
+    <string name="instant_messaging">Komunikator (IM)</string>
     <string name="ringtone">Dzwonek</string>
 
     <!-- Confirmation dialog -->
@@ -115,19 +115,19 @@
 
     <!-- FAQ -->
     <string name="faq_1_title">Chcę zmienić, które pola są widoczne w kontaktach. Czy mogę to zrobić?</string>
-    <string name="faq_1_text">Tak. Wszystko, co musisz zrobić, to wejść do Ustawień -> Zarządzaj pokazywanymi polami kontaktu. Możesz tam wybrać, które pola mają być wyświetlane. Niektóre z nich są nawet domyślnie wyłączone, więc możesz znaleźć tam kilka nowych.</string>
+    <string name="faq_1_text">Tak. Wszystko, co musisz zrobić, to wejść do Ustawień -> Zarządzaj wyświetlanymi polami kontaktów. Możesz tam wybrać, które pola mają być wyświetlane. Niektóre z nich są nawet domyślnie wyłączone, więc możesz znaleźć tam kilka nowych.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Proste kontakty Pro - Łatwo zarządzaj kontaktami</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Łatwe i szybkie zarządzanie kontaktami bez reklam, z obsługą grup i ulubionych.</string>
+    <string name="app_short_description">Łatwe i szybkie zarządzanie kontaktami bez reklam, z obsługą grup i ulubionych</string>
     <string name="app_long_description">
         Lekka aplikacja do zarządzania kontaktami, uwielbiana przez miliony. Kontakty mogą być przechowywane tylko na Twoim urządzeniu, ale także synchronizowane przez Google lub inne konta.
 
         Możesz ją również używać do zarządzania e-mailami i wydarzeniami. Posiada możliwość sortowania/filtrowania według wielu parametrów, opcjonalnie wyświetla nazwisko jako imię.
 
-        Możesz wyświetlić swoje ulubione kontakty lub grupy na osobnej liście. Grupy mogą być używane do wysyłania zbiorczych e-maili lub SMS-ów, aby zaoszczędzić trochę czasu; możesz łatwo zmienić ich nazwy. 
+        Możesz wyświetlić swoje ulubione kontakty lub grupy na osobnej liście. Grupy mogą być używane do wysyłania zbiorczych e-maili lub SMS-ów, aby zaoszczędzić trochę czasu; możesz łatwo zmienić ich nazwy.
 
         Zawiera przydatne przyciski do dzwonienia lub wysyłania wiadomości tekstowych do kontaktów. Wszystkie widoczne pola można dowolnie dostosowywać, a nieużywane łatwo ukryć. Funkcja wyszukiwania przeszuka podany ciąg w każdym widocznym polu kontaktu, aby łatwo znaleźć żądany kontakt.
 
