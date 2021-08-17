@@ -253,7 +253,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 }
 
                 val character = if (name.isNotEmpty()) name.substring(0, 1) else ""
-                FastScrollItemIndicator.Text(character.toUpperCase(Locale.getDefault()))
+                FastScrollItemIndicator.Text(character.normalizeString().toUpperCase(Locale.getDefault()))
             } catch (e: Exception) {
                 FastScrollItemIndicator.Text("")
             }
