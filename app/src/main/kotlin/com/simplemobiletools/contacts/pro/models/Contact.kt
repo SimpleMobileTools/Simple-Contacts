@@ -4,10 +4,7 @@ import android.graphics.Bitmap
 import android.telephony.PhoneNumberUtils
 import com.simplemobiletools.commons.extensions.normalizePhoneNumber
 import com.simplemobiletools.commons.extensions.normalizeString
-import com.simplemobiletools.commons.helpers.SORT_BY_FIRST_NAME
-import com.simplemobiletools.commons.helpers.SORT_BY_MIDDLE_NAME
-import com.simplemobiletools.commons.helpers.SORT_BY_SURNAME
-import com.simplemobiletools.commons.helpers.SORT_DESCENDING
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 
 data class Contact(var id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var nickname: String,
@@ -22,61 +19,35 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
     }
 
     override fun compareTo(other: Contact): Int {
-        var firstString: String
-        var secondString: String
+        var result: Int
 
         when {
             sorting and SORT_BY_FIRST_NAME != 0 -> {
-                firstString = firstName.normalizeString()
-                secondString = other.firstName.normalizeString()
+                val firstString = firstName.normalizeString()
+                val secondString = other.firstName.normalizeString()
+
+                result = compareUsingStrings(firstString, secondString, other)
             }
             sorting and SORT_BY_MIDDLE_NAME != 0 -> {
-                firstString = middleName.normalizeString()
-                secondString = other.middleName.normalizeString()
+                val firstString = middleName.normalizeString()
+                val secondString = other.middleName.normalizeString()
+
+                result = compareUsingStrings(firstString, secondString, other)
             }
             sorting and SORT_BY_SURNAME != 0 -> {
-                firstString = surname.normalizeString()
-                secondString = other.surname.normalizeString()
+                val firstString = surname.normalizeString()
+                val secondString = other.surname.normalizeString()
+
+                result = compareUsingStrings(firstString, secondString, other)
+            }
+            sorting and SORT_BY_FULL_NAME != 0 -> {
+                val firstString = getNameToDisplay().normalizeString()
+                val secondString = other.getNameToDisplay().normalizeString()
+
+                result = compareUsingStrings(firstString, secondString, other)
             }
             else -> {
-                firstString = getNameToDisplay().normalizeString()
-                secondString = other.getNameToDisplay().normalizeString()
-            }
-        }
-
-        if (firstString.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty()) {
-            val fullCompany = getFullCompany()
-            if (fullCompany.isNotEmpty()) {
-                firstString = fullCompany.normalizeString()
-            } else if (emails.isNotEmpty()) {
-                firstString = emails.first().value
-            }
-        }
-
-        if (secondString.isEmpty() && other.firstName.isEmpty() && other.middleName.isEmpty() && other.surname.isEmpty()) {
-            val otherFullCompany = other.getFullCompany()
-            if (otherFullCompany.isNotEmpty()) {
-                secondString = otherFullCompany.normalizeString()
-            } else if (other.emails.isNotEmpty()) {
-                secondString = other.emails.first().value
-            }
-        }
-
-        var result = if (firstString.firstOrNull()?.isLetter() == true && secondString.firstOrNull()?.isLetter() == false) {
-            -1
-        } else if (firstString.firstOrNull()?.isLetter() == false && secondString.firstOrNull()?.isLetter() == true) {
-            1
-        } else {
-            if (firstString.isEmpty() && secondString.isNotEmpty()) {
-                1
-            } else if (firstString.isNotEmpty() && secondString.isEmpty()) {
-                -1
-            } else {
-                if (firstString.equals(secondString, ignoreCase = true)) {
-                    getNameToDisplay().compareTo(other.getNameToDisplay(), true)
-                } else {
-                    firstString.compareTo(secondString, true)
-                }
+                result = compareUsingIds(other)
             }
         }
 
@@ -85,6 +56,56 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
         }
 
         return result
+    }
+
+    private fun compareUsingStrings(firstString: String, secondString: String, other: Contact): Int {
+        var firstValue = firstString
+        var secondValue = secondString
+
+        if (firstValue.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty()) {
+            val fullCompany = getFullCompany()
+            if (fullCompany.isNotEmpty()) {
+                firstValue = fullCompany.normalizeString()
+            } else if (emails.isNotEmpty()) {
+                firstValue = emails.first().value
+            }
+        }
+
+        if (secondValue.isEmpty() && other.firstName.isEmpty() && other.middleName.isEmpty() && other.surname.isEmpty()) {
+            val otherFullCompany = other.getFullCompany()
+            if (otherFullCompany.isNotEmpty()) {
+                secondValue = otherFullCompany.normalizeString()
+            } else if (other.emails.isNotEmpty()) {
+                secondValue = other.emails.first().value
+            }
+        }
+
+        val result = if (firstValue.firstOrNull()?.isLetter() == true && secondValue.firstOrNull()?.isLetter() == false) {
+            -1
+        } else if (firstValue.firstOrNull()?.isLetter() == false && secondValue.firstOrNull()?.isLetter() == true) {
+            1
+        } else {
+            if (firstValue.isEmpty() && secondValue.isNotEmpty()) {
+                1
+            } else if (firstValue.isNotEmpty() && secondValue.isEmpty()) {
+                -1
+            } else {
+                if (firstValue.equals(secondValue, ignoreCase = true)) {
+                    getNameToDisplay().compareTo(other.getNameToDisplay(), true)
+                } else {
+                    firstValue.compareTo(secondValue, true)
+                }
+            }
+        }
+
+        return result
+    }
+
+    private fun compareUsingIds(other: Contact): Int {
+        val firstId = id
+        val secondId = other.id
+
+        return firstId.compareTo(secondId)
     }
 
     fun getBubbleText() = when {

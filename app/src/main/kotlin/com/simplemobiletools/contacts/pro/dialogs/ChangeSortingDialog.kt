@@ -32,7 +32,8 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val callback
             currSorting and SORT_BY_FIRST_NAME != 0 -> sortingRadio.sorting_dialog_radio_first_name
             currSorting and SORT_BY_MIDDLE_NAME != 0 -> sortingRadio.sorting_dialog_radio_middle_name
             currSorting and SORT_BY_SURNAME != 0 -> sortingRadio.sorting_dialog_radio_surname
-            else -> sortingRadio.sorting_dialog_radio_full_name
+            currSorting and SORT_BY_FULL_NAME != 0 -> sortingRadio.sorting_dialog_radio_full_name
+            else -> sortingRadio.sorting_dialog_radio_date_created
         }
         sortBtn.isChecked = true
     }
@@ -53,7 +54,8 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val callback
             R.id.sorting_dialog_radio_first_name -> SORT_BY_FIRST_NAME
             R.id.sorting_dialog_radio_middle_name -> SORT_BY_MIDDLE_NAME
             R.id.sorting_dialog_radio_surname -> SORT_BY_SURNAME
-            else -> SORT_BY_FULL_NAME
+            R.id.sorting_dialog_radio_full_name -> SORT_BY_FULL_NAME
+            else -> SORT_BY_DATE_CREATED
         }
 
         if (view.sorting_dialog_radio_order.checkedRadioButtonId == R.id.sorting_dialog_radio_descending) {
