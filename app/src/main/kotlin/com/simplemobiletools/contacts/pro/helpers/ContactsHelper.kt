@@ -844,7 +844,8 @@ class ContactsHelper(val context: Context) {
             sorting and SORT_BY_FIRST_NAME != 0 -> "${StructuredName.GIVEN_NAME} COLLATE NOCASE"
             sorting and SORT_BY_MIDDLE_NAME != 0 -> "${StructuredName.MIDDLE_NAME} COLLATE NOCASE"
             sorting and SORT_BY_SURNAME != 0 -> "${StructuredName.FAMILY_NAME} COLLATE NOCASE"
-            else -> Phone.NUMBER
+            sorting and SORT_BY_FULL_NAME != 0 -> StructuredName.DISPLAY_NAME
+            else -> Data.RAW_CONTACT_ID
         }
     }
 
