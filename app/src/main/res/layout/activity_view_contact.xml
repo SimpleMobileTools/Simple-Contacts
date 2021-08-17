@@ -397,7 +397,6 @@
         android:clickable="true"
         android:padding="@dimen/activity_margin"
         android:scaleType="fitCenter"
-        android:src="@drawable/img_write_storage"
         android:visibility="gone" />
 
     <ImageView
