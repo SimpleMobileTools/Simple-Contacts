@@ -19,36 +19,28 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
     }
 
     override fun compareTo(other: Contact): Int {
-        var result: Int
-
-        when {
+        var result = when {
             sorting and SORT_BY_FIRST_NAME != 0 -> {
                 val firstString = firstName.normalizeString()
                 val secondString = other.firstName.normalizeString()
-
-                result = compareUsingStrings(firstString, secondString, other)
+                compareUsingStrings(firstString, secondString, other)
             }
             sorting and SORT_BY_MIDDLE_NAME != 0 -> {
                 val firstString = middleName.normalizeString()
                 val secondString = other.middleName.normalizeString()
-
-                result = compareUsingStrings(firstString, secondString, other)
+                compareUsingStrings(firstString, secondString, other)
             }
             sorting and SORT_BY_SURNAME != 0 -> {
                 val firstString = surname.normalizeString()
                 val secondString = other.surname.normalizeString()
-
-                result = compareUsingStrings(firstString, secondString, other)
+                compareUsingStrings(firstString, secondString, other)
             }
             sorting and SORT_BY_FULL_NAME != 0 -> {
                 val firstString = getNameToDisplay().normalizeString()
                 val secondString = other.getNameToDisplay().normalizeString()
-
-                result = compareUsingStrings(firstString, secondString, other)
+                compareUsingStrings(firstString, secondString, other)
             }
-            else -> {
-                result = compareUsingIds(other)
-            }
+            else -> compareUsingIds(other)
         }
 
         if (sorting and SORT_DESCENDING != 0) {
@@ -80,7 +72,7 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
             }
         }
 
-        val result = if (firstValue.firstOrNull()?.isLetter() == true && secondValue.firstOrNull()?.isLetter() == false) {
+        return if (firstValue.firstOrNull()?.isLetter() == true && secondValue.firstOrNull()?.isLetter() == false) {
             -1
         } else if (firstValue.firstOrNull()?.isLetter() == false && secondValue.firstOrNull()?.isLetter() == true) {
             1
@@ -97,8 +89,6 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
                 }
             }
         }
-
-        return result
     }
 
     private fun compareUsingIds(other: Contact): Int {
