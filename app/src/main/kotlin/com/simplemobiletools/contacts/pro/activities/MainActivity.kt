@@ -52,6 +52,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
+    private var searchQuery = ""
     private var werePermissionsHandled = false
     private var isFirstResume = true
     private var isGettingContacts = false
@@ -229,6 +230,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
+                        searchQuery = newText
                         getCurrentFragment()?.onSearchQueryChanged(newText)
                     }
                     return true
@@ -540,7 +542,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     override fun refreshContacts(refreshTabsMask: Int) {
-        if (isDestroyed || isFinishing || isGettingContacts || isSearchOpen) {
+        if (isDestroyed || isFinishing || isGettingContacts) {
             return
         }
 
@@ -571,6 +573,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                     groups_fragment.skipHashComparing = true
                 }
                 groups_fragment?.refreshContacts(contacts)
+            }
+
+            if (isSearchOpen) {
+                getCurrentFragment()?.onSearchQueryChanged(searchQuery)
             }
         }
     }
