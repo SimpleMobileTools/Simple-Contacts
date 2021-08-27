@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 6.15.1 *(2021-08-27)*
+----------------------------
+
+ * Allow sorting contacts by creation order
+ * Allow viewing the whole contact picture by clicking on it at the View details screen
+ * Fixed some searching related glitches
+ * Other stability, UX and translation improvements
+
 Version 6.15.0 *(2021-05-18)*
 ----------------------------
 
