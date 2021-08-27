@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.content.ActivityNotFoundException
 import android.content.ContentUris
 import android.content.Intent
 import android.media.AudioManager
@@ -681,7 +682,13 @@ class ViewContactActivity : ContactActivity() {
                             val uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, action.dataId)
                             setDataAndType(uri, action.mimetype)
                             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(this)
+                            try {
+                                startActivity(this)
+                            } catch (e: ActivityNotFoundException) {
+                                toast(R.string.no_app_found)
+                            } catch (e: Exception) {
+                                showErrorToast(e)
+                            }
                         }
                     }
                 }
