@@ -901,7 +901,7 @@ class EditContactActivity : ContactActivity() {
             return
         }
 
-        contact!!.apply {
+        contact?.apply {
             val oldPhotoUri = photoUri
 
             prefix = contact_prefix.value

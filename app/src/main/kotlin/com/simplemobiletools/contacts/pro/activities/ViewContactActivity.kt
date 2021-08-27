@@ -92,7 +92,9 @@ class ViewContactActivity : ContactActivity() {
         (contact_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
         contact_toolbar.menu.apply {
             findItem(R.id.share).setOnMenuItemClickListener {
-                shareContact(fullContact!!)
+                if (fullContact != null) {
+                    shareContact(fullContact!!)
+                }
                 true
             }
 
