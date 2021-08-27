@@ -107,12 +107,13 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     fun refreshContacts(contacts: ArrayList<Contact>) {
         if ((config.showTabs and TAB_CONTACTS == 0 && this is ContactsFragment && activity !is InsertOrEditContactActivity) ||
             (config.showTabs and TAB_FAVORITES == 0 && this is FavoritesFragment) ||
-            (config.showTabs and TAB_GROUPS == 0 && this is GroupsFragment)) {
+            (config.showTabs and TAB_GROUPS == 0 && this is GroupsFragment)
+        ) {
             return
         }
 
         if (config.lastUsedContactSource.isEmpty()) {
-            val grouped = contacts.asSequence().groupBy { it.source }.maxWith(compareBy { it.value.size })
+            val grouped = contacts.asSequence().groupBy { it.source }.maxWithOrNull(compareBy { it.value.size })
             config.lastUsedContactSource = grouped?.key ?: ""
         }
 
