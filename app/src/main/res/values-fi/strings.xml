@@ -122,38 +122,38 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Helppo ja nopea yhteystietojen hallinta ilman mainoksia. Hallitsee myös ryhmät ja suosikit.</string>
     <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
+        Miljoonien rakastama kevyt sovellus yhteystietojen hallintaan. Yhteystiedot voivat olla tallennettuna vain laitteellesi tai ne voidaan synkronoida Googlen tai muiden tilien kanssa.
 
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+        Voit käyttää sovellusta myös sähköpostien ja tapahtumien hallintaan. Ominaisuuksiin kuuluu lajittelu ja suodatus useilla valinnoilla. Halutessasi yhteystiedoille voidaan näyttää sukunimi ensin.
 
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+        Voit katsella suosikkiyhteystietojasi tai ryhmiä eri listoilla. Ajan säästämiseksi voit käyttää uudelleennimettäviä ryhmiä massasähköpostien tai tekstiviestien lähettämiseen.
 
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+        Sovelluksessa on näppärät painikkeet soittamiseen tai tekstiviestin lähettämiseen. Kaikki näkyvillä olevat tietokentät voi mukauttaa toiveidesi mukaan: voit piilottaa ne, joita et käytä. Hakutoiminto hakee kaikista yhteystiedoille tallennetuista tiedoista, joten yhteystiedon löytäminen on helppoa.
 
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
+        Kevyt pikanumeronäppäimistö on myös käytettävissäsi, älykkäällä yhteystietojen ehdotuksilla.
 
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+        Sovellus tukee yhteystietojen vientiä ja tuontia vCard-formaatissa (.vcf-tiedostot) mahdollistaen helpon tietojen yhdistämisen ja varmuuskopioinnin.
 
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+        Tällä modernilla ja vakaalla yhteystietosovelluksella yhteystiedot pysyvät turvassa, sillä niitä ei jaeta muiden sovellusten kanssa.
 
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+        Kuten yhteystietojen lähteen, voit myös helposti vaihtaa nimeä, sähköpostia, puhelinnumeroa, osoitetta, organisaatiota, ryhmiä ja monia muita mukautettavia tietoja. Voit tallentaa myös yhteystiedon tapahtumia, kuten syntymäpäiviä, vuosipäiviä tai muita valitsemiasi.
 
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+        Tämä suoraviivainen yhteystietosovellus tarjoaa monia käteviä asetuksia, kuten puhelinnumeroiden näytön päänäkymässä, yhteystietojen kuvien näkyvyyden asettamisen, sekä vain puhelinnumeron omaavien yhteystietojen näyttämisen. Lisäksi voidaan näyttää vahvistuslomake ennen puhelun aloittamista. Pikanumeronäppäimistöön voit syöttää myös kirjaimia.
 
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+        Käyttökokemuksen kohentamiseksi voit myös valita, mike toiminto suoritetaan yhteystietoa napauttaessa: soitetaanko puhelu, avataanko yhteystiedon kaikki tiedot vai muokataanko valittua yhteystietoa.
 
-        You can easily block phone numbers to avoid unwanted incoming calls.
+        Voit helposti estää puhelinnumeroita, joista et halua puheluita.
 
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+        Sovelluksessa on tehokas työkalu tuplana näkyvien yhteystietojen yhdistämiseen.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Sovelluksen ulkoasu noudattelee material designia, tumma teema on oletuksena käytettävissä. Ulkoasu tarjoaa loistavan ja mutkattoman käyttökokemuksen. Voit mukauttaa sovelluksen värejä.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+        Ei sisällä mainoksia eikä vaadi tarpeettomia käyttöoikeuksia. Sovellus on täysin avointa lähädekoodia.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Katso koko Simple Tools-sovellusvalikoima täältä:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple Contacts Pro:</b>
+        <b>Simple Contacts Pro:n oma sivusto:</b>
         https://www.simplemobiletools.com/contacts
 
         <b>Facebook:</b>
