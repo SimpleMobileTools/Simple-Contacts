@@ -71,27 +71,23 @@ class VcfExporter {
                     card.addEmail(email)
                 }
 
-                contact.events.forEach {
-                    if (it.type == Event.TYPE_ANNIVERSARY || it.type == Event.TYPE_BIRTHDAY) {
-                        val dateTime = it.value.getDateTimeFromDateString(false)
-                        if (it.value.startsWith("--")) {
-                            val partialDate = PartialDate.builder().year(null).month(dateTime.monthOfYear).date(dateTime.dayOfMonth).build()
-                            if (it.type == Event.TYPE_BIRTHDAY) {
-                                card.birthdays.add(Birthday(partialDate))
+                contact.events.forEach { event ->
+                    if (event.type == Event.TYPE_ANNIVERSARY || event.type == Event.TYPE_BIRTHDAY) {
+                        val dateTime = event.value.getDateTimeFromDateString(false)
+                        Calendar.getInstance().apply {
+                            clear()
+                            if (event.value.startsWith("--")) {
+                                set(Calendar.YEAR, 1900)
                             } else {
-                                card.anniversaries.add(Anniversary(partialDate))
-                            }
-                        } else {
-                            Calendar.getInstance().apply {
-                                clear()
                                 set(Calendar.YEAR, dateTime.year)
-                                set(Calendar.MONTH, dateTime.monthOfYear - 1)
-                                set(Calendar.DAY_OF_MONTH, dateTime.dayOfMonth)
-                                if (it.type == Event.TYPE_BIRTHDAY) {
-                                    card.birthdays.add(Birthday(time))
-                                } else {
-                                    card.anniversaries.add(Anniversary(time))
-                                }
+
+                            }
+                            set(Calendar.MONTH, dateTime.monthOfYear - 1)
+                            set(Calendar.DAY_OF_MONTH, dateTime.dayOfMonth)
+                            if (event.type == Event.TYPE_BIRTHDAY) {
+                                card.birthdays.add(Birthday(time))
+                            } else {
+                                card.anniversaries.add(Anniversary(time))
                             }
                         }
                     }
