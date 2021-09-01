@@ -403,7 +403,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_toEndOf="@+id/contact_notes_image"
+                android:layout_toEndOf="@+id/contact_ringtone_image"
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:minHeight="@dimen/contact_icons_size"
