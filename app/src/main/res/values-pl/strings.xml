@@ -14,6 +14,7 @@
     <string name="send_email_to_group">Wyślij e-mail do grupy</string>
     <string name="create_new_contact">Utwórz nowy kontakt</string>
     <string name="add_to_existing_contact">Dodaj do istniejącego kontaktu</string>
+    <string name="fields_empty">Należy wypełnić co najmniej jedno pole</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nie znaleziono kontaktów z adresami e-mail</string>

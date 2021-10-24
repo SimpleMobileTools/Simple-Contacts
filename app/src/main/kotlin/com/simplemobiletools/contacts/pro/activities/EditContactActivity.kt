@@ -25,6 +25,7 @@ import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
+import com.simplemobiletools.commons.views.MyEditText
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
 import com.simplemobiletools.contacts.pro.dialogs.MyDatePickerDialog
@@ -63,6 +64,10 @@ class EditContactActivity : ContactActivity() {
     private var emailViewToColor: EditText? = null
     private var originalContactSource = ""
 
+    private lateinit var contactFields: ArrayList<MyEditText>
+    private val multipleFields = arrayListOf(::getFilledPhoneNumbers, ::getFilledEmails, ::getFilledAddresses, ::getFilledIMs,
+        ::getFilledEvents, ::getFilledWebsites)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         showTransparentTop = true
         super.onCreate(savedInstanceState)
@@ -97,6 +102,12 @@ class EditContactActivity : ContactActivity() {
         } else {
             initContact()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        contactFields = arrayListOf(contact_prefix, contact_first_name, contact_middle_name, contact_suffix, contact_nickname,
+            contact_notes, contact_organization_company, contact_organization_job_position)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
@@ -898,6 +909,11 @@ class EditContactActivity : ContactActivity() {
 
     private fun saveContact() {
         if (isSaving) {
+            return
+        }
+
+        if (contactFields.all { it.value.isEmpty() } && multipleFields.all { it().isEmpty() } && currentContactPhotoPath.isEmpty()) {
+            toast(R.string.fields_empty)
             return
         }
 

@@ -14,6 +14,7 @@
     <string name="send_email_to_group">E-mail naar groep sturen</string>
     <string name="create_new_contact">Nieuw contact</string>
     <string name="add_to_existing_contact">Aan bestaand contact toevoegen</string>
+    <string name="fields_empty">At least one field should be filled out</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Geen contacten met e-mailadressen gevonden</string>

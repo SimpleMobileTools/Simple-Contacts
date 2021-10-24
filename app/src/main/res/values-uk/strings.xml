@@ -14,6 +14,7 @@
     <string name="send_email_to_group">Надіслати електронний лист групі контактів</string>
     <string name="create_new_contact">Створити новий контакт</string>
     <string name="add_to_existing_contact">Додати до існуючого контакту</string>
+    <string name="fields_empty">At least one field should be filled out</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Не знайдено контактів з електронною поштою</string>

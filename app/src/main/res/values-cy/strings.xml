@@ -14,6 +14,7 @@
     <string name="send_email_to_group">Anfon ebost at grŵp</string>
     <string name="create_new_contact">Creu cyswllt newydd</string>
     <string name="add_to_existing_contact">Ychwanegu at gyswllt sy\'n bodoli</string>
+    <string name="fields_empty">At least one field should be filled out</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Ni chanfuwyd unrhyw gysylltiadau gydag ebost</string>
