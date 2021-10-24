@@ -65,8 +65,6 @@ class EditContactActivity : ContactActivity() {
     private var originalContactSource = ""
 
     private lateinit var contactFields: ArrayList<MyEditText>
-    private val multipleFields = arrayListOf(::getFilledPhoneNumbers, ::getFilledEmails, ::getFilledAddresses, ::getFilledIMs,
-        ::getFilledEvents, ::getFilledWebsites)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         showTransparentTop = true
@@ -912,7 +910,22 @@ class EditContactActivity : ContactActivity() {
             return
         }
 
-        if (contactFields.all { it.value.isEmpty() } && multipleFields.all { it().isEmpty() } && currentContactPhotoPath.isEmpty()) {
+        val filledPhoneNumbers = getFilledPhoneNumbers()
+        val filledEmails = getFilledEmails()
+        val filledAddresses = getFilledAddresses()
+        val filledIMs = getFilledIMs()
+        val filledEvents = getFilledEvents()
+        val filledWebsites = getFilledWebsites()
+
+        if (contactFields.all { it.value.isEmpty() } &&
+            currentContactPhotoPath.isEmpty() &&
+            filledPhoneNumbers.isEmpty() &&
+            filledEmails.isEmpty() &&
+            filledAddresses.isEmpty() &&
+            filledIMs.isEmpty() &&
+            filledEvents.isEmpty() &&
+            filledWebsites.isEmpty()
+        ) {
             toast(R.string.fields_empty)
             return
         }
@@ -927,14 +940,14 @@ class EditContactActivity : ContactActivity() {
             suffix = contact_suffix.value
             nickname = contact_nickname.value
             photoUri = currentContactPhotoPath
-            phoneNumbers = getFilledPhoneNumbers()
-            emails = getFilledEmails()
-            addresses = getFilledAddresses()
-            IMs = getFilledIMs()
-            events = getFilledEvents()
+            phoneNumbers = filledPhoneNumbers
+            emails = filledEmails
+            addresses = filledAddresses
+            IMs = filledIMs
+            events = filledEvents
             starred = if (isContactStarred()) 1 else 0
             notes = contact_notes.value
-            websites = getFilledWebsites()
+            websites = filledWebsites
 
             val company = contact_organization_company.value
             val jobPosition = contact_organization_job_position.value
