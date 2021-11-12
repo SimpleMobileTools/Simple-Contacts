@@ -12,7 +12,6 @@
     <string name="send_email_to_contacts">Enviar e-mail aos contactos</string>
     <string name="send_sms_to_group">Enviar SMS para o grupo</string>
     <string name="send_email_to_group">Enviar e-mail para o grupo</string>
-    <string name="call_person">Ligar a %s</string>
     <string name="create_new_contact">Criar novo contacto</string>
     <string name="add_to_existing_contact">Adicionar a um contacto existente</string>
 
@@ -74,7 +73,6 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Parece que aínda non engadiu contactos aos favoritos</string>
-    <string name="must_be_at_edit">Ten que estar na pantalla de edición para cambiar un contacto</string>
 
     <!-- Search -->
     <string name="search_contacts">Buscar nos contactos</string>
@@ -106,6 +104,7 @@
     <string name="groups">Grupos</string>
     <string name="contact_source">Orixe do contacto</string>
     <string name="instant_messaging">Mensaxe instantánea (IM)</string>
+    <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">O contacto será eliminado de todas as orixes.</string>
@@ -132,7 +131,7 @@
         Podes amosar os teus contactos ou grupos favoritos nunha lista separada. Os grupos pódense usar para enviar correos electrónicos por lotes ou SMS. Para aforrar tempo, podes renomealos facilmente.
 
         Contén botóns para chamar ou enviar mensaxes de texto aos teus contactos. Todos os campos visibles pódense personalizar como queiras e podes ocultar facilmente os que non uses. A función de busca buscará a cadea dada en todos os campos de contacto visibles para que poida atopar facilmente o contacto desexado.
-        
+
         Tamén hai un teclado de marcación lixeiro ao teu servizo e con suxestións de contactos intelixentes.
 
         Dá soporte a exportación / importación de contactos en formato vCard a ficheiros .vcf e para migracións sinxelas ou facer copias de seguridade dos teus datos.
@@ -152,7 +151,7 @@
         Vén cun deseño material e un tema escuro de xeito predeterminado, fornece unha excelente experiencia de usuario cun uso sinxelo. Como non necesita acceso a Internet, tes máis privacidade, seguridade e estabilidade.
 
         Non contén anuncios nin permisos innecesarios. Dispón dun tema escuro e é totalmente de código aberto.
-        
+
         <b>Visita a páxina a través desta ligazón:</b>
         https://www.simplemobiletools.com
 
