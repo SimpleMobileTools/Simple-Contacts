@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">简易通讯录</string>
     <string name="app_launcher_name">通讯录</string>
@@ -14,16 +15,13 @@
     <string name="send_email_to_group">发送电子邮件给群组</string>
     <string name="create_new_contact">建立新联系人</string>
     <string name="add_to_existing_contact">添加至已存在的联系人</string>
-
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">未发现含有电子邮箱的联系人</string>
     <string name="no_contacts_with_phone_numbers">未发现含有电话号码的联系人</string>
-
     <string name="new_contact">新联系人</string>
     <string name="edit_contact">编辑联系人</string>
     <string name="select_contact">选择联系人</string>
     <string name="nickname">昵称</string>
-
     <!-- Groups -->
     <string name="no_groups">没有群组</string>
     <string name="create_new_group">建立一个新群组</string>
@@ -34,12 +32,10 @@
     <string name="create_group">建立群组</string>
     <string name="add_to_group">添加到群组</string>
     <string name="create_group_under_account">在帐号下建立群组</string>
-
     <!-- Photo -->
     <string name="take_photo">拍照</string>
     <string name="choose_photo">选择照片</string>
     <string name="remove_photo">移除照片</string>
-
     <!-- Settings -->
     <string name="show_phone_numbers">主页面显示电话号码</string>
     <string name="show_contact_thumbnails">显示联系人缩图</string>
@@ -51,12 +47,10 @@
     <string name="contacts">联系人</string>
     <string name="show_only_contacts_with_numbers">只显示含有电话话码的联系人</string>
     <string name="show_private_contacts">显示私密联系人给简易拨号器和简易短信</string>
-
     <!-- Emails -->
     <string name="home">家庭</string>
     <string name="work">工作</string>
     <string name="other">其它</string>
-
     <!-- Phone numbers -->
     <string name="mobile">手机</string>
     <string name="main_number">主用</string>
@@ -64,19 +58,15 @@
     <string name="home_fax">家庭传真</string>
     <string name="pager">呼叫器</string>
     <string name="no_phone_number_found">未发现电话号码</string>
-
     <!-- Events -->
     <string name="birthday">生日</string>
     <string name="anniversary">纪念日</string>
-
     <!-- Favorites -->
     <string name="no_favorites">您似乎还没加入任何我的收藏联系人。</string>
-
     <!-- Search -->
     <string name="search_contacts">搜索联系人</string>
     <string name="search_favorites">搜索我的收藏</string>
     <string name="search_groups">搜索群组</string>
-
     <!-- Export / Import -->
     <string name="import_contacts">导入联系人</string>
     <string name="export_contacts">导出联系人</string>
@@ -85,11 +75,9 @@
     <string name="target_contact_source">联系人来源</string>
     <string name="include_contact_sources">包含联系人来源</string>
     <string name="filename_without_vcf">文件名称 (不含.vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">拨号界面</string>
     <string name="add_number_to_contact">添加号码至通讯录</string>
-
     <!-- Visible fields -->
     <string name="prefix">前缀</string>
     <string name="suffix">后缀</string>
@@ -102,25 +90,21 @@
     <string name="groups">群组</string>
     <string name="contact_source">联系人来源</string>
     <string name="instant_messaging">即时通讯 (IM)</string>
-    <string name="ringtone">Ringtone</string>
-
+    <string name="ringtone">铃声</string>
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">该联系人将会被从所有联系人来源移除。</string>
-
     <plurals name="delete_groups">
         <item quantity="one">%d 群组</item>
         <item quantity="other">%d 群组</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">我想要更改在通讯录会看到哪些字段。我能这么做吗?</string>
-    <string name="faq_1_text">可以，您要做的是到[设置] -> [管理显示的联系人字段]。在那里，您可以选择应该看到什么字段。其中有些甚至默认是关闭的，所以您可能会在那里发现一些新的。</string>
-
+    <string name="faq_1_text">可以，您要做的是到[设置] -&gt; [管理显示的联系人字段]。在那里，您可以选择应该看到什么字段。其中有些甚至默认是关闭的，所以您可能会在那里发现一些新的。</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">简易通讯录 Pro - 轻松管理您的联系人</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">简单快速无广告的联系人管理，亦可处理群组和收藏。</string>
+    <string name="app_short_description">用于联系人管理的高级应用程序，支持群组和收藏夹，无广告</string>
     <string name="app_long_description">
         得到百万人喜爱的轻量级联系人管理应用。联系人可以仅保存在您的设备上，但也可以通过 Google 或者其他账户同步。
 
@@ -162,7 +146,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
