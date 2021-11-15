@@ -76,4 +76,13 @@
     <string name="ringtone">Ringetone</string>
     <string name="app_short_description">Et premiumsprogram for håndtering av kontakter, som støtter grupper og favoritter, uten reklame</string>
     <string name="send_email_to_group">Send e-post til gruppe</string>
+    <string name="no_favorites">Det ser ut til at du ikke har lagt til noen favorittkontakter enda.</string>
+    <string name="show_private_contacts">Vis private kontakter til Enkel telefon, Enkel SMS, og Enkel kalender pro</string>
+    <string name="no_phone_number_found">Fant ikke noe telefonnummer</string>
+    <string name="addresses">Adresser</string>
+    <string name="add_number_to_contact">Legg til nummer for kontakt</string>
+    <string name="prefix">Tittel</string>
+    <string name="suffix">Endelse</string>
+    <string name="emails">E-postadresser</string>
+    <string name="faq_1_title">Jeg ønsker å endre hvilke felter som er synlige i kontaktoppføringer. Kan jeg gjøre det\?</string>
 </resources>
