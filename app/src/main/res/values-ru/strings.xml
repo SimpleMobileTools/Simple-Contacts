@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Контакты</string>
@@ -14,16 +15,13 @@
     <string name="send_email_to_group">Отправить письмо группе</string>
     <string name="create_new_contact">Создать новый контакт</string>
     <string name="add_to_existing_contact">Добавить к существующему контакту</string>
-
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Контакты с адресами электронной почты не найдены</string>
     <string name="no_contacts_with_phone_numbers">Контакты с номерами телефонов не найдены</string>
-
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
     <string name="select_contact">Выбрать контакт</string>
     <string name="nickname">Псевдоним</string>
-
     <!-- Groups -->
     <string name="no_groups">Нет групп</string>
     <string name="create_new_group">Создать новую группу</string>
@@ -34,12 +32,10 @@
     <string name="create_group">Создать группу</string>
     <string name="add_to_group">Добавить в группу</string>
     <string name="create_group_under_account">Создать группу в учётной записи</string>
-
     <!-- Photo -->
     <string name="take_photo">Снять фото</string>
     <string name="choose_photo">Выбрать фото</string>
     <string name="remove_photo">Удалить фото</string>
-
     <!-- Settings -->
     <string name="show_phone_numbers">Показывать номера телефонов на главном экране</string>
     <string name="show_contact_thumbnails">Показывать фото контакта</string>
@@ -51,12 +47,10 @@
     <string name="contacts">Контакты</string>
     <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
     <string name="show_private_contacts">Показывать личные контакты в Simple Dialer, Simple SMS Messenger и Simple Calendar Pro</string>
-
     <!-- Emails -->
     <string name="home">Домашний</string>
     <string name="work">Рабочий</string>
     <string name="other">Другой</string>
-
     <!-- Phone numbers -->
     <string name="mobile">Мобильный</string>
     <string name="main_number">Основной</string>
@@ -64,19 +58,15 @@
     <string name="home_fax">Домашний факс</string>
     <string name="pager">Пейджер</string>
     <string name="no_phone_number_found">Номер не найден</string>
-
     <!-- Events -->
     <string name="birthday">День рождения</string>
     <string name="anniversary">Годовщина</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Похоже, вы ещё не добавили избранные контакты.</string>
-
     <!-- Search -->
     <string name="search_contacts">Поиск контактов</string>
     <string name="search_favorites">Поиск избранных</string>
     <string name="search_groups">Поиск групп</string>
-
     <!-- Export / Import -->
     <string name="import_contacts">Импортировать контакты</string>
     <string name="export_contacts">Экспортировать контакты</string>
@@ -85,11 +75,9 @@
     <string name="target_contact_source">Назначенный к обновлению источник контактов</string>
     <string name="include_contact_sources">Включить источники контактов</string>
     <string name="filename_without_vcf">Имя файла (без .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Набор номера</string>
     <string name="add_number_to_contact">Добавить номер к контакту</string>
-
     <!-- Visible fields -->
     <string name="prefix">Префикс</string>
     <string name="suffix">Суффикс</string>
@@ -103,25 +91,21 @@
     <string name="contact_source">Источник контакта</string>
     <string name="instant_messaging">Мессенджеры</string>
     <string name="ringtone">Cигнал вызова</string>
-
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Контакт будет удалён из всех источников контактов.</string>
-
     <plurals name="delete_groups">
         <item quantity="one">%d группу</item>
         <item quantity="few">%d группы</item>
         <item quantity="many">%d групп</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Я хочу изменить поля, отображаемые у контактов. Могу ли я это сделать?</string>
     <string name="faq_1_text">Да, всё, что вам нужно сделать, это зайти в \"Настройки\" → \"Управление отображаемыми полями контактов\". Там вы сможете выбрать, какие поля должны быть видимы. Некоторые из них даже отключены по умолчанию, так что вы можете найти некоторые новые.</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - легко управляйте контактами</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Простое и быстрое управление контактами, группами и избранным без рекламы.</string>
+    <string name="app_short_description">Простое и быстрое управление контактами, группами и избранным без рекламы</string>
     <string name="app_long_description">
         Лёгкое приложение для управления контактами, которое нравится миллионам людей. Контакты могут храниться только на устройстве, но также синхронизироваться через Google или другие аккаунты.
 
@@ -163,7 +147,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
