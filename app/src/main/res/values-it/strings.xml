@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Semplice Contatti</string>
     <string name="app_launcher_name">Contatti</string>
@@ -14,16 +15,13 @@
     <string name="send_email_to_group">Invia un\'email al gruppo</string>
     <string name="create_new_contact">Crea un nuovo contatto</string>
     <string name="add_to_existing_contact">Aggiungi a un contatto esistente</string>
-
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nessun contatto trovato con un\'email</string>
     <string name="no_contacts_with_phone_numbers">Nessun contatto trovato con un numero di telefono</string>
-
     <string name="new_contact">Nuovo contatto</string>
     <string name="edit_contact">Modifica contatto</string>
     <string name="select_contact">Seleziona contatto</string>
     <string name="nickname">Soprannome</string>
-
     <!-- Groups -->
     <string name="no_groups">Nessun gruppo</string>
     <string name="create_new_group">Crea un nuovo gruppo</string>
@@ -34,12 +32,10 @@
     <string name="create_group">Crea gruppo</string>
     <string name="add_to_group">Aggiungi al gruppo</string>
     <string name="create_group_under_account">Crea un gruppo con un account</string>
-
     <!-- Photo -->
     <string name="take_photo">Scatta una foto</string>
     <string name="choose_photo">Scegli una foto</string>
     <string name="remove_photo">Rimuovi la foto</string>
-
     <!-- Settings -->
     <string name="show_phone_numbers">Mostra i numeri di telefono nella schermata principale</string>
     <string name="show_contact_thumbnails">Mostra le anteprime dei contatti</string>
@@ -51,12 +47,10 @@
     <string name="contacts">Contatti</string>
     <string name="show_only_contacts_with_numbers">Mostra solamente i contatti con almeno un numero telefonico</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-
     <!-- Emails -->
     <string name="home">Casa</string>
     <string name="work">Lavoro</string>
     <string name="other">Altro</string>
-
     <!-- Phone numbers -->
     <string name="mobile">Cellulare</string>
     <string name="main_number">Principale</string>
@@ -64,19 +58,15 @@
     <string name="home_fax">Fax di casa</string>
     <string name="pager">Cercapersone</string>
     <string name="no_phone_number_found">Non è stato trovato alcun numero di telefono</string>
-
     <!-- Events -->
     <string name="birthday">Compleanno</string>
     <string name="anniversary">Anniversario</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Non si ha ancora nessun contatto preferito.</string>
-
     <!-- Search -->
     <string name="search_contacts">Cerca contatti</string>
     <string name="search_favorites">Cerca preferiti</string>
     <string name="search_groups">Search groups</string>
-
     <!-- Export / Import -->
     <string name="import_contacts">Importa contatti</string>
     <string name="export_contacts">Esporta contatti</string>
@@ -85,16 +75,14 @@
     <string name="target_contact_source">Individua la provenienza del contatto</string>
     <string name="include_contact_sources">Includi la provenienza del contatto</string>
     <string name="filename_without_vcf">Nome del file (senza .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Tastiera</string>
     <string name="add_number_to_contact">Aggiungi numero ai contatti</string>
-
     <!-- Visible fields -->
     <string name="prefix">Prefisso</string>
     <string name="suffix">Suffisso</string>
     <string name="phone_numbers">Numeri di telefono</string>
-    <string name="emails">Email</string>
+    <string name="emails">E-mail</string>
     <string name="addresses">Indirizzi</string>
     <string name="events">Eventi (compleanni, anniversari)</string>
     <string name="organization">Organizazione</string>
@@ -103,19 +91,15 @@
     <string name="contact_source">Provenienza del contatto</string>
     <string name="instant_messaging">Messaggistica istantanea (IM)</string>
     <string name="ringtone">Ringtone</string>
-
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
-
     <plurals name="delete_groups">
         <item quantity="one">%d group</item>
         <item quantity="other">%d groups</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Voglio cambiare i campi visibili ai contatti. Come posso fare?</string>
-    <string name="faq_1_text">Si può farlo andando in Impostazioni -> Gestisci i campi mostrati. Qui si possono selezionare i campi che saranno visibili, alcuni sono disabilitati in maniera predefinita, quindi si possono trovare campi aggiuntivi.</string>
-
+    <string name="faq_1_text">Si può farlo andando in Impostazioni -&gt; Gestisci i campi mostrati. Qui si possono selezionare i campi che saranno visibili, alcuni sono disabilitati in maniera predefinita, quindi si possono trovare campi aggiuntivi.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
@@ -162,7 +146,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
