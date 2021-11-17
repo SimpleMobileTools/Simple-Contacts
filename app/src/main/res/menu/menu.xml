@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search_vector"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="collapseActionView|always"/>
+        app:showAsAction="collapseActionView|always" />
     <item
         android:id="@+id/sort"
         android:icon="@drawable/ic_sort_vector"
         android:title="@string/sort_by"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
     <item
         android:id="@+id/filter"
         android:icon="@drawable/ic_filter_vector"
         android:title="@string/filter"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
     <item
         android:id="@+id/dialpad"
         android:icon="@drawable/ic_dialpad_vector"
         android:title="@string/dialpad"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/import_contacts"
         android:title="@string/import_contacts_from_vcf"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/export_contacts"
         android:title="@string/export_contacts_to_vcf"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/settings"
+        android:icon="@drawable/ic_settings_cog_vector"
         android:title="@string/settings"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/about"
+        android:icon="@drawable/ic_info_vector"
         android:title="@string/about"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 </menu>
