@@ -11,19 +11,25 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:layoutAnimation="@anim/layout_animation"
+        android:paddingEnd="@dimen/big_margin"
         android:scrollbars="none"
         app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
 
-    <com.simplemobiletools.commons.views.FastScroller
-        android:id="@+id/select_contact_fastscroller"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignTop="@+id/select_contact_list"
-        android:layout_alignBottom="@+id/select_contact_list"
+    <com.reddit.indicatorfastscroll.FastScrollerView
+        android:id="@+id/letter_fastscroller"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:paddingStart="@dimen/normal_margin">
+        android:paddingTop="@dimen/big_margin"
+        android:paddingBottom="@dimen/big_margin" />
 
-        <include layout="@layout/fastscroller_handle_vertical" />
+    <com.reddit.indicatorfastscroll.FastScrollerThumbView
+        android:id="@+id/letter_fastscroller_thumb"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/letter_fastscroller"
+        android:layout_alignBottom="@+id/letter_fastscroller"
+        android:layout_marginEnd="@dimen/activity_margin"
+        android:layout_toStartOf="@+id/letter_fastscroller" />
 
-    </com.simplemobiletools.commons.views.FastScroller>
 </RelativeLayout>

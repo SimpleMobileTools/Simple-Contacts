@@ -243,14 +243,15 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     private fun setupLetterFastscroller(contacts: ArrayList<Contact>) {
+        val sorting = context.config.sorting
         letter_fastscroller.setupWithRecyclerView(fragment_list, { position ->
             try {
                 val contact = contacts[position]
                 var name = when {
                     contact.isABusinessContact() -> contact.getFullCompany()
-                    context.config.sorting and SORT_BY_SURNAME != 0 && contact.surname.isNotEmpty() -> contact.surname
-                    context.config.sorting and SORT_BY_MIDDLE_NAME != 0 && contact.middleName.isNotEmpty() -> contact.middleName
-                    context.config.sorting and SORT_BY_FIRST_NAME != 0 && contact.firstName.isNotEmpty() -> contact.firstName
+                    sorting and SORT_BY_SURNAME != 0 && contact.surname.isNotEmpty() -> contact.surname
+                    sorting and SORT_BY_MIDDLE_NAME != 0 && contact.middleName.isNotEmpty() -> contact.middleName
+                    sorting and SORT_BY_FIRST_NAME != 0 && contact.firstName.isNotEmpty() -> contact.firstName
                     context.config.startNameWithSurname -> contact.surname
                     else -> contact.firstName
                 }

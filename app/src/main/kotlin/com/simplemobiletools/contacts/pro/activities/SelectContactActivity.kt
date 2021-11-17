@@ -12,9 +12,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
+import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.SelectContactsAdapter
 import com.simplemobiletools.contacts.pro.dialogs.ChangeSortingDialog
@@ -26,6 +26,8 @@ import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.getProperText
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_select_contact.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SelectContactActivity : SimpleActivity() {
     private var specialMimeType: String? = null
@@ -41,7 +43,7 @@ class SelectContactActivity : SimpleActivity() {
             return
         }
 
-        setupPlaceholders()
+        setupViews()
 
         handlePermission(PERMISSION_READ_CONTACTS) {
             if (it) {
@@ -195,7 +197,7 @@ class SelectContactActivity : SimpleActivity() {
 
             runOnUiThread {
                 updatePlaceholderVisibility(contacts)
-                SelectContactsAdapter(this, contacts, ArrayList(), false, select_contact_list, select_contact_fastscroller) {
+                SelectContactsAdapter(this, contacts, ArrayList(), false, select_contact_list) {
                     confirmSelection(it)
                 }.apply {
                     select_contact_list.adapter = this
@@ -205,9 +207,15 @@ class SelectContactActivity : SimpleActivity() {
                     select_contact_list.scheduleLayoutAnimation()
                 }
 
-                select_contact_fastscroller.setViews(select_contact_list) {
-                    select_contact_fastscroller.updateBubbleText(contacts[it].getBubbleText())
-                }
+                letter_fastscroller.setupWithRecyclerView(select_contact_list, { position ->
+                    try {
+                        val name = contacts[position].getNameToDisplay()
+                        val character = if (name.isNotEmpty()) name.substring(0, 1) else ""
+                        FastScrollItemIndicator.Text(character.normalizeString().toUpperCase(Locale.getDefault()))
+                    } catch (e: Exception) {
+                        FastScrollItemIndicator.Text("")
+                    }
+                })
             }
         }
     }
@@ -231,25 +239,35 @@ class SelectContactActivity : SimpleActivity() {
         }
     }
 
-    private fun setupPlaceholders() {
+    private fun setupViews() {
+        val adjustedPrimaryColor = getAdjustedPrimaryColor()
         select_contact_placeholder.setTextColor(config.textColor)
-        select_contact_placeholder_2.setTextColor(getAdjustedPrimaryColor())
+        select_contact_placeholder_2.setTextColor(adjustedPrimaryColor)
         select_contact_placeholder_2.underlineText()
         select_contact_placeholder_2.setOnClickListener {
             FilterContactSourcesDialog(this) {
                 initContacts()
             }
         }
+
+        letter_fastscroller?.textColor = config.textColor.getColorStateList()
+        letter_fastscroller?.pressedTextColor = adjustedPrimaryColor
+        letter_fastscroller_thumb?.fontSize = getTextSize()
+        letter_fastscroller_thumb?.textColor = adjustedPrimaryColor.getContrastColor()
+        letter_fastscroller_thumb?.thumbColor = adjustedPrimaryColor.getColorStateList()
+        letter_fastscroller_thumb.setupWithFastScroller(letter_fastscroller)
     }
 
     private fun updatePlaceholderVisibility(contacts: ArrayList<Contact>) {
         select_contact_list.beVisibleIf(contacts.isNotEmpty())
         select_contact_placeholder_2.beVisibleIf(contacts.isEmpty())
         select_contact_placeholder.beVisibleIf(contacts.isEmpty())
-        select_contact_placeholder.setText(when (specialMimeType) {
-            Email.CONTENT_ITEM_TYPE -> R.string.no_contacts_with_emails
-            Phone.CONTENT_ITEM_TYPE -> R.string.no_contacts_with_phone_numbers
-            else -> R.string.no_contacts_found
-        })
+        select_contact_placeholder.setText(
+            when (specialMimeType) {
+                Email.CONTENT_ITEM_TYPE -> R.string.no_contacts_with_emails
+                Phone.CONTENT_ITEM_TYPE -> R.string.no_contacts_with_phone_numbers
+                else -> R.string.no_contacts_found
+            }
+        )
     }
 }
