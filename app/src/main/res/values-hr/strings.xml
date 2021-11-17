@@ -41,7 +41,7 @@
     <string name="remove_photo">Ukloni fotografiju</string>
 
     <!-- Settings -->
-    <string name="show_phone_numbers">Prikaži telefonske brojeve na glavnom zaslonu</string>
+    <string name="show_phone_numbers">Prikaži telefonske brojeve</string>
     <string name="show_contact_thumbnails">Prikaži sličice kontakata</string>
     <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">Prilikom dodira kontakta</string>

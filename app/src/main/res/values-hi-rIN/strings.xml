@@ -41,7 +41,7 @@
     <string name="remove_photo">Remove photo</string>
 
     <!-- Settings -->
-    <string name="show_phone_numbers">Show phone numbers on the main screen</string>
+    <string name="show_phone_numbers">Show phone numbers</string>
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
     <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="on_contact_click">On contact click</string>
