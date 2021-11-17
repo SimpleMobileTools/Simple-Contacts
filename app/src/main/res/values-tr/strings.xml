@@ -37,7 +37,7 @@
     <string name="choose_photo">Fotoğraf seç</string>
     <string name="remove_photo">Fotoğrafı kaldır</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Ana ekranda telefon numaralarını göster</string>
+    <string name="show_phone_numbers">Telefon numaralarını göster</string>
     <string name="show_contact_thumbnails">Kişi küçük resimlerini göster</string>
     <string name="show_dialpad_button">Ana ekranda tuş takımı düğmesini göster</string>
     <string name="on_contact_click">Kişi tıklandığında</string>
