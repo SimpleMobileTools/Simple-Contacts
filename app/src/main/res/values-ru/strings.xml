@@ -37,7 +37,7 @@
     <string name="choose_photo">Выбрать фото</string>
     <string name="remove_photo">Удалить фото</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Показывать номера телефонов на главном экране</string>
+    <string name="show_phone_numbers">Показывать номера телефонов</string>
     <string name="show_contact_thumbnails">Показывать фото контакта</string>
     <string name="show_dialpad_button">Показывать кнопку набора номера на главном экране</string>
     <string name="on_contact_click">При нажатии на контакт</string>
