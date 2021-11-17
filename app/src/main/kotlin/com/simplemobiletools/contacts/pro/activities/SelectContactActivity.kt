@@ -201,7 +201,10 @@ class SelectContactActivity : SimpleActivity() {
                     select_contact_list.adapter = this
                 }
 
-                select_contact_list.scheduleLayoutAnimation()
+                if (areSystemAnimationsEnabled) {
+                    select_contact_list.scheduleLayoutAnimation()
+                }
+
                 select_contact_fastscroller.setViews(select_contact_list) {
                     select_contact_fastscroller.updateBubbleText(contacts[it].getBubbleText())
                 }

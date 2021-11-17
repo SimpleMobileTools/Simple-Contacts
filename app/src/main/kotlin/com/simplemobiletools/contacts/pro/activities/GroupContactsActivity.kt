@@ -139,7 +139,10 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
                 group_contacts_list.adapter = this
             }
 
-            group_contacts_list.scheduleLayoutAnimation()
+            if (areSystemAnimationsEnabled) {
+                group_contacts_list.scheduleLayoutAnimation()
+            }
+
             group_contacts_fastscroller.setScrollToY(0)
             group_contacts_fastscroller.setViews(group_contacts_list) {
                 val item = (group_contacts_list.adapter as ContactsAdapter).contactItems.getOrNull(it)

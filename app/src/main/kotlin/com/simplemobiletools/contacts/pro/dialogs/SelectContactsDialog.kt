@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.dialogs
 
 import androidx.appcompat.app.AlertDialog
+import com.simplemobiletools.commons.extensions.areSystemAnimationsEnabled
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
@@ -42,7 +43,10 @@ class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayL
                 select_contact_list.adapter = SelectContactsAdapter(activity, allContacts, initiallySelectedContacts, allowSelectMultiple,
                     select_contact_list, select_contact_fastscroller, contactClickCallback)
 
-                select_contact_list.scheduleLayoutAnimation()
+                if (context.areSystemAnimationsEnabled) {
+                    select_contact_list.scheduleLayoutAnimation()
+                }
+
                 select_contact_fastscroller.setViews(select_contact_list) {
                     select_contact_fastscroller.updateBubbleText(allContacts[it].getBubbleText())
                 }

@@ -178,7 +178,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     fragment_list.adapter = this
                 }
 
-                fragment_list.scheduleLayoutAnimation()
+                if (context.areSystemAnimationsEnabled) {
+                    fragment_list.scheduleLayoutAnimation()
+                }
+
                 fragment_fastscroller.setScrollToY(0)
                 fragment_fastscroller.setViews(fragment_list) {
                     val item = (fragment_list.adapter as GroupsAdapter).groups.getOrNull(it)
@@ -211,7 +214,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }.apply {
                 fragment_list.adapter = this
             }
-            fragment_list.scheduleLayoutAnimation()
+
+            if (context.areSystemAnimationsEnabled) {
+                fragment_list.scheduleLayoutAnimation()
+            }
         } else {
             (currAdapter as ContactsAdapter).apply {
                 startNameWithSurname = config.startNameWithSurname
