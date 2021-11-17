@@ -386,6 +386,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 skippedTabs++
             } else {
                 val tab = main_tabs_holder.newTab().setIcon(getTabIcon(index))
+                tab.contentDescription = getTabContentDescription(index)
                 main_tabs_holder.addTab(tab, index - skippedTabs, getDefaultTab() == index - skippedTabs)
             }
         }
