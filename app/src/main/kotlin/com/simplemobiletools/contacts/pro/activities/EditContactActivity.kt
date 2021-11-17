@@ -196,19 +196,25 @@ class EditContactActivity : ContactActivity() {
         }
 
         val textColor = config.textColor
-        arrayOf(contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_ims_image, contact_events_image,
-            contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image, contact_source_image).forEach {
+        arrayOf(
+            contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_ims_image, contact_events_image,
+            contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image, contact_source_image
+        ).forEach {
             it.applyColorFilter(textColor)
         }
 
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        arrayOf(contact_numbers_add_new, contact_emails_add_new, contact_addresses_add_new, contact_ims_add_new, contact_events_add_new,
-            contact_websites_add_new, contact_groups_add_new).forEach {
+        arrayOf(
+            contact_numbers_add_new, contact_emails_add_new, contact_addresses_add_new, contact_ims_add_new, contact_events_add_new,
+            contact_websites_add_new, contact_groups_add_new
+        ).forEach {
             it.applyColorFilter(adjustedPrimaryColor)
         }
 
-        arrayOf(contact_numbers_add_new.background, contact_emails_add_new.background, contact_addresses_add_new.background, contact_ims_add_new.background,
-            contact_events_add_new.background, contact_websites_add_new.background, contact_groups_add_new.background).forEach {
+        arrayOf(
+            contact_numbers_add_new.background, contact_emails_add_new.background, contact_addresses_add_new.background, contact_ims_add_new.background,
+            contact_events_add_new.background, contact_websites_add_new.background, contact_groups_add_new.background
+        ).forEach {
             it.applyColorFilter(textColor)
         }
 
@@ -1147,7 +1153,7 @@ class EditContactActivity : ContactActivity() {
 
     private fun isContactStarred() = contact_toggle_favorite.tag == 1
 
-    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_vector else R.drawable.ic_star_off_vector)
+    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_vector else R.drawable.ic_star_outline_vector)
 
     private fun trySetPhoto() {
         val items = arrayListOf(

@@ -13,7 +13,7 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/send_email_to_group"
-        android:icon="@drawable/ic_email_vector"
+        android:icon="@drawable/ic_mail_vector"
         android:title="@string/send_email_to_group"
         app:showAsAction="ifRoom"/>
 </menu>

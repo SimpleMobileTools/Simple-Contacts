@@ -66,7 +66,7 @@ open class SimpleActivity : BaseSimpleActivity() {
     protected fun getTabIcon(position: Int): Drawable {
         val drawableId = when (position) {
             LOCATION_CONTACTS_TAB -> R.drawable.ic_person_vector
-            LOCATION_FAVORITES_TAB -> R.drawable.ic_star_on_vector
+            LOCATION_FAVORITES_TAB -> R.drawable.ic_star_vector
             else -> R.drawable.ic_people_vector
         }
 
