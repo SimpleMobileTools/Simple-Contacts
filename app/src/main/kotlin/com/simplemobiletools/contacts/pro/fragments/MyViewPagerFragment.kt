@@ -164,7 +164,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
             fragment_placeholder_2.beVisibleIf(storedGroups.isEmpty())
             fragment_placeholder.beVisibleIf(storedGroups.isEmpty())
-            fragment_list.beVisibleIf(storedGroups.isNotEmpty())
+            fragment_fastscroller.beVisibleIf(storedGroups.isNotEmpty())
 
             val currAdapter = fragment_list.adapter
             if (currAdapter == null) {
