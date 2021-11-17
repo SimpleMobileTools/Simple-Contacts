@@ -19,13 +19,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
+import com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
-import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
@@ -38,10 +38,11 @@ import com.simplemobiletools.contacts.pro.interfaces.RemoveFromGroupListener
 import com.simplemobiletools.contacts.pro.models.Contact
 import java.util.*
 
-class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val refreshListener: RefreshContactsListener?,
-                      private val location: Int, private val removeListener: RemoveFromGroupListener?, recyclerView: MyRecyclerView,
-                      fastScroller: FastScroller?, highlightText: String = "", itemClick: (Any) -> Unit) :
-    MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
+class ContactsAdapter(
+    activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val refreshListener: RefreshContactsListener?,
+    private val location: Int, private val removeListener: RemoveFromGroupListener?, recyclerView: MyRecyclerView,
+    highlightText: String = "", itemClick: (Any) -> Unit
+) : MyRecyclerViewAdapter(activity, recyclerView, null, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate {
     private val NEW_GROUP_ID = -1
 
     private var config = activity.config
@@ -66,10 +67,13 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             findItem(R.id.cab_remove).isVisible = location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
             findItem(R.id.cab_add_to_favorites).isVisible = location == LOCATION_CONTACTS_TAB
             findItem(R.id.cab_add_to_group).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB
-            findItem(R.id.cab_send_sms_to_contacts).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
-            findItem(R.id.cab_send_email_to_contacts).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
+            findItem(R.id.cab_send_sms_to_contacts).isVisible =
+                location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
+            findItem(R.id.cab_send_email_to_contacts).isVisible =
+                location == LOCATION_CONTACTS_TAB || location == LOCATION_FAVORITES_TAB || location == LOCATION_GROUP_CONTACTS
             findItem(R.id.cab_delete).isVisible = location == LOCATION_CONTACTS_TAB || location == LOCATION_GROUP_CONTACTS
-            findItem(R.id.cab_create_shortcut).isVisible = isOreoPlus() && isOneItemSelected() && (location == LOCATION_FAVORITES_TAB || location == LOCATION_CONTACTS_TAB)
+            findItem(R.id.cab_create_shortcut).isVisible =
+                isOreoPlus() && isOneItemSelected() && (location == LOCATION_FAVORITES_TAB || location == LOCATION_CONTACTS_TAB)
 
             if (location == LOCATION_GROUP_CONTACTS) {
                 findItem(R.id.cab_remove).title = activity.getString(R.string.remove_from_group)
@@ -133,7 +137,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             textToHighlight = highlightText
             notifyDataSetChanged()
         }
-        fastScroller?.measureRecyclerView()
     }
 
     private fun editContact() {
@@ -170,7 +173,8 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             ensureBackgroundThread {
                 contactsToRemove.forEach {
                     val contactToRemove = it
-                    val duplicates = allContacts.filter { it.id != contactToRemove.id && it.getHashToCompare() == contactToRemove.getHashToCompare() }.toMutableList() as ArrayList<Contact>
+                    val duplicates = allContacts.filter { it.id != contactToRemove.id && it.getHashToCompare() == contactToRemove.getHashToCompare() }
+                        .toMutableList() as ArrayList<Contact>
                     duplicates.add(contactToRemove)
                     ContactsHelper(activity).deleteContacts(duplicates)
                 }
@@ -392,4 +396,6 @@ class ContactsAdapter(activity: SimpleActivity, var contactItems: ArrayList<Cont
             }
         }
     }
+
+    override fun onChange(position: Int) = contactItems.getOrNull(position)?.getBubbleText() ?: ""
 }

@@ -84,8 +84,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
 
         context.updateTextColors(fragment_wrapper.parent as ViewGroup)
-        fragment_fastscroller?.updatePrimaryColor()
-        fragment_fastscroller?.updateBubblePrimaryColor()
+        fragment_fastscroller?.updateColors(adjustedPrimaryColor, adjustedPrimaryColor.getContrastColor())
         fragment_placeholder_2?.setTextColor(adjustedPrimaryColor)
 
         letter_fastscroller?.textColor = textColor.getColorStateList()
@@ -169,7 +168,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
             val currAdapter = fragment_list.adapter
             if (currAdapter == null) {
-                GroupsAdapter(activity as SimpleActivity, storedGroups, activity as RefreshContactsListener, fragment_list, fragment_fastscroller) {
+                GroupsAdapter(activity as SimpleActivity, storedGroups, activity as RefreshContactsListener, fragment_list) {
                     Intent(activity, GroupContactsActivity::class.java).apply {
                         putExtra(GROUP, it as Group)
                         activity!!.startActivity(this)
@@ -180,12 +179,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
                 if (context.areSystemAnimationsEnabled) {
                     fragment_list.scheduleLayoutAnimation()
-                }
-
-                fragment_fastscroller.setScrollToY(0)
-                fragment_fastscroller.setViews(fragment_list) {
-                    val item = (fragment_list.adapter as GroupsAdapter).groups.getOrNull(it)
-                    fragment_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
                 }
             } else {
                 (currAdapter as GroupsAdapter).apply {
@@ -209,7 +202,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 else -> LOCATION_CONTACTS_TAB
             }
 
-            ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list, null) {
+            ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list) {
                 (activity as RefreshContactsListener).contactClicked(it as Contact)
             }.apply {
                 fragment_list.adapter = this
