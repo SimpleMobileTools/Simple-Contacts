@@ -65,8 +65,10 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
             fabClicked()
         }
 
+        val adjustedPrimaryColor = getAdjustedPrimaryColor()
+        group_contacts_fastscroller?.updateColors(adjustedPrimaryColor, adjustedPrimaryColor.getContrastColor())
         group_contacts_placeholder_2.underlineText()
-        group_contacts_placeholder_2.setTextColor(getAdjustedPrimaryColor())
+        group_contacts_placeholder_2.setTextColor(adjustedPrimaryColor)
     }
 
     override fun onResume() {
@@ -108,7 +110,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
             groupContacts = it.filter { it.groups.map { it.id }.contains(group.id) } as ArrayList<Contact>
             group_contacts_placeholder_2.beVisibleIf(groupContacts.isEmpty())
             group_contacts_placeholder.beVisibleIf(groupContacts.isEmpty())
-            group_contacts_list.beVisibleIf(groupContacts.isNotEmpty())
+            group_contacts_fastscroller.beVisibleIf(groupContacts.isNotEmpty())
             updateContacts(groupContacts)
         }
     }
@@ -133,17 +135,14 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     private fun updateContacts(contacts: ArrayList<Contact>) {
         val currAdapter = group_contacts_list.adapter
         if (currAdapter == null) {
-            ContactsAdapter(this, contacts, this, LOCATION_GROUP_CONTACTS, this, group_contacts_list, group_contacts_fastscroller) {
+            ContactsAdapter(this, contacts, this, LOCATION_GROUP_CONTACTS, this, group_contacts_list) {
                 contactClicked(it as Contact)
             }.apply {
                 group_contacts_list.adapter = this
             }
 
-            group_contacts_list.scheduleLayoutAnimation()
-            group_contacts_fastscroller.setScrollToY(0)
-            group_contacts_fastscroller.setViews(group_contacts_list) {
-                val item = (group_contacts_list.adapter as ContactsAdapter).contactItems.getOrNull(it)
-                group_contacts_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
+            if (areSystemAnimationsEnabled) {
+                group_contacts_list.scheduleLayoutAnimation()
             }
         } else {
             (currAdapter as ContactsAdapter).updateItems(contacts)
@@ -180,9 +179,9 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
             putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, defaultRingtoneUri)
         }
     }
-    
+
     private fun setRingtoneOnSelected(uri: Uri) {
-        groupContacts.forEach{
+        groupContacts.forEach {
             ContactsHelper(this).updateRingtone(it.contactId.toString(), uri.toString())
         }
     }

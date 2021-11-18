@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/cab_add_to_favorites"
-        android:icon="@drawable/ic_star_on_vector"
+        android:icon="@drawable/ic_star_vector"
         android:title="@string/add_to_favorites"
         app:showAsAction="ifRoom" />
     <item
@@ -28,7 +28,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/cab_send_email_to_contacts"
-        android:icon="@drawable/ic_email_vector"
+        android:icon="@drawable/ic_mail_vector"
         android:title="@string/send_email_to_contacts"
         app:showAsAction="ifRoom" />
     <item

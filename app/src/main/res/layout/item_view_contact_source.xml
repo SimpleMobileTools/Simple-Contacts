@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contact_source_holder"
     android:layout_width="match_parent"
@@ -22,7 +23,7 @@
         android:singleLine="true"
         android:textSize="@dimen/bigger_text_size" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/contact_source_image"
         android:layout_width="@dimen/normal_icon_size"
         android:layout_height="@dimen/normal_icon_size"
@@ -32,7 +33,8 @@
         android:layout_marginEnd="@dimen/normal_margin"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/small_margin"
-        android:visibility="gone"
-        tools:src="@drawable/ic_phone_vector" />
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/roundedImageView"
+        tools:src="@drawable/ic_whatsapp_vector" />
 
 </RelativeLayout>

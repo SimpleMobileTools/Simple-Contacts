@@ -42,7 +42,7 @@
     <string name="remove_photo">Odstranit fotku</string>
 
     <!-- Settings -->
-    <string name="show_phone_numbers">Zobrazit telefonní čísla na hlavní obrazovce</string>
+    <string name="show_phone_numbers">Zobrazit telefonní čísla</string>
     <string name="show_contact_thumbnails">Zobrazit obrázky kontaktů</string>
     <string name="show_dialpad_button">Zobrazit tlačítko číselníku na hlavní obrazovce</string>
     <string name="on_contact_click">Po klepnutí na kontakt</string>

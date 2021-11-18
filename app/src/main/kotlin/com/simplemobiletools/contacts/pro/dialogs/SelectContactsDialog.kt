@@ -1,17 +1,23 @@
 package com.simplemobiletools.contacts.pro.dialogs
 
 import androidx.appcompat.app.AlertDialog
-import com.simplemobiletools.commons.extensions.setupDialogStuff
+import com.reddit.indicatorfastscroll.FastScrollItemIndicator
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.SelectContactsAdapter
+import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.layout_select_contact.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
-class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayList<Contact>, val allowSelectMultiple: Boolean, val showOnlyContactsWithNumber: Boolean,
-                           selectContacts: ArrayList<Contact>? = null, val callback: (addedContacts: ArrayList<Contact>, removedContacts: ArrayList<Contact>) -> Unit) {
+class SelectContactsDialog(
+    val activity: SimpleActivity, initialContacts: ArrayList<Contact>, val allowSelectMultiple: Boolean, val showOnlyContactsWithNumber: Boolean,
+    selectContacts: ArrayList<Contact>? = null, val callback: (addedContacts: ArrayList<Contact>, removedContacts: ArrayList<Contact>) -> Unit
+) {
     private var dialog: AlertDialog? = null
     private var view = activity.layoutInflater.inflate(R.layout.layout_select_contact, null)
     private var initiallySelectedContacts = ArrayList<Contact>()
@@ -31,32 +37,33 @@ class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayL
             initiallySelectedContacts = selectContacts
         }
 
-        activity.runOnUiThread {
-            // if selecting multiple contacts is disabled, react on first contact click and dismiss the dialog
-            val contactClickCallback: ((Contact) -> Unit)? = if (allowSelectMultiple) null else { contact ->
-                callback(arrayListOf(contact), arrayListOf())
-                dialog!!.dismiss()
-            }
+        // if selecting multiple contacts is disabled, react on first contact click and dismiss the dialog
+        val contactClickCallback: ((Contact) -> Unit)? = if (allowSelectMultiple) null else { contact ->
+            callback(arrayListOf(contact), arrayListOf())
+            dialog!!.dismiss()
+        }
 
-            view.apply {
-                select_contact_list.adapter = SelectContactsAdapter(activity, allContacts, initiallySelectedContacts, allowSelectMultiple,
-                    select_contact_list, select_contact_fastscroller, contactClickCallback)
+        view.apply {
+            select_contact_list.adapter = SelectContactsAdapter(
+                activity, allContacts, initiallySelectedContacts, allowSelectMultiple,
+                select_contact_list, contactClickCallback
+            )
 
+            if (context.areSystemAnimationsEnabled) {
                 select_contact_list.scheduleLayoutAnimation()
-                select_contact_fastscroller.setViews(select_contact_list) {
-                    select_contact_fastscroller.updateBubbleText(allContacts[it].getBubbleText())
-                }
             }
+        }
 
-            val builder = AlertDialog.Builder(activity)
-            if (allowSelectMultiple) {
-                builder.setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
-            }
-            builder.setNegativeButton(R.string.cancel, null)
+        setupFastscroller(allContacts)
 
-            dialog = builder.create().apply {
-                activity.setupDialogStuff(view, this)
-            }
+        val builder = AlertDialog.Builder(activity)
+        if (allowSelectMultiple) {
+            builder.setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
+        }
+        builder.setNegativeButton(R.string.cancel, null)
+
+        dialog = builder.create().apply {
+            activity.setupDialogStuff(view, this)
         }
     }
 
@@ -69,5 +76,27 @@ class SelectContactsDialog(val activity: SimpleActivity, initialContacts: ArrayL
             val unselectedContacts = initiallySelectedContacts.filter { !selectedContacts.contains(it) } as ArrayList
             callback(newlySelectedContacts, unselectedContacts)
         }
+    }
+
+    private fun setupFastscroller(allContacts: ArrayList<Contact>) {
+        val adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
+        view.apply {
+            letter_fastscroller?.textColor = context.config.textColor.getColorStateList()
+            letter_fastscroller?.pressedTextColor = adjustedPrimaryColor
+            letter_fastscroller_thumb?.fontSize = context.getTextSize()
+            letter_fastscroller_thumb?.textColor = adjustedPrimaryColor.getContrastColor()
+            letter_fastscroller_thumb?.thumbColor = adjustedPrimaryColor.getColorStateList()
+            letter_fastscroller_thumb.setupWithFastScroller(letter_fastscroller)
+        }
+
+        view.letter_fastscroller.setupWithRecyclerView(view.select_contact_list, { position ->
+            try {
+                val name = allContacts[position].getNameToDisplay()
+                val character = if (name.isNotEmpty()) name.substring(0, 1) else ""
+                FastScrollItemIndicator.Text(character.normalizeString().toUpperCase(Locale.getDefault()))
+            } catch (e: Exception) {
+                FastScrollItemIndicator.Text("")
+            }
+        })
     }
 }

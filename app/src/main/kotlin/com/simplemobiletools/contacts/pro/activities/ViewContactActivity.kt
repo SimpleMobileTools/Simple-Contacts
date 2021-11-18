@@ -757,7 +757,7 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_vector else R.drawable.ic_star_off_vector)
+    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_vector else R.drawable.ic_star_outline_vector)
 
     private fun hideBigContactPhoto() {
         contact_photo_big.animate().alpha(0f).withEndAction { contact_photo_big.beGone() }.start()

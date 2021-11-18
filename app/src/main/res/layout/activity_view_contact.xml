@@ -42,7 +42,7 @@
                 android:layout_margin="@dimen/medium_margin"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="@dimen/tiny_margin"
-                android:src="@drawable/ic_star_off_vector"
+                android:src="@drawable/ic_star_outline_vector"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -64,7 +64,7 @@
                     android:paddingStart="@dimen/small_margin"
                     android:paddingEnd="@dimen/small_margin"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_email_vector" />
+                    android:src="@drawable/ic_mail_vector" />
 
                 <ImageView
                     android:id="@+id/contact_start_call"
@@ -142,7 +142,7 @@
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin"
-                android:src="@drawable/ic_email_vector"
+                android:src="@drawable/ic_mail_vector"
                 android:visibility="gone" />
 
             <ImageView

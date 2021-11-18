@@ -42,7 +42,7 @@
     <string name="remove_photo">Usuń zdjęcie</string>
 
     <!-- Settings -->
-    <string name="show_phone_numbers">Pokazuj numery telefonów na ekranie głównym</string>
+    <string name="show_phone_numbers">Pokazuj numery telefonów</string>
     <string name="show_contact_thumbnails">Pokazuj miniaturki kontaktów</string>
     <string name="show_dialpad_button">Pokazuj przycisk panelu wybierania numeru na ekranie głównym</string>
     <string name="on_contact_click">Przy naciśnięciu kontaktu</string>

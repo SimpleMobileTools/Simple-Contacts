@@ -1,9 +1,10 @@
 package com.simplemobiletools.contacts.pro.extensions
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.pm.LauncherApps
 import android.database.Cursor
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Handler
@@ -26,6 +27,7 @@ import com.simplemobiletools.contacts.pro.models.Organization
 import com.simplemobiletools.contacts.pro.models.SocialAction
 import java.io.File
 
+
 val Context.config: Config get() = Config.newInstance(applicationContext)
 
 val Context.contactsDB: ContactsDao get() = ContactsDatabase.getInstance(applicationContext).ContactsDao()
@@ -35,8 +37,10 @@ val Context.groupsDB: GroupsDao get() = ContactsDatabase.getInstance(application
 fun Context.getEmptyContact(): Contact {
     val originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
     val organization = Organization("", "")
-    return Contact(0, "", "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), originalContactSource, 0, 0, "",
-        null, "", ArrayList(), organization, ArrayList(), ArrayList(), DEFAULT_MIMETYPE, null)
+    return Contact(
+        0, "", "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), originalContactSource, 0, 0, "",
+        null, "", ArrayList(), organization, ArrayList(), ArrayList(), DEFAULT_MIMETYPE, null
+    )
 }
 
 fun Context.viewContact(contact: Contact) {
@@ -355,22 +359,15 @@ fun Context.getSocialActions(id: Int): ArrayList<SocialAction> {
     return socialActions
 }
 
-fun Context.getPackageDrawable(packageName: String): Drawable? {
-    var drawable: Drawable? = null
-    try {
-        // try getting the properly colored launcher icons
-        val launcher = getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
-        val activityList = launcher.getActivityList(packageName, android.os.Process.myUserHandle())[0]
-        drawable = activityList.getBadgedIcon(0)
-    } catch (ignored: Exception) {
-    }
-
-    if (drawable == null) {
-        try {
-            drawable = packageManager.getApplicationIcon(packageName)
-        } catch (ignored: Exception) {
-        }
-    }
-
-    return drawable
+@SuppressLint("UseCompatLoadingForDrawables")
+fun Context.getPackageDrawable(packageName: String): Drawable {
+    return resources.getDrawable(
+        when (packageName) {
+            TELEGRAM_PACKAGE -> R.drawable.ic_telegram_vector
+            SIGNAL_PACKAGE -> R.drawable.ic_signal_vector
+            WHATSAPP_PACKAGE -> R.drawable.ic_whatsapp_vector
+            VIBER_PACKAGE -> R.drawable.ic_viber_vector
+            else -> R.drawable.ic_threema_vector
+        }, theme
+    )
 }

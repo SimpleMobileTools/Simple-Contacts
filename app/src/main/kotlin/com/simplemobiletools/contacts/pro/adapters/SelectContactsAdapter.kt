@@ -12,7 +12,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SimpleContactsHelper
-import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
@@ -21,9 +20,11 @@ import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.item_add_favorite_with_number.view.*
 import java.util.*
 
-class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayList<Contact>, private val selectedContacts: ArrayList<Contact>, private val allowPickMultiple: Boolean,
-                            recyclerView: MyRecyclerView, val fastScroller: FastScroller, private val itemClick: ((Contact) -> Unit)? = null) :
-        RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
+class SelectContactsAdapter(
+    val activity: SimpleActivity, var contacts: ArrayList<Contact>, private val selectedContacts: ArrayList<Contact>, private val allowPickMultiple: Boolean,
+    recyclerView: MyRecyclerView, private val itemClick: ((Contact) -> Unit)? = null
+) :
+    RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
     private val itemViews = SparseArray<View>()
     private val selectedPositions = HashSet<Int>()
     private val config = activity.config
@@ -87,7 +88,6 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
             textToHighlight = highlightText
             notifyDataSetChanged()
         }
-        fastScroller.measureRecyclerView()
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
@@ -124,7 +124,8 @@ class SelectContactsAdapter(val activity: SimpleActivity, var contacts: ArrayLis
                     }
 
                     val numberText = phoneNumberToUse?.value ?: ""
-                    contact_number.text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
+                    contact_number.text =
+                        if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
                     contact_number.setTextColor(textColor)
                     contact_number.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
                 }

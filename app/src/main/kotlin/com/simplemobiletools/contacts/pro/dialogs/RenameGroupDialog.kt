@@ -36,6 +36,7 @@ class RenameGroupDialog(val activity: BaseSimpleActivity, val group: Group, val 
                             }
 
                             group.title = newTitle
+                            group.contactsCount = 0
                             ensureBackgroundThread {
                                 if (group.isPrivateSecretGroup()) {
                                     activity.groupsDB.insertOrUpdate(group)

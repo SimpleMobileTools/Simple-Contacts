@@ -84,8 +84,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
 
         context.updateTextColors(fragment_wrapper.parent as ViewGroup)
-        fragment_fastscroller?.updatePrimaryColor()
-        fragment_fastscroller?.updateBubblePrimaryColor()
+        fragment_fastscroller?.updateColors(adjustedPrimaryColor, adjustedPrimaryColor.getContrastColor())
         fragment_placeholder_2?.setTextColor(adjustedPrimaryColor)
 
         letter_fastscroller?.textColor = textColor.getColorStateList()
@@ -165,11 +164,11 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
             fragment_placeholder_2.beVisibleIf(storedGroups.isEmpty())
             fragment_placeholder.beVisibleIf(storedGroups.isEmpty())
-            fragment_list.beVisibleIf(storedGroups.isNotEmpty())
+            fragment_fastscroller.beVisibleIf(storedGroups.isNotEmpty())
 
             val currAdapter = fragment_list.adapter
             if (currAdapter == null) {
-                GroupsAdapter(activity as SimpleActivity, storedGroups, activity as RefreshContactsListener, fragment_list, fragment_fastscroller) {
+                GroupsAdapter(activity as SimpleActivity, storedGroups, activity as RefreshContactsListener, fragment_list) {
                     Intent(activity, GroupContactsActivity::class.java).apply {
                         putExtra(GROUP, it as Group)
                         activity!!.startActivity(this)
@@ -178,11 +177,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     fragment_list.adapter = this
                 }
 
-                fragment_list.scheduleLayoutAnimation()
-                fragment_fastscroller.setScrollToY(0)
-                fragment_fastscroller.setViews(fragment_list) {
-                    val item = (fragment_list.adapter as GroupsAdapter).groups.getOrNull(it)
-                    fragment_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
+                if (context.areSystemAnimationsEnabled) {
+                    fragment_list.scheduleLayoutAnimation()
                 }
             } else {
                 (currAdapter as GroupsAdapter).apply {
@@ -206,12 +202,15 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 else -> LOCATION_CONTACTS_TAB
             }
 
-            ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list, null) {
+            ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list) {
                 (activity as RefreshContactsListener).contactClicked(it as Contact)
             }.apply {
                 fragment_list.adapter = this
             }
-            fragment_list.scheduleLayoutAnimation()
+
+            if (context.areSystemAnimationsEnabled) {
+                fragment_list.scheduleLayoutAnimation()
+            }
         } else {
             (currAdapter as ContactsAdapter).apply {
                 startNameWithSurname = config.startNameWithSurname
@@ -237,14 +236,15 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     private fun setupLetterFastscroller(contacts: ArrayList<Contact>) {
+        val sorting = context.config.sorting
         letter_fastscroller.setupWithRecyclerView(fragment_list, { position ->
             try {
                 val contact = contacts[position]
                 var name = when {
                     contact.isABusinessContact() -> contact.getFullCompany()
-                    context.config.sorting and SORT_BY_SURNAME != 0 && contact.surname.isNotEmpty() -> contact.surname
-                    context.config.sorting and SORT_BY_MIDDLE_NAME != 0 && contact.middleName.isNotEmpty() -> contact.middleName
-                    context.config.sorting and SORT_BY_FIRST_NAME != 0 && contact.firstName.isNotEmpty() -> contact.firstName
+                    sorting and SORT_BY_SURNAME != 0 && contact.surname.isNotEmpty() -> contact.surname
+                    sorting and SORT_BY_MIDDLE_NAME != 0 && contact.middleName.isNotEmpty() -> contact.middleName
+                    sorting and SORT_BY_FIRST_NAME != 0 && contact.firstName.isNotEmpty() -> contact.firstName
                     context.config.startNameWithSurname -> contact.surname
                     else -> contact.firstName
                 }

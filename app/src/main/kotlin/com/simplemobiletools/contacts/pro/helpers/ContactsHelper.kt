@@ -28,7 +28,12 @@ class ContactsHelper(val context: Context) {
     private val BATCH_SIZE = 50
     private var displayContactSources = ArrayList<String>()
 
-    fun getContacts(getAll: Boolean = false, gettingDuplicates: Boolean = false, ignoredContactSources: HashSet<String> = HashSet(), callback: (ArrayList<Contact>) -> Unit) {
+    fun getContacts(
+        getAll: Boolean = false,
+        gettingDuplicates: Boolean = false,
+        ignoredContactSources: HashSet<String> = HashSet(),
+        callback: (ArrayList<Contact>) -> Unit
+    ) {
         ensureBackgroundThread {
             val contacts = SparseArray<Contact>()
             displayContactSources = context.getVisibleContactSources()
@@ -187,8 +192,10 @@ class ContactsHelper(val context: Context) {
                 val organization = Organization("", "")
                 val websites = ArrayList<String>()
                 val ims = ArrayList<IM>()
-                val contact = Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
-                    events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype, ringtone)
+                val contact = Contact(
+                    id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
+                    events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype, ringtone
+                )
 
                 contacts.put(id, contact)
             }
@@ -733,8 +740,10 @@ class ContactsHelper(val context: Context) {
                 val organization = getOrganizations(id)[id] ?: Organization("", "")
                 val websites = getWebsites(id)[id] ?: ArrayList()
                 val ims = getIMs(id)[id] ?: ArrayList()
-                return Contact(id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
-                    accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype, ringtone)
+                return Contact(
+                    id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, number, emails, addresses, events,
+                    accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype, ringtone
+                )
             }
         }
 
@@ -1499,7 +1508,8 @@ class ContactsHelper(val context: Context) {
     fun getDuplicatesOfContact(contact: Contact, addOriginal: Boolean, callback: (ArrayList<Contact>) -> Unit) {
         ensureBackgroundThread {
             getContacts(true, true) { contacts ->
-                val duplicates = contacts.filter { it.id != contact.id && it.getHashToCompare() == contact.getHashToCompare() }.toMutableList() as ArrayList<Contact>
+                val duplicates =
+                    contacts.filter { it.id != contact.id && it.getHashToCompare() == contact.getHashToCompare() }.toMutableList() as ArrayList<Contact>
                 if (addOriginal) {
                     duplicates.add(contact)
                 }
