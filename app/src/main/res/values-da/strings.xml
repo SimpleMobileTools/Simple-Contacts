@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Kontakter</string>
@@ -9,22 +10,19 @@
     <string name="job_position">Stilling</string>
     <string name="website">Hjemmeside</string>
     <string name="send_sms_to_contacts">Send SMS til kontakter</string>
-    <string name="send_email_to_contacts">Send email til kontakter</string>
+    <string name="send_email_to_contacts">Send e-mail til kontakter</string>
     <string name="send_sms_to_group">Send SMS til gruppe</string>
-    <string name="send_email_to_group">Send email til gruppe</string>
+    <string name="send_email_to_group">Send e-mail til gruppe</string>
     <string name="create_new_contact">Opret ny kontakt</string>
     <string name="add_to_existing_contact">Tilføj til en eksisterende kontakt</string>
     <string name="fields_empty">At least 1 field has to be filled out</string>
-
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails">Ingen kontakter med emails fundet</string>
+    <string name="no_contacts_with_emails">Ingen kontakter med e-mails fundet</string>
     <string name="no_contacts_with_phone_numbers">Ingen kontakter med telefonnumre fundet</string>
-
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigér kontakt</string>
     <string name="select_contact">Vælg kontakt</string>
     <string name="nickname">Kaldenavn</string>
-
     <!-- Groups -->
     <string name="no_groups">Ingen grupper</string>
     <string name="create_new_group">Oret en ny gruppe</string>
@@ -35,93 +33,79 @@
     <string name="create_group">Opret gruppe</string>
     <string name="add_to_group">Tilføj til gruppe</string>
     <string name="create_group_under_account">Opret gruppe under konto</string>
-
     <!-- Photo -->
     <string name="take_photo">Tag foto</string>
     <string name="choose_photo">Vælg foto</string>
     <string name="remove_photo">Fjern foto</string>
-
     <!-- Settings -->
     <string name="show_phone_numbers">Vis telefonnumre på hovedskærmen</string>
     <string name="show_contact_thumbnails">Vis kontakt miniature-billede</string>
     <string name="show_dialpad_button">Vis en opkaldstasteknap på hovedskærmen</string>
     <string name="on_contact_click">Ved klik på kontakt</string>
     <string name="call_contact">Ring til kontakt</string>
-    <string name="view_contact">Vis kontakt detaljer</string>
+    <string name="view_contact">Vis kontaktdetaljer</string>
     <string name="manage_shown_contact_fields">Administrer viste kontaktfelter</string>
     <string name="contacts">Kontakter</string>
     <string name="show_only_contacts_with_numbers">Vis kun kontakter med telefonnumre</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-
+    <string name="show_private_contacts">Vis private kontakter til Simple Dialer, Simple SMS Messenger og Simple Calendar Pro</string>
     <!-- Emails -->
     <string name="home">Hjem</string>
     <string name="work">Arbejde</string>
     <string name="other">Andet</string>
-
     <!-- Phone numbers -->
     <string name="mobile">Mobil</string>
     <string name="main_number">Hovednummer</string>
     <string name="work_fax">Arbejdsfax</string>
     <string name="home_fax">Hjemmefax</string>
-    <string name="pager">Pager</string>
+    <string name="pager">Personsøger</string>
     <string name="no_phone_number_found">Intet telefonnummer er fundet</string>
-
     <!-- Events -->
     <string name="birthday">Fødselsdag</string>
     <string name="anniversary">Årsdag</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Det ser ud til, at du ikke har tilføjet nogen favoritkontakter endnu.</string>
-
     <!-- Search -->
     <string name="search_contacts">Søg kontakter</string>
     <string name="search_favorites">Søg favoritter</string>
-    <string name="search_groups">Search groups</string>
-
+    <string name="search_groups">Søg grupper</string>
     <!-- Export / Import -->
-    <string name="import_contacts">Import kontakter</string>
-    <string name="export_contacts">Eksport kontakter</string>
-    <string name="import_contacts_from_vcf">Import kontakter fra en .vcf fil</string>
-    <string name="export_contacts_to_vcf">Eksport kontakter til en .vcf fil</string>
+    <string name="import_contacts">Importér kontakter</string>
+    <string name="export_contacts">Eksportér kontakter</string>
+    <string name="import_contacts_from_vcf">Importér kontakter fra en .vcf-fil</string>
+    <string name="export_contacts_to_vcf">Eksportér kontakter til en .vcf-fil</string>
     <string name="target_contact_source">Kontaktskilde</string>
     <string name="include_contact_sources">Medtag kontaktkilder</string>
     <string name="filename_without_vcf">Filnavn (uden .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Tastatur</string>
     <string name="add_number_to_contact">Tilføj nummer til kontakt</string>
-
     <!-- Visible fields -->
     <string name="prefix">Præfiks</string>
     <string name="suffix">Suffiks</string>
     <string name="phone_numbers">Telefonnumre</string>
-    <string name="emails">Emails</string>
+    <string name="emails">E-mails</string>
     <string name="addresses">Adresser</string>
     <string name="events">Begivenheder (fødselsdage, årsdage)</string>
     <string name="organization">Organisation</string>
     <string name="websites">Hjemmesider</string>
-    <string name="groups">Groupper</string>
+    <string name="groups">Grupper</string>
     <string name="contact_source">Kontaktkilde</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
     <string name="ringtone">Ringtone</string>
-
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
-
+    <string name="delete_from_all_sources">Kontakten vil blive fjernet fra alle kontaktkilder.</string>
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d gruppe</item>
+        <item quantity="other">%d grupper</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Jeg vil ændre, hvilke felter der er synlige ved kontakter. Kan jeg gøre det?</string>
-    <string name="faq_1_text">Ja, alt hvad du skal gøre er at gå i Indstillinger -> Administrer viste kontaktfelter. Der kan du vælge, hvilke felter der skal være synlige. Nogle af dem er endda deaktiveret som standard, så du kan muligvis finde nogle nye der.</string>
-
+    <string name="faq_1_text">Ja, alt hvad du skal gøre er at gå i Indstillinger -&gt; Administrer viste kontaktfelter. Der kan du vælge, hvilke felter der skal være synlige. Nogle af dem er endda deaktiveret som standard, så du kan muligvis finde nogle nye der.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">Simple Contacts Pro - Administrer dine kontakter nemt</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
+    <string name="app_short_description">En premium-app til kontaktadministration, der understøtter grupper og favoritter, uden reklamer</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
@@ -163,7 +147,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

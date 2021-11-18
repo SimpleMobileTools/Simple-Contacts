@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Kontakter</string>
@@ -8,23 +9,20 @@
     <string name="company">Företag</string>
     <string name="job_position">Befattning</string>
     <string name="website">Webbplats</string>
-    <string name="send_sms_to_contacts">Skicka sms till kontakter</string>
+    <string name="send_sms_to_contacts">Skicka SMS till kontakter</string>
     <string name="send_email_to_contacts">Skicka e-post till kontakter</string>
-    <string name="send_sms_to_group">Skicka sms till grupp</string>
+    <string name="send_sms_to_group">Skicka SMS till grupp</string>
     <string name="send_email_to_group">Skicka e-post till grupp</string>
     <string name="create_new_contact">Skapa ny kontakt</string>
     <string name="add_to_existing_contact">Lägg till i en befintlig kontakt</string>
     <string name="fields_empty">At least 1 field has to be filled out</string>
-
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Inga kontakter med e-postadresser hittades</string>
     <string name="no_contacts_with_phone_numbers">Inga kontakter med telefonnummer hittades</string>
-
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Redigera kontakt</string>
     <string name="select_contact">Välj kontakt</string>
     <string name="nickname">Smeknamn</string>
-
     <!-- Groups -->
     <string name="no_groups">Inga grupper</string>
     <string name="create_new_group">Skapa en ny grupp</string>
@@ -35,12 +33,10 @@
     <string name="create_group">Skapa grupp</string>
     <string name="add_to_group">Lägg till i grupp</string>
     <string name="create_group_under_account">Skapa gruppen i kontot</string>
-
     <!-- Photo -->
     <string name="take_photo">Ta foto</string>
     <string name="choose_photo">Välj foto</string>
     <string name="remove_photo">Ta bort foto</string>
-
     <!-- Settings -->
     <string name="show_phone_numbers">Visa telefonnummer i huvudvyn</string>
     <string name="show_contact_thumbnails">Visa kontaktminiatyrer</string>
@@ -52,12 +48,10 @@
     <string name="contacts">Kontakter</string>
     <string name="show_only_contacts_with_numbers">Visa bara kontakter med telefonnummer</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-
     <!-- Emails -->
     <string name="home">Hem</string>
     <string name="work">Arbete</string>
     <string name="other">Annat</string>
-
     <!-- Phone numbers -->
     <string name="mobile">Mobil</string>
     <string name="main_number">Primärt nummer</string>
@@ -65,19 +59,15 @@
     <string name="home_fax">Hemfax</string>
     <string name="pager">Personsökare</string>
     <string name="no_phone_number_found">Inget telefonnummer hittades</string>
-
     <!-- Events -->
     <string name="birthday">Födelsedag</string>
     <string name="anniversary">Årsdag</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Det verkar som att du inte har lagt till några favoritkontakter ännu.</string>
-
     <!-- Search -->
     <string name="search_contacts">Sök efter kontakter</string>
     <string name="search_favorites">Sök efter favoriter</string>
     <string name="search_groups">Sök efter grupper</string>
-
     <!-- Export / Import -->
     <string name="import_contacts">Importera kontakter</string>
     <string name="export_contacts">Exportera kontakter</string>
@@ -86,11 +76,9 @@
     <string name="target_contact_source">Målkontaktkälla</string>
     <string name="include_contact_sources">Inkludera kontaktkällor</string>
     <string name="filename_without_vcf">Filnamn (utan .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Knappsats</string>
     <string name="add_number_to_contact">Lägg till nummer i kontakt</string>
-
     <!-- Visible fields -->
     <string name="prefix">Prefix</string>
     <string name="suffix">Suffix</string>
@@ -104,19 +92,15 @@
     <string name="contact_source">Kontaktkälla</string>
     <string name="instant_messaging">Snabbmeddelanden (IM)</string>
     <string name="ringtone">Ringtone</string>
-
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Kontakten kommer att tas bort från alla kontaktkällor.</string>
-
     <plurals name="delete_groups">
         <item quantity="one">%d grupp</item>
         <item quantity="other">%d grupper</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
-
+    <string name="faq_1_text">Yes, all you have to do is go in Settings -&gt; Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
@@ -163,7 +147,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Schlichte Kontakte</string>
     <string name="app_launcher_name">Kontakte</string>
@@ -15,16 +16,13 @@
     <string name="create_new_contact">Neuen Kontakt erstellen</string>
     <string name="add_to_existing_contact">Zu einem existierenden Kontakt hinzufügen</string>
     <string name="fields_empty">At least 1 field has to be filled out</string>
-
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Keine Kontakte mit E-Mailadressen gefunden</string>
     <string name="no_contacts_with_phone_numbers">Keine Kontakte mit Telefonnummern gefunden</string>
-
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
     <string name="select_contact">Kontakt auswählen</string>
     <string name="nickname">Spitzname</string>
-
     <!-- Groups -->
     <string name="no_groups">Keine Gruppen</string>
     <string name="create_new_group">Eine neue Gruppe erstellen</string>
@@ -35,12 +33,10 @@
     <string name="create_group">Gruppe erstellen</string>
     <string name="add_to_group">Zu Gruppe hinzufügen</string>
     <string name="create_group_under_account">Gruppe in diesem Konto erstellen</string>
-
     <!-- Photo -->
     <string name="take_photo">Foto aufnehmen</string>
     <string name="choose_photo">Foto auswählen</string>
     <string name="remove_photo">Foto entfernen</string>
-
     <!-- Settings -->
     <string name="show_phone_numbers">Telefonnummern im Hauptmenü zeigen</string>
     <string name="show_contact_thumbnails">Vorschaubilder der Kontakte zeigen</string>
@@ -52,12 +48,10 @@
     <string name="contacts">Kontakte</string>
     <string name="show_only_contacts_with_numbers">Nur Kontakte mit Telefonnummern anzeigen</string>
     <string name="show_private_contacts">Zeige private Kontakte in Schlichtem Telefon, SMS Messenger und Kalender Pro</string>
-
     <!-- Emails -->
     <string name="home">Privat</string>
     <string name="work">Arbeit</string>
     <string name="other">Sonstiges</string>
-
     <!-- Phone numbers -->
     <string name="mobile">Mobil</string>
     <string name="main_number">Festnetz</string>
@@ -65,19 +59,15 @@
     <string name="home_fax">Privat Fax</string>
     <string name="pager">Pager</string>
     <string name="no_phone_number_found">Es wurde keine Telefonnummer gefunden</string>
-
     <!-- Events -->
     <string name="birthday">Geburtstag</string>
     <string name="anniversary">Jahrestag</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Anscheinend haben Sie bisher keine Kontakte zu den Favoriten hinzugefügt.</string>
-
     <!-- Search -->
     <string name="search_contacts">Kontakte durchsuchen</string>
     <string name="search_favorites">Favoriten durchsuchen</string>
     <string name="search_groups">Gruppen durchsuchen</string>
-
     <!-- Export / Import -->
     <string name="import_contacts">Kontakte importieren</string>
     <string name="export_contacts">Kontakte exportieren</string>
@@ -86,11 +76,9 @@
     <string name="target_contact_source">Zielkontaktquelle</string>
     <string name="include_contact_sources">Kontaktquellen einschließen</string>
     <string name="filename_without_vcf">Dateiname (ohne .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Wählfeld</string>
     <string name="add_number_to_contact">Nummer zu Kontakt hinzufügen</string>
-
     <!-- Visible fields -->
     <string name="prefix">Titel</string>
     <string name="suffix">Suffix</string>
@@ -102,68 +90,23 @@
     <string name="websites">Webseiten</string>
     <string name="groups">Gruppen</string>
     <string name="contact_source">Kontaktquelle</string>
-    <string name="instant_messaging">Instant messaging (IM)</string>
-    <string name="ringtone">Ringtone</string>
-
+    <string name="instant_messaging">Sofortige Nachrichtenübermittlung (IM)</string>
+    <string name="ringtone">Klingelton</string>
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Der Kontakt wird von allen Kontaktquellen entfernt.</string>
-
     <plurals name="delete_groups">
         <item quantity="one">%d Gruppe</item>
         <item quantity="other">%d Gruppen</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Ich möchte die sichtbaren Kontaktfelder ändern. Kann ich das machen?</string>
-    <string name="faq_1_text">Ja, alles, was Sie tun müssen ist folgendes: Gehen Sie zu Einstellungen -> Bearbeite sichtbare Kontaktfelder. Hier können die sichtbaren Felder ausgewählt werden. Einige sind standardmäßig deaktiviert, weshalb hier neue gefunden werden können.</string>
-
+    <string name="faq_1_text">Ja, alles, was Sie tun müssen ist folgendes: Gehen Sie zu Einstellungen -&gt; Bearbeite sichtbare Kontaktfelder. Hier können die sichtbaren Felder ausgewählt werden. Einige sind standardmäßig deaktiviert, weshalb hier neue gefunden werden können.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Schlichte Kontakte Pro - Mühlose Kontaktverwaltung</string>
+    <string name="app_title">Schlichte Kontakte Pro – Mühlose Kontaktverwaltung</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Verwalten Sie Ihre Kontakte professionell, schnell und sicher mit dieser App</string>
-    <string name="app_long_description">
-        Eine simple App um deine Kontakte zu verwalten, die von Millionen Menschen geliebt wird. Die Kontakte können entweder lokal auf dem Gerät gespeichert oder via Google und anderen Accounts synchronisiert werden.
-
-        Sie können die App auch nutzen, um Emails und Events der Kontakte zu speichern. Die App hat die Fähigkeit, mit verschiedenen Parametern zu suchen und zu sortieren und kann wahlweise den Vornamen an erster Stelle anzeigen.
-
-        Ihre Lieblingskontakte oder -gruppen können in einer seperaten Liste angezeigt werden. Gruppen können dafür genutzt werden, um einen Stapel an Emails oder SMS zu versenden, was Ihnen Zeit erspart. Zudem können Sie diese einfach umbennen.
-
-        Es sind nützliche Buttons verfügbar, um Ihre Kontakte anzurufen oder ihnen zu schreiben. Alle angezeigten Felder können nach Ihren Wünschen angepasst werden, alle ungenutzen Felder können ausgeblendet werden. Die Suchfunktion wird den angegebenen String in jedem sichtbaren Kontaktfeld suchen, sodass Sie Ihren gewüschten Kontakt einfach finden können.
-
-        Es gibt ein einfaches Wählfeld, mit intelligenten Kontaktvervollständigungen.
-
-        Kontakte können im vCard-Format als .vcf Dateien exportiert und importiert werden, um einfach zu migrieren oder ein Backup zu erstellen.
-
-        Mit diesem modernen und stabilen Kontakte Manager können Sie Ihre Kontakte schützen, indem diese nicht mit andern Apps geteilt werden, sodass Ihre Kontakte privat bleiben.
-
-        Genauso wie die Kontaktquelle, können Sie ebnso einfach den Kontaktnamen, dessen Email, Telefonnummer, Addresse, Organisation, Gruppe und viele andere Felder anpassen. Sie können auch Events wie Geburtstage, Feiern oder benutzerdefinierte Events angeben.
-
-        Dieser einfache Kontakte-Editor hat viele nützliche Einstellungen - zum Beispiel kann es die Telefonnummer im Hauptbildschirm anzeigen, das Kontake-Vorschaubild ein- und ausblenden, nur Kontakte mit Telefonnummern anzeigen und eine Anrufsbestätigung anzeigen, bevor der Anruf gestartet wird. Das schnelle Wahlfeld unterstützt auch Buchstaben.
-
-        Um die Nutzererfahrung noch mehr zu verbessern, können Sie anpassen, was passiert, wenn Sie auf den Kontakt drücken. Entweder kann ein Anruf gestartet, der Kontakt angepasst (editiert) oder Details angeigt werden.
-
-        Um ungewollte Anrufe zu vermeiden, können Anrufe einfach blockiert werden.
-        
-        Um zu verhindern, dass potentiell ungewollte Kontakte angezeigt werden, führt die App Duplikate automatisch zusammen.
-
-        Die App beinhaltet standardmäßig material design und Dunkelmodus, um großartige Nutzererfahrungen und einfache Nutzung zu ermöglichen. Da die App keine Internetverbindung besitzt, bietet die App Ihnen mehr Datenschutz, Sicherheit und Stabilität als andere Apps.
-
-        Enthält keine Werbung oder unnötige Berechtigungen. Vollständig quelloffen. Die Farben sind anpassbar.
-
-        <b>Entdecke die gesamte Serie an schlichten Apps hier:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone Webseite von Simple Contacts Pro:</b>
-        https://www.simplemobiletools.com/contacts
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_short_description">Eine Premium-Anwendung für die Kontaktverwaltung, die Gruppen und Favoriten unterstützt, ohne Werbung</string>
+    <string name="app_long_description"> Eine simple Anwendung, um deine Kontakte zu verwalten, die von Millionen Menschen geliebt wird. Die Kontakte können entweder lokal auf dem Gerät gespeichert oder via Google und anderen Konten synchronisiert werden. Sie können die App auch nutzen, um E-Mails und Events der Kontakte zu speichern. Die Anwendung hat die Fähigkeit, mit verschiedenen Parametern zu suchen und zu sortieren und kann wahlweise den Vornamen an erster Stelle anzeigen. Ihre Lieblingskontakte oder -gruppen können in einer seperaten Liste angezeigt werden. Gruppen können dafür genutzt werden, um einen Stapel an Emails oder SMS zu versenden, was Ihnen Zeit erspart. Zudem können Sie diese einfach umbennen. Es sind nützliche Buttons verfügbar, um Ihre Kontakte anzurufen oder ihnen zu schreiben. Alle angezeigten Felder können nach Ihren Wünschen angepasst werden, alle ungenutzen Felder können ausgeblendet werden. Die Suchfunktion wird den angegebenen String in jedem sichtbaren Kontaktfeld suchen, sodass Sie Ihren gewüschten Kontakt einfach finden können. Es gibt ein einfaches Wählfeld, mit intelligenten Kontaktvervollständigungen. Kontakte können im vCard-Format als .vcf Dateien exportiert und importiert werden, um einfach zu migrieren oder ein Backup zu erstellen. Mit diesem modernen und stabilen Kontakte Manager können Sie Ihre Kontakte schützen, indem diese nicht mit andern Apps geteilt werden, sodass Ihre Kontakte privat bleiben. Genauso wie die Kontaktquelle, können Sie ebnso einfach den Kontaktnamen, dessen E-Mail, Telefonnummer, Addresse, Organisation, Gruppe und viele andere Felder anpassen. Sie können auch Events wie Geburtstage, Feiern oder benutzerdefinierte Events angeben. Dieser einfache Kontakte-Editor hat viele nützliche Einstellungen – zum Beispiel kann es die Telefonnummer im Hauptbildschirm anzeigen, das Kontake-Vorschaubild ein- und ausblenden, nur Kontakte mit Telefonnummern anzeigen und eine Anrufsbestätigung anzeigen, bevor der Anruf gestartet wird. Das schnelle Wahlfeld unterstützt auch Buchstaben. Um die Nutzererfahrung noch mehr zu verbessern, können Sie anpassen, was passiert, wenn Sie auf den Kontakt drücken. Entweder kann ein Anruf gestartet, der Kontakt angepasst (editiert) oder Details angeigt werden. Um ungewollte Anrufe zu vermeiden, können Anrufe einfach blockiert werden. Um zu verhindern, dass potentiell ungewollte Kontakte angezeigt werden, führt die Anwendung Duplikate automatisch zusammen. Die Anwendung beinhaltet standardmäßig material design und Dunkelmodus, um großartige Nutzererfahrungen und einfache Nutzung zu ermöglichen. Da die Anwendung keine Internetverbindung besitzt, bietet die Anwendung Ihnen mehr Datenschutz, Sicherheit und Stabilität als andere Anwendungen. Enthält keine Werbung oder unnötige Berechtigungen. Vollständig quelloffen. Die Farben sind anpassbar. <b>Entdecke die gesamte Serie an schlichten Apps hier:</b> https://www.simplemobiletools.com <b>Standalone Webseite von Simple Contacts Pro:</b> https://www.simplemobiletools.com/contacts <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
