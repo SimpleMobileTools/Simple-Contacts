@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Semplice Contatti</string>
     <string name="app_launcher_name">Contatti</string>
@@ -14,16 +15,13 @@
     <string name="send_email_to_group">Invia un\'email al gruppo</string>
     <string name="create_new_contact">Crea un nuovo contatto</string>
     <string name="add_to_existing_contact">Aggiungi a un contatto esistente</string>
-
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nessun contatto trovato con un\'email</string>
     <string name="no_contacts_with_phone_numbers">Nessun contatto trovato con un numero di telefono</string>
-
     <string name="new_contact">Nuovo contatto</string>
     <string name="edit_contact">Modifica contatto</string>
     <string name="select_contact">Seleziona contatto</string>
     <string name="nickname">Soprannome</string>
-
     <!-- Groups -->
     <string name="no_groups">Nessun gruppo</string>
     <string name="create_new_group">Crea un nuovo gruppo</string>
@@ -34,12 +32,10 @@
     <string name="create_group">Crea gruppo</string>
     <string name="add_to_group">Aggiungi al gruppo</string>
     <string name="create_group_under_account">Crea un gruppo con un account</string>
-
     <!-- Photo -->
     <string name="take_photo">Scatta una foto</string>
     <string name="choose_photo">Scegli una foto</string>
     <string name="remove_photo">Rimuovi la foto</string>
-
     <!-- Settings -->
     <string name="show_phone_numbers">Mostra i numeri di telefono nella schermata principale</string>
     <string name="show_contact_thumbnails">Mostra le anteprime dei contatti</string>
@@ -50,13 +46,11 @@
     <string name="manage_shown_contact_fields">Gestisci i campi mostrati</string>
     <string name="contacts">Contatti</string>
     <string name="show_only_contacts_with_numbers">Mostra solamente i contatti con almeno un numero telefonico</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-
+    <string name="show_private_contacts">Mostra i contatti privati su Simple Dialer, Simple SMS Messenger e Simple Calendar Pro</string>
     <!-- Emails -->
     <string name="home">Casa</string>
     <string name="work">Lavoro</string>
     <string name="other">Altro</string>
-
     <!-- Phone numbers -->
     <string name="mobile">Cellulare</string>
     <string name="main_number">Principale</string>
@@ -64,19 +58,15 @@
     <string name="home_fax">Fax di casa</string>
     <string name="pager">Cercapersone</string>
     <string name="no_phone_number_found">Non è stato trovato alcun numero di telefono</string>
-
     <!-- Events -->
     <string name="birthday">Compleanno</string>
     <string name="anniversary">Anniversario</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Non si ha ancora nessun contatto preferito.</string>
-
     <!-- Search -->
     <string name="search_contacts">Cerca contatti</string>
     <string name="search_favorites">Cerca preferiti</string>
-    <string name="search_groups">Search groups</string>
-
+    <string name="search_groups">Cerca gruppi</string>
     <!-- Export / Import -->
     <string name="import_contacts">Importa contatti</string>
     <string name="export_contacts">Esporta contatti</string>
@@ -85,84 +75,37 @@
     <string name="target_contact_source">Individua la provenienza del contatto</string>
     <string name="include_contact_sources">Includi la provenienza del contatto</string>
     <string name="filename_without_vcf">Nome del file (senza .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Tastiera</string>
     <string name="add_number_to_contact">Aggiungi numero ai contatti</string>
-
     <!-- Visible fields -->
     <string name="prefix">Prefisso</string>
     <string name="suffix">Suffisso</string>
     <string name="phone_numbers">Numeri di telefono</string>
-    <string name="emails">Email</string>
+    <string name="emails">E-mail</string>
     <string name="addresses">Indirizzi</string>
     <string name="events">Eventi (compleanni, anniversari)</string>
     <string name="organization">Organizazione</string>
     <string name="websites">Siti web</string>
     <string name="groups">Gruppi</string>
     <string name="contact_source">Provenienza del contatto</string>
-    <string name="instant_messaging">Messaggistica istantanea (IM)</string>
-    <string name="ringtone">Ringtone</string>
-
+    <string name="instant_messaging">Messaggistica istantanea (MI)</string>
+    <string name="ringtone">Suoneria</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
-
+    <string name="delete_from_all_sources">Il contatto sarà rimosso da tutte le fonti di contatto.</string>
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d gruppo</item>
+        <item quantity="other">%d gruppi</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Voglio cambiare i campi visibili ai contatti. Come posso fare?</string>
-    <string name="faq_1_text">Si può farlo andando in Impostazioni -> Gestisci i campi mostrati. Qui si possono selezionare i campi che saranno visibili, alcuni sono disabilitati in maniera predefinita, quindi si possono trovare campi aggiuntivi.</string>
-
+    <string name="faq_1_text">Si può farlo andando in Impostazioni -&gt; Gestisci i campi mostrati. Qui si possono selezionare i campi che saranno visibili, alcuni sono disabilitati in maniera predefinita, quindi si possono trovare campi aggiuntivi.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">Simple Contacts Pro – Gestisci facilmente i tuoi contatti</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
-    <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
-
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
-
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
-
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
-
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
-
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
-
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
-
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
-
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
-
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
-
-        You can easily block phone numbers to avoid unwanted incoming calls.
-
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        L\'applicazione non contiene pubblicità o permessi non necessari; è completamente opensource e la si può personalizzare con i propri colori preferiti.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone website of Simple Contacts Pro:</b>
-        https://www.simplemobiletools.com/contacts
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_short_description">Un\'app premium per la gestione dei contatti che supporta gruppi e preferiti, senza pubblicità</string>
+    <string name="app_long_description"> Un\'applicazione leggera per gestire i tuoi contatti amata da milioni di persone. I contatti possono essere memorizzati solo sul tuo dispositivo, ma anche sincronizzati tramite Google, o altri account. Puoi usarla anche per gestire gli indirizzi e-mail degli utenti e gli eventi. Ha la capacità di ordinare/filtrare in base a più parametri, opzionalmente mostra il cognome come nome. Puoi visualizzare i tuoi contatti o gruppi preferiti in una lista separata. I gruppi possono essere utilizzati per l\'invio di e-mail o SMS in gruppo, per risparmiare tempo, è possibile rinominarli facilmente. Contiene dei comodi pulsanti per chiamare o mandare messaggi ai tuoi contatti. Tutti i campi visibili possono essere personalizzati come vuoi, puoi facilmente nascondere quelli inutilizzati. La funzione di ricerca cercherà la stringa data in ogni campo di contatto visibile, per farvi trovare facilmente il contatto desiderato. C\'è anche un leggero dialpad al vostro servizio, con suggerimenti intelligenti per i contatti. Supporta l\'esportazione/importazione di contatti in formato vCard in file .vcf, per una facile migrazione o il backup dei dati. Con questo gestore di contatti moderno e stabile potrete proteggere i vostri contatti non condividendoli con altre app, in modo da mantenere i vostri contatti privati. Come l\'origine dei contatti, puoi anche cambiare facilmente il nome del contatto, l\'email, il numero di telefono, l\'indirizzo, l\'organizzazione, i gruppi e molti altri campi personalizzabili. Si può usare anche per memorizzare gli eventi di contatto, come compleanni, anniversari, o qualsiasi altro personalizzato. Questo semplice editor di contatti ha molte impostazioni utili come mostrare i numeri di telefono nella schermata principale, attivare la visibilità delle miniature dei contatti, mostrare solo i contatti con numeri di telefono, mostrare una finestra di dialogo di conferma della chiamata prima di iniziare una chiamata. Viene fornito con un dialer rapido che fa anche uso di lettere. Per migliorare ulteriormente l\'esperienza dell\'utente, è possibile personalizzare ciò che accade quando si clicca su un contatto. È possibile avviare una chiamata, andare alla schermata Visualizza dettagli, o modificare il contatto selezionato. Puoi facilmente bloccare i numeri di telefono per evitare chiamate in entrata indesiderate. Per evitare di mostrare contatti potenzialmente indesiderati, ha una potente fusione di contatti duplicati. Viene fornito con Material Design e tema scuro per impostazione predefinita, fornisce una grande esperienza utente per un facile utilizzo. La mancanza di accesso a internet ti dà più privacy, sicurezza e stabilità rispetto ad altre app. Non contiene annunci o permessi inutili. È completamente opensource, fornisce colori personalizzabili. <b>Scopri la suite completa di Simple Tools qui:</b> https://www.simplemobiletools.com <b>Sito web autonomo di Simple Contacts Pro:</b> https://www.simplemobiletools.com/contacts <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
