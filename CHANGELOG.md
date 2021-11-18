@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.16.0 *(2021-11-18)*
+----------------------------
+
+ * Redesigned some screens, added an Auto theme
+ * Fixed some Android 11+ glitches
+ * Added some stability, translation and UX improvements
+
 Version 6.15.1 *(2021-08-27)*
 ----------------------------
 

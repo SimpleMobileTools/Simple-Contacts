@@ -1,0 +1,3 @@
+ * Redesigned some screens, added an Auto theme
+ * Fixed some Android 11+ glitches
+ * Added some stability, translation and UX improvements
