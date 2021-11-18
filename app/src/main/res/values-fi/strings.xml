@@ -14,6 +14,7 @@
     <string name="send_email_to_group">Lähetä sähköposti ryhmälle</string>
     <string name="create_new_contact">Luo uusi yhteystieto</string>
     <string name="add_to_existing_contact">Lisää olemassa olevaan yhteystietoon</string>
+    <string name="fields_empty">At least 1 field has to be filled out</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Sähköpostillisia yhteystietoja ei löytynyt</string>

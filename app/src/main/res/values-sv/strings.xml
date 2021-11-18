@@ -15,6 +15,7 @@
     <string name="send_email_to_group">Skicka e-post till grupp</string>
     <string name="create_new_contact">Skapa ny kontakt</string>
     <string name="add_to_existing_contact">Lägg till i en befintlig kontakt</string>
+    <string name="fields_empty">At least 1 field has to be filled out</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Inga kontakter med e-postadresser hittades</string>
     <string name="no_contacts_with_phone_numbers">Inga kontakter med telefonnummer hittades</string>

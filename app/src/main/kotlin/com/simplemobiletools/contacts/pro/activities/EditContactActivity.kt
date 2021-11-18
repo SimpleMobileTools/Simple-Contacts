@@ -907,6 +907,31 @@ class EditContactActivity : ContactActivity() {
             return
         }
 
+        val filledPhoneNumbers = getFilledPhoneNumbers()
+        val filledEmails = getFilledEmails()
+        val filledAddresses = getFilledAddresses()
+        val filledIMs = getFilledIMs()
+        val filledEvents = getFilledEvents()
+        val filledWebsites = getFilledWebsites()
+
+        val contactFields = arrayListOf(
+            contact_prefix, contact_first_name, contact_middle_name, contact_surname, contact_suffix, contact_nickname,
+            contact_notes, contact_organization_company, contact_organization_job_position
+        )
+
+        if (contactFields.all { it.value.isEmpty() } &&
+            currentContactPhotoPath.isEmpty() &&
+            filledPhoneNumbers.isEmpty() &&
+            filledEmails.isEmpty() &&
+            filledAddresses.isEmpty() &&
+            filledIMs.isEmpty() &&
+            filledEvents.isEmpty() &&
+            filledWebsites.isEmpty()
+        ) {
+            toast(R.string.fields_empty)
+            return
+        }
+
         contact?.apply {
             val oldPhotoUri = photoUri
 
@@ -917,14 +942,14 @@ class EditContactActivity : ContactActivity() {
             suffix = contact_suffix.value
             nickname = contact_nickname.value
             photoUri = currentContactPhotoPath
-            phoneNumbers = getFilledPhoneNumbers()
-            emails = getFilledEmails()
-            addresses = getFilledAddresses()
-            IMs = getFilledIMs()
-            events = getFilledEvents()
+            phoneNumbers = filledPhoneNumbers
+            emails = filledEmails
+            addresses = filledAddresses
+            IMs = filledIMs
+            events = filledEvents
             starred = if (isContactStarred()) 1 else 0
             notes = contact_notes.value
-            websites = getFilledWebsites()
+            websites = filledWebsites
 
             val company = contact_organization_company.value
             val jobPosition = contact_organization_job_position.value

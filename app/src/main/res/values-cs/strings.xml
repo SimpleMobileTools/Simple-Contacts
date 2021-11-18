@@ -14,6 +14,7 @@
     <string name="send_email_to_group">Poslat skupině e-mail</string>
     <string name="create_new_contact">Vytvořit nový kontakt</string>
     <string name="add_to_existing_contact">Přidat k existujícímu kontaktu</string>
+    <string name="fields_empty">At least 1 field has to be filled out</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nenalezeny žádné kontakty s e-maily</string>
