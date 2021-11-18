@@ -15,13 +15,16 @@
     <string name="send_email_to_group">Send email to group</string>
     <string name="create_new_contact">Create new contact</string>
     <string name="add_to_existing_contact">Add to an existing contact</string>
+
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">No contacts with emails have been found</string>
     <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+
     <string name="new_contact">New contact</string>
     <string name="edit_contact">Edit contact</string>
     <string name="select_contact">Select contact</string>
     <string name="nickname">Nickname</string>
+
     <!-- Groups -->
     <string name="no_groups">No groups</string>
     <string name="create_new_group">Create a new group</string>
@@ -32,10 +35,12 @@
     <string name="create_group">Create group</string>
     <string name="add_to_group">Add to group</string>
     <string name="create_group_under_account">Create group under account</string>
+
     <!-- Photo -->
     <string name="take_photo">Take photo</string>
     <string name="choose_photo">Choose photo</string>
     <string name="remove_photo">Remove photo</string>
+
     <!-- Settings -->
     <string name="show_phone_numbers">Show phone numbers</string>
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
@@ -47,10 +52,12 @@
     <string name="contacts">Contacts</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
+
     <!-- Emails -->
     <string name="home">Home</string>
     <string name="work">Work</string>
     <string name="other">Other</string>
+
     <!-- Phone numbers -->
     <string name="mobile">Mobile</string>
     <string name="main_number">Main</string>
@@ -58,15 +65,19 @@
     <string name="home_fax">Home Fax</string>
     <string name="pager">Pager</string>
     <string name="no_phone_number_found">No phone number has been found</string>
+
     <!-- Events -->
     <string name="birthday">Birthday</string>
     <string name="anniversary">Anniversary</string>
+
     <!-- Favorites -->
     <string name="no_favorites">Seems like you haven\'t added any favorite contacts yet.</string>
+
     <!-- Search -->
     <string name="search_contacts">Search contacts</string>
     <string name="search_favorites">Search favorites</string>
     <string name="search_groups">Search groups</string>
+
     <!-- Export / Import -->
     <string name="import_contacts">Import contacts</string>
     <string name="export_contacts">Export contacts</string>
@@ -75,9 +86,11 @@
     <string name="target_contact_source">Target contact source</string>
     <string name="include_contact_sources">Include contact sources</string>
     <string name="filename_without_vcf">Filename (without .vcf)</string>
+
     <!-- Dialpad -->
     <string name="dialpad">Dialpad</string>
     <string name="add_number_to_contact">Add number to contact</string>
+
     <!-- Visible fields -->
     <string name="prefix">Prefix</string>
     <string name="suffix">Suffix</string>
@@ -91,20 +104,24 @@
     <string name="contact_source">Contact source</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
     <string name="ringtone">Ringtone</string>
+
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+
     <plurals name="delete_groups">
         <item quantity="one">%d group</item>
         <item quantity="other">%d groups</item>
     </plurals>
+
     <!-- FAQ -->
     <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -&gt; Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro — Manage your contacts easily</string>
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A premium app for contact management that supports groups and favorites, without ads</string>
+    <string name="app_short_description">A premium app for contact management with no ads, supports groups and favorites</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
@@ -146,6 +163,7 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
+
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
