@@ -25,7 +25,6 @@ import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
-import com.simplemobiletools.commons.views.MyEditText
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
 import com.simplemobiletools.contacts.pro.dialogs.MyDatePickerDialog
@@ -64,8 +63,6 @@ class EditContactActivity : ContactActivity() {
     private var emailViewToColor: EditText? = null
     private var originalContactSource = ""
 
-    private lateinit var contactFields: ArrayList<MyEditText>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         showTransparentTop = true
         super.onCreate(savedInstanceState)
@@ -100,12 +97,6 @@ class EditContactActivity : ContactActivity() {
         } else {
             initContact()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        contactFields = arrayListOf(contact_prefix, contact_first_name, contact_middle_name, contact_suffix, contact_nickname,
-            contact_notes, contact_organization_company, contact_organization_job_position)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
@@ -205,19 +196,25 @@ class EditContactActivity : ContactActivity() {
         }
 
         val textColor = config.textColor
-        arrayOf(contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_ims_image, contact_events_image,
-            contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image, contact_source_image).forEach {
+        arrayOf(
+            contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_ims_image, contact_events_image,
+            contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image, contact_source_image
+        ).forEach {
             it.applyColorFilter(textColor)
         }
 
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        arrayOf(contact_numbers_add_new, contact_emails_add_new, contact_addresses_add_new, contact_ims_add_new, contact_events_add_new,
-            contact_websites_add_new, contact_groups_add_new).forEach {
+        arrayOf(
+            contact_numbers_add_new, contact_emails_add_new, contact_addresses_add_new, contact_ims_add_new, contact_events_add_new,
+            contact_websites_add_new, contact_groups_add_new
+        ).forEach {
             it.applyColorFilter(adjustedPrimaryColor)
         }
 
-        arrayOf(contact_numbers_add_new.background, contact_emails_add_new.background, contact_addresses_add_new.background, contact_ims_add_new.background,
-            contact_events_add_new.background, contact_websites_add_new.background, contact_groups_add_new.background).forEach {
+        arrayOf(
+            contact_numbers_add_new.background, contact_emails_add_new.background, contact_addresses_add_new.background, contact_ims_add_new.background,
+            contact_events_add_new.background, contact_websites_add_new.background, contact_groups_add_new.background
+        ).forEach {
             it.applyColorFilter(textColor)
         }
 
@@ -917,6 +914,11 @@ class EditContactActivity : ContactActivity() {
         val filledEvents = getFilledEvents()
         val filledWebsites = getFilledWebsites()
 
+        val contactFields = arrayListOf(
+            contact_prefix, contact_first_name, contact_middle_name, contact_surname, contact_suffix, contact_nickname,
+            contact_notes, contact_organization_company, contact_organization_job_position
+        )
+
         if (contactFields.all { it.value.isEmpty() } &&
             currentContactPhotoPath.isEmpty() &&
             filledPhoneNumbers.isEmpty() &&
@@ -1176,7 +1178,7 @@ class EditContactActivity : ContactActivity() {
 
     private fun isContactStarred() = contact_toggle_favorite.tag == 1
 
-    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_on_vector else R.drawable.ic_star_off_vector)
+    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_vector else R.drawable.ic_star_outline_vector)
 
     private fun trySetPhoto() {
         val items = arrayListOf(
