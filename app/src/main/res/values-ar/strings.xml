@@ -14,7 +14,7 @@
     <string name="send_email_to_group">ارسال بريد الكتروني الى مجموعة</string>
     <string name="create_new_contact">إنشاء جهة إتصال</string>
     <string name="add_to_existing_contact">إضافة إلى جهة موجودة</string>
-    <string name="fields_empty">At least one field should be filled out</string>
+    <string name="fields_empty">At least 1 field has to be filled out</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">لا توجد جهات اتصال بهذا البريد الالكتروني</string>

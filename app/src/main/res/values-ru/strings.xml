@@ -14,7 +14,7 @@
     <string name="send_email_to_group">Отправить письмо группе</string>
     <string name="create_new_contact">Создать новый контакт</string>
     <string name="add_to_existing_contact">Добавить к существующему контакту</string>
-    <string name="fields_empty">At least one field should be filled out</string>
+    <string name="fields_empty">At least 1 field has to be filled out</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Контакты с адресами электронной почты не найдены</string>
