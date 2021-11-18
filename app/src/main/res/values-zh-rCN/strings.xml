@@ -37,7 +37,7 @@
     <string name="choose_photo">选择照片</string>
     <string name="remove_photo">移除照片</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">主页面显示电话号码</string>
+    <string name="show_phone_numbers">显示电话号码</string>
     <string name="show_contact_thumbnails">显示联系人缩图</string>
     <string name="show_dialpad_button">在主页面显示拨号按钮</string>
     <string name="on_contact_click">点击联系人</string>
