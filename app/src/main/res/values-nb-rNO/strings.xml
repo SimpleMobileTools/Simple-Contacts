@@ -1,88 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="other">Annet</string>
-    <string name="search_contacts">Søk etter kontakter</string>
-    <string name="inserting">Legger til …</string>
-    <string name="no_group_participants">Denne gruppen er tom</string>
-    <string name="add_to_group">Legg til i gruppe</string>
-    <string name="create_group_under_account">Opprett gruppe under konto</string>
-    <string name="main_number">Hovednummer</string>
-    <string name="work_fax">Arbeidsfaks</string>
-    <string name="search_favorites">Søk etter favoritter</string>
-    <string name="import_contacts">Importer kontakter</string>
+    <string name="app_name">Enkle kontakter</string>
+    <string name="app_launcher_name">Kontakter</string>
     <string name="address">Adresse</string>
+    <string name="inserting">Legger til …</string>
+    <string name="updating">Oppdaterer …</string>
+    <string name="phone_storage_hidden">Telefonlager (ikke synlig for andre programmer)</string>
     <string name="company">Firma</string>
     <string name="job_position">Stilling</string>
     <string name="website">Nettside</string>
     <string name="send_sms_to_contacts">Send tekstmelding til kontakter</string>
-    <string name="create_new_contact">Opprett ny kontakt</string>
-    <string name="add_to_existing_contact">Legg til i eksisterende kontakt</string>
-    <string name="updating">Oppdaterer …</string>
-    <string name="phone_storage_hidden">Telefonlager (ikke synlig for andre programmer)</string>
     <string name="send_email_to_contacts">Send e-post til kontakter</string>
     <string name="send_sms_to_group">Send SMS til gruppe</string>
-    <string name="take_photo">Ta bilde</string>
-    <string name="on_contact_click">Ved kontaktklikk</string>
-    <string name="show_phone_numbers">Vis telefonnummer på hovedskjermen</string>
-    <string name="show_contact_thumbnails">Vis kontaktminiatyrbilder</string>
+    <string name="send_email_to_group">Send e-post til gruppe</string>
+    <string name="create_new_contact">Opprett ny kontakt</string>
+    <string name="add_to_existing_contact">Legg til i eksisterende kontakt</string>
+    <!-- Placeholders -->
     <string name="no_contacts_with_emails">Fant ingen kontakter med e-postadresser</string>
     <string name="no_contacts_with_phone_numbers">Fant ingen kontakter med telefonnumre</string>
+    <string name="new_contact">Ny kontakt</string>
+    <string name="edit_contact">Rediger kontakt</string>
+    <string name="select_contact">Velg kontakt</string>
+    <string name="nickname">Kallenavn</string>
+    <!-- Groups -->
+    <string name="no_groups">Ingen grupper</string>
+    <string name="create_new_group">Opprett en ny gruppe</string>
+    <string name="remove_from_group">Fjern fra gruppe</string>
+    <string name="no_group_participants">Denne gruppen er tom</string>
+    <string name="add_contacts">Legg til kontakter</string>
+    <string name="no_group_created">Det er ingen kontaktgrupper på denne enheten</string>
+    <string name="create_group">Opprett gruppe</string>
+    <string name="add_to_group">Legg til i gruppe</string>
+    <string name="create_group_under_account">Opprett gruppe under konto</string>
+    <!-- Photo -->
+    <string name="take_photo">Ta bilde</string>
+    <string name="choose_photo">Velg bilde</string>
+    <string name="remove_photo">Fjern bilde</string>
+    <!-- Settings -->
+    <string name="show_phone_numbers">Vis telefonnummer på hovedskjermen</string>
+    <string name="show_contact_thumbnails">Vis kontaktminiatyrbilder</string>
     <string name="show_dialpad_button">Vis nummerskiveknapp på hovedskjermen</string>
+    <string name="on_contact_click">Ved kontaktklikk</string>
+    <string name="call_contact">Ring kontakt</string>
     <string name="view_contact">Vis kontaktdetaljer</string>
     <string name="manage_shown_contact_fields">Håndter viste kontaktfelter</string>
     <string name="contacts">Kontakter</string>
+    <string name="show_only_contacts_with_numbers">Kun vis kontakter med telefonnumre</string>
+    <string name="show_private_contacts">Vis private kontakter til Enkel telefon, Enkel SMS, og Enkel kalender pro</string>
+    <!-- Emails -->
     <string name="home">Privat</string>
     <string name="work">Arbeid</string>
+    <string name="other">Annet</string>
+    <!-- Phone numbers -->
+    <string name="mobile">Mobil</string>
+    <string name="main_number">Hovednummer</string>
+    <string name="work_fax">Arbeidsfaks</string>
     <string name="home_fax">Hjemmefaks</string>
     <string name="pager">Personsøker</string>
+    <string name="no_phone_number_found">Fant ikke noe telefonnummer</string>
+    <!-- Events -->
     <string name="birthday">Geburtsdag</string>
     <string name="anniversary">Jubileum</string>
-    <string name="show_only_contacts_with_numbers">Kun vis kontakter med telefonnumre</string>
+    <!-- Favorites -->
+    <string name="no_favorites">Det ser ut til at du ikke har lagt til noen favorittkontakter enda.</string>
+    <!-- Search -->
+    <string name="search_contacts">Søk etter kontakter</string>
+    <string name="search_favorites">Søk etter favoritter</string>
     <string name="search_groups">Søk etter grupper</string>
+    <!-- Export / Import -->
+    <string name="import_contacts">Importer kontakter</string>
     <string name="export_contacts">Eksporter kontakter</string>
     <string name="import_contacts_from_vcf">Importer kontakter fra en .vcf-fil</string>
     <string name="export_contacts_to_vcf">Eksporter kontakter til en .vcf-fil</string>
+    <string name="target_contact_source">Target contact source</string>
     <string name="include_contact_sources">Inkluder kontaktkilder</string>
-    <string name="phone_numbers">Telefonnummer</string>
     <string name="filename_without_vcf">Filnavn (uten .vcf)</string>
+    <!-- Dialpad -->
     <string name="dialpad">Tallskive</string>
+    <string name="add_number_to_contact">Legg til nummer for kontakt</string>
+    <!-- Visible fields -->
+    <string name="prefix">Tittel</string>
+    <string name="suffix">Endelse</string>
+    <string name="phone_numbers">Telefonnummer</string>
+    <string name="emails">E-postadresser</string>
+    <string name="addresses">Adresser</string>
     <string name="events">Hendelser (geburtsdager, jubiléer)</string>
-    <string name="app_name">Enkle kontakter</string>
-    <string name="app_launcher_name">Kontakter</string>
+    <string name="organization">Organisasjon</string>
     <string name="websites">Nettsider</string>
     <string name="groups">Grupper</string>
+    <string name="contact_source">Kontaktkilde</string>
+    <string name="instant_messaging">Lynmelding</string>
+    <string name="ringtone">Ringetone</string>
+    <!-- Confirmation dialog -->
+    <string name="delete_from_all_sources">Kontakten vil bli fjernet fra alle kontaktkilder.</string>
     <plurals name="delete_groups">
         <item quantity="one">%d gruppe</item>
         <item quantity="other">%d grupper</item>
     </plurals>
-    <string name="organization">Organisasjon</string>
-    <string name="instant_messaging">Lynmelding</string>
-    <string name="delete_from_all_sources">Kontakten vil bli fjernet fra alle kontaktkilder.</string>
-    <string name="new_contact">Ny kontakt</string>
-    <string name="edit_contact">Rediger kontakt</string>
-    <string name="nickname">Kallenavn</string>
-    <string name="create_new_group">Opprett en ny gruppe</string>
-    <string name="no_group_created">Det er ingen kontaktgrupper på denne enheten</string>
-    <string name="create_group">Opprett gruppe</string>
-    <string name="choose_photo">Velg bilde</string>
-    <string name="remove_photo">Fjern bilde</string>
-    <string name="select_contact">Velg kontakt</string>
-    <string name="no_groups">Ingen grupper</string>
-    <string name="add_contacts">Legg til kontakter</string>
-    <string name="remove_from_group">Fjern fra gruppe</string>
-    <string name="call_contact">Ring kontakt</string>
-    <string name="mobile">Mobil</string>
-    <string name="contact_source">Kontaktkilde</string>
-    <string name="ringtone">Ringetone</string>
+    <!-- FAQ -->
+    <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
+    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Et premiumsprogram for håndtering av kontakter, som støtter grupper og favoritter, uten reklame</string>
-    <string name="send_email_to_group">Send e-post til gruppe</string>
-    <string name="no_favorites">Det ser ut til at du ikke har lagt til noen favorittkontakter enda.</string>
-    <string name="show_private_contacts">Vis private kontakter til Enkel telefon, Enkel SMS, og Enkel kalender pro</string>
-    <string name="no_phone_number_found">Fant ikke noe telefonnummer</string>
-    <string name="addresses">Adresser</string>
-    <string name="add_number_to_contact">Legg til nummer for kontakt</string>
-    <string name="prefix">Tittel</string>
-    <string name="suffix">Endelse</string>
-    <string name="emails">E-postadresser</string>
-    <string name="faq_1_title">Jeg ønsker å endre hvilke felter som er synlige i kontaktoppføringer. Kan jeg gjøre det\?</string>
+    <string name="app_long_description">
+        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
+
+        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
+
+        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
+
+        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
+
+        There is a lightweight dialpad at your service too, with smart contact suggestions.
+
+        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
+
+        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
+
+        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
+
+        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
+
+        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
+
+        You can easily block phone numbers to avoid unwanted incoming calls.
+
+        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+
+        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+
+        <b>Check out the full suite of Simple Tools here:</b>
+        https://www.simplemobiletools.com
+
+        <b>Standalone website of Simple Contacts Pro:</b>
+        https://www.simplemobiletools.com/contacts
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
 </resources>
