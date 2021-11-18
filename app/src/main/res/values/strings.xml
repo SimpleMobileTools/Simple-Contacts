@@ -10,16 +10,16 @@
     <string name="job_position">Job position</string>
     <string name="website">Website</string>
     <string name="send_sms_to_contacts">Send SMS to contacts</string>
-    <string name="send_email_to_contacts">Send email to contacts</string>
+    <string name="send_email_to_contacts">Send e-mail to contacts</string>
     <string name="send_sms_to_group">Send SMS to group</string>
-    <string name="send_email_to_group">Send email to group</string>
+    <string name="send_email_to_group">Send e-mail to group</string>
     <string name="create_new_contact">Create new contact</string>
     <string name="add_to_existing_contact">Add to an existing contact</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
+    <string name="fields_empty">At least one field has to be filled out</string>
 
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+    <string name="no_contacts_with_emails">Could not find any contacts with e-mail addresses</string>
+    <string name="no_contacts_with_phone_numbers">Could not find any contacts with phone numbers</string>
 
     <string name="new_contact">New contact</string>
     <string name="edit_contact">Edit contact</string>
@@ -46,7 +46,7 @@
     <string name="show_phone_numbers">Show phone numbers</string>
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
     <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
-    <string name="on_contact_click">On contact click</string>
+    <string name="on_contact_click">Upon clicking contacts</string>
     <string name="call_contact">Call contact</string>
     <string name="view_contact">View contact details</string>
     <string name="manage_shown_contact_fields">Manage shown contact fields</string>
@@ -65,14 +65,14 @@
     <string name="work_fax">Work Fax</string>
     <string name="home_fax">Home Fax</string>
     <string name="pager">Pager</string>
-    <string name="no_phone_number_found">No phone number has been found</string>
+    <string name="no_phone_number_found">Could not find any phone number</string>
 
     <!-- Events -->
     <string name="birthday">Birthday</string>
     <string name="anniversary">Anniversary</string>
 
     <!-- Favorites -->
-    <string name="no_favorites">Seems like you haven\'t added any favorite contacts yet.</string>
+    <string name="no_favorites">Add some favorite contacts to see them here.</string>
 
     <!-- Search -->
     <string name="search_contacts">Search contacts</string>
@@ -84,7 +84,7 @@
     <string name="export_contacts">Export contacts</string>
     <string name="import_contacts_from_vcf">Import contacts from a .vcf file</string>
     <string name="export_contacts_to_vcf">Export contacts to a .vcf file</string>
-    <string name="target_contact_source">Target contact source</string>
+    <string name="target_contact_source">Target contact-source</string>
     <string name="include_contact_sources">Include contact sources</string>
     <string name="filename_without_vcf">Filename (without .vcf)</string>
 
@@ -107,7 +107,7 @@
     <string name="ringtone">Ringtone</string>
 
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_from_all_sources">Remove contact from all contact sources?</string>
 
     <plurals name="delete_groups">
         <item quantity="one">%d group</item>
@@ -115,54 +115,48 @@
     </plurals>
 
     <!-- FAQ -->
-    <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_title">Can I change what contacts fields are visible?</string>
+    <string name="faq_1_text">Yes, go in \"Settings\" → \"Manage shown contact fields\". Select what fields should be visible there. Some of them are off by default.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">Simple Contacts Pro — Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A premium app for contact management with no ads, supports groups and favorites</string>
+    <string name="app_short_description">A premium app for contact management</string>
     <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
-
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
-
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
-
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
-
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
-
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
-
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
-
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
-
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
-
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
-
-        You can easily block phone numbers to avoid unwanted incoming calls.
-
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone website of Simple Contacts Pro:</b>
-        https://www.simplemobiletools.com/contacts
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
+        A lightweight contact manager.
+        
+        Search for anyting in all visible contact fields.
+        
+        Protect the privacy of your contacts by not sharing them with other apps if you want.
+        Store contacts only on your device, and/or sync to the cloud using familiar options.
+        Duplicated contacts are merged.
+        Export/import contacts in vCard format as .vcf files.
+               
+        Manage e-mails and events like birthdays and anniversaries.
+        Sort/filter by multiple parameters.
+        Optionally display surname as the first name.
+        send e-mails or SMS to favourited contacts or groups.
+        Click a contact to show details, edit, or call.
+        
+        There are buttons for calling, or texting contacts.
+        
+        Optional confirmation before calling avoids unwanted calls.
+        Block phone numbers to avoid unwanted incoming calls.
+        Call with the quick dialer, dialpad or make use of letters, all with smart suggestions.
+        Show phone numbers on the main screen.
+        Toggle contact thumbnails.
+        Optionally show only contacts with phone numbers.
+        
+        All visible fields can be customized, renamed and hidden, in customizable colors.
+        
+        Material design and dark theme by default,
+        No ads or unnecessary permissions.
+        
+        Copylefted libre software, licensed GPLv3+,
+        
+        <b>The Simple Contacts Pro website</b>: simplemobiletools.com/contacts
+        <b>Check out the full suite of Simple Tools</b> at simplemobiletools.com
     </string>
 
     <!--
