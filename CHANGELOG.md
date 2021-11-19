@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.16.1 *(2021-11-19)*
+----------------------------
+
+ * Properly import contact photos from .vcf files
+ * Show a Save/Discard prompt when leaving the editor with unsaved changes
+ * Some stability and translation improvements
+
 Version 6.16.0 *(2021-11-18)*
 ----------------------------
 
