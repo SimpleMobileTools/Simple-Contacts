@@ -127,9 +127,14 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
         }
 
-        if (filtered.hashCode() != lastHashCode || skipHashComparing) {
+        var currentHash = 0
+        filtered.forEach {
+            currentHash += it.getHashWithoutPrivatePhoto()
+        }
+
+        if (currentHash != lastHashCode || skipHashComparing) {
             skipHashComparing = false
-            lastHashCode = filtered.hashCode()
+            lastHashCode = currentHash
             activity?.runOnUiThread {
                 setupContacts(filtered)
             }

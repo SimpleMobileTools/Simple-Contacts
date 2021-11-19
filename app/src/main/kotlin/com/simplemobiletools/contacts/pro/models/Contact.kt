@@ -7,11 +7,13 @@ import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 
-data class Contact(var id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var nickname: String,
-                   var photoUri: String, var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>,
-                   var events: ArrayList<Event>, var source: String, var starred: Int, var contactId: Int, var thumbnailUri: String, var photo: Bitmap?, var notes: String,
-                   var groups: ArrayList<Group>, var organization: Organization, var websites: ArrayList<String>, var IMs: ArrayList<IM>, var mimetype: String,
-                   var ringtone: String?) :
+data class Contact(
+    var id: Int, var prefix: String, var firstName: String, var middleName: String, var surname: String, var suffix: String, var nickname: String,
+    var photoUri: String, var phoneNumbers: ArrayList<PhoneNumber>, var emails: ArrayList<Email>, var addresses: ArrayList<Address>,
+    var events: ArrayList<Event>, var source: String, var starred: Int, var contactId: Int, var thumbnailUri: String, var photo: Bitmap?, var notes: String,
+    var groups: ArrayList<Group>, var organization: Organization, var websites: ArrayList<String>, var IMs: ArrayList<IM>, var mimetype: String,
+    var ringtone: String?
+) :
     Comparable<Contact> {
     companion object {
         var sorting = 0
@@ -121,10 +123,38 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
         }
     }
 
+    // photos stored locally always have different hashcodes. Avoid constantly refreshing the contact lists as the app thinks something changed.
+    fun getHashWithoutPrivatePhoto(): Int {
+        val photoToUse = if (isPrivate()) null else photo
+        return copy(photo = photoToUse).hashCode()
+    }
+
     fun getStringToCompare(): String {
-        return copy(id = 0, prefix = "", firstName = getNameToDisplay().toLowerCase(), middleName = "", surname = "", suffix = "", nickname = "", photoUri = "",
-            phoneNumbers = ArrayList(), emails = ArrayList(), events = ArrayList(), source = "", addresses = ArrayList(), starred = 0, contactId = 0,
-            thumbnailUri = "", notes = "", groups = ArrayList(), websites = ArrayList(), organization = Organization("", ""), IMs = ArrayList(), ringtone = "").toString()
+        return copy(
+            id = 0,
+            prefix = "",
+            firstName = getNameToDisplay().toLowerCase(),
+            middleName = "",
+            surname = "",
+            suffix = "",
+            nickname = "",
+            photoUri = "",
+            phoneNumbers = ArrayList(),
+            emails = ArrayList(),
+            events = ArrayList(),
+            source = "",
+            addresses = ArrayList(),
+            starred = 0,
+            contactId = 0,
+            thumbnailUri = "",
+            photo = null,
+            notes = "",
+            groups = ArrayList(),
+            websites = ArrayList(),
+            organization = Organization("", ""),
+            IMs = ArrayList(),
+            ringtone = ""
+        ).toString()
     }
 
     fun getHashToCompare() = getStringToCompare().hashCode()
@@ -135,7 +165,8 @@ data class Contact(var id: Int, var prefix: String, var firstName: String, var m
         return fullOrganization.trim().trimEnd(',')
     }
 
-    fun isABusinessContact() = prefix.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && suffix.isEmpty() && organization.isNotEmpty()
+    fun isABusinessContact() =
+        prefix.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && suffix.isEmpty() && organization.isNotEmpty()
 
     fun doesContainPhoneNumber(text: String, convertLetters: Boolean): Boolean {
         return if (text.isNotEmpty()) {
