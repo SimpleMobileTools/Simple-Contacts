@@ -130,6 +130,7 @@ data class Contact(
     }
 
     fun getStringToCompare(): String {
+        val photoToUse = if (isPrivate()) null else photo
         return copy(
             id = 0,
             prefix = "",
@@ -147,7 +148,7 @@ data class Contact(
             starred = 0,
             contactId = 0,
             thumbnailUri = "",
-            photo = null,
+            photo = photoToUse,
             notes = "",
             groups = ArrayList(),
             websites = ArrayList(),
