@@ -20,6 +20,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
 import com.simplemobiletools.commons.extensions.*
@@ -53,6 +54,7 @@ class EditContactActivity : ContactActivity() {
     private val CHOOSE_PHOTO = 2
     private val REMOVE_PHOTO = 3
 
+    private var mLastSavePromptTS = 0L
     private var wasActivityInitialized = false
     private var lastPhotoIntentUri: Uri? = null
     private var isSaving = false
@@ -249,6 +251,21 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - mLastSavePromptTS > SAVE_DISCARD_PROMPT_INTERVAL && hasContactChanged()) {
+            mLastSavePromptTS = System.currentTimeMillis()
+            ConfirmationAdvancedDialog(this, "", R.string.save_before_closing, R.string.save, R.string.discard) {
+                if (it) {
+                    saveContact()
+                } else {
+                    super.onBackPressed()
+                }
+            }
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun setupMenu() {
         (contact_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
         contact_toolbar.menu.apply {
@@ -277,6 +294,8 @@ class EditContactActivity : ContactActivity() {
             finish()
         }
     }
+
+    private fun hasContactChanged() = contact != fillContactValues()
 
     private fun openWith() {
         Intent().apply {
@@ -903,10 +922,46 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun saveContact() {
-        if (isSaving) {
+        if (isSaving || contact == null) {
             return
         }
 
+        val contactFields = arrayListOf(
+            contact_prefix, contact_first_name, contact_middle_name, contact_surname, contact_suffix, contact_nickname,
+            contact_notes, contact_organization_company, contact_organization_job_position
+        )
+
+        if (contactFields.all { it.value.isEmpty() }) {
+            if (currentContactPhotoPath.isEmpty() &&
+                getFilledPhoneNumbers().isEmpty() &&
+                getFilledEmails().isEmpty() &&
+                getFilledAddresses().isEmpty() &&
+                getFilledIMs().isEmpty() &&
+                getFilledEvents().isEmpty() &&
+                getFilledWebsites().isEmpty()
+            ) {
+                toast(R.string.fields_empty)
+                return
+            }
+        }
+
+        val oldPhotoUri = contact!!.photoUri
+        contact = fillContactValues()
+
+        ensureBackgroundThread {
+            config.lastUsedContactSource = contact!!.source
+            when {
+                contact!!.id == 0 -> insertNewContact(false)
+                originalContactSource != contact!!.source -> insertNewContact(true)
+                else -> {
+                    val photoUpdateStatus = getPhotoUpdateStatus(oldPhotoUri, contact!!.photoUri)
+                    updateContact(photoUpdateStatus)
+                }
+            }
+        }
+    }
+
+    private fun fillContactValues(): Contact {
         val filledPhoneNumbers = getFilledPhoneNumbers()
         val filledEmails = getFilledEmails()
         val filledAddresses = getFilledAddresses()
@@ -914,59 +969,28 @@ class EditContactActivity : ContactActivity() {
         val filledEvents = getFilledEvents()
         val filledWebsites = getFilledWebsites()
 
-        val contactFields = arrayListOf(
-            contact_prefix, contact_first_name, contact_middle_name, contact_surname, contact_suffix, contact_nickname,
-            contact_notes, contact_organization_company, contact_organization_job_position
+        val newContact = contact!!.copy(
+            prefix = contact_prefix.value,
+            firstName = contact_first_name.value,
+            middleName = contact_middle_name.value,
+            surname = contact_surname.value,
+            suffix = contact_suffix.value,
+            nickname = contact_nickname.value,
+            photoUri = currentContactPhotoPath,
+            phoneNumbers = filledPhoneNumbers,
+            emails = filledEmails,
+            addresses = filledAddresses,
+            IMs = filledIMs,
+            events = filledEvents,
+            starred = if (isContactStarred()) 1 else 0,
+            notes = contact_notes.value,
+            websites = filledWebsites,
         )
 
-        if (contactFields.all { it.value.isEmpty() } &&
-            currentContactPhotoPath.isEmpty() &&
-            filledPhoneNumbers.isEmpty() &&
-            filledEmails.isEmpty() &&
-            filledAddresses.isEmpty() &&
-            filledIMs.isEmpty() &&
-            filledEvents.isEmpty() &&
-            filledWebsites.isEmpty()
-        ) {
-            toast(R.string.fields_empty)
-            return
-        }
-
-        contact?.apply {
-            val oldPhotoUri = photoUri
-
-            prefix = contact_prefix.value
-            firstName = contact_first_name.value
-            middleName = contact_middle_name.value
-            surname = contact_surname.value
-            suffix = contact_suffix.value
-            nickname = contact_nickname.value
-            photoUri = currentContactPhotoPath
-            phoneNumbers = filledPhoneNumbers
-            emails = filledEmails
-            addresses = filledAddresses
-            IMs = filledIMs
-            events = filledEvents
-            starred = if (isContactStarred()) 1 else 0
-            notes = contact_notes.value
-            websites = filledWebsites
-
-            val company = contact_organization_company.value
-            val jobPosition = contact_organization_job_position.value
-            organization = Organization(company, jobPosition)
-
-            ensureBackgroundThread {
-                config.lastUsedContactSource = source
-                when {
-                    id == 0 -> insertNewContact(false)
-                    originalContactSource != source -> insertNewContact(true)
-                    else -> {
-                        val photoUpdateStatus = getPhotoUpdateStatus(oldPhotoUri, photoUri)
-                        updateContact(photoUpdateStatus)
-                    }
-                }
-            }
-        }
+        val company = contact_organization_company.value
+        val jobPosition = contact_organization_job_position.value
+        newContact.organization = Organization(company, jobPosition)
+        return newContact
     }
 
     private fun getFilledPhoneNumbers(): ArrayList<PhoneNumber> {
