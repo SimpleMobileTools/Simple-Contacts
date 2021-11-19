@@ -3,7 +3,9 @@ package com.simplemobiletools.contacts.pro.helpers
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.provider.ContactsContract.CommonDataKinds
-import android.provider.ContactsContract.CommonDataKinds.*
+import android.provider.ContactsContract.CommonDataKinds.Im
+import android.provider.ContactsContract.CommonDataKinds.Phone
+import android.provider.ContactsContract.CommonDataKinds.StructuredPostal
 import android.widget.Toast
 import com.simplemobiletools.commons.extensions.normalizePhoneNumber
 import com.simplemobiletools.commons.extensions.showErrorToast
@@ -11,11 +13,10 @@ import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.getCachePhoto
 import com.simplemobiletools.contacts.pro.extensions.getCachePhotoUri
 import com.simplemobiletools.contacts.pro.extensions.groupsDB
-import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.*
+import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPORT_FAIL
+import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPORT_OK
+import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPORT_PARTIAL
 import com.simplemobiletools.contacts.pro.models.*
-import com.simplemobiletools.contacts.pro.models.Email
-import com.simplemobiletools.contacts.pro.models.Event
-import com.simplemobiletools.contacts.pro.models.Organization
 import ezvcard.Ezvcard
 import ezvcard.VCard
 import ezvcard.util.PartialDate
@@ -49,7 +50,7 @@ class VcfImporter(val activity: SimpleActivity) {
                 val surname = structuredName?.family ?: ""
                 val suffix = structuredName?.suffixes?.firstOrNull() ?: ""
                 val nickname = ezContact.nickname?.values?.firstOrNull() ?: ""
-                val photoUri = ""
+                var photoUri = ""
 
                 val phoneNumbers = ArrayList<PhoneNumber>()
                 ezContact.telephoneNumbers.forEach {
@@ -122,8 +123,17 @@ class VcfImporter(val activity: SimpleActivity) {
                 val organization = Organization(company, jobPosition)
                 val websites = ezContact.urls.map { it.value } as ArrayList<String>
                 val photoData = ezContact.photos.firstOrNull()?.data
-                val photo = null
+                val photo = if (photoData != null) {
+                    BitmapFactory.decodeByteArray(photoData, 0, photoData.size)
+                } else {
+                    null
+                }
+
                 val thumbnailUri = savePhoto(photoData)
+                if (thumbnailUri.isNotEmpty()) {
+                    photoUri = thumbnailUri
+                }
+
                 val ringtone = null
 
                 val IMs = ArrayList<IM>()
@@ -147,8 +157,10 @@ class VcfImporter(val activity: SimpleActivity) {
                     IMs.add(IM)
                 }
 
-                val contact = Contact(0, prefix, firstName, middleName, surname, suffix, nickname, photoUri, phoneNumbers, emails, addresses, events,
-                    targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, IMs, DEFAULT_MIMETYPE, ringtone)
+                val contact = Contact(
+                    0, prefix, firstName, middleName, surname, suffix, nickname, photoUri, phoneNumbers, emails, addresses, events,
+                    targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, IMs, DEFAULT_MIMETYPE, ringtone
+                )
 
                 // if there is no N and ORG fields at the given contact, only FN, treat it as an organization
                 if (contact.getNameToDisplay().isEmpty() && contact.organization.isEmpty() && ezContact.formattedName?.value?.isNotEmpty() == true) {
