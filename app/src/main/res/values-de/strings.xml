@@ -51,7 +51,7 @@
     <!-- Emails -->
     <string name="home">Privat</string>
     <string name="work">Arbeit</string>
-    <string name="other">Sonstiges</string>
+    <string name="other">Anderes</string>
     <!-- Phone numbers -->
     <string name="mobile">Mobil</string>
     <string name="main_number">Festnetz</string>
