@@ -154,11 +154,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     override fun onPause() {
         super.onPause()
         storeStateVariables()
+        config.lastUsedViewPagerPage = viewpager.currentItem
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        config.lastUsedViewPagerPage = viewpager.currentItem
         if (!isChangingConfigurations) {
             ContactsDatabase.destroyInstance()
         }
@@ -595,8 +595,20 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             TAB_CONTACTS -> 0
             TAB_FAVORITES -> if (showTabsMask and TAB_CONTACTS > 0) 1 else 0
             else -> {
-                if (showTabsMask and TAB_CONTACTS > 0) {
-                    if (showTabsMask and TAB_FAVORITES > 0) 2 else 1
+                if (showTabsMask and TAB_GROUPS > 0) {
+                    if (showTabsMask and TAB_CONTACTS > 0) {
+                        if (showTabsMask and TAB_FAVORITES > 0) {
+                            2
+                        } else {
+                            1
+                        }
+                    } else {
+                        if (showTabsMask and TAB_FAVORITES > 0) {
+                            1
+                        } else {
+                            0
+                        }
+                    }
                 } else {
                     0
                 }
