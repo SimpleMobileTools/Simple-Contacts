@@ -42,7 +42,7 @@ class ContactsAdapter(
     activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val refreshListener: RefreshContactsListener?,
     private val location: Int, private val removeListener: RemoveFromGroupListener?, recyclerView: MyRecyclerView,
     highlightText: String = "", itemClick: (Any) -> Unit
-) : MyRecyclerViewAdapter(activity, recyclerView, null, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate {
+) : MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate {
     private val NEW_GROUP_ID = -1
 
     private var config = activity.config

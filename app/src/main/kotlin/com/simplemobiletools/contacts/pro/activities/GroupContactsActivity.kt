@@ -66,7 +66,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         }
 
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        group_contacts_fastscroller?.updateColors(adjustedPrimaryColor, adjustedPrimaryColor.getContrastColor())
+        group_contacts_fastscroller?.updateColors(adjustedPrimaryColor)
         group_contacts_placeholder_2.underlineText()
         group_contacts_placeholder_2.setTextColor(adjustedPrimaryColor)
     }

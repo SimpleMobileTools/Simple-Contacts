@@ -84,7 +84,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
 
         context.updateTextColors(fragment_wrapper.parent as ViewGroup)
-        fragment_fastscroller?.updateColors(adjustedPrimaryColor, adjustedPrimaryColor.getContrastColor())
+        fragment_fastscroller?.updateColors(adjustedPrimaryColor)
         fragment_placeholder_2?.setTextColor(adjustedPrimaryColor)
 
         letter_fastscroller?.textColor = textColor.getColorStateList()
