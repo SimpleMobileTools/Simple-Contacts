@@ -132,7 +132,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             currentHash += it.getHashWithoutPrivatePhoto()
         }
 
-        if (currentHash != lastHashCode || skipHashComparing) {
+        if (currentHash != lastHashCode || skipHashComparing || filtered.size == 0) {
             skipHashComparing = false
             lastHashCode = currentHash
             activity?.runOnUiThread {
