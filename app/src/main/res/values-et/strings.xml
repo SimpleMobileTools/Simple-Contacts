@@ -1,2 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="no_contacts_with_emails">Ei leidunud ühtegi kontakti, kus oleks kirjas e-posti aadress</string>
+    <string name="app_launcher_name">Kontaktid</string>
+    <string name="inserting">Lisame…</string>
+    <string name="updating">Uuendame…</string>
+    <string name="phone_storage_hidden">Telefonimälu (muud rakendused ei saa siia ligi)</string>
+    <string name="company">Äriühing</string>
+    <string name="website">Veebisait</string>
+    <string name="send_sms_to_contacts">Saada SMS kontaktidele</string>
+    <string name="send_email_to_contacts">Saada e-kiri kontaktidele</string>
+    <string name="send_email_to_group">Saada e-kiri rühmale</string>
+    <string name="create_new_contact">Lisa uus kontakt</string>
+    <string name="add_to_existing_contact">Lisa olemasolevale kontaktile</string>
+    <string name="fields_empty">Palun täida vähemalt 1 väli</string>
+    <string name="no_contacts_with_phone_numbers">Ei leidunud ühtegi kontakti, kus oleks olemas telefoninumber</string>
+    <string name="new_contact">Uus kontakt</string>
+    <string name="edit_contact">Muuda kontakti</string>
+    <string name="select_contact">Vali kontakt</string>
+    <string name="nickname">Hüüdnimi</string>
+    <string name="no_groups">Rühmad puuduvad</string>
+    <string name="create_new_group">Loo uus rühm</string>
+    <string name="remove_from_group">Eemalda rühmast</string>
+    <string name="no_group_participants">See rühm on tühi</string>
+    <string name="no_group_created">Selles nutiseadmes puuduvad kontaktide rühmad</string>
+    <string name="create_group">Loo rühm</string>
+    <string name="take_photo">Pildista</string>
+    <string name="choose_photo">Vali pilt</string>
+    <string name="remove_photo">Eemalda pilt</string>
+    <string name="show_phone_numbers">Näita telefoninumbreid</string>
+    <string name="show_dialpad_button">Näita põhivaates telefoniklahvistikku</string>
+    <string name="app_name">Lihtne telefoniraamat ja kontaktihaldus</string>
+    <string name="address">Aadress</string>
+    <string name="job_position">Ametikoht</string>
+    <string name="send_sms_to_group">Saada SMS rühmale</string>
+    <string name="show_contact_thumbnails">Näita kontaktide pisipilte</string>
+    <string name="add_to_group">Lisa rühma</string>
+</resources>
