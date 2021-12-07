@@ -562,10 +562,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
 
             if (refreshTabsMask and TAB_CONTACTS != 0) {
+                contacts_fragment?.skipHashComparing = true
                 contacts_fragment?.refreshContacts(contacts)
             }
 
             if (refreshTabsMask and TAB_FAVORITES != 0) {
+                favorites_fragment?.skipHashComparing = true
                 favorites_fragment?.refreshContacts(contacts)
             }
 
