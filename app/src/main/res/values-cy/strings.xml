@@ -4,6 +4,7 @@
     <string name="address">Cyfeiriad</string>
     <string name="inserting">Yn gosod…</string>
     <string name="updating">Yn diweddaru…</string>
+    <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Storfa ddyfais (dim i\'w weld gan apiau eraill)</string>
     <string name="company">Cwmni</string>
     <string name="job_position">Swydd</string>

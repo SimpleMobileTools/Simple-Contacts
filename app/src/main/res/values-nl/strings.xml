@@ -4,6 +4,7 @@
     <string name="address">Adres</string>
     <string name="inserting">Toevoegen…</string>
     <string name="updating">Updaten…</string>
+    <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Telefoonopslag (niet zichtbaar voor andere apps)</string>
     <string name="company">Bedrijf</string>
     <string name="job_position">Titel</string>

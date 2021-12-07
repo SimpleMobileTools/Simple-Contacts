@@ -5,6 +5,7 @@
     <string name="address">Adresse</string>
     <string name="inserting">Legger til …</string>
     <string name="updating">Oppdaterer …</string>
+    <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Telefonlager (ikke synlig for andre programmer)</string>
     <string name="company">Firma</string>
     <string name="job_position">Stilling</string>

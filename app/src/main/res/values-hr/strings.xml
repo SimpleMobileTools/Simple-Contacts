@@ -4,6 +4,7 @@
     <string name="address">Adresa</string>
     <string name="inserting">Dodavanje…</string>
     <string name="updating">Ažuriranje…</string>
+    <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Pohrana na telefonu (nije vidljiva drugim aplikacijama))</string>
     <string name="company">Tvrtka</string>
     <string name="job_position">Radno mjesto</string>

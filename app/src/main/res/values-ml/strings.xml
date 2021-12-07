@@ -4,6 +4,7 @@
     <string name="address">വിലാസം</string>
     <string name="inserting">ചേർക്കുന്നു…</string>
     <string name="updating">പുതുക്കുന്നു…</string>
+    <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">ഫോൺ സ്റ്റോറേജ് (മറ്റ് അപ്ലിക്കേഷനുകൾക്ക് ദൃശ്യമല്ല)</string>
     <string name="company">കമ്പനി</string>
     <string name="job_position">ഉദ്യോഗ സ്ഥാനം</string>

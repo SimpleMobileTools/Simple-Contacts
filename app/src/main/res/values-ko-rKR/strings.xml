@@ -4,6 +4,7 @@
     <string name="address">주소</string>
     <string name="inserting">등록중…</string>
     <string name="updating">수정중…</string>
+    <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
     <string name="company">Company</string>
     <string name="job_position">Job position</string>

@@ -5,6 +5,7 @@
     <string name="address">Адрес</string>
     <string name="inserting">Добавление…</string>
     <string name="updating">Обновление…</string>
+    <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Память устройства (не видна другим приложениям)</string>
     <string name="company">Организация</string>
     <string name="job_position">Должность</string>
