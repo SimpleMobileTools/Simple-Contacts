@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Jednoduché kontakty</string>
     <string name="app_launcher_name">Kontakty</string>
@@ -15,16 +16,13 @@
     <string name="create_new_contact">Vytvořit nový kontakt</string>
     <string name="add_to_existing_contact">Přidat k existujícímu kontaktu</string>
     <string name="fields_empty">At least 1 field has to be filled out</string>
-
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nenalezeny žádné kontakty s e-maily</string>
     <string name="no_contacts_with_phone_numbers">Nenalezeny žádné kontakty s telefonními čísly</string>
-
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upravit kontakt</string>
     <string name="select_contact">Zvolte kontakt</string>
     <string name="nickname">Přezdívka</string>
-
     <!-- Groups -->
     <string name="no_groups">Žádné skupiny</string>
     <string name="create_new_group">Vytvořit novou skupinu</string>
@@ -35,12 +33,10 @@
     <string name="create_group">Vytvořit skupinu</string>
     <string name="add_to_group">Přidat do skupiny</string>
     <string name="create_group_under_account">Vytvořit skupinu pod účet</string>
-
     <!-- Photo -->
     <string name="take_photo">Pořídit fotku</string>
     <string name="choose_photo">Zvolit fotku</string>
     <string name="remove_photo">Odstranit fotku</string>
-
     <!-- Settings -->
     <string name="show_phone_numbers">Zobrazit telefonní čísla</string>
     <string name="show_contact_thumbnails">Zobrazit obrázky kontaktů</string>
@@ -52,12 +48,10 @@
     <string name="contacts">Kontakty</string>
     <string name="show_only_contacts_with_numbers">Zobrazit jen kontakty s telefonními čísly</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-
     <!-- Emails -->
     <string name="home">Domov</string>
     <string name="work">Práce</string>
     <string name="other">Jiné</string>
-
     <!-- Phone numbers -->
     <string name="mobile">Mobil</string>
     <string name="main_number">Hlavní</string>
@@ -65,19 +59,15 @@
     <string name="home_fax">Domácí fax</string>
     <string name="pager">Pager</string>
     <string name="no_phone_number_found">Nenalezeno žádné telefonní číslo</string>
-
     <!-- Events -->
     <string name="birthday">Narozeniny</string>
     <string name="anniversary">Výročí</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Vypadá to, že jste ještě nepřidali žádné oblíbené kontakty.</string>
-
     <!-- Search -->
     <string name="search_contacts">Hledat v kontaktech</string>
     <string name="search_favorites">Hledat mezi oblíbenými</string>
     <string name="search_groups">Hledat mezi skupinami</string>
-
     <!-- Export / Import -->
     <string name="import_contacts">Importovat kontakty</string>
     <string name="export_contacts">Exportovat kontakty</string>
@@ -86,11 +76,9 @@
     <string name="target_contact_source">Cílový zdroj kontaktů</string>
     <string name="include_contact_sources">Zahrnout zdroje kontaktů</string>
     <string name="filename_without_vcf">Název souboru (bez .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Číselník</string>
     <string name="add_number_to_contact">Přidat číslo kontaktu</string>
-
     <!-- Visible fields -->
     <string name="prefix">Titul před jménem</string>
     <string name="suffix">Titul za příjmením</string>
@@ -104,25 +92,21 @@
     <string name="contact_source">Zdroje kontaktů</string>
     <string name="instant_messaging">Rychlé zprávy (IM)</string>
     <string name="ringtone">Ringtone</string>
-
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Kontakt bude vymazán ze všech zdrojů kontaktů.</string>
-
     <plurals name="delete_groups">
         <item quantity="one">%d skupinu</item>
         <item quantity="few">%d skupiny</item>
         <item quantity="other">%d skupin</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Chci upravit viditelná pole kontaktů. Lze to?</string>
-    <string name="faq_1_text">Ano, stačí jít do Nastavení -> Spravovat zobrazená pole kontaktů. Tam si můžete zvolit, která pole mají být viditelná. Některá jsou ve výchozím stavu vypnutá, takže tam můžete objevit i nová pole.</string>
-
+    <string name="faq_1_text">Ano, stačí jít do Nastavení -&gt; Spravovat zobrazená pole kontaktů. Tam si můžete zvolit, která pole mají být viditelná. Některá jsou ve výchozím stavu vypnutá, takže tam můžete objevit i nová pole.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Jednoduché kontakty Pro - Rychlá správa kontaktů</string>
+    <string name="app_title">Jednoduché Kontakty Pro - Rychlá správa kontaktů</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
+    <string name="app_short_description">Prémiová aplikace na správu kontaktů bez reklam, s podporou skupin a oblíbených</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
@@ -164,9 +148,8 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
     -->
-</resources> 
+</resources>
