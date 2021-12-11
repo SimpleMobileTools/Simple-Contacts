@@ -536,7 +536,7 @@ class ViewContactActivity : ContactActivity() {
 
             for ((key, value) in sources) {
                 layoutInflater.inflate(R.layout.item_view_contact_source, contact_sources_holder, false).apply {
-                    contact_source.text = value
+                    contact_source.text = if (value == "") getString(R.string.phone_storage) else value
                     contact_source.copyOnLongClick(value)
                     contact_sources_holder.addView(this)
 
