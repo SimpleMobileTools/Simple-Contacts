@@ -91,7 +91,7 @@
     <string name="websites">Strony internetowe</string>
     <string name="groups">Grupy</string>
     <string name="contact_source">Miejsce przechowywania kontaktu</string>
-    <string name="instant_messaging">Komunikator (IM)</string>
+    <string name="instant_messaging">Komunikatory (IM)</string>
     <string name="ringtone">Dzwonek</string>
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Kontakt zostanie usunięty ze wszystkich miejsc przechowywania go.</string>

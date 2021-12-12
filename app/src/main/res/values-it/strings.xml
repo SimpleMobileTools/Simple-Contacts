@@ -16,7 +16,7 @@
     <string name="send_email_to_group">Invia un\'email al gruppo</string>
     <string name="create_new_contact">Crea un nuovo contatto</string>
     <string name="add_to_existing_contact">Aggiungi a un contatto esistente</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
+    <string name="fields_empty">Almeno 1 campo deve essere compilato</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nessun contatto trovato con un\'email</string>
     <string name="no_contacts_with_phone_numbers">Nessun contatto trovato con un numero di telefono</string>
@@ -39,7 +39,7 @@
     <string name="choose_photo">Scegli una foto</string>
     <string name="remove_photo">Rimuovi la foto</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Mostra i numeri di telefono nella schermata principale</string>
+    <string name="show_phone_numbers">Mostra i numeri di telefono</string>
     <string name="show_contact_thumbnails">Mostra le anteprime dei contatti</string>
     <string name="show_dialpad_button">Mostra il pulante per il tastierino nello schermo principale</string>
     <string name="on_contact_click">Alla pressione sul contatto</string>
@@ -106,7 +106,7 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro – Gestisci facilmente i tuoi contatti</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Un\'app premium per la gestione dei contatti che supporta gruppi e preferiti, senza pubblicità</string>
+    <string name="app_short_description">Un\'app premium per la gestione dei contatti senza pubblicità, supporta i gruppi e i preferiti</string>
     <string name="app_long_description"> Un\'applicazione leggera per gestire i tuoi contatti amata da milioni di persone. I contatti possono essere memorizzati solo sul tuo dispositivo, ma anche sincronizzati tramite Google, o altri account. Puoi usarla anche per gestire gli indirizzi e-mail degli utenti e gli eventi. Ha la capacità di ordinare/filtrare in base a più parametri, opzionalmente mostra il cognome come nome. Puoi visualizzare i tuoi contatti o gruppi preferiti in una lista separata. I gruppi possono essere utilizzati per l\'invio di e-mail o SMS in gruppo, per risparmiare tempo, è possibile rinominarli facilmente. Contiene dei comodi pulsanti per chiamare o mandare messaggi ai tuoi contatti. Tutti i campi visibili possono essere personalizzati come vuoi, puoi facilmente nascondere quelli inutilizzati. La funzione di ricerca cercherà la stringa data in ogni campo di contatto visibile, per farvi trovare facilmente il contatto desiderato. C\'è anche un leggero dialpad al vostro servizio, con suggerimenti intelligenti per i contatti. Supporta l\'esportazione/importazione di contatti in formato vCard in file .vcf, per una facile migrazione o il backup dei dati. Con questo gestore di contatti moderno e stabile potrete proteggere i vostri contatti non condividendoli con altre app, in modo da mantenere i vostri contatti privati. Come l\'origine dei contatti, puoi anche cambiare facilmente il nome del contatto, l\'email, il numero di telefono, l\'indirizzo, l\'organizzazione, i gruppi e molti altri campi personalizzabili. Si può usare anche per memorizzare gli eventi di contatto, come compleanni, anniversari, o qualsiasi altro personalizzato. Questo semplice editor di contatti ha molte impostazioni utili come mostrare i numeri di telefono nella schermata principale, attivare la visibilità delle miniature dei contatti, mostrare solo i contatti con numeri di telefono, mostrare una finestra di dialogo di conferma della chiamata prima di iniziare una chiamata. Viene fornito con un dialer rapido che fa anche uso di lettere. Per migliorare ulteriormente l\'esperienza dell\'utente, è possibile personalizzare ciò che accade quando si clicca su un contatto. È possibile avviare una chiamata, andare alla schermata Visualizza dettagli, o modificare il contatto selezionato. Puoi facilmente bloccare i numeri di telefono per evitare chiamate in entrata indesiderate. Per evitare di mostrare contatti potenzialmente indesiderati, ha una potente fusione di contatti duplicati. Viene fornito con Material Design e tema scuro per impostazione predefinita, fornisce una grande esperienza utente per un facile utilizzo. La mancanza di accesso a internet ti dà più privacy, sicurezza e stabilità rispetto ad altre app. Non contiene annunci o permessi inutili. È completamente opensource, fornisce colori personalizzabili. <b>Scopri la suite completa di Simple Tools qui:</b> https://www.simplemobiletools.com <b>Sito web autonomo di Simple Contacts Pro:</b> https://www.simplemobiletools.com/contacts <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
