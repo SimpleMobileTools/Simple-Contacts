@@ -47,7 +47,7 @@ abstract class ContactActivity : SimpleActivity() {
         } else if (requestCode == INTENT_SELECT_RINGTONE && resultCode == Activity.RESULT_OK && resultData != null) {
             val extras = resultData.extras
             if (extras?.containsKey(RingtoneManager.EXTRA_RINGTONE_PICKED_URI) == true) {
-                val uri = extras.getParcelable<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI) ?: return
+                val uri = extras.getParcelable<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
                 try {
                     systemRingtoneSelected(uri)
                 } catch (e: Exception) {
@@ -59,7 +59,7 @@ abstract class ContactActivity : SimpleActivity() {
 
     abstract fun customRingtoneSelected(ringtonePath: String)
 
-    abstract fun systemRingtoneSelected(uri: Uri)
+    abstract fun systemRingtoneSelected(uri: Uri?)
 
     fun showPhotoPlaceholder(photoView: ImageView) {
         val placeholder = BitmapDrawable(resources, getBigLetterPlaceholder(contact?.getNameToDisplay() ?: "A"))
@@ -88,7 +88,13 @@ abstract class ContactActivity : SimpleActivity() {
             .apply(options)
             .override(wantedWidth, wantedHeight)
             .listener(object : RequestListener<Drawable> {
-                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
                     photoView.background = ColorDrawable(0)
                     bottomShadow.beVisible()
                     return false
@@ -152,12 +158,14 @@ abstract class ContactActivity : SimpleActivity() {
         return if (type == BaseTypes.TYPE_CUSTOM) {
             label
         } else {
-            getString(when (type) {
-                Email.TYPE_HOME -> R.string.home
-                Email.TYPE_WORK -> R.string.work
-                Email.TYPE_MOBILE -> R.string.mobile
-                else -> R.string.other
-            })
+            getString(
+                when (type) {
+                    Email.TYPE_HOME -> R.string.home
+                    Email.TYPE_WORK -> R.string.work
+                    Email.TYPE_MOBILE -> R.string.mobile
+                    else -> R.string.other
+                }
+            )
         }
     }
 
@@ -165,11 +173,13 @@ abstract class ContactActivity : SimpleActivity() {
         return if (type == BaseTypes.TYPE_CUSTOM) {
             label
         } else {
-            getString(when (type) {
-                StructuredPostal.TYPE_HOME -> R.string.home
-                StructuredPostal.TYPE_WORK -> R.string.work
-                else -> R.string.other
-            })
+            getString(
+                when (type) {
+                    StructuredPostal.TYPE_HOME -> R.string.home
+                    StructuredPostal.TYPE_WORK -> R.string.work
+                    else -> R.string.other
+                }
+            )
         }
     }
 
@@ -177,16 +187,18 @@ abstract class ContactActivity : SimpleActivity() {
         return if (type == Im.PROTOCOL_CUSTOM) {
             label
         } else {
-            getString(when (type) {
-                Im.PROTOCOL_AIM -> R.string.aim
-                Im.PROTOCOL_MSN -> R.string.windows_live
-                Im.PROTOCOL_YAHOO -> R.string.yahoo
-                Im.PROTOCOL_SKYPE -> R.string.skype
-                Im.PROTOCOL_QQ -> R.string.qq
-                Im.PROTOCOL_GOOGLE_TALK -> R.string.hangouts
-                Im.PROTOCOL_ICQ -> R.string.icq
-                else -> R.string.jabber
-            })
+            getString(
+                when (type) {
+                    Im.PROTOCOL_AIM -> R.string.aim
+                    Im.PROTOCOL_MSN -> R.string.windows_live
+                    Im.PROTOCOL_YAHOO -> R.string.yahoo
+                    Im.PROTOCOL_SKYPE -> R.string.skype
+                    Im.PROTOCOL_QQ -> R.string.qq
+                    Im.PROTOCOL_GOOGLE_TALK -> R.string.hangouts
+                    Im.PROTOCOL_ICQ -> R.string.icq
+                    else -> R.string.jabber
+                }
+            )
         }
     }
 

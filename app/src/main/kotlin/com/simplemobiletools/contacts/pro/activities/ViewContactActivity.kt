@@ -613,7 +613,9 @@ class ViewContactActivity : ContactActivity() {
             contact_ringtone.beVisible()
 
             val ringtone = contact!!.ringtone
-            if (ringtone != null && ringtone.isNotEmpty()) {
+            if (ringtone?.isEmpty() == true) {
+                contact_ringtone.text = getString(R.string.no_sound)
+            } else if (ringtone?.isNotEmpty() == true) {
                 if (ringtone == SILENT) {
                     contact_ringtone.text = getString(R.string.no_sound)
                 } else {
@@ -703,7 +705,7 @@ class ViewContactActivity : ContactActivity() {
         ringtoneUpdated(ringtonePath)
     }
 
-    override fun systemRingtoneSelected(uri: Uri) {
+    override fun systemRingtoneSelected(uri: Uri?) {
         val contactRingtone = RingtoneManager.getRingtone(this, uri)
         contact_ringtone.text = contactRingtone.getTitle(this)
         ringtoneUpdated(uri.toString())
