@@ -4,6 +4,7 @@
     <string name="address">Ünvan</string>
     <string name="inserting">Daxil edilir…</string>
     <string name="updating">Yenilənir…</string>
+    <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Telefon yaddaşı (digər tətbiqlərə görünmür)</string>
     <string name="company">Şirkət</string>
     <string name="job_position">İş vəziyyəti</string>

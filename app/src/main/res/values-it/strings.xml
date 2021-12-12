@@ -5,6 +5,7 @@
     <string name="address">Indirizzo</string>
     <string name="inserting">Inserimento in corso…</string>
     <string name="updating">Aggiornamento in corso…</string>
+    <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Memoria del telefono (non visibile alle altre applicazioni)</string>
     <string name="company">Società</string>
     <string name="job_position">Posizione lavorativa</string>

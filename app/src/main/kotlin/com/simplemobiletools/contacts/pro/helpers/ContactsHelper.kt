@@ -807,6 +807,10 @@ class ContactsHelper(val context: Context) {
         }
         sources.addAll(contentResolverAccounts)
 
+        if (!sources.any { it.type.startsWith("com.google") || it.type.startsWith("com.android") || it.type.startsWith("com.qualcomm") }) {
+            sources.add(ContactSource("", "", context.getString(R.string.phone_storage)))
+        }
+
         return sources
     }
 

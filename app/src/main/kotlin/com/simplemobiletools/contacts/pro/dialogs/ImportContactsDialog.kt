@@ -42,7 +42,7 @@ class ImportContactsDialog(val activity: SimpleActivity, val path: String, priva
                 activity.showContactSourcePicker(targetContactSource) {
                     targetContactSource = if (it == activity.getString(R.string.phone_storage_hidden)) SMT_PRIVATE else it
                     activity.getPublicContactSource(it) {
-                        import_contacts_title.text = it
+                        import_contacts_title.text = if (it == "") activity.getString(R.string.phone_storage) else it
                     }
                 }
             }

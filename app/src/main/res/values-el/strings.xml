@@ -4,6 +4,7 @@
     <string name="address">Διεύθυνση</string>
     <string name="inserting">Εισαγωγή…</string>
     <string name="updating">Ενημέρωση…</string>
+    <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Μνήμη τηλεφώνου (κρυφές από άλλες εφαρμογές)</string>
     <string name="company">Εταιρεία</string>
     <string name="job_position">Θέση Εργασίας</string>

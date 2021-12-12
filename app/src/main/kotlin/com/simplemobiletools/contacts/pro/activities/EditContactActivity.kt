@@ -644,7 +644,7 @@ class EditContactActivity : ContactActivity() {
     private fun setupContactSource() {
         originalContactSource = contact!!.source
         getPublicContactSource(contact!!.source) {
-            contact_source.text = it
+            contact_source.text = if (it == "") getString(R.string.phone_storage) else it
         }
     }
 
@@ -653,7 +653,7 @@ class EditContactActivity : ContactActivity() {
         originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
         contact = getEmptyContact()
         getPublicContactSource(contact!!.source) {
-            contact_source.text = it
+            contact_source.text = if (it == "") getString(R.string.phone_storage) else it
         }
 
         // if the last used contact source is not available anymore, use the first available one. Could happen at ejecting SIM card
@@ -663,7 +663,7 @@ class EditContactActivity : ContactActivity() {
                 originalContactSource = sourceNames.first()
                 contact?.source = originalContactSource
                 getPublicContactSource(contact!!.source) {
-                    contact_source.text = it
+                    contact_source.text = if (it == "") getString(R.string.phone_storage) else it
                 }
             }
         }
@@ -916,7 +916,7 @@ class EditContactActivity : ContactActivity() {
         showContactSourcePicker(contact!!.source) {
             contact!!.source = if (it == getString(R.string.phone_storage_hidden)) SMT_PRIVATE else it
             getPublicContactSource(it) {
-                contact_source.text = it
+                contact_source.text = if (it == "") getString(R.string.phone_storage) else it
             }
         }
     }

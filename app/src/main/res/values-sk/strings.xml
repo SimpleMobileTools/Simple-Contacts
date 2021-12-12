@@ -4,6 +4,7 @@
     <string name="address">Adresa</string>
     <string name="inserting">Vytvára sa…</string>
     <string name="updating">Upravuje sa…</string>
+    <string name="phone_storage">Úložisko mobilu</string>
     <string name="phone_storage_hidden">Úložisko mobilu (neviditeľné pre ostatné apky)</string>
     <string name="company">Firma</string>
     <string name="job_position">Pracovná pozícia</string>
