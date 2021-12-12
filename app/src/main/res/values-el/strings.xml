@@ -4,7 +4,7 @@
     <string name="address">Διεύθυνση</string>
     <string name="inserting">Εισαγωγή…</string>
     <string name="updating">Ενημέρωση…</string>
-    <string name="phone_storage">Phone storage</string>
+    <string name="phone_storage">Αποθ. Τηλεφώνου</string>
     <string name="phone_storage_hidden">Μνήμη τηλεφώνου (κρυφές από άλλες εφαρμογές)</string>
     <string name="company">Εταιρεία</string>
     <string name="job_position">Θέση Εργασίας</string>
@@ -15,7 +15,7 @@
     <string name="send_email_to_group">Αποστολή email σε ομάδες</string>
     <string name="create_new_contact">Δημιουργία νέας Επαφής</string>
     <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
+    <string name="fields_empty">Τουλάχιστον 1 πεδίο πρέπει να συμπληρωθεί/string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Δεν βρέθηκαν Επαφές με emails</string>
