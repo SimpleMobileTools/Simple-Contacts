@@ -15,7 +15,7 @@
     <string name="send_email_to_group">Αποστολή email σε ομάδες</string>
     <string name="create_new_contact">Δημιουργία νέας Επαφής</string>
     <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
-    <string name="fields_empty">Τουλάχιστον 1 πεδίο πρέπει να συμπληρωθεί/string>
+    <string name="fields_empty">Τουλάχιστον 1 πεδίο πρέπει να συμπληρωθεί</string>
 
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Δεν βρέθηκαν Επαφές με emails</string>
