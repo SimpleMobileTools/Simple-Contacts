@@ -38,6 +38,7 @@ abstract class ContactActivity : SimpleActivity() {
     protected val INTENT_SELECT_RINGTONE = 600
 
     protected var contact: Contact? = null
+    protected var originalRingtone: String? = null
     protected var currentContactPhotoPath = ""
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {

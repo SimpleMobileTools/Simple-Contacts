@@ -156,6 +156,7 @@ class EditContactActivity : ContactActivity() {
             setupNewContact()
         } else {
             setupEditContact()
+            originalRingtone = contact?.ringtone
         }
 
         val action = intent.action
@@ -295,7 +296,7 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
-    private fun hasContactChanged() = contact != fillContactValues()
+    private fun hasContactChanged() = contact != fillContactValues() || originalRingtone != contact?.ringtone
 
     private fun openWith() {
         Intent().apply {
