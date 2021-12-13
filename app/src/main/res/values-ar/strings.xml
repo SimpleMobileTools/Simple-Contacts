@@ -4,7 +4,7 @@
     <string name="address">العنوان</string>
     <string name="inserting">إضافة…</string>
     <string name="updating">تحديث…</string>
-    <string name="phone_storage">Phone storage</string>
+    <string name="phone_storage">ذاكرة الهاتف</string>
     <string name="phone_storage_hidden">ذاكرة الهاتف (غير مرئية من قبل التطبيقات الأخرى)</string>
     <string name="company">الشركة</string>
     <string name="job_position">الوظيفة</string>

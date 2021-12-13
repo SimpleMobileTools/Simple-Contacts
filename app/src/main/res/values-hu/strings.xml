@@ -5,7 +5,7 @@
     <string name="address">Cím</string>
     <string name="inserting">Hozzáadás…</string>
     <string name="updating">Módosítás…</string>
-    <string name="phone_storage">Phone storage</string>
+    <string name="phone_storage">Telefon tárhelye</string>
     <string name="phone_storage_hidden">Telefon tárhelye (többi alkalmazás számára nem látható)</string>
     <string name="company">Cégnév</string>
     <string name="job_position">Munkakör</string>

@@ -5,7 +5,7 @@
     <string name="address">Adress</string>
     <string name="inserting">Lägger till…</string>
     <string name="updating">Uppdaterar…</string>
-    <string name="phone_storage">Phone storage</string>
+    <string name="phone_storage">Telefonens lagringsutrymme</string>
     <string name="phone_storage_hidden">Telefonens lagringsutrymme (inte synligt för andra appar)</string>
     <string name="company">Företag</string>
     <string name="job_position">Befattning</string>

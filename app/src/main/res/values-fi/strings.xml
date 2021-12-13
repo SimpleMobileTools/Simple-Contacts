@@ -3,9 +3,9 @@
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Yhteystiedot</string>
     <string name="address">Osoite</string>
-    <string name="inserting">Sijoitetaan...</string>
-    <string name="updating">Päivitetään...</string>
-    <string name="phone_storage">Phone storage</string>
+    <string name="inserting">Sijoitetaan…</string>
+    <string name="updating">Päivitetään…</string>
+    <string name="phone_storage">Puhelimen muisti</string>
     <string name="phone_storage_hidden">Puhelimen muisti (piilotettu muilta sovelluksilta)</string>
     <string name="company">Yritys</string>
     <string name="job_position">Ammatti</string>
