@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.16.3 *(2021-12-13)*
+----------------------------
+
+ * Fixed some contact sources not being visible
+ * Improve the handling of None ringtone being selected
+ * Added some stability, translation and UX improvements
+
 Version 6.16.2 *(2021-12-07)*
 ----------------------------
 

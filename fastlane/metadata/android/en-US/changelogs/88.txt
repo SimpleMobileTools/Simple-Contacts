@@ -1,0 +1,3 @@
+ * Fixed some contact sources not being visible
+ * Improve the handling of None ringtone being selected
+ * Added some stability, translation and UX improvements
