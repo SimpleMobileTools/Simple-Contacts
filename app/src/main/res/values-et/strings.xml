@@ -45,10 +45,10 @@
     <string name="on_contact_click">On contact click</string>
     <string name="call_contact">Helista</string>
     <string name="view_contact">View contact details</string>
-    <string name="manage_shown_contact_fields">Halda näidatud telefoniraamatu kirjeid</string>
+    <string name="manage_shown_contact_fields">Halda kuvatavaid kontaktkirje välju</string>
     <string name="contacts">Contacts</string>
     <string name="show_only_contacts_with_numbers">Näita vaid kontakte, kellel on telefoninumber</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
+    <string name="show_private_contacts">Näita privaatseks märgitud kontakte Lihtsas telefonis, Lihtne SMS sõnumikliendis ja Lihtsas kalendris</string>
     <!-- Emails -->
     <string name="home">Home</string>
     <string name="work">Töö</string>
@@ -74,8 +74,8 @@
     <string name="export_contacts">Export contacts</string>
     <string name="import_contacts_from_vcf">Impordi kontatid .vcf failist</string>
     <string name="export_contacts_to_vcf">Ekspordi kontatid .vcf faili</string>
-    <string name="target_contact_source">Target contact source</string>
-    <string name="include_contact_sources">Include contact sources</string>
+    <string name="target_contact_source">Vali andmekogu</string>
+    <string name="include_contact_sources">Kaasa andmekogud</string>
     <string name="filename_without_vcf">Faili nimi (ilma .vcf laiendita)</string>
     <!-- Dialpad -->
     <string name="dialpad">Numbriklahvid</string>
@@ -90,18 +90,18 @@
     <string name="organization">Organisatsioon</string>
     <string name="websites">Veebisaidid</string>
     <string name="groups">Rühmad</string>
-    <string name="contact_source">Contact source</string>
+    <string name="contact_source">Andmekogu</string>
     <string name="instant_messaging">Aadressid sõnumirakendustes</string>
     <string name="ringtone">Helin</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">Eemaldame kontakti kõikidest allikatest.</string>
+    <string name="delete_from_all_sources">Eemaldame kontakti kõikidest andmekogudest.</string>
     <plurals name="delete_groups">
         <item quantity="one">%d rühm</item>
         <item quantity="other">%d rühma</item>
     </plurals>
     <!-- FAQ -->
     <string name="faq_1_title">Ma soovin muuta kontaktkirje juures näidatavaid andmevälju. Kas ma saan seda teha\?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -&gt; Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_text">Jah ikka on võimalik. Ava Seadistused -&gt; Halda kuvatavaid kontaktkirje välju. Sealt saad valida välju, mida tahad näha. Kuna mõned neist on vaikimisi peidetud, siis saad vajadusel ka loendit laiendada.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Lihtne kontaktihaldus - halda mugavalt kontakte</string>
