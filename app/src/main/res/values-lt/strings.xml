@@ -8,7 +8,7 @@
     <string name="phone_storage">Telefono atmintis</string>
     <string name="phone_storage_hidden">Telefono atmintis (nematoma kitoms programėlėms)</string>
     <string name="company">Kompanija</string>
-    <string name="job_position"></string>
+    <string name="job_position"/>
     <string name="website">Internetinė svetainė</string>
     <string name="send_sms_to_contacts">Siųsti adresatams SMS žinutę</string>
     <string name="send_email_to_contacts">Siųsti adresatams el. laišką</string>
@@ -18,11 +18,11 @@
     <string name="add_to_existing_contact">Pridėti prie esamo adresato</string>
     <string name="fields_empty">Turi būti užpildytas bent 1 laukas</string>
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails"></string>
-    <string name="no_contacts_with_phone_numbers"></string>
+    <string name="no_contacts_with_emails"/>
+    <string name="no_contacts_with_phone_numbers"/>
     <string name="new_contact">Naujas adresatas</string>
     <string name="edit_contact">Taisyti adresatą</string>
-    <string name="select_contact"></string>
+    <string name="select_contact"/>
     <string name="nickname">Slapyvardis</string>
     <!-- Groups -->
     <string name="no_groups">Nėra grupių</string>
@@ -48,7 +48,7 @@
     <string name="manage_shown_contact_fields">Taisyti adresatą</string>
     <string name="contacts">Adresatai</string>
     <string name="show_only_contacts_with_numbers">Rodyti tik adresatus su telefono numeriu</string>
-    <string name="show_private_contacts"></string>
+    <string name="show_private_contacts"/>
     <!-- Emails -->
     <string name="home">Namų</string>
     <string name="work">Darbo</string>
@@ -74,80 +74,41 @@
     <string name="export_contacts">Eksportuoti adresatus</string>
     <string name="import_contacts_from_vcf">Importuoti adresatus iš .vcf failo</string>
     <string name="export_contacts_to_vcf">Eksportuoti adresatus į .vcf failą</string>
-    <string name="target_contact_source"></string>
-    <string name="include_contact_sources"></string>
+    <string name="target_contact_source"/>
+    <string name="include_contact_sources"/>
     <string name="filename_without_vcf">Failo pavadinimas (be .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Numerio rinkiklis</string>
-    <string name="add_number_to_contact"></string>
+    <string name="add_number_to_contact"/>
     <!-- Visible fields -->
-    <string name="prefix"></string>
-    <string name="suffix"></string>
+    <string name="prefix"/>
+    <string name="suffix"/>
     <string name="phone_numbers">Telefono numeriai</string>
-    <string name="emails"></string>
+    <string name="emails"/>
     <string name="addresses">Adresai</string>
-    <string name="events">Įvykiai (gimtadieniai, sukaktys)</string>
+    <string name="events">Įvykiai (gimtadieniai, metinės)</string>
     <string name="organization">Organizacija</string>
-    <string name="websites">Interneto puslapiai</string>
+    <string name="websites">Internetinės svetainės</string>
     <string name="groups">Grupės</string>
-    <string name="contact_source">Kontakto šaltinis</string>
-    <string name="instant_messaging">Instant messaging (IM)</string>
-    <string name="ringtone">Ringtone</string>
+    <string name="contact_source"></string>
+    <string name="instant_messaging"></string>
+    <string name="ringtone">Skambučio melodija</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_from_all_sources"></string>
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d grupė</item>
+        <item quantity="few">%d grupės</item>
+        <item quantity="other">%d grupių</item>
     </plurals>
     <!-- FAQ -->
-    <string name="faq_1_title">Noriu pakeisti, kokie laukai yra matomi kontaktuose. Ar galiu tai padaryti?</string>
-    <string name="faq_1_text">Taip, viskas, ką jums reikia padaryti, tai eiti į Nustatymai -&gt; Tvarkyti rodomus kontaktų laukus. Čia galite pasirinkti, kurie laukai turėtų būti matomi. Kai kurie iš jų netgi yra išjungiami pagal numatytuosius nustatymus, todėl ten galite rasti naujų.</string>
+    <string name="faq_1_title"></string>
+    <string name="faq_1_text"></string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title"></string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
-    <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
-
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
-
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
-
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
-
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
-
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
-
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
-
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
-
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
-
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
-
-        You can easily block phone numbers to avoid unwanted incoming calls.
-
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        Neturi reklamų ar nereikalingų leidimų. Programėlė visiškai atviro kodo, yra galimybė keisti spalvas.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone website of Simple Contacts Pro:</b>
-        https://www.simplemobiletools.com/contacts
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
+    <string name="app_short_description"></string>
+    <string name="app_long_description"></string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
