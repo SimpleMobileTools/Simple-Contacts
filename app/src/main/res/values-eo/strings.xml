@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="select_contact">Elekti kontakton</string>
+    <string name="website">Retpaĝo</string>
+    <string name="take_photo">Foti</string>
+    <string name="address">Adreso</string>
+    <string name="home">Hejmo</string>
+    <string name="work">Laboro</string>
+    <string name="other">Alia</string>
+    <string name="company">Firmao</string>
+    <string name="new_contact">Nova kontakto</string>
+    <string name="edit_contact">Modifi kontakton</string>
+    <string name="choose_photo">Elekti foton</string>
+    <string name="remove_photo">Forigi foton</string>
+    <string name="show_phone_numbers">Montri telefonnumeroj</string>
+    <string name="birthday">Naskiĝtago</string>
+</resources>
