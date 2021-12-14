@@ -1,102 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Paprasti kontaktai</string>
-    <string name="app_launcher_name">Kontaktai</string>
+    <string name="app_name">Paprasti adresatai</string>
+    <string name="app_launcher_name">Adresatai</string>
     <string name="address">Adresas</string>
     <string name="inserting">Įterpiama…</string>
     <string name="updating">Atnaujinama…</string>
     <string name="phone_storage">Telefono atmintis</string>
-    <string name="phone_storage_hidden">Telefono atmintis (nematoma kitų programėlių)</string>
-    <string name="company">Company</string>
-    <string name="job_position">Job position</string>
-    <string name="website">Website</string>
-    <string name="send_sms_to_contacts">Send SMS to contacts</string>
-    <string name="send_email_to_contacts">Send email to contacts</string>
-    <string name="send_sms_to_group">Send SMS to group</string>
-    <string name="send_email_to_group">Send email to group</string>
-    <string name="create_new_contact">Create new contact</string>
-    <string name="add_to_existing_contact">Add to an existing contact</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
-
+    <string name="phone_storage_hidden">Telefono atmintis (nematoma kitoms programėlėms)</string>
+    <string name="company">Kompanija</string>
+    <string name="job_position"></string>
+    <string name="website">Internetinė svetainė</string>
+    <string name="send_sms_to_contacts">Siųsti adresatams SMS žinutę</string>
+    <string name="send_email_to_contacts">Siųsti adresatams el. laišką</string>
+    <string name="send_sms_to_group">Siųsti grupei SMS žinutę</string>
+    <string name="send_email_to_group">Siųsti grupei el. laišką</string>
+    <string name="create_new_contact">Sukurti naują adresatą</string>
+    <string name="add_to_existing_contact">Pridėti prie esamo adresato</string>
+    <string name="fields_empty">Turi būti užpildytas bent 1 laukas</string>
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
-
-    <string name="new_contact">Naujas kontaktas</string>
-    <string name="edit_contact">Redaguoti kontaktą</string>
-    <string name="select_contact">Pasirinkti kontaktą</string>
-    <string name="nickname">Nickname</string>
-
+    <string name="no_contacts_with_emails"></string>
+    <string name="no_contacts_with_phone_numbers"></string>
+    <string name="new_contact">Naujas adresatas</string>
+    <string name="edit_contact">Taisyti adresatą</string>
+    <string name="select_contact"></string>
+    <string name="nickname">Slapyvardis</string>
     <!-- Groups -->
     <string name="no_groups">Nėra grupių</string>
     <string name="create_new_group">Sukurti naują grupę</string>
-    <string name="remove_from_group">Pašalinti iš grupės</string>
+    <string name="remove_from_group">Šalinti iš grupės</string>
     <string name="no_group_participants">Ši grupė tuščia</string>
-    <string name="add_contacts">Įtraukti kontaktus</string>
-    <string name="no_group_created">Šiame įrenginyje nėra kontaktų grupių</string>
+    <string name="add_contacts">Įtraukti adresatus</string>
+    <string name="no_group_created">Šiame įrenginyje nėra adresatų grupių</string>
     <string name="create_group">Sukurti grupę</string>
     <string name="add_to_group">Įtraukti į grupę</string>
     <string name="create_group_under_account">Sukurti grupę paskyroje</string>
-
     <!-- Photo -->
-    <string name="take_photo">Nufotografuoti</string>
+    <string name="take_photo">Fotografuoti</string>
     <string name="choose_photo">Pasirinkti nuotrauką</string>
-    <string name="remove_photo">Pašalinti nuotrauką</string>
-
+    <string name="remove_photo">Šalinti nuotrauką</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Rodyti telefono numerius pagrindiniame programos ekrane</string>
-    <string name="show_contact_thumbnails">Rodyti kontaktų miniatiūras</string>
-    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
-    <string name="on_contact_click">Ant kontakto paspaudimo</string>
-    <string name="call_contact">Skambinti kontaktui</string>
-    <string name="view_contact">Žiūrėti kontakto detales</string>
-    <string name="manage_shown_contact_fields">Manage shown contact fields</string>
-    <string name="contacts">Contacts</string>
-    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-
+    <string name="show_phone_numbers">Rodyti telefono numerius</string>
+    <string name="show_contact_thumbnails">Rodyti adresatų miniatiūras</string>
+    <string name="show_dialpad_button">Rodyti pagrindiniame ekrane numerio rinkiklį</string>
+    <string name="on_contact_click">Spustelėjus ant adresato</string>
+    <string name="call_contact">Skambinti adresatui</string>
+    <string name="view_contact">Rodyti išsamiau apie adresatą</string>
+    <string name="manage_shown_contact_fields">Taisyti adresatą</string>
+    <string name="contacts">Adresatai</string>
+    <string name="show_only_contacts_with_numbers">Rodyti tik adresatus su telefono numeriu</string>
+    <string name="show_private_contacts"></string>
     <!-- Emails -->
     <string name="home">Namų</string>
     <string name="work">Darbo</string>
     <string name="other">Kitas</string>
-
     <!-- Phone numbers -->
-    <string name="mobile">Mobilus</string>
+    <string name="mobile">Mobilusis</string>
     <string name="main_number">Pagrindinis</string>
     <string name="work_fax">Darbo faksas</string>
     <string name="home_fax">Namų faksas</string>
     <string name="pager">Pranešimų gaviklis</string>
     <string name="no_phone_number_found">Nerasta telefono numerio</string>
-
     <!-- Events -->
     <string name="birthday">Gimtadienis</string>
-    <string name="anniversary">Sukaktis</string>
-
+    <string name="anniversary">Metinės</string>
     <!-- Favorites -->
-    <string name="no_favorites">Atrodo jog Jūs dar neįvedėte nė vieno mėgiamiausiojo kontakto.</string>
-
+    <string name="no_favorites">Atrodo, kad dar nesate pridėję jokių mėgstamų adresatų.</string>
     <!-- Search -->
-    <string name="search_contacts">Ieškoti kontaktų</string>
-    <string name="search_favorites">Ieškoti mėgiamiausiųjų</string>
-    <string name="search_groups">Search groups</string>
-
+    <string name="search_contacts">Ieškoti adresatų</string>
+    <string name="search_favorites">Ieškoti mėgstamų</string>
+    <string name="search_groups">Ieškoti grupių</string>
     <!-- Export / Import -->
-    <string name="import_contacts">Importuoti kontaktus</string>
-    <string name="export_contacts">Eksportuoti kontaktus</string>
-    <string name="import_contacts_from_vcf">Importuoti kontaktus iš .vcf bylos</string>
-    <string name="export_contacts_to_vcf">Eksportuoti kontaktus į .vcf bylą</string>
-    <string name="target_contact_source">Tikslinis kontakto šaltinis</string>
-    <string name="include_contact_sources">Įtraukti kontaktų šaltinius</string>
-    <string name="filename_without_vcf">Bylos vardas (be .vcf)</string>
-
+    <string name="import_contacts">Importuoti adresatus</string>
+    <string name="export_contacts">Eksportuoti adresatus</string>
+    <string name="import_contacts_from_vcf">Importuoti adresatus iš .vcf failo</string>
+    <string name="export_contacts_to_vcf">Eksportuoti adresatus į .vcf failą</string>
+    <string name="target_contact_source"></string>
+    <string name="include_contact_sources"></string>
+    <string name="filename_without_vcf">Failo pavadinimas (be .vcf)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Dialpad</string>
-    <string name="add_number_to_contact">Add number to contact</string>
-
+    <string name="dialpad">Numerio rinkiklis</string>
+    <string name="add_number_to_contact"></string>
     <!-- Visible fields -->
-    <string name="prefix">Priešdėlis</string>
-    <string name="suffix">Priesaga</string>
-    <string name="phone_numbers">Telefonų numeriai</string>
-    <string name="emails">Elektroniniaipaštai</string>
+    <string name="prefix"></string>
+    <string name="suffix"></string>
+    <string name="phone_numbers">Telefono numeriai</string>
+    <string name="emails"></string>
     <string name="addresses">Adresai</string>
     <string name="events">Įvykiai (gimtadieniai, sukaktys)</string>
     <string name="organization">Organizacija</string>
@@ -105,19 +93,15 @@
     <string name="contact_source">Kontakto šaltinis</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
     <string name="ringtone">Ringtone</string>
-
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
-
     <plurals name="delete_groups">
         <item quantity="one">%d group</item>
         <item quantity="other">%d groups</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Noriu pakeisti, kokie laukai yra matomi kontaktuose. Ar galiu tai padaryti?</string>
-    <string name="faq_1_text">Taip, viskas, ką jums reikia padaryti, tai eiti į Nustatymai -> Tvarkyti rodomus kontaktų laukus. Čia galite pasirinkti, kurie laukai turėtų būti matomi. Kai kurie iš jų netgi yra išjungiami pagal numatytuosius nustatymus, todėl ten galite rasti naujų.</string>
-
+    <string name="faq_1_text">Taip, viskas, ką jums reikia padaryti, tai eiti į Nustatymai -&gt; Tvarkyti rodomus kontaktų laukus. Čia galite pasirinkti, kurie laukai turėtų būti matomi. Kai kurie iš jų netgi yra išjungiami pagal numatytuosius nustatymus, todėl ten galite rasti naujų.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
@@ -164,7 +148,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
