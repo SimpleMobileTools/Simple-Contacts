@@ -14,4 +14,13 @@
     <string name="remove_photo">Forigi foton</string>
     <string name="show_phone_numbers">Montri telefonnumeroj</string>
     <string name="birthday">Naskiĝtago</string>
+    <string name="app_name">Simpla Kontaktadministrilo</string>
+    <string name="app_launcher_name">Kontaktadministrilo</string>
+    <string name="inserting">Enmetante…</string>
+    <string name="updating">Ĝisdatigante…</string>
+    <string name="nickname">Alnomo</string>
+    <string name="no_groups">Neniu grupo</string>
+    <string name="create_new_group">Krei novan grupon</string>
+    <string name="create_group">Krei grupon</string>
+    <string name="search_contacts">Serĉi kontaktojn</string>
 </resources>
