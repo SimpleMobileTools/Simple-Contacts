@@ -1321,7 +1321,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     override fun systemRingtoneSelected(uri: Uri?) {
-        contact!!.ringtone = uri?.toString()
+        contact!!.ringtone = uri?.toString() ?: ""
         val contactRingtone = RingtoneManager.getRingtone(this, uri)
         contact_ringtone.text = contactRingtone.getTitle(this)
     }

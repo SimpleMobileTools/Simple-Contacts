@@ -1097,7 +1097,7 @@ class ContactsHelper(val context: Context) {
                 val uri = Uri.withAppendedPath(Contacts.CONTENT_URI, contact.contactId.toString())
                 val contentValues = ContentValues(2)
                 contentValues.put(Contacts.STARRED, contact.starred)
-                contentValues.put(Contacts.CUSTOM_RINGTONE, contact.ringtone ?: "")
+                contentValues.put(Contacts.CUSTOM_RINGTONE, contact.ringtone)
                 context.contentResolver.update(uri, contentValues, null, null)
             } catch (e: Exception) {
                 context.showErrorToast(e)

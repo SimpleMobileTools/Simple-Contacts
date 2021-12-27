@@ -24,6 +24,7 @@ import com.bumptech.glide.request.target.Target
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.SILENT
 import com.simplemobiletools.commons.helpers.letterBackgroundColors
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
@@ -241,12 +242,14 @@ abstract class ContactActivity : SimpleActivity() {
         return bitmap
     }
 
-    protected fun getDefaultRingtoneUri() = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_RINGTONE)
+    protected fun getDefaultRingtoneUri() = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
 
     protected fun getRingtonePickerIntent(): Intent {
         val defaultRingtoneUri = getDefaultRingtoneUri()
-        val currentRingtoneUri = if (contact!!.ringtone != null) {
+        val currentRingtoneUri = if (contact!!.ringtone != null && contact!!.ringtone!!.isNotEmpty()) {
             Uri.parse(contact!!.ringtone)
+        } else if (contact!!.ringtone?.isNotEmpty() == false) {
+            null
         } else {
             defaultRingtoneUri
         }
