@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Jednostavni kontakti</string>
     <string name="app_launcher_name">Kontakti</string>
@@ -15,17 +16,14 @@
     <string name="send_email_to_group">Pošalji e-poštu grupi</string>
     <string name="create_new_contact">Stvori novi kontakt</string>
     <string name="add_to_existing_contact">Dodaj postojećem kontaktu</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
-
+    <string name="fields_empty">Barem jedno polje mora biti ispunjeno</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nije pronađen nijedan kontakt s e-poštom</string>
     <string name="no_contacts_with_phone_numbers">Nisu pronađeni kontakti s telefonskim brojevima</string>
-
     <string name="new_contact">Novi kontakt</string>
     <string name="edit_contact">Uredi kontakt</string>
     <string name="select_contact">Odaberi kontakt</string>
     <string name="nickname">Nadimak</string>
-
     <!-- Groups -->
     <string name="no_groups">Nema grupa</string>
     <string name="create_new_group">Stvori novu grupu</string>
@@ -36,29 +34,25 @@
     <string name="create_group">Stvori grupu</string>
     <string name="add_to_group">Dodaj u grupu</string>
     <string name="create_group_under_account">Stvorite grupu pod računom</string>
-
     <!-- Photo -->
     <string name="take_photo">Uslikaj</string>
     <string name="choose_photo">Odaberi fotografiju</string>
     <string name="remove_photo">Ukloni fotografiju</string>
-
     <!-- Settings -->
     <string name="show_phone_numbers">Prikaži telefonske brojeve</string>
     <string name="show_contact_thumbnails">Prikaži sličice kontakata</string>
-    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
+    <string name="show_dialpad_button">Prikaži gumb telefonske tipkovnice na glavnom zaslonu</string>
     <string name="on_contact_click">Prilikom dodira kontakta</string>
     <string name="call_contact">Nazovi kontakt</string>
     <string name="view_contact">Prikaži pojedinosti o kontaktu</string>
     <string name="manage_shown_contact_fields">Upravljaj prikazanim poljima kontakta</string>
     <string name="contacts">Kontakti</string>
     <string name="show_only_contacts_with_numbers">Prikaži samo kontakte s telefonskim brojevima</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-
+    <string name="show_private_contacts">Prikaži privatne kontakte u Simple Dialer, Simple SMS Messenger i Simple Calendar Pro</string>
     <!-- Emails -->
     <string name="home">Kućni</string>
     <string name="work">Posao</string>
     <string name="other">Ostalo</string>
-
     <!-- Phone numbers -->
     <string name="mobile">Mobilni</string>
     <string name="main_number">Glavni</string>
@@ -66,19 +60,15 @@
     <string name="home_fax">Kućni fax</string>
     <string name="pager">Pager</string>
     <string name="no_phone_number_found">Nije pronađen nijedan telefonski broj</string>
-
     <!-- Events -->
     <string name="birthday">Rođendan</string>
     <string name="anniversary">Obljetnica</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Čini se da još niste dodali nijedan kontakt u favorite.</string>
-
     <!-- Search -->
     <string name="search_contacts">Pretraži kontakte</string>
     <string name="search_favorites">Pretraži favorite</string>
-    <string name="search_groups">Search groups</string>
-
+    <string name="search_groups">Pretraži grupe</string>
     <!-- Export / Import -->
     <string name="import_contacts">Uvezi kontakte</string>
     <string name="export_contacts">Izvezi kontakte</string>
@@ -87,11 +77,9 @@
     <string name="target_contact_source">Ciljani izvor kontakta</string>
     <string name="include_contact_sources">Uključi izvore kontakta</string>
     <string name="filename_without_vcf">Naziv datoteke (bez .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Telefonska tipkovnica</string>
     <string name="add_number_to_contact">Dodaj broj u kontakt</string>
-
     <!-- Visible fields -->
     <string name="prefix">Prefiks</string>
     <string name="suffix">Sufiks</string>
@@ -104,25 +92,22 @@
     <string name="groups">Grupe</string>
     <string name="contact_source">Izvori kontakata</string>
     <string name="instant_messaging">Brzo slanje poruka (IM)</string>
-    <string name="ringtone">Ringtone</string>
-
+    <string name="ringtone">Melodija zvona</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
-
+    <string name="delete_from_all_sources">Kontakt će biti uklonjen iz svih izvora kontakta.</string>
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d grupa</item>
+        <item quantity="few">%d grupe</item>
+        <item quantity="other">%d grupa</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Želim promijeniti polja koja su vidljiva na kontaktima. Mogu li to napraviti?</string>
-    <string name="faq_1_text">Da, sve što morate učiniti je otići u Postavke -> Upravljanje poljima za prikaz. Tamo možete odabrati polja koja bi trebala biti vidljiva. Neka od njih su čak i onemogućena prema zadanim postavkama, tako da možete pronaći neke nove.</string>
-
+    <string name="faq_1_text">Da, sve što morate učiniti je otići u Postavke -&gt; Upravljanje poljima za prikaz. Tamo možete odabrati polja koja bi trebala biti vidljiva. Neka od njih su čak i onemogućena prema zadanim postavkama, tako da možete pronaći neke nove.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">Simple Contacts Pro – upravljaj kontaktima</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
+    <string name="app_short_description">Premium aplikacija za upravljanje kontaktima bez oglasa, podržava grupe i favorite</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
@@ -164,7 +149,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

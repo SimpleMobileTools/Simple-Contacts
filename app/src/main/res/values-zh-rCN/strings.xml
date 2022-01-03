@@ -52,7 +52,7 @@
     <!-- Emails -->
     <string name="home">家庭</string>
     <string name="work">工作</string>
-    <string name="other">其它</string>
+    <string name="other">其他</string>
     <!-- Phone numbers -->
     <string name="mobile">手机</string>
     <string name="main_number">主用</string>

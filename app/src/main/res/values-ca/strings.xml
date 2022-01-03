@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple Contacts</string>
+    <string name="app_launcher_name">Contactes</string>
+    <string name="address">Adreça</string>
+    <string name="inserting">S\'està inserint…</string>
+    <string name="updating">S\'està actualitzant…</string>
+    <string name="phone_storage">Emmagatzematge del telèfon</string>
+    <string name="phone_storage_hidden">Emmagatzematge del telèfon (no visible per altres aplicacions)</string>
+    <string name="company">Empresa</string>
+    <string name="job_position">Càrrec</string>
+    <string name="website">Lloc web</string>
+    <string name="send_sms_to_contacts">Envia un SMS a contactes</string>
+    <string name="send_email_to_contacts">Envia un correu electrònic a contactes</string>
+    <string name="send_sms_to_group">Envia un SMS a un grup</string>
+    <string name="send_email_to_group">Envia un correu electrònic a un grup</string>
+    <string name="create_new_contact">Crea un contacte nou</string>
+    <string name="add_to_existing_contact">Afegeix a un contacte existent</string>
+    <string name="fields_empty">S\'ha d\'omplir com a mínim 1 camp</string>
+    <!-- Placeholders -->
+    <string name="no_contacts_with_emails">No s\'ha trobat cap contacte amb correu electrònic</string>
+    <string name="no_contacts_with_phone_numbers">No s\'ha trobat cap contacte amb número de telèfon</string>
+    <string name="new_contact">Contacte nou</string>
+    <string name="edit_contact">Edita el contacte</string>
+    <string name="select_contact">Selecciona un contacte</string>
+    <string name="nickname">Sobrenom</string>
+    <!-- Groups -->
+    <string name="no_groups">No hi ha cap grup</string>
+    <string name="create_new_group">Crea un grup nou</string>
+    <string name="remove_from_group">Elimina del grup</string>
+    <string name="no_group_participants">Aquest grup està buit</string>
+    <string name="add_contacts">Afegeix contactes</string>
+    <string name="no_group_created">No hi ha cap grup de contactes al dispositiu</string>
+    <string name="create_group">Crea un grup</string>
+    <string name="add_to_group">Afegeix al grup</string>
+    <string name="create_group_under_account">Crea un grup sota el compte</string>
+    <!-- Photo -->
+    <string name="take_photo">Fes una foto</string>
+    <string name="choose_photo">Tria una foto</string>
+    <string name="remove_photo">Elimina la foto</string>
+    <!-- Settings -->
+    <string name="show_phone_numbers">Mostra els números de telèfon</string>
+    <string name="show_contact_thumbnails">Mostra les miniatures dels contactes</string>
+    <string name="show_dialpad_button">Mostra un botó de teclat de marcatge a la pantalla principal</string>
+    <string name="on_contact_click">En fer clic al contacte</string>
+    <string name="call_contact">Truca al contacte</string>
+    <string name="view_contact">Visualitza les dades del contacte</string>
+    <string name="manage_shown_contact_fields">Gestiona els camps mostrats de contacte</string>
+    <string name="contacts">Contactes</string>
+    <string name="show_only_contacts_with_numbers">Mostra només els contactes amb números de telèfon</string>
+    <string name="show_private_contacts">Mostra els contactes privats al Simple Dialer, Simple SMS Messenger i Simple Calendar Pro</string>
+    <!-- Emails -->
+    <string name="home">Llar</string>
+    <string name="work">Feina</string>
+    <string name="other">Altres</string>
+    <!-- Phone numbers -->
+    <string name="mobile">Mòbil</string>
+    <string name="main_number">Principal</string>
+    <string name="work_fax">Fax de la feina</string>
+    <string name="home_fax">Fax de la llar</string>
+    <string name="pager">Cercapersones</string>
+    <string name="no_phone_number_found">No s\'ha trobat cap número de telèfon</string>
+    <!-- Events -->
+    <string name="birthday">Data de naixement</string>
+    <string name="anniversary">Aniversari</string>
+    <!-- Favorites -->
+    <string name="no_favorites">Sembla que encara no has afegit cap contacte preferit.</string>
+    <!-- Search -->
+    <string name="search_contacts">Cerca contactes</string>
+    <string name="search_favorites">Cerca als preferits</string>
+    <string name="search_groups">Cerca grups</string>
+    <!-- Export / Import -->
+    <string name="import_contacts">Importa contactes</string>
+    <string name="export_contacts">Exporta contactes</string>
+    <string name="import_contacts_from_vcf">Importa contactes des d\'un fitxer .vcf</string>
+    <string name="export_contacts_to_vcf">Exporta contactes a un fitxer .vcf</string>
+    <string name="target_contact_source">Destinació de l\'origen dels contactes</string>
+    <string name="include_contact_sources">Inclou l\'origen dels contactes</string>
+    <string name="filename_without_vcf">Nom de fitxer (sense .vcf)</string>
+    <!-- Dialpad -->
+    <string name="dialpad">Teclat de marcatge</string>
+    <string name="add_number_to_contact">Afegeix un número al contacte</string>
+    <!-- Visible fields -->
+    <string name="prefix">Prefix</string>
+    <string name="suffix">Sufix</string>
+    <string name="phone_numbers">Números de telèfon</string>
+    <string name="emails">Correus electrònics</string>
+    <string name="addresses">Adreces</string>
+    <string name="events">Esdeveniments (dates de naixement, aniversaris)</string>
+    <string name="organization">Organització</string>
+    <string name="websites">Llocs web</string>
+    <string name="groups">Grups</string>
+    <string name="contact_source">Origen de contacte</string>
+    <string name="instant_messaging">Missatgeria instantània (IM)</string>
+    <string name="ringtone">To de trucada</string>
+    <!-- Confirmation dialog -->
+    <string name="delete_from_all_sources">El contacte s\'eliminarà de tots els orígens de contactes.</string>
+    <plurals name="delete_groups">
+        <item quantity="one">%d grup</item>
+        <item quantity="other">%d grups</item>
+    </plurals>
+    <!-- FAQ -->
+    <string name="faq_1_title">Vull canviar quins camps són visibles als contactes. Puc fer-ho\?</string>
+    <string name="faq_1_text">Sí, tot el que has de fer és anar a Configuració -&gt; Gestiona els camps mostrats de contacte. Allà es pot seleccionar quins camps han de ser visibles. Alguns d\'ells fins i tot estan desactivats de manera predeterminada, de manera que és possible que en trobeu de nous.</string>
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Contacts Pro - Gestiona els teus contactes fàcilment</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Una aplicació premium per a la gestió de contactes sense anuncis, admet grups i preferits</string>
+    <string name="app_long_description"> Una aplicació lleugera per gestionar els teus contactes, apreciada per milions de persones. Els contactes només es poden emmagatzemar al dispositiu, però també es poden sincronitzar mitjançant Google o altres comptes. També es pot utilitzar per gestionar els correus electrònics i els esdeveniments dels usuaris. Té la capacitat d\'ordenar/filtrar per múltiples paràmetres, opcionalment mostrar el cognom com a primer nom. Podeu mostrar els vostres contactes o grups preferits en una llista independent. Els grups es poden utilitzar per enviar correus electrònics o SMS per lots, per estalviar-vos temps, podeu canviar-los el nom fàcilment. Conté botons útils per trucar o enviar missatges de text als contactes. Tots els camps visibles es poden personalitzar com vulgueu, podeu amagar fàcilment els que no feu servir. La funció de cerca cercarà la cadena indicada a tots els camps visibles de contacte per tal que trobeu fàcilment el contacte desitjat. També hi ha un teclat lleuger al vostre servei, amb suggeriments intel·ligents de contacte. Admet l\'exportació/importació de contactes en format vCard a fitxers .vcf, per facilitar les migracions o fer una còpia de seguretat de les vostres dades. Amb aquest gestor de contactes modern i estable podeu protegir els vostres contactes no compartint-los amb altres aplicacions, de manera que podeu mantenir els vostres contactes privats. Igual que l\'origen del contacte, també podeu canviar fàcilment el nom del contacte, el correu electrònic, el número de telèfon, l\'adreça, l\'organització, els grups i molts altres camps personalitzables. També podeu utilitzar-lo per emmagatzemar esdeveniments dels contactes, com ara dates de naixement, aniversaris o qualsevol altre personalitzat. Aquest editor senzill de contactes té molts paràmetres útils, com ara mostrar els números de telèfon a la pantalla principal, canviar la visibilitat de les miniatures dels contactes, mostrar només contactes amb números de telèfon, mostrar un diàleg de confirmació de trucada abans d\'iniciar una trucada. Ve amb un marcador ràpid que també fa ús de lletres. Per millorar encara més l\'experiència de l\'usuari, podeu personalitzar què passa en fer clic a un contacte. Podeu iniciar una trucada, anar a la pantalla per veure els detalls o editar el contacte seleccionat. Podeu bloquejar fàcilment els números de telèfon per evitar trucades entrants no desitjades. Per evitar que es mostrin contactes potencialment no desitjats, té integrada una fusió potent de contactes duplicats. De manera predeterminada, inclou el Material Design i un tema fosc, proporciona una gran experiència d\'usuari per a un ús fàcil. La manca d\'accés a Internet us ofereix més privadesa, seguretat i estabilitat que altres aplicacions. No conté anuncis ni permisos innecessaris. És totalment de codi obert, proporciona colors personalitzables. <b>Consulteu el conjunt complet d\'eines simples aquí:</b> https://www.simplemobiletools.com <b>Lloc web autònom de Simple Contacts Pro:</b> https://www.simplemobiletools.com/contacts <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
