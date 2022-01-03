@@ -2,7 +2,10 @@ package com.simplemobiletools.contacts.pro.helpers
 
 import android.net.Uri
 import android.provider.ContactsContract.CommonDataKinds
-import android.provider.ContactsContract.CommonDataKinds.*
+import android.provider.ContactsContract.CommonDataKinds.Event
+import android.provider.ContactsContract.CommonDataKinds.Im
+import android.provider.ContactsContract.CommonDataKinds.Phone
+import android.provider.ContactsContract.CommonDataKinds.StructuredPostal
 import android.provider.MediaStore
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.getDateTimeFromDateString
@@ -14,13 +17,9 @@ import com.simplemobiletools.contacts.pro.helpers.VcfExporter.ExportResult.EXPOR
 import com.simplemobiletools.contacts.pro.models.Contact
 import ezvcard.Ezvcard
 import ezvcard.VCard
+import ezvcard.VCardVersion
 import ezvcard.parameter.ImageType
 import ezvcard.property.*
-import ezvcard.property.Email
-import ezvcard.property.Organization
-import ezvcard.property.Photo
-import ezvcard.property.StructuredName
-import ezvcard.util.PartialDate
 import java.io.OutputStream
 import java.util.*
 
@@ -32,7 +31,13 @@ class VcfExporter {
     private var contactsExported = 0
     private var contactsFailed = 0
 
-    fun exportContacts(activity: BaseSimpleActivity, outputStream: OutputStream?, contacts: ArrayList<Contact>, showExportingToast: Boolean, callback: (result: ExportResult) -> Unit) {
+    fun exportContacts(
+        activity: BaseSimpleActivity,
+        outputStream: OutputStream?,
+        contacts: ArrayList<Contact>,
+        showExportingToast: Boolean,
+        callback: (result: ExportResult) -> Unit
+    ) {
         try {
             if (outputStream == null) {
                 callback(EXPORT_FAIL)
@@ -150,16 +155,18 @@ class VcfExporter {
                 contactsExported++
             }
 
-            Ezvcard.write(cards).go(outputStream)
+            Ezvcard.write(cards).version(VCardVersion.V4_0).go(outputStream)
         } catch (e: Exception) {
             activity.showErrorToast(e)
         }
 
-        callback(when {
-            contactsExported == 0 -> EXPORT_FAIL
-            contactsFailed > 0 -> ExportResult.EXPORT_PARTIAL
-            else -> ExportResult.EXPORT_OK
-        })
+        callback(
+            when {
+                contactsExported == 0 -> EXPORT_FAIL
+                contactsFailed > 0 -> ExportResult.EXPORT_PARTIAL
+                else -> ExportResult.EXPORT_OK
+            }
+        )
     }
 
     private fun getPhoneNumberTypeLabel(type: Int, label: String) = when (type) {
