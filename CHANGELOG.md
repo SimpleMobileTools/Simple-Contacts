@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.17.0 *(2022-01-03)*
+----------------------------
+
+ * Use vCard version 4 at exporting contacts to .vcf files, allow exporting anniversaties
+ * Allow searching contacts by their nicknames too
+ * Added some other stability, translation and UX improvements
+
 Version 6.16.3 *(2021-12-13)*
 ----------------------------
 
