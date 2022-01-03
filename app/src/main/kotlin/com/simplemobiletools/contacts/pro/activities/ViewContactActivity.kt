@@ -291,7 +291,11 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupNames() {
-        val displayName = contact!!.getNameToDisplay()
+        var displayName = contact!!.getNameToDisplay()
+        if (contact!!.nickname.isNotEmpty()) {
+            displayName += " (${contact!!.nickname})"
+        }
+
         contact_name.text = displayName
         contact_name.copyOnLongClick(displayName)
         contact_name.beVisibleIf(displayName.isNotEmpty() && !contact!!.isABusinessContact())
