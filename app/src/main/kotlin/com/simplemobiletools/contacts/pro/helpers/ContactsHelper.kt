@@ -258,6 +258,13 @@ class ContactsHelper(val context: Context) {
             contacts[key]?.notes = notes.valueAt(i)
         }
 
+        val nicknames = getNicknames()
+        size = nicknames.size()
+        for (i in 0 until size) {
+            val key = nicknames.keyAt(i)
+            contacts[key]?.nickname = nicknames.valueAt(i)
+        }
+
         val websites = getWebsites()
         size = websites.size()
         for (i in 0 until size) {
