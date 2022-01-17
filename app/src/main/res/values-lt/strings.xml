@@ -52,7 +52,7 @@
     <!-- Emails -->
     <string name="home">Namų</string>
     <string name="work">Darbo</string>
-    <string name="other">Kitas</string>
+    <string name="other">Kita</string>
     <!-- Phone numbers -->
     <string name="mobile">Mobilusis</string>
     <string name="main_number">Pagrindinis</string>
