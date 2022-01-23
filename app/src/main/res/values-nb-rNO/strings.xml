@@ -78,7 +78,7 @@
     <string name="filename_without_vcf">Filnavn (uten .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Tallskive</string>
-    <string name="add_number_to_contact">Legg til nummer for kontakt</string>
+    <string name="add_number_to_contact">Legg til nummer i kontakt</string>
     <!-- Visible fields -->
     <string name="prefix">Tittel</string>
     <string name="suffix">Endelse</string>
