@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Απλές Επαφές</string>
     <string name="app_launcher_name">Επαφές</string>
@@ -16,16 +17,13 @@
     <string name="create_new_contact">Δημιουργία νέας Επαφής</string>
     <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
     <string name="fields_empty">Τουλάχιστον 1 πεδίο πρέπει να συμπληρωθεί</string>
-
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Δεν βρέθηκαν Επαφές με emails</string>
     <string name="no_contacts_with_phone_numbers">Δεν βρέθηκαν Επαφές με αριθμό τηλεφώνου</string>
-
     <string name="new_contact">Νέα επαφή</string>
     <string name="edit_contact">Επεξεργασία επαφής</string>
     <string name="select_contact">Επιλογή επαφής</string>
     <string name="nickname">Ψευδώνυμο</string>
-
     <!-- Groups -->
     <string name="no_groups">Δεν υπάρχουν ομάδες</string>
     <string name="create_new_group">Δημιουργία νέας ομάδας</string>
@@ -36,14 +34,12 @@
     <string name="create_group">Δημιουργία ομάδας</string>
     <string name="add_to_group">Προσθήκη σε ομάδα</string>
     <string name="create_group_under_account">Δημιουργία ομάδας υπό ενός λογαριασμού</string>
-
     <!-- Photo -->
     <string name="take_photo">Λήψη φωτογραφίας</string>
     <string name="choose_photo">Επιλογή φωτογραφίας</string>
     <string name="remove_photo">Αφαίρεση φωτογραφίας</string>
-
     <!-- Settings -->
-    <string name="show_phone_numbers">Εμφάνιση τηλεφωνικών αριθμών στην κύρια οθόνη</string>
+    <string name="show_phone_numbers">Εμφάνιση τηλεφωνικών</string>
     <string name="show_contact_thumbnails">Εμφάνιση μικρογραφιών επαφής</string>
     <string name="show_dialpad_button">Προβολή ενός κουμπίου πληκτρολογίου στην κύρια οθόνη</string>
     <string name="on_contact_click">Στην επιλογή επαφής</string>
@@ -53,12 +49,10 @@
     <string name="contacts">Επαφές</string>
     <string name="show_only_contacts_with_numbers">Προβολή όλων των Επαφών με αριθμούς τηλεφώνου</string>
     <string name="show_private_contacts">Εμφάνιση ιδιωτικών επαφών σε Απλή Κλήση, Απλός SMS Messenger και Απλό Ημερολόγιο Pro</string>
-
     <!-- Emails -->
     <string name="home">Οικία</string>
     <string name="work">Εργασία</string>
     <string name="other">Άλλο</string>
-
     <!-- Phone numbers -->
     <string name="mobile">Κινητό</string>
     <string name="main_number">Κύριο</string>
@@ -66,19 +60,15 @@
     <string name="home_fax">Φαξ Οικίας</string>
     <string name="pager">Βομβητής</string>
     <string name="no_phone_number_found">Δεν βρέθηκε τηλεφωνικός αριθμός</string>
-
     <!-- Events -->
     <string name="birthday">Γενέθλια</string>
     <string name="anniversary">Επέτειος</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Φαίνεται ότι δεν έχετε προσθέσει αγαπημένες επαφές ακόμη.</string>
-
     <!-- Search -->
     <string name="search_contacts">Αναζήτηση επαφών</string>
     <string name="search_favorites">Αναζήτηση αγαπημένων</string>
     <string name="search_groups">Αναζήτηση ομάδων</string>
-
     <!-- Export / Import -->
     <string name="import_contacts">Εισαγωγή επαφών</string>
     <string name="export_contacts">Εξαγωγή επαφών</string>
@@ -87,11 +77,9 @@
     <string name="target_contact_source">Προορισμός πηγής επαφής</string>
     <string name="include_contact_sources">Συμπερίληψη πηγών επαφών</string>
     <string name="filename_without_vcf">Όνομα αρχείου (εκτός .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Πληκτρολόγιο</string>
     <string name="add_number_to_contact">Προσθήκη αριθμού σε επαφή</string>
-
     <!-- Visible fields -->
     <string name="prefix">Πρόθεμα</string>
     <string name="suffix">Κατάληξη</string>
@@ -105,19 +93,15 @@
     <string name="contact_source">Προέλευση επαφής</string>
     <string name="instant_messaging">Αμεσο μήνυμα (IM)</string>
     <string name="ringtone">Ήχος κλήσης</string>
-
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Η επαφή θα καταργηθεί από όλες τις πηγές επαφών.</string>
-
     <plurals name="delete_groups">
         <item quantity="one">%d ομάδα</item>
         <item quantity="other">%d ομάδες</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Θέλω να αλλάξω τα πεδία που θα είναι ορατά στις επαφές. Μπορώ να το κάνω?</string>
-    <string name="faq_1_text">Ναι, το μόνο που έχετε να κάνετε είναι να μεταβείτε στις Ρυθμίσεις -> Διαχείριση εμφανιζόμενων πεδίων επαφής. Εκεί μπορείτε να επιλέξετε ποια πεδία θα πρέπει να είναι ορατά. Κάποια από αυτά είναι ακόμη και απενεργοποιημένα από προεπιλογή, επομένως ίσως βρείτε κάποια νέα εκεί.</string>
-
+    <string name="faq_1_text">Ναι, το μόνο που έχετε να κάνετε είναι να μεταβείτε στις Ρυθμίσεις -&gt; Διαχείριση εμφανιζόμενων πεδίων επαφής. Εκεί μπορείτε να επιλέξετε ποια πεδία θα πρέπει να είναι ορατά. Κάποια από αυτά είναι ακόμη και απενεργοποιημένα από προεπιλογή, επομένως ίσως βρείτε κάποια νέα εκεί.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Απλές Επαφές Pro - Εύκολη διαχείριση Επαφών</string>
@@ -164,7 +148,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
