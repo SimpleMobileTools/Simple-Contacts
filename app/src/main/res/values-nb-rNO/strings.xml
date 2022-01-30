@@ -3,7 +3,7 @@
     <string name="app_name">Enkle kontakter</string>
     <string name="app_launcher_name">Kontakter</string>
     <string name="address">Adresse</string>
-    <string name="inserting">Legger til …</string>
+    <string name="inserting">Setter inn…</string>
     <string name="updating">Oppdaterer …</string>
     <string name="phone_storage">Telefonlager</string>
     <string name="phone_storage_hidden">Telefonlager (ikke synlig for andre programmer)</string>
@@ -17,8 +17,8 @@
     <string name="create_new_contact">Opprett ny kontakt</string>
     <string name="add_to_existing_contact">Legg til i eksisterende kontakt</string>
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails">Fant ingen kontakter med e-postadresser</string>
-    <string name="no_contacts_with_phone_numbers">Fant ingen kontakter med telefonnumre</string>
+    <string name="no_contacts_with_emails">Ingen kontakter med e-post er funnet</string>
+    <string name="no_contacts_with_phone_numbers">Ingen kontakter med telefonnumre er funnet</string>
     <string name="new_contact">Ny kontakt</string>
     <string name="edit_contact">Rediger kontakt</string>
     <string name="select_contact">Velg kontakt</string>
@@ -38,7 +38,7 @@
     <string name="choose_photo">Velg bilde</string>
     <string name="remove_photo">Fjern bilde</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Vis telefonnummer på hovedskjermen</string>
+    <string name="show_phone_numbers">Vis telefonnumre</string>
     <string name="show_contact_thumbnails">Vis kontaktminiatyrbilder</string>
     <string name="show_dialpad_button">Vis nummerskiveknapp på hovedskjermen</string>
     <string name="on_contact_click">Ved kontaktklikk</string>
@@ -47,7 +47,7 @@
     <string name="manage_shown_contact_fields">Håndter viste kontaktfelter</string>
     <string name="contacts">Kontakter</string>
     <string name="show_only_contacts_with_numbers">Kun vis kontakter med telefonnumre</string>
-    <string name="show_private_contacts">Vis private kontakter til Enkel telefon, Enkel SMS, og Enkel kalender pro</string>
+    <string name="show_private_contacts">Vis private kontakter til Simple Dialer, Simple SMS Messenger og Simple Calendar Pro</string>
     <!-- Emails -->
     <string name="home">Privat</string>
     <string name="work">Arbeid</string>
@@ -77,13 +77,13 @@
     <string name="include_contact_sources">Inkluder kontaktkilder</string>
     <string name="filename_without_vcf">Filnavn (uten .vcf)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Tallskive</string>
+    <string name="dialpad">Tastatur</string>
     <string name="add_number_to_contact">Legg til nummer i kontakt</string>
     <!-- Visible fields -->
-    <string name="prefix">Tittel</string>
-    <string name="suffix">Endelse</string>
+    <string name="prefix">Prefiks</string>
+    <string name="suffix">Suffiks</string>
     <string name="phone_numbers">Telefonnummer</string>
-    <string name="emails">E-postadresser</string>
+    <string name="emails">E-poster</string>
     <string name="addresses">Adresser</string>
     <string name="events">Hendelser (geburtsdager, jubiléer)</string>
     <string name="organization">Organisasjon</string>
@@ -99,13 +99,13 @@
         <item quantity="other">%d grupper</item>
     </plurals>
     <!-- FAQ -->
-    <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
+    <string name="faq_1_title">Jeg vil endre hvilke felter som er synlige for kontakter. Kan jeg gjøre det\?</string>
     <string name="faq_1_text">Yes, all you have to do is go in Settings -&gt; Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Et premiumsprogram for håndtering av kontakter, som støtter grupper og favoritter, uten reklame</string>
+    <string name="app_short_description">En premium-app for kontaktadministrasjon uten annonser, støtter grupper og favoritter</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
