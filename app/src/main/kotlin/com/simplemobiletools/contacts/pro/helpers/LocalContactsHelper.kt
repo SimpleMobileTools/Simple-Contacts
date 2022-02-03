@@ -136,7 +136,7 @@ class LocalContactsHelper(val context: Context) {
         }
 
         return getEmptyLocalContact().apply {
-            id = if (contact.id == 0) null else contact.id
+            id = if (contact.id <= FIRST_CONTACT_ID) null else contact.id
             prefix = contact.prefix
             firstName = contact.firstName
             middleName = contact.middleName
