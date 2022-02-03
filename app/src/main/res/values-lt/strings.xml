@@ -8,7 +8,7 @@
     <string name="phone_storage">Telefono atmintis</string>
     <string name="phone_storage_hidden">Telefono atmintis (nematoma kitoms programėlėms)</string>
     <string name="company">Kompanija</string>
-    <string name="job_position"/>
+    <string name="job_position">Pareigos</string>
     <string name="website">Internetinė svetainė</string>
     <string name="send_sms_to_contacts">Siųsti adresatams SMS žinutę</string>
     <string name="send_email_to_contacts">Siųsti adresatams el. laišką</string>
@@ -18,8 +18,8 @@
     <string name="add_to_existing_contact">Pridėti prie esamo adresato</string>
     <string name="fields_empty">Turi būti užpildytas bent 1 laukas</string>
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails"/>
-    <string name="no_contacts_with_phone_numbers"/>
+    <string name="no_contacts_with_emails">Nerasta adresatų su el. pašto adresais</string>
+    <string name="no_contacts_with_phone_numbers">Nerasta adresatų su telefono numeriais</string>
     <string name="new_contact">Naujas adresatas</string>
     <string name="edit_contact">Taisyti adresatą</string>
     <string name="select_contact"/>
@@ -52,7 +52,7 @@
     <!-- Emails -->
     <string name="home">Namų</string>
     <string name="work">Darbo</string>
-    <string name="other">Kitas</string>
+    <string name="other">Kita</string>
     <!-- Phone numbers -->
     <string name="mobile">Mobilusis</string>
     <string name="main_number">Pagrindinis</string>
@@ -90,25 +90,25 @@
     <string name="organization">Organizacija</string>
     <string name="websites">Internetinės svetainės</string>
     <string name="groups">Grupės</string>
-    <string name="contact_source"></string>
-    <string name="instant_messaging"></string>
+    <string name="contact_source"/>
+    <string name="instant_messaging"/>
     <string name="ringtone">Skambučio melodija</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources"></string>
+    <string name="delete_from_all_sources"/>
     <plurals name="delete_groups">
         <item quantity="one">%d grupė</item>
         <item quantity="few">%d grupės</item>
         <item quantity="other">%d grupių</item>
     </plurals>
     <!-- FAQ -->
-    <string name="faq_1_title"></string>
-    <string name="faq_1_text"></string>
+    <string name="faq_1_title"/>
+    <string name="faq_1_text"/>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title"></string>
+    <string name="app_title"/>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description"></string>
-    <string name="app_long_description"></string>
+    <string name="app_short_description"/>
+    <string name="app_long_description"/>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

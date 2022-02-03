@@ -39,7 +39,7 @@
     <string name="choose_photo">Välj foto</string>
     <string name="remove_photo">Ta bort foto</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Visa telefonnummer i huvudvyn</string>
+    <string name="show_phone_numbers">Visa telefonnummer</string>
     <string name="show_contact_thumbnails">Visa kontaktminiatyrer</string>
     <string name="show_dialpad_button">Visa en knappsatsknapp i huvudvyn</string>
     <string name="on_contact_click">Vid kontakttryckning</string>
@@ -104,9 +104,9 @@
     <string name="faq_1_text">Yes, all you have to do is go in Settings -&gt; Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">Simple Contacts Pro - Hantera dina kontakter enkelt</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
+    <string name="app_short_description">En premiumapp för kontakthantering utan annonser, stödjer grupper och favoriter</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 

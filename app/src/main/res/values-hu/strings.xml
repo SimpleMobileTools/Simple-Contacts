@@ -79,7 +79,7 @@
     <string name="filename_without_vcf">Fájlnév (.vcf nélkül)</string>
     <!-- Dialpad -->
     <string name="dialpad">Tárcsázó</string>
-    <string name="add_number_to_contact">Telefonszám hozzáadása névjegyhez</string>
+    <string name="add_number_to_contact">Szám hozzáadása névjegyhez</string>
     <!-- Visible fields -->
     <string name="prefix">Előtag</string>
     <string name="suffix">Utótag</string>
