@@ -28,6 +28,7 @@ import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
+import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.MyDatePickerDialog
 import com.simplemobiletools.contacts.pro.dialogs.SelectGroupsDialog
 import com.simplemobiletools.contacts.pro.extensions.*
@@ -287,6 +288,13 @@ class EditContactActivity : ContactActivity() {
 
             findItem(R.id.delete).setOnMenuItemClickListener {
                 deleteContact()
+                true
+            }
+
+            findItem(R.id.manage_visible_fields).setOnMenuItemClickListener {
+                ManageVisibleFieldsDialog(this@EditContactActivity) {
+                    initContact()
+                }
                 true
             }
         }

@@ -56,6 +56,9 @@ class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity, val callback: 
 
         val hasSomethingChanged = activity.config.showContactFields != result
         activity.config.showContactFields = result
-        callback(hasSomethingChanged)
+
+        if (hasSomethingChanged) {
+            callback(true)
+        }
     }
 }
