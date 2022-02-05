@@ -8,7 +8,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.*
 
-class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity) {
+class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity, val callback: (hasSomethingChanged: Boolean) -> Unit) {
     private var view = activity.layoutInflater.inflate(R.layout.dialog_manage_visible_fields, null)
     private val fields = LinkedHashMap<Int, Int>()
 
@@ -54,6 +54,8 @@ class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity) {
             }
         }
 
+        val hasSomethingChanged = activity.config.showContactFields != result
         activity.config.showContactFields = result
+        callback(hasSomethingChanged)
     }
 }

@@ -69,7 +69,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupManageShownContactFields() {
         settings_manage_contact_fields_holder.setOnClickListener {
-            ManageVisibleFieldsDialog(this)
+            ManageVisibleFieldsDialog(this) {}
         }
     }
 
