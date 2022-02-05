@@ -1,5 +1,6 @@
 package com.simplemobiletools.contacts.pro.extensions
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract.CommonDataKinds.BaseTypes
@@ -8,11 +9,15 @@ import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.CallConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.CONTACT_ID
+import com.simplemobiletools.commons.helpers.IS_PRIVATE
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.activities.EditContactActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
+import com.simplemobiletools.contacts.pro.activities.ViewContactActivity
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.Contact
 
@@ -107,10 +112,29 @@ fun SimpleActivity.handleGenericContactClick(contact: Contact) {
 }
 
 fun SimpleActivity.callContact(contact: Contact) {
+    hideKeyboard()
     if (contact.phoneNumbers.isNotEmpty()) {
         tryStartCall(contact)
     } else {
         toast(R.string.no_phone_number_found)
+    }
+}
+
+fun Activity.viewContact(contact: Contact) {
+    hideKeyboard()
+    Intent(applicationContext, ViewContactActivity::class.java).apply {
+        putExtra(CONTACT_ID, contact.id)
+        putExtra(IS_PRIVATE, contact.isPrivate())
+        startActivity(this)
+    }
+}
+
+fun Activity.editContact(contact: Contact) {
+    hideKeyboard()
+    Intent(applicationContext, EditContactActivity::class.java).apply {
+        putExtra(CONTACT_ID, contact.id)
+        putExtra(IS_PRIVATE, contact.isPrivate())
+        startActivity(this)
     }
 }
 

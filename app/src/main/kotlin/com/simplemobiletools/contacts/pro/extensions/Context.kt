@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.extensions
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
@@ -41,22 +42,6 @@ fun Context.getEmptyContact(): Contact {
         0, "", "", "", "", "", "", "", ArrayList(), ArrayList(), ArrayList(), ArrayList(), originalContactSource, 0, 0, "",
         null, "", ArrayList(), organization, ArrayList(), ArrayList(), DEFAULT_MIMETYPE, null
     )
-}
-
-fun Context.viewContact(contact: Contact) {
-    Intent(applicationContext, ViewContactActivity::class.java).apply {
-        putExtra(CONTACT_ID, contact.id)
-        putExtra(IS_PRIVATE, contact.isPrivate())
-        startActivity(this)
-    }
-}
-
-fun Context.editContact(contact: Contact) {
-    Intent(applicationContext, EditContactActivity::class.java).apply {
-        putExtra(CONTACT_ID, contact.id)
-        putExtra(IS_PRIVATE, contact.isPrivate())
-        startActivity(this)
-    }
 }
 
 fun Context.sendEmailIntent(recipient: String) {

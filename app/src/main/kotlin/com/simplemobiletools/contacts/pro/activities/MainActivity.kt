@@ -187,7 +187,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             R.id.dialpad -> launchDialpad()
             R.id.import_contacts -> tryImportContacts()
             R.id.export_contacts -> tryExportContacts()
-            R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
+            R.id.settings -> launchSettings()
             R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
         }
@@ -420,6 +420,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchDialpad() {
+        hideKeyboard()
         Intent(Intent.ACTION_DIAL).apply {
             try {
                 startActivity(this)
@@ -518,14 +519,21 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 toast(R.string.no_entries_for_exporting)
             } else {
                 VcfExporter().exportContacts(this, outputStream, contacts, true) { result ->
-                    toast(when (result) {
-                        VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
-                        VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
-                        else -> R.string.exporting_failed
-                    })
+                    toast(
+                        when (result) {
+                            VcfExporter.ExportResult.EXPORT_OK -> R.string.exporting_successful
+                            VcfExporter.ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
+                            else -> R.string.exporting_failed
+                        }
+                    )
                 }
             }
         }
+    }
+
+    private fun launchSettings() {
+        hideKeyboard()
+        startActivity(Intent(applicationContext, SettingsActivity::class.java))
     }
 
     private fun launchAbout() {
