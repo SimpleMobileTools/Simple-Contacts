@@ -22,6 +22,7 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.ChooseSocialDialog
+import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.models.*
@@ -110,6 +111,16 @@ class ViewContactActivity : ContactActivity() {
 
             findItem(R.id.delete).setOnMenuItemClickListener {
                 deleteContactFromAllSources()
+                true
+            }
+
+            findItem(R.id.manage_visible_fields).setOnMenuItemClickListener {
+                ManageVisibleFieldsDialog(this@ViewContactActivity) {
+                    showFields = config.showContactFields
+                    ensureBackgroundThread {
+                        initContact()
+                    }
+                }
                 true
             }
         }
@@ -296,9 +307,12 @@ class ViewContactActivity : ContactActivity() {
             displayName += " (${contact!!.nickname})"
         }
 
+        val showNameFields = showFields and SHOW_PREFIX_FIELD != 0 || showFields and SHOW_FIRST_NAME_FIELD != 0 || showFields and SHOW_MIDDLE_NAME_FIELD != 0 ||
+            showFields and SHOW_SURNAME_FIELD != 0 || showFields and SHOW_SUFFIX_FIELD != 0
+
         contact_name.text = displayName
         contact_name.copyOnLongClick(displayName)
-        contact_name.beVisibleIf(displayName.isNotEmpty() && !contact!!.isABusinessContact())
+        contact_name.beVisibleIf(displayName.isNotEmpty() && !contact!!.isABusinessContact() && showNameFields)
         contact_name_image.beInvisibleIf(contact_name.isGone())
     }
 

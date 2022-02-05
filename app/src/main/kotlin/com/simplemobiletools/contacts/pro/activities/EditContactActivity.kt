@@ -296,7 +296,7 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
-    private fun hasContactChanged() = contact != fillContactValues() || originalRingtone != contact?.ringtone
+    private fun hasContactChanged() = contact != null && contact != fillContactValues() || originalRingtone != contact?.ringtone
 
     private fun openWith() {
         Intent().apply {
