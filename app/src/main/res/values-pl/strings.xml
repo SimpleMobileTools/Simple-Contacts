@@ -49,17 +49,6 @@
     <string name="contacts">Kontakty</string>
     <string name="show_only_contacts_with_numbers">Pokazuj tylko kontakty z numerami telefonów</string>
     <string name="show_private_contacts">Pokazuj prywatne kontakty Prostemu telefonowi, Prostym wiadomościom SMS i Prostemu kalendarzowi Pro</string>
-    <!-- Emails -->
-    <string name="home">Domowy</string>
-    <string name="work">Służbowy</string>
-    <string name="other">Inny</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Komórkowy</string>
-    <string name="main_number">Główny</string>
-    <string name="work_fax">Faks służbowy</string>
-    <string name="home_fax">Faks domowy</string>
-    <string name="pager">Pager</string>
-    <string name="no_phone_number_found">Nie znaleziono numeru telefonu</string>
     <!-- Events -->
     <string name="birthday">Urodziny</string>
     <string name="anniversary">Rocznica</string>

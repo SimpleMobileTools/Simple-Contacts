@@ -49,17 +49,6 @@
     <string name="contacts">Contatos</string>
     <string name="show_only_contacts_with_numbers">Mostar apenas os contatos com número de telefone</string>
     <string name="show_private_contacts">Compartilhar contatos privados com o Simple Dialer, Simple SMS Messenger e Simple Calendar Pro</string>
-    <!-- Emails -->
-    <string name="home">Residencial</string>
-    <string name="work">Comercial</string>
-    <string name="other">Outro</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Celular</string>
-    <string name="main_number">Principal</string>
-    <string name="work_fax">Fax Comercial</string>
-    <string name="home_fax">Fax Residencial</string>
-    <string name="pager">Pager</string>
-    <string name="no_phone_number_found">Não foi encontrado nenhum número de telefone</string>
     <!-- Events -->
     <string name="birthday">Data de Nascimento</string>
     <string name="anniversary">Data Especial</string>

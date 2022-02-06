@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">ഫോൺ നമ്പറുകളുള്ള കോൺടാക്റ്റുകൾ മാത്രം കാണിക്കുക</string>
     <string name="show_private_contacts">Simple Dialer-ലേക്കും  Simple Messenger-ലേക്കും സ്വകാര്യ കോൺടാക്റ്റുകൾ കാണിക്കുക</string>
 
-    <!-- Emails -->
-    <string name="home">വീട്</string>
-    <string name="work">ജോലി</string>
-    <string name="other">മറ്റുള്ളവ</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">മൊബൈൽ</string>
-    <string name="main_number">പ്രധാനമായ</string>
-    <string name="work_fax">Work Fax</string>
-    <string name="home_fax">Home Fax</string>
-    <string name="pager">പേജർ</string>
-    <string name="no_phone_number_found">ഫോൺ നമ്പറുകളൊന്നും കണ്ടെത്തിയില്ല</string>
-
     <!-- Events -->
     <string name="birthday">ജന്മദിനം</string>
     <string name="anniversary">വാർഷികം</string>

@@ -49,17 +49,6 @@
     <string name="contacts">Yhteystiedot</string>
     <string name="show_only_contacts_with_numbers">Näytä ainoastaan numerolliset yhteystiedot</string>
     <string name="show_private_contacts">Näytä yksityiset yhteystiedot sovelluksissa Simple Dialer, Simple SMS Messenger ja Simple Calendar Pro</string>
-    <!-- Emails -->
-    <string name="home">Koti</string>
-    <string name="work">Työ</string>
-    <string name="other">Muu</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Matkapuhelin</string>
-    <string name="main_number">Oletus</string>
-    <string name="work_fax">Faksi (työ)</string>
-    <string name="home_fax">Faksi (koti)</string>
-    <string name="pager">Hakulaite</string>
-    <string name="no_phone_number_found">Puhelinnumeroa ei löytynyt</string>
     <!-- Events -->
     <string name="birthday">Syntymäpäivä</string>
     <string name="anniversary">Vuosipäivä</string>

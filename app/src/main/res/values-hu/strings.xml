@@ -49,17 +49,6 @@
     <string name="contacts">Névjegyek</string>
     <string name="show_only_contacts_with_numbers">Csak a telefonszámot tartalmazó névjegyek megjelenítése</string>
     <string name="show_private_contacts">Privát névjegyek megjelenítése a Simple Dialer, Simple SMS Messenger és a Simple Calendar Pro számára</string>
-    <!-- Emails -->
-    <string name="home">Otthon</string>
-    <string name="work">Munkahely</string>
-    <string name="other">Egyéb</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Mobil</string>
-    <string name="main_number">Elsődleges telefonszám</string>
-    <string name="work_fax">Munkahelyi fax</string>
-    <string name="home_fax">Otthoni fax</string>
-    <string name="pager">Csipogó</string>
-    <string name="no_phone_number_found">Nem található ilyen telefonszám</string>
     <!-- Events -->
     <string name="birthday">Születésnap</string>
     <string name="anniversary">Évforduló</string>

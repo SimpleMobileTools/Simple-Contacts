@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">Solo mostrar contactos con números telefónicos</string>
     <string name="show_private_contacts">Mostrar contactos privados a Marcador Simple, Mensajería SMS Simple y Calendario Simple Pro</string>
 
-    <!-- Emails -->
-    <string name="home">Casa</string>
-    <string name="work">Trabajo</string>
-    <string name="other">Otros</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">Celular</string>
-    <string name="main_number">Principal</string>
-    <string name="work_fax">Fax de trabajo</string>
-    <string name="home_fax">Fax de casa</string>
-    <string name="pager">Localizador</string>
-    <string name="no_phone_number_found">No se encontraron números de teléfono</string>
-
     <!-- Events -->
     <string name="birthday">Cumpleaños</string>
     <string name="anniversary">Aniversario</string>

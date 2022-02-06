@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">只顯示含有電話話碼的聯絡人</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
-    <!-- Emails -->
-    <string name="home">住家</string>
-    <string name="work">工作</string>
-    <string name="other">其它</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">手機</string>
-    <string name="main_number">主用</string>
-    <string name="work_fax">工作傳真</string>
-    <string name="home_fax">住家傳真</string>
-    <string name="pager">呼叫器</string>
-    <string name="no_phone_number_found">未發現電話號碼</string>
-
     <!-- Events -->
     <string name="birthday">生日</string>
     <string name="anniversary">紀念日</string>

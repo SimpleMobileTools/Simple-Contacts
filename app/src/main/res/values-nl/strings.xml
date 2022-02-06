@@ -49,17 +49,6 @@
     <string name="contacts">Contacten</string>
     <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummer tonen</string>
     <string name="show_private_contacts">Privécontacten in Eenvoudige Telefoon, Eenvoudige Berichten tonen en Eenvoudige Agenda Pro</string>
-    <!-- Emails -->
-    <string name="home">Thuis</string>
-    <string name="work">Werk</string>
-    <string name="other">Overig</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Mobiel</string>
-    <string name="main_number">Standaard</string>
-    <string name="work_fax">Fax Werk</string>
-    <string name="home_fax">Fax Thuis</string>
-    <string name="pager">Semafoon</string>
-    <string name="no_phone_number_found">Geen telefoonnummer gevonden</string>
     <!-- Events -->
     <string name="birthday">Verjaardag</string>
     <string name="anniversary">Jubileum</string>

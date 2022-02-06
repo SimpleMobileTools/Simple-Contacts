@@ -49,17 +49,6 @@
     <string name="contacts">Kontakty</string>
     <string name="show_only_contacts_with_numbers">Zobrazit jen kontakty s telefonními čísly</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-    <!-- Emails -->
-    <string name="home">Domov</string>
-    <string name="work">Práce</string>
-    <string name="other">Jiné</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Mobil</string>
-    <string name="main_number">Hlavní</string>
-    <string name="work_fax">Pracovní fax</string>
-    <string name="home_fax">Domácí fax</string>
-    <string name="pager">Pager</string>
-    <string name="no_phone_number_found">Nenalezeno žádné telefonní číslo</string>
     <!-- Events -->
     <string name="birthday">Narozeniny</string>
     <string name="anniversary">Výročí</string>

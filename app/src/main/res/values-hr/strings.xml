@@ -49,17 +49,6 @@
     <string name="contacts">Kontakti</string>
     <string name="show_only_contacts_with_numbers">Prikaži samo kontakte s telefonskim brojevima</string>
     <string name="show_private_contacts">Prikaži privatne kontakte u Simple Dialer, Simple SMS Messenger i Simple Calendar Pro</string>
-    <!-- Emails -->
-    <string name="home">Kućni</string>
-    <string name="work">Posao</string>
-    <string name="other">Ostalo</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Mobilni</string>
-    <string name="main_number">Glavni</string>
-    <string name="work_fax">Poslovni fax</string>
-    <string name="home_fax">Kućni fax</string>
-    <string name="pager">Pager</string>
-    <string name="no_phone_number_found">Nije pronađen nijedan telefonski broj</string>
     <!-- Events -->
     <string name="birthday">Rođendan</string>
     <string name="anniversary">Obljetnica</string>

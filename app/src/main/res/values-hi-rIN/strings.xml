@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
-    <!-- Emails -->
-    <string name="home">Home</string>
-    <string name="work">Work</string>
-    <string name="other">Other</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">Mobile</string>
-    <string name="main_number">Main</string>
-    <string name="work_fax">Work Fax</string>
-    <string name="home_fax">Home Fax</string>
-    <string name="pager">Pager</string>
-    <string name="no_phone_number_found">No phone number has been found</string>
-
     <!-- Events -->
     <string name="birthday">Birthday</string>
     <string name="anniversary">Anniversary</string>

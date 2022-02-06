@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
     <string name="show_private_contacts">Zobraziť súkromné kontakty Jednoduchému Telefónu, Jednoduchému SMS Správcovi a Jednoduchému Kalendáru Pro</string>
 
-    <!-- Emails -->
-    <string name="home">Domov</string>
-    <string name="work">Práca</string>
-    <string name="other">Iné</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">Mobil</string>
-    <string name="main_number">Hlavné</string>
-    <string name="work_fax">Pracovný fax</string>
-    <string name="home_fax">Domáci fax</string>
-    <string name="pager">Pager</string>
-    <string name="no_phone_number_found">Nenašlo sa žiadne telefónne číslo</string>
-
     <!-- Events -->
     <string name="birthday">Narodeniny</string>
     <string name="anniversary">Výročie</string>

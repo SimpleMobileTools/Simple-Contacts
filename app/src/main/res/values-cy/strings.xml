@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">Dangos dim ond cysylltiadau gyda rhifau ffôn</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
-    <!-- Emails -->
-    <string name="home">Cartref</string>
-    <string name="work">Gwaith</string>
-    <string name="other">Arall</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">Symudol</string>
-    <string name="main_number">Prif</string>
-    <string name="work_fax">Ffacs gwaith</string>
-    <string name="home_fax">Ffacs cartref</string>
-    <string name="pager">Peiriant galw</string>
-    <string name="no_phone_number_found">Ni chanfuwyd rif ffôn</string>
-
     <!-- Events -->
     <string name="birthday">Pen-blwydd</string>
     <string name="anniversary">Pen-blwydd achlysur</string>

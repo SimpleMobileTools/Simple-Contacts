@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
-    <!-- Emails -->
-    <string name="home">집</string>
-    <string name="work">회사</string>
-    <string name="other">미분류</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">핸드폰</string>
-    <string name="main_number">Main</string>
-    <string name="work_fax">회사 팩스</string>
-    <string name="home_fax">집 팩스</string>
-    <string name="pager">호출기</string>
-    <string name="no_phone_number_found">전화번호를 찾지 못함</string>
-
     <!-- Events -->
     <string name="birthday">생일</string>
     <string name="anniversary">기념일</string>

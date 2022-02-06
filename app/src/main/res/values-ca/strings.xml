@@ -49,17 +49,6 @@
     <string name="contacts">Contactes</string>
     <string name="show_only_contacts_with_numbers">Mostra només els contactes amb números de telèfon</string>
     <string name="show_private_contacts">Mostra els contactes privats al Simple Dialer, Simple SMS Messenger i Simple Calendar Pro</string>
-    <!-- Emails -->
-    <string name="home">Llar</string>
-    <string name="work">Feina</string>
-    <string name="other">Altres</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Mòbil</string>
-    <string name="main_number">Principal</string>
-    <string name="work_fax">Fax de la feina</string>
-    <string name="home_fax">Fax de la llar</string>
-    <string name="pager">Cercapersones</string>
-    <string name="no_phone_number_found">No s\'ha trobat cap número de telèfon</string>
     <!-- Events -->
     <string name="birthday">Data de naixement</string>
     <string name="anniversary">Aniversari</string>

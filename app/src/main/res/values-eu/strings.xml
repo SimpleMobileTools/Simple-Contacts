@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
-    <!-- Emails -->
-    <string name="home">Etxea</string>
-    <string name="work">Lana</string>
-    <string name="other">Besterik</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">Mugikorra</string>
-    <string name="main_number">Nagusia</string>
-    <string name="work_fax">Laneko faxa</string>
-    <string name="home_fax">Etxeko faxa</string>
-    <string name="pager">Pager</string>
-    <string name="no_phone_number_found">Ez da telefono zenbakirik aurkitu</string>
-
     <!-- Events -->
     <string name="birthday">Urtebetetzea</string>
     <string name="anniversary">Urteurrena</string>

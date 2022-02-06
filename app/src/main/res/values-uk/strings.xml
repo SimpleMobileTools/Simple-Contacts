@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">Показувати лише контакти з телефонними номерами</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
-    <!-- Emails -->
-    <string name="home">Домашній</string>
-    <string name="work">Робочий</string>
-    <string name="other">Інше</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">Мобільний</string>
-    <string name="main_number">Основний</string>
-    <string name="work_fax">Робочий факс</string>
-    <string name="home_fax">Домашній факс</string>
-    <string name="pager">Пейджер</string>
-    <string name="no_phone_number_found">Номер не знайдено</string>
-
     <!-- Events -->
     <string name="birthday">День народження</string>
     <string name="anniversary">Річниця</string>

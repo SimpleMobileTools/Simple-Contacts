@@ -49,17 +49,6 @@
     <string name="contacts">Контакты</string>
     <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
     <string name="show_private_contacts">Показывать личные контакты в Simple Dialer, Simple SMS Messenger и Simple Calendar Pro</string>
-    <!-- Emails -->
-    <string name="home">Домашний</string>
-    <string name="work">Рабочий</string>
-    <string name="other">Другой</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Мобильный</string>
-    <string name="main_number">Основной</string>
-    <string name="work_fax">Рабочий факс</string>
-    <string name="home_fax">Домашний факс</string>
-    <string name="pager">Пейджер</string>
-    <string name="no_phone_number_found">Номер не найден</string>
     <!-- Events -->
     <string name="birthday">День рождения</string>
     <string name="anniversary">Годовщина</string>

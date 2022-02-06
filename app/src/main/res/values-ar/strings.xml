@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">إظهار جهات الإتصال التي لديها أرقام هواتف فقط</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
-    <!-- Emails -->
-    <string name="home">المنزل</string>
-    <string name="work">العمل</string>
-    <string name="other">مختلف</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">جوال</string>
-    <string name="main_number">رئيسي</string>
-    <string name="work_fax">فاكس العمل</string>
-    <string name="home_fax">فاكس المنزل</string>
-    <string name="pager">بايجر</string>
-    <string name="no_phone_number_found">لم يتم العثور على رقم هاتف</string>
-
     <!-- Events -->
     <string name="birthday">تاريخ الميلاد</string>
     <string name="anniversary">مناسبة</string>

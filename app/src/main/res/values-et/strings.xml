@@ -49,17 +49,6 @@
     <string name="contacts">Contacts</string>
     <string name="show_only_contacts_with_numbers">Näita vaid kontakte, kellel on telefoninumber</string>
     <string name="show_private_contacts">Näita privaatseks märgitud kontakte Lihtsas telefonis, Lihtne SMS sõnumikliendis ja Lihtsas kalendris</string>
-    <!-- Emails -->
-    <string name="home">Home</string>
-    <string name="work">Töö</string>
-    <string name="other">Other</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Mobile</string>
-    <string name="main_number">Peamine</string>
-    <string name="work_fax">Tööfaks</string>
-    <string name="home_fax">Home Fax</string>
-    <string name="pager">Pager</string>
-    <string name="no_phone_number_found">Telefoninumbrit ei leidunud</string>
     <!-- Events -->
     <string name="birthday">Sünnipäev</string>
     <string name="anniversary">Aastapäev</string>

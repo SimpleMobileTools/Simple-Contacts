@@ -50,24 +50,9 @@
     <string name="call_contact">Chamar</string>
     <string name="view_contact">Ver detalles</string>
     <string name="manage_shown_contact_fields">Xestionar campos dos contactos amosados</string>
-    <string name="manage_shown_tabs">Xestionar separadores a exhibir</string>
     <string name="contacts">Contactos</string>
-    <string name="show_call_confirmation_dialog">Mostrar diálogo para confirmar a chamada</string>
     <string name="show_only_contacts_with_numbers">Mostrar só contactos con número de teléfono</string>
     <string name="show_private_contacts">Mostrar contactos privados em Simple Dialer e em Simple SMS Messenger</string>
-
-    <!-- Emails -->
-    <string name="home">Persoal</string>
-    <string name="work">Profesional</string>
-    <string name="other">Outro</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">Móbil</string>
-    <string name="main_number">Principal</string>
-    <string name="work_fax">Fax profesional</string>
-    <string name="home_fax">Fax persoal</string>
-    <string name="pager">Busca</string>
-    <string name="no_phone_number_found">Número de teléfono non atopado</string>
 
     <!-- Events -->
     <string name="birthday">Data de nacemento</string>

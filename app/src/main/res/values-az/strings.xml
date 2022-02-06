@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
-    <!-- Emails -->
-    <string name="home">Ev</string>
-    <string name="work">İş</string>
-    <string name="other">Başqa</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">Mobil</string>
-    <string name="main_number">Əsas</string>
-    <string name="work_fax">İş Faksı</string>
-    <string name="home_fax">Ev Faksı</string>
-    <string name="pager">Zəng cihazı</string>
-    <string name="no_phone_number_found">Heçbir telefon nömrəsi tapılmadı</string>
-
     <!-- Events -->
     <string name="birthday">Ad günü</string>
     <string name="anniversary">İl dönümü</string>

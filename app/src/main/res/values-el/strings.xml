@@ -49,17 +49,6 @@
     <string name="contacts">Επαφές</string>
     <string name="show_only_contacts_with_numbers">Προβολή όλων των Επαφών με αριθμούς τηλεφώνου</string>
     <string name="show_private_contacts">Εμφάνιση ιδιωτικών επαφών σε Απλή Κλήση, Απλός SMS Messenger και Απλό Ημερολόγιο Pro</string>
-    <!-- Emails -->
-    <string name="home">Οικία</string>
-    <string name="work">Εργασία</string>
-    <string name="other">Άλλο</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Κινητό</string>
-    <string name="main_number">Κύριο</string>
-    <string name="work_fax">Φαξ Εργασίας</string>
-    <string name="home_fax">Φαξ Οικίας</string>
-    <string name="pager">Βομβητής</string>
-    <string name="no_phone_number_found">Δεν βρέθηκε τηλεφωνικός αριθμός</string>
     <!-- Events -->
     <string name="birthday">Γενέθλια</string>
     <string name="anniversary">Επέτειος</string>

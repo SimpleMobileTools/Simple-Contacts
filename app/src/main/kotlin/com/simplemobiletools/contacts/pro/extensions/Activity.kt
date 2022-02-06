@@ -3,8 +3,6 @@ package com.simplemobiletools.contacts.pro.extensions
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.provider.ContactsContract.CommonDataKinds.BaseTypes
-import android.provider.ContactsContract.CommonDataKinds.Phone
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.CallConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -135,24 +133,5 @@ fun Activity.editContact(contact: Contact) {
         putExtra(CONTACT_ID, contact.id)
         putExtra(IS_PRIVATE, contact.isPrivate())
         startActivity(this)
-    }
-}
-
-fun SimpleActivity.getPhoneNumberTypeText(type: Int, label: String): String {
-    return if (type == BaseTypes.TYPE_CUSTOM) {
-        label
-    } else {
-        getString(
-            when (type) {
-                Phone.TYPE_MOBILE -> R.string.mobile
-                Phone.TYPE_HOME -> R.string.home
-                Phone.TYPE_WORK -> R.string.work
-                Phone.TYPE_MAIN -> R.string.main_number
-                Phone.TYPE_FAX_WORK -> R.string.work_fax
-                Phone.TYPE_FAX_HOME -> R.string.home_fax
-                Phone.TYPE_PAGER -> R.string.pager
-                else -> R.string.other
-            }
-        )
     }
 }

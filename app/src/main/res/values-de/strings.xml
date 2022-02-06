@@ -49,17 +49,6 @@
     <string name="contacts">Kontakte</string>
     <string name="show_only_contacts_with_numbers">Nur Kontakte mit Telefonnummern anzeigen</string>
     <string name="show_private_contacts">Zeige private Kontakte in Schlichtem Telefon, SMS Messenger und Kalender Pro</string>
-    <!-- Emails -->
-    <string name="home">Privat</string>
-    <string name="work">Arbeit</string>
-    <string name="other">Anderes</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Mobil</string>
-    <string name="main_number">Festnetz</string>
-    <string name="work_fax">Arbeit Fax</string>
-    <string name="home_fax">Privat Fax</string>
-    <string name="pager">Pager</string>
-    <string name="no_phone_number_found">Es wurde keine Telefonnummer gefunden</string>
     <!-- Events -->
     <string name="birthday">Geburtstag</string>
     <string name="anniversary">Jahrestag</string>

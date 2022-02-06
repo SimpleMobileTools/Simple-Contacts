@@ -49,17 +49,6 @@
     <string name="contacts">联系人</string>
     <string name="show_only_contacts_with_numbers">只显示含有电话话码的联系人</string>
     <string name="show_private_contacts">显示私密联系人给简易拨号器和简易短信</string>
-    <!-- Emails -->
-    <string name="home">家庭</string>
-    <string name="work">工作</string>
-    <string name="other">其他</string>
-    <!-- Phone numbers -->
-    <string name="mobile">手机</string>
-    <string name="main_number">主用</string>
-    <string name="work_fax">工作传真</string>
-    <string name="home_fax">家庭传真</string>
-    <string name="pager">呼叫器</string>
-    <string name="no_phone_number_found">未发现电话号码</string>
     <!-- Events -->
     <string name="birthday">生日</string>
     <string name="anniversary">纪念日</string>

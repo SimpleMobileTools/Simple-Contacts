@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">Hanya tampilkan kontak dengan nomor telepon</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
 
-    <!-- Emails -->
-    <string name="home">Rumah</string>
-    <string name="work">Kerja</string>
-    <string name="other">Lainnya</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">Ponsel</string>
-    <string name="main_number">Utama</string>
-    <string name="work_fax">Faks Kerja</string>
-    <string name="home_fax">Faks Rumah</string>
-    <string name="pager">Pager</string>
-    <string name="no_phone_number_found">Tidak ada nomor telepon yang ditemukan</string>
-
     <!-- Events -->
     <string name="birthday">Ulang tahun</string>
     <string name="anniversary">Hari jadi</string>

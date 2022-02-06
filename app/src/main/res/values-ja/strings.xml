@@ -54,19 +54,6 @@
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
     <string name="show_private_contacts">Simpleダイヤラー、Simpleショートメール、SimpleカレンダーProに個人の連絡先を表示</string>
 
-    <!-- Emails -->
-    <string name="home">自宅</string>
-    <string name="work">職場</string>
-    <string name="other">その他</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">携帯</string>
-    <string name="main_number">メイン</string>
-    <string name="work_fax">職場FAX</string>
-    <string name="home_fax">自宅FAX</string>
-    <string name="pager">ポケベル</string>
-    <string name="no_phone_number_found">電話番号が見つかりません</string>
-
     <!-- Events -->
     <string name="birthday">誕生日</string>
     <string name="anniversary">記念日</string>

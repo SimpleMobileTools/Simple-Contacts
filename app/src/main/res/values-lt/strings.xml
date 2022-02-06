@@ -49,17 +49,6 @@
     <string name="contacts">Adresatai</string>
     <string name="show_only_contacts_with_numbers">Rodyti tik adresatus su telefono numeriu</string>
     <string name="show_private_contacts"/>
-    <!-- Emails -->
-    <string name="home">Namų</string>
-    <string name="work">Darbo</string>
-    <string name="other">Kita</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Mobilusis</string>
-    <string name="main_number">Pagrindinis</string>
-    <string name="work_fax">Darbo faksas</string>
-    <string name="home_fax">Namų faksas</string>
-    <string name="pager">Pranešimų gaviklis</string>
-    <string name="no_phone_number_found">Nerasta telefono numerio</string>
     <!-- Events -->
     <string name="birthday">Gimtadienis</string>
     <string name="anniversary">Metinės</string>

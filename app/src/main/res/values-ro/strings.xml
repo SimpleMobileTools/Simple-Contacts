@@ -55,19 +55,6 @@
     <string name="show_only_contacts_with_numbers">Afișați numai contactele cu numere de telefon</string>
     <string name="show_private_contacts">Afișați contactele private în Simple Dialer, Simple SMS Messenger și Simple Calendar Pro</string>
 
-    <!-- Emails -->
-    <string name="home">Acasă</string>
-    <string name="work">Muncă</string>
-    <string name="other">Altele</string>
-
-    <!-- Phone numbers -->
-    <string name="mobile">Mobil</string>
-    <string name="main_number">Principal</string>
-    <string name="work_fax">Fax de muncă</string>
-    <string name="home_fax">Fax de acasă</string>
-    <string name="pager">Pager</string>
-    <string name="no_phone_number_found">Nu a fost găsit niciun număr de telefon</string>
-
     <!-- Events -->
     <string name="birthday">Ziua de naștere</string>
     <string name="anniversary">Aniversare</string>

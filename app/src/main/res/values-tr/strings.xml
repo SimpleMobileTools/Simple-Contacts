@@ -49,17 +49,6 @@
     <string name="contacts">Kişiler</string>
     <string name="show_only_contacts_with_numbers">Sadece telefon numaralarını içeren kişileri göster</string>
     <string name="show_private_contacts">Özel kişileri Basit Çevirici, Basit SMS Messenger ve Basit Takvim Pro\'a göster</string>
-    <!-- Emails -->
-    <string name="home">Ev</string>
-    <string name="work">İş</string>
-    <string name="other">Diğer</string>
-    <!-- Phone numbers -->
-    <string name="mobile">Cep</string>
-    <string name="main_number">Ana</string>
-    <string name="work_fax">İş Faksı</string>
-    <string name="home_fax">Ev Faksı</string>
-    <string name="pager">Çağrı Cihazı</string>
-    <string name="no_phone_number_found">Telefon numarası bulunamadı</string>
     <!-- Events -->
     <string name="birthday">Doğum günü</string>
     <string name="anniversary">Yıldönümü</string>
