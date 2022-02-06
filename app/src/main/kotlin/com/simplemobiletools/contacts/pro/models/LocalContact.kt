@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.simplemobiletools.commons.models.PhoneNumber
 
 @Entity(tableName = "contacts", indices = [(Index(value = ["id"], unique = true))])
 data class LocalContact(
@@ -27,8 +28,8 @@ data class LocalContact(
     @ColumnInfo(name = "job_position") var jobPosition: String,
     @ColumnInfo(name = "websites") var websites: ArrayList<String>,
     @ColumnInfo(name = "ims") var IMs: ArrayList<IM>,
-    @ColumnInfo(name = "ringtone") var ringtone: String?) {
-
+    @ColumnInfo(name = "ringtone") var ringtone: String?
+) {
     override fun equals(other: Any?) = id == (other as? LocalContact?)?.id
 
     override fun hashCode() = id ?: 0

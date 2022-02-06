@@ -20,6 +20,7 @@ import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.models.PhoneNumber
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.ChooseSocialDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
@@ -323,8 +324,8 @@ class ViewContactActivity : ContactActivity() {
         }
 
         phoneNumbers = phoneNumbers.distinctBy {
-            if (it.normalizedNumber != null && it.normalizedNumber!!.length >= COMPARABLE_PHONE_NUMBER_LENGTH) {
-                it.normalizedNumber?.substring(it.normalizedNumber!!.length - COMPARABLE_PHONE_NUMBER_LENGTH)
+            if (it.normalizedNumber.length >= COMPARABLE_PHONE_NUMBER_LENGTH) {
+                it.normalizedNumber.substring(it.normalizedNumber.length - COMPARABLE_PHONE_NUMBER_LENGTH)
             } else {
                 it.normalizedNumber
             }

@@ -3,7 +3,11 @@ package com.simplemobiletools.contacts.pro.helpers
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.simplemobiletools.contacts.pro.models.*
+import com.simplemobiletools.commons.models.PhoneNumber
+import com.simplemobiletools.contacts.pro.models.Address
+import com.simplemobiletools.contacts.pro.models.Email
+import com.simplemobiletools.contacts.pro.models.Event
+import com.simplemobiletools.contacts.pro.models.IM
 
 class Converters {
     private val gson = Gson()

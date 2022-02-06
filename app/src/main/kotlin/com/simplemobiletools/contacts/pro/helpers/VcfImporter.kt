@@ -9,6 +9,7 @@ import android.provider.ContactsContract.CommonDataKinds.StructuredPostal
 import android.widget.Toast
 import com.simplemobiletools.commons.extensions.normalizePhoneNumber
 import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.commons.models.PhoneNumber
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.getCachePhoto
 import com.simplemobiletools.contacts.pro.extensions.getCachePhotoUri

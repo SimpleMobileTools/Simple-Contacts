@@ -5,6 +5,7 @@ import android.telephony.PhoneNumberUtils
 import com.simplemobiletools.commons.extensions.normalizePhoneNumber
 import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.models.PhoneNumber
 import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 
 data class Contact(
@@ -175,7 +176,7 @@ data class Contact(
             phoneNumbers.any {
                 PhoneNumberUtils.compare(it.normalizedNumber, normalizedText) ||
                     it.value.contains(text) ||
-                    it.normalizedNumber?.contains(normalizedText) == true ||
+                    it.normalizedNumber.contains(normalizedText) ||
                     it.value.normalizePhoneNumber().contains(normalizedText)
             }
         } else {
