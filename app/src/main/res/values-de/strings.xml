@@ -38,6 +38,7 @@
     <string name="take_photo">Foto aufnehmen</string>
     <string name="choose_photo">Foto auswählen</string>
     <string name="remove_photo">Foto entfernen</string>
+    <string name="change_photo">Change photo</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Telefonnummern anzeigen</string>
     <string name="show_contact_thumbnails">Vorschaubilder der Kontakte zeigen</string>
@@ -54,6 +55,7 @@
     <string name="anniversary">Jahrestag</string>
     <!-- Favorites -->
     <string name="no_favorites">Anscheinend haben Sie bisher keine Kontakte zu den Favoriten hinzugefügt.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
     <string name="search_contacts">Kontakte durchsuchen</string>
     <string name="search_favorites">Favoriten durchsuchen</string>

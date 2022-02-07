@@ -38,6 +38,7 @@
     <string name="take_photo">Ota kuva</string>
     <string name="choose_photo">Valitse kuva</string>
     <string name="remove_photo">Poista kuva</string>
+    <string name="change_photo">Change photo</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Näytä puhelinnumerot</string>
     <string name="show_contact_thumbnails">Näytä yhteystietojen kuvakkeet</string>
@@ -54,6 +55,7 @@
     <string name="anniversary">Vuosipäivä</string>
     <!-- Favorites -->
     <string name="no_favorites">Näyttää siltä, että et ole vielä lisännyt suosikkiyhteystietoja.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
     <string name="search_contacts">Etsi yhteystietoja</string>
     <string name="search_favorites">Etsi suosikkeja</string>

@@ -41,6 +41,7 @@
     <string name="take_photo">Ambil foto</string>
     <string name="choose_photo">Pilih foto</string>
     <string name="remove_photo">Buang foto</string>
+    <string name="change_photo">Change photo</string>
 
     <!-- Settings -->
     <string name="show_phone_numbers">Tampilkan nomor telepon pada layar utama</string>
@@ -60,6 +61,7 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Sepertinya anda belum menambahkan kontak favorit.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
 
     <!-- Search -->
     <string name="search_contacts">Cari kontak</string>

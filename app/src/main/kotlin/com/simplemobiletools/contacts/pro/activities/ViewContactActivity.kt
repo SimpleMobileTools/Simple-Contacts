@@ -228,6 +228,10 @@ class ViewContactActivity : ContactActivity() {
         contact_start_call.setOnClickListener { tryStartCall(contact!!) }
         contact_send_email.setOnClickListener { trySendEmail() }
 
+        contact_send_sms.setOnLongClickListener { toast(R.string.send_sms); true; }
+        contact_start_call.setOnLongClickListener { toast(R.string.call_contact); true; }
+        contact_send_email.setOnLongClickListener { toast(R.string.send_email); true; }
+
         updateTextColors(contact_scrollview)
         contact_toolbar.menu.findItem(R.id.open_with).isVisible = contact?.isPrivate() == false
     }
@@ -299,6 +303,8 @@ class ViewContactActivity : ContactActivity() {
                 tag = contact!!.starred
                 setImageDrawable(getStarDrawable(tag == 1))
             }
+
+            setOnLongClickListener { toast(R.string.toggle_favorite); true; }
         }
     }
 

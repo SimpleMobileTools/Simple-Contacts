@@ -41,6 +41,7 @@
     <string name="take_photo">Şəkil çək</string>
     <string name="choose_photo">Şəkil seç</string>
     <string name="remove_photo">Şəkli sil</string>
+    <string name="change_photo">Change photo</string>
 
     <!-- Settings -->
     <string name="show_phone_numbers">Telefon nömrələrini əsas ekranda göstər</string>
@@ -60,6 +61,7 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Görünür, hələlik heçbir sevimli kontakt əlavə etməmisiniz.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
 
     <!-- Search -->
     <string name="search_contacts">Kontaktları axtar</string>

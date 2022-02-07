@@ -41,6 +41,7 @@
     <string name="take_photo">ഫോട്ടോ എടുക്കുക</string>
     <string name="choose_photo">ഫോട്ടോ തിരഞ്ഞെടുക്കുക</string>
     <string name="remove_photo">ഫോട്ടോ നീക്കംചെയ്യുക</string>
+    <string name="change_photo">Change photo</string>
 
     <!-- Settings -->
     <string name="show_phone_numbers">മുഖ്യ സ്ക്രീനിൽ ഫോൺ നമ്പറുകൾ കാണിക്കുക</string>
@@ -60,6 +61,7 @@
 
     <!-- Favorites -->
     <string name="no_favorites">നിങ്ങൾ ഇതുവരെ പ്രിയപ്പെട്ട കോൺ‌ടാക്റ്റുകളൊന്നും ചേർത്തിട്ടില്ലെന്ന് തോന്നുന്നു.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
 
     <!-- Search -->
     <string name="search_contacts">കോൺ‌ടാക്റ്റുകൾ തിരയുക</string>

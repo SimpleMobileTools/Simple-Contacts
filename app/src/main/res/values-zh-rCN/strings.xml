@@ -38,6 +38,7 @@
     <string name="take_photo">拍照</string>
     <string name="choose_photo">选择照片</string>
     <string name="remove_photo">移除照片</string>
+    <string name="change_photo">Change photo</string>
     <!-- Settings -->
     <string name="show_phone_numbers">显示电话号码</string>
     <string name="show_contact_thumbnails">显示联系人缩图</string>
@@ -54,6 +55,7 @@
     <string name="anniversary">纪念日</string>
     <!-- Favorites -->
     <string name="no_favorites">您似乎还没加入任何我的收藏联系人。</string>
+    <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
     <string name="search_contacts">搜索联系人</string>
     <string name="search_favorites">搜索我的收藏</string>

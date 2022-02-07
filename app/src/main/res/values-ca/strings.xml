@@ -38,6 +38,7 @@
     <string name="take_photo">Fes una foto</string>
     <string name="choose_photo">Tria una foto</string>
     <string name="remove_photo">Elimina la foto</string>
+    <string name="change_photo">Change photo</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Mostra els números de telèfon</string>
     <string name="show_contact_thumbnails">Mostra les miniatures dels contactes</string>
@@ -54,6 +55,7 @@
     <string name="anniversary">Aniversari</string>
     <!-- Favorites -->
     <string name="no_favorites">Sembla que encara no has afegit cap contacte preferit.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
     <string name="search_contacts">Cerca contactes</string>
     <string name="search_favorites">Cerca als preferits</string>

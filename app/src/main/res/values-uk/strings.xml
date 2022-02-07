@@ -41,6 +41,7 @@
     <string name="take_photo">Зробити фото</string>
     <string name="choose_photo">Обрати фото</string>
     <string name="remove_photo">Видалити фото</string>
+    <string name="change_photo">Change photo</string>
 
     <!-- Settings -->
     <string name="show_phone_numbers">Показувати телефонні номери у списку контактів</string>
@@ -60,6 +61,7 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Здається, ви ще не додали улюблені контакти.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
 
     <!-- Search -->
     <string name="search_contacts">Пошук контактів</string>

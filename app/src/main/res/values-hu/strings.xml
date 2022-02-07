@@ -38,6 +38,7 @@
     <string name="take_photo">Fényképkészítés</string>
     <string name="choose_photo">Fénykép kiválasztása</string>
     <string name="remove_photo">Fénykép törlése</string>
+    <string name="change_photo">Change photo</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Telefonszámok megjelenítése</string>
     <string name="show_contact_thumbnails">Névjegyek bélyegképének megjelenítése</string>
@@ -54,6 +55,7 @@
     <string name="anniversary">Évforduló</string>
     <!-- Favorites -->
     <string name="no_favorites">Úgy tűnik, hogy még nincsenek kedvencek felvéve.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
     <string name="search_contacts">Névjegyek keresése</string>
     <string name="search_favorites">Kedvencek keresése</string>

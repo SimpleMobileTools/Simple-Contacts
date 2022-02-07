@@ -38,6 +38,7 @@
     <string name="take_photo">Uslikaj</string>
     <string name="choose_photo">Odaberi fotografiju</string>
     <string name="remove_photo">Ukloni fotografiju</string>
+    <string name="change_photo">Change photo</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Prikaži telefonske brojeve</string>
     <string name="show_contact_thumbnails">Prikaži sličice kontakata</string>
@@ -54,6 +55,7 @@
     <string name="anniversary">Obljetnica</string>
     <!-- Favorites -->
     <string name="no_favorites">Čini se da još niste dodali nijedan kontakt u favorite.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
     <string name="search_contacts">Pretraži kontakte</string>
     <string name="search_favorites">Pretraži favorite</string>

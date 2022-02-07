@@ -38,6 +38,7 @@
     <string name="take_photo">Foti</string>
     <string name="choose_photo">Elekti foton</string>
     <string name="remove_photo">Forigi foton</string>
+    <string name="change_photo">Change photo</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Montri telefonnumeroj</string>
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
@@ -54,6 +55,7 @@
     <string name="anniversary">Anniversary</string>
     <!-- Favorites -->
     <string name="no_favorites">Seems like you haven\'t added any favorite contacts yet.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
     <string name="search_contacts">Serĉi kontaktojn</string>
     <string name="search_favorites">Search favorites</string>

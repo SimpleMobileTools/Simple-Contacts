@@ -41,6 +41,7 @@
     <string name="take_photo">التقاط صورة</string>
     <string name="choose_photo">اختيار صورة</string>
     <string name="remove_photo">ازالة الصورة</string>
+    <string name="change_photo">Change photo</string>
 
     <!-- Settings -->
     <string name="show_phone_numbers">عرض أرقام الهاتف على الشاشة الرئيسية</string>
@@ -60,6 +61,7 @@
 
     <!-- Favorites -->
     <string name="no_favorites">يبدو أنك لم تضف أية جهة اتصال مفضلة حتى الآن.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
 
     <!-- Search -->
     <string name="search_contacts">بحث في جهات الاتصال</string>

@@ -238,11 +238,14 @@ class EditContactActivity : ContactActivity() {
         contact_groups_add_new.setOnClickListener { showSelectGroupsDialog() }
         contact_source.setOnClickListener { showSelectContactSourceDialog() }
 
+        contact_change_photo.setOnLongClickListener { toast(R.string.change_photo); true; }
+
         setupFieldVisibility()
 
         contact_toggle_favorite.apply {
             setImageDrawable(getStarDrawable(contact!!.starred == 1))
             tag = contact!!.starred
+            setOnLongClickListener { toast(R.string.toggle_favorite); true; }
         }
 
         updateTextColors(contact_scrollview)
@@ -1206,6 +1209,8 @@ class EditContactActivity : ContactActivity() {
             setImageDrawable(getStarDrawable(!isStarred))
             tag = if (isStarred) 0 else 1
             applyColorFilter(config.textColor)
+
+            setOnLongClickListener { toast(R.string.toggle_favorite); true; }
         }
     }
 

@@ -38,6 +38,7 @@
     <string name="take_photo">Fotografuoti</string>
     <string name="choose_photo">Pasirinkti nuotrauką</string>
     <string name="remove_photo">Šalinti nuotrauką</string>
+    <string name="change_photo">Change photo</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Rodyti telefono numerius</string>
     <string name="show_contact_thumbnails">Rodyti adresatų miniatiūras</string>
@@ -54,6 +55,7 @@
     <string name="anniversary">Metinės</string>
     <!-- Favorites -->
     <string name="no_favorites">Atrodo, kad dar nesate pridėję jokių mėgstamų adresatų.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
     <string name="search_contacts">Ieškoti adresatų</string>
     <string name="search_favorites">Ieškoti mėgstamų</string>

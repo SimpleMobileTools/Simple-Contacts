@@ -41,6 +41,7 @@
     <string name="take_photo">写真を撮影</string>
     <string name="choose_photo">写真を選択</string>
     <string name="remove_photo">写真を削除</string>
+    <string name="change_photo">Change photo</string>
 
     <!-- Settings -->
     <string name="show_phone_numbers">メイン画面に電話番号を表示</string>
@@ -60,6 +61,7 @@
 
     <!-- Favorites -->
     <string name="no_favorites">お気に入りの連絡先はまだありません</string>
+    <string name="toggle_favorite">Toggle favorite</string>
 
     <!-- Search -->
     <string name="search_contacts">連絡先を検索</string>

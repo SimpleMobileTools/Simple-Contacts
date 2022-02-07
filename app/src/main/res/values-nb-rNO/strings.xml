@@ -37,6 +37,7 @@
     <string name="take_photo">Ta bilde</string>
     <string name="choose_photo">Velg bilde</string>
     <string name="remove_photo">Fjern bilde</string>
+    <string name="change_photo">Change photo</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Vis telefonnumre</string>
     <string name="show_contact_thumbnails">Vis kontaktminiatyrbilder</string>
@@ -53,6 +54,7 @@
     <string name="anniversary">Jubileum</string>
     <!-- Favorites -->
     <string name="no_favorites">Det ser ut til at du ikke har lagt til noen favorittkontakter enda.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
     <string name="search_contacts">Søk etter kontakter</string>
     <string name="search_favorites">Søk etter favoritter</string>

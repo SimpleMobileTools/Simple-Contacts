@@ -41,6 +41,7 @@
     <string name="take_photo">Atera argazkia</string>
     <string name="choose_photo">Hautatu argazkia</string>
     <string name="remove_photo">Kendu argazkia</string>
+    <string name="change_photo">Change photo</string>
 
     <!-- Settings -->
     <string name="show_phone_numbers">Erakutsi telefono zenbakiak pantaila nagusian</string>
@@ -60,6 +61,7 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Ez duzu oraindik gogokorik gehitu.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
 
     <!-- Search -->
     <string name="search_contacts">Bilatu kontaktuak</string>

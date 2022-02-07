@@ -38,6 +38,7 @@
     <string name="take_photo">Λήψη φωτογραφίας</string>
     <string name="choose_photo">Επιλογή φωτογραφίας</string>
     <string name="remove_photo">Αφαίρεση φωτογραφίας</string>
+    <string name="change_photo">Change photo</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Εμφάνιση τηλεφωνικών</string>
     <string name="show_contact_thumbnails">Εμφάνιση μικρογραφιών επαφής</string>
@@ -54,6 +55,7 @@
     <string name="anniversary">Επέτειος</string>
     <!-- Favorites -->
     <string name="no_favorites">Φαίνεται ότι δεν έχετε προσθέσει αγαπημένες επαφές ακόμη.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
     <string name="search_contacts">Αναζήτηση επαφών</string>
     <string name="search_favorites">Αναζήτηση αγαπημένων</string>

@@ -38,9 +38,10 @@
     <string name="create_group_under_account">Vytvoriť skupinu pod účet</string>
 
     <!-- Photo -->
-    <string name="take_photo">Vytvoriť foto</string>
-    <string name="choose_photo">Zvoliť foto</string>
-    <string name="remove_photo">Odstrániť foto</string>
+    <string name="take_photo">Vytvoriť fotku</string>
+    <string name="choose_photo">Zvoliť fotku</string>
+    <string name="remove_photo">Odstrániť fotku</string>
+    <string name="change_photo">Zmeniť fotku</string>
 
     <!-- Settings -->
     <string name="show_phone_numbers">Zobraziť telefónne čísla</string>
@@ -60,6 +61,7 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Zdá sa, že ste ešte nepridali žiadne obľúbené kontakty.</string>
+    <string name="toggle_favorite">Prepnúť obľúbené</string>
 
     <!-- Search -->
     <string name="search_contacts">Hľadať v kontaktoch</string>

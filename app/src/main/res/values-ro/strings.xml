@@ -42,6 +42,7 @@
     <string name="take_photo">Faceți o fotografie</string>
     <string name="choose_photo">Alegeți o fotografie</string>
     <string name="remove_photo">Eliminați fotografia</string>
+    <string name="change_photo">Change photo</string>
 
     <!-- Settings -->
     <string name="show_phone_numbers">Afișați numerele de telefon</string>
@@ -61,6 +62,7 @@
 
     <!-- Favorites -->
     <string name="no_favorites">Se pare că nu ați adăugat încă nicio persoană de contact favorită.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
 
     <!-- Search -->
     <string name="search_contacts">Căutați în contacte</string>

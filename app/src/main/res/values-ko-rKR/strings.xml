@@ -41,6 +41,7 @@
     <string name="take_photo">사진 촬영</string>
     <string name="choose_photo">사진 선택</string>
     <string name="remove_photo">사진 삭제</string>
+    <string name="change_photo">Change photo</string>
 
     <!-- Settings -->
     <string name="show_phone_numbers">메인 스크린에 전화번호 표시</string>
@@ -60,6 +61,7 @@
 
     <!-- Favorites -->
     <string name="no_favorites">자주 사용하는 연락처가 아직 등록되지 않았습니다.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
 
     <!-- Search -->
     <string name="search_contacts">연락처 검색</string>

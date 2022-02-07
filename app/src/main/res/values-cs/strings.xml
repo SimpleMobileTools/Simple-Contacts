@@ -38,6 +38,7 @@
     <string name="take_photo">Pořídit fotku</string>
     <string name="choose_photo">Zvolit fotku</string>
     <string name="remove_photo">Odstranit fotku</string>
+    <string name="change_photo">Change photo</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Zobrazit telefonní čísla</string>
     <string name="show_contact_thumbnails">Zobrazit obrázky kontaktů</string>
@@ -54,6 +55,7 @@
     <string name="anniversary">Výročí</string>
     <!-- Favorites -->
     <string name="no_favorites">Vypadá to, že jste ještě nepřidali žádné oblíbené kontakty.</string>
+    <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
     <string name="search_contacts">Hledat v kontaktech</string>
     <string name="search_favorites">Hledat mezi oblíbenými</string>
