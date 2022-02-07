@@ -161,6 +161,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
         select_contact_label?.setTextColor(getAdjustedPrimaryColor())
         new_contact_tmb?.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_add_person_vector, config.textColor))
+        new_contact_name.setTextColor(config.textColor)
         new_contact_holder?.setOnClickListener {
             createNewContact()
         }
