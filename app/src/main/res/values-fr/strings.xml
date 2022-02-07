@@ -9,7 +9,7 @@
     <string name="phone_storage_hidden">Mémoire du téléphone (invisible pour les autres applis)</string>
     <string name="company">Entreprise</string>
     <string name="job_position">Poste</string>
-    <string name="website">Site Web</string>
+    <string name="website">Site web</string>
     <string name="send_sms_to_contacts">Envoyer un texto aux contacts</string>
     <string name="send_email_to_contacts">Envoyer un courriel aux contacts</string>
     <string name="send_sms_to_group">Envoyer un texto au groupe</string>

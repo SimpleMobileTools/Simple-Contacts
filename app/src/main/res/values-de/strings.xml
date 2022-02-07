@@ -9,7 +9,7 @@
     <string name="phone_storage_hidden">Gerätespeicher (nicht sichtbar für andere Apps)</string>
     <string name="company">Unternehmen</string>
     <string name="job_position">Arbeitsstelle</string>
-    <string name="website">Webseite</string>
+    <string name="website">Website</string>
     <string name="send_sms_to_contacts">SMS an Kontakte senden</string>
     <string name="send_email_to_contacts">E-Mail an Kontakte senden</string>
     <string name="send_sms_to_group">SMS an Gruppe senden</string>
