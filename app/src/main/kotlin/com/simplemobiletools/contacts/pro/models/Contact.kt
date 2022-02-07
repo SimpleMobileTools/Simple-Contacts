@@ -97,7 +97,6 @@ data class Contact(
     private fun compareUsingIds(other: Contact): Int {
         val firstId = id
         val secondId = other.id
-
         return firstId.compareTo(secondId)
     }
 

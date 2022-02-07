@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.CommonDataKinds.*
 import android.provider.MediaStore
+import android.telephony.PhoneNumberUtils
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -473,6 +474,7 @@ class EditContactActivity : ContactActivity() {
 
             numberHolder!!.apply {
                 contact_number.setText(number.value)
+                contact_number.tag = number.normalizedNumber
                 setupPhoneNumberTypePicker(contact_number_type, number.type, number.label)
                 if (highlightLastPhoneNumber && index == contact!!.phoneNumbers.size - 1) {
                     numberViewToColor = contact_number
@@ -1022,7 +1024,15 @@ class EditContactActivity : ContactActivity() {
             val numberLabel = if (numberType == Phone.TYPE_CUSTOM) numberHolder.contact_number_type.value else ""
 
             if (number.isNotEmpty()) {
-                phoneNumbers.add(PhoneNumber(number, numberType, numberLabel, number.normalizePhoneNumber()))
+                var normalizedNumber = number.normalizePhoneNumber()
+
+                // fix a glitch when onBackPressed the app thinks that a number changed because we fetched
+                // normalized number +421903123456, then at getting it from the input field we get 0903123456, can happen at WhatsApp contacts
+                val fetchedNormalizedNumber = numberHolder.contact_number.tag?.toString() ?: ""
+                if (PhoneNumberUtils.compare(number.normalizePhoneNumber(), fetchedNormalizedNumber)) {
+                    normalizedNumber = fetchedNormalizedNumber
+                }
+                phoneNumbers.add(PhoneNumber(number, numberType, numberLabel, normalizedNumber))
             }
         }
         return phoneNumbers
