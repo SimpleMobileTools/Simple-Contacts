@@ -6,8 +6,11 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.provider.ContactsContract.CommonDataKinds.Email
+import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
@@ -35,6 +38,8 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
+    private var isSelectContactIntent = false
+    private var specialMimeType: String? = null
 
     private val contactsFavoritesList = arrayListOf(
         TAB_CONTACTS,
@@ -44,6 +49,18 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insert_edit_contact)
+        isSelectContactIntent = intent.action == Intent.ACTION_PICK
+
+        if (isSelectContactIntent) {
+            specialMimeType = when (intent.data) {
+                Email.CONTENT_URI -> Email.CONTENT_ITEM_TYPE
+                Phone.CONTENT_URI -> Phone.CONTENT_ITEM_TYPE
+                else -> null
+            }
+        }
+
+        new_contact_holder.beGoneIf(isSelectContactIntent)
+        select_contact_label.beGoneIf(isSelectContactIntent)
 
         if (checkAppSideloading()) {
             return
@@ -89,6 +106,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (resultCode == Activity.RESULT_OK) {
+            hideKeyboard()
             finish()
         }
     }
@@ -213,39 +231,77 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
             viewpager.adapter = ViewPagerAdapter(this, contactsFavoritesList, getTabsMask())
         }
 
-        ContactsHelper(this).getContacts { contacts ->
+        ContactsHelper(this).getContacts {
             if (isDestroyed || isFinishing) {
                 return@getContacts
             }
 
+            val contacts = it.filter {
+                if (specialMimeType != null) {
+                    val hasRequiredValues = when (specialMimeType) {
+                        Email.CONTENT_ITEM_TYPE -> it.emails.isNotEmpty()
+                        Phone.CONTENT_ITEM_TYPE -> it.phoneNumbers.isNotEmpty()
+                        else -> true
+                    }
+                    !it.isPrivate() && hasRequiredValues
+                } else {
+                    true
+                }
+            } as ArrayList<Contact>
+
+            val placeholderText = when (specialMimeType) {
+                Email.CONTENT_ITEM_TYPE -> getString(R.string.no_contacts_with_emails)
+                Phone.CONTENT_ITEM_TYPE -> getString(R.string.no_contacts_with_phone_numbers)
+                else -> null
+            }
+
             if (refreshTabsMask and TAB_CONTACTS != 0) {
-                contacts_fragment?.refreshContacts(contacts)
+                contacts_fragment?.refreshContacts(contacts, placeholderText)
             }
 
             if (refreshTabsMask and TAB_FAVORITES != 0) {
-                favorites_fragment?.refreshContacts(contacts)
+                favorites_fragment?.refreshContacts(contacts, placeholderText)
             }
         }
     }
 
     override fun contactClicked(contact: Contact) {
-        val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
-        val email = getEmailFromIntent(intent) ?: ""
-
-        Intent(applicationContext, EditContactActivity::class.java).apply {
-            data = getContactPublicUri(contact)
-            action = ADD_NEW_CONTACT_NUMBER
-
-            if (phoneNumber.isNotEmpty()) {
-                putExtra(KEY_PHONE, phoneNumber)
+        hideKeyboard()
+        if (isSelectContactIntent) {
+            Intent().apply {
+                data = getResultUri(contact)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                setResult(RESULT_OK, this)
             }
+            finish()
+        } else {
+            val phoneNumber = getPhoneNumberFromIntent(intent) ?: ""
+            val email = getEmailFromIntent(intent) ?: ""
+            Intent(applicationContext, EditContactActivity::class.java).apply {
+                data = getContactPublicUri(contact)
+                action = ADD_NEW_CONTACT_NUMBER
 
-            if (email.isNotEmpty()) {
-                putExtra(KEY_EMAIL, email)
+                if (phoneNumber.isNotEmpty()) {
+                    putExtra(KEY_PHONE, phoneNumber)
+                }
+
+                if (email.isNotEmpty()) {
+                    putExtra(KEY_EMAIL, email)
+                }
+
+                putExtra(IS_PRIVATE, contact.isPrivate())
+                startActivityForResult(this, START_EDIT_ACTIVITY)
             }
+        }
+    }
 
-            putExtra(IS_PRIVATE, contact.isPrivate())
-            startActivityForResult(this, START_EDIT_ACTIVITY)
+    private fun getResultUri(contact: Contact): Uri {
+        return when {
+            specialMimeType != null -> {
+                val contactId = ContactsHelper(this).getContactMimeTypeId(contact.id.toString(), specialMimeType!!)
+                Uri.withAppendedPath(ContactsContract.Data.CONTENT_URI, contactId)
+            }
+            else -> getContactPublicUri(contact)
         }
     }
 

@@ -23,7 +23,8 @@
         android:background="?attr/selectableItemBackground"
         android:paddingTop="@dimen/medium_margin"
         android:paddingEnd="@dimen/activity_margin"
-        android:paddingBottom="@dimen/medium_margin">
+        android:paddingBottom="@dimen/medium_margin"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/new_contact_tmb"
@@ -58,7 +59,8 @@
         android:layout_marginBottom="@dimen/activity_margin"
         android:text="@string/add_to_existing_contact"
         android:textAllCaps="true"
-        android:textSize="@dimen/smaller_text_size" />
+        android:textSize="@dimen/smaller_text_size"
+        android:visibility="gone" />
 
     <com.simplemobiletools.commons.views.MyViewPager
         android:id="@+id/viewpager"

@@ -29,6 +29,8 @@ const val ADD_NEW_CONTACT_NUMBER = "add_new_contact_number"
 const val FIRST_CONTACT_ID = 1000000
 const val FIRST_GROUP_ID = 10000L
 const val DEFAULT_FILE_NAME = "contacts.vcf"
+const val AVOID_CHANGING_TEXT_TAG = "avoid_changing_text_tag"
+const val AVOID_CHANGING_VISIBILITY_TAG = "avoid_changing_visibility_tag"
 
 // extras used at third party intents
 const val KEY_NAME = "name"
@@ -42,7 +44,8 @@ const val LOCATION_INSERT_OR_EDIT = 3
 
 const val ALL_TABS_MASK = TAB_CONTACTS or TAB_FAVORITES or TAB_GROUPS
 
-val tabsList = arrayListOf(TAB_CONTACTS,
+val tabsList = arrayListOf(
+    TAB_CONTACTS,
     TAB_FAVORITES,
     TAB_GROUPS
 )
@@ -120,6 +123,28 @@ const val SOCIAL_VOICE_CALL = 0
 const val SOCIAL_VIDEO_CALL = 1
 const val SOCIAL_MESSAGE = 2
 
-fun getEmptyLocalContact() = LocalContact(0, "", "", "", "", "", "", null, "", ArrayList(), ArrayList(), ArrayList(), 0, ArrayList(), "", ArrayList(), "", "", ArrayList(), ArrayList(), null)
+fun getEmptyLocalContact() = LocalContact(
+    0,
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    null,
+    "",
+    ArrayList(),
+    ArrayList(),
+    ArrayList(),
+    0,
+    ArrayList(),
+    "",
+    ArrayList(),
+    "",
+    "",
+    ArrayList(),
+    ArrayList(),
+    null
+)
 
 fun getProperText(text: String, shouldNormalize: Boolean) = if (shouldNormalize) text.normalizeString() else text

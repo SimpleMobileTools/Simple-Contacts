@@ -103,7 +103,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
-    fun refreshContacts(contacts: ArrayList<Contact>) {
+    fun refreshContacts(contacts: ArrayList<Contact>, placeholderText: String? = null) {
         if ((config.showTabs and TAB_CONTACTS == 0 && this is ContactsFragment && activity !is InsertOrEditContactActivity) ||
             (config.showTabs and TAB_FAVORITES == 0 && this is FavoritesFragment) ||
             (config.showTabs and TAB_GROUPS == 0 && this is GroupsFragment)
@@ -137,6 +137,13 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             lastHashCode = currentHash
             activity?.runOnUiThread {
                 setupContacts(filtered)
+
+                if (placeholderText != null) {
+                    fragment_placeholder.text = placeholderText
+                    fragment_placeholder.tag = AVOID_CHANGING_TEXT_TAG
+                    fragment_placeholder_2.beGone()
+                    fragment_placeholder_2.tag = AVOID_CHANGING_VISIBILITY_TAG
+                }
             }
         }
     }
@@ -310,7 +317,9 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
-                fragment_placeholder.text = activity?.getString(R.string.no_contacts_found)
+                if (fragment_placeholder.tag != AVOID_CHANGING_TEXT_TAG) {
+                    fragment_placeholder.text = activity?.getString(R.string.no_contacts_found)
+                }
             }
 
             fragment_placeholder.beVisibleIf(filtered.isEmpty())
@@ -345,13 +354,16 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             setupViewVisibility(groupsIgnoringSearch.isNotEmpty())
         }
 
-        if (this is FavoritesFragment) {
+        if (this is FavoritesFragment && fragment_placeholder.tag != AVOID_CHANGING_TEXT_TAG) {
             fragment_placeholder.text = activity?.getString(R.string.no_favorites)
         }
     }
 
     private fun setupViewVisibility(hasItemsToShow: Boolean) {
-        fragment_placeholder_2?.beVisibleIf(!hasItemsToShow)
+        if (fragment_placeholder_2.tag != AVOID_CHANGING_VISIBILITY_TAG) {
+            fragment_placeholder_2?.beVisibleIf(!hasItemsToShow)
+        }
+
         fragment_placeholder?.beVisibleIf(!hasItemsToShow)
         fragment_list.beVisibleIf(hasItemsToShow)
     }
