@@ -8,7 +8,6 @@
     <string name="phone_storage_hidden">Penyimpanan telepon (tidak terlihat oleh aplikasi lain)</string>
     <string name="company">Perusahaan</string>
     <string name="job_position">Jabatan</string>
-    <string name="website">Situs web</string>
     <string name="send_sms_to_contacts">Kirim SMS ke kontak</string>
     <string name="send_email_to_contacts">Kirim surel ke kontak</string>
     <string name="send_sms_to_group">Kirim SMS ke grup</string>

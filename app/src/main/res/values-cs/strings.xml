@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Úložiště telefonu (neviditelné pro ostatní apky)</string>
     <string name="company">Firma</string>
     <string name="job_position">Pracovní pozice</string>
-    <string name="website">Webová stránka</string>
     <string name="send_sms_to_contacts">Poslat kontaktům SMS</string>
     <string name="send_email_to_contacts">Poslat kontaktům e-mail</string>
     <string name="send_sms_to_group">Poslat skupině SMS</string>

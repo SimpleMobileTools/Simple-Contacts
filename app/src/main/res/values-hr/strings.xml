@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Pohrana na telefonu (nije vidljiva drugim aplikacijama))</string>
     <string name="company">Tvrtka</string>
     <string name="job_position">Radno mjesto</string>
-    <string name="website">Web stranica</string>
     <string name="send_sms_to_contacts">Pošalji SMS kontaktima</string>
     <string name="send_email_to_contacts">Pošalji e-poštu kontaktima</string>
     <string name="send_sms_to_group">Pošalji SMS grupi</string>

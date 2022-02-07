@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Telefon belleği (diğer uygulamalar tarafından görülmez)</string>
     <string name="company">Şirket</string>
     <string name="job_position">İş pozisyonu</string>
-    <string name="website">Web sitesi</string>
     <string name="send_sms_to_contacts">Kişilere SMS gönder</string>
     <string name="send_email_to_contacts">Kişilere e-posta gönder</string>
     <string name="send_sms_to_group">Gruba SMS gönder</string>

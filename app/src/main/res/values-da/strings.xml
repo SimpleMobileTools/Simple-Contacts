@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Telefon lager (ikke synlig for andre apps)</string>
     <string name="company">Firma</string>
     <string name="job_position">Stilling</string>
-    <string name="website">Hjemmeside</string>
     <string name="send_sms_to_contacts">Send SMS til kontakter</string>
     <string name="send_email_to_contacts">Send e-mail til kontakter</string>
     <string name="send_sms_to_group">Send SMS til gruppe</string>

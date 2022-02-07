@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Telefonimälu (muud rakendused ei saa siia ligi)</string>
     <string name="company">Äriühing</string>
     <string name="job_position">Ametikoht</string>
-    <string name="website">Veebisait</string>
     <string name="send_sms_to_contacts">Saada SMS kontaktidele</string>
     <string name="send_email_to_contacts">Saada e-kiri kontaktidele</string>
     <string name="send_sms_to_group">Saada SMS rühmale</string>

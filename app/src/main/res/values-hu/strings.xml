@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Telefon tárhelye (többi alkalmazás számára nem látható)</string>
     <string name="company">Cégnév</string>
     <string name="job_position">Munkakör</string>
-    <string name="website">Weboldal</string>
     <string name="send_sms_to_contacts">SMS küldése</string>
     <string name="send_email_to_contacts">E-mail küldése</string>
     <string name="send_sms_to_group">SMS küldése csoportnak</string>

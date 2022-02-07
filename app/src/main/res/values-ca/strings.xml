@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Emmagatzematge del telèfon (no visible per altres aplicacions)</string>
     <string name="company">Empresa</string>
     <string name="job_position">Càrrec</string>
-    <string name="website">Lloc web</string>
     <string name="send_sms_to_contacts">Envia un SMS a contactes</string>
     <string name="send_email_to_contacts">Envia un correu electrònic a contactes</string>
     <string name="send_sms_to_group">Envia un SMS a un grup</string>

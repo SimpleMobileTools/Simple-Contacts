@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Telefono atmintis (nematoma kitoms programėlėms)</string>
     <string name="company">Kompanija</string>
     <string name="job_position">Pareigos</string>
-    <string name="website">Internetinė svetainė</string>
     <string name="send_sms_to_contacts">Siųsti adresatams SMS žinutę</string>
     <string name="send_email_to_contacts">Siųsti adresatams el. laišką</string>
     <string name="send_sms_to_group">Siųsti grupei SMS žinutę</string>

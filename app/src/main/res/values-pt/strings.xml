@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Armazenamento do telefone (não visível por outras alicações)</string>
     <string name="company">Organização</string>
     <string name="job_position">Cargo</string>
-    <string name="website">Site</string>
     <string name="send_sms_to_contacts">Enviar SMS aos contactos</string>
     <string name="send_email_to_contacts">Enviar e-mail aos contactos</string>
     <string name="send_sms_to_group">Enviar SMS para o grupo</string>

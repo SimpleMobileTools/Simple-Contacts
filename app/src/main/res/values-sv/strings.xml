@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Telefonens lagringsutrymme (inte synligt för andra appar)</string>
     <string name="company">Företag</string>
     <string name="job_position">Befattning</string>
-    <string name="website">Webbplats</string>
     <string name="send_sms_to_contacts">Skicka SMS till kontakter</string>
     <string name="send_email_to_contacts">Skicka e-post till kontakter</string>
     <string name="send_sms_to_group">Skicka SMS till grupp</string>

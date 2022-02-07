@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Stocarea telefonului (nu este vizibilă de către alte aplicații)</string>
     <string name="company">Companie</string>
     <string name="job_position">Postul de muncă</string>
-    <string name="website">Site web</string>
     <string name="send_sms_to_contacts">Trimiteți SMS către contacte</string>
     <string name="send_email_to_contacts">Trimiteți e-mail către contacte</string>
     <string name="send_sms_to_group">Trimiteți SMS către grup</string>

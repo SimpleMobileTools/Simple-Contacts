@@ -8,7 +8,6 @@
     <string name="phone_storage_hidden">ഫോൺ സ്റ്റോറേജ് (മറ്റ് അപ്ലിക്കേഷനുകൾക്ക് ദൃശ്യമല്ല)</string>
     <string name="company">കമ്പനി</string>
     <string name="job_position">ഉദ്യോഗ സ്ഥാനം</string>
-    <string name="website">വെബ്സൈറ്റ്</string>
     <string name="send_sms_to_contacts">കോൺ‌ടാക്റ്റുകളിലേക്ക് SMS അയയ്ക്കുക</string>
     <string name="send_email_to_contacts">കോൺ‌ടാക്റ്റുകളിലേക്ക് ഇമെയിൽ അയയ്‌ക്കുക</string>
     <string name="send_sms_to_group">ഗ്രൂപ്പിലേക്ക് SMS അയയ്ക്കുക</string>

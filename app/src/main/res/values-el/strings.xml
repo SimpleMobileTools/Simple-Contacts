@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Μνήμη τηλεφώνου (κρυφές από άλλες εφαρμογές)</string>
     <string name="company">Εταιρεία</string>
     <string name="job_position">Θέση Εργασίας</string>
-    <string name="website">Ιστοσελίδα</string>
     <string name="send_sms_to_contacts">Αποστολή SMS σε επαφές</string>
     <string name="send_email_to_contacts">Αποστολή email σε επαφές</string>
     <string name="send_sms_to_group">Αποστολή SMS σε ομάδες</string>

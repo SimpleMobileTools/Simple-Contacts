@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">手机空间 (其他程序不可见)</string>
     <string name="company">公司</string>
     <string name="job_position">职位</string>
-    <string name="website">网站</string>
     <string name="send_sms_to_contacts">发送短信给联系人</string>
     <string name="send_email_to_contacts">发送电子邮件给联系人</string>
     <string name="send_sms_to_group">发送短信给群组</string>

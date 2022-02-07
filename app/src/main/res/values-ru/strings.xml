@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Память устройства (не видна другим приложениям)</string>
     <string name="company">Организация</string>
     <string name="job_position">Должность</string>
-    <string name="website">Сайт</string>
     <string name="send_sms_to_contacts">Отправить SMS контактам</string>
     <string name="send_email_to_contacts">Отправить письмо контактам</string>
     <string name="send_sms_to_group">Отправить SMS группе</string>

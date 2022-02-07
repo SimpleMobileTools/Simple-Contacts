@@ -8,7 +8,6 @@
     <string name="phone_storage_hidden">内部ストレージ (他のアプリからは表示されません)</string>
     <string name="company">会社</string>
     <string name="job_position">役職</string>
-    <string name="website">ウェブサイト</string>
     <string name="send_sms_to_contacts">連絡先にSMSを送信</string>
     <string name="send_email_to_contacts">連絡先にメールを送信</string>
     <string name="send_sms_to_group">グループにSMSを送信</string>

@@ -8,7 +8,6 @@
     <string name="phone_storage_hidden">Almacenamiento del teléfono (No visible para otras aplicaciones)</string>
     <string name="company">Compañía</string>
     <string name="job_position">Puesto de trabajo</string>
-    <string name="website">Sitio web</string>
     <string name="send_sms_to_contacts">Enviar SMS a contactos</string>
     <string name="send_email_to_contacts">Enviar correo electrónico a contactos</string>
     <string name="send_sms_to_group">Enviar SMS a grupo</string>

@@ -8,7 +8,6 @@
     <string name="phone_storage_hidden">ذاكرة الهاتف (غير مرئية من قبل التطبيقات الأخرى)</string>
     <string name="company">الشركة</string>
     <string name="job_position">الوظيفة</string>
-    <string name="website">الموقع الالكتروني</string>
     <string name="send_sms_to_contacts">ارسال رسالة الى جهات الاتصال</string>
     <string name="send_email_to_contacts">ارسال بريد الكتروني الى جهات الاتصال</string>
     <string name="send_sms_to_group">ارسال رسالة الى مجموعة</string>

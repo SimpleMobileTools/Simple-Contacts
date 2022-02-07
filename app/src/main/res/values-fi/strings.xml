@@ -9,7 +9,6 @@
     <string name="phone_storage_hidden">Puhelimen muisti (piilotettu muilta sovelluksilta)</string>
     <string name="company">Yritys</string>
     <string name="job_position">Ammatti</string>
-    <string name="website">Verkkosivu</string>
     <string name="send_sms_to_contacts">Lähetä tekstiviesti yhteystiedoille</string>
     <string name="send_email_to_contacts">Lähetä sähköposti yhteystiedoille</string>
     <string name="send_sms_to_group">Lähetä tekstiviesti ryhmälle</string>
