@@ -90,11 +90,13 @@ class EditContactActivity : ContactActivity() {
                             initContact()
                         } else {
                             toast(R.string.no_contacts_permission)
+                            hideKeyboard()
                             finish()
                         }
                     }
                 } else {
                     toast(R.string.no_contacts_permission)
+                    hideKeyboard()
                     finish()
                 }
             }
@@ -140,6 +142,7 @@ class EditContactActivity : ContactActivity() {
                 contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
                 if (contact == null) {
                     toast(R.string.unknown_error_occurred)
+                    hideKeyboard()
                     finish()
                 } else {
                     runOnUiThread {
@@ -301,6 +304,7 @@ class EditContactActivity : ContactActivity() {
         }
 
         contact_toolbar.setNavigationOnClickListener {
+            hideKeyboard()
             finish()
         }
     }
@@ -1109,10 +1113,12 @@ class EditContactActivity : ContactActivity() {
                 contact!!.source = originalContactSource
                 ContactsHelper(this).deleteContact(contact!!, false) {
                     setResult(Activity.RESULT_OK)
+                    hideKeyboard()
                     finish()
                 }
             } else {
                 setResult(Activity.RESULT_OK)
+                hideKeyboard()
                 finish()
             }
         } else {
@@ -1124,6 +1130,7 @@ class EditContactActivity : ContactActivity() {
         isSaving = true
         if (ContactsHelper(this@EditContactActivity).updateContact(contact!!, photoUpdateStatus)) {
             setResult(Activity.RESULT_OK)
+            hideKeyboard()
             finish()
         } else {
             toast(R.string.unknown_error_occurred)

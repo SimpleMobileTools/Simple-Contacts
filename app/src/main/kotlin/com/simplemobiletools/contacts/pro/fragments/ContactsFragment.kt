@@ -3,12 +3,14 @@ package com.simplemobiletools.contacts.pro.fragments
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
+import com.simplemobiletools.commons.extensions.hideKeyboard
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
 import com.simplemobiletools.contacts.pro.activities.InsertOrEditContactActivity
 import com.simplemobiletools.contacts.pro.activities.MainActivity
 
 class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun fabClicked() {
+        activity?.hideKeyboard()
         Intent(context, EditContactActivity::class.java).apply {
             context.startActivity(this)
         }
