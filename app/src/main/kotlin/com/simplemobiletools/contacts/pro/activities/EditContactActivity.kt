@@ -1218,7 +1218,6 @@ class EditContactActivity : ContactActivity() {
         contact_toggle_favorite.apply {
             setImageDrawable(getStarDrawable(!isStarred))
             tag = if (isStarred) 0 else 1
-            applyColorFilter(config.textColor)
 
             setOnLongClickListener { toast(R.string.toggle_favorite); true; }
         }
