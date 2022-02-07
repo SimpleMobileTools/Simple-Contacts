@@ -26,6 +26,7 @@ import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.getProperText
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_select_contact.*
+import kotlinx.android.synthetic.main.fragment_letters_layout.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -38,6 +39,7 @@ class SelectContactActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_contact)
+        fragment_fab.beGone()
 
         if (checkAppSideloading()) {
             return
@@ -123,7 +125,7 @@ class SelectContactActivity : SimpleActivity() {
     }
 
     private fun onSearchQueryChanged(text: String) {
-        val adapter = select_contact_list.adapter
+        val adapter = fragment_list.adapter
         if (adapter != null && adapter is SelectContactsAdapter) {
             val shouldNormalize = text.normalizeString() == text
             val filtered = contactsIgnoringSearch.filter {
@@ -145,20 +147,20 @@ class SelectContactActivity : SimpleActivity() {
             }
 
             if (filtered.isEmpty()) {
-                select_contact_placeholder.text = getString(R.string.no_items_found)
+                fragment_placeholder.text = getString(R.string.no_items_found)
             }
 
-            select_contact_placeholder.beVisibleIf(filtered.isEmpty())
+            fragment_placeholder.beVisibleIf(filtered.isEmpty())
             adapter.updateItems(filtered, text.normalizeString())
         }
     }
 
     private fun onSearchOpened() {
-        contactsIgnoringSearch = (select_contact_list.adapter as? SelectContactsAdapter)?.contacts ?: ArrayList()
+        contactsIgnoringSearch = (fragment_list.adapter as? SelectContactsAdapter)?.contacts ?: ArrayList()
     }
 
     private fun onSearchClosed() {
-        (select_contact_list.adapter as? SelectContactsAdapter)?.updateItems(contactsIgnoringSearch)
+        (fragment_list.adapter as? SelectContactsAdapter)?.updateItems(contactsIgnoringSearch)
     }
 
     private fun showSortingDialog() {
@@ -197,17 +199,17 @@ class SelectContactActivity : SimpleActivity() {
 
             runOnUiThread {
                 updatePlaceholderVisibility(contacts)
-                SelectContactsAdapter(this, contacts, ArrayList(), false, select_contact_list) {
+                SelectContactsAdapter(this, contacts, ArrayList(), false, fragment_list) {
                     confirmSelection(it)
                 }.apply {
-                    select_contact_list.adapter = this
+                    fragment_list.adapter = this
                 }
 
                 if (areSystemAnimationsEnabled) {
-                    select_contact_list.scheduleLayoutAnimation()
+                    fragment_list.scheduleLayoutAnimation()
                 }
 
-                letter_fastscroller.setupWithRecyclerView(select_contact_list, { position ->
+                letter_fastscroller.setupWithRecyclerView(fragment_list, { position ->
                     try {
                         val name = contacts[position].getNameToDisplay()
                         val character = if (name.isNotEmpty()) name.substring(0, 1) else ""
@@ -241,10 +243,10 @@ class SelectContactActivity : SimpleActivity() {
 
     private fun setupViews() {
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        select_contact_placeholder.setTextColor(config.textColor)
-        select_contact_placeholder_2.setTextColor(adjustedPrimaryColor)
-        select_contact_placeholder_2.underlineText()
-        select_contact_placeholder_2.setOnClickListener {
+        fragment_placeholder.setTextColor(config.textColor)
+        fragment_placeholder_2.setTextColor(adjustedPrimaryColor)
+        fragment_placeholder_2.underlineText()
+        fragment_placeholder_2.setOnClickListener {
             FilterContactSourcesDialog(this) {
                 initContacts()
             }
@@ -259,10 +261,10 @@ class SelectContactActivity : SimpleActivity() {
     }
 
     private fun updatePlaceholderVisibility(contacts: ArrayList<Contact>) {
-        select_contact_list.beVisibleIf(contacts.isNotEmpty())
-        select_contact_placeholder_2.beVisibleIf(contacts.isEmpty())
-        select_contact_placeholder.beVisibleIf(contacts.isEmpty())
-        select_contact_placeholder.setText(
+        fragment_list.beVisibleIf(contacts.isNotEmpty())
+        fragment_placeholder_2.beVisibleIf(contacts.isEmpty())
+        fragment_placeholder.beVisibleIf(contacts.isEmpty())
+        fragment_placeholder.setText(
             when (specialMimeType) {
                 Email.CONTENT_ITEM_TYPE -> R.string.no_contacts_with_emails
                 Phone.CONTENT_ITEM_TYPE -> R.string.no_contacts_with_phone_numbers
