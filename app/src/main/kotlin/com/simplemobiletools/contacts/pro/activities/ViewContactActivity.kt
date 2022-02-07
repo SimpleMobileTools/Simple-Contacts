@@ -707,6 +707,14 @@ class ViewContactActivity : ContactActivity() {
                             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                             try {
                                 startActivity(this)
+                            } catch (e: SecurityException) {
+                                handlePermission(PERMISSION_CALL_PHONE) { success ->
+                                    if (success) {
+                                        startActivity(this)
+                                    } else {
+                                        toast(R.string.no_phone_call_permission)
+                                    }
+                                }
                             } catch (e: ActivityNotFoundException) {
                                 toast(R.string.no_app_found)
                             } catch (e: Exception) {
