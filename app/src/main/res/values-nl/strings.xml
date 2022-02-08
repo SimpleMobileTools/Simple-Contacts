@@ -37,7 +37,7 @@
     <string name="take_photo">Foto maken</string>
     <string name="choose_photo">Foto kiezen</string>
     <string name="remove_photo">Foto verwijderen</string>
-    <string name="change_photo">Change photo</string>
+    <string name="change_photo">Foto aanpassen</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Telefoonnummers tonen</string>
     <string name="show_contact_thumbnails">Contactafbeelding tonen</string>
@@ -54,7 +54,7 @@
     <string name="anniversary">Jubileum</string>
     <!-- Favorites -->
     <string name="no_favorites">Er zijn nog geen favorieten toegevoegd.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
+    <string name="toggle_favorite">Favoriet aan/uit</string>
     <!-- Search -->
     <string name="search_contacts">Contacten zoeken</string>
     <string name="search_favorites">Favorieten zoeken</string>
