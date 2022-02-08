@@ -37,7 +37,7 @@
     <string name="take_photo">Fotoğraf çek</string>
     <string name="choose_photo">Fotoğraf seç</string>
     <string name="remove_photo">Fotoğrafı kaldır</string>
-    <string name="change_photo">Change photo</string>
+    <string name="change_photo">Fotoğrafı değiştir</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Telefon numaralarını göster</string>
     <string name="show_contact_thumbnails">Kişi küçük resimlerini göster</string>
@@ -54,7 +54,7 @@
     <string name="anniversary">Yıldönümü</string>
     <!-- Favorites -->
     <string name="no_favorites">Henüz herhangi bir favori kişi eklememişsiniz.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
+    <string name="toggle_favorite">Favoriyi göster/gizle</string>
     <!-- Search -->
     <string name="search_contacts">Kişileri ara</string>
     <string name="search_favorites">Favorileri ara</string>
