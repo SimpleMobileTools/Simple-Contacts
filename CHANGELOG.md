@@ -1,6 +1,16 @@
 Changelog
 ==========
 
+Version 6.17.1 *(2022-02-08)*
+----------------------------
+
+ * Add Favorites tab when handling contact selection third party intent
+ * Improving the UX at using social buttons, like calling through WhatsApp
+ * import whole address, if it is split into multiple pieces in a .vcf file
+ * Allow customizing visible contact fields at the View and Edit screen too
+ * Fix a glitch with private contacts not being openable from Simple Dialer
+ * Added some stability, translation and UX improvements
+
 Version 6.17.0 *(2022-01-03)*
 ----------------------------
 
