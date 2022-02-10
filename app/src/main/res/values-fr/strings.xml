@@ -54,7 +54,7 @@
     <string name="anniversary">Autre anniversaire</string>
     <!-- Favorites -->
     <string name="no_favorites">Il semble que vous navez pas encore ajouté de contacts favoris.</string>
-    <string name="toggle_favorite">Basculer les favoris</string>
+    <string name="toggle_favorite">Activer/désactiver le favori</string>
     <!-- Search -->
     <string name="search_contacts">Chercher dans les contacts</string>
     <string name="search_favorites">Chercher dans les favoris</string>
