@@ -15,7 +15,7 @@
     <string name="send_email_to_group">Send e-mail til gruppe</string>
     <string name="create_new_contact">Opret ny kontakt</string>
     <string name="add_to_existing_contact">Tilføj til en eksisterende kontakt</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
+    <string name="fields_empty">Mindst 1 felt skal udfyldes</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Ingen kontakter med e-mails fundet</string>
     <string name="no_contacts_with_phone_numbers">Ingen kontakter med telefonnumre fundet</string>
@@ -37,9 +37,9 @@
     <string name="take_photo">Tag foto</string>
     <string name="choose_photo">Vælg foto</string>
     <string name="remove_photo">Fjern foto</string>
-    <string name="change_photo">Change photo</string>
+    <string name="change_photo">Skift foto</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Vis telefonnumre på hovedskærmen</string>
+    <string name="show_phone_numbers">Vis telefonnumre</string>
     <string name="show_contact_thumbnails">Vis kontakt miniature-billede</string>
     <string name="show_dialpad_button">Vis en opkaldstasteknap på hovedskærmen</string>
     <string name="on_contact_click">Ved klik på kontakt</string>
@@ -54,7 +54,7 @@
     <string name="anniversary">Årsdag</string>
     <!-- Favorites -->
     <string name="no_favorites">Det ser ud til, at du ikke har tilføjet nogen favoritkontakter endnu.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
+    <string name="toggle_favorite">Slå favorit til/fra</string>
     <!-- Search -->
     <string name="search_contacts">Søg kontakter</string>
     <string name="search_favorites">Søg favoritter</string>
@@ -82,7 +82,7 @@
     <string name="groups">Grupper</string>
     <string name="contact_source">Kontaktkilde</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
-    <string name="ringtone">Ringtone</string>
+    <string name="ringtone">Ringteone</string>
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Kontakten vil blive fjernet fra alle kontaktkilder.</string>
     <plurals name="delete_groups">
@@ -96,7 +96,7 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Administrer dine kontakter nemt</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">En premium-app til kontaktadministration, der understøtter grupper og favoritter, uden reklamer</string>
+    <string name="app_short_description">En premium-app til kontaktadministration, der understøtter grupper og favoritter</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
