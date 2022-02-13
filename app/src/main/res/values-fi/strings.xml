@@ -37,7 +37,7 @@
     <string name="take_photo">Ota kuva</string>
     <string name="choose_photo">Valitse kuva</string>
     <string name="remove_photo">Poista kuva</string>
-    <string name="change_photo">Change photo</string>
+    <string name="change_photo">Vaihda kuva</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Näytä puhelinnumerot</string>
     <string name="show_contact_thumbnails">Näytä yhteystietojen kuvakkeet</string>
