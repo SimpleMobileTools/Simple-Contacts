@@ -37,7 +37,7 @@
     <string name="take_photo">Pildista</string>
     <string name="choose_photo">Vali pilt</string>
     <string name="remove_photo">Eemalda pilt</string>
-    <string name="change_photo">Change photo</string>
+    <string name="change_photo">Muuda pilti</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Näita telefoninumbreid</string>
     <string name="show_contact_thumbnails">Näita kontaktide pisipilte</string>
@@ -54,7 +54,7 @@
     <string name="anniversary">Aastapäev</string>
     <!-- Favorites -->
     <string name="no_favorites">Tundub, et sa pole veel ühtegi lemmikut lisanud.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
+    <string name="toggle_favorite">Vaheta olekut lemmikuna</string>
     <!-- Search -->
     <string name="search_contacts">Otsi kontaktide hulgast</string>
     <string name="search_favorites">Otsi lemmikute hulgast</string>
