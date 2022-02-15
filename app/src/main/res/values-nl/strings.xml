@@ -69,7 +69,7 @@
     <string name="filename_without_vcf">Bestandsnaam (zonder .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Toetsenblok</string>
-    <string name="add_number_to_contact">Nummer aan contact toevoegen</string>
+    <string name="add_number_to_contact">Nummer toevoegen aan contact</string>
     <!-- Visible fields -->
     <string name="prefix">Voorvoegsel</string>
     <string name="suffix">Achtervoegsel</string>
