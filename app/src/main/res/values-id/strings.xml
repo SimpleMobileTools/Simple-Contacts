@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Kontak</string>
@@ -14,17 +15,14 @@
     <string name="send_email_to_group">Kirim surel ke grup</string>
     <string name="create_new_contact">Buat kontak baru</string>
     <string name="add_to_existing_contact">Tambah ke kontak yang ada</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
-
+    <string name="fields_empty">Setidaknya 1 kolom harus diisi</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Tidak ada kontak dengan alamat surel yang ditemukan</string>
     <string name="no_contacts_with_phone_numbers">Tidak ada kontak dengan nomor telepon yang ditemukan</string>
-
     <string name="new_contact">Kontak baru</string>
     <string name="edit_contact">Sunting kontak</string>
     <string name="select_contact">Pilih kontak</string>
     <string name="nickname">Nama panggilan</string>
-
     <!-- Groups -->
     <string name="no_groups">Tidak ada grup</string>
     <string name="create_new_group">Buat grup baru</string>
@@ -35,15 +33,13 @@
     <string name="create_group">Buat grup</string>
     <string name="add_to_group">Tambah ke grup</string>
     <string name="create_group_under_account">Buat grup di dalam akun</string>
-
     <!-- Photo -->
     <string name="take_photo">Ambil foto</string>
     <string name="choose_photo">Pilih foto</string>
     <string name="remove_photo">Buang foto</string>
-    <string name="change_photo">Change photo</string>
-
+    <string name="change_photo">Ubah foto</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Tampilkan nomor telepon pada layar utama</string>
+    <string name="show_phone_numbers">Tampilkan nomor telepon</string>
     <string name="show_contact_thumbnails">Tampilkan foto kontak</string>
     <string name="show_dialpad_button">Tampilkan tombol dial pada layar utama</string>
     <string name="on_contact_click">Saat kontak diklik</string>
@@ -52,21 +48,17 @@
     <string name="manage_shown_contact_fields">Kelola ruas kontak yang ditampilkan</string>
     <string name="contacts">Kontak</string>
     <string name="show_only_contacts_with_numbers">Hanya tampilkan kontak dengan nomor telepon</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-
+    <string name="show_private_contacts">Tampilkan kontak privat ke Simple Dialer, Simple SMS Messenger dan Simple Calendar Pro</string>
     <!-- Events -->
     <string name="birthday">Ulang tahun</string>
     <string name="anniversary">Hari jadi</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Sepertinya anda belum menambahkan kontak favorit.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
-
+    <string name="toggle_favorite">Alih favorit</string>
     <!-- Search -->
     <string name="search_contacts">Cari kontak</string>
     <string name="search_favorites">Cari favorit</string>
     <string name="search_groups">Cari grup</string>
-
     <!-- Export / Import -->
     <string name="import_contacts">Impor kontak</string>
     <string name="export_contacts">Ekspor kontak</string>
@@ -75,11 +67,9 @@
     <string name="target_contact_source">Target sumber kontak</string>
     <string name="include_contact_sources">Sertakan sumber kontak</string>
     <string name="filename_without_vcf">Nama berkas (tanpa .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Telepon</string>
     <string name="add_number_to_contact">Tambah nomor ke kontak</string>
-
     <!-- Visible fields -->
     <string name="prefix">Awalan</string>
     <string name="suffix">Akhiran</string>
@@ -92,67 +82,33 @@
     <string name="groups">Grup</string>
     <string name="contact_source">Sumber kontak</string>
     <string name="instant_messaging">Pesan singkat (IM)</string>
-    <string name="ringtone">Ringtone</string>
-
+    <string name="ringtone">Nada dering</string>
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Kontak akan dihapus dari semua sumber kontak.</string>
-
     <plurals name="delete_groups">
         <item quantity="one">%d grup</item>
         <item quantity="other">%d grup</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Saya ingin mengubah ruas yang ditampilkan pada kontak. Bisakah saya melakukannya?</string>
-    <string name="faq_1_text">Ya, yang perlu anda lakukan adalah kunjungi Pengaturan -> Kelola ruas kontak yang ditampilkan. Lalu anda bisa memilih ruas yang ingin ditampilkan. Beberapa ruas dinonaktifkan secara bawaan, jadi anda mungkin akan menemukan yang baru di sana.</string>
-
+    <string name="faq_1_text">Ya, yang perlu anda lakukan adalah kunjungi Pengaturan -&gt; Kelola ruas kontak yang ditampilkan. Lalu anda bisa memilih ruas yang ingin ditampilkan. Beberapa ruas dinonaktifkan secara bawaan, jadi anda mungkin akan menemukan yang baru di sana.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">Simple Contacts Pro - Kelola kontak Anda dengan mudah</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
-    <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
-
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
-
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
-
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
-
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
-
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
-
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
-
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
-
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
-
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
-
-        You can easily block phone numbers to avoid unwanted incoming calls.
-
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        Tanpa iklan dan perizinan yang tidak perlu. Sepenuhnya sumber terbuka, dengan warna yang bisa disesuaikan.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone website of Simple Contacts Pro:</b>
-        https://www.simplemobiletools.com/contacts
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_short_description">Sebuah aplikasi premium untuk pengelolaan kontak tanpa iklan, mendukung grup dan favorit</string>
+    <string name="app_long_description"> Sebuah aplikasi ringan untuk mengelola kontak Anda yang disukai oleh jutaan orang. Kontak dapat disimpan hanya di perangkat Anda, tetapi juga disinkronkan melalui Google, atau akun lain. Anda juga dapat menggunakannya untuk mengelola email dan acara pengguna. Memiliki kemampuan untuk mengurutkan/memfilter berdasarkan beberapa parameter, secara opsional menampilkan nama keluarga sebagai nama depan. Anda dapat menampilkan kontak atau grup favorit Anda pada daftar terpisah. Grup dapat digunakan untuk mengirim email atau SMS batch, untuk menghemat waktu, Anda dapat mengganti namanya dengan mudah. Ini berisi tombol praktis untuk menelepon, atau mengirim SMS ke kontak Anda. Semua bidang yang terlihat dapat dikustomisasi sesuai keinginan, Anda dapat dengan mudah menyembunyikan bidang yang tidak digunakan. Fungsi pencarian akan mencari string yang diberikan di setiap bidang kontak yang terlihat, untuk memudahkan Anda menemukan kontak yang diinginkan. Ada dialpad ringan yang siap melayani Anda juga, dengan saran kontak cerdas. Ini mendukung ekspor/impor kontak dalam format vCard ke file .vcf, untuk memudahkan migrasi atau mencadangkan data Anda.
+\n
+\nDengan pengelola kontak yang modern dan stabil ini, \u0020Anda dapat melindungi kontak Anda dengan tidak membagikannya dengan aplikasi lain, sehingga Anda dapat merahasiakan kontak Anda. Seperti sumber kontak, Anda juga dapat dengan mudah mengubah nama kontak, email, nomor telepon, alamat, organisasi, grup, dan banyak bidang lain yang dapat disesuaikan. Anda juga dapat menggunakannya untuk menyimpan acara kontak, seperti ulang tahun, hari jadi, atau acara khusus lainnya.
+\n
+\nEditor kontak sederhana ini memiliki banyak pengaturan praktis seperti menampilkan nomor telepon di layar utama, mengaktifkan visibilitas thumbnail kontak, hanya menampilkan kontak dengan nomor telepon, menampilkan dialog konfirmasi panggilan sebelum memulai panggilan. Muncul dengan dialer cepat yang juga menggunakan huruf. Untuk lebih meningkatkan pengalaman pengguna, Anda dapat menyesuaikan apa yang terjadi saat mengklik kontak. Anda dapat memulai panggilan, membuka layar Lihat Detail, atau mengedit kontak yang dipilih. Anda dapat dengan mudah memblokir nomor telepon untuk menghindari panggilan masuk yang tidak diinginkan. Untuk menghindari menampilkan kontak yang mungkin tidak diinginkan, ia memiliki penggabungan kontak duplikat bawaan yang kuat.
+\n
+\nMuncul dengan desain material dan tema gelap secara default, memberikan pengalaman pengguna yang luar biasa untuk penggunaan yang mudah. Kurangnya akses internet memberi Anda lebih banyak privasi, keamanan, dan stabilitas daripada aplikasi lain. Tidak mengandung iklan atau izin yang tidak perlu. Ini sepenuhnya sumber-terbuka, menyediakan warna yang dapat disesuaikan.
+\n
+\n<b>Lihat rangkaian lengkap Simple Tools di sini:</b> https://www.simplemobiletools.com
+\n<b>Situs web mandiri Simple Contacts Pro:</b> https://www.simplemobiletools.com/contacts
+\n<b>Facebook:</b> https://www.facebook.com/simplemobiletools
+\n<b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
