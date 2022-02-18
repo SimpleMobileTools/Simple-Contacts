@@ -54,7 +54,7 @@
     <string name="anniversary">Jubileum</string>
     <!-- Favorites -->
     <string name="no_favorites">Er zijn nog geen favorieten toegevoegd.</string>
-    <string name="toggle_favorite">Favoriet aan/uit</string>
+    <string name="toggle_favorite">Favoriet in-/uitschakelen</string>
     <!-- Search -->
     <string name="search_contacts">Contacten zoeken</string>
     <string name="search_favorites">Favorieten zoeken</string>
