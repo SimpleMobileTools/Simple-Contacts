@@ -18,7 +18,7 @@
     <string name="fields_empty">Vul tenminste 1 veld in</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Geen contacten met e-mail gevonden</string>
-    <string name="no_contacts_with_phone_numbers">Geen contacten met telefoonnummers gevonden</string>
+    <string name="no_contacts_with_phone_numbers">Geen contacten met telefoonnummer gevonden</string>
     <string name="new_contact">Nieuw contact</string>
     <string name="edit_contact">Contact bewerken</string>
     <string name="select_contact">Contact kiezen</string>
