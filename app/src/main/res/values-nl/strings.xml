@@ -5,71 +5,71 @@
     <string name="address">Adres</string>
     <string name="inserting">Invoegen…</string>
     <string name="updating">Bijwerken…</string>
-    <string name="phone_storage">Telefoon opslag</string>
-    <string name="phone_storage_hidden">Telefoon opslag (niet zichtbaar voor andere apps)</string>
+    <string name="phone_storage">Telefoonopslag</string>
+    <string name="phone_storage_hidden">Telefoonopslag (niet zichtbaar voor andere apps)</string>
     <string name="company">Bedrijf</string>
     <string name="job_position">Functie</string>
     <string name="send_sms_to_contacts">SMS naar contacten sturen</string>
-    <string name="send_email_to_contacts">Stuur e-mail naar contacten</string>
-    <string name="send_sms_to_group">Stuur SMS naar groep</string>
-    <string name="send_email_to_group">Stuur e-mail naar groep</string>
-    <string name="create_new_contact">Maak een nieuw contact</string>
+    <string name="send_email_to_contacts">E-mail naar contacten sturen</string>
+    <string name="send_sms_to_group">SMS naar groep sturen</string>
+    <string name="send_email_to_group">E-mail naar groep sturen</string>
+    <string name="create_new_contact">Nieuw contact aanmaken</string>
     <string name="add_to_existing_contact">Aan bestaand contact toevoegen</string>
     <string name="fields_empty">Vul tenminste 1 veld in</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Geen contacten met e-mail gevonden</string>
-    <string name="no_contacts_with_phone_numbers">Geen contacten met telefoonnummers gevonden</string>
+    <string name="no_contacts_with_phone_numbers">Geen contacten met telefoonnummer gevonden</string>
     <string name="new_contact">Nieuw contact</string>
-    <string name="edit_contact">Bewerk contact</string>
-    <string name="select_contact">Selecteer contact</string>
+    <string name="edit_contact">Contact bewerken</string>
+    <string name="select_contact">Contact kiezen</string>
     <string name="nickname">Bijnaam</string>
     <!-- Groups -->
     <string name="no_groups">Geen groepen</string>
-    <string name="create_new_group">Maak een nieuwe groep</string>
-    <string name="remove_from_group">Verwijder uit groep</string>
+    <string name="create_new_group">Nieuwe groep aanmaken</string>
+    <string name="remove_from_group">Uit groep verwijderen</string>
     <string name="no_group_participants">Deze groep is leeg</string>
-    <string name="add_contacts">Voeg contacten toe</string>
+    <string name="add_contacts">Contacten toevoegen</string>
     <string name="no_group_created">Er zijn geen contactgroepen op het toestel</string>
     <string name="create_group">Groep maken</string>
-    <string name="add_to_group">Toevoegen aan groep</string>
+    <string name="add_to_group">Aan groep toevoegen</string>
     <string name="create_group_under_account">Groep aanmaken in account</string>
     <!-- Photo -->
-    <string name="take_photo">Neem foto</string>
-    <string name="choose_photo">Kies foto</string>
-    <string name="remove_photo">Verwijder foto</string>
-    <string name="change_photo">Verander foto</string>
+    <string name="take_photo">Foto nemen</string>
+    <string name="choose_photo">Foto kiezen</string>
+    <string name="remove_photo">Foto verwijderen</string>
+    <string name="change_photo">Foto veranderen</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Toon telefoonnummers</string>
+    <string name="show_phone_numbers">Telefoonnummers tonen</string>
     <string name="show_contact_thumbnails">Miniaturen van contacten weergeven</string>
-    <string name="show_dialpad_button">Toon knop voor nummerkiezer in hoofdscherm</string>
+    <string name="show_dialpad_button">Knop voor toetsenblok tonen in hoofdscherm</string>
     <string name="on_contact_click">Bij klikken op een contact</string>
-    <string name="call_contact">Bel contact</string>
-    <string name="view_contact">Bekijk contactgegevens</string>
-    <string name="manage_shown_contact_fields">Beheer getoonde contactvelden</string>
+    <string name="call_contact">Contact bellen</string>
+    <string name="view_contact">Contactgegevens bekijken</string>
+    <string name="manage_shown_contact_fields">Contactvelden tonen/verbergen</string>
     <string name="contacts">Contacten</string>
     <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummer tonen</string>
-    <string name="show_private_contacts">Privé contacten tonen aan Simple Dialer, Simple SMS Messenger en Simple Calendar Pro</string>
+    <string name="show_private_contacts">Privécontacten tonen aan Eenvoudige Telefoon, Eenvoudige Berichten en Eenvoudige Agenda Pro</string>
     <!-- Events -->
     <string name="birthday">Verjaardag</string>
     <string name="anniversary">Jubileum</string>
     <!-- Favorites -->
     <string name="no_favorites">Er zijn nog geen favorieten toegevoegd.</string>
-    <string name="toggle_favorite">Favoriet aan/uit</string>
+    <string name="toggle_favorite">Favoriet in-/uitschakelen</string>
     <!-- Search -->
-    <string name="search_contacts">Zoek contacten</string>
-    <string name="search_favorites">Zoek favorieten</string>
-    <string name="search_groups">Zoek groepen</string>
+    <string name="search_contacts">Contacten zoeken</string>
+    <string name="search_favorites">Favorieten zoeken</string>
+    <string name="search_groups">Groepen zoeken</string>
     <!-- Export / Import -->
-    <string name="import_contacts">Importeer contacten</string>
-    <string name="export_contacts">Exporteer contacten</string>
-    <string name="import_contacts_from_vcf">Importeer contacten uit .vcf-bestand</string>
-    <string name="export_contacts_to_vcf">Exporteer contacten naar .vcf-bestand</string>
+    <string name="import_contacts">Contacten importeren</string>
+    <string name="export_contacts">Contacten exporteren</string>
+    <string name="import_contacts_from_vcf">Contacten importeren uit .vcf-bestand</string>
+    <string name="export_contacts_to_vcf">Contacten exporteren naar .vcf-bestand</string>
     <string name="target_contact_source">Doel-account</string>
-    <string name="include_contact_sources">Neem accounts op</string>
+    <string name="include_contact_sources">Contactbronnen opnemen</string>
     <string name="filename_without_vcf">Bestandsnaam (zonder .vcf)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Nummerkiezer</string>
-    <string name="add_number_to_contact">Voeg nummer toe aan contact</string>
+    <string name="dialpad">Toetsenblok</string>
+    <string name="add_number_to_contact">Nummer toevoegen aan contact</string>
     <!-- Visible fields -->
     <string name="prefix">Voorvoegsel</string>
     <string name="suffix">Achtervoegsel</string>
@@ -84,20 +84,20 @@
     <string name="instant_messaging">Instant messaging (IM)</string>
     <string name="ringtone">Beltoon</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">Het contact wordt uit alle accounts verwijderd.</string>
+    <string name="delete_from_all_sources">Het contact wordt uit alle contactbronnen verwijderd.</string>
     <plurals name="delete_groups">
         <item quantity="one">%d groep</item>
         <item quantity="other">%d groepen</item>
     </plurals>
     <!-- FAQ -->
     <string name="faq_1_title">Ik wil wijzigen welke velden zichtbaar zijn bij contacten. Kan dat\?</string>
-    <string name="faq_1_text">Ja, dat kan via Instellingen -&gt; Getoonde contactvelden beheren. Dat laat kiezen welke velden zichtbaar moeten zijn. Sommige velden zijn standaard verborgen, dus misschien zijn er via deze optie meer te ontdekken.</string>
+    <string name="faq_1_text">Ja, dat kan via Instellingen -&gt; Contactvelden tonen/verbergen. Dat laat kiezen welke velden zichtbaar moeten zijn. Sommige velden zijn standaard verborgen, dus misschien zijn er via deze optie meer te ontdekken.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Beheer uw contacten gemakkelijk</string>
+    <string name="app_title">Eenvoudig Adresboek Pro - Simpel contacten beheren</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Een premium app voor contactbeheer met groepen en favorieten, zonder advertenties</string>
-    <string name="app_long_description"> Een eenvoudige app om contacten aan te maken en te beheren. Contacten kunnen lokaal worden opgeslagen, of gesynchroniseerd via Google en andere accounts. De app is ook te gebruiken voor het beheren van e-mailadressen en gebeurtenissen gekoppeld aan contacten. Sorteren en filteren is mogelijk op basis van verschillende parameters en de voor- of achternaam kan naar keuze als eerste worden getoond. Favoriete contacten kunnen in een aparte lijst worden getoond. Het is mogelijk e-mails of sms\'jes naar hele groepen te sturen om tijd te besparen. Er zijn knoppen om direct een contact te bellen of te sms\'en. De zichtbaarheid van de velden met contactgegevens is naar voorkeur aan te passen, zodat ongebruikte velden geen ruimte in beslag nemen. De zoekfunctie zal in de zichtbare velden speuren naar de opgegeven tekst. De app bevat ook een lichtgewicht nummerkiezer met snelle contactsuggesties tijdens het invoeren. Het importeren/exporteren van contacten in vCard-formaat (.vcf) wordt ondersteund voor het gemakkelijk overzetten of backuppen van de gegevens. Deze moderne en stabiele app beschermt contactpersonen door ze niet te delen met andere apps en de gegevens privé te houden. Naam, adres, telefoonnummer, e-mail, organisatie, groepen en vele andere velden zijn gemakkelijk aan te passen. Contacten zijn te verplaatsen naar een andere account. Datums van verjaardagen en jubilea kunnen worden opgeslagen. Er zijn vele praktische functies, zoals het tonen van telefoonnummers in het hoofdscherm, het tonen/verbergen van miniaturen van de contacten, het alleen weergeven van contacten met een telefoonnummer en bij het begin van een gesprek om bevestiging vragen. Met de nummerkiezer is op naam te zoeken. Om de gebruikerservaring nog verder te verbeteren bestaat de keuze wat er gebeurt bij een klik op een contact: het nummer bellen, de contactgegevens openen, of ze bewerken. Telefoonnummers kun je eenvoudig blokkeren om ongewenste gesprekken te voorkomen. Om te voorkomen dat mogelijk ongewenste contacten worden weergegeven, heeft de app een krachtige ingebouwde samenvoeging van dubbele contacten. De app is ontworpen conform Material Design en heeft standaard een donker thema. De app heeft geen toegang tot het internet nodig en zorgt voor meer privacy, veiligheid en stabiliteit dan andere apps. De app bevat geen advertenties of onnodige toegangsrechten en is volledig open-source. De kleuren van de app kunnen worden aangepast. <b>Probeer ook eens de andere apps van Simple Tools:</b> https://www.simplemobiletools.com <b>Website voor Eenvoudig Adresboek Pro:</b> https://www.simplemobiletools.com/contacts <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
+    <string name="app_short_description">Een premium app voor contactbeheer met groepen en favorieten, geen advertenties</string>
+    <string name="app_long_description"> Een eenvoudige app om contacten aan te maken en te beheren. De opslag van de gegevens gebeurt lokaal, of wordt gesynchroniseerd via Google en andere accounts. De app is ook te gebruiken voor het beheren en opslaan van e-mailadressen en andere gegevens, zoals data van verjaardagen en jubilea en andere gebeurtenissen. Sorteren en filteren is mogelijk op basis van verschillende parameters en de voor- of achternaam kan naar keuze als eerste worden getoond. Favoriete contacten worden in een aparte lijst getoond. Het is mogelijk e-mails of sms\'jes naar hele groepen te sturen om tijd te besparen. Er zijn knoppen om direct een contact te bellen of te sms\'en. De zichtbaarheid van de velden met contactgegevens is naar voorkeur aan te passen, zodat ongebruikte velden geen ruimte in beslag nemen. De zoekfunctie speurt in de zichtbare velden naar de opgegeven tekst. De app bevat ook een toetsenblok met snelle contactsuggesties tijdens het invoeren. Het im-/exporteren van contacten in vCard-formaat (.vcf) ondersteunt het gemakkelijk overzetten of backuppen van de gegevens. Deze moderne en stabiele app beschermt contactpersonen door ze niet te delen met andere apps en de gegevens privé te houden. Naam, adres, telefoonnummer, e-mail, organisatie, groepen en vele andere velden zijn gemakkelijk aan te passen. Contacten zijn te verplaatsen naar een andere account. Er zijn vele praktische functies, zoals het tonen van telefoonnummers in het hoofdscherm, het tonen/verbergen van miniaturen van de contacten, het alleen weergeven van contacten met een telefoonnummer en bij het begin van een gesprek om bevestiging vragen. Met het toetsenblok is ook op naam te zoeken. Om de gebruikerservaring nog verder te verbeteren is te kiezen wat er gebeurt bij een klik op een contact: het nummer bellen, de contactgegevens openen, of ze bewerken. Telefoonnummers kun je eenvoudig blokkeren om ongewenste gesprekken te voorkomen. Om te voorkomen dat mogelijk ongewenste contacten worden weergegeven is een krachtige functie ingebouwd, die dubbele contacten kan samenvoegen. Het ontwerp is conform Material Design en is standaard in een donker thema uitgevoerd. De kleuren van de app zijn aan te passen. De app werkt zonder toegang tot internet en zorgt zo voor meer privacy, veiligheid en stabiliteit dan andere apps. De app bevat geen advertenties of onnodige toegangsrechten en is volledig open-source. <b>Probeer ook eens de andere apps van Simple Tools:</b> https://www.simplemobiletools.com <b>Website voor Eenvoudig Adresboek Pro:</b> https://www.simplemobiletools.com/contacts <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

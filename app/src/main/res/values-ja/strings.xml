@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simpleコンタクト</string>
+    <string name="app_name">シンプル連絡先</string>
     <string name="app_launcher_name">連絡先</string>
     <string name="address">住所</string>
     <string name="inserting">挿入中…</string>
@@ -14,17 +15,14 @@
     <string name="send_email_to_group">グループにメールを送信</string>
     <string name="create_new_contact">新しい連絡先を作成</string>
     <string name="add_to_existing_contact">既存の連絡先に追加</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
-
+    <string name="fields_empty">少なくとも1つのフィールドに入力する必要があります</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">メールアドレスが登録された連絡先が見つかりません</string>
     <string name="no_contacts_with_phone_numbers">電話番号が登録された連絡先が見つかりません</string>
-
     <string name="new_contact">新しい連絡先</string>
     <string name="edit_contact">連絡先を編集</string>
     <string name="select_contact">連絡先を選択</string>
     <string name="nickname">ニックネーム</string>
-
     <!-- Groups -->
     <string name="no_groups">グループなし</string>
     <string name="create_new_group">新しいグループを作成</string>
@@ -35,15 +33,13 @@
     <string name="create_group">グループを作成</string>
     <string name="add_to_group">グループに追加</string>
     <string name="create_group_under_account">アカウントの下にグループを作成</string>
-
     <!-- Photo -->
     <string name="take_photo">写真を撮影</string>
     <string name="choose_photo">写真を選択</string>
     <string name="remove_photo">写真を削除</string>
-    <string name="change_photo">Change photo</string>
-
+    <string name="change_photo">写真の変更</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">メイン画面に電話番号を表示</string>
+    <string name="show_phone_numbers">電話番号を表示</string>
     <string name="show_contact_thumbnails">連絡先のサムネイルを表示</string>
     <string name="show_dialpad_button">メイン画面にダイヤルパッドを表示</string>
     <string name="on_contact_click">連絡先をタップ</string>
@@ -52,21 +48,17 @@
     <string name="manage_shown_contact_fields">連絡先に表示するフィールドを管理</string>
     <string name="contacts">連絡先</string>
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
-    <string name="show_private_contacts">Simpleダイヤラー、Simpleショートメール、SimpleカレンダーProに個人の連絡先を表示</string>
-
+    <string name="show_private_contacts">シンプルダイヤラー、シンプルSMSメッセンジャー、シンプルカレンダーProに個人の連絡先を表示</string>
     <!-- Events -->
     <string name="birthday">誕生日</string>
     <string name="anniversary">記念日</string>
-
     <!-- Favorites -->
-    <string name="no_favorites">お気に入りの連絡先はまだありません</string>
-    <string name="toggle_favorite">Toggle favorite</string>
-
+    <string name="no_favorites">お気に入りの連絡先はまだありません。</string>
+    <string name="toggle_favorite">お気に入りの切り替え</string>
     <!-- Search -->
     <string name="search_contacts">連絡先を検索</string>
     <string name="search_favorites">お気に入りを検索</string>
     <string name="search_groups">グループを検索</string>
-
     <!-- Export / Import -->
     <string name="import_contacts">連絡先をインポート</string>
     <string name="export_contacts">連絡先をエクスポート</string>
@@ -75,11 +67,9 @@
     <string name="target_contact_source">対象となる連絡先のソース</string>
     <string name="include_contact_sources">連絡先のソースを含める</string>
     <string name="filename_without_vcf">ファイル名 (.vcfを含めない)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">ダイヤルパッド</string>
     <string name="add_number_to_contact">連絡先に番号を追加</string>
-
     <!-- Visible fields -->
     <string name="prefix">敬称（名前の前）</string>
     <string name="suffix">敬称（名前の後）</string>
@@ -92,67 +82,22 @@
     <string name="groups">グループ</string>
     <string name="contact_source">インポート元</string>
     <string name="instant_messaging">インスタントメッセージ(IM)</string>
-    <string name="ringtone">Ringtone</string>
-
+    <string name="ringtone">着信音</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">全ての連絡先ソースから連絡先を消去します</string>
-
+    <string name="delete_from_all_sources">全ての連絡先ソースから連絡先を消去します。</string>
     <plurals name="delete_groups">
         <item quantity="one">%d件のグループ</item>
         <item quantity="other">%d件のグループ</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">連絡先に表示される項目(フィールド)を変更することはできますか？</string>
-    <string name="faq_1_text">可能です。[設定] -> [連絡先に表示するフィールドを管理] から、表示されるフィールドを選択することができます。これらの中にはデフォルトで無効になっているものもあるので、あなたは新しいものを見つけるかもしれません。</string>
-
+    <string name="faq_1_text">可能です。[設定] -&gt; [連絡先に表示するフィールドを管理] から、表示されるフィールドを選択することができます。これらの中にはデフォルトで無効になっているものもあるので、あなたは新しいものを見つけるかもしれません。</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">シンプル連絡先Pro - 連絡先を簡単に管理</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
-    <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
-
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
-
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
-
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
-
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
-
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
-
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
-
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
-
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
-
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
-
-        You can easily block phone numbers to avoid unwanted incoming calls.
-
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        広告や不要なアクセス許可は含まれていません。完全にオープンソースで、色のカスタマイズも可能です。
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone website of Simple Contacts Pro:</b>
-        https://www.simplemobiletools.com/contacts
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_short_description">広告なしの連絡先管理プレミアムアプリ、グループやお気に入りにも対応</string>
+    <string name="app_long_description"> 何百万もの人々に愛されている、連絡先を管理するための軽量なアプリです。連絡先は自分のデバイスにのみ保存されますが、Googleなどのアカウント経由して同期することもできます。ユーザーのメールやイベントの管理にも使えます。複数のパラメータによるソート/フィルタリング機能があり、オプションで姓をファーストネームとして表示できます。お気に入りの連絡先やグループを別のリストに表示できます。グループはメールやSMSの一括送信に使用できるため、時間を節約するために簡単に名前を変更できます。連絡先に電話をかけたり、メールを送ったりするのに便利なボタンがあります。表示されているすべてのフィールドは必要に応じてカスタマイズでき、未使用のものは簡単に非表示にできます。検索機能は、表示されているすべての連絡先フィールドで指定された文字列を検索し、目的の連絡先を簡単に見つけられます。また、軽量なダイヤルパッドも用意されており、スマートに連絡先候補を表示します。vCard形式の連絡先を.vcfファイルにエクスポート/インポートすることができ、データの移行やバックアップを簡単に行うことができます。このモダンで安定した連絡先マネージャーを使えば、他のアプリと共有しないことで、連絡先をプライベートなものとして保つことができます。連絡先ソースと同様に、連絡先名、電子メール、電話番号、住所、組織、グループ、その他多くのカスタマイズ可能なフィールドを簡単に変更できます。誕生日、記念日など、連絡先のイベント保存にも使用できます。このシンプル連絡先の編集には、メイン画面に電話番号を表示したり、連絡先のサムネイル表示を切り替えたり、電話番号付きの連絡先のみを表示したり、通話を開始する前に通話確認ダイアログを表示するなど、様々な便利な設定があります。また、文字を使ったクイックダイヤラーもついています。ユーザー体験をさらに向上させるために、連絡先をクリックしたときの動作をカスタマイズできます。通話を開始したり、 詳細の表示画面に移動したり、選択した連絡先を編集したりできます。電話番号を簡単にブロックして、望ましくない着信を防ぐことができます。不要な連絡先を表示しないように、強力な重複連絡先マージ機能が組み込まれています。デフォルトでマテリアルデザインとダークテーマが搭載されており、使いやすい優れたユーザー体験を提供します。インターネットアクセスがないため、他のアプリよりもプライバシー、セキュリティ、安定性が高くなっています。広告や不要なアクセス許可は含まれていません。完全にオープンソースで、色のカスタマイズも可能です。<b>Simple Toolsの全製品はこちらをご確認ください。</b> https://www.simplemobiletools.com <b>シンプル連絡先ProのスタンドアロンWebサイト。</b> https://www.simplemobiletools.com/contacts <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

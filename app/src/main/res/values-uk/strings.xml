@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Просто Контакти</string>
     <string name="app_launcher_name">Контакти</string>
@@ -14,17 +15,14 @@
     <string name="send_email_to_group">Надіслати електронний лист групі контактів</string>
     <string name="create_new_contact">Створити новий контакт</string>
     <string name="add_to_existing_contact">Додати до існуючого контакту</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
-
+    <string name="fields_empty">Потрібно заповнити принаймні 1 поле</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Не знайдено контактів з електронною поштою</string>
     <string name="no_contacts_with_phone_numbers">Не знайдено контактів з телефонними номерами</string>
-
     <string name="new_contact">Новий контакт</string>
     <string name="edit_contact">Редагувати контакт</string>
     <string name="select_contact">Обрати контакт</string>
     <string name="nickname">Прізвисько</string>
-
     <!-- Groups -->
     <string name="no_groups">Немає груп</string>
     <string name="create_new_group">Створити нову групу</string>
@@ -35,15 +33,13 @@
     <string name="create_group">Створити групу</string>
     <string name="add_to_group">Додати до групи</string>
     <string name="create_group_under_account">Створити групу в обліковому записі</string>
-
     <!-- Photo -->
     <string name="take_photo">Зробити фото</string>
     <string name="choose_photo">Обрати фото</string>
     <string name="remove_photo">Видалити фото</string>
-    <string name="change_photo">Change photo</string>
-
+    <string name="change_photo">Змінити фото</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Показувати телефонні номери у списку контактів</string>
+    <string name="show_phone_numbers">Показувати телефонні номери</string>
     <string name="show_contact_thumbnails">Показувати фото контакту</string>
     <string name="show_dialpad_button">Показувати панель набору номерів на головному екрані</string>
     <string name="on_contact_click">При натисканні на контакт</string>
@@ -52,21 +48,17 @@
     <string name="manage_shown_contact_fields">Керування полями контактів, що відображаються</string>
     <string name="contacts">Контакти</string>
     <string name="show_only_contacts_with_numbers">Показувати лише контакти з телефонними номерами</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-
+    <string name="show_private_contacts">Показувати приватні контакти в Simple Dialer, Simple SMS Messenger і Simple Calendar Pro</string>
     <!-- Events -->
     <string name="birthday">День народження</string>
     <string name="anniversary">Річниця</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Здається, ви ще не додали улюблені контакти.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
-
+    <string name="toggle_favorite">Перемкнути улюблене</string>
     <!-- Search -->
     <string name="search_contacts">Пошук контактів</string>
     <string name="search_favorites">Пошук улюблених</string>
-    <string name="search_groups">Search groups</string>
-
+    <string name="search_groups">Пошук груп</string>
     <!-- Export / Import -->
     <string name="import_contacts">Імпортувати контакти</string>
     <string name="export_contacts">Експортувати контакти</string>
@@ -75,11 +67,9 @@
     <string name="target_contact_source">Цілеве джерело контактів</string>
     <string name="include_contact_sources">Приєднати походження контактів</string>
     <string name="filename_without_vcf">Ім\'я файлу (без .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Панель набору</string>
     <string name="add_number_to_contact">Додати номер до контакту</string>
-
     <!-- Visible fields -->
     <string name="prefix">Префікс</string>
     <string name="suffix">Суфікс</string>
@@ -92,25 +82,23 @@
     <string name="groups">Групи</string>
     <string name="contact_source">Походження контакту</string>
     <string name="instant_messaging">Мессенджери</string>
-    <string name="ringtone">Ringtone</string>
-
+    <string name="ringtone">Мелодія дзвінка</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
-
+    <string name="delete_from_all_sources">Контакт буде видалено з усіх джерел контактів.</string>
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">%d група</item>
+        <item quantity="few">%d групи</item>
+        <item quantity="many">%d груп</item>
+        <item quantity="other">%d груп</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Я хочу змінити налаштування видимих полів контактних даних. Чи можу я це зробити?</string>
-    <string name="faq_1_text">Так, вам необхідно перейти у Налаштування -> Керування полями контактів, що відображаються. Там ви можете обрати поля, що відображатимуться. Деякі з них у стандартному режимі деактивовано, а отже ви можете знайти там нові.</string>
-
+    <string name="faq_1_text">Так, вам необхідно перейти у Налаштування -&gt; Керування полями контактів, що відображаються. Там ви можете обрати поля, що відображатимуться. Деякі з них у стандартному режимі деактивовано, а отже ви можете знайти там нові.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Manage your contacts easily</string>
+    <string name="app_title">Simple Contacts Pro - Легко керуйте контактами</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy and quick contact management with no ads, handles groups and favorites too.</string>
+    <string name="app_short_description">Преміум-додаток для керування контактами без реклами, підтримує групи та обране</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
@@ -152,7 +140,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
