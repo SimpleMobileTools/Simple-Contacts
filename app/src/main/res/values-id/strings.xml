@@ -97,18 +97,27 @@
     <string name="app_title">Simple Contacts Pro - Kelola kontak Anda dengan mudah</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Sebuah aplikasi premium untuk pengelolaan kontak tanpa iklan, mendukung grup dan favorit</string>
-    <string name="app_long_description"> Sebuah aplikasi ringan untuk mengelola kontak Anda yang disukai oleh jutaan orang. Kontak dapat disimpan hanya di perangkat Anda, tetapi juga disinkronkan melalui Google, atau akun lain. Anda juga dapat menggunakannya untuk mengelola email dan acara pengguna. Memiliki kemampuan untuk mengurutkan/memfilter berdasarkan beberapa parameter, secara opsional menampilkan nama keluarga sebagai nama depan. Anda dapat menampilkan kontak atau grup favorit Anda pada daftar terpisah. Grup dapat digunakan untuk mengirim email atau SMS batch, untuk menghemat waktu, Anda dapat mengganti namanya dengan mudah. Ini berisi tombol praktis untuk menelepon, atau mengirim SMS ke kontak Anda. Semua bidang yang terlihat dapat dikustomisasi sesuai keinginan, Anda dapat dengan mudah menyembunyikan bidang yang tidak digunakan. Fungsi pencarian akan mencari string yang diberikan di setiap bidang kontak yang terlihat, untuk memudahkan Anda menemukan kontak yang diinginkan. Ada dialpad ringan yang siap melayani Anda juga, dengan saran kontak cerdas. Ini mendukung ekspor/impor kontak dalam format vCard ke file .vcf, untuk memudahkan migrasi atau mencadangkan data Anda.
-\n
-\nDengan pengelola kontak yang modern dan stabil ini, \u0020Anda dapat melindungi kontak Anda dengan tidak membagikannya dengan aplikasi lain, sehingga Anda dapat merahasiakan kontak Anda. Seperti sumber kontak, Anda juga dapat dengan mudah mengubah nama kontak, email, nomor telepon, alamat, organisasi, grup, dan banyak bidang lain yang dapat disesuaikan. Anda juga dapat menggunakannya untuk menyimpan acara kontak, seperti ulang tahun, hari jadi, atau acara khusus lainnya.
-\n
-\nEditor kontak sederhana ini memiliki banyak pengaturan praktis seperti menampilkan nomor telepon di layar utama, mengaktifkan visibilitas thumbnail kontak, hanya menampilkan kontak dengan nomor telepon, menampilkan dialog konfirmasi panggilan sebelum memulai panggilan. Muncul dengan dialer cepat yang juga menggunakan huruf. Untuk lebih meningkatkan pengalaman pengguna, Anda dapat menyesuaikan apa yang terjadi saat mengklik kontak. Anda dapat memulai panggilan, membuka layar Lihat Detail, atau mengedit kontak yang dipilih. Anda dapat dengan mudah memblokir nomor telepon untuk menghindari panggilan masuk yang tidak diinginkan. Untuk menghindari menampilkan kontak yang mungkin tidak diinginkan, ia memiliki penggabungan kontak duplikat bawaan yang kuat.
-\n
-\nMuncul dengan desain material dan tema gelap secara default, memberikan pengalaman pengguna yang luar biasa untuk penggunaan yang mudah. Kurangnya akses internet memberi Anda lebih banyak privasi, keamanan, dan stabilitas daripada aplikasi lain. Tidak mengandung iklan atau izin yang tidak perlu. Ini sepenuhnya sumber-terbuka, menyediakan warna yang dapat disesuaikan.
-\n
-\n<b>Lihat rangkaian lengkap Simple Tools di sini:</b> https://www.simplemobiletools.com
-\n<b>Situs web mandiri Simple Contacts Pro:</b> https://www.simplemobiletools.com/contacts
-\n<b>Facebook:</b> https://www.facebook.com/simplemobiletools
-\n<b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
+    <string name="app_long_description">
+        Sebuah aplikasi ringan untuk mengelola kontak Anda yang disukai oleh jutaan orang. Kontak dapat disimpan hanya di perangkat Anda, tetapi juga disinkronkan melalui Google, atau akun lain. Anda juga dapat menggunakannya untuk mengelola email dan acara pengguna. Memiliki kemampuan untuk mengurutkan/memfilter berdasarkan beberapa parameter, secara opsional menampilkan nama keluarga sebagai nama depan. Anda dapat menampilkan kontak atau grup favorit Anda pada daftar terpisah. Grup dapat digunakan untuk mengirim email atau SMS batch, untuk menghemat waktu, Anda dapat mengganti namanya dengan mudah. Ini berisi tombol praktis untuk menelepon, atau mengirim SMS ke kontak Anda. Semua bidang yang terlihat dapat dikustomisasi sesuai keinginan, Anda dapat dengan mudah menyembunyikan bidang yang tidak digunakan. Fungsi pencarian akan mencari string yang diberikan di setiap bidang kontak yang terlihat, untuk memudahkan Anda menemukan kontak yang diinginkan. Ada dialpad ringan yang siap melayani Anda juga, dengan saran kontak cerdas. Ini mendukung ekspor/impor kontak dalam format vCard ke file .vcf, untuk memudahkan migrasi atau mencadangkan data Anda.
+
+        Dengan pengelola kontak yang modern dan stabil ini, \u0020Anda dapat melindungi kontak Anda dengan tidak membagikannya dengan aplikasi lain, sehingga Anda dapat merahasiakan kontak Anda. Seperti sumber kontak, Anda juga dapat dengan mudah mengubah nama kontak, email, nomor telepon, alamat, organisasi, grup, dan banyak bidang lain yang dapat disesuaikan. Anda juga dapat menggunakannya untuk menyimpan acara kontak, seperti ulang tahun, hari jadi, atau acara khusus lainnya.
+
+        Editor kontak sederhana ini memiliki banyak pengaturan praktis seperti menampilkan nomor telepon di layar utama, mengaktifkan visibilitas thumbnail kontak, hanya menampilkan kontak dengan nomor telepon, menampilkan dialog konfirmasi panggilan sebelum memulai panggilan. Muncul dengan dialer cepat yang juga menggunakan huruf. Untuk lebih meningkatkan pengalaman pengguna, Anda dapat menyesuaikan apa yang terjadi saat mengklik kontak. Anda dapat memulai panggilan, membuka layar Lihat Detail, atau mengedit kontak yang dipilih. Anda dapat dengan mudah memblokir nomor telepon untuk menghindari panggilan masuk yang tidak diinginkan. Untuk menghindari menampilkan kontak yang mungkin tidak diinginkan, ia memiliki penggabungan kontak duplikat bawaan yang kuat.
+
+        Muncul dengan desain material dan tema gelap secara default, memberikan pengalaman pengguna yang luar biasa untuk penggunaan yang mudah. Kurangnya akses internet memberi Anda lebih banyak privasi, keamanan, dan stabilitas daripada aplikasi lain. Tidak mengandung iklan atau izin yang tidak perlu. Ini sepenuhnya sumber-terbuka, menyediakan warna yang dapat disesuaikan.
+
+        <b>Lihat rangkaian lengkap Simple Tools di sini:</b>
+        https://www.simplemobiletools.com
+
+        <b>Situs web mandiri Simple Contacts Pro:</b>
+        https://www.simplemobiletools.com/contacts
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
+    </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
