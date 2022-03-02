@@ -49,6 +49,7 @@ android {
     productFlavors {
         core {}
         fdroid {}
+        prepaid {}
     }
 
     sourceSets {
