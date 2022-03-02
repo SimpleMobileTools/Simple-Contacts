@@ -49,7 +49,7 @@
     <string name="contacts">Επαφές</string>
     <string name="show_only_contacts_with_numbers">Προβολή όλων των Επαφών με αριθμούς τηλεφώνου</string>
     <string name="show_private_contacts">Εμφάνιση ιδιωτικών επαφών σε Απλή Κλήση, Απλός SMS Messenger και Απλό Ημερολόγιο Pro</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="merge_duplicate_contacts">Συγχώνευση διπλών επαφών</string>
     <!-- Events -->
     <string name="birthday">Γενέθλια</string>
     <string name="anniversary">Επέτειος</string>
