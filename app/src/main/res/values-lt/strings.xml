@@ -49,6 +49,7 @@
     <string name="contacts">Adresatai</string>
     <string name="show_only_contacts_with_numbers">Rodyti tik adresatus su telefono numeriu</string>
     <string name="show_private_contacts"/>
+    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
     <!-- Events -->
     <string name="birthday">Gimtadienis</string>
     <string name="anniversary">Metinės</string>

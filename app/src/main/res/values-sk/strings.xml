@@ -53,6 +53,7 @@
     <string name="contacts">Kontakty</string>
     <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
     <string name="show_private_contacts">Zobraziť súkromné kontakty Jednoduchému Telefónu, Jednoduchému SMS Správcovi a Jednoduchému Kalendáru Pro</string>
+    <string name="merge_duplicate_contacts">Zoskupiť zdvojené kontakty</string>
 
     <!-- Events -->
     <string name="birthday">Narodeniny</string>

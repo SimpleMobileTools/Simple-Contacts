@@ -49,6 +49,7 @@
     <string name="contacts">Контакти</string>
     <string name="show_only_contacts_with_numbers">Показувати лише контакти з телефонними номерами</string>
     <string name="show_private_contacts">Показувати приватні контакти в Simple Dialer, Simple SMS Messenger і Simple Calendar Pro</string>
+    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
     <!-- Events -->
     <string name="birthday">День народження</string>
     <string name="anniversary">Річниця</string>

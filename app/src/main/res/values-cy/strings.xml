@@ -53,6 +53,7 @@
     <string name="contacts">Cysylltiadau</string>
     <string name="show_only_contacts_with_numbers">Dangos dim ond cysylltiadau gyda rhifau ffôn</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
+    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
 
     <!-- Events -->
     <string name="birthday">Pen-blwydd</string>

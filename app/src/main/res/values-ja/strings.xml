@@ -49,6 +49,7 @@
     <string name="contacts">連絡先</string>
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
     <string name="show_private_contacts">シンプルダイヤラー、シンプルSMSメッセンジャー、シンプルカレンダーProに個人の連絡先を表示</string>
+    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
     <!-- Events -->
     <string name="birthday">誕生日</string>
     <string name="anniversary">記念日</string>

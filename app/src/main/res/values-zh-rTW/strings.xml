@@ -49,6 +49,7 @@
     <string name="contacts">聯絡人</string>
     <string name="show_only_contacts_with_numbers">只顯示含有電話話碼的聯絡人</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
+    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
     <!-- Events -->
     <string name="birthday">生日</string>
     <string name="anniversary">紀念日</string>

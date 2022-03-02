@@ -49,6 +49,7 @@
     <string name="contacts">Contactos</string>
     <string name="show_only_contacts_with_numbers">Mostrar apenas contactos com número de telefone</string>
     <string name="show_private_contacts">Mostrar contactos privados em Simple Dialer, Simple SMS Messenger e em Simple Calendar Pro</string>
+    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
     <!-- Events -->
     <string name="birthday">Data de nascimento</string>
     <string name="anniversary">Aniversário</string>

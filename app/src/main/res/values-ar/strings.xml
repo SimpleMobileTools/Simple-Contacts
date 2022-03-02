@@ -53,6 +53,7 @@
     <string name="contacts">جهات الاتصال</string>
     <string name="show_only_contacts_with_numbers">إظهار جهات الإتصال التي لديها أرقام هواتف فقط</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
+    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
 
     <!-- Events -->
     <string name="birthday">تاريخ الميلاد</string>

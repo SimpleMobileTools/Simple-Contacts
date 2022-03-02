@@ -49,6 +49,7 @@
     <string name="contacts">Kişiler</string>
     <string name="show_only_contacts_with_numbers">Yalnızca telefon numaraları olan kişileri göster</string>
     <string name="show_private_contacts">Özel kişileri Basit Çevirici, Basit SMS Messenger ve Basit Takvim Pro\'a göster</string>
+    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
     <!-- Events -->
     <string name="birthday">Doğum günü</string>
     <string name="anniversary">Yıldönümü</string>

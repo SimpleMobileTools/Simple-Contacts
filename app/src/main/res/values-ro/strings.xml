@@ -54,6 +54,7 @@
     <string name="contacts">Contacte</string>
     <string name="show_only_contacts_with_numbers">Afișați numai contactele cu numere de telefon</string>
     <string name="show_private_contacts">Afișați contactele private în Simple Dialer, Simple SMS Messenger și Simple Calendar Pro</string>
+    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
 
     <!-- Events -->
     <string name="birthday">Ziua de naștere</string>

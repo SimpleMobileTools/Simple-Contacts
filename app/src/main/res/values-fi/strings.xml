@@ -49,6 +49,7 @@
     <string name="contacts">Yhteystiedot</string>
     <string name="show_only_contacts_with_numbers">Näytä ainoastaan numerolliset yhteystiedot</string>
     <string name="show_private_contacts">Näytä yksityiset yhteystiedot sovelluksissa Simple Dialer, Simple SMS Messenger ja Simple Calendar Pro</string>
+    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
     <!-- Events -->
     <string name="birthday">Syntymäpäivä</string>
     <string name="anniversary">Vuosipäivä</string>
