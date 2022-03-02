@@ -24,6 +24,7 @@
                 android:layout_height="@dimen/top_contact_image_height"
                 android:layout_marginBottom="@dimen/normal_margin"
                 android:contentDescription="@string/change_photo"
+                android:scaleType="centerCrop"
                 tools:src="@drawable/ic_person_vector" />
 
             <ImageView
