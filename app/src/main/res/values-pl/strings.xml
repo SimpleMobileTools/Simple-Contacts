@@ -49,7 +49,7 @@
     <string name="contacts">Kontakty</string>
     <string name="show_only_contacts_with_numbers">Pokazuj tylko kontakty z numerami telefonów</string>
     <string name="show_private_contacts">Pokazuj prywatne kontakty Prostemu telefonowi, Prostym wiadomościom SMS i Prostemu kalendarzowi Pro</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="merge_duplicate_contacts">Scalaj powielone kontakty</string>
     <!-- Events -->
     <string name="birthday">Urodziny</string>
     <string name="anniversary">Rocznica</string>
