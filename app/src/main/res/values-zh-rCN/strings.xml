@@ -49,7 +49,7 @@
     <string name="contacts">联系人</string>
     <string name="show_only_contacts_with_numbers">只显示含有电话话码的联系人</string>
     <string name="show_private_contacts">显示私密联系人给简易拨号器和简易短信</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="merge_duplicate_contacts">合并重复的联系人</string>
     <!-- Events -->
     <string name="birthday">生日</string>
     <string name="anniversary">纪念日</string>
