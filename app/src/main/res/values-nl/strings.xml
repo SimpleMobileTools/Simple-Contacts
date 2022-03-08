@@ -49,7 +49,7 @@
     <string name="contacts">Contacten</string>
     <string name="show_only_contacts_with_numbers">Alleen contacten met telefoonnummer tonen</string>
     <string name="show_private_contacts">Privécontacten tonen aan Eenvoudige Telefoon, Eenvoudige Berichten en Eenvoudige Agenda Pro</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="merge_duplicate_contacts">Dubbele contacten samenvoegen</string>
     <!-- Events -->
     <string name="birthday">Verjaardag</string>
     <string name="anniversary">Jubileum</string>
