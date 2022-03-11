@@ -69,7 +69,7 @@
     <string name="include_contact_sources">Uključi izvore kontakta</string>
     <string name="filename_without_vcf">Naziv datoteke (bez .vcf)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Telefonska tipkovnica</string>
+    <string name="dialpad">Brojčanik</string>
     <string name="add_number_to_contact">Dodaj broj u kontakt</string>
     <!-- Visible fields -->
     <string name="prefix">Prefiks</string>
