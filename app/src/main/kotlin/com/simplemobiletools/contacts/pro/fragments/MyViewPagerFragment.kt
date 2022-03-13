@@ -63,13 +63,18 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             fragment_placeholder_2?.underlineText()
 
             when {
+                this is ContactsFragment -> {
+                    fragment_fab.contentDescription = activity.getString(R.string.create_new_contact)
+                }
                 this is FavoritesFragment -> {
                     fragment_placeholder.text = activity.getString(R.string.no_favorites)
                     fragment_placeholder_2.text = activity.getString(R.string.add_favorites)
+                    fragment_fab.contentDescription = activity.getString(R.string.add_favorites)
                 }
                 this is GroupsFragment -> {
                     fragment_placeholder.text = activity.getString(R.string.no_group_created)
                     fragment_placeholder_2.text = activity.getString(R.string.create_group)
+                    fragment_fab.contentDescription = activity.getString(R.string.create_group)
                 }
             }
         }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_holder"
     android:layout_width="match_parent"
@@ -14,13 +13,13 @@
         app:tabIndicatorColor="@android:color/white"
         app:tabIndicatorHeight="2dp"
         app:tabMinWidth="150dp"
-        app:tabSelectedTextColor="@android:color/white"/>
+        app:tabSelectedTextColor="@android:color/white" />
 
     <com.simplemobiletools.commons.views.MyViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/main_tabs_holder"/>
+        android:layout_below="@+id/main_tabs_holder" />
 
     <ImageView
         android:id="@+id/main_dialpad_button"
@@ -30,8 +29,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/activity_margin"
         android:background="@drawable/circle_background"
+        android:contentDescription="@string/dialpad"
         android:elevation="@dimen/medium_margin"
         android:padding="@dimen/activity_margin"
-        android:src="@drawable/ic_dialpad_vector"/>
+        android:src="@drawable/ic_dialpad_vector" />
 
 </RelativeLayout>
