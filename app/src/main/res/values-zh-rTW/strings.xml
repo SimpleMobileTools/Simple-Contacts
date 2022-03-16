@@ -15,7 +15,7 @@
     <string name="send_email_to_group">發送電子郵件給群組</string>
     <string name="create_new_contact">建立新聯絡人</string>
     <string name="add_to_existing_contact">添加至已存在的聯絡人</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
+    <string name="fields_empty">至少要填寫一個欄位</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">未發現含有電子信箱的聯絡人</string>
     <string name="no_contacts_with_phone_numbers">未發現含有電話號碼的聯絡人</string>
@@ -49,7 +49,7 @@
     <string name="contacts">聯絡人</string>
     <string name="show_only_contacts_with_numbers">只顯示含有電話話碼的聯絡人</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="merge_duplicate_contacts">合併相同的聯絡資訊</string>
     <!-- Events -->
     <string name="birthday">生日</string>
     <string name="anniversary">紀念日</string>
@@ -97,7 +97,7 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">簡易通訊錄 Pro - 輕鬆管理您的聯絡人</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">輕鬆快速地管理聯絡人，沒有廣告，也可以處理群組與最愛。</string>
+    <string name="app_short_description">優質的通訊錄管理 app，沒有廣告、支援群組與最愛</string>
     <string name="app_long_description">
         A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
 
