@@ -34,6 +34,7 @@ class SettingsActivity : SimpleActivity() {
         setupShowPhoneNumbers()
         setupShowContactsWithNumbers()
         setupStartNameWithSurname()
+        setupMergeDuplicateContacts()
         setupShowCallConfirmation()
         setupShowDialpadButton()
         setupShowPrivateContacts()
@@ -214,6 +215,14 @@ class SettingsActivity : SimpleActivity() {
         settings_show_call_confirmation_holder.setOnClickListener {
             settings_show_call_confirmation.toggle()
             config.showCallConfirmation = settings_show_call_confirmation.isChecked
+        }
+    }
+
+    private fun setupMergeDuplicateContacts() {
+        settings_merge_duplicate_contacts.isChecked = config.mergeDuplicateContacts
+        settings_merge_duplicate_contacts_holder.setOnClickListener {
+            settings_merge_duplicate_contacts.toggle()
+            config.mergeDuplicateContacts = settings_merge_duplicate_contacts.isChecked
         }
     }
 }

@@ -72,7 +72,7 @@ class ContactsHelper(val context: Context) {
                 contacts.valueAt(it)
             }
 
-            if (ignoredContactSources.isEmpty() && !getAll) {
+            if (context.config.mergeDuplicateContacts && ignoredContactSources.isEmpty() && !getAll) {
                 tempContacts.filter { displayContactSources.contains(it.source) }.groupBy { it.getNameToDisplay().toLowerCase() }.values.forEach { it ->
                     if (it.size == 1) {
                         resultContacts.add(it.first())

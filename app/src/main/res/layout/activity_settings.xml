@@ -115,6 +115,22 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/settings_merge_duplicate_contacts_holder"
+                style="@style/SettingsHolderCheckboxStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_background">
+
+                <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+                    android:id="@+id/settings_merge_duplicate_contacts"
+                    style="@style/SettingsCheckboxStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/merge_duplicate_contacts" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/settings_show_call_confirmation_holder"
                 style="@style/SettingsHolderCheckboxStyle"
                 android:layout_width="match_parent"

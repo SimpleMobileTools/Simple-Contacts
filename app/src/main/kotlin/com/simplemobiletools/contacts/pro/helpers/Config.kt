@@ -33,8 +33,10 @@ class Config(context: Context) : BaseConfig(context) {
         set(onContactClick) = prefs.edit().putInt(ON_CONTACT_CLICK, onContactClick).apply()
 
     var showContactFields: Int
-        get() = prefs.getInt(SHOW_CONTACT_FIELDS, SHOW_FIRST_NAME_FIELD or SHOW_SURNAME_FIELD or SHOW_PHONE_NUMBERS_FIELD or SHOW_EMAILS_FIELD or
-                SHOW_ADDRESSES_FIELD or SHOW_EVENTS_FIELD or SHOW_NOTES_FIELD or SHOW_GROUPS_FIELD or SHOW_CONTACT_SOURCE_FIELD)
+        get() = prefs.getInt(
+            SHOW_CONTACT_FIELDS, SHOW_FIRST_NAME_FIELD or SHOW_SURNAME_FIELD or SHOW_PHONE_NUMBERS_FIELD or SHOW_EMAILS_FIELD or
+                SHOW_ADDRESSES_FIELD or SHOW_EVENTS_FIELD or SHOW_NOTES_FIELD or SHOW_GROUPS_FIELD or SHOW_CONTACT_SOURCE_FIELD
+        )
         set(showContactFields) = prefs.edit().putInt(SHOW_CONTACT_FIELDS, showContactFields).apply()
 
     var showTabs: Int
@@ -60,4 +62,8 @@ class Config(context: Context) : BaseConfig(context) {
     var showPrivateContacts: Boolean
         get() = prefs.getBoolean(SHOW_PRIVATE_CONTACTS, true)
         set(showPrivateContacts) = prefs.edit().putBoolean(SHOW_PRIVATE_CONTACTS, showPrivateContacts).apply()
+
+    var mergeDuplicateContacts: Boolean
+        get() = prefs.getBoolean(MERGE_DUPLICATE_CONTACTS, true)
+        set(mergeDuplicateContacts) = prefs.edit().putBoolean(MERGE_DUPLICATE_CONTACTS, mergeDuplicateContacts).apply()
 }

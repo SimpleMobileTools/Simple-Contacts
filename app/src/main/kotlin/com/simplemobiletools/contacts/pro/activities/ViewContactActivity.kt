@@ -245,9 +245,11 @@ class ViewContactActivity : ContactActivity() {
             contactSources = it
             runOnUiThread {
                 setupContactDetails()
-                getDuplicateContacts {
-                    if (duplicateContacts.isNotEmpty()) {
-                        setupContactDetails()
+                if (config.mergeDuplicateContacts) {
+                    getDuplicateContacts {
+                        if (duplicateContacts.isNotEmpty()) {
+                            setupContactDetails()
+                        }
                     }
                 }
             }

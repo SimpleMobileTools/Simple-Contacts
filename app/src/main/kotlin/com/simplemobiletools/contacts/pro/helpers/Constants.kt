@@ -21,6 +21,7 @@ const val SPEED_DIAL = "speed_dial"
 const val LAST_EXPORT_PATH = "last_export_path"
 const val WAS_LOCAL_ACCOUNT_INITIALIZED = "was_local_account_initialized"
 const val SHOW_PRIVATE_CONTACTS = "show_private_contacts"
+const val MERGE_DUPLICATE_CONTACTS = "merge_duplicate_contacts"
 
 const val SMT_PRIVATE = "smt_private"   // used at the contact source of local contacts hidden from other apps
 const val GROUP = "group"
