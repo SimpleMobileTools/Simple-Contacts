@@ -1,0 +1,4 @@
+ * Added an option to disable duplicate contact merging
+ * Fix a glitch with local Phone Storage sometimes not being visible
+ * Added a Privacy policy
+ * Added some translation and UX improvements

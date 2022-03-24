@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 6.18.0 *(2022-03-24)*
+----------------------------
+
+ * Added an option to disable duplicate contact merging
+ * Fix a glitch with local Phone Storage sometimes not being visible
+ * Added a Privacy policy
+ * Added some translation and UX improvements
+
 Version 6.17.2 *(2022-03-02)*
 ----------------------------
 
