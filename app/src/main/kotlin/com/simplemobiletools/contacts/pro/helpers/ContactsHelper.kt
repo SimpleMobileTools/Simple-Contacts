@@ -810,12 +810,17 @@ class ContactsHelper(val context: Context) {
             }
         }
 
+        var hadEmptyAccount = false
         val contentResolverAccounts = getContentResolverAccounts().filter {
+            if (it.name.isEmpty() && it.type.isEmpty()) {
+                hadEmptyAccount = true
+            }
+
             it.name.isNotEmpty() && it.type.isNotEmpty() && !accounts.contains(Account(it.name, it.type))
         }
         sources.addAll(contentResolverAccounts)
 
-        if (!sources.any { it.type.startsWith("com.google") || it.type.startsWith("com.android") || it.type.startsWith("com.qualcomm") }) {
+        if (hadEmptyAccount) {
             sources.add(ContactSource("", "", context.getString(R.string.phone_storage)))
         }
 
