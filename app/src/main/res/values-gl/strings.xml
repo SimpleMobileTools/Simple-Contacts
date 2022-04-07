@@ -2,23 +2,23 @@
 <resources>
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Contactos</string>
-    <string name="address">Endereço</string>
+    <string name="address">Enderezo</string>
     <string name="inserting">A inserir…</string>
-    <string name="updating">A atualizar…</string>
-    <string name="phone_storage">Armazenamento do telefone</string>
-    <string name="phone_storage_hidden">Armazenamento do telefone (não visível por outras alicações)</string>
-    <string name="company">Organização</string>
+    <string name="updating">Actualizando…</string>
+    <string name="phone_storage">Almacenaxe do móbil</string>
+    <string name="phone_storage_hidden">Almacenaxe do móbil (non visible por outras apps)</string>
+    <string name="company">Empresa</string>
     <string name="job_position">Cargo</string>
     <string name="send_sms_to_contacts">Enviar SMS aos contactos</string>
-    <string name="send_email_to_contacts">Enviar e-mail aos contactos</string>
-    <string name="send_sms_to_group">Enviar SMS para o grupo</string>
-    <string name="send_email_to_group">Enviar e-mail para o grupo</string>
-    <string name="create_new_contact">Criar novo contacto</string>
-    <string name="add_to_existing_contact">Adicionar a um contacto existente</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
+    <string name="send_email_to_contacts">Enviar email aos contactos</string>
+    <string name="send_sms_to_group">Enviar SMS ao grupo</string>
+    <string name="send_email_to_group">Enviar email ao grupo</string>
+    <string name="create_new_contact">Crear novo contacto</string>
+    <string name="add_to_existing_contact">Engadir a un contacto existente</string>
+    <string name="fields_empty">Polo menos hai que completar 1 campo</string>
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails">Não existem contactos com endereço de e-mail</string>
-    <string name="no_contacts_with_phone_numbers">Não existem contactos com número de telefone</string>
+    <string name="no_contacts_with_emails">Non se atopan contactos con email</string>
+    <string name="no_contacts_with_phone_numbers">Non se atopan contactos con número de teléfono</string>
     <string name="new_contact">Novo contacto</string>
     <string name="edit_contact">Editar contacto</string>
     <string name="select_contact">Seleccionar contacto</string>
@@ -27,35 +27,35 @@
     <string name="no_groups">Non existen grupos</string>
     <string name="create_new_group">Crear un novo grupo</string>
     <string name="remove_from_group">Eliminar do grupo</string>
-    <string name="no_group_participants">Este grupo está vacío</string>
+    <string name="no_group_participants">Este grupo está baleiro</string>
     <string name="add_contacts">Engadir contactos</string>
     <string name="no_group_created">Non existen grupos de contactos neste dispositivo</string>
     <string name="create_group">Crear un grupo</string>
     <string name="add_to_group">Engadir ao grupo</string>
     <string name="create_group_under_account">Crear grupo para a conta</string>
     <!-- Photo -->
-    <string name="take_photo">Sacar foto</string>
-    <string name="choose_photo">Escoller foto</string>
+    <string name="take_photo">Facer foto</string>
+    <string name="choose_photo">Elexir foto</string>
     <string name="remove_photo">Eliminar foto</string>
-    <string name="change_photo">Change photo</string>
+    <string name="change_photo">Cambiar foto</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Mostrar números de teléfono</string>
     <string name="show_contact_thumbnails">Mostrar miniatura do contacto</string>
     <string name="show_dialpad_button">Mostrar botón Marcador na pantalla principal</string>
     <string name="on_contact_click">Ao tocar no contacto</string>
     <string name="call_contact">Chamar</string>
-    <string name="view_contact">Ver detalles</string>
+    <string name="view_contact">Ver detalles do contacto</string>
     <string name="manage_shown_contact_fields">Xestionar campos dos contactos amosados</string>
     <string name="contacts">Contactos</string>
     <string name="show_only_contacts_with_numbers">Mostrar só contactos con número de teléfono</string>
-    <string name="show_private_contacts">Mostrar contactos privados em Simple Dialer e em Simple SMS Messenger</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="show_private_contacts">Mostrar contactos privados en Simple Dialer, Simple SMS Messenger e Simple Calendar Pro</string>
+    <string name="merge_duplicate_contacts">Fusionar contactos duplicados</string>
     <!-- Events -->
-    <string name="birthday">Data de nacemento</string>
+    <string name="birthday">Nacemento</string>
     <string name="anniversary">Aniversario</string>
     <!-- Favorites -->
-    <string name="no_favorites">Parece que aínda non engadiu contactos aos favoritos</string>
-    <string name="toggle_favorite">Toggle favorite</string>
+    <string name="no_favorites">Parece que aínda non engadiu contactos aos favoritos.</string>
+    <string name="toggle_favorite">Marcar como favorito</string>
     <!-- Search -->
     <string name="search_contacts">Buscar nos contactos</string>
     <string name="search_favorites">Buscar nos favoritos</string>
@@ -64,81 +64,41 @@
     <string name="import_contacts">Importar contactos</string>
     <string name="export_contacts">Exportar contactos</string>
     <string name="import_contacts_from_vcf">Importar contactos dun ficheiro .vcf</string>
-    <string name="export_contacts_to_vcf">Exportar contactos para un ficheiro .vcf</string>
+    <string name="export_contacts_to_vcf">Exportar contactos a un ficheiro .vcf</string>
     <string name="target_contact_source">Destino da orixe do contacto</string>
     <string name="include_contact_sources">Incluír fonte dos contactos</string>
-    <string name="filename_without_vcf">Nome do ficheiro (sem .vcf)</string>
+    <string name="filename_without_vcf">Nome do ficheiro (sen .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Marcador</string>
-    <string name="add_number_to_contact">Engadir número a un contacto existente</string>
+    <string name="add_number_to_contact">Engadir número a un contacto</string>
     <!-- Visible fields -->
     <string name="prefix">Prefixo</string>
     <string name="suffix">Sufixo</string>
-    <string name="phone_numbers">Número de teléfono</string>
-    <string name="emails">Correo electrónico</string>
-    <string name="addresses">Enderezo</string>
+    <string name="phone_numbers">Números de teléfono</string>
+    <string name="emails">Emails</string>
+    <string name="addresses">Enderezos</string>
     <string name="events">Eventos (data de nacemento, aniversario)</string>
     <string name="organization">Organización</string>
-    <string name="websites">Páxinas</string>
+    <string name="websites">Webs</string>
     <string name="groups">Grupos</string>
     <string name="contact_source">Orixe do contacto</string>
-    <string name="instant_messaging">Mensaxe instantánea (IM)</string>
-    <string name="ringtone">Ringtone</string>
+    <string name="instant_messaging">Mensaxería (IM)</string>
+    <string name="ringtone">Tono</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">O contacto será eliminado de todas as orixes.</string>
+    <string name="delete_from_all_sources">O contacto será eliminado de todas as orixes de contactos.</string>
     <plurals name="delete_groups">
         <item quantity="one">%d grupo</item>
         <item quantity="other">%d grupos</item>
     </plurals>
     <!-- FAQ -->
     <string name="faq_1_title">Quero alterar os campos mostrados nos contactos. É posible?</string>
-    <string name="faq_1_text">Si, basta acceder a Definición -&gt; Xestionar campos mostrados. Aquí, pode escoller os campos que serán mostrados. Algúns dos campos xa están agochados e así podes mostrar algúns destes.</string>
+    <string name="faq_1_text">Si, chega con acceder a Axustes -&gt; Xestionar campos mostrados. Aquí, pode escoller os campos que serán mostrados. Algúns dos campos xa están agochados e así pode mostrar algúns destes.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Xestión doada dos teus contactos</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">App premium para a xestión dos contactos, sen publicidade, soporta grupos e favoritos</string>
-    <string name="app_long_description">
-        Un aplicativo lixeiro para xestionar os teus contactos. Os contactos pódense almacenar só no dispositivo pero tamén sincronizarse a través de Google ou doutras contas.
-
-        Tamén podes usalo para xestionar correos electrónicos e eventos dos usuarios. Ten a capacidade de ordenar / filtrar por varios parámetros, amosando opcionalmente o apelido como nome.
-
-        Podes amosar os teus contactos ou grupos favoritos nunha lista separada. Os grupos pódense usar para enviar correos electrónicos por lotes ou SMS. Para aforrar tempo, podes renomealos facilmente.
-
-        Contén botóns para chamar ou enviar mensaxes de texto aos teus contactos. Todos os campos visibles pódense personalizar como queiras e podes ocultar facilmente os que non uses. A función de busca buscará a cadea dada en todos os campos de contacto visibles para que poida atopar facilmente o contacto desexado.
-
-        Tamén hai un teclado de marcación lixeiro ao teu servizo e con suxestións de contactos intelixentes.
-
-        Dá soporte a exportación / importación de contactos en formato vCard a ficheiros .vcf e para migracións sinxelas ou facer copias de seguridade dos teus datos.
-
-        Con este xestor de contactos moderno e estable, podes protexer os teus contactos ao non compartilos con outros aplicativos para que poidas manter os teus contactos privados.
-
-        Do mesmo xeito que a fonte de contacto, tamén podes cambiar facilmente o nome do contacto, o correo electrónico, o número de teléfono, o enderezo, a organización, os grupos e moitos outros campos personalizables. Podes usalo tamén para almacenar eventos de contacto, como aniversarios, aniversarios ou calquera outro personalizado.
-
-        Este sinxelo editor de contactos ten moitas opcións útiles como amosar números de teléfono na pantalla principal, cambiar a visibilidade das miniaturas dos contactos, amosar só os contactos con números de teléfono, amosar un diálogo de confirmación de chamada antes de iniciar unha chamada. Vén cun marcador rápido que tamén fai uso das letras.
-
-        Para mellorar aínda máis a experiencia do usuario, podes personalizar o que acontece ao premer nun contacto. Podes iniciar unha chamada, ir á pantalla de Ver detalles ou editar o contacto seleccionado.
-
-        Podes bloquear facilmente números de teléfono para evitar chamadas entrantes non desexadas.
-
-        Para evitar amosar contactos potencialmente non desexados, ten unha poderosa fusión de contactos duplicada.
-
-        Vén cun deseño material e un tema escuro de xeito predeterminado, fornece unha excelente experiencia de usuario cun uso sinxelo. Como non necesita acceso a Internet, tes máis privacidade, seguridade e estabilidade.
-
-        Non contén anuncios nin permisos innecesarios. Dispón dun tema escuro e é totalmente de código aberto.
-
-        <b>Visita a páxina a través desta ligazón:</b>
-        https://www.simplemobiletools.com
-
-        <b>Páxina do aplicativo Simple Contacts Pro:</b>
-        https://www.simplemobiletools.com/contacts
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
+    <string name="app_long_description"> Unha aplicación lixeira para xestionar os teus contactos. Os contactos pódense almacenar só no dispositivo pero tamén sincronizarse a través de Google ou doutras contas. Tamén podes usalo para xestionar correos electrónicos e eventos dos usuarios. Ten a capacidade de ordenar / filtrar por varios parámetros, amosando opcionalmente o apelido como nome. Podes amosar os teus contactos ou grupos favoritos nunha lista separada. Os grupos pódense usar para enviar correos electrónicos por lotes ou SMS. Para aforrar tempo, podes renomealos facilmente. Contén botóns para chamar ou enviar mensaxes de texto aos teus contactos. Todos os campos visibles pódense personalizar como queiras e podes ocultar facilmente os que non uses. A función de busca buscará a cadea dada en todos os campos de contacto visibles para que poida atopar facilmente o contacto desexado. Tamén hai un teclado de marcación lixeiro ao teu servizo e con suxestións de contactos intelixentes. Dá soporte a exportación / importación de contactos en formato vCard a ficheiros .vcf e para migracións sinxelas ou facer copias de seguridade dos teus datos. Con este xestor de contactos moderno e estable, podes protexer os teus contactos ao non compartilos con outras aplicacións para que poidas manter os teus contactos privados. Do mesmo xeito que a fonte de contacto, tamén podes cambiar facilmente o nome do contacto, o correo electrónico, o número de teléfono, o enderezo, a organización, os grupos e moitos outros campos personalizables. Podes usalo tamén para almacenar eventos de contacto, como aniversarios, aniversarios ou calquera outro personalizado. Este sinxelo editor de contactos ten moitas opcións útiles como amosar números de teléfono na pantalla principal, cambiar a visibilidade das miniaturas dos contactos, amosar só os contactos con números de teléfono, amosar un diálogo de confirmación de chamada antes de iniciar unha chamada. Vén cun marcador rápido que tamén fai uso das letras. Para mellorar aínda máis a experiencia do usuario, podes personalizar o que acontece ao premer nun contacto. Podes iniciar unha chamada, ir á pantalla de Ver detalles ou editar o contacto seleccionado. Podes bloquear facilmente números de teléfono para evitar chamadas entrantes non desexadas. Para evitar amosar contactos potencialmente non desexados, ten unha poderosa fusión de contactos duplicada. Vén cun deseño material e un tema escuro de xeito predeterminado, fornece unha excelente experiencia de usuario cun uso sinxelo. Como non necesita acceso a Internet, tes máis privacidade, seguridade e estabilidade. Non contén anuncios nin permisos innecesarios. Dispón dun tema escuro e é totalmente de código aberto. <b>Visita a páxina a través desta ligazón:</b> https://www.simplemobiletools.com <b>Páxina da aplicación Simple Contacts Pro:</b> https://www.simplemobiletools.com/contacts <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
