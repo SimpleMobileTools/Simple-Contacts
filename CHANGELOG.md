@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.18.1 *(2022-04-10)*
+----------------------------
+
+ * Added Material You theme support on Android 10+
+ * Do not add Phone Storage contact source ourselves, if Phone is available
+ * Added some stability, translation and UX improvements
+
 Version 6.18.0 *(2022-03-24)*
 ----------------------------
 

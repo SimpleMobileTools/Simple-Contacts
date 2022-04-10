@@ -1,0 +1,3 @@
+ * Added Material You theme support on Android 10+
+ * Do not add Phone Storage contact source ourselves, if Phone is available
+ * Added some stability, translation and UX improvements
