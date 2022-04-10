@@ -3,7 +3,10 @@ package com.simplemobiletools.contacts.pro.dialogs
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.setupDialogStuff
+import com.simplemobiletools.commons.helpers.isSPlus
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.extensions.config
+import kotlinx.android.synthetic.main.dialog_date_picker.*
 import kotlinx.android.synthetic.main.dialog_date_picker.view.*
 import org.joda.time.DateTime
 import java.util.*
@@ -34,6 +37,12 @@ class MyDatePickerDialog(val activity: BaseSimpleActivity, val defaultDate: Stri
                             month = defaultDate.substring(5, 7).toInt() - 1
                             day = defaultDate.substring(8, 10).toInt()
                         }
+                    }
+
+                    if (activity.config.isUsingSystemTheme && isSPlus()) {
+                        val dialogBackgroundColor = activity.getColor(R.color.you_dialog_background_color)
+                        dialog_holder.setBackgroundColor(dialogBackgroundColor)
+                        date_picker.setBackgroundColor(dialogBackgroundColor)
                     }
 
                     view.date_picker.updateDate(year, month, day)
