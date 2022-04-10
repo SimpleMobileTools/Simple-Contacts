@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AppCompatResource">
     <item
         android:id="@+id/cab_edit"
         android:icon="@drawable/ic_edit_vector"
@@ -33,6 +35,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/cab_create_shortcut"
+        android:showAsAction="never"
         android:title="@string/create_shortcut"
         app:showAsAction="never" />
     <item
