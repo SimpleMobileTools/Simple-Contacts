@@ -10,12 +10,12 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId "com.simplemobiletools.contacts.pro"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 92
         versionName "6.18.0"
         setProperty("archivesBaseName", "contacts")
@@ -63,7 +63,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.SimpleMobileTools:Simple-Commons:99ed70cdbf'
+    implementation 'com.github.SimpleMobileTools:Simple-Commons:b264da6cff'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
     implementation 'com.github.tibbi:IndicatorFastScroll:4524cd0b61'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'

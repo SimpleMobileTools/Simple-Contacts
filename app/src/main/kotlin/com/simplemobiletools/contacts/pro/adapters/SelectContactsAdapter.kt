@@ -18,7 +18,6 @@ import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.item_add_favorite_with_number.view.*
-import java.util.*
 
 class SelectContactsAdapter(
     val activity: SimpleActivity, var contacts: ArrayList<Contact>, private val selectedContacts: ArrayList<Contact>, private val allowPickMultiple: Boolean,
@@ -28,7 +27,7 @@ class SelectContactsAdapter(
     private val itemViews = SparseArray<View>()
     private val selectedPositions = HashSet<Int>()
     private val config = activity.config
-    private val adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
+    private val adjustedPrimaryColor = activity.getProperPrimaryColor()
     private val fontSize = activity.getTextSize()
 
     private val showContactThumbnails = config.showContactThumbnails
@@ -101,8 +100,8 @@ class SelectContactsAdapter(
         fun bindView(contact: Contact): View {
             itemView.apply {
                 contact_checkbox.beVisibleIf(allowPickMultiple)
-                contact_checkbox.setColors(config.textColor, context.getAdjustedPrimaryColor(), config.backgroundColor)
-                val textColor = config.textColor
+                contact_checkbox.setColors(context.getProperTextColor(), context.getProperPrimaryColor(), context.getProperBackgroundColor())
+                val textColor = context.getProperTextColor()
 
                 val fullName = contact.getNameToDisplay()
                 contact_name.text = if (textToHighlight.isEmpty()) fullName else {

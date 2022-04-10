@@ -44,7 +44,7 @@ class SettingsActivity : SimpleActivity() {
         invalidateOptionsMenu()
 
         arrayOf(settings_color_customization_label, settings_general_settings_label, settings_main_screen_label, settings_list_view_label).forEach {
-            it.setTextColor(getAdjustedPrimaryColor())
+            it.setTextColor(getProperPrimaryColor())
         }
 
         arrayOf(
@@ -53,7 +53,7 @@ class SettingsActivity : SimpleActivity() {
             settings_main_screen_holder,
             settings_list_view_holder
         ).forEach {
-            it.background.applyColorFilter(baseConfig.backgroundColor.getContrastColor())
+            it.background.applyColorFilter(getProperBackgroundColor().getContrastColor())
         }
     }
 

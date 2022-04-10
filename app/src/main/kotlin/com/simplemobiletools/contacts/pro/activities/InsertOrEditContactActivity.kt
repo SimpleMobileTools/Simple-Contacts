@@ -25,7 +25,10 @@ import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getContactPublicUri
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
-import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.helpers.ADD_NEW_CONTACT_NUMBER
+import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
+import com.simplemobiletools.contacts.pro.helpers.KEY_EMAIL
+import com.simplemobiletools.contacts.pro.helpers.KEY_NAME
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_insert_edit_contact.*
@@ -134,7 +137,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
         insert_or_edit_tabs_holder.onTabSelectionChanged(
             tabUnselectedAction = {
-                it.icon?.applyColorFilter(config.textColor)
+                it.icon?.applyColorFilter(getProperTextColor())
             },
             tabSelectedAction = {
                 if (isSearchOpen) {
@@ -142,7 +145,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
                     searchMenuItem?.collapseActionView()
                 }
                 viewpager.currentItem = it.position
-                it.icon?.applyColorFilter(getAdjustedPrimaryColor())
+                it.icon?.applyColorFilter(getProperPrimaryColor())
             }
         )
 
@@ -159,9 +162,9 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
         insert_or_edit_tabs_holder.beVisibleIf(skippedTabs == 0)
 
-        select_contact_label?.setTextColor(getAdjustedPrimaryColor())
-        new_contact_tmb?.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_add_person_vector, config.textColor))
-        new_contact_name.setTextColor(config.textColor)
+        select_contact_label?.setTextColor(getProperPrimaryColor())
+        new_contact_tmb?.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_add_person_vector, getProperTextColor()))
+        new_contact_name.setTextColor(getProperTextColor())
         new_contact_holder?.setOnClickListener {
             createNewContact()
         }
@@ -218,8 +221,8 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun setupTabColors() {
         insert_or_edit_tabs_holder.apply {
-            background = ColorDrawable(config.backgroundColor)
-            setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
+            background = ColorDrawable(getProperBackgroundColor())
+            setSelectedTabIndicatorColor(getProperPrimaryColor())
         }
     }
 

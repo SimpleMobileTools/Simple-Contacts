@@ -204,7 +204,7 @@ class EditContactActivity : ContactActivity() {
             updateContactPhoto(contact!!.photoUri, contact_photo, contact_photo_bottom_shadow, contact!!.photo)
         }
 
-        val textColor = config.textColor
+        val textColor = getProperTextColor()
         arrayOf(
             contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_ims_image, contact_events_image,
             contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image, contact_source_image
@@ -212,12 +212,12 @@ class EditContactActivity : ContactActivity() {
             it.applyColorFilter(textColor)
         }
 
-        val adjustedPrimaryColor = getAdjustedPrimaryColor()
+        val properPrimaryColor = getProperPrimaryColor()
         arrayOf(
             contact_numbers_add_new, contact_emails_add_new, contact_addresses_add_new, contact_ims_add_new, contact_events_add_new,
             contact_websites_add_new, contact_groups_add_new
         ).forEach {
-            it.applyColorFilter(adjustedPrimaryColor)
+            it.applyColorFilter(properPrimaryColor)
         }
 
         arrayOf(
@@ -250,8 +250,8 @@ class EditContactActivity : ContactActivity() {
         }
 
         updateTextColors(contact_scrollview)
-        numberViewToColor?.setTextColor(adjustedPrimaryColor)
-        emailViewToColor?.setTextColor(adjustedPrimaryColor)
+        numberViewToColor?.setTextColor(properPrimaryColor)
+        emailViewToColor?.setTextColor(properPrimaryColor)
         wasActivityInitialized = true
 
         contact_toolbar.menu.apply {
@@ -602,8 +602,8 @@ class EditContactActivity : ContactActivity() {
 
                 contact_event_remove.apply {
                     beVisible()
-                    applyColorFilter(getAdjustedPrimaryColor())
-                    background.applyColorFilter(config.textColor)
+                    applyColorFilter(getProperPrimaryColor())
+                    background.applyColorFilter(getProperTextColor())
                     setOnClickListener {
                         resetContactEvent(contactEvent, this)
                     }
@@ -625,7 +625,7 @@ class EditContactActivity : ContactActivity() {
             (groupHolder as ViewGroup).apply {
                 contact_group.apply {
                     text = group.title
-                    setTextColor(config.textColor)
+                    setTextColor(getProperTextColor())
                     tag = group.id
                     alpha = 1f
                 }
@@ -636,8 +636,8 @@ class EditContactActivity : ContactActivity() {
 
                 contact_group_remove.apply {
                     beVisible()
-                    applyColorFilter(getAdjustedPrimaryColor())
-                    background.applyColorFilter(config.textColor)
+                    applyColorFilter(getProperPrimaryColor())
+                    background.applyColorFilter(getProperTextColor())
                     setOnClickListener {
                         removeGroup(group.id!!)
                     }
@@ -650,7 +650,7 @@ class EditContactActivity : ContactActivity() {
                 contact_group.apply {
                     alpha = 0.5f
                     text = getString(R.string.no_groups)
-                    setTextColor(config.textColor)
+                    setTextColor(getProperTextColor())
                 }
 
                 contact_groups_holder.addView(this)
@@ -790,8 +790,8 @@ class EditContactActivity : ContactActivity() {
         }
 
         eventHolder.contact_event_remove.apply {
-            applyColorFilter(getAdjustedPrimaryColor())
-            background.applyColorFilter(config.textColor)
+            applyColorFilter(getProperPrimaryColor())
+            background.applyColorFilter(getProperTextColor())
             setOnClickListener {
                 resetContactEvent(eventField, this@apply)
             }

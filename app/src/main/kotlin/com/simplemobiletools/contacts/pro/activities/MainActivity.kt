@@ -35,7 +35,10 @@ import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getTempFile
 import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
-import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.helpers.ALL_TABS_MASK
+import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
+import com.simplemobiletools.contacts.pro.helpers.VcfExporter
+import com.simplemobiletools.contacts.pro.helpers.tabsList
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
@@ -110,11 +113,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         }
 
-        val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        main_tabs_holder.background = ColorDrawable(config.backgroundColor)
-        main_tabs_holder.setSelectedTabIndicatorColor(adjustedPrimaryColor)
+        val properPrimaryColor = getProperPrimaryColor()
+        main_tabs_holder.background = ColorDrawable(getProperBackgroundColor())
+        main_tabs_holder.setSelectedTabIndicatorColor(properPrimaryColor)
         getAllFragments().forEach {
-            it?.setupColors(config.textColor, adjustedPrimaryColor)
+            it?.setupColors(getProperTextColor(), properPrimaryColor)
         }
 
         updateTabColors()
@@ -140,10 +143,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         }
 
-        val dialpadIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad_vector, adjustedPrimaryColor.getContrastColor())
+        val dialpadIcon = resources.getColoredDrawableWithColor(R.drawable.ic_dialpad_vector, properPrimaryColor.getContrastColor())
         main_dialpad_button.apply {
             setImageDrawable(dialpadIcon)
-            background.applyColorFilter(adjustedPrimaryColor)
+            background.applyColorFilter(properPrimaryColor)
             beVisibleIf(config.showDialpadButton)
         }
 
@@ -257,9 +260,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun updateTabColors() {
         getInactiveTabIndexes(viewpager.currentItem).forEach {
-            main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(config.textColor)
+            main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(getProperTextColor())
         }
-        main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
+        main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getProperPrimaryColor())
     }
 
     private fun getSearchString(): Int {
@@ -322,13 +325,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun setupTabColors() {
         val lastUsedPage = getDefaultTab()
         main_tabs_holder.apply {
-            background = ColorDrawable(config.backgroundColor)
-            setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
+            background = ColorDrawable(getProperBackgroundColor())
+            setSelectedTabIndicatorColor(getProperPrimaryColor())
             getTabAt(lastUsedPage)?.select()
-            getTabAt(lastUsedPage)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            getTabAt(lastUsedPage)?.icon?.applyColorFilter(getProperPrimaryColor())
 
             getInactiveTabIndexes(lastUsedPage).forEach {
-                getTabAt(it)?.icon?.applyColorFilter(config.textColor)
+                getTabAt(it)?.icon?.applyColorFilter(getProperTextColor())
             }
         }
     }
@@ -362,7 +365,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         main_tabs_holder.onTabSelectionChanged(
             tabUnselectedAction = {
-                it.icon?.applyColorFilter(config.textColor)
+                it.icon?.applyColorFilter(getProperTextColor())
             },
             tabSelectedAction = {
                 if (isSearchOpen) {
@@ -370,7 +373,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                     searchMenuItem?.collapseActionView()
                 }
                 viewpager.currentItem = it.position
-                it.icon?.applyColorFilter(getAdjustedPrimaryColor())
+                it.icon?.applyColorFilter(getProperPrimaryColor())
             }
         )
 

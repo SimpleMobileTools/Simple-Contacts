@@ -3,17 +3,21 @@ package com.simplemobiletools.contacts.pro.adapters
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
+import com.simplemobiletools.commons.extensions.getProperBackgroundColor
+import com.simplemobiletools.commons.extensions.getProperPrimaryColor
+import com.simplemobiletools.commons.extensions.getProperTextColor
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
-import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.pro.models.ContactSource
 import kotlinx.android.synthetic.main.item_filter_contact_source.view.*
-import java.util.*
 
-class FilterContactSourcesAdapter(val activity: SimpleActivity, private val contactSources: List<ContactSource>, private val displayContactSources: ArrayList<String>) :
-        RecyclerView.Adapter<FilterContactSourcesAdapter.ViewHolder>() {
+class FilterContactSourcesAdapter(
+    val activity: SimpleActivity,
+    private val contactSources: List<ContactSource>,
+    private val displayContactSources: ArrayList<String>
+) :
+    RecyclerView.Adapter<FilterContactSourcesAdapter.ViewHolder>() {
     private val selectedKeys = HashSet<Int>()
 
     init {
@@ -57,7 +61,7 @@ class FilterContactSourcesAdapter(val activity: SimpleActivity, private val cont
             val isSelected = selectedKeys.contains(contactSource.hashCode())
             itemView.apply {
                 filter_contact_source_checkbox.isChecked = isSelected
-                filter_contact_source_checkbox.setColors(activity.config.textColor, activity.getAdjustedPrimaryColor(), activity.config.backgroundColor)
+                filter_contact_source_checkbox.setColors(activity.getProperTextColor(), activity.getProperPrimaryColor(), activity.getProperBackgroundColor())
                 filter_contact_source_checkbox.text = contactSource.publicName
                 filter_contact_source_holder.setOnClickListener { viewClicked(!isSelected, contactSource) }
             }

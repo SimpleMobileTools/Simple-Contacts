@@ -158,7 +158,7 @@ class GroupsAdapter(
             val groupTitle = if (textToHighlight.isEmpty()) {
                 titleWithCnt
             } else {
-                titleWithCnt.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+                titleWithCnt.highlightTextPart(textToHighlight, properPrimaryColor)
             }
 
             group_name.apply {

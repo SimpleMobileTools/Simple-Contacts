@@ -7,12 +7,10 @@ import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.SelectContactsAdapter
-import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.layout_select_contact.view.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SelectContactsDialog(
     val activity: SimpleActivity, initialContacts: ArrayList<Contact>, val allowSelectMultiple: Boolean, val showOnlyContactsWithNumber: Boolean,
@@ -79,9 +77,9 @@ class SelectContactsDialog(
     }
 
     private fun setupFastscroller(allContacts: ArrayList<Contact>) {
-        val adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
+        val adjustedPrimaryColor = activity.getProperPrimaryColor()
         view.apply {
-            letter_fastscroller?.textColor = context.config.textColor.getColorStateList()
+            letter_fastscroller?.textColor = context.getProperTextColor().getColorStateList()
             letter_fastscroller?.pressedTextColor = adjustedPrimaryColor
             letter_fastscroller_thumb?.fontSize = context.getTextSize()
             letter_fastscroller_thumb?.textColor = adjustedPrimaryColor.getContrastColor()

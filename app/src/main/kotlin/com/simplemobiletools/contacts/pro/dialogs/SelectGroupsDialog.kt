@@ -2,7 +2,9 @@ package com.simplemobiletools.contacts.pro.dialogs
 
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
+import com.simplemobiletools.commons.extensions.getProperBackgroundColor
+import com.simplemobiletools.commons.extensions.getProperPrimaryColor
+import com.simplemobiletools.commons.extensions.getProperTextColor
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.contacts.pro.R
@@ -13,7 +15,6 @@ import com.simplemobiletools.contacts.pro.models.Group
 import kotlinx.android.synthetic.main.dialog_select_groups.view.*
 import kotlinx.android.synthetic.main.item_checkbox.view.*
 import kotlinx.android.synthetic.main.item_textview.view.*
-import java.util.*
 
 class SelectGroupsDialog(val activity: SimpleActivity, val selectedGroups: ArrayList<Group>, val callback: (newGroups: ArrayList<Group>) -> Unit) {
     private val view = activity.layoutInflater.inflate(R.layout.dialog_select_groups, null) as ViewGroup
@@ -39,11 +40,11 @@ class SelectGroupsDialog(val activity: SimpleActivity, val selectedGroups: Array
         addCreateNewGroupButton()
 
         dialog = AlertDialog.Builder(activity)
-                .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
-                .setNegativeButton(R.string.cancel, null)
-                .create().apply {
-                    activity.setupDialogStuff(view, this)
-                }
+            .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
+            .setNegativeButton(R.string.cancel, null)
+            .create().apply {
+                activity.setupDialogStuff(view, this)
+            }
     }
 
     private fun addGroupCheckbox(group: Group) {
@@ -57,7 +58,7 @@ class SelectGroupsDialog(val activity: SimpleActivity, val selectedGroups: Array
                 isChecked = selectedGroups.contains(group)
                 text = group.title
                 tag = group.id
-                setColors(config.textColor, activity.getAdjustedPrimaryColor(), config.backgroundColor)
+                setColors(activity.getProperTextColor(), activity.getProperPrimaryColor(), activity.getProperBackgroundColor())
             }
             view.dialog_groups_holder.addView(this)
         }
@@ -68,7 +69,7 @@ class SelectGroupsDialog(val activity: SimpleActivity, val selectedGroups: Array
         activity.layoutInflater.inflate(R.layout.item_textview, null, false).item_textview.apply {
             text = newGroup.title
             tag = newGroup.id
-            setTextColor(config.textColor)
+            setTextColor(activity.getProperTextColor())
             view.dialog_groups_holder.addView(this)
             setOnClickListener {
                 CreateNewGroupDialog(activity) {

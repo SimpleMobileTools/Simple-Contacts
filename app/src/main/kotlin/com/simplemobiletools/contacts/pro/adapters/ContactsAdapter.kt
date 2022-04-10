@@ -36,7 +36,6 @@ import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.interfaces.RemoveFromGroupListener
 import com.simplemobiletools.contacts.pro.models.Contact
-import java.util.*
 
 class ContactsAdapter(
     activity: SimpleActivity, var contactItems: ArrayList<Contact>, private val refreshListener: RefreshContactsListener?,
@@ -342,9 +341,9 @@ class ContactsAdapter(
             val fullName = contact.getNameToDisplay()
             findViewById<TextView>(R.id.item_contact_name).text = if (textToHighlight.isEmpty()) fullName else {
                 if (fullName.contains(textToHighlight, true)) {
-                    fullName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+                    fullName.highlightTextPart(textToHighlight, properPrimaryColor)
                 } else {
-                    fullName.highlightTextFromNumbers(textToHighlight, adjustedPrimaryColor)
+                    fullName.highlightTextFromNumbers(textToHighlight, properPrimaryColor)
                 }
             }
 
@@ -362,7 +361,7 @@ class ContactsAdapter(
 
                 val numberText = phoneNumberToUse?.value ?: ""
                 findViewById<TextView>(R.id.item_contact_number).apply {
-                    text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, adjustedPrimaryColor, false, true)
+                    text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, properPrimaryColor, false, true)
                     setTextColor(textColor)
                     setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
                 }

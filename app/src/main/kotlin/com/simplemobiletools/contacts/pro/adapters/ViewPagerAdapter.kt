@@ -3,13 +3,13 @@ package com.simplemobiletools.contacts.pro.adapters
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
+import com.simplemobiletools.commons.extensions.getProperPrimaryColor
+import com.simplemobiletools.commons.extensions.getProperTextColor
 import com.simplemobiletools.commons.helpers.TAB_CONTACTS
 import com.simplemobiletools.commons.helpers.TAB_FAVORITES
 import com.simplemobiletools.commons.helpers.TAB_GROUPS
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
-import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 
 class ViewPagerAdapter(val activity: SimpleActivity, val currTabsList: ArrayList<Int>, val showTabs: Int) : PagerAdapter() {
@@ -21,7 +21,7 @@ class ViewPagerAdapter(val activity: SimpleActivity, val currTabsList: ArrayList
 
         (view as MyViewPagerFragment).apply {
             setupFragment(activity)
-            setupColors(activity.config.textColor, activity.getAdjustedPrimaryColor())
+            setupColors(activity.getProperTextColor(), activity.getProperPrimaryColor())
         }
 
         return view
