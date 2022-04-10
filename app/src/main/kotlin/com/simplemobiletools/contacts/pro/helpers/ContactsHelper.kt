@@ -23,7 +23,6 @@ import com.simplemobiletools.contacts.pro.models.Email
 import com.simplemobiletools.contacts.pro.models.Event
 import com.simplemobiletools.contacts.pro.models.Organization
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ContactsHelper(val context: Context) {
     private val BATCH_SIZE = 50
@@ -811,8 +810,9 @@ class ContactsHelper(val context: Context) {
         }
 
         var hadEmptyAccount = false
-        val contentResolverAccounts = getContentResolverAccounts().filter {
-            if (it.name.isEmpty() && it.type.isEmpty()) {
+        val allAccounts = getContentResolverAccounts()
+        val contentResolverAccounts = allAccounts.filter {
+            if (it.name.isEmpty() && it.type.isEmpty() && allAccounts.none { it.name.lowercase(Locale.getDefault()) == "phone" }) {
                 hadEmptyAccount = true
             }
 
