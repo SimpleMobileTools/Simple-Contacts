@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
@@ -59,6 +60,10 @@ class ViewContactActivity : ContactActivity() {
         showFields = config.showContactFields
         contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         setupMenu()
+
+        if (isRPlus()) {
+            window.insetsController?.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
+        }
     }
 
     override fun onResume() {
