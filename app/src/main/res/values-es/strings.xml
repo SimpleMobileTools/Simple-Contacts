@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Contactos</string>
@@ -15,16 +16,13 @@
     <string name="create_new_contact">Crear nuevo contacto</string>
     <string name="add_to_existing_contact">Añadir a un contacto existente</string>
     <string name="fields_empty">At least 1 field has to be filled out</string>
-
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">No se encontraron contactos con correo electrónico</string>
     <string name="no_contacts_with_phone_numbers">No se encontraron contactos con número de teléfono</string>
-
     <string name="new_contact">Nuevo contacto</string>
     <string name="edit_contact">Editar contacto</string>
     <string name="select_contact">Seleccionar contacto</string>
     <string name="nickname">Alias</string>
-
     <!-- Groups -->
     <string name="no_groups">No hay grupos</string>
     <string name="create_new_group">Crear un nuevo grupo</string>
@@ -35,15 +33,13 @@
     <string name="create_group">Crear grupo</string>
     <string name="add_to_group">Añadir a grupo</string>
     <string name="create_group_under_account">Crear grupo bajo la cuenta</string>
-
     <!-- Photo -->
     <string name="take_photo">Tomar foto</string>
     <string name="choose_photo">Escoger foto</string>
     <string name="remove_photo">Eliminar foto</string>
     <string name="change_photo">Change photo</string>
-
     <!-- Settings -->
-    <string name="show_phone_numbers">Mostrar números de teléfono en la pantalla principal</string>
+    <string name="show_phone_numbers">Mostrar números de teléfono</string>
     <string name="show_contact_thumbnails">Mostrar minaturas de contactos</string>
     <string name="show_dialpad_button">Mostrar botón de marcación en la pantalla principal</string>
     <string name="on_contact_click">Al tocar contacto</string>
@@ -54,20 +50,16 @@
     <string name="show_only_contacts_with_numbers">Solo mostrar contactos con números telefónicos</string>
     <string name="show_private_contacts">Mostrar contactos privados a Marcador Simple, Mensajería SMS Simple y Calendario Simple Pro</string>
     <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
-
     <!-- Events -->
     <string name="birthday">Cumpleaños</string>
     <string name="anniversary">Aniversario</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Parece que aún no has añadido ningún contacto favorito.</string>
     <string name="toggle_favorite">Toggle favorite</string>
-
     <!-- Search -->
     <string name="search_contacts">Buscar contactos</string>
     <string name="search_favorites">Buscar favoritos</string>
     <string name="search_groups">Buscar grupos</string>
-
     <!-- Export / Import -->
     <string name="import_contacts">Importar contactos</string>
     <string name="export_contacts">Exportar contactos</string>
@@ -76,11 +68,9 @@
     <string name="target_contact_source">Seleccionar origen de contactos</string>
     <string name="include_contact_sources">Incluir orígenes de contactos</string>
     <string name="filename_without_vcf">Nombre de archivo (Sin .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Teclado de marcación</string>
     <string name="add_number_to_contact">Añadir número a contacto</string>
-
     <!-- Visible fields -->
     <string name="prefix">Prefijo</string>
     <string name="suffix">Sufijo</string>
@@ -94,19 +84,15 @@
     <string name="contact_source">Orígenes de contacto</string>
     <string name="instant_messaging">Mensaje instantáneo (IM)</string>
     <string name="ringtone">Ringtone</string>
-
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">El contacto será eliminado de todos los orígenes de contactos.</string>
-
     <plurals name="delete_groups">
         <item quantity="one">%d groupo</item>
         <item quantity="other">%d groupos</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Quiero cambiar qué campos son visibles en los contactos. ¿Puedo hacerlo?</string>
-    <string name="faq_1_text">Sí, todo lo que tienes que hacer es ir a Ajustes -> Administrar campos del contacto mostrados. Ahí puedes seleccionar que campos deberían ser visibles. Algunos de ellos están desactivados por defecto, así que podrías encontrar algunos nuevos ahí.</string>
-
+    <string name="faq_1_text">Sí, todo lo que tienes que hacer es ir a Ajustes -&gt; Administrar campos del contacto mostrados. Ahí puedes seleccionar que campos deberían ser visibles. Algunos de ellos están desactivados por defecto, así que podrías encontrar algunos nuevos ahí.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Contacts Pro - Administra tus contactos</string>
@@ -153,7 +139,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
