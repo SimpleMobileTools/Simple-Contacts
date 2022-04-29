@@ -79,11 +79,10 @@ class LocalContactsHelper(val context: Context) {
         val photoUri = Uri.parse(uri)
         val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, photoUri)
 
-        val thumbnailSize = context.getPhotoThumbnailSize()
-        val scaledPhoto = Bitmap.createScaledBitmap(bitmap, thumbnailSize * 2, thumbnailSize * 2, false)
-        val scaledSizePhotoData = scaledPhoto.getByteArray()
-        scaledPhoto.recycle()
-        return scaledSizePhotoData
+        val fullSizePhotoData = bitmap.getByteArray()
+        bitmap.recycle()
+
+        return fullSizePhotoData
     }
 
     private fun convertLocalContactToContact(localContact: LocalContact?, storedGroups: ArrayList<Group>): Contact? {
