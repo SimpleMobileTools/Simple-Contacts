@@ -14,25 +14,27 @@ import kotlinx.android.synthetic.main.item_filter_contact_source.view.*
 
 class FilterContactSourcesAdapter(
     val activity: SimpleActivity,
-    private val contactSources: List<ContactSource>,
+    private val data: List<ContactSourceModel>,
     private val displayContactSources: ArrayList<String>
-) :
-    RecyclerView.Adapter<FilterContactSourcesAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<FilterContactSourcesAdapter.ViewHolder>() {
+
     private val selectedKeys = HashSet<Int>()
 
+    data class ContactSourceModel(val contactSource: ContactSource, val count: Int)
+
     init {
-        contactSources.forEachIndexed { index, contactSource ->
-            if (displayContactSources.contains(contactSource.name)) {
-                selectedKeys.add(contactSource.hashCode())
+        data.forEachIndexed { index, model ->
+            if (displayContactSources.contains(model.contactSource.name)) {
+                selectedKeys.add(model.hashCode())
             }
 
-            if (contactSource.type == SMT_PRIVATE && displayContactSources.contains(SMT_PRIVATE)) {
-                selectedKeys.add(contactSource.hashCode())
+            if (model.contactSource.type == SMT_PRIVATE && displayContactSources.contains(SMT_PRIVATE)) {
+                selectedKeys.add(model.hashCode())
             }
         }
     }
 
-    private fun toggleItemSelection(select: Boolean, contactSource: ContactSource, position: Int) {
+    private fun toggleItemSelection(select: Boolean, contactSource: ContactSourceModel, position: Int) {
         if (select) {
             selectedKeys.add(contactSource.hashCode())
         } else {
@@ -42,7 +44,7 @@ class FilterContactSourcesAdapter(
         notifyItemChanged(position)
     }
 
-    fun getSelectedContactSources() = contactSources.filter { selectedKeys.contains(it.hashCode()) }
+    fun getSelectedContactSources() = data.filter { selectedKeys.contains(it.hashCode()) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = activity.layoutInflater.inflate(R.layout.item_filter_contact_source, parent, false)
@@ -50,26 +52,27 @@ class FilterContactSourcesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val contactSource = contactSources[position]
-        holder.bindView(contactSource)
+        val model = data[position]
+        holder.bindView(model)
     }
 
-    override fun getItemCount() = contactSources.size
+    override fun getItemCount() = data.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bindView(contactSource: ContactSource): View {
-            val isSelected = selectedKeys.contains(contactSource.hashCode())
+        fun bindView(model: ContactSourceModel): View {
+            val isSelected = selectedKeys.contains(model.hashCode())
             itemView.apply {
                 filter_contact_source_checkbox.isChecked = isSelected
                 filter_contact_source_checkbox.setColors(activity.getProperTextColor(), activity.getProperPrimaryColor(), activity.getProperBackgroundColor())
-                filter_contact_source_checkbox.text = contactSource.publicName
-                filter_contact_source_holder.setOnClickListener { viewClicked(!isSelected, contactSource) }
+                val displayName = "${model.contactSource.publicName} (${model.count})"
+                filter_contact_source_checkbox.text = displayName
+                filter_contact_source_holder.setOnClickListener { viewClicked(!isSelected, model) }
             }
 
             return itemView
         }
 
-        private fun viewClicked(select: Boolean, contactSource: ContactSource) {
+        private fun viewClicked(select: Boolean, contactSource: ContactSourceModel) {
             toggleItemSelection(select, contactSource, adapterPosition)
         }
     }
