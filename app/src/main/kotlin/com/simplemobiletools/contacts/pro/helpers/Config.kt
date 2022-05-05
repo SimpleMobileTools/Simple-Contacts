@@ -66,4 +66,8 @@ class Config(context: Context) : BaseConfig(context) {
     var mergeDuplicateContacts: Boolean
         get() = prefs.getBoolean(MERGE_DUPLICATE_CONTACTS, true)
         set(mergeDuplicateContacts) = prefs.edit().putBoolean(MERGE_DUPLICATE_CONTACTS, mergeDuplicateContacts).apply()
+
+    var favoritesContactsOrder: String
+        get() = prefs.getString(FAVORITES_CONTACTS_ORDER, "")!!
+        set(order) = prefs.edit().putString(FAVORITES_CONTACTS_ORDER, order).apply()
 }

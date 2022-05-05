@@ -33,6 +33,7 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val callback
             currSorting and SORT_BY_MIDDLE_NAME != 0 -> sortingRadio.sorting_dialog_radio_middle_name
             currSorting and SORT_BY_SURNAME != 0 -> sortingRadio.sorting_dialog_radio_surname
             currSorting and SORT_BY_FULL_NAME != 0 -> sortingRadio.sorting_dialog_radio_full_name
+            currSorting and SORT_BY_CUSTOM != 0 -> sortingRadio.sorting_dialog_radio_custom
             else -> sortingRadio.sorting_dialog_radio_date_created
         }
         sortBtn.isChecked = true
@@ -55,6 +56,7 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val callback
             R.id.sorting_dialog_radio_middle_name -> SORT_BY_MIDDLE_NAME
             R.id.sorting_dialog_radio_surname -> SORT_BY_SURNAME
             R.id.sorting_dialog_radio_full_name -> SORT_BY_FULL_NAME
+            R.id.sorting_dialog_radio_custom -> SORT_BY_CUSTOM
             else -> SORT_BY_DATE_CREATED
         }
 

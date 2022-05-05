@@ -124,7 +124,15 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
         val filtered = when {
             this is GroupsFragment -> contacts
-            this is FavoritesFragment -> contacts.filter { it.starred == 1 } as ArrayList<Contact>
+            this is FavoritesFragment -> {
+                val favorites = contacts.filter { it.starred == 1 } as ArrayList<Contact>
+
+                if (activity!!.config.sorting == SORT_BY_CUSTOM) {
+                    sortByCustomOrder(favorites)
+                } else {
+                    favorites
+                }
+            }
             else -> {
                 val contactSources = activity!!.getVisibleContactSources()
                 contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
@@ -150,6 +158,14 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 }
             }
         }
+    }
+
+    private fun sortByCustomOrder(starred: List<Contact>): ArrayList<Contact> {
+        val favoritesOrder = activity!!.config.favoritesContactsOrder
+        val orderList = Converters().jsonToStringList(favoritesOrder)
+        val map = orderList.withIndex().associate { it.value to it.index }
+        val sorted = starred.sortedBy { map[it.id.toString()] }
+        return ArrayList(sorted)
     }
 
     private fun setupContacts(contacts: ArrayList<Contact>) {

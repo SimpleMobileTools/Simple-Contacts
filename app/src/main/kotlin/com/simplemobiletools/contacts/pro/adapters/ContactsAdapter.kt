@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
+import android.util.Log
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MotionEvent
@@ -22,6 +23,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
+import com.google.gson.Gson
 import com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
@@ -42,6 +44,7 @@ import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.interfaces.RemoveFromGroupListener
 import com.simplemobiletools.contacts.pro.models.Contact
+import java.util.*
 
 class ContactsAdapter(
     activity: SimpleActivity,
@@ -420,6 +423,10 @@ class ContactsAdapter(
                 }
             }
 
+            // TODO:
+            if (enableDrag) {
+
+            }
             findViewById<ImageView>(R.id.item_contact_image).setOnTouchListener { v, event ->
                 if (event.action == MotionEvent.ACTION_DOWN) {
                     startReorderDragListener?.requestDrag(holder)
@@ -431,15 +438,31 @@ class ContactsAdapter(
 
     override fun onChange(position: Int) = contactItems.getOrNull(position)?.getBubbleText() ?: ""
 
-    override fun onRowClear(myViewHolder: ViewHolder?) {
-
-    }
-
     override fun onRowMoved(fromPosition: Int, toPosition: Int) {
-
+        activity.config.sorting = SORT_BY_CUSTOM // TODO: check if i can use this constant
+        if (fromPosition < toPosition) {
+            for (i in fromPosition until toPosition) {
+                Collections.swap(contactItems, i, i + 1)
+            }
+        } else {
+            for (i in fromPosition downTo toPosition + 1) {
+                Collections.swap(contactItems, i, i - 1)
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition)
     }
 
     override fun onRowSelected(myViewHolder: ViewHolder?) {
 
+    }
+
+    override fun onRowClear(myViewHolder: ViewHolder?) {
+        for (contact in contactItems) {
+            Log.d("test", "onRowClear: ${contact.getNameToDisplay()} ${contact.id} ${contact.contactId}")
+        }
+        val orderIds = contactItems.map { it.id }
+        val orderGsonString = Gson().toJson(orderIds)
+        Log.d("test", "onRowClear: $orderGsonString")
+        activity.config.favoritesContactsOrder = orderGsonString
     }
 }
