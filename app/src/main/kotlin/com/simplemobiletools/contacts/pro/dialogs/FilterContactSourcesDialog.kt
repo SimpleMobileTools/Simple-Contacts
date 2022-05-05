@@ -22,17 +22,24 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
     private var isContactsReady = false
 
     init {
-        ContactsHelper(activity).getContactSources { contactSources ->
-            contactSources.mapTo(this.contactSources) { it.copy() }
-            isContactSourcesReady = true
-            processDataIfReady()
-        }
+        dialog = AlertDialog.Builder(activity)
+            .setPositiveButton(R.string.ok) { dialogInterface, i -> confirmContactSources() }
+            .setNegativeButton(R.string.cancel, null)
+            .create().apply {
+                activity.setupDialogStuff(view, this) {
+                    ContactsHelper(activity).getContactSources { contactSources ->
+                        contactSources.mapTo(this@FilterContactSourcesDialog.contactSources) { it.copy() }
+                        isContactSourcesReady = true
+                        processDataIfReady()
+                    }
 
-        ContactsHelper(activity).getContacts(getAll = true) { contacts ->
-            contacts.mapTo(this.contacts) { it.copy() }
-            isContactsReady = true
-            processDataIfReady()
-        }
+                    ContactsHelper(activity).getContacts(getAll = true) { contacts ->
+                        contacts.mapTo(this@FilterContactSourcesDialog.contacts) { it.copy() }
+                        isContactsReady = true
+                        processDataIfReady()
+                    }
+                }
+            }
     }
 
     private fun processDataIfReady() {
@@ -49,16 +56,9 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
         contactSources.clear()
         contactSources.addAll(contactSourcesWithCount)
 
-        val selectedSources = activity.getVisibleContactSources()
         activity.runOnUiThread {
+            val selectedSources = activity.getVisibleContactSources()
             view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, contactSourcesWithCount, selectedSources)
-
-            dialog = AlertDialog.Builder(activity)
-                .setPositiveButton(R.string.ok) { dialogInterface, i -> confirmContactSources() }
-                .setNegativeButton(R.string.cancel, null)
-                .create().apply {
-                    activity.setupDialogStuff(view, this)
-                }
         }
     }
 
