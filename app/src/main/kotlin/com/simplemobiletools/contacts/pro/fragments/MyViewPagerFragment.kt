@@ -30,7 +30,6 @@ import kotlinx.android.synthetic.main.fragment_layout.view.fragment_placeholder_
 import kotlinx.android.synthetic.main.fragment_layout.view.fragment_wrapper
 import kotlinx.android.synthetic.main.fragment_letters_layout.view.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
     protected var activity: SimpleActivity? = null
@@ -219,7 +218,16 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 else -> LOCATION_CONTACTS_TAB
             }
 
-            ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list) {
+            val enableDragReorder = this is FavoritesFragment
+            ContactsAdapter(
+                activity = activity as SimpleActivity,
+                contactItems = contacts,
+                refreshListener = activity as RefreshContactsListener,
+                location = location,
+                removeListener = null,
+                recyclerView = fragment_list,
+                enableDrag = enableDragReorder
+            ) {
                 (activity as RefreshContactsListener).contactClicked(it as Contact)
             }.apply {
                 fragment_list.adapter = this
