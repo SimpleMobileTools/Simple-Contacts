@@ -5,7 +5,6 @@ import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.FilterContactSourcesAdapter
-import com.simplemobiletools.contacts.pro.adapters.FilterContactSourcesAdapter.ContactSourceModel
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
@@ -41,15 +40,18 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
             return
         }
 
-        val adapterData = ArrayList<ContactSourceModel>()
-        for (source in contactSources) {
-            val count = contacts.filter { it.source == source.name }.count()
-            adapterData.add(ContactSourceModel(source, count))
+        val contactSourcesWithCount = ArrayList<ContactSource>()
+        for (contactSource in contactSources) {
+            val count = contacts.filter { it.source == contactSource.name }.count()
+            contactSourcesWithCount.add(contactSource.copy(count = count))
         }
+
+        contactSources.clear()
+        contactSources.addAll(contactSourcesWithCount)
 
         val selectedSources = activity.getVisibleContactSources()
         activity.runOnUiThread {
-            view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, adapterData, selectedSources)
+            view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, contactSourcesWithCount, selectedSources)
 
             dialog = AlertDialog.Builder(activity)
                 .setPositiveButton(R.string.ok) { dialogInterface, i -> confirmContactSources() }
@@ -62,11 +64,9 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
 
     private fun confirmContactSources() {
         val selectedContactSources = (view.filter_contact_sources_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
-        val ignoredContactSources = contactSources
-            .filter { !selectedContactSources.map { it.contactSource }.contains(it) }
-            .map {
-                if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.getFullIdentifier()
-            }.toHashSet()
+        val ignoredContactSources = contactSources.filter { !selectedContactSources.contains(it) }.map {
+            if (it.type == SMT_PRIVATE) SMT_PRIVATE else it.getFullIdentifier()
+        }.toHashSet()
 
         if (activity.getVisibleContactSources() != ignoredContactSources) {
             activity.config.ignoredContactSources = ignoredContactSources

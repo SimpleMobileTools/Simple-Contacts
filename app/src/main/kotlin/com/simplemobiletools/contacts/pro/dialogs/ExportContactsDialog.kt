@@ -84,7 +84,7 @@ class ExportContactsDialog(
                                     activity.config.lastExportPath = file.absolutePath.getParentPath()
                                     val selectedSources = (view.export_contacts_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
                                     val ignoredSources = contactSources
-                                        .filter { !selectedSources.map { source -> source.contactSource }.contains(it) }
+                                        .filter { !selectedSources.contains(it) }
                                         .map { it.getFullIdentifier() }
                                         .toHashSet()
                                     callback(file, ignoredSources)
@@ -103,14 +103,17 @@ class ExportContactsDialog(
             return
         }
 
-        val adapterData = ArrayList<FilterContactSourcesAdapter.ContactSourceModel>()
+        val contactSourcesWithCount = ArrayList<ContactSource>()
         for (source in contactSources) {
             val count = contacts.filter { it.source == source.name }.count()
-            adapterData.add(FilterContactSourcesAdapter.ContactSourceModel(source, count))
+            contactSourcesWithCount.add(source.copy(count = count))
         }
 
+        contactSources.clear()
+        contactSources.addAll(contactSourcesWithCount)
+
         activity.runOnUiThread {
-            view.export_contacts_list.adapter = FilterContactSourcesAdapter(activity, adapterData, activity.getVisibleContactSources())
+            view.export_contacts_list.adapter = FilterContactSourcesAdapter(activity, contactSourcesWithCount, activity.getVisibleContactSources())
         }
     }
 }
