@@ -9,7 +9,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.config
 import kotlinx.android.synthetic.main.dialog_change_sorting.view.*
 
-class ChangeSortingDialog(val activity: BaseSimpleActivity, private val callback: () -> Unit) {
+class ChangeSortingDialog(val activity: BaseSimpleActivity, private val showCustomSorting: Boolean = false, private val callback: () -> Unit) {
     private var currSorting = 0
     private var config = activity.config
     private var view = activity.layoutInflater.inflate(R.layout.dialog_change_sorting, null)
@@ -22,7 +22,16 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val callback
                 activity.setupDialogStuff(view, this, R.string.sort_by)
             }
 
-        currSorting = config.sorting
+        currSorting = if (showCustomSorting) {
+            if (config.isCustomOrderSelected) {
+                SORT_BY_CUSTOM
+            } else {
+                config.sorting
+            }
+        } else {
+            config.sorting
+        }
+
         setupSortRadio()
         setupOrderRadio()
     }
@@ -44,6 +53,11 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val callback
             else -> sortingRadio.sorting_dialog_radio_date_created
         }
         sortBtn.isChecked = true
+
+        if (showCustomSorting) {
+            sortingRadio.sorting_dialog_radio_custom.isChecked = config.isCustomOrderSelected
+        }
+        view.sorting_dialog_radio_custom.beGoneIf(!showCustomSorting)
     }
 
     private fun setupOrderRadio() {
@@ -71,7 +85,17 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val callback
             sorting = sorting or SORT_DESCENDING
         }
 
-        config.sorting = sorting
+        if (showCustomSorting) {
+            if (sorting == SORT_BY_CUSTOM) {
+                config.isCustomOrderSelected = true
+            } else {
+                config.isCustomOrderSelected = false
+                config.sorting = sorting
+            }
+        } else {
+            config.sorting = sorting
+        }
+
         callback()
     }
 }

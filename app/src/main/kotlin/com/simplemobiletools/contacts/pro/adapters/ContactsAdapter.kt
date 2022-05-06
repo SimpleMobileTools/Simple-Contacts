@@ -450,7 +450,8 @@ class ContactsAdapter(
     override fun onChange(position: Int) = contactItems.getOrNull(position)?.getBubbleText() ?: ""
 
     override fun onRowMoved(fromPosition: Int, toPosition: Int) {
-        activity.config.sorting = SORT_BY_CUSTOM
+        activity.config.isCustomOrderSelected = true
+
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {
                 Collections.swap(contactItems, i, i + 1)
@@ -460,6 +461,7 @@ class ContactsAdapter(
                 Collections.swap(contactItems, i, i - 1)
             }
         }
+
         notifyItemMoved(fromPosition, toPosition)
     }
 

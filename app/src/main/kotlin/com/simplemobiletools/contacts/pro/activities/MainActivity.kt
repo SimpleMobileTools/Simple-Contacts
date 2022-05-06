@@ -35,6 +35,7 @@ import com.simplemobiletools.contacts.pro.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getTempFile
 import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
+import com.simplemobiletools.contacts.pro.fragments.FavoritesFragment
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.pro.helpers.ALL_TABS_MASK
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
@@ -185,8 +186,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         when (item.itemId) {
-            R.id.sort -> showSortingDialog()
+            R.id.sort -> showSortingDialog(showCustomSorting = getCurrentFragment() is FavoritesFragment)
             R.id.filter -> showFilterDialog()
             R.id.dialpad -> launchDialpad()
             R.id.import_contacts -> tryImportContacts()
@@ -410,8 +412,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    private fun showSortingDialog() {
-        ChangeSortingDialog(this) {
+    private fun showSortingDialog(showCustomSorting: Boolean) {
+        ChangeSortingDialog(this, showCustomSorting) {
             refreshContacts(TAB_CONTACTS or TAB_FAVORITES)
         }
     }

@@ -128,7 +128,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             this is FavoritesFragment -> {
                 val favorites = contacts.filter { it.starred == 1 } as ArrayList<Contact>
 
-                if (activity!!.config.sorting == SORT_BY_CUSTOM) {
+                if (activity!!.config.isCustomOrderSelected) {
                     sortByCustomOrder(favorites)
                 } else {
                     favorites
