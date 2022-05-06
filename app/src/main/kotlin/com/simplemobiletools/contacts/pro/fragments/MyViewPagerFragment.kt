@@ -163,9 +163,15 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     private fun sortByCustomOrder(starred: List<Contact>): ArrayList<Contact> {
         val favoritesOrder = activity!!.config.favoritesContactsOrder
+
+        if (favoritesOrder.isEmpty()) {
+            return ArrayList(starred)
+        }
+
         val orderList = Converters().jsonToStringList(favoritesOrder)
         val map = orderList.withIndex().associate { it.value to it.index }
         val sorted = starred.sortedBy { map[it.id.toString()] }
+
         return ArrayList(sorted)
     }
 
@@ -252,9 +258,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     onDragEndListener = {
                         val adapter = fragment_list?.adapter
                         if (adapter is ContactsAdapter) {
-                            saveCustomOrderToPrefs(adapter.contactItems)
+                            val items = adapter.contactItems
+                            saveCustomOrderToPrefs(items)
+                            setupLetterFastscroller(items)
                         }
-                        refreshContacts(contacts)
                     }
                 }
             }

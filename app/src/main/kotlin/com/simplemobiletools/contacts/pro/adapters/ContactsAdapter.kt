@@ -54,7 +54,7 @@ class ContactsAdapter(
     highlightText: String = "",
     private val enableDrag: Boolean = false,
     itemClick: (Any) -> Unit
-    ) : MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate, ItemTouchHelperContract {
+) : MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate, ItemTouchHelperContract {
     private val NEW_GROUP_ID = -1
 
     private var config = activity.config
@@ -426,16 +426,22 @@ class ContactsAdapter(
                 }
             }
 
-            if (enableDrag) {
-                findViewById<ImageView>(R.id.drag_handle_icon).apply {
+            val dragIcon = findViewById<ImageView>(R.id.drag_handle_icon)
+            if (enableDrag && textToHighlight.isEmpty()) {
+                dragIcon.apply {
                     beVisibleIf(selectedKeys.isNotEmpty())
                     applyColorFilter(textColor)
-                    setOnTouchListener { v, event ->
+                    setOnTouchListener { _, event ->
                         if (event.action == MotionEvent.ACTION_DOWN) {
                             startReorderDragListener?.requestDrag(holder)
                         }
                         false
                     }
+                }
+            } else {
+                dragIcon.apply {
+                    beGone()
+                    setOnTouchListener(null)
                 }
             }
         }
