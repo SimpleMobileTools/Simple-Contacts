@@ -22,7 +22,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
-import com.google.gson.Gson
 import com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
@@ -55,7 +54,7 @@ class ContactsAdapter(
     highlightText: String = "",
     private val enableDrag: Boolean = false,
     itemClick: (Any) -> Unit
-) : MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate, ItemTouchHelperContract {
+    ) : MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate, ItemTouchHelperContract {
     private val NEW_GROUP_ID = -1
 
     private var config = activity.config
@@ -70,6 +69,7 @@ class ContactsAdapter(
 
     private var touchHelper: ItemTouchHelper? = null
     private var startReorderDragListener: StartReorderDragListener? = null
+    var onDragEndListener: (() -> Unit)? = null
 
     init {
         setupDragListener(true)
@@ -462,8 +462,6 @@ class ContactsAdapter(
     }
 
     override fun onRowClear(myViewHolder: ViewHolder?) {
-        val orderIds = contactItems.map { it.id }
-        val orderGsonString = Gson().toJson(orderIds)
-        activity.config.favoritesContactsOrder = orderGsonString
+        onDragEndListener?.invoke()
     }
 }

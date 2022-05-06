@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.gson.Gson
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.*
@@ -242,11 +243,20 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 location = location,
                 removeListener = null,
                 recyclerView = fragment_list,
-                enableDrag = enableDragReorder
+                enableDrag = enableDragReorder,
             ) {
                 (activity as RefreshContactsListener).contactClicked(it as Contact)
             }.apply {
                 fragment_list.adapter = this
+                if (enableDragReorder) {
+                    onDragEndListener = {
+                        val adapter = fragment_list?.adapter
+                        if (adapter is ContactsAdapter) {
+                            saveCustomOrderToPrefs(adapter.contactItems)
+                        }
+                        refreshContacts(contacts)
+                    }
+                }
             }
 
             if (context.areSystemAnimationsEnabled) {
@@ -259,6 +269,14 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 showContactThumbnails = config.showContactThumbnails
                 updateItems(contacts)
             }
+        }
+    }
+
+    private fun saveCustomOrderToPrefs(items: ArrayList<Contact>) {
+        activity?.apply {
+            val orderIds = items.map { it.id }
+            val orderGsonString = Gson().toJson(orderIds)
+            config.favoritesContactsOrder = orderGsonString
         }
     }
 
