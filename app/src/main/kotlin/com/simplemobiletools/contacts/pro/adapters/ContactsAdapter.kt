@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
-import android.util.Log
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MotionEvent
@@ -136,9 +135,13 @@ class ContactsAdapter(
 
     override fun getItemKeyPosition(key: Int) = contactItems.indexOfFirst { it.id == key }
 
-    override fun onActionModeCreated() {}
+    override fun onActionModeCreated() {
+        notifyDataSetChanged()
+    }
 
-    override fun onActionModeDestroyed() {}
+    override fun onActionModeDestroyed() {
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(itemLayout, parent)
 
@@ -423,15 +426,17 @@ class ContactsAdapter(
                 }
             }
 
-            // TODO:
             if (enableDrag) {
-
-            }
-            findViewById<ImageView>(R.id.item_contact_image).setOnTouchListener { v, event ->
-                if (event.action == MotionEvent.ACTION_DOWN) {
-                    startReorderDragListener?.requestDrag(holder)
+                findViewById<ImageView>(R.id.drag_handle_icon).apply {
+                    beVisibleIf(selectedKeys.isNotEmpty())
+                    applyColorFilter(textColor)
+                    setOnTouchListener { v, event ->
+                        if (event.action == MotionEvent.ACTION_DOWN) {
+                            startReorderDragListener?.requestDrag(holder)
+                        }
+                        false
+                    }
                 }
-                false
             }
         }
     }
@@ -439,7 +444,7 @@ class ContactsAdapter(
     override fun onChange(position: Int) = contactItems.getOrNull(position)?.getBubbleText() ?: ""
 
     override fun onRowMoved(fromPosition: Int, toPosition: Int) {
-        activity.config.sorting = SORT_BY_CUSTOM // TODO: check if i can use this constant
+        activity.config.sorting = SORT_BY_CUSTOM
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {
                 Collections.swap(contactItems, i, i + 1)
@@ -457,12 +462,8 @@ class ContactsAdapter(
     }
 
     override fun onRowClear(myViewHolder: ViewHolder?) {
-        for (contact in contactItems) {
-            Log.d("test", "onRowClear: ${contact.getNameToDisplay()} ${contact.id} ${contact.contactId}")
-        }
         val orderIds = contactItems.map { it.id }
         val orderGsonString = Gson().toJson(orderIds)
-        Log.d("test", "onRowClear: $orderGsonString")
         activity.config.favoritesContactsOrder = orderGsonString
     }
 }
