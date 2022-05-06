@@ -2,6 +2,7 @@ package com.simplemobiletools.contacts.pro.dialogs
 
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
+import com.simplemobiletools.commons.extensions.beGoneIf
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
@@ -28,6 +29,12 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val callback
 
     private fun setupSortRadio() {
         val sortingRadio = view.sorting_dialog_radio_sorting
+
+        sortingRadio.setOnCheckedChangeListener { group, checkedId ->
+            val isCustomSorting = checkedId == sortingRadio.sorting_dialog_radio_custom.id
+            view.sorting_dialog_radio_order.beGoneIf(isCustomSorting)
+        }
+
         val sortBtn = when {
             currSorting and SORT_BY_FIRST_NAME != 0 -> sortingRadio.sorting_dialog_radio_first_name
             currSorting and SORT_BY_MIDDLE_NAME != 0 -> sortingRadio.sorting_dialog_radio_middle_name
@@ -60,7 +67,7 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val callback
             else -> SORT_BY_DATE_CREATED
         }
 
-        if (view.sorting_dialog_radio_order.checkedRadioButtonId == R.id.sorting_dialog_radio_descending) {
+        if (sorting != SORT_BY_CUSTOM && view.sorting_dialog_radio_order.checkedRadioButtonId == R.id.sorting_dialog_radio_descending) {
             sorting = sorting or SORT_DESCENDING
         }
 
