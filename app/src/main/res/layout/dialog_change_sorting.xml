@@ -69,7 +69,9 @@
 
         </RadioGroup>
 
-        <include layout="@layout/divider" />
+        <include
+            android:id="@+id/divider"
+            layout="@layout/divider" />
 
         <RadioGroup
             android:id="@+id/sorting_dialog_radio_order"
