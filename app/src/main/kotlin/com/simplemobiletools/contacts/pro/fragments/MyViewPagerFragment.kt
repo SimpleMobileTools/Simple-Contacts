@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.gson.Gson
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.*
@@ -30,7 +31,6 @@ import kotlinx.android.synthetic.main.fragment_layout.view.fragment_placeholder_
 import kotlinx.android.synthetic.main.fragment_layout.view.fragment_wrapper
 import kotlinx.android.synthetic.main.fragment_letters_layout.view.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
     protected var activity: SimpleActivity? = null
@@ -125,7 +125,15 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
         val filtered = when {
             this is GroupsFragment -> contacts
-            this is FavoritesFragment -> contacts.filter { it.starred == 1 } as ArrayList<Contact>
+            this is FavoritesFragment -> {
+                val favorites = contacts.filter { it.starred == 1 } as ArrayList<Contact>
+
+                if (activity!!.config.isCustomOrderSelected) {
+                    sortByCustomOrder(favorites)
+                } else {
+                    favorites
+                }
+            }
             else -> {
                 val contactSources = activity!!.getVisibleContactSources()
                 contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
@@ -151,6 +159,20 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 }
             }
         }
+    }
+
+    private fun sortByCustomOrder(starred: List<Contact>): ArrayList<Contact> {
+        val favoritesOrder = activity!!.config.favoritesContactsOrder
+
+        if (favoritesOrder.isEmpty()) {
+            return ArrayList(starred)
+        }
+
+        val orderList = Converters().jsonToStringList(favoritesOrder)
+        val map = orderList.withIndex().associate { it.value to it.index }
+        val sorted = starred.sortedBy { map[it.id.toString()] }
+
+        return ArrayList(sorted)
     }
 
     private fun setupContacts(contacts: ArrayList<Contact>) {
@@ -219,10 +241,29 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 else -> LOCATION_CONTACTS_TAB
             }
 
-            ContactsAdapter(activity as SimpleActivity, contacts, activity as RefreshContactsListener, location, null, fragment_list) {
+            val enableDragReorder = this is FavoritesFragment
+            ContactsAdapter(
+                activity = activity as SimpleActivity,
+                contactItems = contacts,
+                refreshListener = activity as RefreshContactsListener,
+                location = location,
+                removeListener = null,
+                recyclerView = fragment_list,
+                enableDrag = enableDragReorder,
+            ) {
                 (activity as RefreshContactsListener).contactClicked(it as Contact)
             }.apply {
                 fragment_list.adapter = this
+                if (enableDragReorder) {
+                    onDragEndListener = {
+                        val adapter = fragment_list?.adapter
+                        if (adapter is ContactsAdapter) {
+                            val items = adapter.contactItems
+                            saveCustomOrderToPrefs(items)
+                            setupLetterFastscroller(items)
+                        }
+                    }
+                }
             }
 
             if (context.areSystemAnimationsEnabled) {
@@ -235,6 +276,14 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 showContactThumbnails = config.showContactThumbnails
                 updateItems(contacts)
             }
+        }
+    }
+
+    private fun saveCustomOrderToPrefs(items: ArrayList<Contact>) {
+        activity?.apply {
+            val orderIds = items.map { it.id }
+            val orderGsonString = Gson().toJson(orderIds)
+            config.favoritesContactsOrder = orderGsonString
         }
     }
 
