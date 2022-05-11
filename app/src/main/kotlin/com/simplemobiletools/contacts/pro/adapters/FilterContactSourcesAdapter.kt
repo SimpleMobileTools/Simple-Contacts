@@ -62,8 +62,8 @@ class FilterContactSourcesAdapter(
             itemView.apply {
                 filter_contact_source_checkbox.isChecked = isSelected
                 filter_contact_source_checkbox.setColors(activity.getProperTextColor(), activity.getProperPrimaryColor(), activity.getProperBackgroundColor())
-                val countText = if (contactSource.count > 0) "(${contactSource.count})" else ""
-                val displayName = "${contactSource.publicName} $countText"
+                val countText = if (contactSource.count > 0) " (${contactSource.count})" else ""
+                val displayName = "${contactSource.publicName}$countText"
                 filter_contact_source_checkbox.text = displayName
                 filter_contact_source_holder.setOnClickListener { viewClicked(!isSelected, contactSource) }
             }
