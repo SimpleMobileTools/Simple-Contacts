@@ -22,12 +22,8 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val showCust
                 activity.setupDialogStuff(view, this, R.string.sort_by)
             }
 
-        currSorting = if (showCustomSorting) {
-            if (config.isCustomOrderSelected) {
-                SORT_BY_CUSTOM
-            } else {
-                config.sorting
-            }
+        currSorting = if (showCustomSorting && config.isCustomOrderSelected) {
+            SORT_BY_CUSTOM
         } else {
             config.sorting
         }

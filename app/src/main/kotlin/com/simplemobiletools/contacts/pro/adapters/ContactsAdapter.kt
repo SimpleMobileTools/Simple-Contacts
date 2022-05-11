@@ -465,9 +465,7 @@ class ContactsAdapter(
         notifyItemMoved(fromPosition, toPosition)
     }
 
-    override fun onRowSelected(myViewHolder: ViewHolder?) {
-
-    }
+    override fun onRowSelected(myViewHolder: ViewHolder?) { }
 
     override fun onRowClear(myViewHolder: ViewHolder?) {
         onDragEndListener?.invoke()
