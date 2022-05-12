@@ -42,7 +42,11 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
 
         val contactSourcesWithCount = ArrayList<ContactSource>()
         for (contactSource in contactSources) {
-            val count = contacts.filter { it.source == contactSource.name }.count()
+            val count = if (isContactsReady) {
+                contacts.filter { it.source == contactSource.name }.count()
+            } else {
+                -1
+            }
             contactSourcesWithCount.add(contactSource.copy(count = count))
         }
 
