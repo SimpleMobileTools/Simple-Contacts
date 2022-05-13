@@ -9,32 +9,61 @@ import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.SMT_PRIVATE
+import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.ContactSource
 import kotlinx.android.synthetic.main.dialog_filter_contact_sources.view.*
-import java.util.*
 
 class FilterContactSourcesDialog(val activity: SimpleActivity, private val callback: () -> Unit) {
     private var dialog: AlertDialog? = null
     private val view = activity.layoutInflater.inflate(R.layout.dialog_filter_contact_sources, null)
     private var contactSources = ArrayList<ContactSource>()
+    private var contacts = ArrayList<Contact>()
+    private var isContactSourcesReady = false
+    private var isContactsReady = false
 
     init {
-        ContactsHelper(activity).getContactSources {
-            if (it.isEmpty()) {
-                return@getContactSources
+        ContactsHelper(activity).getContactSources { contactSources ->
+            contactSources.mapTo(this@FilterContactSourcesDialog.contactSources) { it.copy() }
+            isContactSourcesReady = true
+            processDataIfReady()
+        }
+
+        ContactsHelper(activity).getContacts(getAll = true) { contacts ->
+            contacts.mapTo(this@FilterContactSourcesDialog.contacts) { it.copy() }
+            isContactsReady = true
+            processDataIfReady()
+        }
+    }
+
+    private fun processDataIfReady() {
+        if (!isContactSourcesReady) {
+            return
+        }
+
+        val contactSourcesWithCount = ArrayList<ContactSource>()
+        for (contactSource in contactSources) {
+            val count = if (isContactsReady) {
+                contacts.filter { it.source == contactSource.name }.count()
+            } else {
+                -1
             }
+            contactSourcesWithCount.add(contactSource.copy(count = count))
+        }
 
-            it.mapTo(contactSources) { it.copy() }
+        contactSources.clear()
+        contactSources.addAll(contactSourcesWithCount)
+
+        activity.runOnUiThread {
             val selectedSources = activity.getVisibleContactSources()
-            activity.runOnUiThread {
-                view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, it, selectedSources)
+            view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, contactSourcesWithCount, selectedSources)
 
+            if (dialog == null) {
                 dialog = AlertDialog.Builder(activity)
-                        .setPositiveButton(R.string.ok) { dialogInterface, i -> confirmContactSources() }
-                        .setNegativeButton(R.string.cancel, null)
-                        .create().apply {
-                            activity.setupDialogStuff(view, this)
-                        }
+                    .setPositiveButton(R.string.ok) { dialogInterface, i -> confirmContactSources() }
+                    .setNegativeButton(R.string.cancel, null)
+                    .create().apply {
+                        activity.setupDialogStuff(view, this)
+                    }
             }
         }
     }
