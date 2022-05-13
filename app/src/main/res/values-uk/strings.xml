@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Просто Контакти</string>
+    <string name="app_name">Прості Контакти</string>
     <string name="app_launcher_name">Контакти</string>
     <string name="address">Адреса</string>
     <string name="inserting">Триває додавання…</string>
