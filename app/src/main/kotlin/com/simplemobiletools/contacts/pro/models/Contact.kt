@@ -108,7 +108,7 @@ data class Contact(
 
     fun getNameToDisplay(): String {
         val firstMiddle = "$firstName $middleName".trim()
-        val firstPart = if (startWithSurname) if (surname.isNotEmpty()) "$surname," else "" else firstMiddle
+        val firstPart = if (startWithSurname) if (surname.isNotEmpty() && firstMiddle.isNotEmpty()) "$surname," else surname else firstMiddle
         val lastPart = if (startWithSurname) firstMiddle else surname
         val suffixComma = if (suffix.isEmpty()) "" else ", $suffix"
         val fullName = "$prefix $firstPart $lastPart$suffixComma".trim()
