@@ -22,6 +22,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
@@ -470,7 +471,9 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupPhoneNumbers() {
-        contact!!.phoneNumbers.forEachIndexed { index, number ->
+        val phoneNumbers = contact!!.phoneNumbers
+
+        phoneNumbers.forEachIndexed { index, number ->
             var numberHolder = contact_numbers_holder.getChildAt(index)
             if (numberHolder == null) {
                 numberHolder = layoutInflater.inflate(R.layout.item_edit_phone_number, contact_numbers_holder, false)
@@ -481,9 +484,58 @@ class EditContactActivity : ContactActivity() {
                 contact_number.setText(number.value)
                 contact_number.tag = number.normalizedNumber
                 setupPhoneNumberTypePicker(contact_number_type, number.type, number.label)
-                if (highlightLastPhoneNumber && index == contact!!.phoneNumbers.size - 1) {
+                if (highlightLastPhoneNumber && index == phoneNumbers.size - 1) {
                     numberViewToColor = contact_number
                 }
+
+                default_toggle_icon.tag = if (number.isPrimary) 1 else 0
+            }
+        }
+
+        initNumberHolders()
+    }
+
+    private fun setDefaultNumber(selected: ImageView) {
+        val numbersCount = contact_numbers_holder.childCount
+        for (i in 0 until numbersCount) {
+            val toggleIcon = contact_numbers_holder.getChildAt(i).default_toggle_icon
+            if (toggleIcon != selected) {
+                toggleIcon.tag = 0
+            }
+        }
+
+        selected.tag = if (selected.tag == 1) 0 else 1
+
+        initNumberHolders()
+    }
+
+    private fun initNumberHolders() {
+        val numbersCount = contact_numbers_holder.childCount
+
+        if (numbersCount == 1) {
+            contact_numbers_holder.getChildAt(0).default_toggle_icon.beGone()
+            return
+        }
+
+        for (i in 0 until numbersCount) {
+            val toggleIcon = contact_numbers_holder.getChildAt(i).default_toggle_icon
+            val isPrimary = toggleIcon.tag == 1
+
+            val drawable = if (isPrimary) {
+                ContextCompat.getDrawable(this@EditContactActivity, R.drawable.ic_star_vector)
+            } else {
+                ContextCompat.getDrawable(this@EditContactActivity, R.drawable.ic_star_outline_vector)
+            }
+
+            drawable?.apply {
+                mutate()
+                setTint(getProperTextColor())
+            }
+
+            toggleIcon.setImageDrawable(drawable)
+            toggleIcon.beVisible()
+            toggleIcon.setOnClickListener {
+                setDefaultNumber(toggleIcon)
             }
         }
     }
@@ -1037,7 +1089,9 @@ class EditContactActivity : ContactActivity() {
                 if (PhoneNumberUtils.compare(number.normalizePhoneNumber(), fetchedNormalizedNumber)) {
                     normalizedNumber = fetchedNormalizedNumber
                 }
-                phoneNumbers.add(PhoneNumber(number, numberType, numberLabel, normalizedNumber))
+
+                val isPrimary = numberHolder.default_toggle_icon.tag == 1
+                phoneNumbers.add(PhoneNumber(number, numberType, numberLabel, normalizedNumber, isPrimary))
             }
         }
         return phoneNumbers
@@ -1176,6 +1230,10 @@ class EditContactActivity : ContactActivity() {
             numberHolder.contact_number.requestFocus()
             showKeyboard(numberHolder.contact_number)
         }
+        numberHolder.default_toggle_icon.apply {
+            tag = 0
+        }
+        initNumberHolders()
     }
 
     private fun addNewEmailField() {

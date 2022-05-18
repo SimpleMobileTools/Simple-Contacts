@@ -31,7 +31,6 @@ import com.simplemobiletools.contacts.pro.extensions.sendEmailIntent
 import com.simplemobiletools.contacts.pro.extensions.shareContacts
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.models.Contact
-import java.util.*
 
 abstract class ContactActivity : SimpleActivity() {
     protected val PICK_RINGTONE_INTENT_ID = 1500
@@ -128,13 +127,18 @@ abstract class ContactActivity : SimpleActivity() {
         if (numbers.size == 1) {
             launchSendSMSIntent(numbers.first().value)
         } else if (numbers.size > 1) {
-            val items = ArrayList<RadioItem>()
-            numbers.forEachIndexed { index, phoneNumber ->
-                items.add(RadioItem(index, phoneNumber.value, phoneNumber.value))
-            }
+            val primaryNumber = numbers.find { it.isPrimary }
+            if (primaryNumber != null) {
+                launchSendSMSIntent(primaryNumber.value)
+            } else {
+                val items = ArrayList<RadioItem>()
+                numbers.forEachIndexed { index, phoneNumber ->
+                    items.add(RadioItem(index, phoneNumber.value, phoneNumber.value))
+                }
 
-            RadioGroupDialog(this, items) {
-                launchSendSMSIntent(it as String)
+                RadioGroupDialog(this, items) {
+                    launchSendSMSIntent(it as String)
+                }
             }
         }
     }
