@@ -521,12 +521,13 @@ class EditContactActivity : ContactActivity() {
             val toggleIcon = contact_numbers_holder.getChildAt(i).default_toggle_icon
             val isPrimary = toggleIcon.tag == 1
 
-            val drawable = if (isPrimary) {
-                ContextCompat.getDrawable(this@EditContactActivity, R.drawable.ic_star_vector)
+            val drawableId = if (isPrimary) {
+                R.drawable.ic_star_vector
             } else {
-                ContextCompat.getDrawable(this@EditContactActivity, R.drawable.ic_star_outline_vector)
+                R.drawable.ic_star_outline_vector
             }
 
+            val drawable = ContextCompat.getDrawable(this@EditContactActivity, drawableId)
             drawable?.apply {
                 mutate()
                 setTint(getProperTextColor())
@@ -1230,9 +1231,7 @@ class EditContactActivity : ContactActivity() {
             numberHolder.contact_number.requestFocus()
             showKeyboard(numberHolder.contact_number)
         }
-        numberHolder.default_toggle_icon.apply {
-            tag = 0
-        }
+        numberHolder.default_toggle_icon.tag = 0
         initNumberHolders()
     }
 
