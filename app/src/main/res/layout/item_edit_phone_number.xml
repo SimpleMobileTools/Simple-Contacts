@@ -43,8 +43,8 @@
         android:layout_centerVertical="true"
         android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical|end"
-        android:minWidth="60dp"
-        android:paddingStart="@dimen/small_margin"
+        android:minWidth="70dp"
+        android:paddingStart="@dimen/medium_margin"
         android:paddingEnd="@dimen/medium_margin"
         android:textSize="@dimen/bigger_text_size"
         tools:text="@string/mobile" />
