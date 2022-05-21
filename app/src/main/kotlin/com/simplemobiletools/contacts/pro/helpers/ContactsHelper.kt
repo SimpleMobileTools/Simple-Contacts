@@ -281,7 +281,8 @@ class ContactsHelper(val context: Context) {
             Phone.NUMBER,
             Phone.NORMALIZED_NUMBER,
             Phone.TYPE,
-            Phone.LABEL
+            Phone.LABEL,
+            Phone.IS_PRIMARY
         )
 
         val selection = if (contactId == null) getSourcesSelection() else "${Data.RAW_CONTACT_ID} = ?"
@@ -293,12 +294,13 @@ class ContactsHelper(val context: Context) {
             val normalizedNumber = cursor.getStringValue(Phone.NORMALIZED_NUMBER) ?: number.normalizePhoneNumber()
             val type = cursor.getIntValue(Phone.TYPE)
             val label = cursor.getStringValue(Phone.LABEL) ?: ""
+            val isPrimary = cursor.getIntValue(Phone.IS_PRIMARY) != 0
 
             if (phoneNumbers[id] == null) {
                 phoneNumbers.put(id, ArrayList())
             }
 
-            val phoneNumber = PhoneNumber(number, type, label, normalizedNumber)
+            val phoneNumber = PhoneNumber(number, type, label, normalizedNumber, isPrimary)
             phoneNumbers[id].add(phoneNumber)
         }
 
@@ -944,6 +946,7 @@ class ContactsHelper(val context: Context) {
                     withValue(Phone.NORMALIZED_NUMBER, it.normalizedNumber)
                     withValue(Phone.TYPE, it.type)
                     withValue(Phone.LABEL, it.label)
+                    withValue(Phone.IS_PRIMARY, it.isPrimary)
                     operations.add(build())
                 }
             }
@@ -1253,6 +1256,7 @@ class ContactsHelper(val context: Context) {
                     withValue(Phone.NORMALIZED_NUMBER, it.normalizedNumber)
                     withValue(Phone.TYPE, it.type)
                     withValue(Phone.LABEL, it.label)
+                    withValue(Phone.IS_PRIMARY, it.isPrimary)
                     operations.add(build())
                 }
             }

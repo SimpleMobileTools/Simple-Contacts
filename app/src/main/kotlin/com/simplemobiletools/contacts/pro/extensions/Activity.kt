@@ -44,13 +44,18 @@ fun SimpleActivity.startCall(contact: Contact) {
     if (numbers.size == 1) {
         startCallIntent(numbers.first().value)
     } else if (numbers.size > 1) {
-        val items = ArrayList<RadioItem>()
-        numbers.forEachIndexed { index, phoneNumber ->
-            items.add(RadioItem(index, "${phoneNumber.value} (${getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)})", phoneNumber.value))
-        }
+        val primaryNumber = contact.phoneNumbers.find { it.isPrimary }
+        if (primaryNumber != null) {
+            startCallIntent(primaryNumber.value)
+        } else {
+            val items = ArrayList<RadioItem>()
+            numbers.forEachIndexed { index, phoneNumber ->
+                items.add(RadioItem(index, "${phoneNumber.value} (${getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)})", phoneNumber.value))
+            }
 
-        RadioGroupDialog(this, items) {
-            startCallIntent(it as String)
+            RadioGroupDialog(this, items) {
+                startCallIntent(it as String)
+            }
         }
     }
 }
