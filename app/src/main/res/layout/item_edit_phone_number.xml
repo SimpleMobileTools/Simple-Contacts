@@ -29,6 +29,7 @@
         android:layout_centerInParent="true"
         android:layout_marginEnd="0dp"
         android:layout_toStartOf="@+id/contact_number_type"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/tiny_margin"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_star_outline_vector" />
