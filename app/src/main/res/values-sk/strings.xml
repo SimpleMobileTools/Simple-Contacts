@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Jednoduché kontakty</string>
     <string name="app_launcher_name">Kontakty</string>
@@ -15,16 +16,13 @@
     <string name="create_new_contact">Vytvoriť nový kontakt</string>
     <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
     <string name="fields_empty">Musí byť vyplnené aspoň 1 pole</string>
-
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nenašli sa žiadne kontakty s emailami</string>
     <string name="no_contacts_with_phone_numbers">Nenašli sa žiadne kontakty s telefónnymi číslami</string>
-
     <string name="new_contact">Nový kontakt</string>
     <string name="edit_contact">Upraviť kontakt</string>
     <string name="select_contact">Zvoľte kontakt</string>
     <string name="nickname">Prezývka</string>
-
     <!-- Groups -->
     <string name="no_groups">Žiadne skupiny</string>
     <string name="create_new_group">Vytvoriť novú skupinu</string>
@@ -35,13 +33,11 @@
     <string name="create_group">Vytvoriť skupinu</string>
     <string name="add_to_group">Pridať do skupiny</string>
     <string name="create_group_under_account">Vytvoriť skupinu pod účet</string>
-
     <!-- Photo -->
     <string name="take_photo">Vytvoriť fotku</string>
     <string name="choose_photo">Zvoliť fotku</string>
     <string name="remove_photo">Odstrániť fotku</string>
     <string name="change_photo">Zmeniť fotku</string>
-
     <!-- Settings -->
     <string name="show_phone_numbers">Zobraziť telefónne čísla</string>
     <string name="show_contact_thumbnails">Zobraziť obrázky kontaktov</string>
@@ -54,20 +50,16 @@
     <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
     <string name="show_private_contacts">Zobraziť súkromné kontakty Jednoduchému Telefónu, Jednoduchému SMS Správcovi a Jednoduchému Kalendáru Pro</string>
     <string name="merge_duplicate_contacts">Zoskupiť zdvojené kontakty</string>
-
     <!-- Events -->
     <string name="birthday">Narodeniny</string>
     <string name="anniversary">Výročie</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Zdá sa, že ste ešte nepridali žiadne obľúbené kontakty.</string>
     <string name="toggle_favorite">Prepnúť obľúbené</string>
-
     <!-- Search -->
     <string name="search_contacts">Hľadať v kontaktoch</string>
     <string name="search_favorites">Hľadať medzi obľúbenými</string>
     <string name="search_groups">Hľadať medzi skupinami</string>
-
     <!-- Export / Import -->
     <string name="import_contacts">Importovať kontakty</string>
     <string name="export_contacts">Exportovať kontakty</string>
@@ -76,11 +68,9 @@
     <string name="target_contact_source">Cieľový zdroj kontaktov</string>
     <string name="include_contact_sources">Zahrnúť zdroje kontaktov</string>
     <string name="filename_without_vcf">Názov súboru (bez .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">Číselník</string>
     <string name="add_number_to_contact">Pridať číslo kontaktu</string>
-
     <!-- Visible fields -->
     <string name="prefix">Titul pred menom</string>
     <string name="suffix">Titul za priezviskom</string>
@@ -94,60 +84,22 @@
     <string name="contact_source">Zdroje kontaktov</string>
     <string name="instant_messaging">Rýchle správy (IM)</string>
     <string name="ringtone">Zvonenie</string>
-
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Kontakt bude vymazaný zo všetkých zdrojov kontaktov.</string>
-
     <plurals name="delete_groups">
         <item quantity="one">%d skupinu</item>
         <item quantity="few">%d skupiny</item>
         <item quantity="other">%d skupín</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Chcem upraviť viditeľné polia kontaktov. Dá sa to?</string>
-    <string name="faq_1_text">Áno, stačí ísť do Nastavenia -> Spravovať zobrazené polia kontaktov. Tam si viete zvoliť, ktoré polia majú byť viditeľné. Niektoré sú v predvolenom stave vypnuté, čiže tam môžete objaviť aj nové.</string>
-
+    <string name="faq_1_text">Áno, stačí ísť do Nastavenia -&gt; Spravovať zobrazené polia kontaktov. Tam si viete zvoliť, ktoré polia majú byť viditeľné. Niektoré sú v predvolenom stave vypnuté, čiže tam môžete objaviť aj nové.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Jednoduché kontakty Pro - Rýchla správa kontaktov</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Rýchly spôsob na správu kontaktov bez reklám, podporuje aj skupiny a obľúbené.</string>
-    <string name="app_long_description">
-        Ľahká apka na správu kontaktov používaná miliónmi ľudí. Kontakty môžu byť uložené buď lokálne iba na vašom zariadení, alebo synchronizované cez Google, alebo iné účty.
-
-        Viete ju použiť aj na zobrazenie emailov a udalostí kontaktov. Ponúka možnosť zoradenia/filtrovania podľa rôznych parametrov, ako aj možnosť začatia mena priezviskom.
-
-        Obľúbené kontakty, alebo skupiny, viete zobraziť ako vlastný zoznam. Skupiny môžu byť použité na odosielanie skupinových emailov, alebo SMS, viete ich aj premenovať.
-
-        Nachádzajú sa tu aj užitočné tlačidlá na rýchle volanie, alebo odosielanie správ kontaktom. Viditeľné položky pri kontaktoch sa dajú meniť, viete tak jednoducho odstrániť nepoužívané. Hľadaním cez všetky polia viete nájsť kontakty rýchlo.
-
-        Podporuje export a import kontaktov cez vCard formát a .vcf súbory, pre jednoduché migrovanie, alebo zálohovanie dát.
-
-        S týmto moderným a stabilným správcom kontaktov viete ochrániť vaše kontakty pred zdieľaním s inými apkami, keďže ich viete uložiť aj súkromne.
-
-        Ako zdroj kontaktu, viete upraviť aj meno, email, telefónne číslo, adresu, organizáciu, skupiny a iné voliteľné položky. Apku viete použiť aj na ukladanie udalostí kontaktov ako narodeniny, výročia a iné.
-
-        Tento jednoduchý editor kontaktov má veľa užitočných nastavení ako zobrazovanie telefónnych čísel na hlavnej obrazovke, prepnutie viditeľnosti fotiek kontaktov, zobrazenie iba kontaktov s telefónnymi číslami, zobrazenie potvrdenia hovoru pred jeho začatím.
-
-        Na ďalšie vylepšenie používateľskej skúsenosti viete upraviť, čo sa stale po kliknutí na kontakt. Viete buď začať hovor, zobraziť detaily, alebo upraviť daný kontakt.
-
-        Na prevenciu zobrazovania duplicitných kontaktov sú automaticky spájané.
-
-        Táto apka je založená na Material dizajne a má prednastavenú tmavú tému, poskytuje výbornú používateľskú skúsenosť pre ľahké používanie. Chýbajúci prístup k internetu garantuje lepšie súkromie, bezpečnosť a stabilitu ako ostatné apky.
-
-        Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje možnosť zmeny farieb.
-
-        <b>Pozrite si celú sadu aplikácií na:</b>
-        https://www.simplemobiletools.com
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_long_description"> Ľahká apka na správu kontaktov používaná miliónmi ľudí. Kontakty môžu byť uložené buď lokálne iba na vašom zariadení, alebo synchronizované cez Google, alebo iné účty. Viete ju použiť aj na zobrazenie emailov a udalostí kontaktov. Ponúka možnosť zoradenia/filtrovania podľa rôznych parametrov, ako aj možnosť začatia mena priezviskom. Obľúbené kontakty, alebo skupiny, viete zobraziť ako vlastný zoznam. Skupiny môžu byť použité na odosielanie skupinových emailov, alebo SMS, viete ich aj premenovať. Nachádzajú sa tu aj užitočné tlačidlá na rýchle volanie, alebo odosielanie správ kontaktom. Viditeľné položky pri kontaktoch sa dajú meniť, viete tak jednoducho odstrániť nepoužívané. Hľadaním cez všetky polia viete nájsť kontakty rýchlo. Podporuje export a import kontaktov cez vCard formát a .vcf súbory, pre jednoduché migrovanie, alebo zálohovanie dát. S týmto moderným a stabilným správcom kontaktov viete ochrániť vaše kontakty pred zdieľaním s inými apkami, keďže ich viete uložiť aj súkromne. Ako zdroj kontaktu, viete upraviť aj meno, email, telefónne číslo, adresu, organizáciu, skupiny a iné voliteľné položky. Apku viete použiť aj na ukladanie udalostí kontaktov ako narodeniny, výročia a iné. Tento jednoduchý editor kontaktov má veľa užitočných nastavení ako zobrazovanie telefónnych čísel na hlavnej obrazovke, prepnutie viditeľnosti fotiek kontaktov, zobrazenie iba kontaktov s telefónnymi číslami, zobrazenie potvrdenia hovoru pred jeho začatím. Na ďalšie vylepšenie používateľskej skúsenosti viete upraviť, čo sa stale po kliknutí na kontakt. Viete buď začať hovor, zobraziť detaily, alebo upraviť daný kontakt. Na prevenciu zobrazovania duplicitných kontaktov sú automaticky spájané. Táto apka je založená na Material dizajne a má prednastavenú tmavú tému, poskytuje výbornú používateľskú skúsenosť pre ľahké používanie. Chýbajúci prístup k internetu garantuje lepšie súkromie, bezpečnosť a stabilitu ako ostatné apky. Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje možnosť zmeny farieb. <b>Pozrite si celú sadu aplikácií na:</b> https://www.simplemobiletools.com <b> Standalone website of Simple Contacts Pro:</b> https://www.simplemobiletools.com/contacts<b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
