@@ -47,9 +47,7 @@ class ViewContactActivity : ContactActivity() {
     private var showFields = 0
     private var fullContact: Contact? = null    // contact with all fields filled from duplicates
     private var duplicateInitialized = false
-    private val mergeDuplicate: Boolean by lazy {
-        config.mergeDuplicateContacts
-    }
+    private val mergeDuplicate: Boolean get() = config.mergeDuplicateContacts
 
     private val COMPARABLE_PHONE_NUMBER_LENGTH = 9
 
@@ -255,11 +253,12 @@ class ViewContactActivity : ContactActivity() {
             contactSources = it
             runOnUiThread {
                 setupContactDetails()
-                getDuplicateContacts {
-                    duplicateInitialized = true
-                    setupContactDetails()
-                }
             }
+        }
+
+        getDuplicateContacts {
+            duplicateInitialized = true
+            setupContactDetails()
         }
     }
 
@@ -393,7 +392,7 @@ class ViewContactActivity : ContactActivity() {
                         }
                     }
 
-                    contact_number_holder.default_toggle_icon.isVisible = duplicateInitialized && phoneNumber.isPrimary
+                    contact_number_holder.default_toggle_icon.isVisible = phoneNumber.isPrimary
                 }
             }
             contact_numbers_image.beVisible()
