@@ -12,6 +12,7 @@ import android.view.View
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.RelativeLayout
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -45,6 +46,8 @@ class ViewContactActivity : ContactActivity() {
     private var contactSources = ArrayList<ContactSource>()
     private var showFields = 0
     private var fullContact: Contact? = null    // contact with all fields filled from duplicates
+    private var duplicateInitialized = false
+    private val mergeDuplicate: Boolean get() = config.mergeDuplicateContacts
 
     private val COMPARABLE_PHONE_NUMBER_LENGTH = 9
 
@@ -250,14 +253,12 @@ class ViewContactActivity : ContactActivity() {
             contactSources = it
             runOnUiThread {
                 setupContactDetails()
-                if (config.mergeDuplicateContacts) {
-                    getDuplicateContacts {
-                        if (duplicateContacts.isNotEmpty()) {
-                            setupContactDetails()
-                        }
-                    }
-                }
             }
+        }
+
+        getDuplicateContacts {
+            duplicateInitialized = true
+            setupContactDetails()
         }
     }
 
@@ -282,6 +283,7 @@ class ViewContactActivity : ContactActivity() {
 
     private fun launchEditContact(contact: Contact) {
         wasEditLaunched = true
+        duplicateInitialized = false
         editContact(contact)
     }
 
@@ -332,8 +334,32 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupPhoneNumbers() {
         var phoneNumbers = contact!!.phoneNumbers.toMutableSet() as LinkedHashSet<PhoneNumber>
-        duplicateContacts.forEach {
-            phoneNumbers.addAll(it.phoneNumbers)
+
+        if (mergeDuplicate) {
+            duplicateContacts.forEach {
+                phoneNumbers.addAll(it.phoneNumbers)
+            }
+        }
+
+        if (duplicateInitialized) {
+            val contactDefaultsNumbers = contact!!.phoneNumbers.filter { it.isPrimary }
+            val duplicateContactsDefaultNumbers = duplicateContacts.flatMap { it.phoneNumbers }.filter { it.isPrimary }
+            val defaultNumbers = (contactDefaultsNumbers + duplicateContactsDefaultNumbers).toSet()
+
+            if (defaultNumbers.size > 1) {
+                phoneNumbers.forEach { it.isPrimary = false }
+            } else if (defaultNumbers.size == 1) {
+                if (mergeDuplicate) {
+                    val defaultNumber = defaultNumbers.first()
+                    val candidate = phoneNumbers.find { it.normalizedNumber == defaultNumber.normalizedNumber && !it.isPrimary }
+                    candidate?.isPrimary = true
+                } else {
+                    duplicateContactsDefaultNumbers.forEach { defaultNumber ->
+                        val candidate = phoneNumbers.find { it.normalizedNumber == defaultNumber.normalizedNumber && !it.isPrimary }
+                        candidate?.isPrimary = true
+                    }
+                }
+            }
         }
 
         phoneNumbers = phoneNumbers.distinctBy {
@@ -349,9 +375,8 @@ class ViewContactActivity : ContactActivity() {
         contact_numbers_holder.removeAllViews()
 
         if (phoneNumbers.isNotEmpty() && showFields and SHOW_PHONE_NUMBERS_FIELD != 0) {
-            phoneNumbers.forEach {
+            phoneNumbers.forEach { phoneNumber ->
                 layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
-                    val phoneNumber = it
                     contact_numbers_holder.addView(this)
                     contact_number.text = phoneNumber.value
                     contact_number_type.text = getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)
@@ -366,6 +391,8 @@ class ViewContactActivity : ContactActivity() {
                             startCallIntent(phoneNumber.value)
                         }
                     }
+
+                    contact_number_holder.default_toggle_icon.isVisible = phoneNumber.isPrimary
                 }
             }
             contact_numbers_image.beVisible()
@@ -410,8 +437,11 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupAddresses() {
         var addresses = contact!!.addresses.toMutableSet() as LinkedHashSet<Address>
-        duplicateContacts.forEach {
-            addresses.addAll(it.addresses)
+
+        if (mergeDuplicate) {
+            duplicateContacts.forEach {
+                addresses.addAll(it.addresses)
+            }
         }
 
         addresses = addresses.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Address>
@@ -442,8 +472,11 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupIMs() {
         var IMs = contact!!.IMs.toMutableSet() as LinkedHashSet<IM>
-        duplicateContacts.forEach {
-            IMs.addAll(it.IMs)
+
+        if (mergeDuplicate) {
+            duplicateContacts.forEach {
+                IMs.addAll(it.IMs)
+            }
         }
 
         IMs = IMs.sortedBy { it.type }.toMutableSet() as LinkedHashSet<IM>
@@ -470,8 +503,11 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupEvents() {
         var events = contact!!.events.toMutableSet() as LinkedHashSet<Event>
-        duplicateContacts.forEach {
-            events.addAll(it.events)
+
+        if (mergeDuplicate) {
+            duplicateContacts.forEach {
+                events.addAll(it.events)
+            }
         }
 
         events = events.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Event>
@@ -497,8 +533,11 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupWebsites() {
         var websites = contact!!.websites.toMutableSet() as LinkedHashSet<String>
-        duplicateContacts.forEach {
-            websites.addAll(it.websites)
+
+        if (mergeDuplicate) {
+            duplicateContacts.forEach {
+                websites.addAll(it.websites)
+            }
         }
 
         websites = websites.sorted().toMutableSet() as LinkedHashSet<String>
@@ -528,8 +567,11 @@ class ViewContactActivity : ContactActivity() {
 
     private fun setupGroups() {
         var groups = contact!!.groups.toMutableSet() as LinkedHashSet<Group>
-        duplicateContacts.forEach {
-            groups.addAll(it.groups)
+
+        if (mergeDuplicate) {
+            duplicateContacts.forEach {
+                groups.addAll(it.groups)
+            }
         }
 
         groups = groups.sortedBy { it.title }.toMutableSet() as LinkedHashSet<Group>
@@ -558,8 +600,11 @@ class ViewContactActivity : ContactActivity() {
         if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
             var sources = HashMap<Contact, String>()
             sources[contact!!] = getPublicContactSourceSync(contact!!.source, contactSources)
-            duplicateContacts.forEach {
-                sources[it] = getPublicContactSourceSync(it.source, contactSources)
+
+            if (mergeDuplicate) {
+                duplicateContacts.forEach {
+                    sources[it] = getPublicContactSourceSync(it.source, contactSources)
+                }
             }
 
             if (sources.size > 1) {

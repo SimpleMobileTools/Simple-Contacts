@@ -70,6 +70,10 @@ class EditContactActivity : ContactActivity() {
     private var emailViewToColor: EditText? = null
     private var originalContactSource = ""
 
+    enum class PrimaryNumberStatus {
+        UNCHANGED, STARRED, UNSTARRED
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         showTransparentTop = true
         super.onCreate(savedInstanceState)
@@ -1024,8 +1028,14 @@ class EditContactActivity : ContactActivity() {
             }
         }
 
+        val contactValues = fillContactValues()
+
         val oldPhotoUri = contact!!.photoUri
-        contact = fillContactValues()
+        val oldPrimary = contact!!.phoneNumbers.find { it.isPrimary }
+        val newPrimary = contactValues.phoneNumbers.find { it.isPrimary }
+        val primaryState = Pair(oldPrimary, newPrimary)
+
+        contact = contactValues
 
         ensureBackgroundThread {
             config.lastUsedContactSource = contact!!.source
@@ -1034,7 +1044,7 @@ class EditContactActivity : ContactActivity() {
                 originalContactSource != contact!!.source -> insertNewContact(true)
                 else -> {
                     val photoUpdateStatus = getPhotoUpdateStatus(oldPhotoUri, contact!!.photoUri)
-                    updateContact(photoUpdateStatus)
+                    updateContact(photoUpdateStatus, primaryState)
                 }
             }
         }
@@ -1199,14 +1209,72 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
-    private fun updateContact(photoUpdateStatus: Int) {
+    private fun updateContact(photoUpdateStatus: Int, primaryState: Pair<PhoneNumber?, PhoneNumber?>) {
         isSaving = true
         if (ContactsHelper(this@EditContactActivity).updateContact(contact!!, photoUpdateStatus)) {
-            setResult(Activity.RESULT_OK)
-            hideKeyboard()
-            finish()
+            val status = getPrimaryNumberStatus(primaryState.first, primaryState.second)
+            if (status != PrimaryNumberStatus.UNCHANGED) {
+                updateDefaultNumberForDuplicateContacts(primaryState, status) {
+                    setResult(Activity.RESULT_OK)
+                    hideKeyboard()
+                    finish()
+                }
+            } else {
+                setResult(Activity.RESULT_OK)
+                hideKeyboard()
+                finish()
+            }
         } else {
             toast(R.string.unknown_error_occurred)
+        }
+    }
+
+    private fun updateDefaultNumberForDuplicateContacts(
+        toggleState: Pair<PhoneNumber?, PhoneNumber?>,
+        primaryStatus: PrimaryNumberStatus,
+        callback: () -> Unit
+    ) {
+        val contactsHelper = ContactsHelper(this)
+
+        contactsHelper.getDuplicatesOfContact(contact!!, false) { contacts ->
+            ensureBackgroundThread {
+                val displayContactSources = getVisibleContactSources()
+                contacts.filter { displayContactSources.contains(it.source) }.forEach { contact ->
+                    val duplicate = contactsHelper.getContactWithId(contact.id, contact.isPrivate())
+                    if (duplicate != null) {
+                        if (primaryStatus == PrimaryNumberStatus.UNSTARRED) {
+                            val number = duplicate.phoneNumbers.find { it.normalizedNumber == toggleState.first!!.normalizedNumber }
+                            number?.isPrimary = false
+                        } else if (primaryStatus == PrimaryNumberStatus.STARRED) {
+                            val number = duplicate.phoneNumbers.find { it.normalizedNumber == toggleState.second!!.normalizedNumber }
+                            if (number != null) {
+                                duplicate.phoneNumbers.forEach {
+                                    it.isPrimary = false
+                                }
+                                number.isPrimary = true
+                            }
+                        }
+
+                        contactsHelper.updateContact(duplicate, PHOTO_UNCHANGED)
+                    }
+                }
+
+                runOnUiThread {
+                    callback.invoke()
+                }
+            }
+        }
+    }
+
+    private fun getPrimaryNumberStatus(oldPrimary: PhoneNumber?, newPrimary: PhoneNumber?): PrimaryNumberStatus {
+        return if (oldPrimary != null && newPrimary != null && oldPrimary != newPrimary) {
+            PrimaryNumberStatus.STARRED
+        } else if (oldPrimary == null && newPrimary != null) {
+            PrimaryNumberStatus.STARRED
+        } else if (oldPrimary != null && newPrimary == null) {
+            PrimaryNumberStatus.UNSTARRED
+        } else {
+            PrimaryNumberStatus.UNCHANGED
         }
     }
 
