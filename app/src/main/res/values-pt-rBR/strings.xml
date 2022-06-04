@@ -15,7 +15,7 @@
     <string name="send_email_to_group">Enviar e-mail ao grupo</string>
     <string name="create_new_contact">Criar novo contato</string>
     <string name="add_to_existing_contact">Adicionar um contato existente</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
+    <string name="fields_empty">Pelo menos 1 campo deve ser preenchido</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Não foram encontrados contatos com e-mails</string>
     <string name="no_contacts_with_phone_numbers">Não foram encontrados contatos com números de telefone</string>
@@ -37,7 +37,7 @@
     <string name="take_photo">Tirar foto</string>
     <string name="choose_photo">Escolher foto</string>
     <string name="remove_photo">Remover foto</string>
-    <string name="change_photo">Change photo</string>
+    <string name="change_photo">Alterar foto</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Mostrar números de telefone</string>
     <string name="show_contact_thumbnails">Mostrar miniatura do contato</string>
@@ -49,13 +49,13 @@
     <string name="contacts">Contatos</string>
     <string name="show_only_contacts_with_numbers">Mostar apenas os contatos com número de telefone</string>
     <string name="show_private_contacts">Compartilhar contatos privados com o Simple Dialer, Simple SMS Messenger e Simple Calendar Pro</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="merge_duplicate_contacts">Mesclar contatos duplicados</string>
     <!-- Events -->
     <string name="birthday">Data de Nascimento</string>
     <string name="anniversary">Data Especial</string>
     <!-- Favorites -->
     <string name="no_favorites">Parece que você ainda não adicionou nenhum contato favorito.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
+    <string name="toggle_favorite">Habilitar favoritos</string>
     <!-- Search -->
     <string name="search_contacts">Procurar contatos</string>
     <string name="search_favorites">Procurar favoritos</string>
@@ -83,7 +83,7 @@
     <string name="groups">Grupos</string>
     <string name="contact_source">Origem do contato</string>
     <string name="instant_messaging">Mensageiro instantâneo (MI)</string>
-    <string name="ringtone">Ringtone</string>
+    <string name="ringtone">Toque</string>
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">O contato será removido de todas removido de todas as fontes de contato.</string>
     <plurals name="delete_groups">
