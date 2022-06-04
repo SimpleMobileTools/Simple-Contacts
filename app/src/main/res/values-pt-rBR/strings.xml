@@ -49,7 +49,7 @@
     <string name="contacts">Contatos</string>
     <string name="show_only_contacts_with_numbers">Mostar apenas os contatos com número de telefone</string>
     <string name="show_private_contacts">Compartilhar contatos privados com o Simple Dialer, Simple SMS Messenger e Simple Calendar Pro</string>
-    <string name="merge_duplicate_contacts">Fundir contatos duplicados</string>
+    <string name="merge_duplicate_contacts">Mesclar contatos duplicados</string>
     <!-- Events -->
     <string name="birthday">Data de Nascimento</string>
     <string name="anniversary">Data Especial</string>
