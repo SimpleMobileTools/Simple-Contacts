@@ -1,6 +1,16 @@
 Changelog
 ==========
 
+Version 6.19.0 *(2022-06-08)*
+----------------------------
+
+ * Allow setting default contact numbers
+ * Allow reordering favorites by drag and dropping
+ * Fixed Indonesian translation
+ * Add a comma if name starts with surname
+ * Fixed a glitch with contact photos being too small
+ * Added some stability, translation and UX improvements
+
 Version 6.18.1 *(2022-04-10)*
 ----------------------------
 
