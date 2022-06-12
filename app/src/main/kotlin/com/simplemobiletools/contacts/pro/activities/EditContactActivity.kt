@@ -357,6 +357,7 @@ class EditContactActivity : ContactActivity() {
             imageUri = getCachePhotoUri(newFile)
         }
 
+        hideKeyboard()
         lastPhotoIntentUri = getCachePhotoUri()
         Intent("com.android.camera.action.CROP").apply {
             setDataAndType(imageUri, "image/*")
@@ -599,6 +600,7 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupRingtone() {
         contact_ringtone.setOnClickListener {
+            hideKeyboard()
             val ringtonePickerIntent = getRingtonePickerIntent()
             try {
                 startActivityForResult(ringtonePickerIntent, INTENT_SELECT_RINGTONE)
@@ -1441,6 +1443,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun startTakePhotoIntent() {
+        hideKeyboard()
         val uri = getCachePhotoUri()
         lastPhotoIntentUri = uri
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
@@ -1457,6 +1460,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun startChoosePhotoIntent() {
+        hideKeyboard()
         val uri = getCachePhotoUri()
         lastPhotoIntentUri = uri
         Intent(Intent.ACTION_PICK).apply {

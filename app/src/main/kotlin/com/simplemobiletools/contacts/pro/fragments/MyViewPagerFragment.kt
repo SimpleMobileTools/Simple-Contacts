@@ -208,6 +208,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             val currAdapter = fragment_list.adapter
             if (currAdapter == null) {
                 GroupsAdapter(activity as SimpleActivity, storedGroups, activity as RefreshContactsListener, fragment_list) {
+                    activity?.hideKeyboard()
                     Intent(activity, GroupContactsActivity::class.java).apply {
                         putExtra(GROUP, it as Group)
                         activity!!.startActivity(this)
