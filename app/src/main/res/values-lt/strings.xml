@@ -64,6 +64,7 @@
     <string name="import_contacts">Importuoti adresatus</string>
     <string name="export_contacts">Eksportuoti adresatus</string>
     <string name="import_contacts_from_vcf">Importuoti adresatus iš .vcf failo</string>
+    <string name="import_contacts_from_vcf_pro">Importuoti adresatus iš .vcf failo (Pro)</string>
     <string name="export_contacts_to_vcf">Eksportuoti adresatus į .vcf failą</string>
     <string name="target_contact_source"/>
     <string name="include_contact_sources"/>

@@ -63,6 +63,7 @@
     <string name="import_contacts">Importer kontakter</string>
     <string name="export_contacts">Eksporter kontakter</string>
     <string name="import_contacts_from_vcf">Importer kontakter fra en .vcf-fil</string>
+    <string name="import_contacts_from_vcf_pro">Importer kontakter fra en .vcf-fil (Pro)</string>
     <string name="export_contacts_to_vcf">Eksporter kontakter til en .vcf-fil</string>
     <string name="target_contact_source">Target contact source</string>
     <string name="include_contact_sources">Inkluder kontaktkilder</string>

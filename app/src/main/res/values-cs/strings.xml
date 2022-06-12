@@ -64,6 +64,7 @@
     <string name="import_contacts">Importovat kontakty</string>
     <string name="export_contacts">Exportovat kontakty</string>
     <string name="import_contacts_from_vcf">Importovat kontakty z .vcf souboru</string>
+    <string name="import_contacts_from_vcf_pro">Importovat kontakty z .vcf souboru (Pro)</string>
     <string name="export_contacts_to_vcf">Exportovat kontakty do .vcf souboru</string>
     <string name="target_contact_source">Cílový zdroj kontaktů</string>
     <string name="include_contact_sources">Zahrnout zdroje kontaktů</string>

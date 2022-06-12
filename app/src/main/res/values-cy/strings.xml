@@ -72,6 +72,7 @@
     <string name="import_contacts">Mewnforio cysylltiadau</string>
     <string name="export_contacts">Allforio cysylltiadau</string>
     <string name="import_contacts_from_vcf">Mewnforio cysylltiadau o ffeil .vcf</string>
+    <string name="import_contacts_from_vcf_pro">Mewnforio cysylltiadau o ffeil .vcf (Pro)</string>
     <string name="export_contacts_to_vcf">Allforio cysylltiadau i ffeil .vcf</string>
     <string name="target_contact_source">Ffynhonnell y cyswllt targed</string>
     <string name="include_contact_sources">Cynnwys ffynonellau cysylltiadau</string>

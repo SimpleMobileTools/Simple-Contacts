@@ -72,6 +72,7 @@
     <string name="import_contacts">Inportatu kontaktuak</string>
     <string name="export_contacts">Esportatu kontaktuak</string>
     <string name="import_contacts_from_vcf">Inportatu .vcf fitxategiko kontaktuak</string>
+    <string name="import_contacts_from_vcf_pro">Inportatu .vcf fitxategiko kontaktuak (Pro)</string>
     <string name="export_contacts_to_vcf">Esportatu kontaktua .vcf fitxategi batera</string>
     <string name="target_contact_source">Target contact source</string>
     <string name="include_contact_sources">Include contact sources</string>

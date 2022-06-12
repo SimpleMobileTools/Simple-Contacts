@@ -64,6 +64,7 @@
     <string name="import_contacts">Névjegyek importálása</string>
     <string name="export_contacts">Névjegyek exportálása</string>
     <string name="import_contacts_from_vcf">Névjegyek importálása .vcf fájlból</string>
+    <string name="import_contacts_from_vcf_pro">Névjegyek importálása .vcf fájlból (Pro)</string>
     <string name="export_contacts_to_vcf">Névjegyek exportálása .vcf fájlba</string>
     <string name="target_contact_source">Cél névjegy forrása</string>
     <string name="include_contact_sources">Névjegyforrás belevétele</string>

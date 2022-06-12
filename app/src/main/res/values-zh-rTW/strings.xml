@@ -64,6 +64,7 @@
     <string name="import_contacts">匯入聯絡人</string>
     <string name="export_contacts">匯出聯絡人</string>
     <string name="import_contacts_from_vcf">從.vcf檔案匯入聯絡人</string>
+    <string name="import_contacts_from_vcf_pro">從.vcf檔案匯入聯絡人 (Pro)</string>
     <string name="export_contacts_to_vcf">匯出聯絡人成.vcf檔案</string>
     <string name="target_contact_source">聯絡人來源</string>
     <string name="include_contact_sources">包含聯絡人來源</string>

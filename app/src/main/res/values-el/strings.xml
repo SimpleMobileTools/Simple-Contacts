@@ -64,6 +64,7 @@
     <string name="import_contacts">Εισαγωγή επαφών</string>
     <string name="export_contacts">Εξαγωγή επαφών</string>
     <string name="import_contacts_from_vcf">Εισαγωγή επαφών από .vcf αρχείο</string>
+    <string name="import_contacts_from_vcf_pro">Εισαγωγή επαφών από .vcf αρχείο (Pro)</string>
     <string name="export_contacts_to_vcf">Εξαγωγή επαφών σε .vcf αρχείο</string>
     <string name="target_contact_source">Προορισμός πηγής επαφής</string>
     <string name="include_contact_sources">Συμπερίληψη πηγών επαφών</string>

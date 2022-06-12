@@ -72,6 +72,7 @@
     <string name="import_contacts">Kontaktları daxil et</string>
     <string name="export_contacts">Kontaktları xaric et</string>
     <string name="import_contacts_from_vcf">.vcf faylından kontaktları daxil et</string>
+    <string name="import_contacts_from_vcf_pro">.vcf faylından kontaktları daxil et (Pro)</string>
     <string name="export_contacts_to_vcf">.vcf faylından kontaktları xaric et</string>
     <string name="target_contact_source">Kontakt kökünü nişanla</string>
     <string name="include_contact_sources">Kontakt köklərini daxil et</string>

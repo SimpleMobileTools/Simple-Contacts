@@ -72,6 +72,7 @@
     <string name="import_contacts">연락처 가져오기</string>
     <string name="export_contacts">연락처 내보내기</string>
     <string name="import_contacts_from_vcf">.vcf file에서 가져오기</string>
+    <string name="import_contacts_from_vcf_pro">.vcf file에서 가져오기 (Pro)</string>
     <string name="export_contacts_to_vcf">.vcf file로 내보내기</string>
     <string name="target_contact_source">내보내기 대상</string>
     <string name="include_contact_sources">가져오기 대상</string>

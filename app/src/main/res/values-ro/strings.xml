@@ -64,6 +64,7 @@
     <string name="import_contacts">Importați contacte</string>
     <string name="export_contacts">Exportați contacte</string>
     <string name="import_contacts_from_vcf">Importați contacte dintr-un fișier .vcf</string>
+    <string name="import_contacts_from_vcf_pro">Importați contacte dintr-un fișier .vcf (Pro)</string>
     <string name="export_contacts_to_vcf">Exportați contactele într-un fișier .vcf</string>
     <string name="target_contact_source">Sursa de contact țintă</string>
     <string name="include_contact_sources">Includeți sursele de contact</string>

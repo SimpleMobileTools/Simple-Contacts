@@ -72,6 +72,7 @@
     <string name="import_contacts">استيراد جهات اتصال</string>
     <string name="export_contacts">تصدير جهات اتصال</string>
     <string name="import_contacts_from_vcf">استيراد جهات اتصال من ملف vcf</string>
+    <string name="import_contacts_from_vcf_pro">استيراد جهات اتصال من ملف vcf (Pro)</string>
     <string name="export_contacts_to_vcf">تصدير جهات اتصال الى ملف vcf</string>
     <string name="target_contact_source">Target contact source</string>
     <string name="include_contact_sources">Include contact sources</string>

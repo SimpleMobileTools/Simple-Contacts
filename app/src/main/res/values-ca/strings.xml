@@ -64,6 +64,7 @@
     <string name="import_contacts">Importa contactes</string>
     <string name="export_contacts">Exporta contactes</string>
     <string name="import_contacts_from_vcf">Importa contactes des d\'un fitxer .vcf</string>
+    <string name="import_contacts_from_vcf_pro">Importa contactes des d\'un fitxer .vcf (Pro)</string>
     <string name="export_contacts_to_vcf">Exporta contactes a un fitxer .vcf</string>
     <string name="target_contact_source">Destinació de l\'origen dels contactes</string>
     <string name="include_contact_sources">Inclou l\'origen dels contactes</string>

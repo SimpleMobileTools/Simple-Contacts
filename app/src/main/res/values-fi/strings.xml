@@ -64,6 +64,7 @@
     <string name="import_contacts">Tuo yhteystietoja</string>
     <string name="export_contacts">Vie yhteystietoja</string>
     <string name="import_contacts_from_vcf">Tuo yhteystietoja .vcf-tiedostosta</string>
+    <string name="import_contacts_from_vcf_pro">Tuo yhteystietoja .vcf-tiedostosta (Pro)</string>
     <string name="export_contacts_to_vcf">Vie yhteystietoja .vcf-tiedostoon</string>
     <string name="target_contact_source">Yhteystietojen lähde</string>
     <string name="include_contact_sources">Sisällytä yhteystiedon lähteet</string>

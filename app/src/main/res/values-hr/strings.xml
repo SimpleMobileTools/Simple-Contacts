@@ -64,6 +64,7 @@
     <string name="import_contacts">Uvezi kontakte</string>
     <string name="export_contacts">Izvezi kontakte</string>
     <string name="import_contacts_from_vcf">Uvoz kontakata iz .vcf datoteke</string>
+    <string name="import_contacts_from_vcf_pro">Uvoz kontakata iz .vcf datoteke (Pro)</string>
     <string name="export_contacts_to_vcf">Izvoz kontakata u .vcf datoteku</string>
     <string name="target_contact_source">Ciljani izvor kontakta</string>
     <string name="include_contact_sources">Uključi izvore kontakta</string>

@@ -72,6 +72,7 @@
     <string name="import_contacts">കോൺ‌ടാക്റ്റുകൾ‌ ഇറക്കുമതി ചെയ്യുക</string>
     <string name="export_contacts">കോൺ‌ടാക്റ്റുകൾ എക്‌സ്‌പോർട്ടുചെയ്യുക</string>
     <string name="import_contacts_from_vcf">.vcf ഫയലിൽ നിന്ന് കോൺടാക്റ്റുകൾ ഇമ്പോർട്ടുചെയ്യുക</string>
+    <string name="import_contacts_from_vcf_pro">.vcf ഫയലിൽ നിന്ന് കോൺടാക്റ്റുകൾ ഇമ്പോർട്ടുചെയ്യുക (Pro)</string>
     <string name="export_contacts_to_vcf">.vcf ഫയലിലേക്ക് കോൺടാക്റ്റുകൾ എക്‌സ്‌പോർട്ടുചെയ്യുക</string>
     <string name="target_contact_source">കോണ്ടാക്ടിന്റെ ഉറവിടം ലക്ഷ്യമാക്കുക</string>
     <string name="include_contact_sources">കോണ്ടാക്ടിന്റെ ഉറവിടങ്ങൾ ഉൾപ്പെടുത്തുക</string>

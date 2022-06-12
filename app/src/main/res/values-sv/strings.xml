@@ -64,6 +64,7 @@
     <string name="import_contacts">Importera kontakter</string>
     <string name="export_contacts">Exportera kontakter</string>
     <string name="import_contacts_from_vcf">Importera kontakter från en .vcf-fil</string>
+    <string name="import_contacts_from_vcf_pro">Importera kontakter från en .vcf-fil (Pro)</string>
     <string name="export_contacts_to_vcf">Exportera kontakter till en .vcf-fil</string>
     <string name="target_contact_source">Målkontaktkälla</string>
     <string name="include_contact_sources">Inkludera kontaktkällor</string>

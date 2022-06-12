@@ -64,6 +64,7 @@
     <string name="import_contacts">Importar contactos</string>
     <string name="export_contacts">Exportar contactos</string>
     <string name="import_contacts_from_vcf">Importar contactos desde un archivo .vcf</string>
+    <string name="import_contacts_from_vcf_pro">Importar contactos desde un archivo .vcf (Pro)</string>
     <string name="export_contacts_to_vcf">Exportar contactos a un archivo .vcf</string>
     <string name="target_contact_source">Seleccionar origen de contactos</string>
     <string name="include_contact_sources">Incluir orígenes de contactos</string>

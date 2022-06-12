@@ -64,6 +64,7 @@
     <string name="import_contacts">連絡先をインポート</string>
     <string name="export_contacts">連絡先をエクスポート</string>
     <string name="import_contacts_from_vcf">.vcfファイルから連絡先をインポート</string>
+    <string name="import_contacts_from_vcf_pro">.vcfファイルから連絡先をインポート (Pro)</string>
     <string name="export_contacts_to_vcf">連絡先を.vcfファイルにエクスポート</string>
     <string name="target_contact_source">対象となる連絡先のソース</string>
     <string name="include_contact_sources">連絡先のソースを含める</string>

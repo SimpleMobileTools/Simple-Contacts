@@ -64,6 +64,7 @@
     <string name="import_contacts">Import contacts</string>
     <string name="export_contacts">Export contacts</string>
     <string name="import_contacts_from_vcf">Impordi kontatid .vcf failist</string>
+    <string name="import_contacts_from_vcf_pro">Impordi kontatid .vcf failist (Pro)</string>
     <string name="export_contacts_to_vcf">Ekspordi kontatid .vcf faili</string>
     <string name="target_contact_source">Vali andmekogu</string>
     <string name="include_contact_sources">Kaasa andmekogud</string>
