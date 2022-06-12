@@ -141,7 +141,13 @@ class ViewContactActivity : ContactActivity() {
 
     private fun initContact() {
         var wasLookupKeyUsed = false
-        var contactId = intent.getIntExtra(CONTACT_ID, 0)
+        var contactId: Int
+        try {
+            contactId = intent.getIntExtra(CONTACT_ID, 0)
+        } catch (e: Exception) {
+            return
+        }
+
         if (contactId == 0 && isViewIntent) {
             val data = intent.data
             if (data != null) {
