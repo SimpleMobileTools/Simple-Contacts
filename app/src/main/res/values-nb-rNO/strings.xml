@@ -144,4 +144,5 @@
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
     -->
     <string name="fields_empty">Minst ett felt må fylles ut</string>
+    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 </resources>

@@ -16,6 +16,7 @@
     <string name="create_new_contact">Δημιουργία νέας Επαφής</string>
     <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
     <string name="fields_empty">Τουλάχιστον 1 πεδίο πρέπει να συμπληρωθεί</string>
+    <string name="must_be_at_edit">Πρέπει να είστε στην οθόνη "Επεξεργασία" για να τροποποιήσετε μια επαφή</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Δεν βρέθηκαν Επαφές με emails</string>
     <string name="no_contacts_with_phone_numbers">Δεν βρέθηκαν Επαφές με αριθμό τηλεφώνου</string>

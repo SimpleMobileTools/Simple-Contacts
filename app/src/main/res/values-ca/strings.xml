@@ -16,6 +16,7 @@
     <string name="create_new_contact">Crea un contacte nou</string>
     <string name="add_to_existing_contact">Afegeix a un contacte existent</string>
     <string name="fields_empty">S\'ha d\'omplir com a mínim 1 camp</string>
+    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">No s\'ha trobat cap contacte amb correu electrònic</string>
     <string name="no_contacts_with_phone_numbers">No s\'ha trobat cap contacte amb número de telèfon</string>

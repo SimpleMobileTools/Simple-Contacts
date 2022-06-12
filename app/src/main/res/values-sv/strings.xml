@@ -16,6 +16,7 @@
     <string name="create_new_contact">Skapa ny kontakt</string>
     <string name="add_to_existing_contact">Lägg till i en befintlig kontakt</string>
     <string name="fields_empty">Minst 1 fält måste fyllas i</string>
+    <string name="must_be_at_edit">Kontakter kan bara redigeras i redigeringsvyn</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Inga kontakter med e-postadresser hittades</string>
     <string name="no_contacts_with_phone_numbers">Inga kontakter med telefonnummer hittades</string>

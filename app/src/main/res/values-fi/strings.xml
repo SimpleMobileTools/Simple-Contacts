@@ -16,6 +16,7 @@
     <string name="create_new_contact">Luo uusi yhteystieto</string>
     <string name="add_to_existing_contact">Lisää olemassa olevaan yhteystietoon</string>
     <string name="fields_empty">Vähintään yhden kentän tulee olla täytettynä</string>
+    <string name="must_be_at_edit">Täytyy olla muokkauksessa</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Sähköpostillisia yhteystietoja ei löytynyt</string>
     <string name="no_contacts_with_phone_numbers">Puhelinnumerollisia yhteystietoja ei löytynyt</string>

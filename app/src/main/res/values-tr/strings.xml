@@ -16,6 +16,7 @@
     <string name="create_new_contact">Yeni kişi oluştur</string>
     <string name="add_to_existing_contact">Mevcut bir kişiye ekle</string>
     <string name="fields_empty">En az 1 alan doldurulmalıdır</string>
+    <string name="must_be_at_edit">Bir kişiyi değiştirmek için Düzen ekranında olmalısınız</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">E-posta ile hiç bağlantı bulunamadı</string>
     <string name="no_contacts_with_phone_numbers">Telefon numaralarını içeren kişi bulunamadı</string>

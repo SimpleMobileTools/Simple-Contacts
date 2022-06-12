@@ -16,6 +16,7 @@
     <string name="create_new_contact">Neuen Kontakt erstellen</string>
     <string name="add_to_existing_contact">Zu einem existierenden Kontakt hinzufügen</string>
     <string name="fields_empty">Mindestens 1 Feld muss ausgefüllt werden</string>
+    <string name="must_be_at_edit">Sie müssen sich im Bearbeitungsmodus befinden, um einen Kontakt zu bearbeiten.</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Keine Kontakte mit E-Mailadressen gefunden</string>
     <string name="no_contacts_with_phone_numbers">Keine Kontakte mit Telefonnummern gefunden</string>

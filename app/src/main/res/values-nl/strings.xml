@@ -16,6 +16,7 @@
     <string name="create_new_contact">Nieuw contact aanmaken</string>
     <string name="add_to_existing_contact">Aan bestaand contact toevoegen</string>
     <string name="fields_empty">Vul tenminste 1 veld in</string>
+    <string name="must_be_at_edit">Ga naar Contact bewerken om gegevens aan te passen</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Geen contacten met e-mail gevonden</string>
     <string name="no_contacts_with_phone_numbers">Geen contacten met telefoonnummer gevonden</string>

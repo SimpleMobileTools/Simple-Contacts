@@ -16,6 +16,7 @@
     <string name="create_new_contact">Створити новий контакт</string>
     <string name="add_to_existing_contact">Додати до існуючого контакту</string>
     <string name="fields_empty">Потрібно заповнити принаймні 1 поле</string>
+    <string name="must_be_at_edit">Для того, щоб змінити контакт, необхідно відкрити меню редагування</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Не знайдено контактів з електронною поштою</string>
     <string name="no_contacts_with_phone_numbers">Не знайдено контактів з телефонними номерами</string>

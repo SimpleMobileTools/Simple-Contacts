@@ -16,6 +16,7 @@
     <string name="create_new_contact">Buat kontak baru</string>
     <string name="add_to_existing_contact">Tambah ke kontak yang ada</string>
     <string name="fields_empty">Setidaknya 1 kolom harus diisi</string>
+    <string name="must_be_at_edit">Anda harus berada di layar Sunting untuk mengubah kontak</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Tidak ada kontak dengan alamat surel yang ditemukan</string>
     <string name="no_contacts_with_phone_numbers">Tidak ada kontak dengan nomor telepon yang ditemukan</string>

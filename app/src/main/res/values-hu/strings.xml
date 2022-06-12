@@ -16,6 +16,7 @@
     <string name="create_new_contact">Új névjegy hozzáadása</string>
     <string name="add_to_existing_contact">Hozzáadás meglévő névjegyhez</string>
     <string name="fields_empty">Legalább 1 mezőt ki kell tölteni</string>
+    <string name="must_be_at_edit">Névjegyet csak a szerkesztő képernyőn lehet módosítani.</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nem található e-mailt tartalmazó névjegy</string>
     <string name="no_contacts_with_phone_numbers">Nem található telefonszámot tartalmazó névjegy</string>

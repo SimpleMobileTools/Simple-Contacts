@@ -16,6 +16,7 @@
     <string name="create_new_contact">Sukurti naują adresatą</string>
     <string name="add_to_existing_contact">Pridėti prie esamo adresato</string>
     <string name="fields_empty">Turi būti užpildytas bent 1 laukas</string>
+    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nerasta adresatų su el. pašto adresais</string>
     <string name="no_contacts_with_phone_numbers">Nerasta adresatų su telefono numeriais</string>

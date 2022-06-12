@@ -16,6 +16,7 @@
     <string name="create_new_contact">Create new contact</string>
     <string name="add_to_existing_contact">Add to an existing contact</string>
     <string name="fields_empty">At least 1 field has to be filled out</string>
+    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">No contacts with emails have been found</string>
     <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
