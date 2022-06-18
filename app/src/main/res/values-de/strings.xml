@@ -18,7 +18,7 @@
     <string name="fields_empty">Mindestens 1 Feld muss ausgefüllt werden</string>
     <string name="must_be_at_edit">Sie müssen sich im Bearbeitungsmodus befinden, um einen Kontakt zu bearbeiten.</string>
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails">Keine Kontakte mit E-Mailadressen gefunden</string>
+    <string name="no_contacts_with_emails">Keine Kontakte mit E-Mail-Adressen gefunden</string>
     <string name="no_contacts_with_phone_numbers">Keine Kontakte mit Telefonnummern gefunden</string>
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
@@ -42,7 +42,7 @@
     <!-- Settings -->
     <string name="show_phone_numbers">Telefonnummern anzeigen</string>
     <string name="show_contact_thumbnails">Vorschaubilder der Kontakte zeigen</string>
-    <string name="show_dialpad_button">Eine Wahlfeld-Schaltfläche auf dem Hauptbildschirm anzeigen</string>
+    <string name="show_dialpad_button">Eine Wählfeld-Schaltfläche auf dem Hauptbildschirm anzeigen</string>
     <string name="on_contact_click">Beim Klicken auf den Kontakt</string>
     <string name="call_contact">Kontakt anrufen</string>
     <string name="view_contact">Kontaktdetails anzeigen</string>
@@ -64,9 +64,9 @@
     <!-- Export / Import -->
     <string name="import_contacts">Kontakte importieren</string>
     <string name="export_contacts">Kontakte exportieren</string>
-    <string name="import_contacts_from_vcf">Kontakte aus .vcf Datei importieren</string>
+    <string name="import_contacts_from_vcf">Kontakte aus .vcf-Datei importieren</string>
     <string name="import_contacts_from_vcf_pro">Kontakte aus .vcf Datei importieren (Pro)</string>
-    <string name="export_contacts_to_vcf">Kontakte in .vcf Datei exportieren</string>
+    <string name="export_contacts_to_vcf">Kontakte in .vcf-Datei exportieren</string>
     <string name="target_contact_source">Zielkontaktquelle</string>
     <string name="include_contact_sources">Kontaktquellen einschließen</string>
     <string name="filename_without_vcf">Dateiname (ohne .vcf)</string>
@@ -75,7 +75,7 @@
     <string name="add_number_to_contact">Nummer zu Kontakt hinzufügen</string>
     <!-- Visible fields -->
     <string name="prefix">Titel</string>
-    <string name="suffix">Suffix</string>
+    <string name="suffix">angehängter Titel (z.B. PhD)</string>
     <string name="phone_numbers">Telefonnummern</string>
     <string name="emails">E-Mails</string>
     <string name="addresses">Adressen</string>
@@ -94,10 +94,10 @@
     </plurals>
     <!-- FAQ -->
     <string name="faq_1_title">Ich möchte die sichtbaren Kontaktfelder ändern. Kann ich das machen?</string>
-    <string name="faq_1_text">Ja, alles, was Sie tun müssen ist folgendes: Gehen Sie zu Einstellungen -&gt; Bearbeite sichtbare Kontaktfelder. Hier können die sichtbaren Felder ausgewählt werden. Einige sind standardmäßig deaktiviert, weshalb hier neue gefunden werden können.</string>
+    <string name="faq_1_text">Ja, alles, was Sie tun müssen, ist folgendes: Gehen Sie zu Einstellungen -&gt; Sichtbare Kontaktfelder bearbeiten. Hier können die sichtbaren Felder ausgewählt werden. Einige sind standardmäßig deaktiviert, weshalb hier neue gefunden werden können.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Schlichte Kontakte Pro – Mühlose Kontaktverwaltung</string>
+    <string name="app_title">Schlichte Kontakte Pro – Mühelose Kontaktverwaltung</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Eine Premium-Anwendung ohne Werbung für die Kontaktverwaltung, die Gruppen und Favoriten unterstützt</string>
     <string name="app_long_description"> Eine schlichte Anwendung, um deine Kontakte zu verwalten, die von Millionen Menschen geliebt wird. Die Kontakte können entweder lokal auf dem Gerät gespeichert oder via Google und anderen Konten synchronisiert werden. Sie können die Anwendung auch nutzen, um E-Mails und Ereignisse der Kontakte zu speichern. Die Anwendung hat die Fähigkeit, mit verschiedenen Parametern zu suchen und zu sortieren und kann wahlweise den Vornamen an erster Stelle anzeigen. Ihre Lieblingskontakte oder -Gruppen können in einer separaten Liste angezeigt werden. Gruppen können dafür genutzt werden, um einen Stapel an E-Mails oder SMS zu versenden, was Ihnen Zeit erspart. Zudem können Sie diese einfach umbenennen. Es sind nützliche Buttons verfügbar, um Ihre Kontakte anzurufen oder ihnen zu schreiben. Alle angezeigten Felder können nach Ihren Wünschen angepasst werden, alle ungenutzten Felder können ausgeblendet werden. Die Suchfunktion wird die angegebene Eingabe in jedem sichtbaren Kontaktfeld suchen, sodass Sie Ihren gewünschten Kontakt einfach finden können. Es gibt ein einfaches Wahlfeld, mit intelligenten Kontaktvervollständigungen. Kontakte können im vCard-Format als .vcf Dateien exportiert und importiert werden, um einfach zu migrieren oder ein Backup zu erstellen. Mit diesem modernen und stabilen Kontakte Manager können Sie Ihre Kontakte schützen, indem diese nicht mit andern Anwendungen geteilt werden, sodass Ihre Kontakte privat bleiben. Genauso wie die Kontaktquelle, können Sie ebenso einfach den Kontaktnamen, dessen E-Mail, Telefonnummer, Adresse, Organisation, Gruppe und viele andere Felder anpassen. Sie können auch Ereignisse wie Geburtstage, Feiern oder benutzerdefinierte Ereignisse angeben. Dieser einfache Kontakte-Editor hat viele nützliche Einstellungen – zum Beispiel kann es die Telefonnummer im Hauptbildschirm anzeigen, das Kontakt-Vorschaubild ein- und ausblenden, nur Kontakte mit Telefonnummern anzeigen und eine Anrufbestätigung anzeigen, bevor der Anruf gestartet wird. Das schnelle Wahlfeld unterstützt auch Buchstaben. Um die Nutzererfahrung noch mehr zu verbessern, können Sie anpassen, was passiert, wenn Sie auf den Kontakt drücken. Entweder kann ein Anruf gestartet, der Kontakt angepasst (editiert) oder Details anzeigt werden. Um ungewollte Anrufe zu vermeiden, können Anrufe einfach blockiert werden. Um zu verhindern, dass potentiell ungewollte Kontakte angezeigt werden, führt die Anwendung Duplikate automatisch zusammen. Die Anwendung beinhaltet standardmäßig Material-Design und Dunkelmodus, um großartige Nutzererfahrungen und einfache Nutzung zu ermöglichen. Da die Anwendung keine Internetverbindung besitzt, bietet die Anwendung Ihnen mehr Datenschutz, Sicherheit und Stabilität als andere Anwendungen. Enthält keine Werbung oder unnötige Berechtigungen. Vollständig quelloffen. Die Farben sind anpassbar. <b>Entdecke die gesamte Serie an schlichten Anwendungen hier:</b> https://www.simplemobiletools.com <b>Website von Simple Contacts Pro:</b> https://www.simplemobiletools.com/contacts <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
