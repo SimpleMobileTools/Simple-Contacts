@@ -1,1 +1,1 @@
-A premium app for contact management with no ads, supports groups and favorites
+Contacts address book for managing recent contacts and vcf contact backups
