@@ -29,10 +29,10 @@ It comes with material design and dark theme by default, provides great user exp
 
 Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
 
-<b>Check out the full suite of Simple Tools here:</b>  
+Check out the full suite of Simple Tools here:  
 https://www.simplemobiletools.com
 
-<b>Standalone website of Simple Contacts Pro:</b>  
+Standalone website of Simple Contacts Pro:  
 https://www.simplemobiletools.com/contacts
 
 Facebook:  
