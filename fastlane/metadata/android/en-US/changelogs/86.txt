@@ -1,3 +1,0 @@
- * Properly import contact photos from .vcf files
- * Show a Save/Discard prompt when leaving the editor with unsaved changes
- * Some stability and translation improvements

@@ -1,2 +1,0 @@
- * Show the multi-SIM picker only if the app is set as the default dialer
- * Added a couple other stability and UX improvements

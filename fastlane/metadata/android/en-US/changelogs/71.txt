@@ -1,1 +1,0 @@
- * Adding some private contact handling related improvements

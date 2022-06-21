@@ -1,3 +1,0 @@
- * Use vCard version 4 at exporting contacts to .vcf files, allow exporting anniversaties
- * Allow searching contacts by their nicknames too
- * Added some other stability, translation and UX improvements

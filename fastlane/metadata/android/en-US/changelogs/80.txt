@@ -1,4 +1,0 @@
- * Allow customizing the ringtone per contact (Ringtone has to be enabled as a customizable field in the app settings)
- * Added a White theme with special handling
- * Added some letter fastscroller related improvements
- * Some performance, stability and translation related improvements

@@ -1,4 +1,0 @@
- * Allow sorting contacts by creation order
- * Allow viewing the whole contact picture by clicking on it at the View details screen
- * Fixed some searching related glitches
- * Other stability, UX and translation improvements

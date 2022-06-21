@@ -1,1 +1,0 @@
- * Removing the READ_CALL_LOG permission

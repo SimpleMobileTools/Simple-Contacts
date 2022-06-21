@@ -1,3 +1,0 @@
- * Allow adding contact events without specifying a year
- * Always show the contacts middle name after the first name
- * Make sure groups are properly sorted by name

@@ -1,4 +1,0 @@
- * Always fetch the same contacts, no matter what sorting is set
- * Fix an organization updating related issue
- * Merge names into 1 line at the View Details screen
- * Improve Threema contact handling

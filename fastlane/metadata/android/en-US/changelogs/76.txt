@@ -1,2 +1,0 @@
- * Fixed search with non UTF characters
- * Added many smaller translation and UX improvements

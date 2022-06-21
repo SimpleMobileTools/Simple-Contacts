@@ -1,2 +1,0 @@
- * Fixed some letter scrollbar related glitches
- * Added some translation and stability related improvements

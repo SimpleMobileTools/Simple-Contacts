@@ -1,2 +1,0 @@
- * Fixed some theming issues
- * Added some UI and translation improvements

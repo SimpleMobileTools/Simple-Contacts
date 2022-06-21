@@ -1,2 +1,0 @@
- * Properly check phone numbers at Search too
- * Fixed a glitch with wrong contacts being listed

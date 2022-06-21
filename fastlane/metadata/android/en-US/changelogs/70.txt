@@ -1,1 +1,0 @@
- * Reverting a check at fetching contacts, let's show more contacts rather than less

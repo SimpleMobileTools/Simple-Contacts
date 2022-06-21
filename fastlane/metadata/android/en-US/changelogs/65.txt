@@ -1,2 +1,0 @@
- * Use Call action at clicking the phone icon, not just Dial
- * Use a nicer app icon on some older Android versions
