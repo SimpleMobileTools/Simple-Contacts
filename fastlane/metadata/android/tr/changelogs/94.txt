@@ -1,0 +1,6 @@
+* Öntanımlı kişi numaralarının ayarlanmasına izin ver
+ * Sürükleyip bırakarak favorileri yeniden sıralamaya izin ver
+ * Endonezce çeviri düzeltildi
+ * Ad, soyad ile başlıyorsa virgül ekle
+ * Kişi fotoğraflarının çok küçük olmasıyla ilgili bir hata düzeltildi
+ * Bazı kararlılık, çeviri ve kullanıcı deneyimi iyileştirmeleri eklendi

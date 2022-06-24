@@ -16,7 +16,7 @@
     <string name="create_new_contact">Lisa uus kontakt</string>
     <string name="add_to_existing_contact">Lisa olemasolevale kontaktile</string>
     <string name="fields_empty">Palun täida vähemalt 1 väli</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
+    <string name="must_be_at_edit">Andmete kohendamiseks palun ava muutmisvaade</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Ei leidunud ühtegi kontakti, kus oleks kirjas e-posti aadress</string>
     <string name="no_contacts_with_phone_numbers">Ei leidunud ühtegi kontakti, kus oleks olemas telefoninumber</string>
