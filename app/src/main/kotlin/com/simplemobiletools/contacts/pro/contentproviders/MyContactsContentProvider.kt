@@ -17,14 +17,16 @@ class MyContactsContentProvider : ContentProvider() {
         if (context == null || !context!!.config.showPrivateContacts) {
             return null
         } else {
-            val matrixCursor = MatrixCursor(arrayOf(
-                MyContactsContentProvider.COL_RAW_ID,
-                MyContactsContentProvider.COL_CONTACT_ID,
-                MyContactsContentProvider.COL_NAME,
-                MyContactsContentProvider.COL_PHOTO_URI,
-                MyContactsContentProvider.COL_PHONE_NUMBERS,
-                MyContactsContentProvider.COL_BIRTHDAYS,
-                MyContactsContentProvider.COL_ANNIVERSARIES)
+            val matrixCursor = MatrixCursor(
+                arrayOf(
+                    MyContactsContentProvider.COL_RAW_ID,
+                    MyContactsContentProvider.COL_CONTACT_ID,
+                    MyContactsContentProvider.COL_NAME,
+                    MyContactsContentProvider.COL_PHOTO_URI,
+                    MyContactsContentProvider.COL_PHONE_NUMBERS,
+                    MyContactsContentProvider.COL_BIRTHDAYS,
+                    MyContactsContentProvider.COL_ANNIVERSARIES
+                )
             )
 
             val favoritesOnly = selectionArgs?.getOrNull(0)?.equals("1") ?: false
