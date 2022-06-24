@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">Siųsti adresatams el. laišką</string>
     <string name="send_sms_to_group">Siųsti grupei SMS žinutę</string>
     <string name="send_email_to_group">Siųsti grupei el. laišką</string>
-    <string name="create_new_contact">Sukurti naują adresatą</string>
-    <string name="add_to_existing_contact">Pridėti prie esamo adresato</string>
     <string name="fields_empty">Turi būti užpildytas bent 1 laukas</string>
     <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
     <!-- Placeholders -->

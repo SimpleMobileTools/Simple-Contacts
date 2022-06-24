@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">Send e-mail til kontakter</string>
     <string name="send_sms_to_group">Send SMS til gruppe</string>
     <string name="send_email_to_group">Send e-mail til gruppe</string>
-    <string name="create_new_contact">Opret ny kontakt</string>
-    <string name="add_to_existing_contact">Tilføj til en eksisterende kontakt</string>
     <string name="fields_empty">Mindst 1 felt skal udfyldes</string>
     <string name="must_be_at_edit">Du skal være på skærmen Rediger for at ændre en kontakt</string>
     <!-- Placeholders -->

@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">Envoyer un courriel aux contacts</string>
     <string name="send_sms_to_group">Envoyer un texto au groupe</string>
     <string name="send_email_to_group">Envoyer un courriel au groupe</string>
-    <string name="create_new_contact">Créer un nouveau contact</string>
-    <string name="add_to_existing_contact">Ajouter à un contact existant</string>
     <string name="fields_empty">Au moins un champ doit être rempli</string>
     <string name="must_be_at_edit">Vous devez être sur l\'écran \"Modifier\" pour modifier un contact</string>
     <!-- Placeholders -->

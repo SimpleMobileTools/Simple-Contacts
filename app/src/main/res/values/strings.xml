@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">Send email to contacts</string>
     <string name="send_sms_to_group">Send SMS to group</string>
     <string name="send_email_to_group">Send email to group</string>
-    <string name="create_new_contact">Create new contact</string>
-    <string name="add_to_existing_contact">Add to an existing contact</string>
     <string name="fields_empty">At least 1 field has to be filled out</string>
     <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 

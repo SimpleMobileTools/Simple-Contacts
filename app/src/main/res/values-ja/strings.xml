@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">連絡先にメールを送信</string>
     <string name="send_sms_to_group">グループにSMSを送信</string>
     <string name="send_email_to_group">グループにメールを送信</string>
-    <string name="create_new_contact">新しい連絡先を作成</string>
-    <string name="add_to_existing_contact">既存の連絡先に追加</string>
     <string name="fields_empty">少なくとも1つのフィールドに入力する必要があります</string>
     <string name="must_be_at_edit">連絡先を編集するには編集画面に切り替えてください</string>
     <!-- Placeholders -->

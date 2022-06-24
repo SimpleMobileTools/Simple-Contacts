@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">Αποστολή email σε επαφές</string>
     <string name="send_sms_to_group">Αποστολή SMS σε ομάδες</string>
     <string name="send_email_to_group">Αποστολή email σε ομάδες</string>
-    <string name="create_new_contact">Δημιουργία νέας Επαφής</string>
-    <string name="add_to_existing_contact">Προσθήκη σε μια υπάρχουσα Επαφή</string>
     <string name="fields_empty">Τουλάχιστον 1 πεδίο πρέπει να συμπληρωθεί</string>
     <string name="must_be_at_edit">Πρέπει να είστε στην οθόνη "Επεξεργασία" για να τροποποιήσετε μια επαφή</string>
     <!-- Placeholders -->

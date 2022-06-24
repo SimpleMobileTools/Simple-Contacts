@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">E-mail küldése</string>
     <string name="send_sms_to_group">SMS küldése csoportnak</string>
     <string name="send_email_to_group">E-mail küldése csoportnak</string>
-    <string name="create_new_contact">Új névjegy hozzáadása</string>
-    <string name="add_to_existing_contact">Hozzáadás meglévő névjegyhez</string>
     <string name="fields_empty">Legalább 1 mezőt ki kell tölteni</string>
     <string name="must_be_at_edit">Névjegyet csak a szerkesztő képernyőn lehet módosítani.</string>
     <!-- Placeholders -->

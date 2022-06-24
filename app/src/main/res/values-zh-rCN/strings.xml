@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">发送电子邮件给联系人</string>
     <string name="send_sms_to_group">发送短信给群组</string>
     <string name="send_email_to_group">发送电子邮件给群组</string>
-    <string name="create_new_contact">建立新联系人</string>
-    <string name="add_to_existing_contact">添加至已存在的联系人</string>
     <string name="fields_empty">至少要填写 1 个字段</string>
     <string name="must_be_at_edit">你必须在编辑页面去修改联系人</string>
     <!-- Placeholders -->

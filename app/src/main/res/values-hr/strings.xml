@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">Pošalji e-poštu kontaktima</string>
     <string name="send_sms_to_group">Pošalji SMS grupi</string>
     <string name="send_email_to_group">Pošalji e-poštu grupi</string>
-    <string name="create_new_contact">Stvori novi kontakt</string>
-    <string name="add_to_existing_contact">Dodaj postojećem kontaktu</string>
     <string name="fields_empty">Barem jedno polje mora biti ispunjeno</string>
     <string name="must_be_at_edit">Morate biti na zaslonu Uređivanje da biste izmijenili kontakt</string>
     <!-- Placeholders -->

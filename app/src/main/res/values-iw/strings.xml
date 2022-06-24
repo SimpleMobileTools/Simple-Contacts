@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">שלח איימל לאנשי הקשר</string>
     <string name="send_sms_to_group">שלח סמס לקבוצה</string>
     <string name="send_email_to_group">שלח אימייל לקבוצה</string>
-    <string name="create_new_contact">צור איש קשר חדש</string>
-    <string name="add_to_existing_contact">הוסף לאיש קשר קיים</string>
     <string name="fields_empty">יש למלא לפחות שדה אחד</string>
     <string name="must_be_at_edit">עליך להיות במסך העריכה כדי לשנות איש קשר</string>
     <!-- Placeholders -->

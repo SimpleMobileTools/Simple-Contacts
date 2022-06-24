@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">Изпращане на емайл на контактите</string>
     <string name="send_sms_to_group">Изпращане на SMS към група</string>
     <string name="send_email_to_group">Изпращане на емайл към група</string>
-    <string name="create_new_contact">Създаване на контакт</string>
-    <string name="add_to_existing_contact">Добавяне към съществуващ контакт</string>
     <string name="fields_empty">Поне едно поле трябва да бъде попълнено</string>
     <string name="must_be_at_edit">Трябва да сте в раздел Редакция, за да промените контакт</string>
     <!-- Placeholders -->

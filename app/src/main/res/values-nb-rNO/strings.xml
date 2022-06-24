@@ -13,8 +13,8 @@
     <string name="send_email_to_contacts">Send e-post til kontakter</string>
     <string name="send_sms_to_group">Send SMS til gruppe</string>
     <string name="send_email_to_group">Send e-post til gruppe</string>
-    <string name="create_new_contact">Opprett ny kontakt</string>
-    <string name="add_to_existing_contact">Legg til i eksisterende kontakt</string>
+    <string name="fields_empty">Minst ett felt må fylles ut</string>
+    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Ingen kontakter med e-post er funnet</string>
     <string name="no_contacts_with_phone_numbers">Ingen kontakter med telefonnumre er funnet</string>
@@ -143,6 +143,4 @@
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
     -->
-    <string name="fields_empty">Minst ett felt må fylles ut</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
 </resources>

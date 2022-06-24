@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">Skicka e-post till kontakter</string>
     <string name="send_sms_to_group">Skicka SMS till grupp</string>
     <string name="send_email_to_group">Skicka e-post till grupp</string>
-    <string name="create_new_contact">Skapa ny kontakt</string>
-    <string name="add_to_existing_contact">Lägg till i en befintlig kontakt</string>
     <string name="fields_empty">Minst 1 fält måste fyllas i</string>
     <string name="must_be_at_edit">Kontakter kan bara redigeras i redigeringsvyn</string>
     <!-- Placeholders -->

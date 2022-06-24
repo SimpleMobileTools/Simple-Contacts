@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">Poslať kontaktom email</string>
     <string name="send_sms_to_group">Poslať skupine SMS</string>
     <string name="send_email_to_group">Poslať skupine email</string>
-    <string name="create_new_contact">Vytvoriť nový kontakt</string>
-    <string name="add_to_existing_contact">Pridať k existujúcemu kontaktu</string>
     <string name="fields_empty">Musí byť vyplnené aspoň 1 pole</string>
     <string name="must_be_at_edit">Pre úpravu kontaktu musíte byť v Editore kontaktu</string>
     <!-- Placeholders -->

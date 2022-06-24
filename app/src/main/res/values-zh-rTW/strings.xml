@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">發送電子郵件給聯絡人</string>
     <string name="send_sms_to_group">發送簡訊給群組</string>
     <string name="send_email_to_group">發送電子郵件給群組</string>
-    <string name="create_new_contact">建立新聯絡人</string>
-    <string name="add_to_existing_contact">添加至已存在的聯絡人</string>
     <string name="fields_empty">至少要填寫一個欄位</string>
     <string name="must_be_at_edit">你必須在編輯畫面去修改聯絡人</string>
     <!-- Placeholders -->

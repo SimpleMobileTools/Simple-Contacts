@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">E-mail naar contacten sturen</string>
     <string name="send_sms_to_group">SMS naar groep sturen</string>
     <string name="send_email_to_group">E-mail naar groep sturen</string>
-    <string name="create_new_contact">Nieuw contact aanmaken</string>
-    <string name="add_to_existing_contact">Aan bestaand contact toevoegen</string>
     <string name="fields_empty">Vul tenminste 1 veld in</string>
     <string name="must_be_at_edit">Kies \"Contact bewerken\" om de gegevens aan te passen</string>
     <!-- Placeholders -->

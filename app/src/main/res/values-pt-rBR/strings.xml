@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">Enviar e-mail aos contatos</string>
     <string name="send_sms_to_group">Enviar SMS ao grupo</string>
     <string name="send_email_to_group">Enviar e-mail ao grupo</string>
-    <string name="create_new_contact">Criar novo contato</string>
-    <string name="add_to_existing_contact">Adicionar um contato existente</string>
     <string name="fields_empty">Pelo menos 1 campo deve ser preenchido</string>
     <string name="must_be_at_edit">Você deve estar na tela de edição para modificar um contato</string>
     <!-- Placeholders -->

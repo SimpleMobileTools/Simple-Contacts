@@ -13,8 +13,6 @@
     <string name="send_email_to_contacts">Trimiteți e-mail către contacte</string>
     <string name="send_sms_to_group">Trimiteți SMS către grup</string>
     <string name="send_email_to_group">Trimiteți e-mail către grup</string>
-    <string name="create_new_contact">Creați un nou contact</string>
-    <string name="add_to_existing_contact">Adăugaţi la un contact existent</string>
     <string name="fields_empty">Cel puțin 1 câmp trebuie completat</string>
     <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
     <!-- Placeholders -->
