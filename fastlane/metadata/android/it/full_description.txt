@@ -1,7 +1,39 @@
-Una semplice applicazione per creare o gestire i propri contatti di qualsiasi tipo. I contatti saranno salvati nel dispositivo, ma possono essere eventualmente sincronizzati con Google o con altri servizi. Si possono visualizzare i contatti preferiti in una lista separata.
+Una rubrica telefonica intelligente per la gestione dei contatti amato da milioni di persone. I contatti possono essere memorizzati sul dispositivo solo attraverso questa intelligente rubrica telefonica e può anche essere sincronizzato con mezzi diversi. Questo rubrica intelligente vi aiuterà a mantenere i contatti in un unico luogo senza il fastidio di eseguire il salvataggio dei contatti visto che il salvataggio dei è sempre sincronizzato ogni volta che si aggiunge un contatto. Questa app è leggera sullo memoria ed è efficace quando devi fare il salvataggio dei contatti e mantenere una rubrica telefonica che ti aiuterà a mantenere i contatti in modo intelligente.
 
-Si può utilizzare l'applicazione anche per gestire l'email e gli eventi. Si possono ordinare e filtrare per diversi criteri, opzionalmente si può visualizzare il cognome come nome.
+È possibile utilizzarla anche per la gestione di e-mail ed eventi degli utenti. Ha la capacità di ordinare/ filtrare per più parametri, opzionalmente visualizzare il cognome come nome. In questo modo, è possibile ottenere il recupero intelligente dei contatti in modo rapido. Non è necessario scorrere verso il basso per trovare il contatto richiesto. Inoltre, ogni volta che si aggiunge un nuovo contatto, il salvataggio dei contatti garantisce automaticamente l'integrità dei contatti. 
 
-L'applicazione non contiene pubblicità o permessi non necessari; è completamente opensource e la si può personalizzare con i propri colori preferiti.
+È possibile visualizzare le persone o i gruppi preferiti in un elenco separato. I gruppi possono essere utilizzati per l'invio di email o SMS di gruppo, per risparmiare tempo, è possibile rinominarli facilmente. Non è necessario tenere una rubrica telefonica ora! Crea un gruppo di contatti intelligente e invia messaggi ai tuoi cari.
 
-Questa è solamente una delle tante applicazioni della serie Simple Mobile Tools. Si possono trovare le altre su https://www.simplemobiletools.com
+Contiene pulsanti utili per chiamare o inviare messaggi ai tuoi parenti. Tutti i campi visibili possono essere personalizzati come si desidera, si può facilmente nascondere quelli inutilizzati. La funzione di ricerca cercherà la stringa specificata in ogni campo di persone visibili, per farti trovare facilmente quella desiderata.
+
+C'è anche un tastierino numerico leggero al tuo servizio, con suggerimenti intelligenti.
+
+Supporta l'esportazione/l'importazione di contatti in formato vCard a file . vcf, per migrazioni facili o salvataggio dei tuoi dati. Il salvataggio dei contatti è una cosa cruciale nella conservazione della rubrica. Questa app fornisce una tecnologia di salvataggio dei contatti intelligente che sincronizza regolarmente i contatti vecchi e nuovi per mantenere un salvataggio di questi numeri.
+
+Con questo moderno e stabile gestore di numeri di telefono è possibile proteggerli non condividendoli con altre applicazioni, in modo da poterli mantenere privati.
+
+Come la fonte di contatto, si può anche facilmente cambiare il loro nome, e-mail, numero di telefono, indirizzo, organizzazione, gruppi e molti altri campi personalizzabili. Puoi usarlo anche per memorizzare eventi del contatto, come compleanni, anniversari o qualsiasi altro evento personalizzato.
+
+Questo semplice editor di contatti ha molte impostazioni utili come mostrare i numeri di telefono sulla schermata principale, alternare la visibilità delle miniature dei contatti, mostrare solo i contatti con i numeri di telefono, mostrare una finestra di conferma delle chiamate prima di iniziare una chiamata. Viene fornito con un tastirino numerico rapido che fa anche uso di lettere.
+
+Per migliorare ulteriormente l'esperienza dell'utente, è possibile personalizzare ciò che accade facendo click su un contatto. È possibile avviare una chiamata, accedere alla schermata visualizza dettagli o modificare quella selezionata.
+
+Viene fornito con un moderno tema scuro come predefinito, basato sul material design. 
+
+Si può facilmente bloccare i numeri di telefono per evitare chiamate indesiderate in arrivo. 
+
+Per evitare di mostrare contatti potenzialmente indesiderati, ha incorporato un potente strumento per la fusione delle voci duplicate.
+
+Non contiene annunci o autorizzazioni non necessarie. È completamente opensource, fornisce colori personalizzabili.
+
+<b>Scopri la suite completa di Simple Tools qui:</b>
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+<b>Sito web indipendente di Semplice Contatti Pro:</b>
+https://www.simplemobiletools.com/contacts

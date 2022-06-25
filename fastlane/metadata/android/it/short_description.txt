@@ -1,1 +1,1 @@
-Un'app per gestire i propri contatti senza pubblicità, che rispetta la privacy.
+Rubrica contatti per la gestione di contatti recenti e backup vcf dei contatti
