@@ -5,7 +5,6 @@ import android.app.SearchManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -13,6 +12,8 @@ import android.provider.ContactsContract.CommonDataKinds.Email
 import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.viewpager.widget.ViewPager
@@ -69,7 +70,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
             return
         }
 
-        setupTabColors()
+        setupTabs()
 
         // we do not really care about the permission request result. Even if it was denied, load private contacts
         handlePermission(PERMISSION_READ_CONTACTS) {
@@ -83,6 +84,11 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
                 initFragments()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupTabColors()
     }
 
     override fun onStop() {
@@ -115,7 +121,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun initFragments() {
-        viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
                     getCurrentFragment()?.onSearchQueryChanged("")
@@ -131,36 +137,9 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
             }
         })
 
-        viewpager.onGlobalLayout {
+        view_pager.onGlobalLayout {
             refreshContacts(getTabsMask())
         }
-
-        insert_or_edit_tabs_holder.onTabSelectionChanged(
-            tabUnselectedAction = {
-                it.icon?.applyColorFilter(getProperTextColor())
-            },
-            tabSelectedAction = {
-                if (isSearchOpen) {
-                    getCurrentFragment()?.onSearchQueryChanged("")
-                    searchMenuItem?.collapseActionView()
-                }
-                viewpager.currentItem = it.position
-                it.icon?.applyColorFilter(getProperPrimaryColor())
-            }
-        )
-
-        insert_or_edit_tabs_holder.removeAllTabs()
-        var skippedTabs = 0
-        contactsFavoritesList.forEachIndexed { index, value ->
-            if (config.showTabs and value == 0 && value == TAB_FAVORITES) {
-                skippedTabs++
-            } else {
-                val tab = insert_or_edit_tabs_holder.newTab().setIcon(getTabIcon(index))
-                insert_or_edit_tabs_holder.addTab(tab, index - skippedTabs, index == 0)
-            }
-        }
-
-        insert_or_edit_tabs_holder.beVisibleIf(skippedTabs == 0)
 
         select_contact_label?.setTextColor(getProperPrimaryColor())
         new_contact_tmb?.setImageDrawable(resources.getColoredDrawableWithColor(R.drawable.ic_add_person_vector, getProperTextColor()))
@@ -168,6 +147,32 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         new_contact_holder?.setOnClickListener {
             createNewContact()
         }
+    }
+
+    private fun setupTabs() {
+        insert_or_edit_tabs_holder.removeAllTabs()
+        contactsFavoritesList.forEachIndexed { index, value ->
+            if (config.showTabs and value != 0) {
+                insert_or_edit_tabs_holder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
+                    customView?.findViewById<ImageView>(R.id.tab_item_icon)?.setImageDrawable(getTabIcon(index))
+                    customView?.findViewById<TextView>(R.id.tab_item_label)?.text = getTabLabel(index)
+                    insert_or_edit_tabs_holder.addTab(this)
+                }
+            }
+        }
+
+        insert_or_edit_tabs_holder.onTabSelectionChanged(
+            tabUnselectedAction = {
+                updateBottomTabItemColors(it.customView, false)
+            },
+            tabSelectedAction = {
+                closeSearch()
+                view_pager.currentItem = it.position
+                updateBottomTabItemColors(it.customView, true)
+            }
+        )
+
+        insert_or_edit_tabs_holder.beGoneIf(insert_or_edit_tabs_holder.tabCount == 1)
     }
 
     private fun setupSearch(menu: Menu) {
@@ -212,27 +217,38 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun getCurrentFragment(): MyViewPagerFragment? {
-        return if (viewpager.currentItem == 0) {
+        return if (view_pager.currentItem == 0) {
             contacts_fragment
         } else {
             favorites_fragment
         }
     }
 
+    private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment)
+
     private fun setupTabColors() {
-        insert_or_edit_tabs_holder.apply {
-            background = ColorDrawable(getProperBackgroundColor())
-            setSelectedTabIndicatorColor(getProperPrimaryColor())
+        val activeView = insert_or_edit_tabs_holder.getTabAt(view_pager.currentItem)?.customView
+        updateBottomTabItemColors(activeView, true)
+
+        getInactiveTabIndexes(view_pager.currentItem).forEach { index ->
+            val inactiveView = insert_or_edit_tabs_holder.getTabAt(index)?.customView
+            updateBottomTabItemColors(inactiveView, false)
         }
+
+        val bottomBarColor = getBottomTabsBackgroundColor()
+        insert_or_edit_tabs_holder.setBackgroundColor(bottomBarColor)
+        updateNavigationBarColor(bottomBarColor)
     }
+
+    private fun getInactiveTabIndexes(activeIndex: Int) = (0 until contactsFavoritesList.size).filter { it != activeIndex }
 
     override fun refreshContacts(refreshTabsMask: Int) {
         if (isDestroyed || isFinishing) {
             return
         }
 
-        if (viewpager.adapter == null) {
-            viewpager.adapter = ViewPagerAdapter(this, contactsFavoritesList, getTabsMask())
+        if (view_pager.adapter == null) {
+            view_pager.adapter = ViewPagerAdapter(this, contactsFavoritesList, getTabsMask())
         }
 
         ContactsHelper(this).getContacts {
@@ -342,6 +358,15 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
     fun fabClicked() {
         createNewContact()
+    }
+
+    private fun closeSearch() {
+        if (isSearchOpen) {
+            getAllFragments().forEach {
+                it?.onSearchQueryChanged("")
+            }
+            searchMenuItem?.collapseActionView()
+        }
     }
 
     private fun showSortingDialog() {

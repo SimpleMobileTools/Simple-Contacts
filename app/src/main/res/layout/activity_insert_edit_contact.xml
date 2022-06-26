@@ -5,21 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/insert_or_edit_tabs_holder"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        app:elevation="6dp"
-        app:tabIndicatorColor="@android:color/white"
-        app:tabIndicatorHeight="2dp"
-        app:tabMinWidth="150dp"
-        app:tabSelectedTextColor="@android:color/white" />
-
     <RelativeLayout
         android:id="@+id/new_contact_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/insert_or_edit_tabs_holder"
         android:background="?attr/selectableItemBackground"
         android:paddingTop="@dimen/medium_margin"
         android:paddingEnd="@dimen/activity_margin"
@@ -63,9 +52,19 @@
         android:visibility="gone" />
 
     <com.simplemobiletools.commons.views.MyViewPager
-        android:id="@+id/viewpager"
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/insert_or_edit_tabs_holder"
         android:layout_below="@+id/select_contact_label" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/insert_or_edit_tabs_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:tabIndicator="@null"
+        app:tabMinWidth="150dp"
+        app:tabRippleColor="@null" />
 
 </RelativeLayout>

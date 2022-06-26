@@ -339,9 +339,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         view_pager.offscreenPageLimit = tabsList.size - 1
         view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
-                if (isSearchOpen) {
-                    getCurrentFragment()?.onSearchQueryChanged("")
-                    searchMenuItem?.collapseActionView()
+                if (state == ViewPager.SCROLL_STATE_SETTLING) {
+                    closeSearch()
                 }
             }
 
@@ -387,18 +386,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 updateBottomTabItemColors(it.customView, false)
             },
             tabSelectedAction = {
+                closeSearch()
                 view_pager.currentItem = it.position
                 updateBottomTabItemColors(it.customView, true)
             }
         )
-
-        // selecting the proper tab sometimes glitches, add an extra selector to make sure we have it right
-        /*main_tabs_holder.onGlobalLayout {
-            Handler().postDelayed({
-                main_tabs_holder.getTabAt(getDefaultTab())?.select()
-                invalidateOptionsMenu()
-            }, 100L)
-        }*/
 
         main_tabs_holder.beGoneIf(main_tabs_holder.tabCount == 1)
     }
@@ -542,11 +534,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchSettings() {
+        closeSearch()
         hideKeyboard()
         startActivity(Intent(applicationContext, SettingsActivity::class.java))
     }
 
     private fun launchAbout() {
+        closeSearch()
         val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_INDICATOR_FAST_SCROLL
 
         val faqItems = arrayListOf(
@@ -635,6 +629,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                     0
                 }
             }
+        }
+    }
+
+    private fun closeSearch() {
+        if (isSearchOpen) {
+            getAllFragments().forEach {
+                it?.onSearchQueryChanged("")
+            }
+            searchMenuItem?.collapseActionView()
         }
     }
 
