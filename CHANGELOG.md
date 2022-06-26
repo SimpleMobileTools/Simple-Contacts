@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.19.1 *(2022-06-26)*
+----------------------------
+
+ * Moving top tabs at the bottom
+ * Added some stability, translation and UX improvements
+
 Version 6.19.0 *(2022-06-08)*
 ----------------------------
 
