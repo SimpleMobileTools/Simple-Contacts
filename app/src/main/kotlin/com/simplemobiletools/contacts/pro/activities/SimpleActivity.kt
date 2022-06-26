@@ -73,7 +73,7 @@ open class SimpleActivity : BaseSimpleActivity() {
         return resources.getColoredDrawableWithColor(drawableId, getProperTextColor())
     }
 
-    protected fun getTabContentDescription(position: Int): String {
+    protected fun getTabLabel(position: Int): String {
         val stringId = when (position) {
             LOCATION_CONTACTS_TAB -> R.string.contacts_tab
             LOCATION_FAVORITES_TAB -> R.string.favorites_tab

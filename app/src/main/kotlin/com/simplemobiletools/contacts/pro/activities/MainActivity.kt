@@ -12,9 +12,10 @@ import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
@@ -75,7 +76,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         appLaunched(BuildConfig.APPLICATION_ID)
 
         storeStateVariables()
-        setupTabColors()
+        setupTabs()
         checkContactPermissions()
         checkWhatsNewDialog()
     }
@@ -122,7 +123,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             it?.setupColors(getProperTextColor(), properPrimaryColor)
         }
 
-        updateTabColors()
+        setupTabColors()
 
         val configStartNameWithSurname = config.startNameWithSurname
         if (storedStartNameWithSurname != configStartNameWithSurname) {
@@ -138,7 +139,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         if (werePermissionsHandled && !isFirstResume) {
-            if (viewpager.adapter == null) {
+            if (view_pager.adapter == null) {
                 initFragments()
             } else {
                 refreshContacts(ALL_TABS_MASK)
@@ -159,7 +160,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     override fun onPause() {
         super.onPause()
         storeStateVariables()
-        config.lastUsedViewPagerPage = viewpager.currentItem
+        config.lastUsedViewPagerPage = view_pager.currentItem
     }
 
     override fun onDestroy() {
@@ -261,13 +262,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         })
     }
 
-    private fun updateTabColors() {
-        getInactiveTabIndexes(viewpager.currentItem).forEach {
-            main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(getProperTextColor())
-        }
-        main_tabs_holder.getTabAt(viewpager.currentItem)?.icon?.applyColorFilter(getProperPrimaryColor())
-    }
-
     private fun getSearchString(): Int {
         return when (getCurrentFragment()) {
             favorites_fragment -> R.string.search_favorites
@@ -322,28 +316,28 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             fragments.add(groups_fragment)
         }
 
-        return fragments.getOrNull(viewpager.currentItem)
+        return fragments.getOrNull(view_pager.currentItem)
     }
 
     private fun setupTabColors() {
-        val lastUsedPage = getDefaultTab()
-        main_tabs_holder.apply {
-            background = ColorDrawable(getProperBackgroundColor())
-            setSelectedTabIndicatorColor(getProperPrimaryColor())
-            getTabAt(lastUsedPage)?.select()
-            getTabAt(lastUsedPage)?.icon?.applyColorFilter(getProperPrimaryColor())
+        val activeView = main_tabs_holder.getTabAt(view_pager.currentItem)?.customView
+        updateBottomTabItemColors(activeView, true)
 
-            getInactiveTabIndexes(lastUsedPage).forEach {
-                getTabAt(it)?.icon?.applyColorFilter(getProperTextColor())
-            }
+        getInactiveTabIndexes(view_pager.currentItem).forEach { index ->
+            val inactiveView = main_tabs_holder.getTabAt(index)?.customView
+            updateBottomTabItemColors(inactiveView, false)
         }
+
+        val bottomBarColor = getBottomTabsBackgroundColor()
+        main_tabs_holder.setBackgroundColor(bottomBarColor)
+        updateNavigationBarColor(bottomBarColor)
     }
 
     private fun getInactiveTabIndexes(activeIndex: Int) = (0 until tabsList.size).filter { it != activeIndex }
 
     private fun initFragments() {
-        viewpager.offscreenPageLimit = tabsList.size - 1
-        viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        view_pager.offscreenPageLimit = tabsList.size - 1
+        view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
                     getCurrentFragment()?.onSearchQueryChanged("")
@@ -362,54 +356,51 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             }
         })
 
-        viewpager.onGlobalLayout {
+        view_pager.onGlobalLayout {
             refreshContacts(ALL_TABS_MASK)
         }
-
-        main_tabs_holder.onTabSelectionChanged(
-            tabUnselectedAction = {
-                it.icon?.applyColorFilter(getProperTextColor())
-            },
-            tabSelectedAction = {
-                if (isSearchOpen) {
-                    getCurrentFragment()?.onSearchQueryChanged("")
-                    searchMenuItem?.collapseActionView()
-                }
-                viewpager.currentItem = it.position
-                it.icon?.applyColorFilter(getProperPrimaryColor())
-            }
-        )
 
         if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
             tryImportContactsFromFile(intent.data!!)
             intent.data = null
         }
 
+        main_dialpad_button.setOnClickListener {
+            launchDialpad()
+        }
+    }
+
+    private fun setupTabs() {
         main_tabs_holder.removeAllTabs()
-        var skippedTabs = 0
         tabsList.forEachIndexed { index, value ->
-            if (config.showTabs and value == 0) {
-                skippedTabs++
-            } else {
-                val tab = main_tabs_holder.newTab().setIcon(getTabIcon(index))
-                tab.contentDescription = getTabContentDescription(index)
-                main_tabs_holder.addTab(tab, index - skippedTabs, getDefaultTab() == index - skippedTabs)
+            if (config.showTabs and value != 0) {
+                main_tabs_holder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
+                    customView?.findViewById<ImageView>(R.id.tab_item_icon)?.setImageDrawable(getTabIcon(index))
+                    customView?.findViewById<TextView>(R.id.tab_item_label)?.text = getTabLabel(index)
+                    main_tabs_holder.addTab(this)
+                }
             }
         }
 
+        main_tabs_holder.onTabSelectionChanged(
+            tabUnselectedAction = {
+                updateBottomTabItemColors(it.customView, false)
+            },
+            tabSelectedAction = {
+                view_pager.currentItem = it.position
+                updateBottomTabItemColors(it.customView, true)
+            }
+        )
+
         // selecting the proper tab sometimes glitches, add an extra selector to make sure we have it right
-        main_tabs_holder.onGlobalLayout {
+        /*main_tabs_holder.onGlobalLayout {
             Handler().postDelayed({
                 main_tabs_holder.getTabAt(getDefaultTab())?.select()
                 invalidateOptionsMenu()
             }, 100L)
-        }
+        }*/
 
-        main_tabs_holder.beVisibleIf(skippedTabs < tabsList.size - 1)
-
-        main_dialpad_button.setOnClickListener {
-            launchDialpad()
-        }
+        main_tabs_holder.beGoneIf(main_tabs_holder.tabCount == 1)
     }
 
     private fun showSortingDialog(showCustomSorting: Boolean) {
@@ -579,10 +570,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         isGettingContacts = true
 
-        if (viewpager.adapter == null) {
-            viewpager.adapter = ViewPagerAdapter(this, tabsList, config.showTabs)
-            viewpager.currentItem = getDefaultTab()
-            updateTabColors()
+        if (view_pager.adapter == null) {
+            view_pager.adapter = ViewPagerAdapter(this, tabsList, config.showTabs)
+            view_pager.currentItem = getDefaultTab()
         }
 
         ContactsHelper(this).getContacts { contacts ->
