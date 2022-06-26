@@ -48,12 +48,9 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         config = activity.config
         if (this.activity == null) {
             this.activity = activity
+            fragment_fab?.beGoneIf(activity is InsertOrEditContactActivity)
             fragment_fab?.setOnClickListener {
-                if (activity is InsertOrEditContactActivity) {
-                    activity.fabClicked()
-                } else {
-                    fabClicked()
-                }
+                fabClicked()
             }
 
             fragment_placeholder_2?.setOnClickListener {
