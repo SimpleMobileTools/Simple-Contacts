@@ -48,6 +48,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import kotlinx.android.synthetic.main.fragment_groups.*
+import me.grantland.widget.AutofitHelper
 import java.io.FileOutputStream
 import java.io.OutputStream
 import java.util.*
@@ -376,6 +377,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 main_tabs_holder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
                     customView?.findViewById<ImageView>(R.id.tab_item_icon)?.setImageDrawable(getTabIcon(index))
                     customView?.findViewById<TextView>(R.id.tab_item_label)?.text = getTabLabel(index)
+                    AutofitHelper.create(customView?.findViewById(R.id.tab_item_label))
                     main_tabs_holder.addTab(this)
                 }
             }
@@ -541,7 +543,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun launchAbout() {
         closeSearch()
-        val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_INDICATOR_FAST_SCROLL
+        val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_INDICATOR_FAST_SCROLL or LICENSE_AUTOFITTEXTVIEW
 
         val faqItems = arrayListOf(
             FAQItem(R.string.faq_1_title, R.string.faq_1_text),
