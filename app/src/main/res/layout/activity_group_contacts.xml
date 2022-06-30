@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/group_contacts_placeholder"
             android:layout_centerHorizontal="true"
-            android:background="?attr/selectableItemBackground"
+            android:background="@drawable/ripple_all_corners"
             android:gravity="center"
             android:padding="@dimen/activity_margin"
             android:text="@string/add_contacts"
