@@ -116,11 +116,19 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     }
 
     private fun sendSMSToGroup() {
-        sendSMSToContacts(groupContacts)
+        if (groupContacts.isEmpty()) {
+            toast(R.string.no_contacts_found)
+        } else {
+            sendSMSToContacts(groupContacts)
+        }
     }
 
     private fun sendEmailToGroup() {
-        sendEmailToContacts(groupContacts)
+        if (groupContacts.isEmpty()) {
+            toast(R.string.no_contacts_found)
+        } else {
+            sendEmailToContacts(groupContacts)
+        }
     }
 
     private fun assignRingtoneToGroup() {
