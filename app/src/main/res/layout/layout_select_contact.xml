@@ -15,6 +15,22 @@
         android:scrollbars="none"
         app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
 
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/select_contact_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/small_margin"
+        android:alpha="0.8"
+        android:gravity="center"
+        android:paddingStart="@dimen/activity_margin"
+        android:paddingTop="@dimen/activity_margin"
+        android:paddingEnd="@dimen/activity_margin"
+        android:text="@string/no_contacts_found"
+        android:textSize="@dimen/bigger_text_size"
+        android:textStyle="italic"
+        android:visibility="gone" />
+
     <com.reddit.indicatorfastscroll.FastScrollerView
         android:id="@+id/letter_fastscroller"
         android:layout_width="32dp"

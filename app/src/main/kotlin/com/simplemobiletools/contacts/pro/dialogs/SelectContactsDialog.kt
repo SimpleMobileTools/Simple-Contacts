@@ -50,6 +50,9 @@ class SelectContactsDialog(
             if (context.areSystemAnimationsEnabled) {
                 select_contact_list.scheduleLayoutAnimation()
             }
+
+            select_contact_list.beVisibleIf(allContacts.isNotEmpty())
+            select_contact_placeholder.beVisibleIf(allContacts.isEmpty())
         }
 
         setupFastscroller(allContacts)
