@@ -70,7 +70,7 @@
     <string name="filename_without_vcf">Файл (без .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Бутони за набиране</string>
-    <string name="add_number_to_contact">Добавете номер към контакт</string>
+    <string name="add_number_to_contact">Добави номера към контакт</string>
     <!-- Visible fields -->
     <string name="prefix">Префикс</string>
     <string name="suffix">Съфикс</string>
