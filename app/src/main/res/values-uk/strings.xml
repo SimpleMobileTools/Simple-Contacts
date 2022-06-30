@@ -33,13 +33,13 @@
     <string name="add_to_group">Додати до групи</string>
     <string name="create_group_under_account">Створити групу в обліковому записі</string>
     <!-- Photo -->
-    <string name="take_photo">Зробити фото</string>
-    <string name="choose_photo">Обрати фото</string>
-    <string name="remove_photo">Видалити фото</string>
-    <string name="change_photo">Змінити фото</string>
+    <string name="take_photo">Зробити світлину</string>
+    <string name="choose_photo">Обрати світлину</string>
+    <string name="remove_photo">Видалити світлину</string>
+    <string name="change_photo">Змінити світлину</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Показувати телефонні номери</string>
-    <string name="show_contact_thumbnails">Показувати фото контакту</string>
+    <string name="show_contact_thumbnails">Показувати світлину контакту</string>
     <string name="show_dialpad_button">Показувати панель набору номерів на головному екрані</string>
     <string name="on_contact_click">При натисканні на контакт</string>
     <string name="call_contact">Телефонувати контакту</string>
