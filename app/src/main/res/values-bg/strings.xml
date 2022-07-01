@@ -62,15 +62,15 @@
     <!-- Export / Import -->
     <string name="import_contacts">Внасяне на контакти</string>
     <string name="export_contacts">Изнасяне на контакти</string>
-    <string name="import_contacts_from_vcf">Внасяне от файл на VCF</string>
-    <string name="import_contacts_from_vcf_pro">Внасяне от файл на VCF (Pro)</string>
-    <string name="export_contacts_to_vcf">Изнасяне във файл на VCF</string>
+    <string name="import_contacts_from_vcf">Внасяне от .vcf файл</string>
+    <string name="import_contacts_from_vcf_pro">Внасяне от .vcf файл (Про)</string>
+    <string name="export_contacts_to_vcf">Изнасяне във .vcf файл</string>
     <string name="target_contact_source">Източник на контакти</string>
     <string name="include_contact_sources">Включване на източници на контакти</string>
     <string name="filename_without_vcf">Име на файла (без .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Панел за набиране</string>
-    <string name="add_number_to_contact">Добавя номера към контакт</string>
+    <string name="add_number_to_contact">Добави номера към контакт</string>
     <!-- Visible fields -->
     <string name="prefix">Представка</string>
     <string name="suffix">Наставка</string>
@@ -79,7 +79,7 @@
     <string name="addresses">Адреси</string>
     <string name="events">Събития (рождени дни, годишнини)</string>
     <string name="organization">Организация</string>
-    <string name="websites">Страници в интернет</string>
+    <string name="websites">Интернет Страници</string>
     <string name="groups">Групи</string>
     <string name="contact_source">Източник на контакта</string>
     <string name="instant_messaging">Незабавни съобщения (IM)</string>
