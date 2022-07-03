@@ -26,7 +26,7 @@ Per evitare di mostrare contatti potenzialmente indesiderati, ha incorporato un 
 
 Non contiene annunci o autorizzazioni non necessarie. È completamente opensource, fornisce colori personalizzabili.
 
-<b>Scopri la suite completa di Simple Tools qui:</b>
+Scopri la suite completa di Simple Tools qui:
 https://www.simplemobiletools.com
 
 Facebook:
@@ -35,5 +35,5 @@ https://www.facebook.com/simplemobiletools
 Reddit:
 https://www.reddit.com/r/SimpleMobileTools
 
-<b>Sito web indipendente di Semplice Contatti Pro:</b>
+Sito web indipendente di Semplice Contatti Pro:
 https://www.simplemobiletools.com/contacts
