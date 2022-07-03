@@ -109,7 +109,9 @@ class ViewContactActivity : ContactActivity() {
             }
 
             findItem(R.id.edit).setOnMenuItemClickListener {
-                launchEditContact(contact!!)
+                if (contact != null) {
+                    launchEditContact(contact!!)
+                }
                 true
             }
 
@@ -294,8 +296,10 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun openWith() {
-        val uri = getContactPublicUri(contact!!)
-        launchViewContactIntent(uri)
+        if (contact != null) {
+            val uri = getContactPublicUri(contact!!)
+            launchViewContactIntent(uri)
+        }
     }
 
     private fun setupFavorite() {
