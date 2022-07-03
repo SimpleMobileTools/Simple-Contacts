@@ -339,11 +339,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun initFragments() {
         view_pager.offscreenPageLimit = tabsList.size - 1
         view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-                if (state == ViewPager.SCROLL_STATE_SETTLING) {
-                    closeSearch()
-                }
-            }
+            override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
