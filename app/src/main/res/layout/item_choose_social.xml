@@ -15,7 +15,7 @@
         android:padding="@dimen/small_margin"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/roundedImageView"
-        tools:src="@drawable/ic_whatsapp_vector" />
+        tools:src="@drawable/ic_whatsapp_rect_vector" />
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/item_social_label"

@@ -1,11 +1,9 @@
 package com.simplemobiletools.contacts.pro.extensions
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
-import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Handler
@@ -16,8 +14,6 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
-import com.simplemobiletools.contacts.pro.activities.EditContactActivity
-import com.simplemobiletools.contacts.pro.activities.ViewContactActivity
 import com.simplemobiletools.contacts.pro.databases.ContactsDatabase
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.ContactsDao
@@ -348,11 +344,11 @@ fun Context.getSocialActions(id: Int): ArrayList<SocialAction> {
 fun Context.getPackageDrawable(packageName: String): Drawable {
     return resources.getDrawable(
         when (packageName) {
-            TELEGRAM_PACKAGE -> R.drawable.ic_telegram_vector
-            SIGNAL_PACKAGE -> R.drawable.ic_signal_vector
-            WHATSAPP_PACKAGE -> R.drawable.ic_whatsapp_vector
-            VIBER_PACKAGE -> R.drawable.ic_viber_vector
-            else -> R.drawable.ic_threema_vector
+            TELEGRAM_PACKAGE -> R.drawable.ic_telegram_rect_vector
+            SIGNAL_PACKAGE -> R.drawable.ic_signal_rect_vector
+            WHATSAPP_PACKAGE -> R.drawable.ic_whatsapp_rect_vector
+            VIBER_PACKAGE -> R.drawable.ic_viber_rect_vector
+            else -> R.drawable.ic_threema_rect_vector
         }, theme
     )
 }
