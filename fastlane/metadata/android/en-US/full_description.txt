@@ -26,7 +26,7 @@ To avoid showing potentially unwanted contacts, it has a powerful built in dupli
 
 Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
 
-<b>Check out the full suite of Simple Tools here:</b>
+Check out the full suite of Simple Tools here:
 https://www.simplemobiletools.com
 
 Facebook:
@@ -38,5 +38,5 @@ https://www.reddit.com/r/SimpleMobileTools
 Telegram:
 https://t.me/SimpleMobileTools
 
-<b>Standalone website of Simple Contacts Pro:</b>
+Standalone website of Simple Contacts Pro:
 https://www.simplemobiletools.com/contacts
