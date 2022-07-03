@@ -5,8 +5,8 @@
     <string name="address">Adresa</string>
     <string name="inserting">Dodavanje…</string>
     <string name="updating">Ažuriranje…</string>
-    <string name="phone_storage">Pohrana na telefonu</string>
-    <string name="phone_storage_hidden">Pohrana na telefonu (nije vidljiva drugim aplikacijama))</string>
+    <string name="phone_storage">Spremište na mobitelu</string>
+    <string name="phone_storage_hidden">Spremište na mobitelu (nije vidljivo za druge aplikacije)</string>
     <string name="company">Tvrtka</string>
     <string name="job_position">Radno mjesto</string>
     <string name="send_sms_to_contacts">Pošalji SMS kontaktima</string>
@@ -14,7 +14,7 @@
     <string name="send_sms_to_group">Pošalji SMS grupi</string>
     <string name="send_email_to_group">Pošalji e-poštu grupi</string>
     <string name="fields_empty">Barem jedno polje mora biti ispunjeno</string>
-    <string name="must_be_at_edit">Morate biti na zaslonu Uređivanje da biste izmijenili kontakt</string>
+    <string name="must_be_at_edit">Za mijenjanje kontakta moraš biti na ekranu za uređivanje</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nije pronađen nijedan kontakt s e-poštom</string>
     <string name="no_contacts_with_phone_numbers">Nisu pronađeni kontakti s telefonskim brojevima</string>
@@ -31,30 +31,30 @@
     <string name="no_group_created">Na uređaju nema grupa kontakata</string>
     <string name="create_group">Stvori grupu</string>
     <string name="add_to_group">Dodaj u grupu</string>
-    <string name="create_group_under_account">Stvorite grupu pod računom</string>
+    <string name="create_group_under_account">Stvori grupu pod računom</string>
     <!-- Photo -->
     <string name="take_photo">Uslikaj</string>
     <string name="choose_photo">Odaberi fotografiju</string>
     <string name="remove_photo">Ukloni fotografiju</string>
-    <string name="change_photo">Change photo</string>
+    <string name="change_photo">Promijeni fotografiju</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Prikaži telefonske brojeve</string>
     <string name="show_contact_thumbnails">Prikaži sličice kontakata</string>
-    <string name="show_dialpad_button">Prikaži gumb telefonske tipkovnice na glavnom zaslonu</string>
+    <string name="show_dialpad_button">Prikaži gumb telefonske tipkovnice na glavnom ekranu</string>
     <string name="on_contact_click">Prilikom dodira kontakta</string>
     <string name="call_contact">Nazovi kontakt</string>
     <string name="view_contact">Prikaži pojedinosti o kontaktu</string>
     <string name="manage_shown_contact_fields">Upravljaj prikazanim poljima kontakta</string>
     <string name="contacts">Kontakti</string>
     <string name="show_only_contacts_with_numbers">Prikaži samo kontakte s telefonskim brojevima</string>
-    <string name="show_private_contacts">Prikaži privatne kontakte u Simple Dialer, Simple SMS Messenger i Simple Calendar Pro</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="show_private_contacts">Prikaži privatne kontakte u programima Jednostavan birač, Jednostavan SMS Messenger i Jednostavan kalendar Pro</string>
+    <string name="merge_duplicate_contacts">Sjedini duple kontakte</string>
     <!-- Events -->
     <string name="birthday">Rođendan</string>
     <string name="anniversary">Obljetnica</string>
     <!-- Favorites -->
-    <string name="no_favorites">Čini se da još niste dodali nijedan kontakt u favorite.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
+    <string name="no_favorites">Čini se da još nisi dodao/la nijedan kontakt u favorite.</string>
+    <string name="toggle_favorite">Uključi/isključi favorite</string>
     <!-- Search -->
     <string name="search_contacts">Pretraži kontakte</string>
     <string name="search_favorites">Pretraži favorite</string>
@@ -62,12 +62,12 @@
     <!-- Export / Import -->
     <string name="import_contacts">Uvezi kontakte</string>
     <string name="export_contacts">Izvezi kontakte</string>
-    <string name="import_contacts_from_vcf">Uvoz kontakata iz .vcf datoteke</string>
-    <string name="import_contacts_from_vcf_pro">Uvoz kontakata iz .vcf datoteke (Pro)</string>
-    <string name="export_contacts_to_vcf">Izvoz kontakata u .vcf datoteku</string>
+    <string name="import_contacts_from_vcf">Uvezi kontakte iz .vcf datoteke</string>
+    <string name="import_contacts_from_vcf_pro">Uvezi kontakte iz .vcf datoteke (Pro)</string>
+    <string name="export_contacts_to_vcf">Izvezi kontakte u .vcf datoteku</string>
     <string name="target_contact_source">Ciljani izvor kontakta</string>
     <string name="include_contact_sources">Uključi izvore kontakta</string>
-    <string name="filename_without_vcf">Naziv datoteke (bez .vcf)</string>
+    <string name="filename_without_vcf">ime datoteke (bez .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Brojčanik</string>
     <string name="add_number_to_contact">Dodaj broj u kontakt</string>
@@ -81,65 +81,25 @@
     <string name="organization">Organizacije</string>
     <string name="websites">Web stranice</string>
     <string name="groups">Grupe</string>
-    <string name="contact_source">Izvori kontakata</string>
-    <string name="instant_messaging">Brzo slanje poruka (IM)</string>
+    <string name="contact_source">Izvor kontakta</string>
+    <string name="instant_messaging">Izravno slanje poruka (IM)</string>
     <string name="ringtone">Melodija zvona</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">Kontakt će biti uklonjen iz svih izvora kontakta.</string>
+    <string name="delete_from_all_sources">Kontakt će biti uklonjen iz svih izvora kontakata.</string>
     <plurals name="delete_groups">
         <item quantity="one">%d grupa</item>
         <item quantity="few">%d grupe</item>
         <item quantity="other">%d grupa</item>
     </plurals>
     <!-- FAQ -->
-    <string name="faq_1_title">Želim promijeniti polja koja su vidljiva na kontaktima. Mogu li to napraviti?</string>
-    <string name="faq_1_text">Da, sve što morate učiniti je otići u Postavke -&gt; Upravljanje poljima za prikaz. Tamo možete odabrati polja koja bi trebala biti vidljiva. Neka od njih su čak i onemogućena prema zadanim postavkama, tako da možete pronaći neke nove.</string>
+    <string name="faq_1_title">Želim promijeniti polja koja su vidljiva u kontaktima. Mogu li to napraviti\?</string>
+    <string name="faq_1_text">Da, idi u Postavke -&gt; Upravljaj prikazanim poljima kontakta. Tamo možeš odabrati vidljiva polja. Neka od njih su čak standardno deaktivirana, tako da možeš pronaći neka nova.</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro – upravljaj kontaktima</string>
+    <string name="app_title">Jednostavni kontakti Pro – Upravljaj kontaktima</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Premium aplikacija za upravljanje kontaktima bez oglasa, podržava grupe i favorite</string>
-    <string name="app_long_description">
-        A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts.
-
-        You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name.
-
-        You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily.
-
-        It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily.
-
-        There is a lightweight dialpad at your service too, with smart contact suggestions.
-
-        It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data.
-
-        With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private.
-
-        Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones.
-
-        This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters.
-
-        To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact.
-
-        You can easily block phone numbers to avoid unwanted incoming calls.
-
-        To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        Ne sadrži oglase ili nepotrebne dozvole. Aplikacije je otvorenog koda, pruža prilagodljive boje.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone website of Simple Contacts Pro:</b>
-        https://www.simplemobiletools.com/contacts
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
+    <string name="app_long_description"> A lightweight app for managing your contacts loved by millions of people. The contacts can be stored on your device only, but also synchronized via Google, or other accounts. You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name. You can display your favorite contacts or groups on a separate list. Groups can be used for sending out batch emails or SMS, to save you some time, you can rename them easily. It contains handy buttons for calling, or texting your contacts. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible contact field, to make you find your desired contact easily. There is a lightweight dialpad at your service too, with smart contact suggestions. It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data. With this modern and stable contacts manager you can protect your contacts by not sharing them with other apps, so you can keep your contacts private. Like the contact source, you can also easily change the contact name, email, phone number, address, organization, groups and many other customizable fields. You can use it for storing contact events too, like birthdays, anniversaries, or any other custom ones. This simple contact editor has many handy settings like showing phone numbers on the main screen, toggle contact thumbnail visibility, showing only contacts with phone numbers, showing a call confirmation dialog before initiating a call. It comes with a quick dialer that also makes use of letters. To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected contact. You can easily block phone numbers to avoid unwanted incoming calls. To avoid showing potentially unwanted contacts, it has a powerful built in duplicate contact merger. Aplikacija je izrađena u material-dizajnu i standardno koristi tamnu temu, pruža izvrsno korisničko iskustvo za jednostavnu upotrebu. Nedostatak pristupa internetu pruža bolju privatnost, sigurnost i stabilnost od drugih aplikacija. Ne sadrži oglase niti nepotrebne dozvole. Potpuno je otvorenog koda, pruža prilagodljive boje. <b>Pogledaj cijeli paket „Jednostavni alati” ovdje:</b> https://www.simplemobiletools.com <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
