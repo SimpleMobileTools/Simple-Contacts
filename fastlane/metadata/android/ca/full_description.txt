@@ -1,18 +1,18 @@
-Una aplicació intel·ligent i lleugera de números de telèfon per gestionar els vostres contactes. Els contactes es poden emmagatzemar només al dispositiu mitjançant aquesta aplicació d'agenda de contactes intel·ligents i també es pot sincronitzar amb diferents mitjans. Aquesta agenda de números de telèfon de contactes us ajudarà a mantenir els contactes en un sol lloc sense la molèstia de fer una còpia de seguretat, ja que la còpia de seguretat dels contactes sempre està sincronitzada amb els contactes que afegiu. Aquesta aplicació estalvia espai i és eficaç quan heu de fer una còpia de seguretat dels contactes i mantenir una agenda intel·ligent que us ajudarà a ordenar els contactes.
+Una aplicació intel·ligent i lleugera de números de telèfon per gestionar els vostres contactes. Els contactes es poden emmagatzemar només al dispositiu mitjançant aquesta aplicació d'agenda de contactes i també es pot sincronitzar amb diferents mitjans. Aquesta agenda de números de telèfon de contactes us ajudarà a mantenir els contactes en un sol lloc sense la molèstia de fer una còpia de seguretat, ja que la còpia de seguretat dels contactes sempre estarà sincronitzada amb els contactes que afegiu. Aquesta aplicació estalvia espai i és eficaç quan heu de fer una còpia de seguretat dels contactes i mantenir una agenda intel·ligent que us ajudarà a ordenar els contactes.
 
 També podeu utilitzar-la per gestionar els correus electrònics i els esdeveniments de l'usuari. Té la capacitat d'ordenar/filtrar per múltiples paràmetres, opcionalment mostra el cognom com a nom. D'aquesta manera, podeu aconseguir la recuperació intel·ligent de contactes d'una manera ràpida. No cal que us desplaceu cap avall per trobar el contacte necessari. A més, sempre que afegiu un contacte nou, la còpia de seguretat dels contactes garanteix automàticament la seva integritat.
 
 Pot mostrar les persones o grups preferits en una llista separada. Els grups es poden utilitzar per enviar correus electrònics o SMS per lots, per estalviar-vos temps, podeu canviar-ne fàcilment el nom. Ara no cal que tingueu cap agenda! Només cal crear un grup de contactes intel·ligent i enviar missatges als vostres éssers estimats.
 
-Té botons per trucar o enviar missatges de text als familiars. Tots els camps visibles es poden personalitzar com vulgueu, podeu amagar fàcilment els que no feu servir. La funció de cerca cercarà la cadena donada a tots els camps visibles de persona perquè trobeu fàcilment el que vulgueu.
+Té botons per trucar o enviar missatges de text a la família. Tots els camps visibles es poden personalitzar com vulgueu, podeu amagar fàcilment els que no feu servir. La funció de cerca cercarà la cadena donada a tots els camps visibles de persona perquè trobeu fàcilment el que vulgueu.
 
 També hi ha un teclat de marcatge lleuger al vostre servei, amb suggeriments intel·ligents.
 
-Admet l'exportació/importació de contactes en format vCard en fitxers .vcf, per facilitar les migracions o fer una còpia de seguretat de les dades. La còpia de seguretat dels contactes és quelcom crucial en el manteniment de la llibreta telefònica. Aquesta aplicació proporciona una tecnologia de còpia de seguretat de contactes que regularment sincronitza els contactes nous i antics per mantenir una còpia de seguretat d'aquests números.
+Admet l'exportació/importació de contactes en format vCard a fitxers .vcf, per facilitar les migracions o fer una còpia de seguretat de les dades. La còpia de seguretat dels contactes és quelcom crucial en el manteniment de l'agenda telefònica. Aquesta aplicació proporciona una tecnologia de còpia de seguretat de contactes que regularment sincronitza els contactes nous i antics per mantenir una còpia de seguretat d'aquests números.
 
-Amb aquest gestor modern i estable de números de telèfon, els podeu protegir no compartint-los amb cap altra aplicació, de manera que els mantindreu privats.
+Amb aquest gestor modern i estable de números de telèfon, els podeu protegir sense compartint-los amb cap altra aplicació, de manera que es mantindran privats.
 
-Igual que l'origen del contacte, també podeu canviar fàcilment el seu nom, correu electrònic, número de telèfon, adreça, organització, grups i molts altres camps personalitzables. També podeu utilitzar-lo per emmagatzemar esdeveniments de contacte, com ara aniversaris o qualsevol altre camp personalitzat.
+Igual que l'origen del contacte, també podeu canviar fàcilment el seu nom, correu, número de telèfon, adreça, organització, grups i molts altres camps personalitzables. També podeu utilitzar-lo per emmagatzemar esdeveniments de contacte, com ara aniversaris o qualsevol altre camp personalitzat.
 
 Aquest editor senzill de contactes té molts paràmetres útils, com ara mostrar els números de telèfon a la pantalla principal, canviar la visibilitat de les miniatures dels contactes, mostrar només contactes amb números de telèfon, mostrar un diàleg de confirmació de trucada abans d'iniciar una trucada.
 
@@ -26,7 +26,7 @@ Per evitar que es mostrin contactes potencialment no desitjats, té una fusió i
 
 No conté anuncis ni permisos innecessaris. És totalment de codi obert, proporciona colors personalitzables.
 
-<b>Consulteu el conjunt complet d'eines simples aquí:</b>
+Consulteu el conjunt complet d'eines simples aquí:
 https://www.simplemobiletools.com
 
 Facebook:
@@ -35,5 +35,8 @@ https://www.facebook.com/simplemobiletools
 Reddit:
 https://www.reddit.com/r/SimpleMobileTools
 
-<b>Lloc web autònom de Simple Contacts Pro:</b>
+Telegram:
+https://t.me/SimpleMobileTools
+
+Lloc web autònom de Simple Contacts Pro:
 https://www.simplemobiletools.com/contacts
