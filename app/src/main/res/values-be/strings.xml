@@ -40,7 +40,7 @@
     <!-- Settings -->
     <string name="show_phone_numbers">Паказваць нумары телефонаў</string>
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
-    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
+    <string name="show_dialpad_button">Паказваць панэль набору нумароў на галоўным экране</string>
     <string name="on_contact_click">On contact click</string>
     <string name="call_contact">Call contact</string>
     <string name="view_contact">View contact details</string>
@@ -59,18 +59,18 @@
     <string name="search_contacts">Пошук кантактаў</string>
     <string name="search_favorites">Search favorites</string>
     <string name="search_groups">Пошук груп</string>
-    <!-- Export / Import -->    
-    <string name="import_contacts">Import contacts</string>
-    <string name="export_contacts">Export contacts</string>
-    <string name="import_contacts_from_vcf">Import contacts from a .vcf file</string>
-    <string name="import_contacts_from_vcf_pro">Import contacts from a .vcf file (Pro)</string>
-    <string name="export_contacts_to_vcf">Export contacts to a .vcf file</string>
+    <!-- Export / Import -->
+    <string name="import_contacts">Імпартаваць кантакты</string>
+    <string name="export_contacts">Экспартаваць кантакты</string>
+    <string name="import_contacts_from_vcf">Імпартаваць кантакты з vcf-файла</string>
+    <string name="import_contacts_from_vcf_pro">Імпартаваць кантакты з vcf-файла (Pro)</string>
+    <string name="export_contacts_to_vcf">Экспартаваць кантакты ў vcf-файл</string>
     <string name="target_contact_source">Target contact source</string>
     <string name="include_contact_sources">Include contact sources</string>
     <string name="filename_without_vcf">Назва файла (без .vcf)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Dialpad</string>
-    <string name="add_number_to_contact">Add number to contact</string>
+    <string name="dialpad">Панэль набору нумароў</string>
+    <string name="add_number_to_contact">Дадаць нумар да кантакту</string>
     <!-- Visible fields -->
     <string name="prefix">Прэфікс</string>
     <string name="suffix">Суфікс</string>
