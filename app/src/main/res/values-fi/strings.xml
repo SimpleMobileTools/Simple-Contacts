@@ -93,52 +93,6 @@
     <!-- FAQ -->
     <string name="faq_1_title">Voinko valita, mitkä täytettävät kentät näytetään yhteystiedon ominaisuuksissa?</string>
     <string name="faq_1_text">Kyllä. Mene asetuksiin -&gt; Valitse täytettävät kentät. Voit valita, mitkä kentät näytetään. Osa kentistä on oletuksena piilotettuna, joten saatat löytää joitain uusia.</string>
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Yhteystietojen helppo hallinta</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Yhteystietojen hallinta ilman mainoksia, tukee yhteystietoryhmiä ja -suosikkeja</string>
-    <string name="app_long_description">
-        Miljoonien rakastama kevyt sovellus yhteystietojen hallintaan. Yhteystiedot voivat olla tallennettuna vain laitteellesi tai ne voidaan synkronoida Googlen tai muiden tilien kanssa.
-
-        Voit käyttää sovellusta myös sähköpostien ja tapahtumien hallintaan. Ominaisuuksiin kuuluu lajittelu ja suodatus useilla valinnoilla. Halutessasi yhteystiedoille voidaan näyttää sukunimi ensin.
-
-        Voit katsella suosikkiyhteystietojasi tai ryhmiä eri listoilla. Ajan säästämiseksi voit käyttää uudelleennimettäviä ryhmiä massasähköpostien tai tekstiviestien lähettämiseen.
-
-        Sovelluksessa on näppärät painikkeet soittamiseen tai tekstiviestin lähettämiseen. Kaikki näkyvillä olevat tietokentät voi mukauttaa toiveidesi mukaan: voit piilottaa ne, joita et käytä. Hakutoiminto hakee kaikista yhteystiedoille tallennetuista tiedoista, joten yhteystiedon löytäminen on helppoa.
-
-        Kevyt pikanumeronäppäimistö on myös käytettävissäsi, älykkäällä yhteystietojen ehdotuksilla.
-
-        Sovellus tukee yhteystietojen vientiä ja tuontia vCard-formaatissa (.vcf-tiedostot) mahdollistaen helpon tietojen yhdistämisen ja varmuuskopioinnin.
-
-        Tällä modernilla ja vakaalla yhteystietosovelluksella yhteystiedot pysyvät turvassa, sillä niitä ei jaeta muiden sovellusten kanssa.
-
-        Kuten yhteystietojen lähteen, voit myös helposti vaihtaa nimeä, sähköpostia, puhelinnumeroa, osoitetta, organisaatiota, ryhmiä ja monia muita mukautettavia tietoja. Voit tallentaa myös yhteystiedon tapahtumia, kuten syntymäpäiviä, vuosipäiviä tai muita valitsemiasi.
-
-        Tämä suoraviivainen yhteystietosovellus tarjoaa monia käteviä asetuksia, kuten puhelinnumeroiden näytön päänäkymässä, yhteystietojen kuvien näkyvyyden asettamisen, sekä vain puhelinnumeron omaavien yhteystietojen näyttämisen. Lisäksi voidaan näyttää vahvistuslomake ennen puhelun aloittamista. Pikanumeronäppäimistöön voit syöttää myös kirjaimia.
-
-        Käyttökokemuksen kohentamiseksi voit myös valita, mike toiminto suoritetaan yhteystietoa napauttaessa: soitetaanko puhelu, avataanko yhteystiedon kaikki tiedot vai muokataanko valittua yhteystietoa.
-
-        Voit helposti estää puhelinnumeroita, joista et halua puheluita.
-
-        Sovelluksessa on tehokas työkalu tuplana näkyvien yhteystietojen yhdistämiseen.
-
-        Sovelluksen ulkoasu noudattelee material designia, tumma teema on oletuksena käytettävissä. Ulkoasu tarjoaa loistavan ja mutkattoman käyttökokemuksen. Voit mukauttaa sovelluksen värejä.
-
-        Ei sisällä mainoksia eikä vaadi tarpeettomia käyttöoikeuksia. Sovellus on täysin avointa lähädekoodia.
-
-        <b>Katso koko Simple Tools-sovellusvalikoima täältä:</b>
-        https://www.simplemobiletools.com
-
-        <b>Simple Contacts Pro:n oma sivusto:</b>
-        https://www.simplemobiletools.com/contacts
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

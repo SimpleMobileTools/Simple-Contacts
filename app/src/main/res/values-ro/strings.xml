@@ -93,52 +93,6 @@
     <!-- FAQ -->
     <string name="faq_1_title">Doresc să schimb ce câmpuri sunt vizibile la contacte. Pot să fac acest lucru?</string>
     <string name="faq_1_text">Da, tot ce trebuie să faceți este să accesați Setări -&gt; Gestionați câmpurile de contact afișate. Acolo puteți selecta ce câmpuri ar trebui să fie vizibile. Unele dintre ele sunt chiar dezactivate în mod implicit, așa că s-ar putea să găsiți unele noi acolo.</string>
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Contacts Pro - Gestionați contactele</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">O aplicație premium pentru gestionarea contactelor, acceptă grupuri și favorite</string>
-    <string name="app_long_description">
-        O aplicație ușoară pentru gestionarea contactelor, apreciată de milioane de oameni. Contactele pot fi stocate doar pe dispozitiv, dar și sincronizate prin Google, sau alte conturi.
-
-        Îl puteți utiliza și pentru gestionarea e-mailurilor și a evenimentelor utilizatorilor. Are capacitatea de a sorta/filtra după mai mulți parametri, afișând opțional numele de familie ca prenume.
-
-        Puteți afișa contactele sau grupurile preferate pe o listă separată. Grupurile pot fi utilizate pentru trimiterea de e-mailuri sau SMS-uri în loturi, pentru a economisi timp, le puteți redenumi cu ușurință.
-
-        Acesta conține butoane practice pentru apelarea sau trimiterea de mesaje text către persoanele de contact. Toate câmpurile vizibile pot fi personalizate după cum doriți, iar cele neutilizate le puteți ascunde cu ușurință. Funcția de căutare va căuta șirul de caractere dat în fiecare câmp de contact vizibil, pentru a vă permite să găsiți cu ușurință contactul dorit.
-
-        Aveți la dispoziție și o tastatură telefonică simplă, cu sugestii inteligente de contacte.
-
-        Suportă exportul/importul contactelor în format vCard în fișiere .vcf, pentru migrări ușoare sau pentru salvarea datelor.
-
-        Cu acest manager de contacte modern și stabil vă puteți proteja contactele prin faptul că nu le puteți partaja cu alte aplicații, astfel încât să vă păstrați contactele private.
-
-        Ca și în cazul sursei de contact, puteți modifica cu ușurință numele contactului, e-mailul, numărul de telefon, adresa, organizația, grupurile și multe alte câmpuri personalizabile. O puteți utiliza și pentru stocarea evenimentelor de contact, cum ar fi zilele de naștere, aniversările sau orice alte evenimente personalizate.
-
-        Acest editor simplu de contacte are multe setări utile, cum ar fi afișarea numerelor de telefon pe ecranul principal, comutarea vizibilității miniaturii contactelor, afișarea doar a contactelor cu numere de telefon, afișarea unui dialog de confirmare a apelului înainte de a iniția un apel. Este prevăzut cu un apelator rapid care utilizează și literele.
-
-        Pentru a îmbunătăți și mai mult experiența utilizatorului, puteți personaliza ceea ce se întâmplă atunci când faceți clic pe un contact. Puteți iniția un apel, puteți merge la ecranul Vizualizare detalii sau puteți edita contactul selectat.
-
-        Puteți bloca cu ușurință numere de telefon pentru a evita apelurile primite nedorite.
-
-        Pentru a evita afișarea contactelor potențial nedorite, aplicaţia dispune de un puternic sistem integrat de fuziune a contactelor duplicate.
-
-        Aplicaţia vine cu design material și tema întunecată în mod implicit şi oferă o experiență de utilizare excelentă. Lipsa necesităţii accesului la internet vă oferă mai multă intimitate, securitate și stabilitate decât alte aplicații.
-
-        Nu conţine reclame sau permisiuni inutile. Codul sursă este complet open source şi oferă culori personalizabile.
-
-        <b>Consultaţi întreaga suită de aplicaţii Simple Tools aici:</b>
-        https://www.simplemobiletools.com
-
-        <b>Site web al Simple Contacts Pro:</b>
-        https://www.simplemobiletools.com/contacts
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
