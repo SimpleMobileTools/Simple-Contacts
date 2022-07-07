@@ -20,7 +20,7 @@
     <string name="no_contacts_with_phone_numbers">Кантакты з нумарамі тэлефонаў не знойдзены</string>
     <string name="new_contact">Стварыць кантакт</string>
     <string name="edit_contact">Рэдагаваць кантакт</string>
-    <string name="select_contact">Select contact</string>
+    <string name="select_contact">Выбраць кантакт</string>
     <string name="nickname">Nickname</string>
     <!-- Groups -->
     <string name="no_groups">No groups</string>
@@ -41,9 +41,9 @@
     <string name="show_phone_numbers">Паказваць нумары телефонаў</string>
     <string name="show_contact_thumbnails">Show contact thumbnails</string>
     <string name="show_dialpad_button">Паказваць панэль набору нумароў на галоўным экране</string>
-    <string name="on_contact_click">On contact click</string>
-    <string name="call_contact">Call contact</string>
-    <string name="view_contact">View contact details</string>
+    <string name="on_contact_click">Пры націсканні на кантакт</string>
+    <string name="call_contact">Патэлефанаваць кантакту</string>
+    <string name="view_contact">Паказаць звесткі аб кантакце</string>
     <string name="manage_shown_contact_fields">Manage shown contact fields</string>
     <string name="contacts">Кантакты</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
