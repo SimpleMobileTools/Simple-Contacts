@@ -44,7 +44,7 @@
     <string name="on_contact_click">Пры націсканні на кантакт</string>
     <string name="call_contact">Тэлефанаваць кантакту</string>
     <string name="view_contact">Паказваць звесткі аб кантакце</string>
-    <string name="manage_shown_contact_fields">Manage shown contact fields</string>
+    <string name="manage_shown_contact_fields">Кіраванне палямі кантактаў, якія адлюстроўваюцца</string>
     <string name="contacts">Кантакты</string>
     <string name="show_only_contacts_with_numbers">Паказваць толькі кантакты з нумарамі тэлефонаў</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
