@@ -16,37 +16,37 @@
     <string name="fields_empty">At least 1 field has to be filled out</string>
     <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
+    <string name="no_contacts_with_emails">Кантакты з адрасамі электроннай пошты не знойдзены</string>
+    <string name="no_contacts_with_phone_numbers">Кантакты з нумарамі тэлефонаў не знойдзены</string>
     <string name="new_contact">Стварыць кантакт</string>
     <string name="edit_contact">Рэдагаваць кантакт</string>
-    <string name="select_contact">Select contact</string>
-    <string name="nickname">Nickname</string>
+    <string name="select_contact">Выбраць кантакт</string>
+    <string name="nickname">Мянушка</string>
     <!-- Groups -->
     <string name="no_groups">No groups</string>
     <string name="create_new_group">Стварыць новую групу</string>
     <string name="remove_from_group">Выдаліць з групы</string>
-    <string name="no_group_participants">This group is empty</string>
+    <string name="no_group_participants">Гэта група пустая</string>
     <string name="add_contacts">Дадаць кантакты</string>
     <string name="no_group_created">There are no contact groups on the device</string>
     <string name="create_group">Стварыць групу</string>
     <string name="add_to_group">Дадаць у групу</string>
     <string name="create_group_under_account">Стварыць групу пад уліковым запісам</string>
     <!-- Photo -->
-    <string name="take_photo">Take photo</string>
-    <string name="choose_photo">Choose photo</string>
-    <string name="remove_photo">Remove photo</string>
-    <string name="change_photo">Change photo</string>
+    <string name="take_photo">Зрабіць фота</string>
+    <string name="choose_photo">Выбраць фота</string>
+    <string name="remove_photo">Выдаліць фота</string>
+    <string name="change_photo">Змяніць фота</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Паказваць нумары телефонаў</string>
-    <string name="show_contact_thumbnails">Show contact thumbnails</string>
+    <string name="show_phone_numbers">Паказваць нумары тэлефонаў</string>
+    <string name="show_contact_thumbnails">Паказваць фота кантакту</string>
     <string name="show_dialpad_button">Паказваць панэль набору нумароў на галоўным экране</string>
-    <string name="on_contact_click">On contact click</string>
-    <string name="call_contact">Call contact</string>
-    <string name="view_contact">View contact details</string>
+    <string name="on_contact_click">Пры націсканні на кантакт</string>
+    <string name="call_contact">Тэлефанаваць кантакту</string>
+    <string name="view_contact">Паказваць звесткі аб кантакце</string>
     <string name="manage_shown_contact_fields">Manage shown contact fields</string>
     <string name="contacts">Кантакты</string>
-    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
+    <string name="show_only_contacts_with_numbers">Паказваць толькі кантакты з нумарамі тэлефонаў</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
     <!-- Events -->
@@ -57,7 +57,7 @@
     <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
     <string name="search_contacts">Пошук кантактаў</string>
-    <string name="search_favorites">Search favorites</string>
+    <string name="search_favorites">Пошук абраных</string>
     <string name="search_groups">Пошук груп</string>
     <!-- Export / Import -->
     <string name="import_contacts">Імпартаваць кантакты</string>
@@ -74,8 +74,8 @@
     <!-- Visible fields -->
     <string name="prefix">Прэфікс</string>
     <string name="suffix">Суфікс</string>
-    <string name="phone_numbers">Тэлефонныя нумары</string>
-    <string name="emails">Emails</string>
+    <string name="phone_numbers">Нумары тэлефонаў</string>
+    <string name="emails">Адрасы электроннай пошты</string>
     <string name="addresses">Адрасы</string>
     <string name="events">Падзеі (дні нараджэння, гадавіны)</string>
     <string name="organization">Арганізацыя</string>
@@ -83,7 +83,7 @@
     <string name="groups">Групы</string>
     <string name="contact_source">Крыніца кантакту</string>
     <string name="instant_messaging">Instant messaging (IM)</string>
-    <string name="ringtone">Ringtone</string>
+    <string name="ringtone">Мелодыя выкліку</string>
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
     <plurals name="delete_groups">
