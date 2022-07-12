@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">جهات الإتصال</string>
     <string name="app_launcher_name">جهات الإتصال</string>
@@ -12,18 +13,15 @@
     <string name="send_email_to_contacts">ارسال بريد الكتروني الى جهات الاتصال</string>
     <string name="send_sms_to_group">ارسال رسالة الى مجموعة</string>
     <string name="send_email_to_group">ارسال بريد الكتروني الى مجموعة</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
+    <string name="fields_empty">يجب ملء حقل 1 على الأقل</string>
     <string name="must_be_at_edit">يجب أن تكون في شاشة التعديل لتعديل جهة اتصال</string>
-
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">لا توجد جهات اتصال بهذا البريد الالكتروني</string>
     <string name="no_contacts_with_phone_numbers">لا توجد جهات اتصال بهذا الرقم</string>
-
     <string name="new_contact">جهة اتصال جديدة</string>
     <string name="edit_contact">تعديل جهة اتصالل</string>
     <string name="select_contact">اختيار جهة اتصال</string>
     <string name="nickname">اللقب</string>
-
     <!-- Groups -->
     <string name="no_groups">لا توجد مجموعات</string>
     <string name="create_new_group">انشاء مجموعة جديدة</string>
@@ -34,15 +32,13 @@
     <string name="create_group">انشاء مجموعة</string>
     <string name="add_to_group">اضافة الى مجموعة</string>
     <string name="create_group_under_account">انشاء مجموعة ضمن حساب</string>
-
     <!-- Photo -->
     <string name="take_photo">التقاط صورة</string>
     <string name="choose_photo">اختيار صورة</string>
     <string name="remove_photo">ازالة الصورة</string>
-    <string name="change_photo">Change photo</string>
-
+    <string name="change_photo">تغيير الصورة</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">عرض أرقام الهاتف على الشاشة الرئيسية</string>
+    <string name="show_phone_numbers">إظهار أرقام الهواتف</string>
     <string name="show_contact_thumbnails">عرض صور مصغرة لجهات الإتصال</string>
     <string name="show_dialpad_button">عرض زر لوحة الإتصال على الشاشةالرئيسية</string>
     <string name="on_contact_click">عند النقر فوق جهة اتصال</string>
@@ -51,36 +47,30 @@
     <string name="manage_shown_contact_fields">إدارة حقول جهات الاتصال المعروضة</string>
     <string name="contacts">جهات الاتصال</string>
     <string name="show_only_contacts_with_numbers">إظهار جهات الإتصال التي لديها أرقام هواتف فقط</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
-
+    <string name="show_private_contacts">إظهار جهات الاتصال الخاصة إلى Simple Dialer و Simple SMS Messenger و Simple Calendar Pro</string>
+    <string name="merge_duplicate_contacts">دمج جهات الاتصال المكررة</string>
     <!-- Events -->
     <string name="birthday">تاريخ الميلاد</string>
     <string name="anniversary">مناسبة</string>
-
     <!-- Favorites -->
     <string name="no_favorites">يبدو أنك لم تضف أية جهة اتصال مفضلة حتى الآن.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
-
+    <string name="toggle_favorite">تبديل المفضلة</string>
     <!-- Search -->
     <string name="search_contacts">بحث في جهات الاتصال</string>
     <string name="search_favorites">بحث في المفضلة</string>
-    <string name="search_groups">Search groups</string>
-
+    <string name="search_groups">مجموعات البحث</string>
     <!-- Export / Import -->
     <string name="import_contacts">استيراد جهات اتصال</string>
     <string name="export_contacts">تصدير جهات اتصال</string>
     <string name="import_contacts_from_vcf">استيراد جهات اتصال من ملف vcf</string>
     <string name="import_contacts_from_vcf_pro">استيراد جهات اتصال من ملف vcf (Pro)</string>
     <string name="export_contacts_to_vcf">تصدير جهات اتصال الى ملف vcf</string>
-    <string name="target_contact_source">Target contact source</string>
-    <string name="include_contact_sources">Include contact sources</string>
+    <string name="target_contact_source">مصدر الاتصال المستهدف</string>
+    <string name="include_contact_sources">تضمين مصادر الاتصال</string>
     <string name="filename_without_vcf">اسم الملف (بدون .vcf)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">لوحة الاتصال</string>
     <string name="add_number_to_contact">إضافة رقم الى جهة اتصال</string>
-
     <!-- Visible fields -->
     <string name="prefix">بادئة</string>
     <string name="suffix">لاحقة</string>
@@ -93,19 +83,20 @@
     <string name="groups">مجموعات</string>
     <string name="contact_source">مصدر الاتصال</string>
     <string name="instant_messaging">المراسلة الفورية (IM)</string>
-    <string name="ringtone">Ringtone</string>
-
+    <string name="ringtone">نغمة الرنين</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
-
+    <string name="delete_from_all_sources">ستتم إزالة جهة الاتصال من جميع مصادر الاتصال.</string>
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="zero">مجموعة %d</item>
+        <item quantity="one">مجموعة %d</item>
+        <item quantity="two">مجموعة %d</item>
+        <item quantity="few">مجموعة %d</item>
+        <item quantity="many">مجموعات %d</item>
+        <item quantity="other">مجموعة %d</item>
     </plurals>
-
     <!-- FAQ -->
-    <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_title">أريد تغيير الحقول المرئية في جهات الاتصال. هل يمكنني القيام بذلك؟</string>
+    <string name="faq_1_text">نعم ، كل ما عليك فعله هو الانتقال إلى الإعدادات -&gt; إدارة حقول جهات الاتصال المعروضة. هناك يمكنك تحديد الحقول التي يجب أن تكون مرئية. يتم تعطيل بعضها بشكل افتراضي ، لذلك قد تجد بعض الأشياء الجديدة هناك.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
