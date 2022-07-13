@@ -75,7 +75,7 @@
     <string name="prefix">Πρόθεμα</string>
     <string name="suffix">Κατάληξη</string>
     <string name="phone_numbers">Αριθμοί Τηλεφώνων</string>
-    <string name="emails">Emails</string>
+    <string name="emails">Μηνύματα ηλεκτρονικού ταχυδρομείου</string>
     <string name="addresses">Διευθύνσεις</string>
     <string name="events">Εκδηλώσεις (γενέθλια, επετείους)</string>
     <string name="organization">Εταιρεία</string>
