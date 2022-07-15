@@ -1,0 +1,34 @@
+Lekka aplikacja do inteligentnych kontaktów na numery telefonów do zarządzania kontaktami, które kochają miliony ludzi. Kontakty można przechowywać na urządzeniu tylko za pośrednictwem tej aplikacji do książki telefonicznej z inteligentnymi kontaktami, a także można je synchronizować na różne sposoby. Ta książka telefoniczna z inteligentnymi numerami telefonów pomoże Ci zachować kontakty w jednym miejscu bez kłopotów z tworzeniem kopii zapasowych kontaktów, ponieważ kopia zapasowa kontaktów jest zawsze zsynchronizowana z kontaktami, które dodajesz. Ta aplikacja zajmuje mało miejsca i jest skuteczna, gdy musisz tworzyć kopie zapasowe kontaktów i prowadzić książkę telefoniczną, która pomoże ci w inteligentnym utrzymywaniu kontaktów.
+
+Możesz go również używać do zarządzania e-mailami użytkowników i wydarzeniami. Posiada możliwość sortowania / filtrowania według wielu parametrów, opcjonalnie wyświetla nazwisko jako imię. W ten sposób możesz szybko uzyskać inteligentne wyszukiwanie kontaktów. Nie musisz przewijać w dół, aby znaleźć wymagany kontakt. Co więcej, za każdym razem, gdy dodasz nowy kontakt, kopia zapasowa kontaktów automatycznie zapewni integralność kontaktów.
+
+Możesz wyświetlić swoje ulubione osoby lub grupy na osobnej liście. Grupy mogą być używane do wysyłania zbiorczych wiadomości e-mail lub SMS-ów, aby zaoszczędzić trochę czasu, możesz łatwo zmienić ich nazwy. Nie musisz teraz prowadzić książki telefonicznej! Po prostu utwórz inteligentną grupę kontaktów i wysyłaj wiadomości do swoich bliskich.
+
+Zawiera przydatne przyciski do dzwonienia lub wysyłania SMS-ów do krewnych. Wszystkie widoczne pola można dostosować do własnych potrzeb, a nieużywane można łatwo ukryć. Funkcja wyszukiwania przeszuka podany ciąg w każdym widocznym polu osób, aby łatwo znaleźć żądany.
+
+Obsługuje eksport / import kontaktów w formacie vCard do plików .vcf, co ułatwia migrację lub tworzenie kopii zapasowych danych. Tworzenie kopii zapasowych kontaktów jest kluczową rzeczą w prowadzeniu ksiąg telefonicznych. Ta aplikacja zapewnia inteligentną technologię tworzenia kopii zapasowych kontaktów, która regularnie synchronizuje nowe i stare kontakty, aby zachować kopię zapasową tych numerów.
+
+Dzięki temu nowoczesnemu i stabilnemu menedżerowi numerów telefonów możesz je chronić, nie udostępniając ich innym aplikacjom, dzięki czemu możesz zachować ich prywatność.
+
+Podobnie jak źródło kontaktów, możesz również łatwo zmienić ich imię i nazwisko, adres e-mail, numer telefonu, adres, organizację, grupy i wiele innych dostosowywalnych pól. Możesz go również używać do przechowywania zdarzeń kontaktowych, takich jak urodziny, rocznice lub inne niestandardowe.
+
+Ten prosty edytor kontaktów ma wiele przydatnych ustawień, takich jak wyświetlanie numerów telefonów na ekranie głównym, przełączanie widoczności miniatur kontaktów, wyświetlanie tylko kontaktów z numerami telefonów, wyświetlanie okna dialogowego potwierdzenia połączenia przed jego nawiązaniem. Jest wyposażony w szybki dialer, który również wykorzystuje litery.
+
+Aby jeszcze bardziej poprawić wrażenia użytkownika, możesz dostosować, co dzieje się po kliknięciu kontaktu. Możesz zainicjować połączenie, przejść do ekranu Wyświetl szczegóły lub edytować wybrane.
+
+Nie zawiera reklam ani niepotrzebnych uprawnień. Jest w pełni open source, zapewnia konfigurowalne kolory.
+
+Zobacz pełny zestaw prostych narzędzi tutaj:
+https://www.simplemobiletools.com
+
+Samodzielna witryna Simple Contacts Pro:
+https://www.simplemobiletools.com/contacts
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

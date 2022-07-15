@@ -1,0 +1,20 @@
+一個用來從任何來源建立或管理聯絡人的簡易應用程式。聯絡人只能儲存於你的裝置上，不過也能透過Google或其他帳號來同步。你能將我的最愛聯絡人顯示在獨立名單上。
+
+你也能用來管理使用者信箱和活動。它能夠以多項參數來排序/篩選，以及選擇將姓氏顯示在名字前面。
+
+不包含廣告及非必要的權限，而且完全開放原始碼，並提供自訂顏色。
+
+Check out the full suite of Simple Tools here:
+https://www.simplemobiletools.com
+
+Standalone website of Simple Contacts Pro:
+https://www.simplemobiletools.com/contacts
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

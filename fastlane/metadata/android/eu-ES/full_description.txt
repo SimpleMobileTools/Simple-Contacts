@@ -1,0 +1,18 @@
+Aplikazio sinplea kontaktuak sortu eta kudeatzeko. Kontaktuak zure gailuan baino esin dira gorde, baina sinkronizagarriak dira Google-n edo beste kontuen bitartez. Zure kontaktu gogokoenak zerrenda banandu batean erakutsi ditzakezu.
+ 
+Erabiltzaileen emailak eta ekitaldiak kudeatzeko erabili dezakezu ere. Aukera duzu parametro askoren arabera sailkatzeko, tartean abizena izen gisa erakustea.
+        
+Check out the full suite of Simple Tools here:
+https://www.simplemobiletools.com
+
+Standalone website of Simple Contacts Pro:
+https://www.simplemobiletools.com/contacts
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

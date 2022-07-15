@@ -1,0 +1,36 @@
+Aplikasi kontak pintar nomor telepon ringan untuk mengelola kontak Anda yang disukai oleh jutaan orang. Kontak dapat disimpan di perangkat Anda hanya melalui aplikasi buku telepon kontak pintar ini dan juga dapat disinkronkan dengan berbagai cara. Buku telepon kontak pintar nomor telepon ini akan membantu Anda menyimpan kontak di satu tempat tanpa perlu repot mencadangkan kontak Anda karena cadangan kontak selalu sinkron dengan kontak yang Anda tambahkan. Aplikasi ini menyala di ruang dan efektif ketika Anda harus membuat cadangan kontak dan menyimpan buku telepon yang akan membantu Anda dalam menjaga kontak cerdas.
+
+Anda juga dapat menggunakannya untuk mengelola email dan acara pengguna. Ini memiliki kemampuan untuk mengurutkan / memfilter berdasarkan beberapa parameter, secara opsional menampilkan nama belakang sebagai nama depan. Dengan cara ini, Anda dapat mencapai pengambilan kontak cerdas dengan cara yang cepat. Anda tidak perlu menggulir ke bawah untuk menemukan kontak yang Anda butuhkan. Selain itu, setiap kali Anda menambahkan kontak baru, kontak tersebut secara otomatis akan membuat cadangan untuk memastikan integritas kontak.
+
+Anda dapat menampilkan orang atau grup favorit Anda pada daftar terpisah. Grup dapat digunakan untuk mengirimkan email atau SMS batch, untuk menghemat waktu, Anda dapat mengganti namanya dengan mudah. Anda tidak perlu menyimpan buku telepon sekarang! Buat saja grup kontak cerdas dan kirim pesan ke orang yang Anda cintai.
+
+Ini berisi tombol praktis untuk menelepon, atau mengirim pesan kepada kerabat Anda. Semua bidang yang terlihat dapat disesuaikan sesuai keinginan, Anda dapat dengan mudah menyembunyikan yang tidak digunakan. Fungsi pencarian akan mencari string yang diberikan di setiap bidang orang yang terlihat, untuk membuat Anda menemukan yang Anda inginkan dengan mudah.
+
+Ada juga tombol nomor ringan yang siap melayani Anda, dengan saran cerdas.
+
+Ini mendukung mengekspor / mengimpor kontak dalam format vCard ke file .vcf, untuk migrasi mudah atau membuat cadangan data Anda. Pencadangan kontak adalah hal penting dalam pembukuan telepon. Aplikasi ini dilengkapi dengan teknologi cadangan kontak pintar yang menyinkronkan kontak baru dan lama secara teratur untuk menyimpan cadangan nomor-nomor ini.
+
+Dengan pengelola nomor telepon yang modern dan stabil ini, Anda dapat melindunginya dengan tidak membagikannya dengan aplikasi lain, sehingga Anda dapat membuatnya tetap pribadi.
+
+Seperti sumber kontak, Anda juga dapat dengan mudah mengubah nama, email, nomor telepon, alamat, organisasi, grup, dan banyak bidang lain yang dapat disesuaikan. Anda juga dapat menggunakannya untuk menyimpan acara kontak, seperti ulang tahun, hari jadi, atau acara khusus lainnya.
+
+Editor kontak sederhana ini memiliki banyak pengaturan praktis seperti menampilkan nomor telepon di layar utama, mengubah visibilitas thumbnail kontak, hanya menampilkan kontak dengan nomor telepon, menampilkan dialog konfirmasi panggilan sebelum memulai panggilan. Muncul dengan dialer cepat yang juga menggunakan huruf.
+
+Untuk lebih meningkatkan pengalaman pengguna, Anda dapat menyesuaikan apa yang terjadi dengan mengklik kontak. Anda dapat memulai panggilan, pergi ke layar Lihat Detail, atau mengedit yang dipilih.
+
+Tidak mengandung iklan atau izin yang tidak perlu. Ini sepenuhnya open source, memberikan warna yang dapat.
+
+Lihat rangkaian lengkap Alat Sederhana di sini:
+https://www.simplemobiletools.com
+
+Situs web mandiri Simple Contacts Pro:
+https://www.simplemobiletools.com/contacts
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

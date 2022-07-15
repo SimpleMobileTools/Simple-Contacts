@@ -1,0 +1,34 @@
+En letvægtsapp til håndtering af dine kontakter elsket af millioner af mennesker. Kontakterne kan kun gemmes på din enhed, men også synkroniseres via Google eller andre konti. 
+
+Du kan også bruge det til at administrere bruger-e-mails og begivenheder. Den har mulighed for at sortere/filtrere efter flere parametre, eventuelt vise efternavn som fornavn. 
+
+Du kan vise dine foretrukne kontakter eller grupper på en separat liste. Grupper kan bruges til at udsende batch e-mails eller SMS, for at spare dig lidt tid, kan du nemt omdøbe dem. Den indeholder praktiske knapper til at ringe eller sende sms\er til dine kontakter. Alle synlige felter kan tilpasses som du ønsker, du kan nemt skjule de ubrugte. 
+
+Søgefunktionen vil søge i den givne streng ved hvert synligt kontaktfelt, så du nemt kan finde din ønskede kontakt. Der er også et let tastatur til din tjeneste med smarte kontaktforslag. 
+
+Det understøtter eksport/import af kontakter i vCard-format til .vcf-filer for nemme migreringer eller sikkerhedskopiering af dine data. Med denne moderne og stabile kontaktadministrator kan du beskytte dine kontakter ved ikke at dele dem med andre apps, så du kan holde dine kontakter private. 
+
+Ligesom kontaktkilden kan du også nemt ændre kontaktens navn, e-mail, telefonnummer, adresse, organisation, grupper og mange andre tilpassede felter. Du kan også bruge den til at gemme kontaktbegivenheder, såsom fødselsdage, jubilæer eller andre tilpassede begivenheder. 
+
+Denne enkle kontakteditor har mange praktiske indstillinger som at vise telefonnumre på hovedskærmen, skifte kontaktminiaturevisning, kun vise kontakter med telefonnumre, vise en opkaldsbekræftelsesdialog, før du starter et opkald. Den kommer med en hurtig opkaldsfunktion, der også gør brug af bogstaver. For yderligere at forbedre brugeroplevelsen kan du tilpasse, hvad der sker ved at klikke på en kontakt. 
+
+Du kan enten starte et opkald, gå til skærmbilledet Vis detaljer eller redigere den valgte kontakt. Du kan nemt blokere telefonnumre for at undgå uønskede indgående opkald. 
+
+For at undgå at vise potentielt uønskede kontakter har den en kraftfuld indbygget dubletkontaktsammenlægning. Den leveres som standard med materialedesign og mørkt tema, hvilket giver en fantastisk brugeroplevelse til nem brug. Manglen på internetadgang giver dig mere privatliv, sikkerhed og stabilitet end andre apps. 
+
+Indeholder ingen annoncer eller unødvendige tilladelser. Det er fuldt opensource, giver brugerdefinerbare farver. 
+
+Tjek hele pakken af Simple Tools her:
+https://www.simplemobiletools.com
+
+Simple Contacts Pro's selvstændige websted:
+https://www.simplemobiletools.com/contacts
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

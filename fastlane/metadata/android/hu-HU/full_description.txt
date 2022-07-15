@@ -1,0 +1,20 @@
+Egy egyszerű app, amelyik az összes accountod névjegyeit képes kezelni. Bár a névjegyeket csak az eszközön tárolja, de szinkronizálható Google, vagy más accountokkal is. A kedvenceidet külön listán is kezelheted.
+
+Kezelhetsz vele email-címeket és eseményeket. Képes a névjegyeket többféle paraméter rendezni és szűrni. A megjelenítést beállíthatod vezetéknév, keresztnév sorrendben is. A színeket testreszabhtod.
+
+Nem kér szükségtelen jogosultságokat és nincs benne reklám. Teljes egészében nyílt forráskódú szoftver.
+
+Check out the full suite of Simple Tools here:
+https://www.simplemobiletools.com
+
+Standalone website of Simple Contacts Pro:
+https://www.simplemobiletools.com/contacts
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

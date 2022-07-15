@@ -1,0 +1,13 @@
+En enkel app för att skapa och hantera kontakter från olika källor. Kontakterna kan lagras bara på din enhet, men kan också synkroniseras med ditt Google-konto eller andra konton. Du kan visa dina favoritkontakter i en separat lista.
+
+Du kan också använda den för att hantera dina kontakters e-postadresser och händelser. Den kan sortera och filtrera efter flera parametrar. Den kan också visa efternamn först.
+
+Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och anpassningsbara färger.
+
+<b>Check out the full suite of Simple Tools here:</b>
+https://www.simplemobiletools.com
+
+<b>Standalone website of Simple Contacts Pro:</b>
+https://www.simplemobiletools.com/contacts
+
+Don't forget that if you uninstall any paid app within 2 hours, you will automatically be refunded. If you want a refund anytime later, just contact us at hello@simplemobiletools.com and you will get it. That makes it easy to try it out :)

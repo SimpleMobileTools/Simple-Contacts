@@ -1,0 +1,20 @@
+Jednoduchá aplikace na vytváření nebo správu vašich kontaktů z různých zdrojů. Mohou být uloženy buď jen ve vašem zařízení, nebo je můžete i synchronizovat přes Google či jiný účet. Své oblíbené položky si můžete zobrazit ve vlastním seznamu.
+
+Můžete ji používat i na správu e-mailů a událostí kontaktů. Nabízí možnost řazení/filtrování pomocí různých parametrů, volitelné je zobrazování příjmení před jménem.
+
+Neobsahuje žádné reklamy, ani nepotřebná oprávnění. Má plně otevřený zdrojový kód a možnost změny barev.
+
+Check out the full suite of Simple Tools here:
+https://www.simplemobiletools.com
+
+Standalone website of Simple Contacts Pro:
+https://www.simplemobiletools.com/contacts
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

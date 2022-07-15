@@ -1,0 +1,40 @@
+Milyonlarca insan tarafından sevilen kişilerinizi yönetmek için hafif bir telefon numarası akıllı iletişim uygulaması. Kişiler yalnızca bu akıllı kişi telefon rehberi uygulaması aracılığıyla cihazınızda saklanabilir ve farklı yollarla da senkronize edilebilir. Bu telefon numarası akıllı kişi telefon defteri, kişi yedeklemesi her zaman eklediğiniz kişilerle senkronize olduğundan, kişilerinizi yedekleme zahmetine girmeden kişilerinizi tek bir yerde tutmanıza yardımcı olur. Bu uygulama alanı aydınlatır ve kişileri yedeklemeniz gerektiğinde ve akıllı kişi tutmada size yardımcı olacak bir telefon defteri tutmanız gerektiğinde etkilidir.
+
+Kullanıcı e-postalarını ve etkinliklerini yönetmek için de kullanabilirsiniz. Birden fazla parametreye göre sıralama / filtreleme, isteğe bağlı olarak soyadını ad olarak görüntüleme özelliğine sahiptir. Bu şekilde, akıllı kişi alımını hızlı bir şekilde gerçekleştirebilirsiniz. Gerekli kişiyi bulmak için aşağı kaydırmanıza gerek yok. Ayrıca, yeni bir kişi eklediğinizde, kişiler otomatik olarak yedeklenerek kişilerin bütünlüğünü sağlar.
+
+Favori kişilerinizi veya grupları ayrı bir listede görüntüleyebilirsiniz. Gruplar toplu e-posta veya SMS göndermek için kullanılabilir, size biraz zaman kazandırmak için bunları kolayca yeniden adlandırabilirsiniz. Artık bir telefon defteri tutmanıza gerek yok! Sadece akıllı bir iletişim grubu oluşturun ve sevdiklerinize mesaj gönderin.
+
+Akrabalarınızı aramak veya mesajlaşmak için kullanışlı düğmeler içerir. Görünen tüm alanlar dilediğiniz gibi özelleştirilebilir, kullanılmayanları kolayca gizleyebilirsiniz. Arama işlevi, istediğiniz diziyi kolayca bulmanızı sağlamak için her görünür kişi alanında verilen dizeyi arayacaktır.
+
+Hizmetinizde akıllı öneriler içeren hafif bir tuş takımı da var.
+
+Kolay taşıma veya verilerinizin yedeklenmesi için kişilerin vCard biçiminde .vcf dosyalarına aktarılmasını / içe aktarılmasını destekler. Kişi yedekleme, telefon defteri tutmada çok önemli bir şeydir. Bu uygulama, bu numaraların yedeğini tutmak için yeni ve eski kişileri düzenli olarak senkronize eden akıllı bir rehber yedekleme teknolojisi sağlar.
+
+Bu modern ve istikrarlı telefon numarası yöneticisi ile onları diğer uygulamalarla paylaşmayarak koruyabilir, böylece onları gizli tutabilirsiniz.
+
+Kişi kaynağı gibi, adlarını, e-postalarını, telefon numaralarını, adreslerini, organizasyonlarını, gruplarını ve diğer birçok özelleştirilebilir alanı da kolayca değiştirebilirsiniz. Doğum günleri, yıldönümleri veya diğer özel olanlar gibi kişi etkinliklerini depolamak için de kullanabilirsiniz.
+
+Bu basit kişi düzenleyici, ana ekranda telefon numaralarını gösterme, kişi küçük resim görünürlüğünü değiştirme, yalnızca telefon numarası olan kişileri gösterme, bir arama başlatmadan önce bir arama onay iletişim kutusu görüntüleme gibi birçok kullanışlı ayara sahiptir. Harfleri de kullanan hızlı bir çevirici ile birlikte gelir.
+
+Kullanıcı deneyimini daha da iyileştirmek için, bir kişiye tıkladığınızda ne olacağını özelleştirebilirsiniz. Bir arama başlatabilir, Ayrıntıları Görüntüle ekranına gidebilir veya seçili olanı düzenleyebilirsiniz.
+
+Materyal tasarıma dayalı, varsayılan olarak modern bir karanlık temayla birlikte gelir.
+
+İstenmeyen aramaları önlemek için telefon numaralarını kolayca engelleyebilirsiniz.
+
+Hiçbir reklam veya gereksiz izinler içermez. Tamamen açık kaynaklıdır, özelleştirilebilir renkler sağlar.
+
+Basit Araçlar paketinin tamamına buradan göz atın:
+https://www.simplemobiletools.com
+
+Basit Kişiler Pro'nun bağımsız web sitesi:
+https://www.simplemobiletools.com/contacts
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
