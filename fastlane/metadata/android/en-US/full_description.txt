@@ -1,4 +1,4 @@
-A lightweight phone number smart contact app for managing your contacts loved by millions of people. The contacts can be stored on your device only through this smart contact phone book app and it can also be synchronized by different means. This phone number smart contact phone book will help you keeping your contacts in one place without the hassle of backing up your contacts as the contacts backup are always in sync with the contacts you add. This app light on space and is effective when you have to make contacts backup and keep a phone book that will help you in smart contact keeping.
+A lightweight smart contact app for managing your contacts loved by millions of people. The contacts can either be stored on your device only, or they can also be synchronized by different means. This phone number smart contact phone book will help you keeping your contacts in one place without the hassle of backing up your contacts as the contacts backup are always in sync with the contacts you add. This app light on space and is effective when you have to make contacts backup and keep a phone book that will help you in smart contact keeping.
 
 You can use it for managing user emails and events too. It has the ability to sort/filter by multiple parameters, optionally display surname as the first name. This way, you can achieve the smart contact retrieval in a quick way. You don't have to scroll down to find your required contact. Moreover, whenever you add a new contact, the contacts backup automatically ensuring the integrity of contacts. 
 
@@ -8,7 +8,7 @@ It contains handy buttons for calling, or texting your relatives. All visible fi
 
 There is a lightweight dial pad at your service too, with smart suggestions.
 
-It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data. Contacts backup is a crucial thing thing in phone book keeping. This app provides with a smart contacts backup technology that sync the new and old contacts regularly to keep a backup of these numbers.
+It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data. Contacts backup is a crucial thing in phone book keeping. This app comes with a smart contacts backup technology that sync the new and old contacts regularly to keep a backup of these numbers.
 
 With this modern and stable phone number manager you can protect them by not sharing them with other apps, so you can keep them private.
 
@@ -19,8 +19,6 @@ This simple contact editor has many handy settings like showing phone numbers on
 To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected one.
 
 It comes with a modern dark theme by default, based on material design. 
-
-You can easily block phone numbers to avoid unwanted incoming calls. 
 
 To avoid showing potentially unwanted contacts, it has a powerful built in duplicate entry merger.
 
