@@ -1,4 +1,4 @@
-Una aplicació intel·ligent i lleugera de números de telèfon per gestionar els vostres contactes. Els contactes es poden emmagatzemar només al dispositiu mitjançant aquesta aplicació d'agenda de contactes i també es pot sincronitzar amb diferents mitjans. Aquesta agenda de números de telèfon de contactes us ajudarà a mantenir els contactes en un sol lloc sense la molèstia de fer una còpia de seguretat, ja que la còpia de seguretat dels contactes sempre estarà sincronitzada amb els contactes que afegiu. Aquesta aplicació estalvia espai i és eficaç quan heu de fer una còpia de seguretat dels contactes i mantenir una agenda intel·ligent que us ajudarà a ordenar els contactes.
+Una aplicació lleugera i intel·ligent per gestionar els vostres contactes. Els contactes es poden emmagatzemar tant al dispositiu com també es poden sincronitzar per diferents mitjans. Aquesta agenda de números de telèfon de contactes us ajudarà a mantenir els contactes en un sol lloc sense la molèstia de fer una còpia de seguretat, ja que la còpia de seguretat dels contactes sempre estarà sincronitzada amb els contactes que afegiu. Aquesta aplicació estalvia espai i és eficaç quan heu de fer una còpia de seguretat dels contactes i mantenir una agenda intel·ligent que us ajudarà a ordenar els contactes.
 
 També podeu utilitzar-la per gestionar els correus electrònics i els esdeveniments de l'usuari. Té la capacitat d'ordenar/filtrar per múltiples paràmetres, opcionalment mostra el cognom com a nom. D'aquesta manera, podeu aconseguir la recuperació intel·ligent de contactes d'una manera ràpida. No cal que us desplaceu cap avall per trobar el contacte necessari. A més, sempre que afegiu un contacte nou, la còpia de seguretat dels contactes garanteix automàticament la seva integritat.
 
@@ -19,8 +19,6 @@ Aquest editor senzill de contactes té molts paràmetres útils, com ara mostrar
 Per millorar encara més l'experiència de l'usuari, podeu personalitzar què passa en fer clic a un contacte. Podeu iniciar una trucada, anar a la pantalla Mostra els detalls o editar el seleccionat.
 
 Ve amb un tema fosc modern per defecte, basat en el Material Design.
-
-Podeu bloquejar fàcilment els números de telèfon per evitar trucades entrants no desitjades.
 
 Per evitar que es mostrin contactes potencialment no desitjats, té una fusió integrada potent d'entrada duplicada.
 
