@@ -6,8 +6,6 @@ Możesz wyświetlić swoje ulubione kontakty lub grupy na osobnej liście. Grupy
 
 Aplikacja zawiera przydatne przyciski do dzwonienia lub wysyłania wiadomości tekstowych do Twoich krewnych. Wszystkie widoczne pola można dowolnie dostosowywać, a nieużywane łatwo ukryć. Funkcja wyszukiwania przeszuka podany ciąg w każdym widocznym polu kontaktu, aby łatwo znaleźć żądany kontakt.
 
-Do Twojej dyspozycji jest również lekki panel wybierania z inteligentnymi sugestiami kontaktów.
-
 Aplikacja obsługuje eksportowanie/importowanie kontaktów w formacie vCard do plików .vcf, co ułatwia migrację lub tworzenie kopii zapasowych Twoich danych. Kopia zapasowa jest istotną rzeczą przy prowadzeniu książki telefonicznej. Ta aplikacja posiada technologię inteligentnych kopii zapasowych kontaktów, która regularnie synchronizuje nowe i stare kontakty, aby utrzymywać kopie zapasowe tych numerów.
 
 Dzięki temu nowoczesnemu i stabilnemu menedżerowi kontaktów możesz chronić swoje kontakty, nie udostępniając ich innym aplikacjom, tym samym zachowując ich prywatność.
