@@ -6,8 +6,6 @@ Pot mostrar les persones o grups preferits en una llista separada. Els grups es 
 
 Té botons per trucar o enviar missatges de text a la família. Tots els camps visibles es poden personalitzar com vulgueu, podeu amagar fàcilment els que no feu servir. La funció de cerca cercarà la cadena donada a tots els camps visibles de persona perquè trobeu fàcilment el que vulgueu.
 
-També hi ha un teclat de marcatge lleuger al vostre servei, amb suggeriments intel·ligents.
-
 Admet l'exportació/importació de contactes en format vCard a fitxers .vcf, per facilitar les migracions o fer una còpia de seguretat de les dades. La còpia de seguretat dels contactes és quelcom crucial en el manteniment de l'agenda telefònica. Aquesta aplicació proporciona una tecnologia de còpia de seguretat de contactes que regularment sincronitza els contactes nous i antics per mantenir una còpia de seguretat d'aquests números.
 
 Amb aquest gestor modern i estable de números de telèfon, els podeu protegir sense compartint-los amb cap altra aplicació, de manera que es mantindran privats.
@@ -18,11 +16,11 @@ Aquest editor senzill de contactes té molts paràmetres útils, com ara mostrar
 
 Per millorar encara més l'experiència de l'usuari, podeu personalitzar què passa en fer clic a un contacte. Podeu iniciar una trucada, anar a la pantalla Mostra els detalls o editar el seleccionat.
 
-Ve amb un tema fosc modern per defecte, basat en el Material Design.
-
 Per evitar que es mostrin contactes potencialment no desitjats, té una fusió integrada potent d'entrada duplicada.
 
-No conté anuncis ni permisos innecessaris. És totalment de codi obert, proporciona colors personalitzables.
+De manera predeterminada, inclou el «material design» i un tema fosc, proporciona una gran experiència d'usuari per a un ús fàcil. La manca d'accés a Internet us ofereix més privadesa, seguretat i estabilitat que altres aplicacions.
+
+No conté anuncis ni permisos innecessaris. El codi font de la càmera és totalment obert, proporciona colors personalitzables.
 
 Consulteu el conjunt complet d'eines simples aquí:
 https://www.simplemobiletools.com
