@@ -15,7 +15,6 @@
         android:minHeight="@dimen/min_row_height"
         android:paddingStart="@dimen/tiny_margin"
         android:paddingTop="@dimen/medium_margin"
-        android:paddingEnd="@dimen/activity_margin"
         android:paddingBottom="@dimen/medium_margin">
 
         <ImageView
@@ -47,6 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:background="@null"
             android:layout_centerVertical="true"
             android:clickable="false"
             android:gravity="center_vertical" />

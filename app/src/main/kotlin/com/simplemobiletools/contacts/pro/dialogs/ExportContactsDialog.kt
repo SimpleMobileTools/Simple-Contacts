@@ -30,17 +30,17 @@ class ExportContactsDialog(
 
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_export_contacts, null) as ViewGroup).apply {
-            export_contacts_folder.text = activity.humanizePath(realPath)
+            export_contacts_folder.setText(activity.humanizePath(realPath))
             export_contacts_filename.setText("contacts_${activity.getCurrentFormattedDateTime()}")
 
             if (hidePath) {
-                export_contacts_folder_label.beGone()
+                export_contacts_folder_hint.beGone()
                 export_contacts_folder.beGone()
             } else {
                 export_contacts_folder.setOnClickListener {
                     activity.hideKeyboard(export_contacts_filename)
                     FilePickerDialog(activity, realPath, false, showFAB = true) {
-                        export_contacts_folder.text = activity.humanizePath(it)
+                        export_contacts_folder.setText(activity.humanizePath(it))
                         realPath = it
                     }
                 }

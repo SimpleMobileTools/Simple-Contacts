@@ -36,7 +36,9 @@ class SelectContactsDialog(
         }
 
         // if selecting multiple contacts is disabled, react on first contact click and dismiss the dialog
-        val contactClickCallback: ((Contact) -> Unit)? = if (allowSelectMultiple) null else { contact ->
+        val contactClickCallback: ((Contact) -> Unit)? = if (allowSelectMultiple) {
+            null
+        } else { contact ->
             callback(arrayListOf(contact), arrayListOf())
             dialog!!.dismiss()
         }

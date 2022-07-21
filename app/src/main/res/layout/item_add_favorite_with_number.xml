@@ -15,7 +15,6 @@
         android:minHeight="@dimen/min_row_height"
         android:paddingStart="@dimen/tiny_margin"
         android:paddingTop="@dimen/normal_margin"
-        android:paddingEnd="@dimen/activity_margin"
         android:paddingBottom="@dimen/normal_margin">
 
         <ImageView
@@ -49,8 +48,8 @@
             android:layout_toStartOf="@+id/contact_checkbox"
             android:layout_toEndOf="@+id/contact_tmb"
             android:alpha="0.6"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             android:paddingStart="@dimen/medium_margin"
             android:paddingEnd="@dimen/activity_margin"
             android:textSize="@dimen/bigger_text_size"
@@ -62,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:background="@null"
             android:clickable="false"
             android:gravity="center_vertical" />
 

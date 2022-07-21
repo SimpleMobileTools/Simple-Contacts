@@ -351,6 +351,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         view_pager.onGlobalLayout {
             refreshContacts(ALL_TABS_MASK)
+            refreshMenuItems()
         }
 
         if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
