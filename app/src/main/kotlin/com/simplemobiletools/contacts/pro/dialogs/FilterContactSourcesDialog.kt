@@ -1,6 +1,7 @@
 package com.simplemobiletools.contacts.pro.dialogs
 
 import androidx.appcompat.app.AlertDialog
+import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
@@ -58,11 +59,13 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
             view.filter_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, contactSourcesWithCount, selectedSources)
 
             if (dialog == null) {
-                dialog = AlertDialog.Builder(activity)
+                activity.getAlertDialogBuilder()
                     .setPositiveButton(R.string.ok) { dialogInterface, i -> confirmContactSources() }
                     .setNegativeButton(R.string.cancel, null)
-                    .create().apply {
-                        activity.setupDialogStuff(view, this)
+                    .apply {
+                        activity.setupDialogStuff(view, this) { alertDialog ->
+                            dialog = alertDialog
+                        }
                     }
             }
         }

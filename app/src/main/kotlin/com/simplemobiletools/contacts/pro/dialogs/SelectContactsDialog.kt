@@ -57,14 +57,16 @@ class SelectContactsDialog(
 
         setupFastscroller(allContacts)
 
-        val builder = AlertDialog.Builder(activity)
+        val builder = activity.getAlertDialogBuilder()
         if (allowSelectMultiple) {
             builder.setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
         }
         builder.setNegativeButton(R.string.cancel, null)
 
-        dialog = builder.create().apply {
-            activity.setupDialogStuff(view, this)
+        builder.apply {
+            activity.setupDialogStuff(view, this) { alertDialog ->
+                dialog = alertDialog
+            }
         }
     }
 

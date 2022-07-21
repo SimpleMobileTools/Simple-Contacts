@@ -1,36 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_holder"
+    android:id="@+id/main_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.simplemobiletools.commons.views.MyViewPager
-        android:id="@+id/view_pager"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/main_app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_primary"
+            app:menu="@menu/menu"
+            app:title="@string/app_launcher_name"
+            app:titleTextAppearance="@style/AppTheme.ActionBar.TitleTextStyle" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/main_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/main_tabs_holder" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <ImageView
-        android:id="@+id/main_dialpad_button"
-        android:layout_width="@dimen/dialpad_button_size"
-        android:layout_height="@dimen/dialpad_button_size"
-        android:layout_above="@+id/main_tabs_holder"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/activity_margin"
-        android:background="@drawable/circle_background"
-        android:contentDescription="@string/dialpad"
-        android:elevation="@dimen/medium_margin"
-        android:padding="@dimen/activity_margin"
-        android:src="@drawable/ic_dialpad_vector" />
+        <com.simplemobiletools.commons.views.MyViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/main_tabs_holder" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/main_tabs_holder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:tabIndicator="@null"
-        app:tabMinWidth="150dp"
-        app:tabRippleColor="@null" />
+        <ImageView
+            android:id="@+id/main_dialpad_button"
+            android:layout_width="@dimen/dialpad_button_size"
+            android:layout_height="@dimen/dialpad_button_size"
+            android:layout_above="@+id/main_tabs_holder"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:background="@drawable/circle_background"
+            android:contentDescription="@string/dialpad"
+            android:elevation="@dimen/medium_margin"
+            android:padding="@dimen/activity_margin"
+            android:src="@drawable/ic_dialpad_vector" />
 
-</RelativeLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/main_tabs_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:tabIndicator="@null"
+            app:tabMinWidth="150dp"
+            app:tabRippleColor="@null" />
+
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

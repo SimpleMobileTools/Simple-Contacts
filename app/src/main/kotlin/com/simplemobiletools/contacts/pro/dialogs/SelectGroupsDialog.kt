@@ -2,10 +2,7 @@ package com.simplemobiletools.contacts.pro.dialogs
 
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import com.simplemobiletools.commons.extensions.getProperBackgroundColor
-import com.simplemobiletools.commons.extensions.getProperPrimaryColor
-import com.simplemobiletools.commons.extensions.getProperTextColor
-import com.simplemobiletools.commons.extensions.setupDialogStuff
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
@@ -39,11 +36,13 @@ class SelectGroupsDialog(val activity: SimpleActivity, val selectedGroups: Array
 
         addCreateNewGroupButton()
 
-        dialog = AlertDialog.Builder(activity)
+        activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
             .setNegativeButton(R.string.cancel, null)
-            .create().apply {
-                activity.setupDialogStuff(view, this)
+            .apply {
+                activity.setupDialogStuff(view, this) { alertDialog ->
+                    dialog = alertDialog
+                }
             }
     }
 

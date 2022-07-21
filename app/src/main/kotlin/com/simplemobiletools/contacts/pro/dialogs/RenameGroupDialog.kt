@@ -17,39 +17,39 @@ class RenameGroupDialog(val activity: BaseSimpleActivity, val group: Group, val 
             rename_group_title.setText(group.title)
         }
 
-        AlertDialog.Builder(activity)
-                .setPositiveButton(R.string.ok, null)
-                .setNegativeButton(R.string.cancel, null)
-                .create().apply {
-                    activity.setupDialogStuff(view, this, R.string.rename) {
-                        showKeyboard(view.rename_group_title)
-                        getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                            val newTitle = view.rename_group_title.value
-                            if (newTitle.isEmpty()) {
-                                activity.toast(R.string.empty_name)
-                                return@setOnClickListener
-                            }
+        activity.getAlertDialogBuilder()
+            .setPositiveButton(R.string.ok, null)
+            .setNegativeButton(R.string.cancel, null)
+            .apply {
+                activity.setupDialogStuff(view, this, R.string.rename) { alertDialog ->
+                    alertDialog.showKeyboard(view.rename_group_title)
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                        val newTitle = view.rename_group_title.value
+                        if (newTitle.isEmpty()) {
+                            activity.toast(R.string.empty_name)
+                            return@setOnClickListener
+                        }
 
-                            if (!newTitle.isAValidFilename()) {
-                                activity.toast(R.string.invalid_name)
-                                return@setOnClickListener
-                            }
+                        if (!newTitle.isAValidFilename()) {
+                            activity.toast(R.string.invalid_name)
+                            return@setOnClickListener
+                        }
 
-                            group.title = newTitle
-                            group.contactsCount = 0
-                            ensureBackgroundThread {
-                                if (group.isPrivateSecretGroup()) {
-                                    activity.groupsDB.insertOrUpdate(group)
-                                } else {
-                                    ContactsHelper(activity).renameGroup(group)
-                                }
-                                activity.runOnUiThread {
-                                    callback()
-                                    dismiss()
-                                }
+                        group.title = newTitle
+                        group.contactsCount = 0
+                        ensureBackgroundThread {
+                            if (group.isPrivateSecretGroup()) {
+                                activity.groupsDB.insertOrUpdate(group)
+                            } else {
+                                ContactsHelper(activity).renameGroup(group)
+                            }
+                            activity.runOnUiThread {
+                                callback()
+                                alertDialog.dismiss()
                             }
                         }
                     }
                 }
+            }
     }
 }

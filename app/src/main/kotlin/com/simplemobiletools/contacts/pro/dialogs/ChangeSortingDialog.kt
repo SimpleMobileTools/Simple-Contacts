@@ -1,8 +1,8 @@
 package com.simplemobiletools.contacts.pro.dialogs
 
-import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.beGoneIf
+import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
@@ -15,10 +15,10 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val showCust
     private var view = activity.layoutInflater.inflate(R.layout.dialog_change_sorting, null)
 
     init {
-        AlertDialog.Builder(activity)
+        activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
             .setNegativeButton(R.string.cancel, null)
-            .create().apply {
+            .apply {
                 activity.setupDialogStuff(view, this, R.string.sort_by)
             }
 

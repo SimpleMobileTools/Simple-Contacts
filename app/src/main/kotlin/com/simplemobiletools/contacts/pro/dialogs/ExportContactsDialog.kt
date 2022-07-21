@@ -59,12 +59,12 @@ class ExportContactsDialog(
             }
         }
 
-        AlertDialog.Builder(activity)
+        activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok, null)
             .setNegativeButton(R.string.cancel, null)
-            .create().apply {
-                activity.setupDialogStuff(view, this, R.string.export_contacts) {
-                    getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            .apply {
+                activity.setupDialogStuff(view, this, R.string.export_contacts) { alertDialog ->
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                         if (view.export_contacts_list.adapter == null || ignoreClicks) {
                             return@setOnClickListener
                         }
@@ -88,7 +88,7 @@ class ExportContactsDialog(
                                         .map { it.getFullIdentifier() }
                                         .toHashSet()
                                     callback(file, ignoredSources)
-                                    dismiss()
+                                    alertDialog.dismiss()
                                 }
                             }
                             else -> activity.toast(R.string.invalid_name)

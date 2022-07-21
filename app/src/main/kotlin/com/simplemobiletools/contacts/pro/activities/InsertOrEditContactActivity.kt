@@ -235,7 +235,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
             updateBottomTabItemColors(inactiveView, false)
         }
 
-        val bottomBarColor = getBottomTabsBackgroundColor()
+        val bottomBarColor = getBottomNavigationBackgroundColor()
         insert_or_edit_tabs_holder.setBackgroundColor(bottomBarColor)
         updateNavigationBarColor(bottomBarColor)
     }

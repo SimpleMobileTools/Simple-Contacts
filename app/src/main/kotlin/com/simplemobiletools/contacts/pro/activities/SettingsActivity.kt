@@ -24,6 +24,7 @@ class SettingsActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
+        setupToolbar(settings_toolbar, NavigationIcon.Arrow)
 
         setupCustomizeColors()
         setupManageShownContactFields()
@@ -41,7 +42,6 @@ class SettingsActivity : SimpleActivity() {
         setupOnContactClick()
         setupDefaultTab()
         updateTextColors(settings_holder)
-        invalidateOptionsMenu()
 
         arrayOf(settings_color_customization_label, settings_general_settings_label, settings_main_screen_label, settings_list_view_label).forEach {
             it.setTextColor(getProperPrimaryColor())

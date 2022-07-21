@@ -6,6 +6,7 @@ import android.widget.RadioGroup
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.extensions.beGone
+import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.getPackageDrawable
@@ -38,10 +39,12 @@ class ChooseSocialDialog(val activity: Activity, actions: ArrayList<SocialAction
             view.dialog_choose_social.addView(item, RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
         }
 
-        val builder = AlertDialog.Builder(activity)
+        val builder = activity.getAlertDialogBuilder()
 
-        dialog = builder.create().apply {
-            activity.setupDialogStuff(view, this)
+        builder.apply {
+            activity.setupDialogStuff(view, this) { alertDialog ->
+                dialog = alertDialog
+            }
         }
     }
 }

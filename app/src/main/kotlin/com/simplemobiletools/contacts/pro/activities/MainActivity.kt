@@ -75,7 +75,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
-
+        setupOptionsMenu()
+        refreshMenuItems()
         storeStateVariables()
         setupTabs()
         checkContactPermissions()
@@ -125,6 +126,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         setupTabColors()
+        setupToolbar(main_toolbar, searchMenuItem = searchMenuItem)
 
         val configStartNameWithSurname = config.startNameWithSurname
         if (storedStartNameWithSurname != configStartNameWithSurname) {
@@ -171,35 +173,30 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
+    private fun refreshMenuItems() {
         val currentFragment = getCurrentFragment()
-
-        menu.apply {
+        main_toolbar.menu.apply {
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
             findItem(R.id.dialpad).isVisible = !config.showDialpadButton
-
-            setupSearch(this)
-            updateMenuItemColors(this)
         }
-
-        return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when (item.itemId) {
-            R.id.sort -> showSortingDialog(showCustomSorting = getCurrentFragment() is FavoritesFragment)
-            R.id.filter -> showFilterDialog()
-            R.id.dialpad -> launchDialpad()
-            R.id.import_contacts -> tryImportContacts()
-            R.id.export_contacts -> tryExportContacts()
-            R.id.settings -> launchSettings()
-            R.id.about -> launchAbout()
-            else -> return super.onOptionsItemSelected(item)
+    private fun setupOptionsMenu() {
+        setupSearch(main_toolbar.menu)
+        main_toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.sort -> showSortingDialog(showCustomSorting = getCurrentFragment() is FavoritesFragment)
+                R.id.filter -> showFilterDialog()
+                R.id.dialpad -> launchDialpad()
+                R.id.import_contacts -> tryImportContacts()
+                R.id.export_contacts -> tryExportContacts()
+                R.id.settings -> launchSettings()
+                R.id.about -> launchAbout()
+                else -> return@setOnMenuItemClickListener false
+            }
+            return@setOnMenuItemClickListener true
         }
-        return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
@@ -329,7 +326,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             updateBottomTabItemColors(inactiveView, false)
         }
 
-        val bottomBarColor = getBottomTabsBackgroundColor()
+        val bottomBarColor = getBottomNavigationBackgroundColor()
         main_tabs_holder.setBackgroundColor(bottomBarColor)
         updateNavigationBarColor(bottomBarColor)
     }
@@ -348,7 +345,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 getAllFragments().forEach {
                     it?.finishActMode()
                 }
-                invalidateOptionsMenu()
+                refreshMenuItems()
             }
         })
 
