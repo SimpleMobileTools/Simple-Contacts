@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.dialog_rename_group.view.*
 
 class RenameGroupDialog(val activity: BaseSimpleActivity, val group: Group, val callback: () -> Unit) {
     init {
-
         val view = activity.layoutInflater.inflate(R.layout.dialog_rename_group, null).apply {
             rename_group_title.setText(group.title)
         }
