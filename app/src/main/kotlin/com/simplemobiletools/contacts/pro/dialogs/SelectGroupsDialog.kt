@@ -6,7 +6,6 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
-import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.models.Group
 import kotlinx.android.synthetic.main.dialog_select_groups.view.*
@@ -17,7 +16,6 @@ class SelectGroupsDialog(val activity: SimpleActivity, val selectedGroups: Array
     private val view = activity.layoutInflater.inflate(R.layout.dialog_select_groups, null) as ViewGroup
     private val checkboxes = ArrayList<MyAppCompatCheckbox>()
     private var groups = ArrayList<Group>()
-    private val config = activity.config
     private var dialog: AlertDialog? = null
 
     init {
