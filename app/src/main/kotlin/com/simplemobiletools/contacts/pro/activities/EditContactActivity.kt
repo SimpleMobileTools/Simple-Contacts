@@ -16,7 +16,6 @@ import android.provider.MediaStore
 import android.telephony.PhoneNumberUtils
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -109,10 +108,6 @@ class EditContactActivity : ContactActivity() {
             }
         } else {
             initContact()
-        }
-
-        if (isRPlus()) {
-            window.insetsController?.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
         }
     }
 
