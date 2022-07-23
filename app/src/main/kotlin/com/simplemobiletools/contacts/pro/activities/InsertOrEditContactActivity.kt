@@ -53,6 +53,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insert_edit_contact)
+        setupOptionsMenu()
         isSelectContactIntent = intent.action == Intent.ACTION_PICK
 
         if (isSelectContactIntent) {
@@ -89,6 +90,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     override fun onResume() {
         super.onResume()
         setupTabColors()
+        setupToolbar(insert_edit_toolbar, NavigationIcon.None, searchMenuItem = searchMenuItem)
     }
 
     override fun onStop() {
@@ -96,20 +98,16 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         searchMenuItem?.collapseActionView()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_insert_or_edit, menu)
-        setupSearch(menu)
-        updateMenuItemColors(menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.sort -> showSortingDialog()
-            R.id.filter -> showFilterDialog()
-            else -> return super.onOptionsItemSelected(item)
+    private fun setupOptionsMenu() {
+        setupSearch(insert_edit_toolbar.menu)
+        insert_edit_toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.sort -> showSortingDialog()
+                R.id.filter -> showFilterDialog()
+                else -> return@setOnMenuItemClickListener false
+            }
+            return@setOnMenuItemClickListener true
         }
-        return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
@@ -122,18 +120,15 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun initFragments() {
         view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-                if (isSearchOpen) {
-                    getCurrentFragment()?.onSearchQueryChanged("")
-                    searchMenuItem?.collapseActionView()
-                }
-            }
+            override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
                 insert_or_edit_tabs_holder.getTabAt(position)?.select()
-                invalidateOptionsMenu()
+                getAllFragments().forEach {
+                    it?.finishActMode()
+                }
             }
         })
 

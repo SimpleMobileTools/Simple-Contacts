@@ -5,62 +5,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/group_contacts_wrapper"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/settings_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.simplemobiletools.commons.views.MyTextView
-            android:id="@+id/group_contacts_placeholder"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/group_contacts_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:alpha="0.8"
-            android:gravity="center"
-            android:paddingStart="@dimen/activity_margin"
-            android:paddingTop="@dimen/activity_margin"
-            android:paddingEnd="@dimen/activity_margin"
-            android:text="@string/no_group_participants"
-            android:textSize="@dimen/bigger_text_size"
-            android:textStyle="italic"
-            android:visibility="gone" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_primary"
+            app:menu="@menu/menu_group"
+            app:title=""
+            app:titleTextAppearance="@style/AppTheme.ActionBar.TitleTextStyle" />
 
-        <com.simplemobiletools.commons.views.MyTextView
-            android:id="@+id/group_contacts_placeholder_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/group_contacts_placeholder"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/ripple_all_corners"
-            android:gravity="center"
-            android:padding="@dimen/activity_margin"
-            android:text="@string/add_contacts"
-            android:textSize="@dimen/bigger_text_size"
-            android:visibility="gone" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
-            android:id="@+id/group_contacts_fastscroller"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/group_contacts_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:id="@+id/group_contacts_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.simplemobiletools.commons.views.MyRecyclerView
-                android:id="@+id/group_contacts_list"
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/group_contacts_placeholder"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:layoutAnimation="@anim/layout_animation"
-                android:scrollbars="none"
-                app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:alpha="0.8"
+                android:gravity="center"
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingTop="@dimen/activity_margin"
+                android:paddingEnd="@dimen/activity_margin"
+                android:text="@string/no_group_participants"
+                android:textSize="@dimen/bigger_text_size"
+                android:textStyle="italic"
+                android:visibility="gone" />
 
-        </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
-    </RelativeLayout>
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/group_contacts_placeholder_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/group_contacts_placeholder"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/ripple_all_corners"
+                android:gravity="center"
+                android:padding="@dimen/activity_margin"
+                android:text="@string/add_contacts"
+                android:textSize="@dimen/bigger_text_size"
+                android:visibility="gone" />
 
-    <com.simplemobiletools.commons.views.MyFloatingActionButton
-        android:id="@+id/group_contacts_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/activity_margin"
-        android:src="@drawable/ic_plus_vector" />
+            <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
+                android:id="@+id/group_contacts_fastscroller"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <com.simplemobiletools.commons.views.MyRecyclerView
+                    android:id="@+id/group_contacts_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:layoutAnimation="@anim/layout_animation"
+                    android:scrollbars="none"
+                    app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
+
+            </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
+        </RelativeLayout>
+
+        <com.simplemobiletools.commons.views.MyFloatingActionButton
+            android:id="@+id/group_contacts_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/activity_margin"
+            android:src="@drawable/ic_plus_vector" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

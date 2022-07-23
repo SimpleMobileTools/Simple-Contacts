@@ -1,70 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/insert_edit_contact_holder"
+    android:id="@+id/insert_edit_coordinator"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/insert_edit_app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/insert_edit_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_primary"
+            app:menu="@menu/menu_insert_or_edit"
+            app:title="@string/select_contact"
+            app:titleTextAppearance="@style/AppTheme.ActionBar.TitleTextStyle" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
-        android:id="@+id/new_contact_holder"
+        android:id="@+id/insert_edit_contact_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:paddingTop="@dimen/medium_margin"
-        android:paddingEnd="@dimen/activity_margin"
-        android:paddingBottom="@dimen/medium_margin"
-        android:visibility="gone">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ImageView
-            android:id="@+id/new_contact_tmb"
-            android:layout_width="@dimen/normal_icon_size"
-            android:layout_height="@dimen/normal_icon_size"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/medium_margin"
-            android:src="@drawable/ic_add_person_vector" />
-
-        <com.simplemobiletools.commons.views.MyTextView
-            android:id="@+id/new_contact_name"
+        <RelativeLayout
+            android:id="@+id/new_contact_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/new_contact_tmb"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:paddingStart="@dimen/small_margin"
-            android:text="@string/create_new_contact"
-            android:textSize="@dimen/big_text_size" />
+            android:background="?attr/selectableItemBackground"
+            android:paddingTop="@dimen/medium_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingBottom="@dimen/medium_margin"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/new_contact_tmb"
+                android:layout_width="@dimen/normal_icon_size"
+                android:layout_height="@dimen/normal_icon_size"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/medium_margin"
+                android:src="@drawable/ic_add_person_vector" />
+
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/new_contact_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/new_contact_tmb"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingStart="@dimen/small_margin"
+                android:text="@string/create_new_contact"
+                android:textSize="@dimen/big_text_size" />
+
+        </RelativeLayout>
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/select_contact_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/new_contact_holder"
+            android:layout_marginStart="@dimen/bigger_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:text="@string/add_to_existing_contact"
+            android:textAllCaps="true"
+            android:textSize="@dimen/smaller_text_size"
+            android:visibility="gone" />
+
+        <com.simplemobiletools.commons.views.MyViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/insert_or_edit_tabs_holder"
+            android:layout_below="@+id/select_contact_label" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/insert_or_edit_tabs_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:tabIndicator="@null"
+            app:tabMinWidth="150dp"
+            app:tabRippleColor="@null" />
 
     </RelativeLayout>
-
-    <com.simplemobiletools.commons.views.MyTextView
-        android:id="@+id/select_contact_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/new_contact_holder"
-        android:layout_marginStart="@dimen/bigger_margin"
-        android:layout_marginTop="@dimen/small_margin"
-        android:layout_marginBottom="@dimen/activity_margin"
-        android:text="@string/add_to_existing_contact"
-        android:textAllCaps="true"
-        android:textSize="@dimen/smaller_text_size"
-        android:visibility="gone" />
-
-    <com.simplemobiletools.commons.views.MyViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/insert_or_edit_tabs_holder"
-        android:layout_below="@+id/select_contact_label" />
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/insert_or_edit_tabs_holder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:tabIndicator="@null"
-        app:tabMinWidth="150dp"
-        app:tabRippleColor="@null" />
-
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
