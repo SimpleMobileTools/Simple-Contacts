@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.20.0 *(2022-07-23)*
+----------------------------
+
+ * Adding some materialish redesign, especially in System default theme
+ * Added some stability, translation and UX improvements
+
 Version 6.19.1 *(2022-06-26)*
 ----------------------------
 
