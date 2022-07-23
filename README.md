@@ -9,8 +9,6 @@ You can display your favorite people or groups on a separate list. Groups can be
 
 It contains handy buttons for calling, or texting your relatives. All visible fields can be customized as you wish, you can easily hide the unused ones. The search function will search the given string at every visible persons field, to make you find your desired one easily.
 
-There is a lightweight dial pad at your service too, with smart suggestions.
-
 It supports exporting/importing contacts in vCard format to .vcf files, for easy migrations or backing up your data. Contacts backup is a crucial thing in phone book keeping. This app comes with a smart contacts backup technology that sync the new and old contacts regularly to keep a backup of these numbers.
 
 With this modern and stable phone number manager you can protect them by not sharing them with other apps, so you can keep them private.
@@ -21,11 +19,11 @@ This simple contact editor has many handy settings like showing phone numbers on
 
 To further improve the user experience, you can customize what happens at clicking on a contact. You can either initiate a call, go to the View Details screen, or edit the selected one.
 
-It comes with a modern dark theme by default, based on material design. 
-
 To avoid showing potentially unwanted contacts, it has a powerful built in duplicate entry merger.
 
-Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+
+Contains no ads or unnecessary permissions. It is fully open camera source, provides customizable colors.
 
 Check out the full suite of Simple Tools here:  
 https://www.simplemobiletools.com
