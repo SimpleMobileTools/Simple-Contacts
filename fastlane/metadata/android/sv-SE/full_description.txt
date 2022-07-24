@@ -2,12 +2,21 @@ En enkel app för att skapa och hantera kontakter från olika källor. Kontakter
 
 Du kan också använda den för att hantera dina kontakters e-postadresser och händelser. Den kan sortera och filtrera efter flera parametrar. Den kan också visa efternamn först.
 
+Den levereras med Material Design och mörkt tema som standard, och ger en bra användarupplevelse för enkel användning. Avsaknaden av internetåtkomst ger dig mer integritet, säkerhet och stabilitet än andra appar.
+
 Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och anpassningsbara färger.
 
-<b>Check out the full suite of Simple Tools here:</b>
+Kolla in hela uppsättningen enkla verktyg här:
 https://www.simplemobiletools.com
 
-<b>Standalone website of Simple Contacts Pro:</b>
+Fristående webbplats för Simple Contacts Pro:
 https://www.simplemobiletools.com/contacts
 
-Don't forget that if you uninstall any paid app within 2 hours, you will automatically be refunded. If you want a refund anytime later, just contact us at hello@simplemobiletools.com and you will get it. That makes it easy to try it out :)
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
