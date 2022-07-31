@@ -69,7 +69,7 @@
     <string name="include_contact_sources">Incluir fonte dos contactos</string>
     <string name="filename_without_vcf">Nome do ficheiro (sem .vcf)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Marcador</string>
+    <string name="dialpad">Teclado de discagem</string>
     <string name="add_number_to_contact">Adicionar a um contacto existente</string>
     <!-- Visible fields -->
     <string name="prefix">Prefixo</string>
