@@ -58,7 +58,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private val PICK_EXPORT_FILE_INTENT = 2
 
     private var isSearchOpen = false
-    private var searchMenuItem: MenuItem? = null
+    private var mSearchMenuItem: MenuItem? = null
     private var searchQuery = ""
     private var werePermissionsHandled = false
     private var isFirstResume = true
@@ -126,7 +126,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         setupTabColors()
-        setupToolbar(main_toolbar, searchMenuItem = searchMenuItem)
+        setupToolbar(main_toolbar, searchMenuItem = mSearchMenuItem)
 
         val configStartNameWithSurname = config.startNameWithSurname
         if (storedStartNameWithSurname != configStartNameWithSurname) {
@@ -213,6 +213,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
+    override fun onBackPressed() {
+        if (isSearchOpen && mSearchMenuItem != null) {
+            mSearchMenuItem!!.collapseActionView()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun storeStateVariables() {
         config.apply {
             storedShowContactThumbnails = showContactThumbnails
@@ -225,8 +233,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun setupSearch(menu: Menu) {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchMenuItem = menu.findItem(R.id.search)
-        (searchMenuItem!!.actionView as SearchView).apply {
+        mSearchMenuItem = menu.findItem(R.id.search)
+        (mSearchMenuItem!!.actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isSubmitButtonEnabled = false
             queryHint = getString(getSearchString())
@@ -243,7 +251,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             })
         }
 
-        MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
+        MenuItemCompat.setOnActionExpandListener(mSearchMenuItem, object : MenuItemCompat.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 getCurrentFragment()?.onSearchOpened()
                 isSearchOpen = true
@@ -633,7 +641,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             getAllFragments().forEach {
                 it?.onSearchQueryChanged("")
             }
-            searchMenuItem?.collapseActionView()
+            mSearchMenuItem?.collapseActionView()
         }
     }
 

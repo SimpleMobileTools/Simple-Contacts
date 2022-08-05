@@ -1,7 +1,6 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.os.Bundle
-import android.view.Menu
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
@@ -55,11 +54,6 @@ class SettingsActivity : SimpleActivity() {
         ).forEach {
             it.background.applyColorFilter(getProperBackgroundColor().getContrastColor())
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        updateMenuItemColors(menu)
-        return super.onCreateOptionsMenu(menu)
     }
 
     private fun setupCustomizeColors() {
