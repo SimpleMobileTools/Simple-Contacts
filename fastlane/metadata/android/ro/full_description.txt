@@ -1,0 +1,36 @@
+O aplicație ușoară și inteligentă pentru gestionarea contactelor, apreciată de milioane de oameni. Contactele pot fi stocate fie doar pe dispozitiv, fie pot fi sincronizate prin diferite mijloace. Această agendă inteligentă de contacte cu număr de telefon vă va ajuta să vă păstrați contactele într-un singur loc, fără a vă deranja cu salvarea contactelor, deoarece salvarea contactelor este întotdeauna sincronizată cu contactele pe care le adăugați. Această aplicație este ușoară în spațiu și este eficientă atunci când trebuie să faceți o copie de rezervă a contactelor și să păstrați o agendă telefonică care vă va ajuta în păstrarea inteligentă a contactelor.
+
+O puteți utiliza și pentru gestionarea e-mailurilor și evenimentelor utilizatorilor. Are capacitatea de a sorta/filtra după mai mulți parametri, afișează opțional numele de familie ca prenume. În acest fel, puteți realiza recuperarea inteligentă a contactelor într-un mod rapid. Nu trebuie să derulați în jos pentru a găsi contactul dorit. În plus, ori de câte ori adăugați un nou contact, copia de rezervă a contactelor se face automat, asigurând integritatea contactelor. 
+
+Puteți afișa persoanele sau grupurile preferate pe o listă separată. Grupurile pot fi utilizate pentru trimiterea de e-mailuri sau SMS-uri în loturi, pentru a vă economisi timp, le puteți redenumi cu ușurință. Acum nu mai trebuie să păstrați o agendă telefonică! Doar creați un grup de contacte inteligente și trimiteți mesaje celor dragi.
+
+Conține butoane la îndemână pentru a vă suna, sau a le trimite mesaje rudelor dumneavoastră. Toate câmpurile vizibile pot fi personalizate după cum doriți, le puteți ascunde cu ușurință pe cele nefolosite. Funcția de căutare va căuta șirul dat în fiecare câmp vizibil de persoane, pentru a vă face să găsiți cu ușurință persoana dorită.
+
+Suportă exportul/importul contactelor în format vCard în fișiere .vcf, pentru migrări ușoare sau pentru salvarea datelor. Copierea de rezervă a contactelor este un lucru esențial în păstrarea agendei telefonice. Această aplicație vine cu o tehnologie inteligentă de salvare a contactelor, care sincronizează în mod regulat contactele noi și vechi pentru a păstra o copie de rezervă a acestor numere.
+
+Cu acest manager de numere de telefon modern și stabil puteți să le protejați prin faptul că nu le partajați cu alte aplicații, astfel încât să le păstrați private.
+
+La fel ca și sursa de contacte, le puteți schimba cu ușurință numele, e-mailul, numărul de telefon, adresa, organizația, grupurile și multe alte câmpuri personalizabile. Îl puteți utiliza și pentru stocarea evenimentelor de contact, cum ar fi zilele de naștere, aniversările sau orice alte evenimente personalizate.
+
+Acest editor simplu de contacte are multe setări practice, cum ar fi afișarea numerelor de telefon pe ecranul principal, comutarea vizibilității miniaturii contactelor, afișarea doar a contactelor cu numere de telefon, afișarea unui dialog de confirmare a apelului înainte de inițierea unui apel. Este prevăzut cu un apelator rapid care utilizează și literele.
+
+Pentru a îmbunătăți și mai mult experiența utilizatorului, puteți personaliza ceea ce se întâmplă la apăsarea unui contact. Puteți iniția un apel, puteți merge la ecranul View Details (Vizualizare detalii) sau îl puteți edita pe cel selectat.
+
+Vine cu design material și temă întunecată în mod implicit, oferă o experiență de utilizare excelentă pentru o utilizare ușoară. Lipsa accesului la internet vă oferă mai multă intimitate, securitate și stabilitate decât alte aplicații.
+
+Nu conține reclame sau permisiuni inutile. Este o sursă de cameră complet deschisă, oferă culori personalizabile.
+
+Consultați suita completă de instrumente simple aici:
+https://www.simplemobiletools.com
+
+Site-ul independent al Simple Contacts Pro:
+https://www.simplemobiletools.com/contacts
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
