@@ -1,29 +1,31 @@
-Um aplicativo de contato inteligente de número de telefone leve para gerenciar seus contatos amados por milhões de pessoas. Os contatos podem ser armazenados em seu dispositivo apenas por meio deste aplicativo de agenda de contatos inteligente e também podem ser sincronizados por diferentes meios. Esta lista telefônica de contato inteligente com número de telefone o ajudará a manter seus contatos em um só lugar sem o incômodo de fazer backup de seus contatos, pois o backup de contatos está sempre em sincronia com os contatos que você adicionar. Este aplicativo é leve e é eficaz quando você precisa fazer backup de contatos e manter uma lista telefônica que o ajudará a manter contatos inteligentes.
+Uma aplicação de contacto inteligente e leve para gerir os seus contactos amados por milhões de pessoas. Os contactos podem ser armazenados apenas no seu dispositivo, ou podem também ser sincronizados por diferentes meios. Este número de telefone da lista telefónica inteligente de contactos ajudá-lo-á a manter os seus contactos num único local sem o incómodo de fazer cópias de segurança dos seus contactos, pois as cópias de segurança dos contactos estão sempre em sincronia com os contactos que adiciona. Esta aplicação é eficaz quando tem de fazer cópias de segurança dos seus contactos e manter uma lista telefónica que o ajudará na manutenção inteligente dos contactos.
 
-Você também pode usá-lo para gerenciar e-mails e eventos de usuários. Ele tem a capacidade de classificar / filtrar por vários parâmetros, opcionalmente exibir o sobrenome como o primeiro nome. Desta forma, você pode obter a recuperação de contatos inteligentes de forma rápida. Você não precisa rolar para baixo para encontrar o contato necessário. Além disso, sempre que você adiciona um novo contato, o backup dos contatos garante automaticamente a integridade dos contatos.
+Pode utilizá-la também para gerir e-mails e eventos dos utilizadores. Tem a capacidade de ordenar/filtrar por múltiplos parâmetros, opcionalmente exibir o apelido como o primeiro nome. Desta forma, pode conseguir a recuperação do contacto inteligente de uma forma rápida. Não tem de se deslocar para baixo para encontrar o seu contacto requerido. 
 
-Você pode exibir suas pessoas ou grupos favoritos em uma lista separada. Os grupos podem ser usados ​​para enviar e-mails em lote ou SMS, para economizar seu tempo, você pode renomeá-los facilmente. Você não precisa manter uma lista telefônica agora! Basta criar um grupo de contato inteligente e enviar mensagens para seus entes queridos.
+Pode exibir as suas pessoas ou grupos favoritos numa lista separada. Os grupos podem ser utilizados para o envio de emails em lote ou SMS, para lhe poupar algum tempo, pode renomeá-los facilmente. Não precisa de manter uma lista telefónica agora! Basta fazer um grupo de contacto inteligente e enviar mensagens aos seus entes queridos.
 
-Ele contém botões úteis para ligar ou enviar mensagens de texto para seus parentes. Todos os campos visíveis podem ser personalizados como desejar, você pode facilmente ocultar os não utilizados. A função de pesquisa irá pesquisar a string dada em cada campo de pessoas visíveis, para fazer com que você encontre facilmente o seu desejado.
+Contém botões úteis para telefonar, ou enviar mensagens de texto aos seus familiares. Todos os campos visíveis podem ser personalizados como desejar, pode facilmente esconder os não utilizados. A função de pesquisa irá pesquisar a cadeia dada em cada campo visível de pessoas, para que possa encontrar facilmente o campo desejado.
 
-Também existe um teclado de marcação leve ao seu dispor, com sugestões inteligentes.
+Suporta a exportação/importação de contactos em formato vCard para ficheiros .vcf, para migrações fáceis ou cópias de segurança dos seus dados. A cópia de segurança dos contactos é uma coisa crucial na manutenção da lista telefónica. Esta aplicação vem com uma tecnologia inteligente de backup de contactos que sincroniza regularmente os contactos novos e antigos para manter um backup destes números.
 
-Ele suporta a exportação / importação de contatos em formato vCard para arquivos .vcf, para facilitar migrações ou fazer backup de seus dados. O backup de contatos é um aspecto crucial na manutenção da agenda telefônica. Este aplicativo fornece uma tecnologia de backup de contatos inteligentes que sincroniza os contatos novos e antigos regularmente para manter um backup desses números.
+Com este moderno e estável gestor de números telefónicos pode protegê-los, não os partilhando com outras aplicações, para que os possa manter privados.
 
-Com este gerenciador de número de telefone moderno e estável, você pode protegê-los, não compartilhando-os com outros aplicativos, para mantê-los privados.
+Tal como a fonte de contactos, também pode facilmente alterar o seu nome, e-mail, número de telefone, morada, organização, grupos e muitos outros campos personalizáveis. Também pode utilizá-lo para armazenar eventos de contacto, como aniversários, aniversários, ou quaisquer outros personalizados.
 
-Assim como a fonte do contato, você também pode alterar facilmente seu nome, e-mail, número de telefone, endereço, organização, grupos e muitos outros campos personalizáveis. Você também pode usá-lo para armazenar eventos de contato, como aniversários, datas especiais ou qualquer outro evento personalizado.
+Este simples editor de contactos tem muitas definições úteis como mostrar números de telefone no ecrã principal, alternar a visibilidade das miniaturas de contactos, mostrar apenas contactos com números de telefone, mostrar um diálogo de confirmação de chamada antes de iniciar uma chamada. Vem com um marcador rápido que também faz uso de letras.
 
-Este editor de contatos simples tem muitas configurações úteis, como mostrar números de telefone na tela principal, alternar a visibilidade da miniatura do contato, mostrar apenas contatos com números de telefone, mostrar uma caixa de diálogo de confirmação de chamada antes de iniciar uma chamada. Vem com um discador rápido que também faz uso de letras.
+Para melhorar ainda mais a experiência do utilizador, é possível personalizar o que acontece ao clicar num contacto. Pode iniciar uma chamada, ir para o ecrã Ver Detalhes, ou editar a chamada seleccionada.
 
-Para melhorar ainda mais a experiência do usuário, você pode personalizar o que acontece ao clicar em um contato.
+Para evitar mostrar contactos potencialmente indesejados, tem uma poderosa fusão de entrada em duplicado.
 
-Não contém anúncios ou permissões desnecessárias. É totalmente open source, oferece cores personalizáveis.
+Vem com design de material e tema escuro por defeito, proporciona uma óptima experiência ao utilizador para uma utilização fácil. A falta de acesso à Internet dá-lhe mais privacidade, segurança e estabilidade do que outras aplicações.
 
-Confira o pacote completo de ferramentas simples aqui:
+Não contém anúncios ou permissões desnecessárias. É uma fonte de câmara totalmente aberta, fornece cores personalizáveis.
+
+Veja o conjunto completo de Ferramentas Simples aqui:
 https://www.simplemobiletools.com
 
-Site independente do Simple Contacts Pro:
+Sítio Web autónomo do Simple Contacts Pro:
 https://www.simplemobiletools.com/contacts
 
 Facebook:
