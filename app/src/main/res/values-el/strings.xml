@@ -70,7 +70,7 @@
     <string name="filename_without_vcf">Όνομα αρχείου (εκτός .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Πληκτρολόγιο</string>
-    <string name="add_number_to_contact">Προσθήκη αριθμού σε επαφή</string>
+    <string name="add_number_to_contact">Προσθήκη αριθμού στις επαφές</string>
     <!-- Visible fields -->
     <string name="prefix">Πρόθεμα</string>
     <string name="suffix">Κατάληξη</string>

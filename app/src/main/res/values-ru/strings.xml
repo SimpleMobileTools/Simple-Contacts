@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Contacts</string>
+    <string name="app_name">Простые контакты</string>
     <string name="app_launcher_name">Контакты</string>
     <string name="address">Адрес</string>
     <string name="inserting">Добавление…</string>
