@@ -5,9 +5,9 @@
     <string name="address">Адрес</string>
     <string name="inserting">Добавление…</string>
     <string name="updating">Обновление…</string>
-    <string name="phone_storage">Хранение телефона</string>
-    <string name="phone_storage_hidden">Хранилище телефона (не видно другим приложениям)</string>
-    <string name="company">Компания</string>
+    <string name="phone_storage">Память устройства</string>
+    <string name="phone_storage_hidden">Память устройства (не видна другим приложениям)</string>
+    <string name="company">Организация</string>
     <string name="job_position">Должность</string>
     <string name="send_sms_to_contacts">Отправить SMS контактам</string>
     <string name="send_email_to_contacts">Отправить письмо контактам</string>
@@ -31,19 +31,19 @@
     <string name="no_group_created">На устройстве нет групп контактов</string>
     <string name="create_group">Создать группу</string>
     <string name="add_to_group">Добавить в группу</string>
-    <string name="create_group_under_account">Создайте группу под учетной записью</string>
+    <string name="create_group_under_account">Создать группу в учётной записи</string>
     <!-- Photo -->
     <string name="take_photo">Снять фото</string>
     <string name="choose_photo">Выбрать фото</string>
     <string name="remove_photo">Удалить фото</string>
-    <string name="change_photo">Изменить фотографию</string>
+    <string name="change_photo">Изменить фото</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Показывать номера телефонов</string>
-    <string name="show_contact_thumbnails">Показать эскизы контактов</string>
+    <string name="show_contact_thumbnails">Показывать фото контакта</string>
     <string name="show_dialpad_button">Показывать кнопку набора номера на главном экране</string>
     <string name="on_contact_click">При нажатии на контакт</string>
     <string name="call_contact">Вызов контакта</string>
-    <string name="view_contact">Посмотреть контактную информацию</string>
+    <string name="view_contact">Просмотр подробностей</string>
     <string name="manage_shown_contact_fields">Управление отображаемыми полями контактов</string>
     <string name="contacts">Контакты</string>
     <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
@@ -62,11 +62,11 @@
     <!-- Export / Import -->
     <string name="import_contacts">Импортировать контакты</string>
     <string name="export_contacts">Экспортировать контакты</string>
-    <string name="import_contacts_from_vcf">Импорт контактов из файла .vcf</string>
-    <string name="import_contacts_from_vcf_pro">Импорт контактов из файла .vcf (Pro)</string>
-    <string name="export_contacts_to_vcf">Экспорт контактов в файл .vcf</string>
-    <string name="target_contact_source">Источник целевого контакта</string>
-    <string name="include_contact_sources">Включите контактные источники</string>
+    <string name="import_contacts_from_vcf">Импорт из файла VCF</string>
+    <string name="import_contacts_from_vcf_pro">Импорт из файла VCF (Pro)</string>
+    <string name="export_contacts_to_vcf">Экспорт в файл VCF</string>
+    <string name="target_contact_source">Целевой источник контакта</string>
+    <string name="include_contact_sources">Включить источники контактов</string>
     <string name="filename_without_vcf">Имя файла (без .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Номеронабиратель</string>
@@ -82,8 +82,8 @@
     <string name="websites">Сайты</string>
     <string name="groups">Группы</string>
     <string name="contact_source">Источник контакта</string>
-    <string name="instant_messaging">Мгновенный обмен сообщениями (IM)</string>
-    <string name="ringtone">Мелодия звонка</string>
+    <string name="instant_messaging">Мессенджеры</string>
+    <string name="ringtone">Сигнал вызова</string>
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Контакт будет удалён из всех источников контактов.</string>
     <plurals name="delete_groups">
