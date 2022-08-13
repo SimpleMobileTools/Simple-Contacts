@@ -65,11 +65,11 @@
     <string name="import_contacts_from_vcf">Импорт из файла VCF</string>
     <string name="import_contacts_from_vcf_pro">Импорт из файла VCF (Pro)</string>
     <string name="export_contacts_to_vcf">Экспорт в файл VCF</string>
-    <string name="target_contact_source">Назначенный к обновлению источник контактов</string>
+    <string name="target_contact_source">Целевой источник контакта</string>
     <string name="include_contact_sources">Включить источники контактов</string>
     <string name="filename_without_vcf">Имя файла (без .vcf)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Набор номера</string>
+    <string name="dialpad">Номеронабиратель</string>
     <string name="add_number_to_contact">Добавить номер к контакту</string>
     <!-- Visible fields -->
     <string name="prefix">Префикс</string>
@@ -83,7 +83,7 @@
     <string name="groups">Группы</string>
     <string name="contact_source">Источник контакта</string>
     <string name="instant_messaging">Мессенджеры</string>
-    <string name="ringtone">Cигнал вызова</string>
+    <string name="ringtone">Сигнал вызова</string>
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">Контакт будет удалён из всех источников контактов.</string>
     <plurals name="delete_groups">

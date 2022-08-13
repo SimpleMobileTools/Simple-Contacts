@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Contacts</string>
@@ -14,16 +15,13 @@
     <string name="send_email_to_group">ഗ്രൂപ്പിലേക്ക് ഇമെയിൽ അയയ്ക്കുക</string>
     <string name="fields_empty">At least 1 field has to be filled out</string>
     <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
-
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">ഇമെയിലുകളില്ലാത്ത കോൺടാക്റ്റുകൾ കണ്ടെത്തിയില്ല</string>
     <string name="no_contacts_with_phone_numbers">ഫോൺ നമ്പറുകളില്ലാത്ത കോൺടാക്റ്റുകൾ കണ്ടെത്തിയില്ല</string>
-
     <string name="new_contact">പുതിയ കോൺ‌ടാക്റ്റ്</string>
     <string name="edit_contact">കോൺ‌ടാക്റ്റ് എഡിറ്റുചെയ്യുക</string>
     <string name="select_contact">കോൺടാക്റ്റ് തിരഞ്ഞെടുക്കുക</string>
     <string name="nickname">വിളിപ്പേര്</string>
-
     <!-- Groups -->
     <string name="no_groups">ഗ്രൂപ്പുകളൊന്നുമില്ല</string>
     <string name="create_new_group">പുതിയ ഗ്രൂപ്പ് സൃഷ്ടിക്കുക</string>
@@ -34,13 +32,11 @@
     <string name="create_group">ഗ്രൂപ്പ് സൃഷ്ടിക്കുക</string>
     <string name="add_to_group">ഗ്രൂപ്പിലേക്ക് ചേർക്കുക</string>
     <string name="create_group_under_account">അക്കൗണ്ടിന് കീഴിൽ ഗ്രൂപ്പ് സൃഷ്ടിക്കുക</string>
-
     <!-- Photo -->
     <string name="take_photo">ഫോട്ടോ എടുക്കുക</string>
     <string name="choose_photo">ഫോട്ടോ തിരഞ്ഞെടുക്കുക</string>
     <string name="remove_photo">ഫോട്ടോ നീക്കംചെയ്യുക</string>
     <string name="change_photo">Change photo</string>
-
     <!-- Settings -->
     <string name="show_phone_numbers">മുഖ്യ സ്ക്രീനിൽ ഫോൺ നമ്പറുകൾ കാണിക്കുക</string>
     <string name="show_contact_thumbnails">കോണ്ടാക്ടിന്റെ ലഘുചിത്രങ്ങൾ കാണിക്കുക</string>
@@ -53,20 +49,16 @@
     <string name="show_only_contacts_with_numbers">ഫോൺ നമ്പറുകളുള്ള കോൺടാക്റ്റുകൾ മാത്രം കാണിക്കുക</string>
     <string name="show_private_contacts">Simple Dialer-ലേക്കും  Simple Messenger-ലേക്കും സ്വകാര്യ കോൺടാക്റ്റുകൾ കാണിക്കുക</string>
     <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
-
     <!-- Events -->
     <string name="birthday">ജന്മദിനം</string>
     <string name="anniversary">വാർഷികം</string>
-
     <!-- Favorites -->
     <string name="no_favorites">നിങ്ങൾ ഇതുവരെ പ്രിയപ്പെട്ട കോൺ‌ടാക്റ്റുകളൊന്നും ചേർത്തിട്ടില്ലെന്ന് തോന്നുന്നു.</string>
     <string name="toggle_favorite">Toggle favorite</string>
-
     <!-- Search -->
     <string name="search_contacts">കോൺ‌ടാക്റ്റുകൾ തിരയുക</string>
     <string name="search_favorites">പ്രിയങ്കരങ്ങൾ തിരയുക</string>
     <string name="search_groups">ഗ്രൂപ്പുകൾ തിരയുക</string>
-
     <!-- Export / Import -->
     <string name="import_contacts">കോൺ‌ടാക്റ്റുകൾ‌ ഇറക്കുമതി ചെയ്യുക</string>
     <string name="export_contacts">കോൺ‌ടാക്റ്റുകൾ എക്‌സ്‌പോർട്ടുചെയ്യുക</string>
@@ -76,11 +68,9 @@
     <string name="target_contact_source">കോണ്ടാക്ടിന്റെ ഉറവിടം ലക്ഷ്യമാക്കുക</string>
     <string name="include_contact_sources">കോണ്ടാക്ടിന്റെ ഉറവിടങ്ങൾ ഉൾപ്പെടുത്തുക</string>
     <string name="filename_without_vcf">ഫയലിന്റെ പേര്(.vcf കൂടാതെ)</string>
-
     <!-- Dialpad -->
     <string name="dialpad">ഡയൽപാഡ്</string>
-    <string name="add_number_to_contact">കോൺ‌ടാക്റ്റിലേക്ക് നമ്പർ ചേർക്കുക</string>
-
+    <string name="add_number_to_contact">Add number to contact</string>
     <!-- Visible fields -->
     <string name="prefix">ഉപസർഗം </string>
     <string name="suffix">പ്രത്യയം</string>
@@ -94,18 +84,15 @@
     <string name="contact_source">കോൺ‌ടാക്റ്റ് ഉറവിടം</string>
     <string name="instant_messaging">തത്സമയ സന്ദേശം അയക്കൽ</string>
     <string name="ringtone">Ringtone</string>
-
     <!-- Confirmation dialog -->
     <string name="delete_from_all_sources">എല്ലാ കോൺ‌ടാക്റ്റ് ഉറവിടങ്ങളിൽ‌ നിന്നും ഈ കോൺ‌ടാക്റ്റ് നീക്കംചെയ്യും.</string>
-
     <plurals name="delete_groups">
         <item quantity="one">%d group</item>
         <item quantity="other">%d groups</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">കോൺ‌ടാക്റ്റുകളിൽ ദൃശ്യമാകുന്ന ഫീൽഡുകൾ മാറ്റാൻ ഞാൻ ആഗ്രഹിക്കുന്നു. എനിക്ക് അത് ചെയ്യാൻ സാധിക്കുമോ?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -> Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_text">Yes, all you have to do is go in Settings -&gt; Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
