@@ -444,8 +444,6 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupEditContact() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-        updateActionBarTitle(resources.getString(R.string.edit_contact))
-
         setupNames()
         setupPhoneNumbers()
         setupEmails()
@@ -729,7 +727,6 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupNewContact() {
-        updateActionBarTitle(resources.getString(R.string.new_contact))
         originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
         contact = getEmptyContact()
         getPublicContactSource(contact!!.source) {
