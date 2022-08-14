@@ -10,7 +10,7 @@ Il prend en charge l'exportation / l'importation de contacts au format vCard ver
 
 Avec ce gestionnaire de numéros de téléphone moderne et stable, vous pouvez les protéger en ne les partageant pas avec d'autres applications, afin de les garder privées.
 
-Comme la source de contact, vous pouvez également changer facilement leur nom, email, numéro de téléphone, adresse, organisation, groupes et de nombreux autres champs personnalisables.
+Comme la source de contact, vous pouvez également changer facilement leur nom, email, numéro de téléphone, adresse, organisation, groupes et de nombreux autres champs personnalisables. Vous pouvez l’utiliser pour stocker des événements de contact aussi, comme les anniversaires, anniversaires, ou toute autre coutume.
 
 Cet éditeur de contact simple dispose de nombreux paramètres pratiques tels que l'affichage des numéros de téléphone sur l'écran principal, le basculement de la visibilité des vignettes des contacts, l'affichage uniquement des contacts avec des numéros de téléphone, l'affichage d'une boîte de dialogue de confirmation d'appel avant de lancer un appel. Il est livré avec un numéroteur rapide qui utilise également des lettres.
 
