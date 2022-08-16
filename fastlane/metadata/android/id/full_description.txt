@@ -4,11 +4,9 @@ Anda juga dapat menggunakannya untuk mengelola email dan acara pengguna. Ini mem
 
 Anda dapat menampilkan orang atau grup favorit Anda pada daftar terpisah. Grup dapat digunakan untuk mengirimkan email atau SMS batch, untuk menghemat waktu, Anda dapat mengganti namanya dengan mudah. Anda tidak perlu menyimpan buku telepon sekarang! Buat saja grup kontak cerdas dan kirim pesan ke orang yang Anda cintai.
 
-Ini berisi tombol praktis untuk menelepon, atau mengirim pesan kepada kerabat Anda. Semua bidang yang terlihat dapat disesuaikan sesuai keinginan, Anda dapat dengan mudah menyembunyikan yang tidak digunakan. Fungsi pencarian akan mencari string yang diberikan di setiap bidang orang yang terlihat, untuk membuat Anda menemukan yang Anda inginkan dengan mudah.
+Ini berisi tombol praktis untuk menelepon, atau mengirim SMS ke kerabat Anda. Semua bidang yang terlihat dapat disesuaikan sesuai keinginan, Anda dapat dengan mudah menyembunyikan yang tidak digunakan. Fungsi pencarian akan mencari string yang diberikan di setiap bidang orang yang terlihat, untuk membuat Anda menemukan yang Anda inginkan dengan mudah.
 
-Ada juga tombol nomor ringan yang siap melayani Anda, dengan saran cerdas.
-
-Ini mendukung mengekspor / mengimpor kontak dalam format vCard ke file .vcf, untuk migrasi mudah atau membuat cadangan data Anda. Pencadangan kontak adalah hal penting dalam pembukuan telepon. Aplikasi ini dilengkapi dengan teknologi cadangan kontak pintar yang menyinkronkan kontak baru dan lama secara teratur untuk menyimpan cadangan nomor-nomor ini.
+Ini mendukung mengekspor / mengimpor kontak dalam format vCard ke file .vcf, untuk migrasi yang mudah atau mencadangkan data Anda. Cadangan kontak adalah hal penting dalam penyimpanan buku telepon. Aplikasi ini dilengkapi dengan teknologi pencadangan kontak pintar yang menyinkronkan kontak baru dan lama secara teratur untuk menyimpan cadangan nomor-nomor ini.
 
 Dengan pengelola nomor telepon yang modern dan stabil ini, Anda dapat melindunginya dengan tidak membagikannya dengan aplikasi lain, sehingga Anda dapat membuatnya tetap pribadi.
 
@@ -17,6 +15,10 @@ Seperti sumber kontak, Anda juga dapat dengan mudah mengubah nama, email, nomor 
 Editor kontak sederhana ini memiliki banyak pengaturan praktis seperti menampilkan nomor telepon di layar utama, mengubah visibilitas thumbnail kontak, hanya menampilkan kontak dengan nomor telepon, menampilkan dialog konfirmasi panggilan sebelum memulai panggilan. Muncul dengan dialer cepat yang juga menggunakan huruf.
 
 Untuk lebih meningkatkan pengalaman pengguna, Anda dapat menyesuaikan apa yang terjadi dengan mengklik kontak. Anda dapat memulai panggilan, pergi ke layar Lihat Detail, atau mengedit yang dipilih.
+
+Untuk menghindari menunjukkan kontak yang mungkin tidak diinginkan, ia memiliki penggabungan entri duplikat bawaan yang kuat.
+
+Muncul dengan desain material dan tema gelap secara default, memberikan pengalaman pengguna yang luar biasa untuk penggunaan yang mudah. Kurangnya akses internet memberi Anda lebih banyak privasi, keamanan, dan stabilitas daripada aplikasi lain.
 
 Tidak mengandung iklan atau izin yang tidak perlu. Ini sepenuhnya open source, memberikan warna yang dapat.
 
