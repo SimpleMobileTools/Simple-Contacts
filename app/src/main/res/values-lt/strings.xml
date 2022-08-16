@@ -20,7 +20,7 @@
     <string name="no_contacts_with_phone_numbers">Nerasta adresatų su telefono numeriais</string>
     <string name="new_contact">Naujas adresatas</string>
     <string name="edit_contact">Taisyti adresatą</string>
-    <string name="select_contact">Select contact</string>
+    <string name="select_contact">Pasirinkite kontaktą</string>
     <string name="nickname">Slapyvardis</string>
     <!-- Groups -->
     <string name="no_groups">Nėra grupių</string>
@@ -47,7 +47,7 @@
     <string name="manage_shown_contact_fields">Taisyti adresatą</string>
     <string name="contacts">Adresatai</string>
     <string name="show_only_contacts_with_numbers">Rodyti tik adresatus su telefono numeriu</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
+    <string name="show_private_contacts">Rodyti privačius kontaktus \"Simple Dialer\", \"Simple SMS Messenger\" ir \"Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
     <!-- Events -->
     <string name="birthday">Gimtadienis</string>
@@ -65,35 +65,35 @@
     <string name="import_contacts_from_vcf">Importuoti adresatus iš .vcf failo</string>
     <string name="import_contacts_from_vcf_pro">Importuoti adresatus iš .vcf failo (Pro)</string>
     <string name="export_contacts_to_vcf">Eksportuoti adresatus į .vcf failą</string>
-    <string name="target_contact_source">Target contact source</string>
-    <string name="include_contact_sources">Include contact sources</string>
+    <string name="target_contact_source">Tikslinis kontaktų šaltinis</string>
+    <string name="include_contact_sources">Įtraukite kontaktinius šaltinius</string>
     <string name="filename_without_vcf">Failo pavadinimas (be .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Numerio rinkiklis</string>
-    <string name="add_number_to_contact">Add number to contact</string>
+    <string name="add_number_to_contact">Pridėti numerį, su kuriuo galima susisiekti</string>
     <!-- Visible fields -->
-    <string name="prefix">Prefix</string>
-    <string name="suffix">Suffix</string>
+    <string name="prefix">Priešdėlis</string>
+    <string name="suffix">Priesaga</string>
     <string name="phone_numbers">Telefono numeriai</string>
-    <string name="emails">Emails</string>
+    <string name="emails">E. laiškai</string>
     <string name="addresses">Adresai</string>
     <string name="events">Įvykiai (gimtadieniai, metinės)</string>
     <string name="organization">Organizacija</string>
     <string name="websites">Internetinės svetainės</string>
     <string name="groups">Grupės</string>
-    <string name="contact_source">Contact source</string>
-    <string name="instant_messaging">Instant messaging (IM)</string>
+    <string name="contact_source">Kontaktinis šaltinis</string>
+    <string name="instant_messaging">Momentinės žinutės (IM)</string>
     <string name="ringtone">Skambučio melodija</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
+    <string name="delete_from_all_sources">Kontaktas bus pašalintas iš visų kontaktų šaltinių.</string>
     <plurals name="delete_groups">
         <item quantity="one">%d grupė</item>
         <item quantity="few">%d grupės</item>
         <item quantity="other">%d grupių</item>
     </plurals>
     <!-- FAQ -->
-    <string name="faq_1_title">I want to change what fields are visible at contacts. Can I do it\?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -&gt; Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_title">Noriu pakeisti, kokie laukai matomi kontaktų srityje. Ar galiu tai padaryti\?</string>
+    <string name="faq_1_text">Taip, tereikia eiti į Nustatymai -&gt; Tvarkyti rodomus kontaktų laukus. Ten galite pasirinkti, kokie laukai turi būti matomi. Kai kurie iš jų pagal numatytuosius nustatymus netgi yra išjungti, todėl ten galite rasti naujų.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
