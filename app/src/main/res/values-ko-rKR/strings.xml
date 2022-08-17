@@ -36,8 +36,6 @@
     <string name="create_group_under_account">Create group under account</string>
 
     <!-- Photo -->
-    <string name="take_photo">사진 촬영</string>
-    <string name="choose_photo">사진 선택</string>
     <string name="remove_photo">사진 삭제</string>
     <string name="change_photo">Change photo</string>
 

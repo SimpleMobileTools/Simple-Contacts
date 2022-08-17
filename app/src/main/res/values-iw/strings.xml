@@ -33,8 +33,6 @@
     <string name="add_to_group">הוסף לקבוצה</string>
     <string name="create_group_under_account">צור קבוצה תחת חשבון</string>
     <!-- Photo -->
-    <string name="take_photo">לצלם</string>
-    <string name="choose_photo">בחר תמונה</string>
     <string name="remove_photo">הסר תמונה</string>
     <string name="change_photo">שנה תמונה</string>
     <!-- Settings -->

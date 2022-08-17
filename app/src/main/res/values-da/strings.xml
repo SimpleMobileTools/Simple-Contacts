@@ -33,8 +33,6 @@
     <string name="add_to_group">Tilføj til gruppe</string>
     <string name="create_group_under_account">Opret gruppe under konto</string>
     <!-- Photo -->
-    <string name="take_photo">Tag foto</string>
-    <string name="choose_photo">Vælg foto</string>
     <string name="remove_photo">Fjern foto</string>
     <string name="change_photo">Skift foto</string>
     <!-- Settings -->

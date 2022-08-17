@@ -33,8 +33,6 @@
     <string name="add_to_group">Dodaj u grupu</string>
     <string name="create_group_under_account">Stvori grupu pod računom</string>
     <!-- Photo -->
-    <string name="take_photo">Uslikaj</string>
-    <string name="choose_photo">Odaberi fotografiju</string>
     <string name="remove_photo">Ukloni fotografiju</string>
     <string name="change_photo">Promijeni fotografiju</string>
     <!-- Settings -->

@@ -33,8 +33,6 @@
     <string name="add_to_group">Gruba ekle</string>
     <string name="create_group_under_account">Hesap altında grup oluştur</string>
     <!-- Photo -->
-    <string name="take_photo">Fotoğraf çek</string>
-    <string name="choose_photo">Fotoğraf seç</string>
     <string name="remove_photo">Fotoğrafı kaldır</string>
     <string name="change_photo">Fotoğrafı değiştir</string>
     <!-- Settings -->

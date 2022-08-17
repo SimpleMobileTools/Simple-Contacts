@@ -33,8 +33,6 @@
     <string name="add_to_group">Додати до групи</string>
     <string name="create_group_under_account">Створити групу в обліковому записі</string>
     <!-- Photo -->
-    <string name="take_photo">Зробити світлину</string>
-    <string name="choose_photo">Обрати світлину</string>
     <string name="remove_photo">Видалити світлину</string>
     <string name="change_photo">Змінити світлину</string>
     <!-- Settings -->

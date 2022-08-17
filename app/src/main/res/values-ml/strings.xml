@@ -33,8 +33,6 @@
     <string name="add_to_group">ഗ്രൂപ്പിലേക്ക് ചേർക്കുക</string>
     <string name="create_group_under_account">അക്കൗണ്ടിന് കീഴിൽ ഗ്രൂപ്പ് സൃഷ്ടിക്കുക</string>
     <!-- Photo -->
-    <string name="take_photo">ഫോട്ടോ എടുക്കുക</string>
-    <string name="choose_photo">ഫോട്ടോ തിരഞ്ഞെടുക്കുക</string>
     <string name="remove_photo">ഫോട്ടോ നീക്കംചെയ്യുക</string>
     <string name="change_photo">Change photo</string>
     <!-- Settings -->

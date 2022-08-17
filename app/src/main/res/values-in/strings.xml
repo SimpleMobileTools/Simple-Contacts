@@ -33,8 +33,6 @@
     <string name="add_to_group">Tambah ke grup</string>
     <string name="create_group_under_account">Buat grup di dalam akun</string>
     <!-- Photo -->
-    <string name="take_photo">Ambil foto</string>
-    <string name="choose_photo">Pilih foto</string>
     <string name="remove_photo">Buang foto</string>
     <string name="change_photo">Ubah foto</string>
     <!-- Settings -->

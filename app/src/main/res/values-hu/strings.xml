@@ -33,8 +33,6 @@
     <string name="add_to_group">Hozzáadás csoporthoz</string>
     <string name="create_group_under_account">Csoport létrehozása a fiók alatt</string>
     <!-- Photo -->
-    <string name="take_photo">Fényképkészítés</string>
-    <string name="choose_photo">Fénykép kiválasztása</string>
     <string name="remove_photo">Fénykép törlése</string>
     <string name="change_photo">Change photo</string>
     <!-- Settings -->

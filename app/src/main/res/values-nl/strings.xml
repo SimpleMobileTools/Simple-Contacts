@@ -33,8 +33,6 @@
     <string name="add_to_group">Aan groep toevoegen</string>
     <string name="create_group_under_account">Groep aanmaken in account</string>
     <!-- Photo -->
-    <string name="take_photo">Foto nemen</string>
-    <string name="choose_photo">Foto kiezen</string>
     <string name="remove_photo">Foto verwijderen</string>
     <string name="change_photo">Foto veranderen</string>
     <!-- Settings -->

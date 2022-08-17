@@ -33,8 +33,6 @@
     <string name="add_to_group">Add to group</string>
     <string name="create_group_under_account">Create group under account</string>
     <!-- Photo -->
-    <string name="take_photo">Foti</string>
-    <string name="choose_photo">Elekti foton</string>
     <string name="remove_photo">Forigi foton</string>
     <string name="change_photo">Change photo</string>
     <!-- Settings -->

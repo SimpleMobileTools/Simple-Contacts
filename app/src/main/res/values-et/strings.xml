@@ -33,8 +33,6 @@
     <string name="add_to_group">Lisa rühma</string>
     <string name="create_group_under_account">Lisa rühm kasutajakontole</string>
     <!-- Photo -->
-    <string name="take_photo">Pildista</string>
-    <string name="choose_photo">Vali pilt</string>
     <string name="remove_photo">Eemalda pilt</string>
     <string name="change_photo">Muuda pilti</string>
     <!-- Settings -->

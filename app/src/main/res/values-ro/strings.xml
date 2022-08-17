@@ -33,8 +33,6 @@
     <string name="add_to_group">Adăugați la grup</string>
     <string name="create_group_under_account">Creați un grup în cont</string>
     <!-- Photo -->
-    <string name="take_photo">Faceți o fotografie</string>
-    <string name="choose_photo">Alegeți o fotografie</string>
     <string name="remove_photo">Eliminați fotografia</string>
     <string name="change_photo">Schimbă fotografia</string>
     <!-- Settings -->

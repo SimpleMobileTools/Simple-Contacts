@@ -36,8 +36,6 @@
     <string name="create_group_under_account">Kontu honetarako taldea sortu</string>
 
     <!-- Photo -->
-    <string name="take_photo">Atera argazkia</string>
-    <string name="choose_photo">Hautatu argazkia</string>
     <string name="remove_photo">Kendu argazkia</string>
     <string name="change_photo">Change photo</string>
 

@@ -36,8 +36,6 @@
     <string name="create_group_under_account">Hesab altında qrup yarat</string>
 
     <!-- Photo -->
-    <string name="take_photo">Şəkil çək</string>
-    <string name="choose_photo">Şəkil seç</string>
     <string name="remove_photo">Şəkli sil</string>
     <string name="change_photo">Change photo</string>
 

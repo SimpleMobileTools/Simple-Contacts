@@ -33,8 +33,6 @@
     <string name="add_to_group">グループに追加</string>
     <string name="create_group_under_account">アカウントの下にグループを作成</string>
     <!-- Photo -->
-    <string name="take_photo">写真を撮影</string>
-    <string name="choose_photo">写真を選択</string>
     <string name="remove_photo">写真を削除</string>
     <string name="change_photo">写真の変更</string>
     <!-- Settings -->

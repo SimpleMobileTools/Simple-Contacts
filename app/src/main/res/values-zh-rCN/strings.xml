@@ -33,8 +33,6 @@
     <string name="add_to_group">添加到群组</string>
     <string name="create_group_under_account">在帐号下建立群组</string>
     <!-- Photo -->
-    <string name="take_photo">拍照</string>
-    <string name="choose_photo">选择照片</string>
     <string name="remove_photo">移除照片</string>
     <string name="change_photo">更换照片</string>
     <!-- Settings -->

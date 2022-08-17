@@ -33,8 +33,6 @@
     <string name="add_to_group">Įtraukti į grupę</string>
     <string name="create_group_under_account">Sukurti grupę paskyroje</string>
     <!-- Photo -->
-    <string name="take_photo">Fotografuoti</string>
-    <string name="choose_photo">Pasirinkti nuotrauką</string>
     <string name="remove_photo">Šalinti nuotrauką</string>
     <string name="change_photo">Change photo</string>
     <!-- Settings -->

@@ -33,8 +33,6 @@
     <string name="add_to_group">Добавить в группу</string>
     <string name="create_group_under_account">Создать группу в учётной записи</string>
     <!-- Photo -->
-    <string name="take_photo">Снять фото</string>
-    <string name="choose_photo">Выбрать фото</string>
     <string name="remove_photo">Удалить фото</string>
     <string name="change_photo">Изменить фото</string>
     <!-- Settings -->

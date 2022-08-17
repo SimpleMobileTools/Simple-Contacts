@@ -37,8 +37,6 @@
     <string name="create_group_under_account">Create group under account</string>
 
     <!-- Photo -->
-    <string name="take_photo">Take photo</string>
-    <string name="choose_photo">Choose photo</string>
     <string name="remove_photo">Remove photo</string>
     <string name="change_photo">Change photo</string>
 

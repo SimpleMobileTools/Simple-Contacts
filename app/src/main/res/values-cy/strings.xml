@@ -36,8 +36,6 @@
     <string name="create_group_under_account">Creu grŵp dan gyfrif</string>
 
     <!-- Photo -->
-    <string name="take_photo">Tynnu llun</string>
-    <string name="choose_photo">Dewis llun</string>
     <string name="remove_photo">Cael gwared â\'r llun</string>
     <string name="change_photo">Change photo</string>
 

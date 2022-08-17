@@ -33,8 +33,6 @@
     <string name="add_to_group">Přidat do skupiny</string>
     <string name="create_group_under_account">Vytvořit skupinu pod účet</string>
     <!-- Photo -->
-    <string name="take_photo">Pořídit fotku</string>
-    <string name="choose_photo">Vybrat fotku</string>
     <string name="remove_photo">Odstranit fotku</string>
     <string name="change_photo">Změnit fotku</string>
     <!-- Settings -->
