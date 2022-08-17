@@ -1,1 +1,1 @@
-Prémiová aplikace pro správu kontaktů bez reklam, podporuje aj oblíbené položky
+Adresář kontaktů pro správu nedávných kontaktů a zálohování kontaktů jako vcf

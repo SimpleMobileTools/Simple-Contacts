@@ -1,0 +1,38 @@
+Kerge nutikas kontaktirakendus kontaktide haldamiseks, mida armastavad miljonid inimesed. Kontaktid saab salvestada kas ainult oma seadmesse või neid saab sünkroniseerida ka erinevate vahenditega. See telefoninumbri nutikas kontaktide telefoniraamat aitab teil hoida oma kontakte ühes kohas ilma kontaktide varundamise vaevata, kuna kontaktide varukoopia on alati sünkroonis lisatud kontaktidega. See rakendus on kerge ruumi ja on tõhus, kui teil on vaja teha kontaktide varukoopia ja hoida telefoniraamatut, mis aitab teil arukate kontaktide hoidmisel.
+
+Võite kasutada seda ka kasutajate e-kirjade ja sündmuste haldamiseks. Sellel on võimalus sorteerida/filtreerida mitme parameetri järgi ja valikuliselt kuvada eesnimena perekonnanimi. Nii saate saavutada nutika kontaktide otsimise kiirelt. Te ei pea soovitud kontakti leidmiseks alla kerima. Lisaks sellele tagab kontaktide varundamine automaatselt kontaktide terviklikkuse iga kord, kui lisate uue kontakti. 
+
+Saate oma lemmikinimesi või -rühmi kuvada eraldi nimekirjas. Rühmi saab kasutada partii e-kirjade või SMSide saatmiseks, et säästa aega, saate neid hõlpsasti ümber nimetada. Nüüd ei pea te enam telefoniraamatut pidama! Lihtsalt tehke nutikas kontaktgrupp ja saatke oma lähedastele sõnumeid.
+
+See sisaldab praktilisi nuppe oma sugulastele helistamiseks või tekstisõnumite saatmiseks. Kõiki nähtavaid välju saab kohandada vastavalt soovile, kasutamata väljad saate hõlpsasti ära peita. Otsingufunktsioon otsib iga nähtava isiku väljal antud stringi, et saaksite soovitud isiku hõlpsasti üles leida.
+
+See toetab vCard-vormingus kontaktide eksportimist/importimist .vcf-failidesse, et hõlpsasti rännata või andmeid varundada. Kontaktide varundamine on telefoniraamatupidamises väga oluline asi. See rakendus on varustatud nutika kontaktide varundustehnoloogiaga, mis sünkroonib regulaarselt uusi ja vanu kontakte, et hoida nende numbrite varukoopiaid.
+
+Selle kaasaegse ja stabiilse telefoninumbrihalduri abil saate neid kaitsta, kuna te ei jaga neid teiste rakendustega, nii et saate neid privaatselt hoida.
+
+Nagu kontaktide allikas, saate ka nende nime, e-posti, telefoninumbrit, aadressi, organisatsiooni, rühmi ja paljusid teisi kohandatavaid välju hõlpsasti muuta. Saate seda kasutada ka kontaktsündmuste, näiteks sünnipäevade, tähtpäevade või muude kohandatud sündmuste salvestamiseks.
+
+Sellel lihtsal kontaktide redaktoril on palju praktilisi seadistusi, näiteks telefoninumbrite kuvamine põhiekraanil, kontaktide pisipiltide nähtavuse lülitamine, ainult telefoninumbriga kontaktide kuvamine ja kõne kinnitamise dialoogi kuvamine enne kõne algatamist. Sellega on kaasas kiirvalimisfunktsioon, mis kasutab ka tähti.
+
+Kasutajakogemuse edasiseks parandamiseks saate kohandada, mis juhtub kontaktil klõpsates. Saate kas algatada kõne, minna ekraanile View Details (Vaata üksikasju) või redigeerida valitud kontakti.
+
+Potentsiaalselt soovimatute kontaktide kuvamise vältimiseks on sellel võimas sisseehitatud dubleerivate kirjete liitmine.
+
+See on vaikimisi varustatud materiaalse disaini ja tumeda teemaga, mis tagab suurepärase kasutajakogemuse lihtsaks kasutamiseks. Interneti-ühenduse puudumine annab teile rohkem privaatsust, turvalisust ja stabiilsust kui teised rakendused.
+
+Ei sisalda reklaame ega ebavajalikke lubasid. See on täielikult avatud kaamera allikas ja pakub kohandatavaid värve.
+
+Tutvuge kogu Simple Tools'i paketiga siin:
+https://www.simplemobiletools.com
+
+Simple Contacts Pro iseseisev veebileht:
+https://www.simplemobiletools.com/contacts
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

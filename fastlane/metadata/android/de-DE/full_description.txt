@@ -14,6 +14,8 @@ Dieser einfache Kontakteditor verfügt über viele praktische Einstellungen wie 
 
 Um die Benutzererfahrung weiter zu verbessern, können Sie anpassen, was beim Klicken auf einen Kontakt passiert. Sie können entweder einen Anruf einleiten, zum Bildschirm Details anzeigen wechseln oder den ausgewählten bearbeiten.
 
+Es kommt mit Material-Design und einem dunklen Thema standardmäßig, bietet eine großartige Benutzererfahrung für die einfache Verwendung. Der fehlende Internetzugang bietet Ihnen mehr Privatsphäre, Sicherheit und Stabilität als andere Apps.
+
 Enthält keine Anzeigen oder unnötigen Berechtigungen. Es ist vollständig OpenSource und bietet anpassbare Farben.
 
 Sehen Sie sich hier die vollständige Suite der einfachen Tools an:
