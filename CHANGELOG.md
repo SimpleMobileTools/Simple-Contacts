@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.21.0 *(2022-08-18)*
+----------------------------
+
+ * Added Monochrome icon and Language picker support on Android 13+
+ * Added some translation, stability and UX improvements
+
 Version 6.20.0 *(2022-07-23)*
 ----------------------------
 
