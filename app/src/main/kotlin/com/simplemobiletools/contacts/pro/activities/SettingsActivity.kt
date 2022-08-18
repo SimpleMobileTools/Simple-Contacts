@@ -30,6 +30,7 @@ class SettingsActivity : SimpleActivity() {
         setupManageShownTabs()
         setupFontSize()
         setupUseEnglish()
+        setupLanguage()
         setupShowContactThumbnails()
         setupShowPhoneNumbers()
         setupShowContactsWithNumbers()
@@ -120,15 +121,23 @@ class SettingsActivity : SimpleActivity() {
     private fun setupUseEnglish() {
         settings_use_english_holder.beVisibleIf(config.wasUseEnglishToggled || Locale.getDefault().language != "en")
         settings_use_english.isChecked = config.useEnglish
-
-        if (settings_use_english_holder.isGone()) {
-            settings_font_size_holder.background = resources.getDrawable(R.drawable.ripple_top_corners, theme)
-        }
-
         settings_use_english_holder.setOnClickListener {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
             System.exit(0)
+        }
+    }
+
+    private fun setupLanguage() {
+        settings_language.text = Locale.getDefault().displayLanguage
+        settings_language_holder.beVisibleIf(isTiramisuPlus())
+
+        if (settings_use_english_holder.isGone() && settings_language_holder.isGone()) {
+            settings_font_size_holder.background = resources.getDrawable(R.drawable.ripple_top_corners, theme)
+        }
+
+        settings_language_holder.setOnClickListener {
+            launchChangeAppLanguageIntent()
         }
     }
 
