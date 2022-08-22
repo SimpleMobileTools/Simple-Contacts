@@ -1,1 +1,1 @@
-Aplikacija za upravljanje kontaktima, bez oglasa, poštujući Vašu privatnost.
+Adresar za upravljanje nedavnim kontaktima i sigurnosnim kopijama vcf kontakata
