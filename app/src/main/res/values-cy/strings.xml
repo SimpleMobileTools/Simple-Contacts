@@ -52,10 +52,6 @@
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
 
-    <!-- Events -->
-    <string name="birthday">Pen-blwydd</string>
-    <string name="anniversary">Pen-blwydd achlysur</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Ymddangosir nad wyt wedi ychwanegu unrhyw ffefrynnau eto.</string>
     <string name="toggle_favorite">Toggle favorite</string>

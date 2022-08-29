@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Solo mostrar contactos con números telefónicos</string>
     <string name="show_private_contacts">Mostrar contactos privados a Marcador Simple, Mensajería SMS Simple y Calendario Simple Pro</string>
     <string name="merge_duplicate_contacts">Combinar contactos duplicados</string>
-    <!-- Events -->
-    <string name="birthday">Cumpleaños</string>
-    <string name="anniversary">Aniversario</string>
     <!-- Favorites -->
     <string name="no_favorites">Parece que aún no has añadido ningún contacto favorito.</string>
     <string name="toggle_favorite">Alternar favorito</string>

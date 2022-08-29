@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Показване само на контакти с телефонен номер</string>
     <string name="show_private_contacts">Показване на поверителни контакти в Обикновен Телефон, Обикновени SMS Съобщения и Обикновен Календар Про</string>
     <string name="merge_duplicate_contacts">Сливане на дублирани контакти</string>
-    <!-- Events -->
-    <string name="birthday">Рожден ден</string>
-    <string name="anniversary">Годишнина</string>
     <!-- Favorites -->
     <string name="no_favorites">Все още нямате добавени контакти към любимите.</string>
     <string name="toggle_favorite">Превключване на любимите</string>

@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Показувати лише контакти з телефонними номерами</string>
     <string name="show_private_contacts">Показувати приватні контакти в Простому Телефоні, Простих Повідомленнях і Простому Календарі Pro</string>
     <string name="merge_duplicate_contacts">Об’єднувати повторювані контакти</string>
-    <!-- Events -->
-    <string name="birthday">День народження</string>
-    <string name="anniversary">Річниця</string>
     <!-- Favorites -->
     <string name="no_favorites">Здається, ви ще не додали улюблені контакти.</string>
     <string name="toggle_favorite">Перемкнути улюблене</string>

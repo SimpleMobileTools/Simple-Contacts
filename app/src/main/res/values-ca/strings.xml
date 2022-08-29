@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Mostra només els contactes amb números de telèfon</string>
     <string name="show_private_contacts">Mostra els contactes privats al Simple Dialer, Simple SMS Messenger i Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Combina els contactes duplicats</string>
-    <!-- Events -->
-    <string name="birthday">Data de naixement</string>
-    <string name="anniversary">Aniversari</string>
     <!-- Favorites -->
     <string name="no_favorites">Sembla que encara no has afegit cap contacte preferit.</string>
     <string name="toggle_favorite">Commuta com a preferit</string>

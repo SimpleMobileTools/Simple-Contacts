@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Yalnızca telefon numaraları olan kişileri göster</string>
     <string name="show_private_contacts">Özel kişileri Basit Çevirici, Basit SMS Messenger ve Basit Takvim Pro\'a göster</string>
     <string name="merge_duplicate_contacts">Yinelenen kişileri birleştir</string>
-    <!-- Events -->
-    <string name="birthday">Doğum günü</string>
-    <string name="anniversary">Yıldönümü</string>
     <!-- Favorites -->
     <string name="no_favorites">Henüz herhangi bir favori kişi eklememişsiniz.</string>
     <string name="toggle_favorite">Favoriyi göster/gizle</string>

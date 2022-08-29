@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Näytä ainoastaan numerolliset yhteystiedot</string>
     <string name="show_private_contacts">Näytä yksityiset yhteystiedot sovelluksissa Simple Dialer, Simple SMS Messenger ja Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
-    <!-- Events -->
-    <string name="birthday">Syntymäpäivä</string>
-    <string name="anniversary">Vuosipäivä</string>
     <!-- Favorites -->
     <string name="no_favorites">Näyttää siltä, että et ole vielä lisännyt suosikkiyhteystietoja.</string>
     <string name="toggle_favorite">Toggle favorite</string>

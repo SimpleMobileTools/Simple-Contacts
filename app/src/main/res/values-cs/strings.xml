@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Zobrazit jen kontakty s telefonními čísly</string>
     <string name="show_private_contacts">Zobrazit soukromé kontakty do aplikací Jednoduchý telefon, Jednoduché SMS zprávy a Jednoduchý kalendář</string>
     <string name="merge_duplicate_contacts">Sloučit duplicitní kontakty</string>
-    <!-- Events -->
-    <string name="birthday">Narozeniny</string>
-    <string name="anniversary">Výročí</string>
     <!-- Favorites -->
     <string name="no_favorites">Vypadá to, že jste ještě nepřidali žádné oblíbené kontakty.</string>
     <string name="toggle_favorite">Přepnout oblíbenost</string>

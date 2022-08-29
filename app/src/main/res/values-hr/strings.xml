@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Prikaži samo kontakte s telefonskim brojevima</string>
     <string name="show_private_contacts">Prikaži privatne kontakte u programima Jednostavan birač, Jednostavan SMS Messenger i Jednostavan kalendar Pro</string>
     <string name="merge_duplicate_contacts">Sjedini duple kontakte</string>
-    <!-- Events -->
-    <string name="birthday">Rođendan</string>
-    <string name="anniversary">Obljetnica</string>
     <!-- Favorites -->
     <string name="no_favorites">Čini se da još nisi dodao/la nijedan kontakt u favorite.</string>
     <string name="toggle_favorite">Uključi/isključi favorite</string>

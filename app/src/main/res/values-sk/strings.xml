@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Zobraziť iba kontakty s telefónnymi číslami</string>
     <string name="show_private_contacts">Zobraziť súkromné kontakty Jednoduchému Telefónu, Jednoduchému SMS Správcovi a Jednoduchému Kalendáru Pro</string>
     <string name="merge_duplicate_contacts">Zoskupiť zdvojené kontakty</string>
-    <!-- Events -->
-    <string name="birthday">Narodeniny</string>
-    <string name="anniversary">Výročie</string>
     <!-- Favorites -->
     <string name="no_favorites">Zdá sa, že ste ešte nepridali žiadne obľúbené kontakty.</string>
     <string name="toggle_favorite">Prepnúť obľúbené</string>

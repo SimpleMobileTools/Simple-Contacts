@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Näita vaid kontakte, kellel on telefoninumber</string>
     <string name="show_private_contacts">Näita privaatseks märgitud kontakte Lihtsas telefonis, Lihtne SMS sõnumikliendis ja Lihtsas kalendris</string>
     <string name="merge_duplicate_contacts">Liida topeltkontaktid</string>
-    <!-- Events -->
-    <string name="birthday">Sünnipäev</string>
-    <string name="anniversary">Aastapäev</string>
     <!-- Favorites -->
     <string name="no_favorites">Tundub, et sa pole veel ühtegi lemmikut lisanud.</string>
     <string name="toggle_favorite">Vaheta olekut lemmikuna</string>

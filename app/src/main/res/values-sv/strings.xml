@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Visa bara kontakter med telefonnummer</string>
     <string name="show_private_contacts">Visa privata kontakter till Simpel telefon, Simpel sms messenger och Simpel kalendar Pro</string>
     <string name="merge_duplicate_contacts">Sammanfoga dubbla kontakter</string>
-    <!-- Events -->
-    <string name="birthday">Födelsedag</string>
-    <string name="anniversary">Årsdag</string>
     <!-- Favorites -->
     <string name="no_favorites">Det verkar som att du inte har lagt till några favoritkontakter ännu.</string>
     <string name="toggle_favorite">Växla favorit</string>

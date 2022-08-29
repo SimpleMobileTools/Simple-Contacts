@@ -52,10 +52,6 @@
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
 
-    <!-- Events -->
-    <string name="birthday">Ad günü</string>
-    <string name="anniversary">İl dönümü</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Görünür, hələlik heçbir sevimli kontakt əlavə etməmisiniz.</string>
     <string name="toggle_favorite">Toggle favorite</string>

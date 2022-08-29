@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Rodyti tik adresatus su telefono numeriu</string>
     <string name="show_private_contacts">Rodyti privačius kontaktus \"Simple Dialer\", \"Simple SMS Messenger\" ir \"Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
-    <!-- Events -->
-    <string name="birthday">Gimtadienis</string>
-    <string name="anniversary">Metinės</string>
     <!-- Favorites -->
     <string name="no_favorites">Atrodo, kad dar nesate pridėję jokių mėgstamų adresatų.</string>
     <string name="toggle_favorite">Toggle favorite</string>

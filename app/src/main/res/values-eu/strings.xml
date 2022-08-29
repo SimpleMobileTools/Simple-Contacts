@@ -52,10 +52,6 @@
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
 
-    <!-- Events -->
-    <string name="birthday">Urtebetetzea</string>
-    <string name="anniversary">Urteurrena</string>
-
     <!-- Favorites -->
     <string name="no_favorites">Ez duzu oraindik gogokorik gehitu.</string>
     <string name="toggle_favorite">Toggle favorite</string>

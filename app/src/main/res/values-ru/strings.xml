@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
     <string name="show_private_contacts">Показывать личные контакты в Simple Dialer, Simple SMS Messenger и Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Объединять дублирующие контакты</string>
-    <!-- Events -->
-    <string name="birthday">День рождения</string>
-    <string name="anniversary">Годовщина</string>
     <!-- Favorites -->
     <string name="no_favorites">Похоже, вы ещё не добавили избранные контакты.</string>
     <string name="toggle_favorite">Переключить избранное</string>

@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">只显示含有电话话码的联系人</string>
     <string name="show_private_contacts">显示私密联系人给简单拨号器和简单短信</string>
     <string name="merge_duplicate_contacts">合并重复的联系人</string>
-    <!-- Events -->
-    <string name="birthday">生日</string>
-    <string name="anniversary">纪念日</string>
     <!-- Favorites -->
     <string name="no_favorites">您似乎还没加入任何我的收藏联系人。</string>
     <string name="toggle_favorite">切换收藏</string>

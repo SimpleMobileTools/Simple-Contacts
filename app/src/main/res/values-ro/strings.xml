@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Afișați numai contactele cu numere de telefon</string>
     <string name="show_private_contacts">Afișați contactele private în Simple Dialer, Simple SMS Messenger și Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Uniți contactele duplicate</string>
-    <!-- Events -->
-    <string name="birthday">Ziua de naștere</string>
-    <string name="anniversary">Aniversare</string>
     <!-- Favorites -->
     <string name="no_favorites">Se pare că nu ați adăugat încă nicio persoană de contact favorită.</string>
     <string name="toggle_favorite">Comutați favoritele</string>

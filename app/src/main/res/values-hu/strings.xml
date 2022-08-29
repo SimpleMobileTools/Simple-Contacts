@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Csak a telefonszámot tartalmazó névjegyek megjelenítése</string>
     <string name="show_private_contacts">Privát névjegyek megjelenítése a Simple Dialer, Simple SMS Messenger és a Simple Calendar Pro számára</string>
     <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
-    <!-- Events -->
-    <string name="birthday">Születésnap</string>
-    <string name="anniversary">Évforduló</string>
     <!-- Favorites -->
     <string name="no_favorites">Úgy tűnik, hogy még nincsenek kedvencek felvéve.</string>
     <string name="toggle_favorite">Toggle favorite</string>

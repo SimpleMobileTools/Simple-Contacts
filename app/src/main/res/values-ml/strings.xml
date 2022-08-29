@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">ഫോൺ നമ്പറുകളുള്ള കോൺടാക്റ്റുകൾ മാത്രം കാണിക്കുക</string>
     <string name="show_private_contacts">Simple Dialer-ലേക്കും  Simple Messenger-ലേക്കും സ്വകാര്യ കോൺടാക്റ്റുകൾ കാണിക്കുക</string>
     <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
-    <!-- Events -->
-    <string name="birthday">ജന്മദിനം</string>
-    <string name="anniversary">വാർഷികം</string>
     <!-- Favorites -->
     <string name="no_favorites">നിങ്ങൾ ഇതുവരെ പ്രിയപ്പെട്ട കോൺ‌ടാക്റ്റുകളൊന്നും ചേർത്തിട്ടില്ലെന്ന് തോന്നുന്നു.</string>
     <string name="toggle_favorite">Toggle favorite</string>

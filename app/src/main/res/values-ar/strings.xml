@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">إظهار جهات الإتصال التي لديها أرقام هواتف فقط</string>
     <string name="show_private_contacts">إظهار جهات الاتصال الخاصة إلى Simple Dialer و Simple SMS Messenger و Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">دمج جهات الاتصال المكررة</string>
-    <!-- Events -->
-    <string name="birthday">تاريخ الميلاد</string>
-    <string name="anniversary">مناسبة</string>
     <!-- Favorites -->
     <string name="no_favorites">يبدو أنك لم تضف أية جهة اتصال مفضلة حتى الآن.</string>
     <string name="toggle_favorite">تبديل المفضلة</string>

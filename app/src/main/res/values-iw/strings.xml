@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">הצג רק אנשי קשר עם מספרי טלפון</string>
     <string name="show_private_contacts">הצג אנשי קשר פרטיים ל-Simple Dialer, Simple SMS Messenger ו-Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">מיזוג אנשי קשר כפולים</string>
-    <!-- Events -->
-    <string name="birthday">יום הולדת</string>
-    <string name="anniversary">יום השנה</string>
     <!-- Favorites -->
     <string name="no_favorites">נראה שאין לך עדיין אנשי קשר מועדפים.</string>
     <string name="toggle_favorite">החלף מועדף</string>

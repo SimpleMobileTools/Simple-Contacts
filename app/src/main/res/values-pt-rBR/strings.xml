@@ -47,9 +47,6 @@
     <string name="show_only_contacts_with_numbers">Mostar apenas os contatos com número de telefone</string>
     <string name="show_private_contacts">Compartilhar contatos privados com o Simple Dialer, Simple SMS Messenger e Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Mesclar contatos duplicados</string>
-    <!-- Events -->
-    <string name="birthday">Data de Nascimento</string>
-    <string name="anniversary">Data Especial</string>
     <!-- Favorites -->
     <string name="no_favorites">Parece que você ainda não adicionou nenhum contato favorito.</string>
     <string name="toggle_favorite">Habilitar favoritos</string>
