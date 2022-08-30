@@ -27,7 +27,6 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.letterBackgroundColors
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
-import com.simplemobiletools.contacts.pro.extensions.sendEmailIntent
 import com.simplemobiletools.contacts.pro.extensions.shareContacts
 import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.models.Contact
