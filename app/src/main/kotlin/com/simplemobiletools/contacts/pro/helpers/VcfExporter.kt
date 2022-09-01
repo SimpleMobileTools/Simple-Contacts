@@ -51,6 +51,12 @@ class VcfExporter {
             val cards = ArrayList<VCard>()
             for (contact in contacts) {
                 val card = VCard()
+
+                val formattedName = arrayOf(contact.prefix, contact.firstName, contact.middleName, contact.surname, contact.suffix)
+                    .filter { it.isNotEmpty() }
+                    .joinToString(separator = " ")
+                card.formattedName = FormattedName(formattedName)
+
                 StructuredName().apply {
                     prefixes.add(contact.prefix)
                     given = contact.firstName
