@@ -1,1 +1,1 @@
-Guardar y agregar contactos de teléfono del modo que prefieres para llamar
+Agenda de contactos para gestionar los contactos recientes y las copias de seguridad de los contactos vcf
