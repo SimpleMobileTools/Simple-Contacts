@@ -14,7 +14,7 @@
     <string name="send_sms_to_group">Trimiteți SMS către grup</string>
     <string name="send_email_to_group">Trimiteți e-mail către grup</string>
     <string name="fields_empty">Cel puțin 1 câmp trebuie completat</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
+    <string name="must_be_at_edit">Trebuie să vă aflați în ecranul de editare pentru a modifica un contact</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nu au fost găsite contacte cu e-mailuri</string>
     <string name="no_contacts_with_phone_numbers">Nu au fost găsite contacte cu numere de telefon</string>
@@ -83,7 +83,8 @@
     <string name="delete_from_all_sources">Persoana de contact va fi eliminată din toate sursele de contact.</string>
     <plurals name="delete_groups">
         <item quantity="one">%d grup</item>
-        <item quantity="other">%d grupuri</item>
+        <item quantity="few">%d grupuri</item>
+        <item quantity="other">%d de grupuri</item>
     </plurals>
     <!-- FAQ -->
     <string name="faq_1_title">Doresc să schimb ce câmpuri sunt vizibile la contacte. Pot să fac acest lucru?</string>
