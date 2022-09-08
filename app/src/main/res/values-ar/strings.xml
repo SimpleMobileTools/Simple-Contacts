@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">جهات الإتصال</string>
-    <string name="app_launcher_name">جهات الإتصال</string>
+    <string name="app_name">جهات الاتصال</string>
+    <string name="app_launcher_name">جهات الاتصال</string>
     <string name="address">العنوان</string>
     <string name="inserting">إضافة…</string>
     <string name="updating">تحديث…</string>
@@ -9,14 +9,14 @@
     <string name="phone_storage_hidden">ذاكرة الهاتف (غير مرئية من قبل التطبيقات الأخرى)</string>
     <string name="company">الشركة</string>
     <string name="job_position">الوظيفة</string>
-    <string name="send_sms_to_contacts">ارسال رسالة الى جهات الاتصال</string>
-    <string name="send_email_to_contacts">ارسال بريد الكتروني الى جهات الاتصال</string>
+    <string name="send_sms_to_contacts">إرسال رسالة إلى جهات الاتصال</string>
+    <string name="send_email_to_contacts">إرسال بريد إلكتروني إلى جهات الاتصال</string>
     <string name="send_sms_to_group">ارسال رسالة الى مجموعة</string>
     <string name="send_email_to_group">ارسال بريد الكتروني الى مجموعة</string>
     <string name="fields_empty">يجب ملء حقل 1 على الأقل</string>
     <string name="must_be_at_edit">يجب أن تكون في شاشة التعديل لتعديل جهة اتصال</string>
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails">لا توجد جهات اتصال بهذا البريد الالكتروني</string>
+    <string name="no_contacts_with_emails">لا توجد جهات اتصال بهذا البريد الإلكتروني</string>
     <string name="no_contacts_with_phone_numbers">لا توجد جهات اتصال بهذا الرقم</string>
     <string name="new_contact">جهة اتصال جديدة</string>
     <string name="edit_contact">تعديل جهة اتصالل</string>
@@ -44,11 +44,11 @@
     <string name="view_contact">عرض تفاصيل جهة الاتصال</string>
     <string name="manage_shown_contact_fields">إدارة حقول جهات الاتصال المعروضة</string>
     <string name="contacts">جهات الاتصال</string>
-    <string name="show_only_contacts_with_numbers">إظهار جهات الإتصال التي لديها أرقام هواتف فقط</string>
+    <string name="show_only_contacts_with_numbers">إظهار جهات الاتصال التي لديها أرقام هواتف فقط</string>
     <string name="show_private_contacts">إظهار جهات الاتصال الخاصة إلى Simple Dialer و Simple SMS Messenger و Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">دمج جهات الاتصال المكررة</string>
     <!-- Favorites -->
-    <string name="no_favorites">يبدو أنك لم تضف أية جهة اتصال مفضلة حتى الآن.</string>
+    <string name="no_favorites">يبدو أنك لم تضف أي جهات اتصالٍ مفضلةٍ حتى الآن.</string>
     <string name="toggle_favorite">تبديل المفضلة</string>
     <!-- Search -->
     <string name="search_contacts">بحث في جهات الاتصال</string>
@@ -59,7 +59,7 @@
     <string name="export_contacts">تصدير جهات اتصال</string>
     <string name="import_contacts_from_vcf">استيراد جهات اتصال من ملف vcf</string>
     <string name="import_contacts_from_vcf_pro">استيراد جهات اتصال من ملف vcf (Pro)</string>
-    <string name="export_contacts_to_vcf">تصدير جهات اتصال الى ملف vcf</string>
+    <string name="export_contacts_to_vcf">تصدير جهات اتصال إلى ملف vcf</string>
     <string name="target_contact_source">مصدر الاتصال المستهدف</string>
     <string name="include_contact_sources">تضمين مصادر الاتصال</string>
     <string name="filename_without_vcf">اسم الملف (بدون .vcf)</string>
