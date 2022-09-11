@@ -46,7 +46,7 @@
     <string name="contacts">連絡先</string>
     <string name="show_only_contacts_with_numbers">電話番号が登録された連絡先のみ表示する</string>
     <string name="show_private_contacts">シンプルダイヤラー、シンプルSMSメッセンジャー、シンプルカレンダーProに個人の連絡先を表示</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="merge_duplicate_contacts">重複した連絡先を統合する</string>
     <!-- Favorites -->
     <string name="no_favorites">お気に入りの連絡先はまだありません。</string>
     <string name="toggle_favorite">お気に入りの切り替え</string>

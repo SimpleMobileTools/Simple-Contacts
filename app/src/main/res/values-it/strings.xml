@@ -38,7 +38,7 @@
     <!-- Settings -->
     <string name="show_phone_numbers">Mostra i numeri di telefono</string>
     <string name="show_contact_thumbnails">Mostra le anteprime dei contatti</string>
-    <string name="show_dialpad_button">Mostra il pulante per il tastierino nello schermo principale</string>
+    <string name="show_dialpad_button">Mostra il pulsante per il tastierino nello schermo principale</string>
     <string name="on_contact_click">Alla pressione sul contatto</string>
     <string name="call_contact">Chiama contatto</string>
     <string name="view_contact">Visualizza i dettagli del contatto</string>
