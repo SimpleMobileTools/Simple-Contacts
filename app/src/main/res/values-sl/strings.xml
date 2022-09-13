@@ -74,7 +74,7 @@
     <string name="export_contacts_to_vcf">Izvoz stikov v datoteko .vcf</string>
     <string name="target_contact_source">Vir ciljnega stika</string>
     <string name="filename_without_vcf">Ime datoteke (brez .ics)</string>
-    <string name="dialpad">Številčnica</string>
+    <string name="dialpad">Dialpad</string>
     <string name="add_number_to_contact">Dodaj številko stiku</string>
     <string name="prefix">Predpona</string>
     <string name="suffix">Pripona</string>
