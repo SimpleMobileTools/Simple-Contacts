@@ -858,7 +858,6 @@ class ViewContactActivity : ContactActivity() {
     private fun View.copyOnLongClick(value: String) {
         setOnLongClickListener {
             copyToClipboard(value)
-            toast(R.string.value_copied_to_clipboard)
             true
         }
     }
