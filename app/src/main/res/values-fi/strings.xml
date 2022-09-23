@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Contacts</string>
+    <string name="app_name">Yksinkertaiset yhteystiedot</string>
     <string name="app_launcher_name">Yhteystiedot</string>
     <string name="address">Osoite</string>
     <string name="inserting">Sijoitetaan…</string>
@@ -46,10 +46,10 @@
     <string name="contacts">Yhteystiedot</string>
     <string name="show_only_contacts_with_numbers">Näytä ainoastaan numerolliset yhteystiedot</string>
     <string name="show_private_contacts">Näytä yksityiset yhteystiedot sovelluksissa Simple Dialer, Simple SMS Messenger ja Simple Calendar Pro</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="merge_duplicate_contacts">Yhdistä päällekkäiset yhteystiedot</string>
     <!-- Favorites -->
     <string name="no_favorites">Näyttää siltä, että et ole vielä lisännyt suosikkiyhteystietoja.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
+    <string name="toggle_favorite">Vaihda suosikki</string>
     <!-- Search -->
     <string name="search_contacts">Etsi yhteystietoja</string>
     <string name="search_favorites">Etsi suosikkeja</string>
@@ -64,7 +64,7 @@
     <string name="include_contact_sources">Sisällytä yhteystiedon lähteet</string>
     <string name="filename_without_vcf">Tiedostonimi (ilman .vcf-päätettä)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Numeronvalitsin</string>
+    <string name="dialpad">Valintanäppäimistö</string>
     <string name="add_number_to_contact">Lisää numero yhteystietoihin</string>
     <!-- Visible fields -->
     <string name="prefix">Etuliite</string>

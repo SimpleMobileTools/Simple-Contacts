@@ -83,6 +83,7 @@
     <string name="delete_from_all_sources">Le contact sera supprimé de toutes les sources de contacts.</string>
     <plurals name="delete_groups">
         <item quantity="one">%d groupe</item>
+        <item quantity="many">%d groupes</item>
         <item quantity="other">%d groupes</item>
     </plurals>
     <!-- FAQ -->

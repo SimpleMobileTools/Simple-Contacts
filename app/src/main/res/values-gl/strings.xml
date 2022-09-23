@@ -14,7 +14,7 @@
     <string name="send_sms_to_group">Enviar SMS ao grupo</string>
     <string name="send_email_to_group">Enviar email ao grupo</string>
     <string name="fields_empty">Polo menos hai que completar 1 campo</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
+    <string name="must_be_at_edit">Debes atoparte na pantalla Editar para modificar un contacto</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Non se atopan contactos con email</string>
     <string name="no_contacts_with_phone_numbers">Non se atopan contactos con número de teléfono</string>
@@ -70,7 +70,7 @@
     <string name="prefix">Prefixo</string>
     <string name="suffix">Sufixo</string>
     <string name="phone_numbers">Números de teléfono</string>
-    <string name="emails">Emails</string>
+    <string name="emails">Correos electrónicos</string>
     <string name="addresses">Enderezos</string>
     <string name="events">Eventos (data de nacemento, aniversario)</string>
     <string name="organization">Organización</string>
