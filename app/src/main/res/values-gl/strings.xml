@@ -74,13 +74,13 @@
     <string name="addresses">Enderezos</string>
     <string name="events">Eventos (data de nacemento, aniversario)</string>
     <string name="organization">Organización</string>
-    <string name="websites">Webs</string>
+    <string name="websites">Sitios web</string>
     <string name="groups">Grupos</string>
     <string name="contact_source">Orixe do contacto</string>
-    <string name="instant_messaging">Mensaxería (IM)</string>
-    <string name="ringtone">Tono</string>
+    <string name="instant_messaging">Mensaxería instantánea (IM)</string>
+    <string name="ringtone">Ton da chamada</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">O contacto será eliminado de todas as orixes de contactos.</string>
+    <string name="delete_from_all_sources">O contacto eliminarase de todalas fontes do contactos.</string>
     <plurals name="delete_groups">
         <item quantity="one">%d grupo</item>
         <item quantity="other">%d grupos</item>
