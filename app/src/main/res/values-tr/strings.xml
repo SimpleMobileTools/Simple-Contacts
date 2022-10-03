@@ -67,8 +67,8 @@
     <string name="dialpad">Tuş takımı</string>
     <string name="add_number_to_contact">Kişiye numara ekle</string>
     <!-- Visible fields -->
-    <string name="prefix">Önek</string>
-    <string name="suffix">Sonek</string>
+    <string name="prefix">Ön ek</string>
+    <string name="suffix">Son ek</string>
     <string name="phone_numbers">Telefon numaraları</string>
     <string name="emails">E-postalar</string>
     <string name="addresses">Adresler</string>
