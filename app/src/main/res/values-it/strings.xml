@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Semplice Contatti</string>
+    <string name="app_name">Contatti Semplici</string>
     <string name="app_launcher_name">Contatti</string>
     <string name="address">Indirizzo</string>
     <string name="inserting">Inserimento in corso…</string>
