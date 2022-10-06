@@ -16,8 +16,6 @@ Este sinxelo editor de contactos ten moitas opcións útiles, como mostrar núme
 
 Para mellorar aínda máis a experiencia do usuario, podes personalizalo que ocorre cando fas clic nun contacto. Pode iniciar unha chamada, ir á pantalla Ver detalles ou editar a seleccionada.
 
-Para evitar que aparezan contactos potencialmente non desexados, ten incorporada unha poderosa fusión de entradas duplicadas.
-
 Vén cun deseño e tema escuro por defecto, ofrece unha relunte experiencia de usuario para un uso sinxelo. A falta de acceso a Internet ofrécelle máis privacidade, seguridade e estabilidade que outras aplicacións.
 
 Non contén anuncios nin permisos innecesarios. É unha cámara de código aberto completamente, ofrece cores persoalizables
