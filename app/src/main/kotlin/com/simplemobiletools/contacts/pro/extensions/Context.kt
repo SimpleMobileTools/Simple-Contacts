@@ -26,7 +26,6 @@ import com.simplemobiletools.contacts.pro.models.Organization
 import com.simplemobiletools.contacts.pro.models.SocialAction
 import java.io.File
 
-
 val Context.config: Config get() = Config.newInstance(applicationContext)
 
 val Context.contactsDB: ContactsDao get() = ContactsDatabase.getInstance(applicationContext).ContactsDao()

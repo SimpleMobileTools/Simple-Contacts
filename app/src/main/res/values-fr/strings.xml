@@ -48,7 +48,7 @@
     <string name="show_private_contacts">Présenter les contacts privés à Simple composeur, Simple SMS Messenger et Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Fusionner les contacts en double</string>
     <!-- Favorites -->
-    <string name="no_favorites">Il semble que vous navez pas encore ajouté de contacts favoris.</string>
+    <string name="no_favorites">Il semble que vous n\'avez pas encore ajouté de contacts favoris.</string>
     <string name="toggle_favorite">Activer/désactiver le favori</string>
     <!-- Search -->
     <string name="search_contacts">Chercher dans les contacts</string>
@@ -83,6 +83,7 @@
     <string name="delete_from_all_sources">Le contact sera supprimé de toutes les sources de contacts.</string>
     <plurals name="delete_groups">
         <item quantity="one">%d groupe</item>
+        <item quantity="many">%d groupes</item>
         <item quantity="other">%d groupes</item>
     </plurals>
     <!-- FAQ -->

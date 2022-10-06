@@ -84,6 +84,7 @@
     <plurals name="delete_groups">
         <item quantity="one">%d grupę</item>
         <item quantity="few">%d grupy</item>
+        <item quantity="many">%d grup</item>
         <item quantity="other">%d grup</item>
     </plurals>
     <!-- FAQ -->

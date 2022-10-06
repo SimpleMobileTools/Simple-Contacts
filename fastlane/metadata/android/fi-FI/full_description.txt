@@ -22,10 +22,10 @@ Siinä on oletusarvoisesti materiaalinen muotoilu ja tumma teema, mikä tarjoaa 
 
 Ei sisällä mainoksia tai tarpeettomia käyttöoikeuksia. Se on täysin avoin kameran lähdekoodi ja tarjoaa muokattavat värit.
 
-Tutustu koko Simple Tools -pakettiin täällä:
+Tutustu koko Yksinkertaiset työkalu-pakettiin täällä:
 https://www.simplemobiletools.com
 
-Simple Contacts Pron itsenäinen verkkosivusto:
+Yksinkertaiset yhteystiedot Pro itsenäinen verkkosivusto:
 https://www.simplemobiletools.com/contacts
 
 Facebook:

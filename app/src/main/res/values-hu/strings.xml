@@ -14,7 +14,7 @@
     <string name="send_sms_to_group">SMS küldése csoportnak</string>
     <string name="send_email_to_group">E-mail küldése csoportnak</string>
     <string name="fields_empty">Legalább 1 mezőt ki kell tölteni</string>
-    <string name="must_be_at_edit">Névjegyet csak a szerkesztő képernyőn lehet módosítani.</string>
+    <string name="must_be_at_edit">Névjegyet csak a szerkesztő képernyőn lehet módosítani</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Nem található e-mailt tartalmazó névjegy</string>
     <string name="no_contacts_with_phone_numbers">Nem található telefonszámot tartalmazó névjegy</string>
@@ -34,7 +34,7 @@
     <string name="create_group_under_account">Csoport létrehozása a fiók alatt</string>
     <!-- Photo -->
     <string name="remove_photo">Fénykép törlése</string>
-    <string name="change_photo">Change photo</string>
+    <string name="change_photo">Fénykép módosítása</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Telefonszámok megjelenítése</string>
     <string name="show_contact_thumbnails">Névjegyek bélyegképének megjelenítése</string>
@@ -46,10 +46,10 @@
     <string name="contacts">Névjegyek</string>
     <string name="show_only_contacts_with_numbers">Csak a telefonszámot tartalmazó névjegyek megjelenítése</string>
     <string name="show_private_contacts">Privát névjegyek megjelenítése a Simple Dialer, Simple SMS Messenger és a Simple Calendar Pro számára</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="merge_duplicate_contacts">Ismétlődő névjegyek egyesítése</string>
     <!-- Favorites -->
     <string name="no_favorites">Úgy tűnik, hogy még nincsenek kedvencek felvéve.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
+    <string name="toggle_favorite">Kedvenc be/ki</string>
     <!-- Search -->
     <string name="search_contacts">Névjegyek keresése</string>
     <string name="search_favorites">Kedvencek keresése</string>
