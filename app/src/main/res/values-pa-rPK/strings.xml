@@ -57,7 +57,7 @@
     <string name="target_contact_source">Target contact source</string>
     <string name="include_contact_sources">رابطیاں دے سروتاں نال</string>
     <string name="filename_without_vcf">فائل دا ناں (‫‎.vcf‬ بنہا)؜</string>
-    <string name="dialpad">نمبر کیبورڈ</string>
+    <string name="dialpad">Dialpad</string>
     <string name="add_number_to_contact">Add number to contact</string>
     <string name="prefix">سابقہ</string>
     <string name="suffix">لاحقہ</string>
