@@ -38,7 +38,7 @@
     <!-- Settings -->
     <string name="show_phone_numbers">Telefonnummern anzeigen</string>
     <string name="show_contact_thumbnails">Vorschaubilder der Kontakte zeigen</string>
-    <string name="show_dialpad_button">Eine Wählfeld-Schaltfläche auf dem Hauptbildschirm anzeigen</string>
+    <string name="show_dialpad_button">Eine Wähltastenfeld-Schaltfläche auf dem Hauptbildschirm anzeigen</string>
     <string name="on_contact_click">Beim Klicken auf den Kontakt</string>
     <string name="call_contact">Kontakt anrufen</string>
     <string name="view_contact">Kontaktdetails anzeigen</string>
@@ -64,7 +64,7 @@
     <string name="include_contact_sources">Kontaktquellen einschließen</string>
     <string name="filename_without_vcf">Dateiname (ohne .vcf)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Wählfeld</string>
+    <string name="dialpad">Wähltastenfeld</string>
     <string name="add_number_to_contact">Nummer zu Kontakt hinzufügen</string>
     <!-- Visible fields -->
     <string name="prefix">Titel</string>
