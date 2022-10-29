@@ -1,0 +1,1 @@
+Imenik za upravljanje nedavnih stikov in varnostnih kopij stikov vcf
