@@ -65,7 +65,7 @@
     <string name="filename_without_vcf">فائل دا ناں (‫‎.vcf‬ بنہا)؜</string>
     <!-- Dialpad -->
     <string name="dialpad">فون کیبورڈ</string>
-    <string name="add_number_to_contact">Add number to contact</string>
+    <string name="add_number_to_contact">رابطے نوں نمبر جوڑو</string>
     <!-- Visible fields -->
     <string name="prefix">سابقہ</string>
     <string name="suffix">لاحقہ</string>
