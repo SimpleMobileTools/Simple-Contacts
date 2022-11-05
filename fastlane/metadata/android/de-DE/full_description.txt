@@ -6,7 +6,7 @@ Sie können Ihre Lieblingspersonen oder -gruppen in einer separaten Liste anzeig
 
 Es enthält praktische Tasten zum Anrufen oder Senden von SMS an Ihre Verwandten. Alle sichtbaren Felder können nach Ihren Wünschen angepasst werden. Sie können die nicht verwendeten Felder einfach ausblenden. Die Suchfunktion durchsucht die angegebene Zeichenfolge in jedem sichtbaren Personenfeld, damit Sie die gewünschte leicht finden können.
 
-Es unterstützt das Exportieren / Importieren von Kontakten im vCard-Format in VCF-Dateien für einfache Migrationen oder das Sichern Ihrer Daten. Die Sicherung von Kontakten ist eine wichtige Sache bei der Führung von Telefonbüchern. Diese App bietet eine intelligente Kontaktsicherungstechnologie, die die neuen und alten Kontakte regelmäßig synchronisiert, um eine Sicherungskopie dieser Nummern zu erstellen.
+Es unterstützt das Exportieren / Importieren von Kontakten im vCard-Format in VCF-Dateien für einfache Migrationen oder das Sichern Ihrer Daten. Die Sicherung von Kontakten ist eine wichtige Sache bei der Führung von Telefonbüchern. Diese App bietet eine intelligente Kontaktsicherungstechnologie, welche die neuen und alten Kontakte regelmäßig synchronisiert, um eine Sicherungskopie dieser Nummern zu erstellen.
 
 Wie bei der Kontaktquelle können Sie auch deren Namen, E-Mail-Adresse, Telefonnummer, Adresse, Organisation, Gruppen und viele andere anpassbare Felder leicht ändern. Sie können es auch zum Speichern von Kontaktereignissen wie Geburtstagen, Jubiläen oder anderen benutzerdefinierten Ereignissen verwenden.
 
