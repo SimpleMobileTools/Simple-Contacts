@@ -57,7 +57,7 @@
     <string name="target_contact_source">Циљни извор контакта</string>
     <string name="include_contact_sources">Укључите изворе контаката</string>
     <string name="filename_without_vcf">Име датотеке (без .вцф)</string>
-    <string name="dialpad">Тастатура за бирање бројева</string>
+    <string name="dialpad">Dialpad</string>
     <string name="add_number_to_contact">Додајте број контакту</string>
     <string name="prefix">Префикс</string>
     <string name="suffix">Суфикс</string>
