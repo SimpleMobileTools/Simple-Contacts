@@ -107,7 +107,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         if (storedShowTabs != config.showTabs) {
             config.lastUsedViewPagerPage = 0
-            System.exit(0)
+            setupTabs()
             return
         }
 
