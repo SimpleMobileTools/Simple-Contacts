@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">സിമ്പിൾ കോണ്ടാക്ട്സ്</string>
+    <string name="app_name">ലളിതമായ കോൺടാക്റ്റുകൾ</string>
     <string name="app_launcher_name">കോണ്ടാക്ട്സ്</string>
     <string name="address">വിലാസം</string>
     <string name="inserting">ചേർക്കുന്നു…</string>
@@ -36,7 +36,7 @@
     <string name="remove_photo">ഫോട്ടോ നീക്കംചെയ്യുക</string>
     <string name="change_photo">ഫോട്ടോ മാറ്റുക</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">മുഖ്യ സ്ക്രീനിൽ ഫോൺ നമ്പറുകൾ കാണിക്കുക</string>
+    <string name="show_phone_numbers">ഫോൺ നമ്പറുകൾ കാണിക്കുക</string>
     <string name="show_contact_thumbnails">കോണ്ടാക്ടിന്റെ ലഘുചിത്രങ്ങൾ കാണിക്കുക</string>
     <string name="show_dialpad_button">മുഖ്യ സ്ക്രീനിൽ ഡയൽപാഡ് ബട്ടൺ കാണിക്കുക</string>
     <string name="on_contact_click">കോൺടാക്റ്റിൽ ക്ലിക്ക് ചെയ്യുക</string>
@@ -87,7 +87,7 @@
     </plurals>
     <!-- FAQ -->
     <string name="faq_1_title">കോൺ‌ടാക്റ്റുകളിൽ ദൃശ്യമാകുന്ന ഫീൽഡുകൾ മാറ്റാൻ ഞാൻ ആഗ്രഹിക്കുന്നു. എനിക്ക് അത് ചെയ്യാൻ സാധിക്കുമോ?</string>
-    <string name="faq_1_text">Yes, all you have to do is go in Settings -&gt; Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there.</string>
+    <string name="faq_1_text">അതെ, നിങ്ങൾ ചെയ്യേണ്ടത് ക്രമീകരണങ്ങളിൽ പോകുക -&gt; കാണിച്ചിരിക്കുന്ന കോൺടാക്റ്റ് ഫീൽഡുകൾ നിയന്ത്രിക്കുക. ഏതൊക്കെ ഫീൽഡുകൾ ദൃശ്യമാകണമെന്ന് അവിടെ നിങ്ങൾക്ക് തിരഞ്ഞെടുക്കാം. അവയിൽ ചിലത് സ്ഥിരസ്ഥിതിയായി അപ്രാപ്‌തമാക്കിയിരിക്കുന്നു, അതിനാൽ നിങ്ങൾക്ക് ചില പുതിയവ അവിടെ കണ്ടെത്താം.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

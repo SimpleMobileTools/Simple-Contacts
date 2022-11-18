@@ -10,7 +10,7 @@ Admite a exportación/importación de contactos en formato vCard a ficheiros .vc
 
 Con este xestor de números de teléfono moderno e estable podes protexer os teus números de teléfono sen compartilos con outras aplicacións, para que poidas mantelos privados.
 
-Do mesmo xeito que a fonte de contacto, tamén pode cambiar facilmente o seu nome, enderezo electrónico, número de teléfono, enderezo, organización, grupos e moitos outros campos personalizables. Tamén podes usalo para almacenar os eventos dos contactos, como aniversarios, aniversarios ou calquera outro costume.
+Do mesmo xeito que a fonte de contacto, tamén pode cambiar facilmente o seu nome, enderezo electrónico, número de teléfono, enderezo, organización, grupos e moitos outros campos personalizables. Tamén podes usalo para almacenar os eventos dos contactos, aniversarios ou calquera outro costume.
 
 Este sinxelo editor de contactos ten moitas opcións útiles, como mostrar números de teléfono na pantalla de inicio, alternar a visibilidade das miniaturas dos contactos, mostrar só contactos con números de teléfono, mostrar un diálogo de confirmación de chamada antes de iniciar unha chamada. Vén cunha marcación rápida que tamén fai uso das letras.
 
