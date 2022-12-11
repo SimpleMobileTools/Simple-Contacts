@@ -10,6 +10,7 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.CONTACT_ID
 import com.simplemobiletools.commons.helpers.IS_PRIVATE
 import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
+import com.simplemobiletools.commons.helpers.SMT_PRIVATE
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R

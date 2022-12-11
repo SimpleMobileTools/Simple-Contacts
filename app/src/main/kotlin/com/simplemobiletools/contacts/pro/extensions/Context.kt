@@ -13,6 +13,7 @@ import androidx.core.content.FileProvider
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_READ_CONTACTS
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_CONTACTS
+import com.simplemobiletools.commons.helpers.SMT_PRIVATE
 import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R

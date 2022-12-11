@@ -1,16 +1,15 @@
 package com.simplemobiletools.contacts.pro.helpers
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.ContactsContract.CommonDataKinds.Event
 import android.provider.MediaStore
+import com.simplemobiletools.commons.extensions.getByteArray
+import com.simplemobiletools.commons.helpers.SMT_PRIVATE
 import com.simplemobiletools.commons.models.SimpleContact
 import com.simplemobiletools.contacts.pro.extensions.contactsDB
-import com.simplemobiletools.contacts.pro.extensions.getByteArray
 import com.simplemobiletools.contacts.pro.extensions.getEmptyContact
-import com.simplemobiletools.contacts.pro.extensions.getPhotoThumbnailSize
 import com.simplemobiletools.contacts.pro.models.Contact
 import com.simplemobiletools.contacts.pro.models.Group
 import com.simplemobiletools.contacts.pro.models.LocalContact
