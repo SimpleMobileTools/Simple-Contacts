@@ -5,6 +5,7 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
@@ -32,10 +33,14 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     protected var contact: Contact? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_contacts)
         updateTextColors(group_contacts_coordinator)
         setupOptionsMenu()
+
+        updateMaterialActivityViews(group_contacts_coordinator, group_contacts_list, true)
+        setupMaterialScrollListener(group_contacts_list, group_contacts_toolbar)
 
         group = intent.extras?.getSerializable(GROUP) as Group
         group_contacts_toolbar.title = group.title
@@ -60,6 +65,8 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         super.onResume()
         refreshContacts()
         setupToolbar(group_contacts_toolbar, NavigationIcon.Arrow)
+        (group_contacts_fab.layoutParams as CoordinatorLayout.LayoutParams).bottomMargin =
+            navigationBarHeight + resources.getDimension(R.dimen.activity_margin).toInt()
     }
 
     private fun setupOptionsMenu() {
@@ -190,5 +197,4 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
             ContactsHelper(this).updateRingtone(it.contactId.toString(), uri.toString())
         }
     }
-
 }

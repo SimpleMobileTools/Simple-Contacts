@@ -5,27 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/settings_app_bar_layout"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/group_contacts_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/group_contacts_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/color_primary"
-            app:menu="@menu/menu_group"
-            app:title=""
-            app:titleTextAppearance="@style/AppTheme.ActionBar.TitleTextStyle" />
-
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/color_primary"
+        app:menu="@menu/menu_group"
+        app:titleTextAppearance="@style/AppTheme.ActionBar.TitleTextStyle" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/group_contacts_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_marginTop="?attr/actionBarSize"
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <RelativeLayout
             android:id="@+id/group_contacts_wrapper"
