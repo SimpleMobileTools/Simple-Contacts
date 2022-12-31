@@ -16,9 +16,13 @@ import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 
 class SettingsActivity : SimpleActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        updateMaterialActivityViews(settings_coordinator, settings_holder, true)
+        setupMaterialScrollListener(settings_nested_scrollview, settings_toolbar)
     }
 
     override fun onResume() {
@@ -43,22 +47,13 @@ class SettingsActivity : SimpleActivity() {
         setupDefaultTab()
         updateTextColors(settings_holder)
 
-        arrayOf(settings_color_customization_label, settings_general_settings_label, settings_main_screen_label, settings_list_view_label).forEach {
+        arrayOf(settings_color_customization_section_label, settings_general_settings_label, settings_main_screen_label, settings_list_view_label).forEach {
             it.setTextColor(getProperPrimaryColor())
-        }
-
-        arrayOf(
-            settings_color_customization_holder,
-            settings_general_settings_holder,
-            settings_main_screen_holder,
-            settings_list_view_holder
-        ).forEach {
-            it.background.applyColorFilter(getProperBackgroundColor().getContrastColor())
         }
     }
 
     private fun setupCustomizeColors() {
-        settings_customize_colors_holder.setOnClickListener {
+        settings_color_customization_holder.setOnClickListener {
             startCustomizationActivity()
         }
     }
@@ -131,11 +126,6 @@ class SettingsActivity : SimpleActivity() {
     private fun setupLanguage() {
         settings_language.text = Locale.getDefault().displayLanguage
         settings_language_holder.beVisibleIf(isTiramisuPlus())
-
-        if (settings_use_english_holder.isGone() && settings_language_holder.isGone()) {
-            settings_font_size_holder.background = resources.getDrawable(R.drawable.ripple_top_corners, theme)
-        }
-
         settings_language_holder.setOnClickListener {
             launchChangeAppLanguageIntent()
         }
