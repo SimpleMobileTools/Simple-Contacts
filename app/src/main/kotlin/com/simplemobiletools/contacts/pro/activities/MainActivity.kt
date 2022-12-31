@@ -180,6 +180,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
             findItem(R.id.dialpad).isVisible = !config.showDialpadButton
+            findItem(R.id.more_apps_from_us).isVisible = !resources.getBoolean(R.bool.hide_google_relations)
         }
     }
 
@@ -192,6 +193,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 R.id.dialpad -> launchDialpad()
                 R.id.import_contacts -> tryImportContacts()
                 R.id.export_contacts -> tryExportContacts()
+                R.id.more_apps_from_us -> launchMoreAppsFromUsIntent()
                 R.id.settings -> launchSettings()
                 R.id.about -> launchAbout()
                 else -> return@setOnMenuItemClickListener false

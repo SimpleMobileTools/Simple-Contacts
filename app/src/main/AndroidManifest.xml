@@ -39,6 +39,7 @@
 
         <activity
             android:name=".activities.MainActivity"
+            android:configChanges="orientation"
             android:exported="true">
 
             <meta-data
@@ -62,6 +63,7 @@
 
         <activity
             android:name=".activities.SettingsActivity"
+            android:configChanges="orientation"
             android:exported="true"
             android:label="@string/settings"
             android:parentActivityName=".activities.MainActivity">
@@ -74,11 +76,13 @@
 
         <activity
             android:name=".activities.GroupContactsActivity"
+            android:configChanges="orientation"
             android:exported="false"
             android:parentActivityName=".activities.MainActivity" />
 
         <activity
             android:name=".activities.ViewContactActivity"
+            android:configChanges="orientation"
             android:exported="true"
             android:label="@string/details"
             android:parentActivityName=".activities.MainActivity"
@@ -115,6 +119,7 @@
 
         <activity
             android:name=".activities.EditContactActivity"
+            android:configChanges="orientation"
             android:exported="true"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/TranslucentTheme">
@@ -157,6 +162,7 @@
 
         <activity
             android:name=".activities.InsertOrEditContactActivity"
+            android:configChanges="orientation"
             android:exported="true"
             android:label="@string/select_contact">
 
@@ -197,12 +203,14 @@
 
         <activity
             android:name="com.simplemobiletools.commons.activities.AboutActivity"
+            android:configChanges="orientation"
             android:exported="false"
             android:label="@string/about"
             android:parentActivityName=".activities.MainActivity" />
 
         <activity
             android:name="com.simplemobiletools.commons.activities.CustomizationActivity"
+            android:configChanges="orientation"
             android:exported="false"
             android:label="@string/customize_colors"
             android:parentActivityName=".activities.SettingsActivity" />
