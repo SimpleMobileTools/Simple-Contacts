@@ -52,7 +52,7 @@
     <string name="toggle_favorite">Переключить избранное</string>
     <!-- Search -->
     <string name="search_contacts">Поиск контактов</string>
-    <string name="search_favorites">Поиск избранных</string>
+    <string name="search_favorites">Поиск избранного</string>
     <string name="search_groups">Поиск групп</string>
     <!-- Export / Import -->
     <string name="import_contacts">Импортировать контакты</string>
