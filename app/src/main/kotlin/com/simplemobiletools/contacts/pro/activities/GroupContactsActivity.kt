@@ -39,7 +39,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
         updateTextColors(group_contacts_coordinator)
         setupOptionsMenu()
 
-        updateMaterialActivityViews(group_contacts_coordinator, group_contacts_list, true)
+        updateMaterialActivityViews(group_contacts_coordinator, group_contacts_list, useTransparentNavigation = true, useTopSearchMenu = false)
         setupMaterialScrollListener(group_contacts_list, group_contacts_toolbar)
 
         group = intent.extras?.getSerializable(GROUP) as Group
