@@ -2,20 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="AppCompatResource">
+    tools:ignore="AppCompatResource,AlwaysShowAction">
     <item
         android:id="@+id/cab_edit"
         android:icon="@drawable/ic_edit_vector"
+        android:showAsAction="always"
         android:title="@string/edit_contact"
         app:showAsAction="always" />
     <item
         android:id="@+id/cab_add_to_favorites"
         android:icon="@drawable/ic_star_vector"
+        android:showAsAction="always"
         android:title="@string/add_to_favorites"
         app:showAsAction="always" />
     <item
         android:id="@+id/cab_add_to_group"
         android:icon="@drawable/ic_group_add_vector"
+        android:showAsAction="always"
         android:title="@string/add_to_group"
         app:showAsAction="always" />
     <item
