@@ -300,11 +300,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun setupTabColors() {
         val activeView = main_tabs_holder.getTabAt(view_pager.currentItem)?.customView
-        updateBottomTabItemColors(activeView, true)
+        updateBottomTabItemColors(activeView, true, getSelectedTabDrawableIds()[view_pager.currentItem])
 
         getInactiveTabIndexes(view_pager.currentItem).forEach { index ->
             val inactiveView = main_tabs_holder.getTabAt(index)?.customView
-            updateBottomTabItemColors(inactiveView, false)
+            updateBottomTabItemColors(inactiveView, false, getDeselectedTabDrawableIds()[index])
         }
 
         val bottomBarColor = getBottomNavigationBackgroundColor()
@@ -312,7 +312,45 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         updateNavigationBarColor(bottomBarColor)
     }
 
-    private fun getInactiveTabIndexes(activeIndex: Int) = (0 until tabsList.size).filter { it != activeIndex }
+    private fun getInactiveTabIndexes(activeIndex: Int) = (0 until main_tabs_holder.tabCount).filter { it != activeIndex }
+
+    private fun getSelectedTabDrawableIds(): ArrayList<Int> {
+        val showTabs = config.showTabs
+        val icons = ArrayList<Int>()
+
+        if (showTabs and TAB_CONTACTS != 0) {
+            icons.add(R.drawable.ic_person_vector)
+        }
+
+        if (showTabs and TAB_FAVORITES != 0) {
+            icons.add(R.drawable.ic_star_vector)
+        }
+
+        if (showTabs and TAB_GROUPS != 0) {
+            icons.add(R.drawable.ic_people_vector)
+        }
+
+        return icons
+    }
+
+    private fun getDeselectedTabDrawableIds(): ArrayList<Int> {
+        val showTabs = config.showTabs
+        val icons = ArrayList<Int>()
+
+        if (showTabs and TAB_CONTACTS != 0) {
+            icons.add(R.drawable.ic_person_outline_vector)
+        }
+
+        if (showTabs and TAB_FAVORITES != 0) {
+            icons.add(R.drawable.ic_star_outline_vector)
+        }
+
+        if (showTabs and TAB_GROUPS != 0) {
+            icons.add(R.drawable.ic_people_outline_vector)
+        }
+
+        return icons
+    }
 
     private fun initFragments() {
         view_pager.offscreenPageLimit = tabsList.size - 1
@@ -360,12 +398,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         main_tabs_holder.onTabSelectionChanged(
             tabUnselectedAction = {
-                updateBottomTabItemColors(it.customView, false)
+                updateBottomTabItemColors(it.customView, false, getDeselectedTabDrawableIds()[it.position])
             },
             tabSelectedAction = {
                 main_menu.closeSearch()
                 view_pager.currentItem = it.position
-                updateBottomTabItemColors(it.customView, true)
+                updateBottomTabItemColors(it.customView, true, getSelectedTabDrawableIds()[it.position])
             }
         )
 
