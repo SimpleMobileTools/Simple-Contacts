@@ -51,9 +51,9 @@
     <string name="no_favorites">Er zijn nog geen favorieten toegevoegd.</string>
     <string name="toggle_favorite">Favoriet in-/uitschakelen</string>
     <!-- Search -->
-    <string name="search_contacts">Contacten zoeken</string>
-    <string name="search_favorites">Favorieten zoeken</string>
-    <string name="search_groups">Groepen zoeken</string>
+    <string name="search_contacts">Contact zoeken</string>
+    <string name="search_favorites">Favoriet zoeken</string>
+    <string name="search_groups">Groep zoeken</string>
     <!-- Export / Import -->
     <string name="import_contacts">Contacten importeren</string>
     <string name="export_contacts">Contacten exporteren</string>

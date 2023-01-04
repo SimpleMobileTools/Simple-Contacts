@@ -52,8 +52,8 @@
     <string name="toggle_favorite">切换收藏</string>
     <!-- Search -->
     <string name="search_contacts">搜索联系人</string>
-    <string name="search_favorites">搜索我的收藏</string>
-    <string name="search_groups">搜索群组</string>
+    <string name="search_favorites">搜索收藏</string>
+    <string name="search_groups">搜索组</string>
     <!-- Export / Import -->
     <string name="import_contacts">导入联系人</string>
     <string name="export_contacts">导出联系人</string>
