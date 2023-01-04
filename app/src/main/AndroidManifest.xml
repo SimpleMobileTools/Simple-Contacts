@@ -42,14 +42,6 @@
             android:configChanges="orientation"
             android:exported="true">
 
-            <meta-data
-                android:name="android.app.default_searchable"
-                android:resource="@xml/searchable" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -165,14 +157,6 @@
             android:configChanges="orientation"
             android:exported="true"
             android:label="@string/select_contact">
-
-            <meta-data
-                android:name="android.app.default_searchable"
-                android:resource="@xml/searchable" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.INSERT_OR_EDIT" />
