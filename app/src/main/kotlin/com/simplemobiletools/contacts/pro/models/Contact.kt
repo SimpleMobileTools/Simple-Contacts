@@ -130,6 +130,39 @@ data class Contact(
         }
     }
 
+    // John, Sir Elton Hercules, CH, CBE --> J (or JE?) - Start with Surname
+    // Sir Elton Hercules John CH, CBE   --> E (or EJ?) - Start with Firstname
+    fun getNameForLetterPlaceholder(): String {
+        val gotFirstname = firstName.isNotEmpty()
+        // val gotMiddlename = middleName.isNotEmpty()
+        val gotSurname = surname.isNotEmpty()
+
+        if (gotSurname && gotFirstname) {
+            if (startWithSurname) {
+                return surname[0].toString() //  + firstName[0].toString()
+            } else {
+                return firstName[0].toString() //  + surname[0].toString()
+            }
+        } else if (gotSurname) {
+            return surname[0].toString()
+        } else if (gotFirstname) {
+            return firstName[0].toString()
+        // } else if (displayName.isNotEmpty()) {
+        //     return displayName[0].toString()
+        } else if (nickname.isNotEmpty()) {
+            return nickname[0].toString()
+        } else if (organization.isNotEmpty()) {
+            val company = getFullCompany()
+            return company[0].toString()
+        } else {
+            val email = emails.firstOrNull()?.value?.trim() ?: ""
+            if (email.isNotEmpty())
+                return email[0].toString()
+            else
+                return "*"
+        }
+    }
+
     // photos stored locally always have different hashcodes. Avoid constantly refreshing the contact lists as the app thinks something changed.
     fun getHashWithoutPrivatePhoto(): Int {
         val photoToUse = if (isPrivate()) null else photo
