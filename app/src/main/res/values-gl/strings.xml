@@ -51,9 +51,9 @@
     <string name="no_favorites">Semella que aínda non engadiches ningún contacto favorito.</string>
     <string name="toggle_favorite">Engadir como favorito</string>
     <!-- Search -->
-    <string name="search_contacts">Buscar nos contactos</string>
-    <string name="search_favorites">Buscar nos favoritos</string>
-    <string name="search_groups">Buscar nos grupos</string>
+    <string name="search_contacts">Buscar contactos</string>
+    <string name="search_favorites">Atopalos favoritos</string>
+    <string name="search_groups">Atopalos grupos</string>
     <!-- Export / Import -->
     <string name="import_contacts">Importar contactos</string>
     <string name="export_contacts">Exportar contactos</string>
