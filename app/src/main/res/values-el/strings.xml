@@ -31,18 +31,18 @@
     <string name="no_group_created">Δεν υπάρχουν ομάδες επαφών στη συσκευή</string>
     <string name="create_group">Δημιουργία ομάδας</string>
     <string name="add_to_group">Προσθήκη σε ομάδα</string>
-    <string name="create_group_under_account">Δημιουργία ομάδας υπό ενός λογαριασμού</string>
+    <string name="create_group_under_account">Δημιουργία ομάδας σε λογαριασμό</string>
     <!-- Photo -->
     <string name="remove_photo">Αφαίρεση φωτογραφίας</string>
     <string name="change_photo">Αλλαγή φωτογραφίας</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Εμφάνιση τηλεφωνικών</string>
+    <string name="show_phone_numbers">Εμφάνιση αριθμών τηλεφώνων</string>
     <string name="show_contact_thumbnails">Εμφάνιση μικρογραφιών επαφής</string>
     <string name="show_dialpad_button">Προβολή ενός κουμπίου πληκτρολογίου στην κύρια οθόνη</string>
     <string name="on_contact_click">Στην επιλογή επαφής</string>
     <string name="call_contact">Κλήση επαφής</string>
     <string name="view_contact">Εμφάνιση λεπτομερειών επαφής</string>
-    <string name="manage_shown_contact_fields">Διαχείριση εμφανιζόμενων πεδίων επαφής</string>
+    <string name="manage_shown_contact_fields">Διαχείριση πεδίων επαφής</string>
     <string name="contacts">Επαφές</string>
     <string name="show_only_contacts_with_numbers">Προβολή όλων των Επαφών με αριθμούς τηλεφώνου</string>
     <string name="show_private_contacts">Εμφάνιση ιδιωτικών επαφών σε Απλή Κλήση, Απλός SMS Messenger και Απλό Ημερολόγιο Pro</string>
@@ -70,7 +70,7 @@
     <string name="prefix">Πρόθεμα</string>
     <string name="suffix">Κατάληξη</string>
     <string name="phone_numbers">Αριθμοί Τηλεφώνων</string>
-    <string name="emails">Μηνύματα ηλεκτρονικού ταχυδρομείου</string>
+    <string name="emails">Emails</string>
     <string name="addresses">Διευθύνσεις</string>
     <string name="events">Εκδηλώσεις (γενέθλια, επετείους)</string>
     <string name="organization">Εταιρεία</string>
