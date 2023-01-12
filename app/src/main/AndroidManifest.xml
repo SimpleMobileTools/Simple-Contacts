@@ -22,6 +22,11 @@
         android:name="android.hardware.telephony"
         android:required="false" />
 
+    <queries>
+        <package android:name="com.simplemobiletools.contacts.debug" />
+        <package android:name="com.simplemobiletools.contacts" />
+    </queries>
+
     <application
         android:name=".App"
         android:allowBackup="true"
