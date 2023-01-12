@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.22.1 *(2023-01-12)*
+----------------------------
+
+ * Added a search bar related bugfix
+ * Added some UI, translation and stability improvements
+
 Version 6.22.0 *(2023-01-04)*
 ----------------------------
 
