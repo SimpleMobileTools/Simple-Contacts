@@ -203,15 +203,10 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         main_menu.toggleHideOnScroll(false)
         main_menu.setupMenu()
 
-        main_menu.onSearchOpenListener = {
-            main_dialpad_button.beGone()
-        }
-
         main_menu.onSearchClosedListener = {
             getAllFragments().forEach {
                 it?.onSearchClosed()
             }
-            main_dialpad_button.beVisibleIf(config.showDialpadButton)
         }
 
         main_menu.onSearchTextChangedListener = { text ->
