@@ -46,7 +46,7 @@
     <string name="contacts">Kontak</string>
     <string name="show_only_contacts_with_numbers">Hanya tampilkan kontak dengan nomor telepon</string>
     <string name="show_private_contacts">Tampilkan kontak privat ke Simple Dialer, Simple SMS Messenger dan Simple Calendar Pro</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="merge_duplicate_contacts">Gabungkan kontak duplikat</string>
     <!-- Favorites -->
     <string name="no_favorites">Sepertinya anda belum menambahkan kontak favorit.</string>
     <string name="toggle_favorite">Alih favorit</string>
