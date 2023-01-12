@@ -153,7 +153,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         isFirstResume = false
         checkShortcuts()
 
-        /if (!config.wasUpgradedFromFreeShown && isPackageInstalled("com.simplemobiletools.contacts")) {
+        if (!config.wasUpgradedFromFreeShown && isPackageInstalled("com.simplemobiletools.contacts")) {
             val dialogText = getString(R.string.upgraded_to_pro_contacts, getString(R.string.phone_storage_hidden))
             ConfirmationDialog(this, dialogText, 0, R.string.ok, 0, false) {}
             config.wasUpgradedFromFreeShown = true
