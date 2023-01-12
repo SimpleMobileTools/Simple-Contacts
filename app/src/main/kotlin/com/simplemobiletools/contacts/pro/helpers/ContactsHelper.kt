@@ -740,7 +740,7 @@ class ContactsHelper(val context: Context) {
                 }
 
                 val nickname = getNicknames(id)[id] ?: ""
-                val photoUri = cursor.getStringValue(Phone.PHOTO_URI) ?: ""
+                val photoUri = cursor.getStringValueOrNull(Phone.PHOTO_URI) ?: ""
                 val number = getPhoneNumbers(id)[id] ?: ArrayList()
                 val emails = getEmails(id)[id] ?: ArrayList()
                 val addresses = getAddresses(id)[id] ?: ArrayList()
