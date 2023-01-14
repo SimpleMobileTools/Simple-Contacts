@@ -7,13 +7,13 @@
     <string name="updating">A atualizar…</string>
     <string name="phone_storage">Armazenamento do telefone</string>
     <string name="phone_storage_hidden">Armazenamento do telefone (não visível por outras alicações)</string>
-    <string name="company">Organização</string>
+    <string name="company">Empresa</string>
     <string name="job_position">Cargo</string>
     <string name="send_sms_to_contacts">Enviar SMS aos contactos</string>
     <string name="send_email_to_contacts">Enviar e-mail aos contactos</string>
     <string name="send_sms_to_group">Enviar SMS para o grupo</string>
     <string name="send_email_to_group">Enviar e-mail para o grupo</string>
-    <string name="fields_empty">Pelo menos um campo deve de ser preenchido</string>
+    <string name="fields_empty">Deve preencher, pelo menos, um campo</string>
     <string name="must_be_at_edit">Tem que estar no ecrã de edição para alterar um contacto</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Não existem contactos com endereço de e-mail</string>
@@ -31,10 +31,10 @@
     <string name="no_group_created">Não existem grupos de contactos neste dispositivo</string>
     <string name="create_group">Criar um grupo</string>
     <string name="add_to_group">Adicionar ao grupo</string>
-    <string name="create_group_under_account">Criar grupo para a conta</string>
+    <string name="create_group_under_account">Criar grupo na conta</string>
     <!-- Photo -->
     <string name="remove_photo">Remover foto</string>
-    <string name="change_photo">Change photo</string>
+    <string name="change_photo">Alterar foto</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Mostrar números de telefone</string>
     <string name="show_contact_thumbnails">Mostrar miniatura do contacto</string>
@@ -46,10 +46,10 @@
     <string name="contacts">Contactos</string>
     <string name="show_only_contacts_with_numbers">Mostrar apenas contactos com número de telefone</string>
     <string name="show_private_contacts">Mostrar contactos privados em Simple Dialer, Simple SMS Messenger e em Simple Calendar Pro</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
+    <string name="merge_duplicate_contacts">Unir contactos duplicados</string>
     <!-- Favorites -->
     <string name="no_favorites">Ainda não adicionou contactos aos favoritos.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
+    <string name="toggle_favorite">Alternar favorito</string>
     <!-- Search -->
     <string name="search_contacts">Pesquisar nos contactos</string>
     <string name="search_favorites">Pesquisar nos favoritos</string>
@@ -61,10 +61,10 @@
     <string name="import_contacts_from_vcf_pro">Importar contactos de um ficheiro .vcf (Pro)</string>
     <string name="export_contacts_to_vcf">Exportar contactos para um ficheiro .vcf</string>
     <string name="target_contact_source">Destino da origem do contacto</string>
-    <string name="include_contact_sources">Incluir fonte dos contactos</string>
+    <string name="include_contact_sources">Incluir origem dos contactos</string>
     <string name="filename_without_vcf">Nome do ficheiro (sem .vcf)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Teclado de discagem</string>
+    <string name="dialpad">Marcador</string>
     <string name="add_number_to_contact">Adicionar a um contacto existente</string>
     <!-- Visible fields -->
     <string name="prefix">Prefixo</string>
@@ -80,14 +80,15 @@
     <string name="instant_messaging">Mensagem instantânea (IM)</string>
     <string name="ringtone">Toque de chamada</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">O contacto será apagado de todas as origens.</string>
+    <string name="delete_from_all_sources">O contacto será removido de todas as origens.</string>
     <plurals name="delete_groups">
         <item quantity="one">%d grupo</item>
+        <item quantity="many">%d grupos</item>
         <item quantity="other">%d grupos</item>
     </plurals>
     <!-- FAQ -->
-    <string name="faq_1_title">Quero alterar os campos a mostrar nos contactos. É possível?</string>
-    <string name="faq_1_text">Sim, basta aceder a Definições -&gt; Gerir campos a mostrar. Aqui, pode escolher os campos que serão mostrados. Alguns dos campos já estão ocultos e, assim, pode mostrar alguns destes.</string>
+    <string name="faq_1_title">Pretendo alterar os campos a mostrar nos contactos. É possível\?</string>
+    <string name="faq_1_text">Sim, basta aceder a Definições -&gt; Gerir campos a mostrar. Aqui, pode escolher os campos que serão mostrados. Alguns dos campos estão ocultos e, assim, pode mostrar alguns destes.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
