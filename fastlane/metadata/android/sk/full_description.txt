@@ -25,9 +25,6 @@ Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje m
 Pozrite si celú sadu aplikácií na:
 https://www.simplemobiletools.com
 
-Vlastná webstránka Jednoduchých kontaktov Pro je na:
-https://www.simplemobiletools.com/contacts
-
 Facebook:
 https://www.facebook.com/simplemobiletools
 

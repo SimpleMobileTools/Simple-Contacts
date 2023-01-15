@@ -19,9 +19,6 @@ No contiene anuncios ni permisos innecesarios. Es totalmente de código abierto,
 Consulte el conjunto completo de herramientas simples aquí:
 https://www.simplemobiletools.com
 
-Sitio web independiente de Simple Contacts Pro:
-https://www.simplemobiletools.com/contacts
-
 Facebook:
 https://www.facebook.com/simplemobiletools
 
