@@ -568,6 +568,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/small_margin"
                 android:paddingTop="@dimen/normal_margin"
+                android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/normal_margin"
                 android:singleLine="true"
                 android:textSize="@dimen/bigger_text_size"
