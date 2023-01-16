@@ -41,7 +41,7 @@
     <string name="show_dialpad_button">Pokazuj przycisk panelu wybierania numeru na ekranie głównym</string>
     <string name="on_contact_click">Przy naciśnięciu kontaktu</string>
     <string name="call_contact">Zadzwoń do kontaktu</string>
-    <string name="view_contact">Zobacz szczegóły kontaktu</string>
+    <string name="view_contact">Wyświetl szczegóły kontaktu</string>
     <string name="manage_shown_contact_fields">Zarządzaj wyświetlanymi polami kontaktów</string>
     <string name="contacts">Kontakty</string>
     <string name="show_only_contacts_with_numbers">Pokazuj tylko kontakty z numerami telefonów</string>
