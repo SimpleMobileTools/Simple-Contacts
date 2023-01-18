@@ -65,7 +65,7 @@
     <string name="filename_without_vcf">Nome do ficheiro (sem .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Marcador</string>
-    <string name="add_number_to_contact">Adicionar a um contacto existente</string>
+    <string name="add_number_to_contact">Adicionar número a um contacto</string>
     <!-- Visible fields -->
     <string name="prefix">Prefixo</string>
     <string name="suffix">Sufixo</string>
