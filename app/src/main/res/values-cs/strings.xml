@@ -49,7 +49,7 @@
     <string name="merge_duplicate_contacts">Sloučit duplicitní kontakty</string>
     <!-- Favorites -->
     <string name="no_favorites">Vypadá to, že jste ještě nepřidali žádné oblíbené kontakty.</string>
-    <string name="toggle_favorite">Přepnout oblíbenost</string>
+    <string name="toggle_favorite">Přepínač oblíbenosti</string>
     <!-- Search -->
     <string name="search_contacts">Hledat kontakty</string>
     <string name="search_favorites">Hledat oblíbené</string>
