@@ -49,11 +49,11 @@
     <string name="merge_duplicate_contacts">Sloučit duplicitní kontakty</string>
     <!-- Favorites -->
     <string name="no_favorites">Vypadá to, že jste ještě nepřidali žádné oblíbené kontakty.</string>
-    <string name="toggle_favorite">Přepnout oblíbenost</string>
+    <string name="toggle_favorite">Přepínač oblíbenosti</string>
     <!-- Search -->
-    <string name="search_contacts">Hledat v kontaktech</string>
-    <string name="search_favorites">Hledat mezi oblíbenými</string>
-    <string name="search_groups">Hledat mezi skupinami</string>
+    <string name="search_contacts">Hledat kontakty</string>
+    <string name="search_favorites">Hledat oblíbené</string>
+    <string name="search_groups">Hledat skupiny</string>
     <!-- Export / Import -->
     <string name="import_contacts">Importovat kontakty</string>
     <string name="export_contacts">Exportovat kontakty</string>
