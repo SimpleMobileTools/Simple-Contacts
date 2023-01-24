@@ -513,7 +513,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                     try {
                         startActivityForResult(this, PICK_EXPORT_FILE_INTENT)
                     } catch (e: ActivityNotFoundException) {
-                        toast(R.string.system_service_disabled, Toast.LENGTH_LONG)
+                        toast(R.string.no_app_found, Toast.LENGTH_LONG)
                     } catch (e: Exception) {
                         showErrorToast(e)
                     }

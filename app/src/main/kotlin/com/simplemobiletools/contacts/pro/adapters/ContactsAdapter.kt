@@ -55,6 +55,7 @@ class ContactsAdapter(
     private val enableDrag: Boolean = false,
     itemClick: (Any) -> Unit
 ) : MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate, ItemTouchHelperContract {
+
     private val NEW_GROUP_ID = -1
 
     private var config = activity.config
@@ -64,12 +65,11 @@ class ContactsAdapter(
     var showContactThumbnails = config.showContactThumbnails
     var showPhoneNumbers = config.showPhoneNumbers
     var fontSize = activity.getTextSize()
+    var onDragEndListener: (() -> Unit)? = null
 
     private val itemLayout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
-
     private var touchHelper: ItemTouchHelper? = null
     private var startReorderDragListener: StartReorderDragListener? = null
-    var onDragEndListener: (() -> Unit)? = null
 
     init {
         setupDragListener(true)
@@ -465,7 +465,7 @@ class ContactsAdapter(
         notifyItemMoved(fromPosition, toPosition)
     }
 
-    override fun onRowSelected(myViewHolder: ViewHolder?) { }
+    override fun onRowSelected(myViewHolder: ViewHolder?) {}
 
     override fun onRowClear(myViewHolder: ViewHolder?) {
         onDragEndListener?.invoke()

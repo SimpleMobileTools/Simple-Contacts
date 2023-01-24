@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds.Email
 import android.provider.ContactsContract.CommonDataKinds.Phone
-import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
@@ -35,8 +34,6 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     private val START_INSERT_ACTIVITY = 1
     private val START_EDIT_ACTIVITY = 2
 
-    private var isSearchOpen = false
-    private var searchMenuItem: MenuItem? = null
     private var isSelectContactIntent = false
     private var specialMimeType: String? = null
 
@@ -87,11 +84,6 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         super.onResume()
         updateMenuColors()
         setupTabColors()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        searchMenuItem?.collapseActionView()
     }
 
     private fun setupOptionsMenu() {
@@ -341,15 +333,6 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
             } catch (e: Exception) {
                 showErrorToast(e)
             }
-        }
-    }
-
-    private fun closeSearch() {
-        if (isSearchOpen) {
-            getAllFragments().forEach {
-                it?.onSearchQueryChanged("")
-            }
-            searchMenuItem?.collapseActionView()
         }
     }
 

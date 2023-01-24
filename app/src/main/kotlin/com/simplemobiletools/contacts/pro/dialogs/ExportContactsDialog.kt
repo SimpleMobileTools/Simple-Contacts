@@ -35,7 +35,6 @@ class ExportContactsDialog(
 
             if (hidePath) {
                 export_contacts_folder_hint.beGone()
-                export_contacts_folder.beGone()
             } else {
                 export_contacts_folder.setOnClickListener {
                     activity.hideKeyboard(export_contacts_filename)

@@ -78,17 +78,6 @@ class SelectContactsAdapter(
 
     override fun getItemCount() = contacts.size
 
-    fun updateItems(newItems: ArrayList<Contact>, highlightText: String = "") {
-        if (newItems.hashCode() != contacts.hashCode()) {
-            contacts = newItems.clone() as ArrayList<Contact>
-            textToHighlight = highlightText
-            notifyDataSetChanged()
-        } else if (textToHighlight != highlightText) {
-            textToHighlight = highlightText
-            notifyDataSetChanged()
-        }
-    }
-
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isDestroyed && !activity.isFinishing) {
