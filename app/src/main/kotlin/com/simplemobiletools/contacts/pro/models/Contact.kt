@@ -1,8 +1,6 @@
 package com.simplemobiletools.contacts.pro.models
 
 import android.graphics.Bitmap
-import android.telephony.PhoneNumberUtils
-import com.simplemobiletools.commons.extensions.normalizePhoneNumber
 import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.PhoneNumber
@@ -175,20 +173,6 @@ data class Contact(
 
     fun isABusinessContact() =
         prefix.isEmpty() && firstName.isEmpty() && middleName.isEmpty() && surname.isEmpty() && suffix.isEmpty() && organization.isNotEmpty()
-
-    fun doesContainPhoneNumber(text: String, convertLetters: Boolean): Boolean {
-        return if (text.isNotEmpty()) {
-            val normalizedText = if (convertLetters) text.normalizePhoneNumber() else text
-            phoneNumbers.any {
-                PhoneNumberUtils.compare(it.normalizedNumber, normalizedText) ||
-                    it.value.contains(text) ||
-                    it.normalizedNumber.contains(normalizedText) ||
-                    it.value.normalizePhoneNumber().contains(normalizedText)
-            }
-        } else {
-            false
-        }
-    }
 
     fun isPrivate() = source == SMT_PRIVATE
 

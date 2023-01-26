@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/min_row_height"
-        android:paddingStart="@dimen/tiny_margin"
+        android:paddingStart="@dimen/normal_margin"
         android:paddingTop="@dimen/medium_margin"
         android:paddingEnd="@dimen/activity_margin"
         android:paddingBottom="@dimen/medium_margin">

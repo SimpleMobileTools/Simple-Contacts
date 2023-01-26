@@ -229,8 +229,8 @@ class ViewContactActivity : ContactActivity() {
 
         val textColor = getProperTextColor()
         arrayOf(
-            contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_events_image, contact_source_image,
-            contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image
+            contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_ims_image, contact_events_image,
+            contact_source_image, contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image
         ).forEach {
             it.applyColorFilter(textColor)
         }

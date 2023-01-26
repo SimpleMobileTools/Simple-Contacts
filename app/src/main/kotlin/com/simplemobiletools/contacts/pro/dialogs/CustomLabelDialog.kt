@@ -8,7 +8,6 @@ import kotlinx.android.synthetic.main.dialog_custom_label.view.*
 
 class CustomLabelDialog(val activity: BaseSimpleActivity, val callback: (label: String) -> Unit) {
     init {
-
         val view = activity.layoutInflater.inflate(R.layout.dialog_custom_label, null)
 
         activity.getAlertDialogBuilder()
