@@ -1,7 +1,7 @@
 package com.simplemobiletools.contacts.pro.helpers
 
 import android.net.Uri
-import android.provider.ContactsContract.CommonDataKinds
+import android.provider.ContactsContract.CommonDataKinds.Email
 import android.provider.ContactsContract.CommonDataKinds.Event
 import android.provider.ContactsContract.CommonDataKinds.Im
 import android.provider.ContactsContract.CommonDataKinds.Phone
@@ -188,10 +188,10 @@ class VcfExporter {
     }
 
     private fun getEmailTypeLabel(type: Int, label: String) = when (type) {
-        CommonDataKinds.Email.TYPE_HOME -> HOME
-        CommonDataKinds.Email.TYPE_WORK -> WORK
-        CommonDataKinds.Email.TYPE_MOBILE -> MOBILE
-        CommonDataKinds.Email.TYPE_OTHER -> OTHER
+        Email.TYPE_HOME -> HOME
+        Email.TYPE_WORK -> WORK
+        Email.TYPE_MOBILE -> MOBILE
+        Email.TYPE_OTHER -> OTHER
         else -> label
     }
 
