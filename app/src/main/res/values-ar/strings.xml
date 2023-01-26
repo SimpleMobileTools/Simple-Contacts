@@ -53,7 +53,7 @@
     <!-- Search -->
     <string name="search_contacts">بحث في جهات الاتصال</string>
     <string name="search_favorites">بحث في المفضلة</string>
-    <string name="search_groups">مجموعات البحث</string>
+    <string name="search_groups">البحث في المجموعات</string>
     <!-- Export / Import -->
     <string name="import_contacts">استيراد جهات اتصال</string>
     <string name="export_contacts">تصدير جهات اتصال</string>
