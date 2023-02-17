@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getTextSize
-import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.helpers.TAB_GROUPS
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
@@ -17,11 +15,9 @@ import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.dialogs.RenameGroupDialog
-import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.groupsDB
-import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
+import com.simplemobiletools.commons.helpers.ContactsHelper
+import com.simplemobiletools.commons.models.contacts.Group
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
-import com.simplemobiletools.contacts.pro.models.Group
 import kotlinx.android.synthetic.main.item_group.view.*
 import java.util.*
 
@@ -31,7 +27,7 @@ class GroupsAdapter(
 ) : MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate {
 
     private var textToHighlight = ""
-    var showContactThumbnails = activity.config.showContactThumbnails
+    var showContactThumbnails = activity.contactsConfig.showContactThumbnails
     var fontSize = activity.getTextSize()
 
     init {

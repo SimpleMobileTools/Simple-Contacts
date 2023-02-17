@@ -2,17 +2,13 @@ package com.simplemobiletools.contacts.pro.dialogs
 
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
-import com.simplemobiletools.commons.extensions.setupDialogStuff
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.SMT_PRIVATE
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
-import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.getPublicContactSource
 import com.simplemobiletools.contacts.pro.extensions.showContactSourcePicker
-import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPORT_FAIL
 import kotlinx.android.synthetic.main.dialog_import_contacts.view.*
@@ -23,7 +19,7 @@ class ImportContactsDialog(val activity: SimpleActivity, val path: String, priva
 
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_import_contacts, null) as ViewGroup).apply {
-            targetContactSource = activity.config.lastUsedContactSource
+            targetContactSource = activity.contactsConfig.lastUsedContactSource
             activity.getPublicContactSource(targetContactSource) {
                 import_contacts_title.setText(it)
                 if (it.isEmpty()) {

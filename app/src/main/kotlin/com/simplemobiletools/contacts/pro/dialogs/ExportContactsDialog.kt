@@ -5,20 +5,20 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.contactsConfig
+import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.FilterContactSourcesAdapter
-import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
-import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
-import com.simplemobiletools.contacts.pro.models.Contact
-import com.simplemobiletools.contacts.pro.models.ContactSource
 import kotlinx.android.synthetic.main.dialog_export_contacts.view.*
 import java.io.File
 
 class ExportContactsDialog(
-    val activity: SimpleActivity, val path: String, val hidePath: Boolean,
+    val activity: SimpleActivity,
+    val path: String,
+    val hidePath: Boolean,
     private val callback: (file: File, ignoredContactSources: HashSet<String>) -> Unit
 ) {
     private var ignoreClicks = false
@@ -80,7 +80,7 @@ class ExportContactsDialog(
 
                                 ignoreClicks = true
                                 ensureBackgroundThread {
-                                    activity.config.lastExportPath = file.absolutePath.getParentPath()
+                                    activity.contactsConfig.lastExportPath = file.absolutePath.getParentPath()
                                     val selectedSources = (view.export_contacts_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
                                     val ignoredSources = contactSources
                                         .filter { !selectedSources.contains(it) }

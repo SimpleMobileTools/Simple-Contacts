@@ -29,6 +29,10 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.PhoneNumber
 import com.simplemobiletools.commons.models.RadioItem
+import com.simplemobiletools.commons.models.contacts.*
+import com.simplemobiletools.commons.models.contacts.Email
+import com.simplemobiletools.commons.models.contacts.Event
+import com.simplemobiletools.commons.models.contacts.Organization
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
@@ -36,10 +40,6 @@ import com.simplemobiletools.contacts.pro.dialogs.MyDatePickerDialog
 import com.simplemobiletools.contacts.pro.dialogs.SelectGroupsDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
-import com.simplemobiletools.contacts.pro.models.*
-import com.simplemobiletools.contacts.pro.models.Email
-import com.simplemobiletools.contacts.pro.models.Event
-import com.simplemobiletools.contacts.pro.models.Organization
 import kotlinx.android.synthetic.main.activity_edit_contact.*
 import kotlinx.android.synthetic.main.item_edit_address.view.*
 import kotlinx.android.synthetic.main.item_edit_email.view.*
@@ -219,15 +219,25 @@ class EditContactActivity : ContactActivity() {
 
         val properPrimaryColor = getProperPrimaryColor()
         arrayOf(
-            contact_numbers_add_new, contact_emails_add_new, contact_addresses_add_new, contact_ims_add_new, contact_events_add_new,
-            contact_websites_add_new, contact_groups_add_new
+            contact_numbers_add_new,
+            contact_emails_add_new,
+            contact_addresses_add_new,
+            contact_ims_add_new,
+            contact_events_add_new,
+            contact_websites_add_new,
+            contact_groups_add_new
         ).forEach {
             it.applyColorFilter(properPrimaryColor)
         }
 
         arrayOf(
-            contact_numbers_add_new.background, contact_emails_add_new.background, contact_addresses_add_new.background, contact_ims_add_new.background,
-            contact_events_add_new.background, contact_websites_add_new.background, contact_groups_add_new.background
+            contact_numbers_add_new.background,
+            contact_emails_add_new.background,
+            contact_addresses_add_new.background,
+            contact_ims_add_new.background,
+            contact_events_add_new.background,
+            contact_websites_add_new.background,
+            contact_groups_add_new.background
         ).forEach {
             it.applyColorFilter(textColor)
         }
@@ -378,7 +388,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupFieldVisibility() {
-        val showFields = config.showContactFields
+        val showFields = contactsConfig.showContactFields
         if (showFields and (SHOW_PREFIX_FIELD or SHOW_FIRST_NAME_FIELD or SHOW_MIDDLE_NAME_FIELD or SHOW_SURNAME_FIELD or SHOW_SUFFIX_FIELD) == 0) {
             contact_name_image.beInvisible()
         }
@@ -599,11 +609,18 @@ class EditContactActivity : ContactActivity() {
                 startActivityForResult(ringtonePickerIntent, INTENT_SELECT_RINGTONE)
             } catch (e: Exception) {
                 val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
-                SelectAlarmSoundDialog(this, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
+                SelectAlarmSoundDialog(
+                    this,
+                    currentRingtone,
+                    AudioManager.STREAM_RING,
+                    PICK_RINGTONE_INTENT_ID,
+                    RingtoneManager.TYPE_RINGTONE,
+                    true,
                     onAlarmPicked = {
                         contact!!.ringtone = it?.uri
                         contact_ringtone.text = it?.title
-                    }, onAlarmSoundDeleted = {}
+                    },
+                    onAlarmSoundDeleted = {}
                 )
             }
         }
@@ -727,7 +744,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupNewContact() {
-        originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
+        originalContactSource = if (hasContactPermissions()) contactsConfig.lastUsedContactSource else SMT_PRIVATE
         contact = getEmptyContact()
         getPublicContactSource(contact!!.source) {
             contact_source.text = if (it == "") getString(R.string.phone_storage) else it
@@ -1032,7 +1049,7 @@ class EditContactActivity : ContactActivity() {
         contact = contactValues
 
         ensureBackgroundThread {
-            config.lastUsedContactSource = contact!!.source
+            contactsConfig.lastUsedContactSource = contact!!.source
             when {
                 contact!!.id == 0 -> insertNewContact(false)
                 originalContactSource != contact!!.source -> insertNewContact(true)
@@ -1067,7 +1084,7 @@ class EditContactActivity : ContactActivity() {
             events = filledEvents,
             starred = if (isContactStarred()) 1 else 0,
             notes = contact_notes.value,
-            websites = filledWebsites,
+            websites = filledWebsites
         )
 
         val company = contact_organization_company.value

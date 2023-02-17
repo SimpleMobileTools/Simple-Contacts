@@ -5,8 +5,8 @@ import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.contacts.pro.R
-import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.commons.extensions.contactsConfig
+import com.simplemobiletools.commons.helpers.*
 
 class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity, val callback: (hasSomethingChanged: Boolean) -> Unit) {
     private var view = activity.layoutInflater.inflate(R.layout.dialog_manage_visible_fields, null)
@@ -33,7 +33,7 @@ class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity, val callback: 
             put(SHOW_RINGTONE_FIELD, R.id.manage_ringtone)
         }
 
-        val showContactFields = activity.config.showContactFields
+        val showContactFields = activity.contactsConfig.showContactFields
         for ((key, value) in fields) {
             view.findViewById<MyAppCompatCheckbox>(value).isChecked = showContactFields and key != 0
         }
@@ -54,8 +54,8 @@ class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity, val callback: 
             }
         }
 
-        val hasSomethingChanged = activity.config.showContactFields != result
-        activity.config.showContactFields = result
+        val hasSomethingChanged = activity.contactsConfig.showContactFields != result
+        activity.contactsConfig.showContactFields = result
 
         if (hasSomethingChanged) {
             callback(true)

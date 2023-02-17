@@ -10,7 +10,9 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.media.RingtoneManager
 import android.net.Uri
+import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds.*
+import android.provider.ContactsContract.CommonDataKinds.Email
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -24,12 +26,12 @@ import com.bumptech.glide.request.target.Target
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.letterBackgroundColors
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.shareContacts
-import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
-import com.simplemobiletools.contacts.pro.models.Contact
+import com.simplemobiletools.commons.models.contacts.*
 
 abstract class ContactActivity : SimpleActivity() {
     protected val PICK_RINGTONE_INTENT_ID = 1500
@@ -207,8 +209,8 @@ abstract class ContactActivity : SimpleActivity() {
     }
 
     fun getEventTextId(type: Int) = when (type) {
-        Event.TYPE_ANNIVERSARY -> R.string.anniversary
-        Event.TYPE_BIRTHDAY -> R.string.birthday
+        ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY -> R.string.anniversary
+        ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY -> R.string.birthday
         else -> R.string.other
     }
 

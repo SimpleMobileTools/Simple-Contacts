@@ -22,12 +22,12 @@ import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.PhoneNumber
+import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.ChooseSocialDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
-import com.simplemobiletools.contacts.pro.models.*
 import kotlinx.android.synthetic.main.activity_view_contact.*
 import kotlinx.android.synthetic.main.item_view_address.view.*
 import kotlinx.android.synthetic.main.item_view_contact_source.view.*
@@ -46,7 +46,7 @@ class ViewContactActivity : ContactActivity() {
     private var showFields = 0
     private var fullContact: Contact? = null    // contact with all fields filled from duplicates
     private var duplicateInitialized = false
-    private val mergeDuplicate: Boolean get() = config.mergeDuplicateContacts
+    private val mergeDuplicate: Boolean get() = contactsConfig.mergeDuplicateContacts
 
     private val COMPARABLE_PHONE_NUMBER_LENGTH = 9
 
@@ -59,7 +59,7 @@ class ViewContactActivity : ContactActivity() {
             return
         }
 
-        showFields = config.showContactFields
+        showFields = contactsConfig.showContactFields
         contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         setupMenu()
     }
@@ -122,7 +122,7 @@ class ViewContactActivity : ContactActivity() {
 
             findItem(R.id.manage_visible_fields).setOnMenuItemClickListener {
                 ManageVisibleFieldsDialog(this@ViewContactActivity) {
-                    showFields = config.showContactFields
+                    showFields = contactsConfig.showContactFields
                     ensureBackgroundThread {
                         initContact()
                     }
@@ -388,7 +388,7 @@ class ViewContactActivity : ContactActivity() {
                     copyOnLongClick(phoneNumber.value)
 
                     setOnClickListener {
-                        if (config.showCallConfirmation) {
+                        if (contactsConfig.showCallConfirmation) {
                             CallConfirmationDialog(this@ViewContactActivity, phoneNumber.value) {
                                 startCallIntent(phoneNumber.value)
                             }

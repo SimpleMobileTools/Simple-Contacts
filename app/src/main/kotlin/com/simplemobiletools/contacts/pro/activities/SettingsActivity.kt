@@ -8,10 +8,7 @@ import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleTabsDialog
-import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.helpers.ON_CLICK_CALL_CONTACT
-import com.simplemobiletools.contacts.pro.helpers.ON_CLICK_EDIT_CONTACT
-import com.simplemobiletools.contacts.pro.helpers.ON_CLICK_VIEW_CONTACT
+import com.simplemobiletools.commons.extensions.contactsConfig
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 
@@ -80,8 +77,8 @@ class SettingsActivity : SimpleActivity() {
                 RadioItem(TAB_LAST_USED, getString(R.string.last_used_tab))
             )
 
-            RadioGroupDialog(this@SettingsActivity, items, config.defaultTab) {
-                config.defaultTab = it as Int
+            RadioGroupDialog(this@SettingsActivity, items, contactsConfig.defaultTab) {
+                contactsConfig.defaultTab = it as Int
                 settings_default_tab.text = getDefaultTabText()
             }
         }
@@ -106,19 +103,19 @@ class SettingsActivity : SimpleActivity() {
                 RadioItem(FONT_SIZE_EXTRA_LARGE, getString(R.string.extra_large))
             )
 
-            RadioGroupDialog(this@SettingsActivity, items, config.fontSize) {
-                config.fontSize = it as Int
+            RadioGroupDialog(this@SettingsActivity, items, contactsConfig.fontSize) {
+                contactsConfig.fontSize = it as Int
                 settings_font_size.text = getFontSizeText()
             }
         }
     }
 
     private fun setupUseEnglish() {
-        settings_use_english_holder.beVisibleIf((config.wasUseEnglishToggled || Locale.getDefault().language != "en") && !isTiramisuPlus())
-        settings_use_english.isChecked = config.useEnglish
+        settings_use_english_holder.beVisibleIf((contactsConfig.wasUseEnglishToggled || Locale.getDefault().language != "en") && !isTiramisuPlus())
+        settings_use_english.isChecked = contactsConfig.useEnglish
         settings_use_english_holder.setOnClickListener {
             settings_use_english.toggle()
-            config.useEnglish = settings_use_english.isChecked
+            contactsConfig.useEnglish = settings_use_english.isChecked
             System.exit(0)
         }
     }
@@ -132,50 +129,50 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupShowContactThumbnails() {
-        settings_show_contact_thumbnails.isChecked = config.showContactThumbnails
+        settings_show_contact_thumbnails.isChecked = contactsConfig.showContactThumbnails
         settings_show_contact_thumbnails_holder.setOnClickListener {
             settings_show_contact_thumbnails.toggle()
-            config.showContactThumbnails = settings_show_contact_thumbnails.isChecked
+            contactsConfig.showContactThumbnails = settings_show_contact_thumbnails.isChecked
         }
     }
 
     private fun setupShowPhoneNumbers() {
-        settings_show_phone_numbers.isChecked = config.showPhoneNumbers
+        settings_show_phone_numbers.isChecked = contactsConfig.showPhoneNumbers
         settings_show_phone_numbers_holder.setOnClickListener {
             settings_show_phone_numbers.toggle()
-            config.showPhoneNumbers = settings_show_phone_numbers.isChecked
+            contactsConfig.showPhoneNumbers = settings_show_phone_numbers.isChecked
         }
     }
 
     private fun setupShowContactsWithNumbers() {
-        settings_show_only_contacts_with_numbers.isChecked = config.showOnlyContactsWithNumbers
+        settings_show_only_contacts_with_numbers.isChecked = contactsConfig.showOnlyContactsWithNumbers
         settings_show_only_contacts_with_numbers_holder.setOnClickListener {
             settings_show_only_contacts_with_numbers.toggle()
-            config.showOnlyContactsWithNumbers = settings_show_only_contacts_with_numbers.isChecked
+            contactsConfig.showOnlyContactsWithNumbers = settings_show_only_contacts_with_numbers.isChecked
         }
     }
 
     private fun setupStartNameWithSurname() {
-        settings_start_name_with_surname.isChecked = config.startNameWithSurname
+        settings_start_name_with_surname.isChecked = contactsConfig.startNameWithSurname
         settings_start_name_with_surname_holder.setOnClickListener {
             settings_start_name_with_surname.toggle()
-            config.startNameWithSurname = settings_start_name_with_surname.isChecked
+            contactsConfig.startNameWithSurname = settings_start_name_with_surname.isChecked
         }
     }
 
     private fun setupShowDialpadButton() {
-        settings_show_dialpad_button.isChecked = config.showDialpadButton
+        settings_show_dialpad_button.isChecked = contactsConfig.showDialpadButton
         settings_show_dialpad_button_holder.setOnClickListener {
             settings_show_dialpad_button.toggle()
-            config.showDialpadButton = settings_show_dialpad_button.isChecked
+            contactsConfig.showDialpadButton = settings_show_dialpad_button.isChecked
         }
     }
 
     private fun setupShowPrivateContacts() {
-        settings_show_private_contacts.isChecked = config.showPrivateContacts
+        settings_show_private_contacts.isChecked = contactsConfig.showPrivateContacts
         settings_show_private_contacts_holder.setOnClickListener {
             settings_show_private_contacts.toggle()
-            config.showPrivateContacts = settings_show_private_contacts.isChecked
+            contactsConfig.showPrivateContacts = settings_show_private_contacts.isChecked
         }
     }
 
@@ -188,15 +185,15 @@ class SettingsActivity : SimpleActivity() {
                 RadioItem(ON_CLICK_EDIT_CONTACT, getString(R.string.edit_contact))
             )
 
-            RadioGroupDialog(this@SettingsActivity, items, config.onContactClick) {
-                config.onContactClick = it as Int
+            RadioGroupDialog(this@SettingsActivity, items, contactsConfig.onContactClick) {
+                contactsConfig.onContactClick = it as Int
                 settings_on_contact_click.text = getOnContactClickText()
             }
         }
     }
 
     private fun getOnContactClickText() = getString(
-        when (config.onContactClick) {
+        when (contactsConfig.onContactClick) {
             ON_CLICK_CALL_CONTACT -> R.string.call_contact
             ON_CLICK_VIEW_CONTACT -> R.string.view_contact
             else -> R.string.edit_contact
@@ -204,18 +201,18 @@ class SettingsActivity : SimpleActivity() {
     )
 
     private fun setupShowCallConfirmation() {
-        settings_show_call_confirmation.isChecked = config.showCallConfirmation
+        settings_show_call_confirmation.isChecked = contactsConfig.showCallConfirmation
         settings_show_call_confirmation_holder.setOnClickListener {
             settings_show_call_confirmation.toggle()
-            config.showCallConfirmation = settings_show_call_confirmation.isChecked
+            contactsConfig.showCallConfirmation = settings_show_call_confirmation.isChecked
         }
     }
 
     private fun setupMergeDuplicateContacts() {
-        settings_merge_duplicate_contacts.isChecked = config.mergeDuplicateContacts
+        settings_merge_duplicate_contacts.isChecked = contactsConfig.mergeDuplicateContacts
         settings_merge_duplicate_contacts_holder.setOnClickListener {
             settings_merge_duplicate_contacts.toggle()
-            config.mergeDuplicateContacts = settings_merge_duplicate_contacts.isChecked
+            contactsConfig.mergeDuplicateContacts = settings_merge_duplicate_contacts.isChecked
         }
     }
 }

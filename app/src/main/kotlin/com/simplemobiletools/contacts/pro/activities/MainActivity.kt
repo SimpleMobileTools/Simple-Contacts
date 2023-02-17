@@ -14,31 +14,28 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
+import com.simplemobiletools.commons.databases.ContactsDatabase
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.contactsConfig
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.Release
+import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
-import com.simplemobiletools.contacts.pro.databases.ContactsDatabase
 import com.simplemobiletools.contacts.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.pro.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.pro.dialogs.ImportContactsDialog
-import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.getTempFile
 import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
 import com.simplemobiletools.contacts.pro.fragments.FavoritesFragment
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
-import com.simplemobiletools.contacts.pro.helpers.ALL_TABS_MASK
-import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.VcfExporter
 import com.simplemobiletools.contacts.pro.helpers.tabsList
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
-import com.simplemobiletools.contacts.pro.models.Contact
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
@@ -93,19 +90,19 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     override fun onResume() {
         super.onResume()
-        if (storedShowPhoneNumbers != config.showPhoneNumbers) {
+        if (storedShowPhoneNumbers != contactsConfig.showPhoneNumbers) {
             System.exit(0)
             return
         }
 
-        if (storedShowTabs != config.showTabs) {
-            config.lastUsedViewPagerPage = 0
+        if (storedShowTabs != contactsConfig.showTabs) {
+            contactsConfig.lastUsedViewPagerPage = 0
             finish()
             startActivity(intent)
             return
         }
 
-        val configShowContactThumbnails = config.showContactThumbnails
+        val configShowContactThumbnails = contactsConfig.showContactThumbnails
         if (storedShowContactThumbnails != configShowContactThumbnails) {
             getAllFragments().forEach {
                 it?.showContactThumbnailsChanged(configShowContactThumbnails)
@@ -122,13 +119,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         updateMenuColors()
         setupTabColors()
 
-        val configStartNameWithSurname = config.startNameWithSurname
+        val configStartNameWithSurname = contactsConfig.startNameWithSurname
         if (storedStartNameWithSurname != configStartNameWithSurname) {
             contacts_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
             favorites_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
         }
 
-        val configFontSize = config.fontSize
+        val configFontSize = contactsConfig.fontSize
         if (storedFontSize != configFontSize) {
             getAllFragments().forEach {
                 it?.fontSizeChanged()
@@ -147,23 +144,23 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         main_dialpad_button.apply {
             setImageDrawable(dialpadIcon)
             background.applyColorFilter(properPrimaryColor)
-            beVisibleIf(config.showDialpadButton)
+            beVisibleIf(contactsConfig.showDialpadButton)
         }
 
         isFirstResume = false
         checkShortcuts()
 
-        if (!config.wasUpgradedFromFreeShown && isPackageInstalled("com.simplemobiletools.contacts")) {
+        if (!contactsConfig.wasUpgradedFromFreeShown && isPackageInstalled("com.simplemobiletools.contacts")) {
             val dialogText = getString(R.string.upgraded_to_pro_contacts, getString(R.string.phone_storage_hidden))
             ConfirmationDialog(this, dialogText, 0, R.string.ok, 0, false) {}
-            config.wasUpgradedFromFreeShown = true
+            contactsConfig.wasUpgradedFromFreeShown = true
         }
     }
 
     override fun onPause() {
         super.onPause()
         storeStateVariables()
-        config.lastUsedViewPagerPage = view_pager.currentItem
+        contactsConfig.lastUsedViewPagerPage = view_pager.currentItem
     }
 
     override fun onDestroy() {
@@ -200,7 +197,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         main_menu.getToolbar().menu.apply {
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
-            findItem(R.id.dialpad).isVisible = !config.showDialpadButton
+            findItem(R.id.dialpad).isVisible = !contactsConfig.showDialpadButton
             findItem(R.id.more_apps_from_us).isVisible = !resources.getBoolean(R.bool.hide_google_relations)
         }
     }
@@ -242,7 +239,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun storeStateVariables() {
-        config.apply {
+        contactsConfig.apply {
             storedShowContactThumbnails = showContactThumbnails
             storedShowPhoneNumbers = showPhoneNumbers
             storedStartNameWithSurname = startNameWithSurname
@@ -253,13 +250,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     @SuppressLint("NewApi")
     private fun checkShortcuts() {
-        val appIconColor = config.appIconColor
-        if (isNougatMR1Plus() && config.lastHandledShortcutColor != appIconColor) {
+        val appIconColor = contactsConfig.appIconColor
+        if (isNougatMR1Plus() && contactsConfig.lastHandledShortcutColor != appIconColor) {
             val createNewContact = getCreateNewContactShortcut(appIconColor)
 
             try {
                 shortcutManager.dynamicShortcuts = Arrays.asList(createNewContact)
-                config.lastHandledShortcutColor = appIconColor
+                contactsConfig.lastHandledShortcutColor = appIconColor
             } catch (ignored: Exception) {
             }
         }
@@ -283,7 +280,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun getCurrentFragment(): MyViewPagerFragment? {
-        val showTabs = config.showTabs
+        val showTabs = contactsConfig.showTabs
         val fragments = arrayListOf<MyViewPagerFragment>()
         if (showTabs and TAB_CONTACTS != 0) {
             fragments.add(contacts_fragment)
@@ -317,7 +314,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun getInactiveTabIndexes(activeIndex: Int) = (0 until main_tabs_holder.tabCount).filter { it != activeIndex }
 
     private fun getSelectedTabDrawableIds(): ArrayList<Int> {
-        val showTabs = config.showTabs
+        val showTabs = contactsConfig.showTabs
         val icons = ArrayList<Int>()
 
         if (showTabs and TAB_CONTACTS != 0) {
@@ -336,7 +333,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun getDeselectedTabDrawableIds(): ArrayList<Int> {
-        val showTabs = config.showTabs
+        val showTabs = contactsConfig.showTabs
         val icons = ArrayList<Int>()
 
         if (showTabs and TAB_CONTACTS != 0) {
@@ -388,7 +385,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun setupTabs() {
         main_tabs_holder.removeAllTabs()
         tabsList.forEachIndexed { index, value ->
-            if (config.showTabs and value != 0) {
+            if (contactsConfig.showTabs and value != 0) {
                 main_tabs_holder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
                     customView?.findViewById<ImageView>(R.id.tab_item_icon)?.setImageDrawable(getTabIcon(index))
                     customView?.findViewById<TextView>(R.id.tab_item_label)?.text = getTabLabel(index)
@@ -502,7 +499,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun tryExportContacts() {
         if (isQPlus()) {
-            ExportContactsDialog(this, config.lastExportPath, true) { file, ignoredContactSources ->
+            ExportContactsDialog(this, contactsConfig.lastExportPath, true) { file, ignoredContactSources ->
                 ignoredExportContactSources = ignoredContactSources
 
                 Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
@@ -522,7 +519,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         } else {
             handlePermission(PERMISSION_WRITE_STORAGE) {
                 if (it) {
-                    ExportContactsDialog(this, config.lastExportPath, false) { file, ignoredContactSources ->
+                    ExportContactsDialog(this, contactsConfig.lastExportPath, false) { file, ignoredContactSources ->
                         getFileOutputStream(file.toFileDirItem(this), true) {
                             exportContactsTo(ignoredContactSources, it)
                         }
@@ -580,7 +577,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         isGettingContacts = true
 
         if (view_pager.adapter == null) {
-            view_pager.adapter = ViewPagerAdapter(this, tabsList, config.showTabs)
+            view_pager.adapter = ViewPagerAdapter(this, tabsList, contactsConfig.showTabs)
             view_pager.currentItem = getDefaultTab()
         }
 
@@ -620,9 +617,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, groups_fragment)
 
     private fun getDefaultTab(): Int {
-        val showTabsMask = config.showTabs
-        return when (config.defaultTab) {
-            TAB_LAST_USED -> config.lastUsedViewPagerPage
+        val showTabsMask = contactsConfig.showTabs
+        return when (contactsConfig.defaultTab) {
+            TAB_LAST_USED -> contactsConfig.lastUsedViewPagerPage
             TAB_CONTACTS -> 0
             TAB_FAVORITES -> if (showTabsMask and TAB_CONTACTS > 0) 1 else 0
             else -> {
