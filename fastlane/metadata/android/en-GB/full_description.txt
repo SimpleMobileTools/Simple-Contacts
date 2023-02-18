@@ -20,7 +20,7 @@ To avoid showing potentially unwanted contacts, it has a powerful built in dupli
 
 It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
 
-Contains no ads or unnecessary permissions. It is fully open camera source, provides customizable colors.
+Contains no ads or unnecessary permissions. It is fully open source, provides customizable colors.
 
 Check out the full suite of Simple Tools here:
 https://www.simplemobiletools.com
