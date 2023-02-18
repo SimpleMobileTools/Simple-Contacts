@@ -51,9 +51,9 @@
     <string name="no_favorites">Atrodo, kad dar nesate pridėję jokių mėgstamų adresatų.</string>
     <string name="toggle_favorite">Toggle favorite</string>
     <!-- Search -->
-    <string name="search_contacts">Ieškoti adresatų</string>
-    <string name="search_favorites">Ieškoti mėgstamų</string>
-    <string name="search_groups">Ieškoti grupių</string>
+    <string name="search_contacts">Ieškoti kontaktuose</string>
+    <string name="search_favorites">Ieškoti mėgiamiausiuose</string>
+    <string name="search_groups">Ieškoti grupėse</string>
     <!-- Export / Import -->
     <string name="import_contacts">Importuoti adresatus</string>
     <string name="export_contacts">Eksportuoti adresatus</string>
