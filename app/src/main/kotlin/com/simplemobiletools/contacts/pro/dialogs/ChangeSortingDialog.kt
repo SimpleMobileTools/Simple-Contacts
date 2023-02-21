@@ -2,7 +2,7 @@ package com.simplemobiletools.contacts.pro.dialogs
 
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.beGoneIf
-import com.simplemobiletools.commons.extensions.contactsConfig
+import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.*
@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.dialog_change_sorting.view.*
 
 class ChangeSortingDialog(val activity: BaseSimpleActivity, private val showCustomSorting: Boolean = false, private val callback: () -> Unit) {
     private var currSorting = 0
-    private var config = activity.contactsConfig
+    private var config = activity.baseConfig
     private var view = activity.layoutInflater.inflate(R.layout.dialog_change_sorting, null)
 
     init {

@@ -17,7 +17,7 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
-import com.simplemobiletools.commons.extensions.contactsConfig
+import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.pro.helpers.ADD_NEW_CONTACT_NUMBER
 import com.simplemobiletools.contacts.pro.helpers.KEY_EMAIL
@@ -159,7 +159,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     private fun setupTabs() {
         insert_edit_tabs_holder.removeAllTabs()
         contactsFavoritesList.forEachIndexed { index, value ->
-            if (contactsConfig.showTabs and value != 0) {
+            if (this.baseConfig.showTabs and value != 0) {
                 insert_edit_tabs_holder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
                     customView?.findViewById<ImageView>(R.id.tab_item_icon)?.setImageDrawable(getTabIcon(index))
                     customView?.findViewById<TextView>(R.id.tab_item_label)?.text = getTabLabel(index)
@@ -349,7 +349,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun getTabsMask(): Int {
         var mask = TAB_CONTACTS
-        if (contactsConfig.showTabs and TAB_FAVORITES != 0) {
+        if (this.baseConfig.showTabs and TAB_FAVORITES != 0) {
             mask += TAB_FAVORITES
         }
         return mask

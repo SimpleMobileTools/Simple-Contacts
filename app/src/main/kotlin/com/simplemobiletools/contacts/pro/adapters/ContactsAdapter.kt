@@ -60,7 +60,7 @@ class ContactsAdapter(
 
     private val NEW_GROUP_ID = -1
 
-    private var config = activity.contactsConfig
+    private var config = activity.baseConfig
     private var textToHighlight = highlightText
 
     var startNameWithSurname = config.startNameWithSurname
@@ -452,7 +452,7 @@ class ContactsAdapter(
     override fun onChange(position: Int) = contactItems.getOrNull(position)?.getBubbleText() ?: ""
 
     override fun onRowMoved(fromPosition: Int, toPosition: Int) {
-        activity.contactsConfig.isCustomOrderSelected = true
+        activity.baseConfig.isCustomOrderSelected = true
 
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {

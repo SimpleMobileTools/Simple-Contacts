@@ -19,7 +19,7 @@ class ImportContactsDialog(val activity: SimpleActivity, val path: String, priva
 
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_import_contacts, null) as ViewGroup).apply {
-            targetContactSource = activity.contactsConfig.lastUsedContactSource
+            targetContactSource = activity.baseConfig.lastUsedContactSource
             activity.getPublicContactSource(targetContactSource) {
                 import_contacts_title.setText(it)
                 if (it.isEmpty()) {

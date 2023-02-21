@@ -7,7 +7,7 @@ import com.simplemobiletools.commons.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.FilterContactSourcesAdapter
-import com.simplemobiletools.commons.extensions.contactsConfig
+import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.extensions.getVisibleContactSources
 import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.models.contacts.*
@@ -77,7 +77,7 @@ class FilterContactSourcesDialog(val activity: SimpleActivity, private val callb
         }.toHashSet()
 
         if (activity.getVisibleContactSources() != ignoredContactSources) {
-            activity.contactsConfig.ignoredContactSources = ignoredContactSources
+            activity.baseConfig.ignoredContactSources = ignoredContactSources
             callback()
         }
         dialog?.dismiss()

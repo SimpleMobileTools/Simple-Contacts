@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.extensions.contactsConfig
+import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -30,7 +30,7 @@ class SelectContactsAdapter(
     RecyclerView.Adapter<SelectContactsAdapter.ViewHolder>() {
     private val itemViews = SparseArray<View>()
     private val selectedPositions = HashSet<Int>()
-    private val config = activity.contactsConfig
+    private val config = activity.baseConfig
     private val adjustedPrimaryColor = activity.getProperPrimaryColor()
     private val fontSize = activity.getTextSize()
 

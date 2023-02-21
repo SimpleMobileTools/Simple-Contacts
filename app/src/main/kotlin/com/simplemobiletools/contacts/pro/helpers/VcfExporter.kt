@@ -1,7 +1,11 @@
 package com.simplemobiletools.contacts.pro.helpers
 
 import android.net.Uri
-import android.provider.ContactsContract
+import android.provider.ContactsContract.CommonDataKinds.Email
+import android.provider.ContactsContract.CommonDataKinds.Event
+import android.provider.ContactsContract.CommonDataKinds.Im
+import android.provider.ContactsContract.CommonDataKinds.Phone
+import android.provider.ContactsContract.CommonDataKinds.StructuredPostal
 import android.provider.MediaStore
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.getByteArray
@@ -79,7 +83,7 @@ class VcfExporter {
                 }
 
                 contact.events.forEach { event ->
-                    if (event.type == ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY || event.type == ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY) {
+                    if (event.type == Event.TYPE_ANNIVERSARY || event.type == Event.TYPE_BIRTHDAY) {
                         val dateTime = event.value.getDateTimeFromDateString(false)
                         Calendar.getInstance().apply {
                             clear()
@@ -87,10 +91,11 @@ class VcfExporter {
                                 set(Calendar.YEAR, 1900)
                             } else {
                                 set(Calendar.YEAR, dateTime.year)
+
                             }
                             set(Calendar.MONTH, dateTime.monthOfYear - 1)
                             set(Calendar.DAY_OF_MONTH, dateTime.dayOfMonth)
-                            if (event.type == ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY) {
+                            if (event.type == Event.TYPE_BIRTHDAY) {
                                 card.birthdays.add(Birthday(time))
                             } else {
                                 card.anniversaries.add(Anniversary(time))
@@ -108,14 +113,14 @@ class VcfExporter {
 
                 contact.IMs.forEach {
                     val impp = when (it.type) {
-                        ContactsContract.CommonDataKinds.Im.PROTOCOL_AIM -> Impp.aim(it.value)
-                        ContactsContract.CommonDataKinds.Im.PROTOCOL_YAHOO -> Impp.yahoo(it.value)
-                        ContactsContract.CommonDataKinds.Im.PROTOCOL_MSN -> Impp.msn(it.value)
-                        ContactsContract.CommonDataKinds.Im.PROTOCOL_ICQ -> Impp.icq(it.value)
-                        ContactsContract.CommonDataKinds.Im.PROTOCOL_SKYPE -> Impp.skype(it.value)
-                        ContactsContract.CommonDataKinds.Im.PROTOCOL_GOOGLE_TALK -> Impp(HANGOUTS, it.value)
-                        ContactsContract.CommonDataKinds.Im.PROTOCOL_QQ -> Impp(QQ, it.value)
-                        ContactsContract.CommonDataKinds.Im.PROTOCOL_JABBER -> Impp(JABBER, it.value)
+                        Im.PROTOCOL_AIM -> Impp.aim(it.value)
+                        Im.PROTOCOL_YAHOO -> Impp.yahoo(it.value)
+                        Im.PROTOCOL_MSN -> Impp.msn(it.value)
+                        Im.PROTOCOL_ICQ -> Impp.icq(it.value)
+                        Im.PROTOCOL_SKYPE -> Impp.skype(it.value)
+                        Im.PROTOCOL_GOOGLE_TALK -> Impp(HANGOUTS, it.value)
+                        Im.PROTOCOL_QQ -> Impp(QQ, it.value)
+                        Im.PROTOCOL_JABBER -> Impp(JABBER, it.value)
                         else -> Impp(it.label, it.value)
                     }
 
@@ -171,29 +176,29 @@ class VcfExporter {
     }
 
     private fun getPhoneNumberTypeLabel(type: Int, label: String) = when (type) {
-        ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE -> CELL
-        ContactsContract.CommonDataKinds.Phone.TYPE_HOME -> HOME
-        ContactsContract.CommonDataKinds.Phone.TYPE_WORK -> WORK
-        ContactsContract.CommonDataKinds.Phone.TYPE_MAIN -> PREF
-        ContactsContract.CommonDataKinds.Phone.TYPE_FAX_WORK -> WORK_FAX
-        ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME -> HOME_FAX
-        ContactsContract.CommonDataKinds.Phone.TYPE_PAGER -> PAGER
-        ContactsContract.CommonDataKinds.Phone.TYPE_OTHER -> OTHER
+        Phone.TYPE_MOBILE -> CELL
+        Phone.TYPE_HOME -> HOME
+        Phone.TYPE_WORK -> WORK
+        Phone.TYPE_MAIN -> PREF
+        Phone.TYPE_FAX_WORK -> WORK_FAX
+        Phone.TYPE_FAX_HOME -> HOME_FAX
+        Phone.TYPE_PAGER -> PAGER
+        Phone.TYPE_OTHER -> OTHER
         else -> label
     }
 
     private fun getEmailTypeLabel(type: Int, label: String) = when (type) {
-        ContactsContract.CommonDataKinds.Email.TYPE_HOME -> HOME
-        ContactsContract.CommonDataKinds.Email.TYPE_WORK -> WORK
-        ContactsContract.CommonDataKinds.Email.TYPE_MOBILE -> MOBILE
-        ContactsContract.CommonDataKinds.Email.TYPE_OTHER -> OTHER
+        Email.TYPE_HOME -> HOME
+        Email.TYPE_WORK -> WORK
+        Email.TYPE_MOBILE -> MOBILE
+        Email.TYPE_OTHER -> OTHER
         else -> label
     }
 
     private fun getAddressTypeLabel(type: Int, label: String) = when (type) {
-        ContactsContract.CommonDataKinds.StructuredPostal.TYPE_HOME -> HOME
-        ContactsContract.CommonDataKinds.StructuredPostal.TYPE_WORK -> WORK
-        ContactsContract.CommonDataKinds.StructuredPostal.TYPE_OTHER -> OTHER
+        StructuredPostal.TYPE_HOME -> HOME
+        StructuredPostal.TYPE_WORK -> WORK
+        StructuredPostal.TYPE_OTHER -> OTHER
         else -> label
     }
 }

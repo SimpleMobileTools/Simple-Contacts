@@ -388,7 +388,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupFieldVisibility() {
-        val showFields = contactsConfig.showContactFields
+        val showFields = this.baseConfig.showContactFields
         if (showFields and (SHOW_PREFIX_FIELD or SHOW_FIRST_NAME_FIELD or SHOW_MIDDLE_NAME_FIELD or SHOW_SURNAME_FIELD or SHOW_SUFFIX_FIELD) == 0) {
             contact_name_image.beInvisible()
         }
@@ -744,7 +744,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupNewContact() {
-        originalContactSource = if (hasContactPermissions()) contactsConfig.lastUsedContactSource else SMT_PRIVATE
+        originalContactSource = if (hasContactPermissions()) this.baseConfig.lastUsedContactSource else SMT_PRIVATE
         contact = getEmptyContact()
         getPublicContactSource(contact!!.source) {
             contact_source.text = if (it == "") getString(R.string.phone_storage) else it
@@ -1049,7 +1049,7 @@ class EditContactActivity : ContactActivity() {
         contact = contactValues
 
         ensureBackgroundThread {
-            contactsConfig.lastUsedContactSource = contact!!.source
+            this.baseConfig.lastUsedContactSource = contact!!.source
             when {
                 contact!!.id == 0 -> insertNewContact(false)
                 originalContactSource != contact!!.source -> insertNewContact(true)

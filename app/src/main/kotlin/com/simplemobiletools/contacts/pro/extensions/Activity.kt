@@ -30,7 +30,7 @@ fun SimpleActivity.startCallIntent(recipient: String) {
 }
 
 fun SimpleActivity.tryStartCall(contact: Contact) {
-    if (contactsConfig.showCallConfirmation) {
+    if (this.baseConfig.showCallConfirmation) {
         CallConfirmationDialog(this, contact.getNameToDisplay()) {
             startCall(contact)
         }
@@ -107,7 +107,7 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
 }
 
 fun SimpleActivity.handleGenericContactClick(contact: Contact) {
-    when (contactsConfig.onContactClick) {
+    when (this.baseConfig.onContactClick) {
         ON_CLICK_CALL_CONTACT -> callContact(contact)
         ON_CLICK_VIEW_CONTACT -> viewContact(contact)
         ON_CLICK_EDIT_CONTACT -> editContact(contact)

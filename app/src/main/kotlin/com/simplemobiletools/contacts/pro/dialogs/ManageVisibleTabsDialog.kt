@@ -8,7 +8,7 @@ import com.simplemobiletools.commons.helpers.TAB_FAVORITES
 import com.simplemobiletools.commons.helpers.TAB_GROUPS
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.contacts.pro.R
-import com.simplemobiletools.commons.extensions.contactsConfig
+import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.helpers.ALL_TABS_MASK
 
 class ManageVisibleTabsDialog(val activity: BaseSimpleActivity) {
@@ -22,7 +22,7 @@ class ManageVisibleTabsDialog(val activity: BaseSimpleActivity) {
             put(TAB_GROUPS, R.id.manage_visible_tabs_groups)
         }
 
-        val showTabs = activity.contactsConfig.showTabs
+        val showTabs = activity.baseConfig.showTabs
         for ((key, value) in tabs) {
             view.findViewById<MyAppCompatCheckbox>(value).isChecked = showTabs and key != 0
         }
@@ -47,6 +47,6 @@ class ManageVisibleTabsDialog(val activity: BaseSimpleActivity) {
             result = ALL_TABS_MASK
         }
 
-        activity.contactsConfig.showTabs = result
+        activity.baseConfig.showTabs = result
     }
 }

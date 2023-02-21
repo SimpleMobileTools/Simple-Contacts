@@ -27,7 +27,7 @@ class GroupsAdapter(
 ) : MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate {
 
     private var textToHighlight = ""
-    var showContactThumbnails = activity.contactsConfig.showContactThumbnails
+    var showContactThumbnails = activity.baseConfig.showContactThumbnails
     var fontSize = activity.getTextSize()
 
     init {
