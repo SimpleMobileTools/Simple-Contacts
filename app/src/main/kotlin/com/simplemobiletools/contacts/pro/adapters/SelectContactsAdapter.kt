@@ -129,12 +129,7 @@ class SelectContactsAdapter(
                 contact_tmb.beVisibleIf(showContactThumbnails)
 
                 if (showContactThumbnails) {
-                    val avatarName = when {
-                        contact.isABusinessContact() -> contact.getFullCompany()
-                        config.startNameWithSurname -> contact.surname
-                        else -> contact.firstName
-                    }
-
+                    val avatarName = contact.getNameForLetterPlaceholder()
                     val placeholderImage = BitmapDrawable(resources, SimpleContactsHelper(context).getContactLetterIcon(avatarName))
 
                     if (contact.photoUri.isEmpty() && contact.photo == null) {

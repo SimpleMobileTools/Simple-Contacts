@@ -307,7 +307,7 @@ class ContactsAdapter(
                 intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY
 
                 val shortcut = ShortcutInfo.Builder(activity, contact.hashCode().toString())
-                    .setShortLabel(contact.getNameToDisplay())
+                    .setShortLabel(contact.getNameForLetterPlaceholder())
                     .setIcon(Icon.createWithBitmap(drawable.convertToBitmap()))
                     .setIntent(intent)
                     .build()
@@ -320,7 +320,7 @@ class ContactsAdapter(
     private fun getShortcutImage(contact: Contact, drawable: Drawable, callback: () -> Unit) {
         val appIconColor = baseConfig.appIconColor
         (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_contact_background).applyColorFilter(appIconColor)
-        val placeholderImage = BitmapDrawable(resources, SimpleContactsHelper(activity).getContactLetterIcon(contact.getNameToDisplay()))
+        val placeholderImage = BitmapDrawable(resources, SimpleContactsHelper(activity).getContactLetterIcon(contact.getNameForLetterPlaceholder()))
         if (contact.photoUri.isEmpty() && contact.photo == null) {
             drawable.setDrawableByLayerId(R.id.shortcut_contact_image, placeholderImage)
             callback()
@@ -402,7 +402,7 @@ class ContactsAdapter(
             findViewById<TextView>(R.id.item_contact_image).beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {
-                val placeholderImage = BitmapDrawable(resources, SimpleContactsHelper(context).getContactLetterIcon(fullName))
+                val placeholderImage = BitmapDrawable(resources, SimpleContactsHelper(context).getContactLetterIcon(contact.getNameForLetterPlaceholder()))
                 if (contact.photoUri.isEmpty() && contact.photo == null) {
                     findViewById<ImageView>(R.id.item_contact_image).setImageDrawable(placeholderImage)
                 } else {

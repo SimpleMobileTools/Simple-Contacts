@@ -61,7 +61,7 @@ abstract class ContactActivity : SimpleActivity() {
     abstract fun systemRingtoneSelected(uri: Uri?)
 
     fun showPhotoPlaceholder(photoView: ImageView) {
-        val placeholder = BitmapDrawable(resources, getBigLetterPlaceholder(contact?.getNameToDisplay() ?: "A"))
+        val placeholder = BitmapDrawable(resources, getBigLetterPlaceholder(contact?.getNameForLetterPlaceholder() ?: "*"))
         photoView.setImageDrawable(placeholder)
         currentContactPhotoPath = ""
         contact?.photo = null
