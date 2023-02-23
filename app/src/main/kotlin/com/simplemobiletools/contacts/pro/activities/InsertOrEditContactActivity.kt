@@ -159,7 +159,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     private fun setupTabs() {
         insert_edit_tabs_holder.removeAllTabs()
         contactsFavoritesList.forEachIndexed { index, value ->
-            if (this.baseConfig.showTabs and value != 0) {
+            if (baseConfig.showTabs and value != 0) {
                 insert_edit_tabs_holder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
                     customView?.findViewById<ImageView>(R.id.tab_item_icon)?.setImageDrawable(getTabIcon(index))
                     customView?.findViewById<TextView>(R.id.tab_item_label)?.text = getTabLabel(index)
@@ -349,7 +349,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun getTabsMask(): Int {
         var mask = TAB_CONTACTS
-        if (this.baseConfig.showTabs and TAB_FAVORITES != 0) {
+        if (baseConfig.showTabs and TAB_FAVORITES != 0) {
             mask += TAB_FAVORITES
         }
         return mask

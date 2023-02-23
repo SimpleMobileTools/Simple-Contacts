@@ -46,7 +46,7 @@ class ViewContactActivity : ContactActivity() {
     private var showFields = 0
     private var fullContact: Contact? = null    // contact with all fields filled from duplicates
     private var duplicateInitialized = false
-    private val mergeDuplicate: Boolean get() = this.baseConfig.mergeDuplicateContacts
+    private val mergeDuplicate: Boolean get() = baseConfig.mergeDuplicateContacts
 
     private val COMPARABLE_PHONE_NUMBER_LENGTH = 9
 
@@ -59,7 +59,7 @@ class ViewContactActivity : ContactActivity() {
             return
         }
 
-        showFields = this.baseConfig.showContactFields
+        showFields = baseConfig.showContactFields
         contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         setupMenu()
     }
@@ -122,7 +122,7 @@ class ViewContactActivity : ContactActivity() {
 
             findItem(R.id.manage_visible_fields).setOnMenuItemClickListener {
                 ManageVisibleFieldsDialog(this@ViewContactActivity) {
-                    showFields = this@ViewContactActivity.baseConfig.showContactFields
+                    showFields = baseConfig.showContactFields
                     ensureBackgroundThread {
                         initContact()
                     }
@@ -388,7 +388,7 @@ class ViewContactActivity : ContactActivity() {
                     copyOnLongClick(phoneNumber.value)
 
                     setOnClickListener {
-                        if (this@ViewContactActivity.baseConfig.showCallConfirmation) {
+                        if (baseConfig.showCallConfirmation) {
                             CallConfirmationDialog(this@ViewContactActivity, phoneNumber.value) {
                                 startCallIntent(phoneNumber.value)
                             }

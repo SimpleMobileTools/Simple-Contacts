@@ -77,15 +77,15 @@ class SettingsActivity : SimpleActivity() {
                 RadioItem(TAB_LAST_USED, getString(R.string.last_used_tab))
             )
 
-            RadioGroupDialog(this@SettingsActivity, items, this.baseConfig.defaultTab) {
-                this.baseConfig.defaultTab = it as Int
+            RadioGroupDialog(this@SettingsActivity, items, baseConfig.defaultTab) {
+                baseConfig.defaultTab = it as Int
                 settings_default_tab.text = getDefaultTabText()
             }
         }
     }
 
     private fun getDefaultTabText() = getString(
-        when (this.baseConfig.defaultTab) {
+        when (baseConfig.defaultTab) {
             TAB_CONTACTS -> R.string.contacts_tab
             TAB_FAVORITES -> R.string.favorites_tab
             TAB_GROUPS -> R.string.groups_tab
@@ -103,19 +103,19 @@ class SettingsActivity : SimpleActivity() {
                 RadioItem(FONT_SIZE_EXTRA_LARGE, getString(R.string.extra_large))
             )
 
-            RadioGroupDialog(this@SettingsActivity, items, this.baseConfig.fontSize) {
-                this.baseConfig.fontSize = it as Int
+            RadioGroupDialog(this@SettingsActivity, items, baseConfig.fontSize) {
+                baseConfig.fontSize = it as Int
                 settings_font_size.text = getFontSizeText()
             }
         }
     }
 
     private fun setupUseEnglish() {
-        settings_use_english_holder.beVisibleIf((this.baseConfig.wasUseEnglishToggled || Locale.getDefault().language != "en") && !isTiramisuPlus())
-        settings_use_english.isChecked = this.baseConfig.useEnglish
+        settings_use_english_holder.beVisibleIf((baseConfig.wasUseEnglishToggled || Locale.getDefault().language != "en") && !isTiramisuPlus())
+        settings_use_english.isChecked = baseConfig.useEnglish
         settings_use_english_holder.setOnClickListener {
             settings_use_english.toggle()
-            this.baseConfig.useEnglish = settings_use_english.isChecked
+            baseConfig.useEnglish = settings_use_english.isChecked
             System.exit(0)
         }
     }
@@ -129,50 +129,50 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupShowContactThumbnails() {
-        settings_show_contact_thumbnails.isChecked = this.baseConfig.showContactThumbnails
+        settings_show_contact_thumbnails.isChecked = baseConfig.showContactThumbnails
         settings_show_contact_thumbnails_holder.setOnClickListener {
             settings_show_contact_thumbnails.toggle()
-            this.baseConfig.showContactThumbnails = settings_show_contact_thumbnails.isChecked
+            baseConfig.showContactThumbnails = settings_show_contact_thumbnails.isChecked
         }
     }
 
     private fun setupShowPhoneNumbers() {
-        settings_show_phone_numbers.isChecked = this.baseConfig.showPhoneNumbers
+        settings_show_phone_numbers.isChecked = baseConfig.showPhoneNumbers
         settings_show_phone_numbers_holder.setOnClickListener {
             settings_show_phone_numbers.toggle()
-            this.baseConfig.showPhoneNumbers = settings_show_phone_numbers.isChecked
+            baseConfig.showPhoneNumbers = settings_show_phone_numbers.isChecked
         }
     }
 
     private fun setupShowContactsWithNumbers() {
-        settings_show_only_contacts_with_numbers.isChecked = this.baseConfig.showOnlyContactsWithNumbers
+        settings_show_only_contacts_with_numbers.isChecked = baseConfig.showOnlyContactsWithNumbers
         settings_show_only_contacts_with_numbers_holder.setOnClickListener {
             settings_show_only_contacts_with_numbers.toggle()
-            this.baseConfig.showOnlyContactsWithNumbers = settings_show_only_contacts_with_numbers.isChecked
+            baseConfig.showOnlyContactsWithNumbers = settings_show_only_contacts_with_numbers.isChecked
         }
     }
 
     private fun setupStartNameWithSurname() {
-        settings_start_name_with_surname.isChecked = this.baseConfig.startNameWithSurname
+        settings_start_name_with_surname.isChecked = baseConfig.startNameWithSurname
         settings_start_name_with_surname_holder.setOnClickListener {
             settings_start_name_with_surname.toggle()
-            this.baseConfig.startNameWithSurname = settings_start_name_with_surname.isChecked
+            baseConfig.startNameWithSurname = settings_start_name_with_surname.isChecked
         }
     }
 
     private fun setupShowDialpadButton() {
-        settings_show_dialpad_button.isChecked = this.baseConfig.showDialpadButton
+        settings_show_dialpad_button.isChecked = baseConfig.showDialpadButton
         settings_show_dialpad_button_holder.setOnClickListener {
             settings_show_dialpad_button.toggle()
-            this.baseConfig.showDialpadButton = settings_show_dialpad_button.isChecked
+            baseConfig.showDialpadButton = settings_show_dialpad_button.isChecked
         }
     }
 
     private fun setupShowPrivateContacts() {
-        settings_show_private_contacts.isChecked = this.baseConfig.showPrivateContacts
+        settings_show_private_contacts.isChecked = baseConfig.showPrivateContacts
         settings_show_private_contacts_holder.setOnClickListener {
             settings_show_private_contacts.toggle()
-            this.baseConfig.showPrivateContacts = settings_show_private_contacts.isChecked
+            baseConfig.showPrivateContacts = settings_show_private_contacts.isChecked
         }
     }
 
@@ -185,15 +185,15 @@ class SettingsActivity : SimpleActivity() {
                 RadioItem(ON_CLICK_EDIT_CONTACT, getString(R.string.edit_contact))
             )
 
-            RadioGroupDialog(this@SettingsActivity, items, this.baseConfig.onContactClick) {
-                this.baseConfig.onContactClick = it as Int
+            RadioGroupDialog(this@SettingsActivity, items, baseConfig.onContactClick) {
+                baseConfig.onContactClick = it as Int
                 settings_on_contact_click.text = getOnContactClickText()
             }
         }
     }
 
     private fun getOnContactClickText() = getString(
-        when (this.baseConfig.onContactClick) {
+        when (baseConfig.onContactClick) {
             ON_CLICK_CALL_CONTACT -> R.string.call_contact
             ON_CLICK_VIEW_CONTACT -> R.string.view_contact
             else -> R.string.edit_contact
@@ -201,18 +201,18 @@ class SettingsActivity : SimpleActivity() {
     )
 
     private fun setupShowCallConfirmation() {
-        settings_show_call_confirmation.isChecked = this.baseConfig.showCallConfirmation
+        settings_show_call_confirmation.isChecked = baseConfig.showCallConfirmation
         settings_show_call_confirmation_holder.setOnClickListener {
             settings_show_call_confirmation.toggle()
-            this.baseConfig.showCallConfirmation = settings_show_call_confirmation.isChecked
+            baseConfig.showCallConfirmation = settings_show_call_confirmation.isChecked
         }
     }
 
     private fun setupMergeDuplicateContacts() {
-        settings_merge_duplicate_contacts.isChecked = this.baseConfig.mergeDuplicateContacts
+        settings_merge_duplicate_contacts.isChecked = baseConfig.mergeDuplicateContacts
         settings_merge_duplicate_contacts_holder.setOnClickListener {
             settings_merge_duplicate_contacts.toggle()
-            this.baseConfig.mergeDuplicateContacts = settings_merge_duplicate_contacts.isChecked
+            baseConfig.mergeDuplicateContacts = settings_merge_duplicate_contacts.isChecked
         }
     }
 }

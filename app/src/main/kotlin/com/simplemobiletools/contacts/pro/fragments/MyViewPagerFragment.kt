@@ -280,7 +280,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         activity?.apply {
             val orderIds = items.map { it.id }
             val orderGsonString = Gson().toJson(orderIds)
-            this.baseConfig.favoritesContactsOrder = orderGsonString
+            baseConfig.favoritesContactsOrder = orderGsonString
         }
     }
 
