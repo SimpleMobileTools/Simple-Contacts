@@ -219,25 +219,15 @@ class EditContactActivity : ContactActivity() {
 
         val properPrimaryColor = getProperPrimaryColor()
         arrayOf(
-            contact_numbers_add_new,
-            contact_emails_add_new,
-            contact_addresses_add_new,
-            contact_ims_add_new,
-            contact_events_add_new,
-            contact_websites_add_new,
-            contact_groups_add_new
+            contact_numbers_add_new, contact_emails_add_new, contact_addresses_add_new, contact_ims_add_new, contact_events_add_new,
+            contact_websites_add_new, contact_groups_add_new
         ).forEach {
             it.applyColorFilter(properPrimaryColor)
         }
 
         arrayOf(
-            contact_numbers_add_new.background,
-            contact_emails_add_new.background,
-            contact_addresses_add_new.background,
-            contact_ims_add_new.background,
-            contact_events_add_new.background,
-            contact_websites_add_new.background,
-            contact_groups_add_new.background
+            contact_numbers_add_new.background, contact_emails_add_new.background, contact_addresses_add_new.background, contact_ims_add_new.background,
+            contact_events_add_new.background, contact_websites_add_new.background, contact_groups_add_new.background
         ).forEach {
             it.applyColorFilter(textColor)
         }
@@ -609,18 +599,11 @@ class EditContactActivity : ContactActivity() {
                 startActivityForResult(ringtonePickerIntent, INTENT_SELECT_RINGTONE)
             } catch (e: Exception) {
                 val currentRingtone = contact!!.ringtone ?: getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE).uri
-                SelectAlarmSoundDialog(
-                    this,
-                    currentRingtone,
-                    AudioManager.STREAM_RING,
-                    PICK_RINGTONE_INTENT_ID,
-                    RingtoneManager.TYPE_RINGTONE,
-                    true,
+                SelectAlarmSoundDialog(this, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
                     onAlarmPicked = {
                         contact!!.ringtone = it?.uri
                         contact_ringtone.text = it?.title
-                    },
-                    onAlarmSoundDeleted = {}
+                    }, onAlarmSoundDeleted = {}
                 )
             }
         }
@@ -1084,7 +1067,7 @@ class EditContactActivity : ContactActivity() {
             events = filledEvents,
             starred = if (isContactStarred()) 1 else 0,
             notes = contact_notes.value,
-            websites = filledWebsites
+            websites = filledWebsites,
         )
 
         val company = contact_organization_company.value

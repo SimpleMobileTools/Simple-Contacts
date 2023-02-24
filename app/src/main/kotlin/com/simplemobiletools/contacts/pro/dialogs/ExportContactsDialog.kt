@@ -16,9 +16,7 @@ import kotlinx.android.synthetic.main.dialog_export_contacts.view.*
 import java.io.File
 
 class ExportContactsDialog(
-    val activity: SimpleActivity,
-    val path: String,
-    val hidePath: Boolean,
+    val activity: SimpleActivity, val path: String, val hidePath: Boolean,
     private val callback: (file: File, ignoredContactSources: HashSet<String>) -> Unit
 ) {
     private var ignoreClicks = false

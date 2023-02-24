@@ -26,7 +26,6 @@ fun Context.getPackageDrawable(packageName: String): Drawable {
             WHATSAPP_PACKAGE -> R.drawable.ic_whatsapp_rect_vector
             VIBER_PACKAGE -> R.drawable.ic_viber_rect_vector
             else -> R.drawable.ic_threema_rect_vector
-        },
-        theme
+        }, theme
     )
 }
