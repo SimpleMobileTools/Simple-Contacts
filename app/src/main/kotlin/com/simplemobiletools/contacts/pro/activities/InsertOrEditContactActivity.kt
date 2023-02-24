@@ -13,17 +13,17 @@ import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
-import com.simplemobiletools.commons.extensions.baseConfig
+import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.pro.helpers.ADD_NEW_CONTACT_NUMBER
 import com.simplemobiletools.contacts.pro.helpers.KEY_EMAIL
 import com.simplemobiletools.contacts.pro.helpers.KEY_NAME
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
-import com.simplemobiletools.commons.models.contacts.*
 import kotlinx.android.synthetic.main.activity_insert_edit_contact.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_favorites.*
@@ -159,7 +159,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
     private fun setupTabs() {
         insert_edit_tabs_holder.removeAllTabs()
         contactsFavoritesList.forEachIndexed { index, value ->
-            if (baseConfig.showTabs and value != 0) {
+            if (config.showTabs and value != 0) {
                 insert_edit_tabs_holder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
                     customView?.findViewById<ImageView>(R.id.tab_item_icon)?.setImageDrawable(getTabIcon(index))
                     customView?.findViewById<TextView>(R.id.tab_item_label)?.text = getTabLabel(index)
@@ -349,7 +349,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun getTabsMask(): Int {
         var mask = TAB_CONTACTS
-        if (baseConfig.showTabs and TAB_FAVORITES != 0) {
+        if (config.showTabs and TAB_FAVORITES != 0) {
             mask += TAB_FAVORITES
         }
         return mask

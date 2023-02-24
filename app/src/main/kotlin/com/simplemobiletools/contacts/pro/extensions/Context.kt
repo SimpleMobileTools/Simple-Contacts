@@ -11,8 +11,10 @@ import com.simplemobiletools.commons.helpers.VIBER_PACKAGE
 import com.simplemobiletools.commons.helpers.WHATSAPP_PACKAGE
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.helpers.Config
 import java.io.File
 
+val Context.config: Config get() = Config.newInstance(applicationContext)
 fun Context.getCachePhotoUri(file: File = getCachePhoto()) = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", file)
 
 @SuppressLint("UseCompatLoadingForDrawables")

@@ -17,11 +17,11 @@ import com.simplemobiletools.contacts.pro.activities.MainActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.adapters.GroupsAdapter
-import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.helpers.Converters
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.commons.models.contacts.*
+import com.simplemobiletools.contacts.pro.extensions.config
 import kotlinx.android.synthetic.main.fragment_layout.view.*
 import kotlinx.android.synthetic.main.fragment_layout.view.fragment_fab
 import kotlinx.android.synthetic.main.fragment_layout.view.fragment_list
@@ -38,13 +38,13 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     private var lastHashCode = 0
     private var contactsIgnoringSearch = ArrayList<Contact>()
     private var groupsIgnoringSearch = ArrayList<Group>()
-    private lateinit var config: BaseConfig
+    private lateinit var config: Config
 
     var skipHashComparing = false
     var forceListRedraw = false
 
     fun setupFragment(activity: SimpleActivity) {
-        config = activity.baseConfig
+        config = activity.config
         if (this.activity == null) {
             this.activity = activity
             fragment_fab?.beGoneIf(activity is InsertOrEditContactActivity)
@@ -124,7 +124,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             this is FavoritesFragment -> {
                 val favorites = contacts.filter { it.starred == 1 } as ArrayList<Contact>
 
-                if (activity!!.baseConfig.isCustomOrderSelected) {
+                if (activity!!.config.isCustomOrderSelected) {
                     sortByCustomOrder(favorites)
                 } else {
                     favorites
@@ -158,7 +158,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     private fun sortByCustomOrder(starred: List<Contact>): ArrayList<Contact> {
-        val favoritesOrder = activity!!.baseConfig.favoritesContactsOrder
+        val favoritesOrder = activity!!.config.favoritesContactsOrder
 
         if (favoritesOrder.isEmpty()) {
             return ArrayList(starred)
@@ -218,7 +218,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 }
             } else {
                 (currAdapter as GroupsAdapter).apply {
-                    showContactThumbnails = activity.baseConfig.showContactThumbnails
+                    showContactThumbnails = activity.config.showContactThumbnails
                     updateItems(storedGroups)
                 }
             }
@@ -280,7 +280,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         activity?.apply {
             val orderIds = items.map { it.id }
             val orderGsonString = Gson().toJson(orderIds)
-            baseConfig.favoritesContactsOrder = orderGsonString
+            config.favoritesContactsOrder = orderGsonString
         }
     }
 
@@ -299,7 +299,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     private fun setupLetterFastscroller(contacts: ArrayList<Contact>) {
-        val sorting = context.baseConfig.sorting
+        val sorting = context.config.sorting
         letter_fastscroller.setupWithRecyclerView(fragment_list, { position ->
             try {
                 val contact = contacts[position]
@@ -308,7 +308,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                     sorting and SORT_BY_SURNAME != 0 && contact.surname.isNotEmpty() -> contact.surname
                     sorting and SORT_BY_MIDDLE_NAME != 0 && contact.middleName.isNotEmpty() -> contact.middleName
                     sorting and SORT_BY_FIRST_NAME != 0 && contact.firstName.isNotEmpty() -> contact.firstName
-                    context.baseConfig.startNameWithSurname -> contact.surname
+                    context.config.startNameWithSurname -> contact.surname
                     else -> contact.firstName
                 }
 

@@ -8,6 +8,7 @@ import com.simplemobiletools.commons.helpers.SMT_PRIVATE
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
+import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.showContactSourcePicker
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPORT_FAIL
@@ -19,7 +20,7 @@ class ImportContactsDialog(val activity: SimpleActivity, val path: String, priva
 
     init {
         val view = (activity.layoutInflater.inflate(R.layout.dialog_import_contacts, null) as ViewGroup).apply {
-            targetContactSource = activity.baseConfig.lastUsedContactSource
+            targetContactSource = activity.config.lastUsedContactSource
             activity.getPublicContactSource(targetContactSource) {
                 import_contacts_title.setText(it)
                 if (it.isEmpty()) {

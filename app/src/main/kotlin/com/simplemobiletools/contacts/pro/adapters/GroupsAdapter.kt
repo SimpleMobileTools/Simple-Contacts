@@ -17,6 +17,7 @@ import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.dialogs.RenameGroupDialog
 import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.models.contacts.Group
+import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import kotlinx.android.synthetic.main.item_group.view.*
 import java.util.*
@@ -27,7 +28,7 @@ class GroupsAdapter(
 ) : MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate {
 
     private var textToHighlight = ""
-    var showContactThumbnails = activity.baseConfig.showContactThumbnails
+    var showContactThumbnails = activity.config.showContactThumbnails
     var fontSize = activity.getTextSize()
 
     init {

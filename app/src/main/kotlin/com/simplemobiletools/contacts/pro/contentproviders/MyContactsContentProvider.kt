@@ -6,15 +6,15 @@ import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
 import com.google.gson.Gson
-import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.helpers.MyContactsContentProvider
 import com.simplemobiletools.commons.helpers.LocalContactsHelper
+import com.simplemobiletools.contacts.pro.extensions.config
 
 class MyContactsContentProvider : ContentProvider() {
     override fun insert(uri: Uri, contentValues: ContentValues?) = null
 
     override fun query(uri: Uri, projection: Array<out String>?, selection: String?, selectionArgs: Array<out String>?, sortOrder: String?): Cursor? {
-        if (context == null || !context!!.baseConfig.showPrivateContacts) {
+        if (context == null || !context!!.config.showPrivateContacts) {
             return null
         } else {
             val matrixCursor = MatrixCursor(

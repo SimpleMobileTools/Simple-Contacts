@@ -18,7 +18,6 @@ import com.simplemobiletools.commons.databases.ContactsDatabase
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.Release
@@ -30,6 +29,7 @@ import com.simplemobiletools.contacts.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.pro.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.pro.dialogs.ImportContactsDialog
+import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
 import com.simplemobiletools.contacts.pro.fragments.FavoritesFragment
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
@@ -90,19 +90,19 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     override fun onResume() {
         super.onResume()
-        if (storedShowPhoneNumbers != baseConfig.showPhoneNumbers) {
+        if (storedShowPhoneNumbers != config.showPhoneNumbers) {
             System.exit(0)
             return
         }
 
-        if (storedShowTabs != baseConfig.showTabs) {
-            baseConfig.lastUsedViewPagerPage = 0
+        if (storedShowTabs != config.showTabs) {
+            config.lastUsedViewPagerPage = 0
             finish()
             startActivity(intent)
             return
         }
 
-        val configShowContactThumbnails = baseConfig.showContactThumbnails
+        val configShowContactThumbnails = config.showContactThumbnails
         if (storedShowContactThumbnails != configShowContactThumbnails) {
             getAllFragments().forEach {
                 it?.showContactThumbnailsChanged(configShowContactThumbnails)
@@ -119,13 +119,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         updateMenuColors()
         setupTabColors()
 
-        val configStartNameWithSurname = baseConfig.startNameWithSurname
+        val configStartNameWithSurname = config.startNameWithSurname
         if (storedStartNameWithSurname != configStartNameWithSurname) {
             contacts_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
             favorites_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
         }
 
-        val configFontSize = baseConfig.fontSize
+        val configFontSize = config.fontSize
         if (storedFontSize != configFontSize) {
             getAllFragments().forEach {
                 it?.fontSizeChanged()
@@ -144,23 +144,23 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         main_dialpad_button.apply {
             setImageDrawable(dialpadIcon)
             background.applyColorFilter(properPrimaryColor)
-            beVisibleIf(baseConfig.showDialpadButton)
+            beVisibleIf(config.showDialpadButton)
         }
 
         isFirstResume = false
         checkShortcuts()
 
-        if (!baseConfig.wasUpgradedFromFreeShown && isPackageInstalled("com.simplemobiletools.contacts")) {
+        if (!config.wasUpgradedFromFreeShown && isPackageInstalled("com.simplemobiletools.contacts")) {
             val dialogText = getString(R.string.upgraded_to_pro_contacts, getString(R.string.phone_storage_hidden))
             ConfirmationDialog(this, dialogText, 0, R.string.ok, 0, false) {}
-            baseConfig.wasUpgradedFromFreeShown = true
+            config.wasUpgradedFromFreeShown = true
         }
     }
 
     override fun onPause() {
         super.onPause()
         storeStateVariables()
-        baseConfig.lastUsedViewPagerPage = view_pager.currentItem
+        config.lastUsedViewPagerPage = view_pager.currentItem
     }
 
     override fun onDestroy() {
@@ -197,7 +197,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         main_menu.getToolbar().menu.apply {
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
-            findItem(R.id.dialpad).isVisible = !baseConfig.showDialpadButton
+            findItem(R.id.dialpad).isVisible = !config.showDialpadButton
             findItem(R.id.more_apps_from_us).isVisible = !resources.getBoolean(R.bool.hide_google_relations)
         }
     }
@@ -239,7 +239,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun storeStateVariables() {
-        baseConfig.apply {
+        config.apply {
             storedShowContactThumbnails = showContactThumbnails
             storedShowPhoneNumbers = showPhoneNumbers
             storedStartNameWithSurname = startNameWithSurname
@@ -250,13 +250,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     @SuppressLint("NewApi")
     private fun checkShortcuts() {
-        val appIconColor = baseConfig.appIconColor
-        if (isNougatMR1Plus() && baseConfig.lastHandledShortcutColor != appIconColor) {
+        val appIconColor = config.appIconColor
+        if (isNougatMR1Plus() && config.lastHandledShortcutColor != appIconColor) {
             val createNewContact = getCreateNewContactShortcut(appIconColor)
 
             try {
                 shortcutManager.dynamicShortcuts = Arrays.asList(createNewContact)
-                baseConfig.lastHandledShortcutColor = appIconColor
+                config.lastHandledShortcutColor = appIconColor
             } catch (ignored: Exception) {
             }
         }
@@ -280,7 +280,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun getCurrentFragment(): MyViewPagerFragment? {
-        val showTabs = baseConfig.showTabs
+        val showTabs = config.showTabs
         val fragments = arrayListOf<MyViewPagerFragment>()
         if (showTabs and TAB_CONTACTS != 0) {
             fragments.add(contacts_fragment)
@@ -314,7 +314,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun getInactiveTabIndexes(activeIndex: Int) = (0 until main_tabs_holder.tabCount).filter { it != activeIndex }
 
     private fun getSelectedTabDrawableIds(): ArrayList<Int> {
-        val showTabs = baseConfig.showTabs
+        val showTabs = config.showTabs
         val icons = ArrayList<Int>()
 
         if (showTabs and TAB_CONTACTS != 0) {
@@ -333,7 +333,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun getDeselectedTabDrawableIds(): ArrayList<Int> {
-        val showTabs = baseConfig.showTabs
+        val showTabs = config.showTabs
         val icons = ArrayList<Int>()
 
         if (showTabs and TAB_CONTACTS != 0) {
@@ -385,7 +385,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun setupTabs() {
         main_tabs_holder.removeAllTabs()
         tabsList.forEachIndexed { index, value ->
-            if (baseConfig.showTabs and value != 0) {
+            if (config.showTabs and value != 0) {
                 main_tabs_holder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
                     customView?.findViewById<ImageView>(R.id.tab_item_icon)?.setImageDrawable(getTabIcon(index))
                     customView?.findViewById<TextView>(R.id.tab_item_label)?.text = getTabLabel(index)
@@ -499,7 +499,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun tryExportContacts() {
         if (isQPlus()) {
-            ExportContactsDialog(this, baseConfig.lastExportPath, true) { file, ignoredContactSources ->
+            ExportContactsDialog(this, config.lastExportPath, true) { file, ignoredContactSources ->
                 ignoredExportContactSources = ignoredContactSources
 
                 Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
@@ -519,7 +519,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         } else {
             handlePermission(PERMISSION_WRITE_STORAGE) {
                 if (it) {
-                    ExportContactsDialog(this, baseConfig.lastExportPath, false) { file, ignoredContactSources ->
+                    ExportContactsDialog(this, config.lastExportPath, false) { file, ignoredContactSources ->
                         getFileOutputStream(file.toFileDirItem(this), true) {
                             exportContactsTo(ignoredContactSources, it)
                         }
@@ -577,7 +577,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         isGettingContacts = true
 
         if (view_pager.adapter == null) {
-            view_pager.adapter = ViewPagerAdapter(this, tabsList, baseConfig.showTabs)
+            view_pager.adapter = ViewPagerAdapter(this, tabsList, config.showTabs)
             view_pager.currentItem = getDefaultTab()
         }
 
@@ -617,9 +617,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private fun getAllFragments() = arrayListOf(contacts_fragment, favorites_fragment, groups_fragment)
 
     private fun getDefaultTab(): Int {
-        val showTabsMask = baseConfig.showTabs
-        return when (baseConfig.defaultTab) {
-            TAB_LAST_USED -> baseConfig.lastUsedViewPagerPage
+        val showTabsMask = config.showTabs
+        return when (config.defaultTab) {
+            TAB_LAST_USED -> config.lastUsedViewPagerPage
             TAB_CONTACTS -> 0
             TAB_FAVORITES -> if (showTabsMask and TAB_CONTACTS > 0) 1 else 0
             else -> {
