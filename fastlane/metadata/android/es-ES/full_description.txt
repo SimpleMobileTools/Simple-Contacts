@@ -20,7 +20,7 @@ Para evitar que se muestren contactos potencialmente no deseados, tiene una pote
 
 Viene con diseño material y tema oscuro por defecto, proporciona una gran experiencia de usuario para un uso fácil. La falta de acceso a Internet le da más privacidad, seguridad y estabilidad que otras aplicaciones.
 
-No contiene anuncios ni permisos innecesarios. Es completamente de código abierto de la cámara, proporciona colores personalizables.
+No contiene anuncios ni permisos innecesarios. Es completamente de código abierto, proporciona colores personalizables.
 
 Consulta el conjunto completo de Simple Tools aquí:
 https://www.simplemobiletools.com

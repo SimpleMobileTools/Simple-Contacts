@@ -68,7 +68,7 @@
     <string name="add_number_to_contact">Nummer zu Kontakt hinzufügen</string>
     <!-- Visible fields -->
     <string name="prefix">Titel</string>
-    <string name="suffix">angehängter Titel (z.B. PhD)</string>
+    <string name="suffix">angehängter Titel (z. B. PhD)</string>
     <string name="phone_numbers">Telefonnummern</string>
     <string name="emails">E-Mails</string>
     <string name="addresses">Adressen</string>

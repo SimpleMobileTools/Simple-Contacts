@@ -1,12 +1,12 @@
-Kerge nutikas kontaktirakendus kontaktide haldamiseks, mida armastavad miljonid inimesed. Kontaktid saab salvestada kas ainult oma seadmesse või neid saab sünkroniseerida ka erinevate vahenditega. See telefoninumbri nutikas kontaktide telefoniraamat aitab teil hoida oma kontakte ühes kohas ilma kontaktide varundamise vaevata, kuna kontaktide varukoopia on alati sünkroonis lisatud kontaktidega. See rakendus on kerge ruumi ja on tõhus, kui teil on vaja teha kontaktide varukoopia ja hoida telefoniraamatut, mis aitab teil arukate kontaktide hoidmisel.
+Lihtne ja nutikas rakendus kontaktide haldamiseks, mida armastavad miljonid inimesed. Kontaktid saab salvestada kas ainult oma seadmesse või neid saab sünkroniseerida ka erinevate vahenditega. See telefoninumbri nutikas kontaktide telefoniraamat aitab teil hoida oma kontakte ühes kohas ilma kontaktide varundamise vaevata, kuna kontaktide varukoopia on alati sünkroonis lisatud kontaktidega. See rakendus on kerge ruumi ja on tõhus, kui teil on vaja teha kontaktide varukoopia ja hoida telefoniraamatut, mis aitab teil arukate kontaktide hoidmisel.
 
-Võite kasutada seda ka kasutajate e-kirjade ja sündmuste haldamiseks. Sellel on võimalus sorteerida/filtreerida mitme parameetri järgi ja valikuliselt kuvada eesnimena perekonnanimi. Nii saate saavutada nutika kontaktide otsimise kiirelt. Te ei pea soovitud kontakti leidmiseks alla kerima. Lisaks sellele tagab kontaktide varundamine automaatselt kontaktide terviklikkuse iga kord, kui lisate uue kontakti. 
+Võid kasutada seda ka kasutajate e-kirjade ja sündmuste haldamiseks. Ta oskab sorteerida/filtreerida mitme parameetri järgi ja soovi korral kuvada eesnimena perekonnanime. Nii saad nutikalt ja kiirelt otsida kontaktide. Sa ei pea soovitud kontakti leidmiseks ekraanivaadet kerima. Lisaks tagab kontaktide varundamine automaatselt kontaktide terviklikkuse iga kord, kui lisad uue kontakti. 
 
-Saate oma lemmikinimesi või -rühmi kuvada eraldi nimekirjas. Rühmi saab kasutada partii e-kirjade või SMSide saatmiseks, et säästa aega, saate neid hõlpsasti ümber nimetada. Nüüd ei pea te enam telefoniraamatut pidama! Lihtsalt tehke nutikas kontaktgrupp ja saatke oma lähedastele sõnumeid.
+Saad oma lemmikinimesi või -rühmi kuvada eraldi nimekirjas. Rühmi saad kasutada e-kirjade või SMSide saatmiseks mitmele saajale korraga ning aja säästmiseks saad neid hõlpsasti ümber nimetada. Nüüd ei pea sa enam telefoniraamatut pidama! Lihtsalt koosta nutikas kontaktgrupp ja saada oma lähedastele sõnumeid.
 
-See sisaldab praktilisi nuppe oma sugulastele helistamiseks või tekstisõnumite saatmiseks. Kõiki nähtavaid välju saab kohandada vastavalt soovile, kasutamata väljad saate hõlpsasti ära peita. Otsingufunktsioon otsib iga nähtava isiku väljal antud stringi, et saaksite soovitud isiku hõlpsasti üles leida.
+Rakendus sisaldab praktilisi nuppe oma sugulastele helistamiseks või tekstisõnumite saatmiseks. Kõiki nähtavaid välju saab kohandada vastavalt soovile, kasutamata väljad saate hõlpsasti ära peita. Otsingufunktsioon otsib iga nähtava isiku väljal antud stringi, et saaksite soovitud isiku hõlpsasti üles leida.
 
-See toetab vCard-vormingus kontaktide eksportimist/importimist .vcf-failidesse, et hõlpsasti rännata või andmeid varundada. Kontaktide varundamine on telefoniraamatupidamises väga oluline asi. See rakendus on varustatud nutika kontaktide varundustehnoloogiaga, mis sünkroonib regulaarselt uusi ja vanu kontakte, et hoida nende numbrite varukoopiaid.
+Rakendus toetab vCard-vormingus kontaktide eksportimist/importimist .vcf-failidesse, et hõlpsasti rännata või andmeid varundada. Kontaktide varundamine on telefoniraamatupidamises väga oluline asi. See rakendus on varustatud nutika kontaktide varundustehnoloogiaga, mis sünkroonib regulaarselt uusi ja vanu kontakte, et hoida nende numbrite varukoopiaid.
 
 Selle kaasaegse ja stabiilse telefoninumbrihalduri abil saate neid kaitsta, kuna te ei jaga neid teiste rakendustega, nii et saate neid privaatselt hoida.
 
@@ -20,7 +20,7 @@ Potentsiaalselt soovimatute kontaktide kuvamise vältimiseks on sellel võimas s
 
 See on vaikimisi varustatud materiaalse disaini ja tumeda teemaga, mis tagab suurepärase kasutajakogemuse lihtsaks kasutamiseks. Interneti-ühenduse puudumine annab teile rohkem privaatsust, turvalisust ja stabiilsust kui teised rakendused.
 
-Ei sisalda reklaame ega ebavajalikke lubasid. See on täielikult avatud kaamera allikas ja pakub kohandatavaid värve.
+Ei sisalda reklaame ega ebavajalikke lubasid. Rakendus on avatud lähtekoodiga ja seal on võimalik kasutada kohandatavaid värve.
 
 Tutvuge kogu Simple Tools'i paketiga siin:
 https://www.simplemobiletools.com

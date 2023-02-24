@@ -20,7 +20,7 @@ Per evitar que es mostrin contactes potencialment no desitjats, té una fusió i
 
 De manera predeterminada, inclou el «material design» i un tema fosc, proporciona una gran experiència d'usuari per a un ús fàcil. La manca d'accés a Internet us ofereix més privadesa, seguretat i estabilitat que altres aplicacions.
 
-No conté anuncis ni permisos innecessaris. El codi font de la càmera és totalment obert, proporciona colors personalitzables.
+No conté anuncis ni permisos innecessaris. El codi font és totalment obert, proporciona colors personalitzables.
 
 Consulteu el conjunt complet d'eines simples aquí:
 https://www.simplemobiletools.com
