@@ -7,11 +7,10 @@ import com.simplemobiletools.commons.helpers.SMT_PRIVATE
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.FilterContactSourcesAdapter
+import com.simplemobiletools.commons.extensions.getVisibleContactSources
+import com.simplemobiletools.commons.helpers.ContactsHelper
+import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
-import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
-import com.simplemobiletools.contacts.pro.models.Contact
-import com.simplemobiletools.contacts.pro.models.ContactSource
 import kotlinx.android.synthetic.main.dialog_filter_contact_sources.view.*
 
 class FilterContactSourcesDialog(val activity: SimpleActivity, private val callback: () -> Unit) {

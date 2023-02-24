@@ -8,8 +8,8 @@ import com.simplemobiletools.commons.helpers.TAB_FAVORITES
 import com.simplemobiletools.commons.helpers.TAB_GROUPS
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.commons.helpers.ALL_TABS_MASK
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.helpers.ALL_TABS_MASK
 
 class ManageVisibleTabsDialog(val activity: BaseSimpleActivity) {
     private var view = activity.layoutInflater.inflate(R.layout.dialog_manage_visible_tabs, null)

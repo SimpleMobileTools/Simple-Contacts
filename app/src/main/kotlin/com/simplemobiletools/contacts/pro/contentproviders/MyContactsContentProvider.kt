@@ -7,8 +7,8 @@ import android.database.MatrixCursor
 import android.net.Uri
 import com.google.gson.Gson
 import com.simplemobiletools.commons.helpers.MyContactsContentProvider
+import com.simplemobiletools.commons.helpers.LocalContactsHelper
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.helpers.LocalContactsHelper
 
 class MyContactsContentProvider : ContentProvider() {
     override fun insert(uri: Uri, contentValues: ContentValues?) = null

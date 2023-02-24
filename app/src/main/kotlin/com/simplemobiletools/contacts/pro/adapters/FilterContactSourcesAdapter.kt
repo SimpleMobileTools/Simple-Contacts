@@ -7,9 +7,9 @@ import com.simplemobiletools.commons.extensions.getProperBackgroundColor
 import com.simplemobiletools.commons.extensions.getProperPrimaryColor
 import com.simplemobiletools.commons.extensions.getProperTextColor
 import com.simplemobiletools.commons.helpers.SMT_PRIVATE
+import com.simplemobiletools.commons.models.contacts.ContactSource
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
-import com.simplemobiletools.contacts.pro.models.ContactSource
 import kotlinx.android.synthetic.main.item_filter_contact_source.view.*
 
 class FilterContactSourcesAdapter(

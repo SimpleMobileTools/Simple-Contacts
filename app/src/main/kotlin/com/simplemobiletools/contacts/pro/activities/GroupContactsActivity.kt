@@ -7,19 +7,18 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.dialogs.SelectContactsDialog
 import com.simplemobiletools.contacts.pro.extensions.*
-import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.GROUP
 import com.simplemobiletools.contacts.pro.helpers.LOCATION_GROUP_CONTACTS
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.interfaces.RemoveFromGroupListener
-import com.simplemobiletools.contacts.pro.models.Contact
-import com.simplemobiletools.contacts.pro.models.Group
+import com.simplemobiletools.commons.models.contacts.*
 import kotlinx.android.synthetic.main.activity_group_contacts.*
 
 class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, RefreshContactsListener {

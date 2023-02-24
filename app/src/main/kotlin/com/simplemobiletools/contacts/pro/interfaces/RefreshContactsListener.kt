@@ -1,6 +1,6 @@
 package com.simplemobiletools.contacts.pro.interfaces
 
-import com.simplemobiletools.contacts.pro.models.Contact
+import com.simplemobiletools.commons.models.contacts.*
 
 interface RefreshContactsListener {
     fun refreshContacts(refreshTabsMask: Int)

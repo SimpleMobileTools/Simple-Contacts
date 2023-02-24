@@ -12,9 +12,9 @@ import com.simplemobiletools.commons.extensions.getByteArray
 import com.simplemobiletools.commons.extensions.getDateTimeFromDateString
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.models.contacts.Contact
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.helpers.VcfExporter.ExportResult.EXPORT_FAIL
-import com.simplemobiletools.contacts.pro.models.Contact
 import ezvcard.Ezvcard
 import ezvcard.VCard
 import ezvcard.VCardVersion

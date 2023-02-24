@@ -9,9 +9,6 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleTabsDialog
 import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.helpers.ON_CLICK_CALL_CONTACT
-import com.simplemobiletools.contacts.pro.helpers.ON_CLICK_EDIT_CONTACT
-import com.simplemobiletools.contacts.pro.helpers.ON_CLICK_VIEW_CONTACT
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 

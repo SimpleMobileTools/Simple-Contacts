@@ -7,18 +7,16 @@ import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.CallConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.CONTACT_ID
-import com.simplemobiletools.commons.helpers.IS_PRIVATE
-import com.simplemobiletools.commons.helpers.PERMISSION_CALL_PHONE
-import com.simplemobiletools.commons.helpers.SMT_PRIVATE
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
+import com.simplemobiletools.commons.models.contacts.Contact
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.activities.ViewContactActivity
-import com.simplemobiletools.contacts.pro.helpers.*
-import com.simplemobiletools.contacts.pro.models.Contact
+import com.simplemobiletools.contacts.pro.helpers.DEFAULT_FILE_NAME
+import com.simplemobiletools.contacts.pro.helpers.VcfExporter
 
 fun SimpleActivity.startCallIntent(recipient: String) {
     handlePermission(PERMISSION_CALL_PHONE) {

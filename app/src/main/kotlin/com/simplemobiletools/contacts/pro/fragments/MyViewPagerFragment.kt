@@ -17,12 +17,11 @@ import com.simplemobiletools.contacts.pro.activities.MainActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.adapters.GroupsAdapter
-import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.getVisibleContactSources
+import com.simplemobiletools.commons.helpers.Converters
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
-import com.simplemobiletools.contacts.pro.models.Contact
-import com.simplemobiletools.contacts.pro.models.Group
+import com.simplemobiletools.commons.models.contacts.*
+import com.simplemobiletools.contacts.pro.extensions.config
 import kotlinx.android.synthetic.main.fragment_layout.view.*
 import kotlinx.android.synthetic.main.fragment_layout.view.fragment_fab
 import kotlinx.android.synthetic.main.fragment_layout.view.fragment_list

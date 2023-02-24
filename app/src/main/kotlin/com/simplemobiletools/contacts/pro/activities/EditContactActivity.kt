@@ -29,6 +29,10 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.PhoneNumber
 import com.simplemobiletools.commons.models.RadioItem
+import com.simplemobiletools.commons.models.contacts.*
+import com.simplemobiletools.commons.models.contacts.Email
+import com.simplemobiletools.commons.models.contacts.Event
+import com.simplemobiletools.commons.models.contacts.Organization
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
@@ -36,10 +40,6 @@ import com.simplemobiletools.contacts.pro.dialogs.MyDatePickerDialog
 import com.simplemobiletools.contacts.pro.dialogs.SelectGroupsDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
-import com.simplemobiletools.contacts.pro.models.*
-import com.simplemobiletools.contacts.pro.models.Email
-import com.simplemobiletools.contacts.pro.models.Event
-import com.simplemobiletools.contacts.pro.models.Organization
 import kotlinx.android.synthetic.main.activity_edit_contact.*
 import kotlinx.android.synthetic.main.item_edit_address.view.*
 import kotlinx.android.synthetic.main.item_edit_email.view.*

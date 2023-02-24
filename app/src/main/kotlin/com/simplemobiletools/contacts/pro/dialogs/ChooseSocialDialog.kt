@@ -8,9 +8,9 @@ import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.extensions.beGone
 import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
+import com.simplemobiletools.commons.models.contacts.SocialAction
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.getPackageDrawable
-import com.simplemobiletools.contacts.pro.models.SocialAction
 import kotlinx.android.synthetic.main.dialog_choose_social.view.*
 import kotlinx.android.synthetic.main.item_choose_social.view.*
 
