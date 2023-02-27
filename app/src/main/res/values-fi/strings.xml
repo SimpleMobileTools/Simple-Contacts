@@ -64,7 +64,7 @@
     <string name="include_contact_sources">Sisällytä yhteystiedon lähteet</string>
     <string name="filename_without_vcf">Tiedostonimi (ilman .vcf-päätettä)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Valintanäppäimistö</string>
+    <string name="dialpad">Numeronäppäimistö</string>
     <string name="add_number_to_contact">Lisää numero yhteystietoihin</string>
     <!-- Visible fields -->
     <string name="prefix">Etuliite</string>
