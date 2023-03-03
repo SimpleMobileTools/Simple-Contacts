@@ -1,4 +1,4 @@
-Kevyt älykäs yhteystieto sovellus yhteystietojen hallintaan, jota miljoonat ihmiset rakastavat. Yhteystiedot voidaan joko tallentaa vain laitteellesi tai ne voidaan myös synkronoida eri tavoin. Tämä puhelinnumeron älykäs yhteystieto puhelinluettelo auttaa sinua pitämään yhteystietosi yhdessä paikassa ilman, että sinun tarvitsee varmuuskopioida yhteystietosi, sillä yhteystietojen varmuuskopiot ovat aina synkronoituina lisäämiesi yhteystietojen kanssa. Tämä sovellus on kevyt ja tehokas, kun sinun on tehtävä yhteystietojen varmuuskopio ja pidettävä puhelinluetteloa, joka auttaa sinua älykkäässä yhteystietojen pitämisessä.
+Kevyt ja älykäs sovellus yhteystietojen hallintaan, jota miljoonat ihmiset rakastavat. Yhteystiedot voidaan tallentaa pelkästään laitteelle tai synkronoida eri tavoin. Tämä puhelinnumeroiden älykäs puh auttaa sinua pitämään yhteystietosi yhdessä paikassa ilman, että sinun tarvitsee varmuuskopioida yhteystietosi, sillä yhteystietojen varmuuskopiot ovat aina synkronoituina lisäämiesi yhteystietojen kanssa. Tämä sovellus on kevyt ja tehokas, kun sinun on tehtävä yhteystietojen varmuuskopio ja pidettävä puhelinluetteloa, joka auttaa sinua älykkäässä yhteystietojen pitämisessä.
 
 Voit käyttää sitä myös käyttäjien sähköpostien ja tapahtumien hallintaan. Se pystyy lajittelemaan/suodattamaan useiden parametrien mukaan ja näyttämään valinnaisesti sukunimen etunimenä. Tällä tavoin voit saavuttaa älykkään yhteystietojen haun nopeasti. Sinun ei tarvitse selata alaspäin löytääksesi haluamasi yhteystiedon. Lisäksi aina kun lisäät uuden yhteystiedon, yhteystietojen varmuuskopiointi varmistaa automaattisesti yhteystietojen eheyden. 
 
@@ -22,7 +22,7 @@ Siinä on oletusarvoisesti materiaalinen muotoilu ja tumma teema, mikä tarjoaa 
 
 Ei sisällä mainoksia tai tarpeettomia käyttöoikeuksia. Se on täysin avoin kameran lähdekoodi ja tarjoaa muokattavat värit.
 
-Tutustu koko Yksinkertaiset työkalu-pakettiin täällä:
+Tutustu koko Simple Tools -pakettiin täällä:
 https://www.simplemobiletools.com
 
 Facebook:
