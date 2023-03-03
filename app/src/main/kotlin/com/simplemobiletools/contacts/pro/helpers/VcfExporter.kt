@@ -179,7 +179,7 @@ class VcfExporter {
         Phone.TYPE_MOBILE -> CELL
         Phone.TYPE_HOME -> HOME
         Phone.TYPE_WORK -> WORK
-        Phone.TYPE_MAIN -> PREF
+        Phone.TYPE_MAIN -> MAIN
         Phone.TYPE_FAX_WORK -> WORK_FAX
         Phone.TYPE_FAX_HOME -> HOME_FAX
         Phone.TYPE_PAGER -> PAGER
