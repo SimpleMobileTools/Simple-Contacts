@@ -351,7 +351,7 @@ class ViewContactActivity : ContactActivity() {
             val duplicateContactsDefaultNumbers = duplicateContacts.flatMap { it.phoneNumbers }.filter { it.isPrimary }
             val defaultNumbers = (contactDefaultsNumbers + duplicateContactsDefaultNumbers).toSet()
 
-            if (defaultNumbers.size > 1) {
+            if (defaultNumbers.size > 1 && defaultNumbers.distinctBy { it.normalizedNumber }.size > 1) {
                 phoneNumbers.forEach { it.isPrimary = false }
             } else if (defaultNumbers.size == 1) {
                 if (mergeDuplicate) {
