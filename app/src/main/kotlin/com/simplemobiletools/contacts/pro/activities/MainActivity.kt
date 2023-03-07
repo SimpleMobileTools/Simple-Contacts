@@ -71,6 +71,11 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         setupTabs()
         checkContactPermissions()
         checkWhatsNewDialog()
+
+        if (isPackageInstalled("com.simplemobiletools.contacts")) {
+            val dialogText = getString(R.string.upgraded_to_pro_contacts, getString(R.string.phone_storage_hidden))
+            ConfirmationDialog(this, dialogText, 0, R.string.ok, 0, false) {}
+        }
     }
 
     private fun checkContactPermissions() {
@@ -149,11 +154,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
         isFirstResume = false
         checkShortcuts()
-
-        if (isPackageInstalled("com.simplemobiletools.contacts")) {
-            val dialogText = getString(R.string.upgraded_to_pro_contacts, getString(R.string.phone_storage_hidden))
-            ConfirmationDialog(this, dialogText, 0, R.string.ok, 0, false) {}
-        }
     }
 
     override fun onPause() {
