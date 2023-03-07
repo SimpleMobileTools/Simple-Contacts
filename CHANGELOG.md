@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.22.2 *(2023-03-07)*
+----------------------------
+
+ * Properly handle exporting and importing contact favorite numbers
+ * Added some UI, translation and stability improvements
+
 Version 6.22.1 *(2023-01-12)*
 ----------------------------
 
