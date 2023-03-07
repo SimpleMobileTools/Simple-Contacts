@@ -73,6 +73,9 @@ class VcfExporter {
                 contact.phoneNumbers.forEach {
                     val phoneNumber = Telephone(it.value)
                     phoneNumber.parameters.addType(getPhoneNumberTypeLabel(it.type, it.label))
+                    if (it.isPrimary) {
+                        phoneNumber.parameters.addType(getPreferredType(1))
+                    }
                     card.addTelephoneNumber(phoneNumber)
                 }
 
@@ -201,4 +204,6 @@ class VcfExporter {
         StructuredPostal.TYPE_OTHER -> OTHER
         else -> label
     }
+
+    private fun getPreferredType(value: Int) = "$PREF=$value"
 }

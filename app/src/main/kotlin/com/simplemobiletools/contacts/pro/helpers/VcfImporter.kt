@@ -64,8 +64,9 @@ class VcfImporter(val activity: SimpleActivity) {
                     } else {
                         ""
                     }
+                    val preferred = getPreferredValue(it.types.lastOrNull()?.value) == 1
 
-                    phoneNumbers.add(PhoneNumber(number, type, label, number.normalizePhoneNumber()))
+                    phoneNumbers.add(PhoneNumber(number, type, label, number.normalizePhoneNumber(), preferred))
                 }
 
                 val emails = ArrayList<Email>()
@@ -267,7 +268,7 @@ class VcfImporter(val activity: SimpleActivity) {
                 Phone.TYPE_WORK
             }
         }
-        PREF, MAIN -> Phone.TYPE_MAIN
+        MAIN -> Phone.TYPE_MAIN
         WORK_FAX -> Phone.TYPE_FAX_WORK
         HOME_FAX -> Phone.TYPE_FAX_HOME
         FAX -> Phone.TYPE_FAX_WORK
@@ -307,5 +308,15 @@ class VcfImporter(val activity: SimpleActivity) {
         }
 
         return activity.getCachePhotoUri(file).toString()
+    }
+
+    private fun getPreferredValue(type: String?): Int {
+        if (type != null) {
+            if (type.startsWith("$PREF=".lowercase())) {
+                return type.split("=")[1].toInt()
+            }
+        }
+
+        return -1
     }
 }
