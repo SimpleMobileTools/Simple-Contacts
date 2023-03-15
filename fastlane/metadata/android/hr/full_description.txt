@@ -20,7 +20,7 @@ Da ne bi pokazao potencijalno neželjene kontakte, ima moćno ugrađeno dvostruk
 
 Dolazi s dizajnom materijala i tamnom temom prema zadanim postavkama, pružajući sjajno korisničko iskustvo za jednostavno korištenje. Nedostatak pristupa internetu daje vam više privatnosti, sigurnosti i stabilnosti od ostalih aplikacija.
 
-Ne sadrži oglase ili nepotrebne dozvole. Potpuno je otvoren izvor fotoaparata i pruža prilagođene boje.
+Ne sadrži oglase ili nepotrebne dozvole. Aplikacija je otvoren koda i pruža prilagođene boje.
 
 Ovdje pogledajte cijeli paket jednostavnih alata:
 https://www.simplemobiletools.com
