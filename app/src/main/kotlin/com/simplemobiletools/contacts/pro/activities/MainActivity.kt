@@ -33,6 +33,7 @@ import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
 import com.simplemobiletools.contacts.pro.fragments.FavoritesFragment
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
+import com.simplemobiletools.contacts.pro.helpers.ALL_TABS_MASK
 import com.simplemobiletools.contacts.pro.helpers.VcfExporter
 import com.simplemobiletools.contacts.pro.helpers.tabsList
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener

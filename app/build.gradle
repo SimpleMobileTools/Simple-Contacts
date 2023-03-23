@@ -63,13 +63,13 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.SimpleMobileTools:Simple-Commons:8de9887b36'
+    implementation 'com.github.SimpleMobileTools:Simple-Commons:f8dacb75dc'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
     implementation 'com.github.tibbi:IndicatorFastScroll:4524cd0b61'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'me.grantland:autofittextview:0.2.1'
 
-    kapt "androidx.room:room-compiler:2.4.3"
-    implementation "androidx.room:room-runtime:2.4.3"
-    annotationProcessor "androidx.room:room-compiler:2.4.3"
+    kapt "androidx.room:room-compiler:2.5.0"
+    implementation "androidx.room:room-runtime:2.5.0"
+    annotationProcessor "androidx.room:room-compiler:2.5.0"
 }
