@@ -28,6 +28,7 @@ val tabsList = arrayListOf(
     TAB_FAVORITES,
     TAB_GROUPS
 )
+const val ALL_TABS_MASK = TAB_CONTACTS or TAB_FAVORITES or TAB_GROUPS
 
 // phone number/email types
 const val CELL = "CELL"
