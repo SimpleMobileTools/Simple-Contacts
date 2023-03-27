@@ -505,6 +505,44 @@
                 android:src="@drawable/ic_plus_vector" />
 
             <ImageView
+                android:id="@+id/contact_relations_image"
+                android:layout_width="@dimen/contact_icons_size"
+                android:layout_height="@dimen/contact_icons_size"
+                android:layout_alignTop="@+id/contact_relations_holder"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:contentDescription="@null"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/small_margin"
+                android:paddingBottom="@dimen/small_margin"
+                android:src="@drawable/ic_relation_vector" />
+
+            <LinearLayout
+                android:id="@+id/contact_relations_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_websites_add_new"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_edit_relation" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/contact_relations_add_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_relations_holder"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/small_margin"
+                android:background="@drawable/button_background"
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/activity_margin"
+                android:paddingBottom="@dimen/medium_margin"
+                android:src="@drawable/ic_plus_vector" />
+
+            <ImageView
                 android:id="@+id/contact_groups_image"
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
@@ -520,7 +558,7 @@
                 android:id="@+id/contact_groups_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_websites_add_new"
+                android:layout_below="@+id/contact_relations_add_new"
                 android:layout_marginTop="@dimen/medium_margin"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:orientation="vertical">

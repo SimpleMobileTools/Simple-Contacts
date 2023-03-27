@@ -46,6 +46,7 @@ import kotlinx.android.synthetic.main.item_edit_email.view.*
 import kotlinx.android.synthetic.main.item_edit_group.view.*
 import kotlinx.android.synthetic.main.item_edit_im.view.*
 import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
+import kotlinx.android.synthetic.main.item_edit_relation.view.*
 import kotlinx.android.synthetic.main.item_edit_website.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
 
@@ -211,23 +212,29 @@ class EditContactActivity : ContactActivity() {
 
         val textColor = getProperTextColor()
         arrayOf(
-            contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_ims_image, contact_events_image,
-            contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image, contact_source_image
+            contact_name_image, contact_numbers_image, contact_emails_image,
+            contact_addresses_image, contact_ims_image, contact_events_image,
+            contact_notes_image, contact_ringtone_image, contact_organization_image,
+            contact_websites_image, contact_relations_image, contact_groups_image,
+            contact_source_image
         ).forEach {
             it.applyColorFilter(textColor)
         }
 
         val properPrimaryColor = getProperPrimaryColor()
         arrayOf(
-            contact_numbers_add_new, contact_emails_add_new, contact_addresses_add_new, contact_ims_add_new, contact_events_add_new,
-            contact_websites_add_new, contact_groups_add_new
+            contact_numbers_add_new, contact_emails_add_new, contact_addresses_add_new,
+            contact_ims_add_new, contact_events_add_new, contact_websites_add_new,
+            contact_relations_add_new,contact_groups_add_new
         ).forEach {
             it.applyColorFilter(properPrimaryColor)
         }
 
         arrayOf(
-            contact_numbers_add_new.background, contact_emails_add_new.background, contact_addresses_add_new.background, contact_ims_add_new.background,
-            contact_events_add_new.background, contact_websites_add_new.background, contact_groups_add_new.background
+            contact_numbers_add_new.background, contact_emails_add_new.background,
+            contact_addresses_add_new.background, contact_ims_add_new.background,
+            contact_events_add_new.background, contact_websites_add_new.background,
+            contact_relations_add_new.background, contact_groups_add_new.background
         ).forEach {
             it.applyColorFilter(textColor)
         }
@@ -241,6 +248,7 @@ class EditContactActivity : ContactActivity() {
         contact_ims_add_new.setOnClickListener { addNewIMField() }
         contact_events_add_new.setOnClickListener { addNewEventField() }
         contact_websites_add_new.setOnClickListener { addNewWebsiteField() }
+        contact_relations_add_new.setOnClickListener { addNewRelationsField() }
         contact_groups_add_new.setOnClickListener { showSelectGroupsDialog() }
         contact_source.setOnClickListener { showSelectContactSourceDialog() }
 
@@ -428,6 +436,11 @@ class EditContactActivity : ContactActivity() {
         contact_websites_holder.beVisibleIf(areWebsitesVisible)
         contact_websites_add_new.beVisibleIf(areWebsitesVisible)
 
+        val areRelationsVisible = ((showFields and SHOW_RELATIONS_FIELD) != 0)
+        contact_relations_image.beVisibleIf(areRelationsVisible)
+        contact_relations_holder.beVisibleIf(areRelationsVisible)
+        contact_relations_add_new.beVisibleIf(areRelationsVisible)
+
         val areGroupsVisible = showFields and SHOW_GROUPS_FIELD != 0
         contact_groups_image.beVisibleIf(areGroupsVisible)
         contact_groups_holder.beVisibleIf(areGroupsVisible)
@@ -452,6 +465,7 @@ class EditContactActivity : ContactActivity() {
         setupNotes()
         setupOrganization()
         setupWebsites()
+        setupRelations()
         setupEvents()
         setupGroups()
         setupContactSource()
@@ -637,6 +651,21 @@ class EditContactActivity : ContactActivity() {
             }
 
             websitesHolder!!.contact_website.setText(website)
+        }
+    }
+
+    private fun setupRelations() {
+        contact!!.relations.forEachIndexed { index, relation ->
+            var relationsHolder = contact_relations_holder.getChildAt(index)
+            if (relationsHolder == null) {
+                relationsHolder = layoutInflater.inflate(R.layout.item_edit_relation, contact_relations_holder, false)
+                contact_relations_holder.addView(relationsHolder)
+            }
+
+            relationsHolder!!.apply {
+                contact_relation.setText(relation.name)
+                setupRelationTypePicker(contact_relation_type, relation.type, relation.label)
+            }
         }
     }
 
@@ -854,6 +883,15 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
+    private fun setupRelationTypePicker(relationTypeField: TextView, type: Int, label: String) {
+        relationTypeField.apply {
+            text = getRelationTypeText(type, label)
+            setOnClickListener {
+                showRelationTypePicker(it as TextView)
+            }
+        }
+    }
+
     private fun setupGroupsPicker(groupTitleField: TextView, group: Group? = null) {
         groupTitleField.apply {
             text = group?.title ?: getString(R.string.no_groups)
@@ -982,6 +1020,80 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
+    private fun showRelationTypePicker(relationTypeField: TextView) {
+        val items = arrayListOf(
+            RadioItem(CommonDataKinds.Relation.TYPE_CUSTOM, getString(R.string.custom)),
+
+            RadioItem(Relation.TYPE_FRIEND, getString(R.string.relation_friend)), // 6
+
+            RadioItem(Relation.TYPE_SPOUSE, getString(R.string.relation_spouse)), // 14
+            RadioItem(ContactRelation.TYPE_HUSBAND, getString(R.string.relation_husband)), // 103
+            RadioItem(ContactRelation.TYPE_WIFE, getString(R.string.relation_wife)), // 104
+            RadioItem(Relation.TYPE_DOMESTIC_PARTNER, getString(R.string.relation_domestic_partner)), // 4
+            RadioItem(Relation.TYPE_PARTNER, getString(R.string.relation_partner)), // 10
+            RadioItem(ContactRelation.TYPE_CO_RESIDENT, getString(R.string.relation_co_resident)), // 56
+            RadioItem(ContactRelation.TYPE_NEIGHBOR, getString(R.string.relation_neighbor)), // 57
+            RadioItem(Relation.TYPE_PARENT, getString(R.string.relation_parent)), // 9
+            RadioItem(Relation.TYPE_FATHER, getString(R.string.relation_father)), // 5
+            RadioItem(Relation.TYPE_MOTHER, getString(R.string.relation_mother)), // 8
+            RadioItem(Relation.TYPE_CHILD, getString(R.string.relation_child)), // 3
+            RadioItem(ContactRelation.TYPE_SON, getString(R.string.relation_son)), // 105
+            RadioItem(ContactRelation.TYPE_DAUGHTER, getString(R.string.relation_daughter)), // 106
+            RadioItem(ContactRelation.TYPE_SIBLING, getString(R.string.relation_sibling)), // 58
+            RadioItem(Relation.TYPE_BROTHER, getString(R.string.relation_brother)), // 2
+            RadioItem(Relation.TYPE_SISTER, getString(R.string.relation_sister)), // 13
+            RadioItem(ContactRelation.TYPE_GRANDPARENT, getString(R.string.relation_grandparent)), // 107
+            RadioItem(ContactRelation.TYPE_GRANDFATHER, getString(R.string.relation_grandfather)), // 108
+            RadioItem(ContactRelation.TYPE_GRANDMOTHER, getString(R.string.relation_grandmother)), // 109
+            RadioItem(ContactRelation.TYPE_GRANDCHILD, getString(R.string.relation_grandchild)), // 110
+            RadioItem(ContactRelation.TYPE_GRANDSON, getString(R.string.relation_grandson)), // 111
+            RadioItem(ContactRelation.TYPE_GRANDDAUGHTER, getString(R.string.relation_granddaughter)), // 112
+            RadioItem(ContactRelation.TYPE_UNCLE, getString(R.string.relation_uncle)), // 113
+            RadioItem(ContactRelation.TYPE_AUNT, getString(R.string.relation_aunt)), // 114
+            RadioItem(ContactRelation.TYPE_NEPHEW, getString(R.string.relation_nephew)), // 115
+            RadioItem(ContactRelation.TYPE_NIECE, getString(R.string.relation_niece)), // 116
+            RadioItem(ContactRelation.TYPE_FATHER_IN_LAW, getString(R.string.relation_father_in_law)), // 117
+            RadioItem(ContactRelation.TYPE_MOTHER_IN_LAW, getString(R.string.relation_mother_in_law)), // 118
+            RadioItem(ContactRelation.TYPE_SON_IN_LAW, getString(R.string.relation_son_in_law)), // 119
+            RadioItem(ContactRelation.TYPE_DAUGHTER_IN_LAW, getString(R.string.relation_daughter_in_law)), // 120
+            RadioItem(ContactRelation.TYPE_BROTHER_IN_LAW, getString(R.string.relation_brother_in_law)), // 121
+            RadioItem(ContactRelation.TYPE_SISTER_IN_LAW, getString(R.string.relation_sister_in_law)), // 122
+            RadioItem(Relation.TYPE_RELATIVE, getString(R.string.relation_relative)), // 12
+            RadioItem(ContactRelation.TYPE_KIN, getString(R.string.relation_kin)), // 59
+
+            RadioItem(ContactRelation.TYPE_MUSE, getString(R.string.relation_muse)), // 60
+            RadioItem(ContactRelation.TYPE_CRUSH, getString(R.string.relation_crush)), // 61
+            RadioItem(ContactRelation.TYPE_DATE, getString(R.string.relation_date)), // 62
+            RadioItem(ContactRelation.TYPE_SWEETHEART, getString(R.string.relation_sweetheart)), // 63
+
+            RadioItem(ContactRelation.TYPE_CONTACT, getString(R.string.relation_contact)), // 51
+            RadioItem(ContactRelation.TYPE_ACQUAINTANCE, getString(R.string.relation_acquaintance)), // 52
+            RadioItem(ContactRelation.TYPE_MET, getString(R.string.relation_met)), // 53
+            RadioItem(Relation.TYPE_REFERRED_BY, getString(R.string.relation_referred_by)), // 11
+            RadioItem(ContactRelation.TYPE_AGENT, getString(R.string.relation_agent)), // 64
+
+            RadioItem(ContactRelation.TYPE_COLLEAGUE, getString(R.string.relation_colleague)), // 55
+            RadioItem(ContactRelation.TYPE_CO_WORKER, getString(R.string.relation_co_worker)), // 54
+            RadioItem(ContactRelation.TYPE_SUPERIOR, getString(R.string.relation_superior)), // 101
+            RadioItem(ContactRelation.TYPE_SUBORDINATE, getString(R.string.relation_subordinate)), // 102
+            RadioItem(Relation.TYPE_MANAGER, getString(R.string.relation_manager)), // 7
+            RadioItem(Relation.TYPE_ASSISTANT, getString(R.string.relation_assistant)), // 1
+
+            RadioItem(ContactRelation.TYPE_ME, getString(R.string.relation_me)), // 66
+            RadioItem(ContactRelation.TYPE_EMERGENCY, getString(R.string.relation_emergency)) // 65
+        )
+        val currentRelationTypeId = getRelationTypeId(relationTypeField.value)
+        RadioGroupDialog(this, items, currentRelationTypeId) {
+            if (it as Int == CommonDataKinds.Relation.TYPE_CUSTOM) {
+                CustomLabelDialog(this) {
+                    relationTypeField.text = it
+                }
+            } else {
+                relationTypeField.text = getRelationTypeText(it, "")
+            }
+        }
+    }
+
     private fun showSelectGroupsDialog() {
         SelectGroupsDialog(this@EditContactActivity, contact!!.groups) {
             contact!!.groups = it
@@ -1051,6 +1163,7 @@ class EditContactActivity : ContactActivity() {
         val filledIMs = getFilledIMs()
         val filledEvents = getFilledEvents()
         val filledWebsites = getFilledWebsites()
+        val filledRelations = getFilledRelations()
 
         val newContact = contact!!.copy(
             prefix = contact_prefix.value,
@@ -1068,6 +1181,7 @@ class EditContactActivity : ContactActivity() {
             starred = if (isContactStarred()) 1 else 0,
             notes = contact_notes.value,
             websites = filledWebsites,
+            relations = filledRelations,
         )
 
         val company = contact_organization_company.value
@@ -1177,6 +1291,24 @@ class EditContactActivity : ContactActivity() {
             }
         }
         return websites
+    }
+
+    private fun getFilledRelations(): ArrayList<ContactRelation> {
+        val relations = ArrayList<ContactRelation>()
+        val relationsCount = contact_relations_holder.childCount
+        for (i in 0 until relationsCount) {
+            val relationHolder = contact_relations_holder.getChildAt(i)
+            val name: String = relationHolder.contact_relation.value
+            if (name.isNotEmpty()) {
+                var label = relationHolder.contact_relation_type.value.trim()
+                val type = getRelationTypeId(label)
+                if (type != ContactRelation.TYPE_CUSTOM) {
+                    label = ""
+                }
+                relations.add(ContactRelation(name, type, label))
+            }
+        }
+        return relations
     }
 
     private fun insertNewContact(deleteCurrentContact: Boolean) {
@@ -1357,6 +1489,17 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
+    private fun addNewRelationsField() {
+        val relationHolder = layoutInflater.inflate(R.layout.item_edit_relation, contact_relations_holder, false) as ViewGroup
+        updateTextColors(relationHolder)
+        setupRelationTypePicker(relationHolder.contact_relation_type, DEFAULT_RELATION_TYPE, "")
+        contact_relations_holder.addView(relationHolder)
+        contact_relations_holder.onGlobalLayout {
+            relationHolder.contact_relation.requestFocus()
+            showKeyboard(relationHolder.contact_relation)
+        }
+    }
+
     private fun isContactStarred() = contact_toggle_favorite.tag == 1
 
     private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_vector else R.drawable.ic_star_outline_vector)
@@ -1513,6 +1656,70 @@ class EditContactActivity : ContactActivity() {
         getString(R.string.work) -> StructuredPostal.TYPE_WORK
         getString(R.string.other) -> StructuredPostal.TYPE_OTHER
         else -> StructuredPostal.TYPE_CUSTOM
+    }
+
+    private fun getRelationTypeId(value: String) = when (value) {
+        getString(R.string.relation_assistant) -> Relation.TYPE_ASSISTANT
+        getString(R.string.relation_brother) -> Relation.TYPE_BROTHER
+        getString(R.string.relation_child) -> Relation.TYPE_CHILD
+        getString(R.string.relation_domestic_partner) -> Relation.TYPE_DOMESTIC_PARTNER
+        getString(R.string.relation_father) -> Relation.TYPE_FATHER
+        getString(R.string.relation_friend) -> Relation.TYPE_FRIEND
+        getString(R.string.relation_manager) -> Relation.TYPE_MANAGER
+        getString(R.string.relation_mother) -> Relation.TYPE_MOTHER
+        getString(R.string.relation_parent) -> Relation.TYPE_PARENT
+        getString(R.string.relation_partner) -> Relation.TYPE_PARTNER
+        getString(R.string.relation_referred_by) -> Relation.TYPE_REFERRED_BY
+        getString(R.string.relation_relative) -> Relation.TYPE_RELATIVE
+        getString(R.string.relation_sister) -> Relation.TYPE_SISTER
+        getString(R.string.relation_spouse) -> Relation.TYPE_SPOUSE
+
+        // Relation types defined in vCard 4.0
+        getString(R.string.relation_contact) -> ContactRelation.TYPE_CONTACT
+        getString(R.string.relation_acquaintance) -> ContactRelation.TYPE_ACQUAINTANCE
+        // getString(R.string.relation_friend) -> ContactRelation.TYPE_FRIEND
+        getString(R.string.relation_met) -> ContactRelation.TYPE_MET
+        getString(R.string.relation_co_worker) -> ContactRelation.TYPE_CO_WORKER
+        getString(R.string.relation_colleague) -> ContactRelation.TYPE_COLLEAGUE
+        getString(R.string.relation_co_resident) -> ContactRelation.TYPE_CO_RESIDENT
+        getString(R.string.relation_neighbor) -> ContactRelation.TYPE_NEIGHBOR
+        // getString(R.string.relation_child) -> ContactRelation.TYPE_CHILD
+        // getString(R.string.relation_parent) -> ContactRelation.TYPE_PARENT
+        getString(R.string.relation_sibling) -> ContactRelation.TYPE_SIBLING
+        // getString(R.string.relation_spouse) -> ContactRelation.TYPE_SPOUSE
+        getString(R.string.relation_kin) -> ContactRelation.TYPE_KIN
+        getString(R.string.relation_muse) -> ContactRelation.TYPE_MUSE
+        getString(R.string.relation_crush) -> ContactRelation.TYPE_CRUSH
+        getString(R.string.relation_date) -> ContactRelation.TYPE_DATE
+        getString(R.string.relation_sweetheart) -> ContactRelation.TYPE_SWEETHEART
+        getString(R.string.relation_me) -> ContactRelation.TYPE_ME
+        getString(R.string.relation_agent) -> ContactRelation.TYPE_AGENT
+        getString(R.string.relation_emergency) -> ContactRelation.TYPE_EMERGENCY
+
+        getString(R.string.relation_superior) -> ContactRelation.TYPE_SUPERIOR
+        getString(R.string.relation_subordinate) -> ContactRelation.TYPE_SUBORDINATE
+        getString(R.string.relation_husband) -> ContactRelation.TYPE_HUSBAND
+        getString(R.string.relation_wife) -> ContactRelation.TYPE_WIFE
+        getString(R.string.relation_son) -> ContactRelation.TYPE_SON
+        getString(R.string.relation_daughter) -> ContactRelation.TYPE_DAUGHTER
+        getString(R.string.relation_grandparent) -> ContactRelation.TYPE_GRANDPARENT
+        getString(R.string.relation_grandfather) -> ContactRelation.TYPE_GRANDFATHER
+        getString(R.string.relation_grandmother) -> ContactRelation.TYPE_GRANDMOTHER
+        getString(R.string.relation_grandchild) -> ContactRelation.TYPE_GRANDCHILD
+        getString(R.string.relation_grandson) -> ContactRelation.TYPE_GRANDSON
+        getString(R.string.relation_granddaughter) -> ContactRelation.TYPE_GRANDDAUGHTER
+        getString(R.string.relation_uncle) -> ContactRelation.TYPE_UNCLE
+        getString(R.string.relation_aunt) -> ContactRelation.TYPE_AUNT
+        getString(R.string.relation_nephew) -> ContactRelation.TYPE_NEPHEW
+        getString(R.string.relation_niece) -> ContactRelation.TYPE_NIECE
+        getString(R.string.relation_father_in_law) -> ContactRelation.TYPE_FATHER_IN_LAW
+        getString(R.string.relation_mother_in_law) -> ContactRelation.TYPE_MOTHER_IN_LAW
+        getString(R.string.relation_son_in_law) -> ContactRelation.TYPE_SON_IN_LAW
+        getString(R.string.relation_daughter_in_law) -> ContactRelation.TYPE_DAUGHTER_IN_LAW
+        getString(R.string.relation_brother_in_law) -> ContactRelation.TYPE_BROTHER_IN_LAW
+        getString(R.string.relation_sister_in_law) -> ContactRelation.TYPE_SISTER_IN_LAW
+
+        else -> Relation.TYPE_CUSTOM
     }
 
     private fun getIMTypeId(value: String) = when (value) {
