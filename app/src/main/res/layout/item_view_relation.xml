@@ -31,7 +31,7 @@
         android:gravity="center"
         android:paddingStart="@dimen/medium_margin"
         android:paddingEnd="@dimen/medium_margin"
-        android:text="@string/home"
+        android:text="@string/relation_friend"
         android:textSize="@dimen/bigger_text_size" />
 
 </RelativeLayout>

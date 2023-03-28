@@ -811,6 +811,13 @@ class EditContactActivity : ContactActivity() {
             }
         }
 
+        if (contact!!.relations.isEmpty()) {
+            val relationHolder = contact_relations_holder.getChildAt(0)
+            (relationHolder as? ViewGroup)?.contact_relation_type?.apply {
+                setupRelationTypePicker(this, DEFAULT_RELATION_TYPE, "")
+            }
+        }
+
         if (contact!!.groups.isEmpty()) {
             val groupsHolder = contact_groups_holder.getChildAt(0)
             (groupsHolder as? ViewGroup)?.contact_group?.apply {
