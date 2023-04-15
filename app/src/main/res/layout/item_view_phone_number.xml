@@ -37,7 +37,7 @@
         android:layout_alignBottom="@+id/contact_number"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:gravity="center"
+        android:gravity="end"
         android:minWidth="70dp"
         android:paddingStart="@dimen/medium_margin"
         android:paddingEnd="@dimen/medium_margin"

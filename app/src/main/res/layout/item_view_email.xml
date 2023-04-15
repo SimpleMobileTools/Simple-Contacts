@@ -28,7 +28,7 @@
         android:layout_alignBottom="@+id/contact_email"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:gravity="center"
+        android:gravity="end"
         android:paddingStart="@dimen/medium_margin"
         android:paddingEnd="@dimen/medium_margin"
         android:text="@string/home"
