@@ -14,23 +14,23 @@
     <string name="send_sms_to_group">ਗਰੁੱਪ ਨੂੰ SMS ਭੇਜੋ</string>
     <string name="send_email_to_group">ਸਮੂਹ ਨੂੰ ਈਮੇਲ ਭੇਜੋ</string>
     <string name="fields_empty">ਘੱਟੋ-ਘੱਟ 1 ਖੇਤਰ ਭਰਨਾ ਜ਼ਰੂਰੀ ਹੈ</string>
-    <string name="must_be_at_edit">You must be at the Edit screen to modify a contact</string>
+    <string name="must_be_at_edit">ਕਿਸੇ ਸੰਪਰਕ ਨੂੰ ਸੋਧਣ ਲਈ ਤੁਹਾਨੂੰ ਸੰਪਾਦਨ ਸਕ੍ਰੀਨ \'ਤੇ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ</string>
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
-    <string name="new_contact">New contact</string>
-    <string name="edit_contact">Edit contact</string>
-    <string name="select_contact">Select contact</string>
-    <string name="nickname">Nickname</string>
+    <string name="no_contacts_with_emails">ਈਮੇਲਾਂ ਵਾਲੇ ਕੋਈ ਸੰਪਰਕ ਨਹੀਂ ਮਿਲੇ ਹਨ</string>
+    <string name="no_contacts_with_phone_numbers">ਫ਼ੋਨ ਨੰਬਰਾਂ ਵਾਲੇ ਕੋਈ ਸੰਪਰਕ ਨਹੀਂ ਮਿਲੇ ਹਨ</string>
+    <string name="new_contact">ਨਵੇਂ ਸੰਪਰਕ</string>
+    <string name="edit_contact">ਸੰਪਰਕ ਦਾ ਸੰਪਾਦਨ ਕਰੋ</string>
+    <string name="select_contact">ਸੰਪਰਕ ਚੁਣੋ</string>
+    <string name="nickname">ਉਪਨਾਮ</string>
     <!-- Groups -->
-    <string name="no_groups">No groups</string>
-    <string name="create_new_group">Create a new group</string>
-    <string name="remove_from_group">Remove from group</string>
-    <string name="no_group_participants">This group is empty</string>
-    <string name="add_contacts">Add contacts</string>
-    <string name="no_group_created">There are no contact groups on the device</string>
-    <string name="create_group">Create group</string>
-    <string name="add_to_group">Add to group</string>
+    <string name="no_groups">ਕੋਈ ਗਰੁੱਪ ਨਹੀਂ</string>
+    <string name="create_new_group">ਇੱਕ ਨਵਾਂ ਗਰੁੱਪ ਬਣਾਓ</string>
+    <string name="remove_from_group">ਗਰੁੱਪ ਵਿੱਚੋਂ ਹਟਾਓ</string>
+    <string name="no_group_participants">ਇਹ ਗਰੁੱਪ ਖ਼ਾਲੀ ਹੈ</string>
+    <string name="add_contacts">ਸੰਪਰਕ ਜੋੜੋ</string>
+    <string name="no_group_created">ਡਿਵਾਈਸ \'ਤੇ ਕੋਈ ਸੰਪਰਕ ਸਮੂਹ ਨਹੀਂ ਹਨ</string>
+    <string name="create_group">ਗਰੁੱਪ ਬਣਾਓ</string>
+    <string name="add_to_group">ਗਰੁੱਪ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ</string>
     <string name="create_group_under_account">Create group under account</string>
     <!-- Photo -->
     <string name="remove_photo">Remove photo</string>
