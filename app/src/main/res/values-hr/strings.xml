@@ -65,7 +65,7 @@
     <string name="filename_without_vcf">ime datoteke (bez .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Brojčanik</string>
-    <string name="add_number_to_contact">Dodaj broj u kontakt</string>
+    <string name="add_number_to_contact">Dodaj broj kontaktu</string>
     <!-- Visible fields -->
     <string name="prefix">Prefiks</string>
     <string name="suffix">Sufiks</string>
