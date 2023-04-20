@@ -96,6 +96,25 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_sms_vector" />
 
+                <CheckBox
+                    android:id="@+id/contact_photo_share_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:checked="true"
+                    android:text=""
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/contact_photo_share_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="-10dp"
+                    android:contentDescription="@null"
+                    android:paddingEnd="@dimen/small_margin"
+                    android:src="@android:drawable/ic_menu_share"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <ImageView
@@ -118,7 +137,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:background="?attr/selectableItemBackground"
-                android:maxLines="2"
+                android:maxLines="4"
                 android:paddingStart="@dimen/small_margin"
                 android:paddingTop="@dimen/normal_margin"
                 android:paddingEnd="@dimen/normal_margin"
@@ -139,6 +158,18 @@
                 android:src="@drawable/ic_phone_vector"
                 android:visibility="gone" />
 
+            <LinearLayout
+                android:id="@+id/contact_numbers_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_name"
+                android:layout_toEndOf="@+id/contact_numbers_image"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- <include layout="@layout/item_view_phone_number" /> -->
+            </LinearLayout>
+
             <ImageView
                 android:id="@+id/contact_emails_image"
                 android:layout_width="@dimen/contact_icons_size"
@@ -151,6 +182,18 @@
                 android:paddingBottom="@dimen/small_margin"
                 android:src="@drawable/ic_mail_vector"
                 android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/contact_emails_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_numbers_holder"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- <include layout="@layout/item_view_email" /> -->
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/contact_addresses_image"
@@ -165,6 +208,17 @@
                 android:src="@drawable/ic_place_vector"
                 android:visibility="gone" />
 
+            <LinearLayout
+                android:id="@+id/contact_addresses_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_emails_holder"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:orientation="vertical">
+
+                <!-- <include layout="@layout/item_view_address" /> -->
+            </LinearLayout>
+
             <ImageView
                 android:id="@+id/contact_ims_image"
                 android:layout_width="@dimen/contact_icons_size"
@@ -177,6 +231,18 @@
                 android:paddingBottom="@dimen/small_margin"
                 android:src="@drawable/ic_im"
                 android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/contact_ims_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_addresses_holder"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- <include layout="@layout/item_view_im" /> -->
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/contact_events_image"
@@ -191,6 +257,18 @@
                 android:src="@drawable/ic_cake_vector"
                 android:visibility="gone" />
 
+            <LinearLayout
+                android:id="@+id/contact_events_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_ims_holder"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- <include layout="@layout/item_view_event" /> -->
+            </LinearLayout>
+
             <ImageView
                 android:id="@+id/contact_notes_image"
                 android:layout_width="@dimen/contact_icons_size"
@@ -204,143 +282,6 @@
                 android:src="@drawable/ic_label_vector"
                 android:visibility="gone" />
 
-            <ImageView
-                android:id="@+id/contact_ringtone_image"
-                android:layout_width="@dimen/contact_icons_size"
-                android:layout_height="@dimen/contact_icons_size"
-                android:layout_alignTop="@+id/contact_ringtone"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:contentDescription="@null"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingEnd="@dimen/small_margin"
-                android:paddingBottom="@dimen/small_margin"
-                android:src="@drawable/ic_bell_vector"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/contact_organization_image"
-                android:layout_width="@dimen/contact_icons_size"
-                android:layout_height="@dimen/contact_icons_size"
-                android:layout_alignTop="@+id/contact_organization_company"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:contentDescription="@null"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingEnd="@dimen/small_margin"
-                android:paddingBottom="@dimen/small_margin"
-                android:src="@drawable/ic_business_vector"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/contact_websites_image"
-                android:layout_width="@dimen/contact_icons_size"
-                android:layout_height="@dimen/contact_icons_size"
-                android:layout_alignTop="@+id/contact_websites_holder"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:contentDescription="@null"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingEnd="@dimen/small_margin"
-                android:paddingBottom="@dimen/small_margin"
-                android:src="@drawable/ic_link_vector"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/contact_groups_image"
-                android:layout_width="@dimen/contact_icons_size"
-                android:layout_height="@dimen/contact_icons_size"
-                android:layout_alignTop="@+id/contact_groups_holder"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:contentDescription="@null"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingEnd="@dimen/small_margin"
-                android:paddingBottom="@dimen/small_margin"
-                android:src="@drawable/ic_people_vector"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/contact_source_image"
-                android:layout_width="@dimen/contact_icons_size"
-                android:layout_height="@dimen/contact_icons_size"
-                android:layout_alignTop="@+id/contact_sources_holder"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:contentDescription="@null"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingEnd="@dimen/small_margin"
-                android:paddingBottom="@dimen/small_margin"
-                android:src="@drawable/ic_account_box_vector"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/contact_numbers_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_name"
-                android:layout_toEndOf="@+id/contact_numbers_image"
-                android:orientation="vertical"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/contact_emails_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_numbers_holder"
-                android:layout_toEndOf="@+id/contact_name_image"
-                android:orientation="vertical"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/contact_addresses_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_emails_holder"
-                android:layout_toEndOf="@+id/contact_name_image"
-                android:orientation="vertical"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/contact_ims_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_addresses_holder"
-                android:layout_toEndOf="@+id/contact_name_image"
-                android:orientation="vertical"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/contact_events_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_ims_holder"
-                android:layout_toEndOf="@+id/contact_name_image"
-                android:orientation="vertical"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/contact_websites_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_organization_job_position"
-                android:layout_toEndOf="@+id/contact_name_image"
-                android:orientation="vertical"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/contact_groups_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_websites_holder"
-                android:layout_toEndOf="@+id/contact_name_image"
-                android:orientation="vertical"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/contact_sources_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_groups_holder"
-                android:layout_toEndOf="@+id/contact_name_image"
-                android:orientation="vertical"
-                android:visibility="gone" />
-
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/contact_notes"
                 android:layout_width="match_parent"
@@ -352,8 +293,52 @@
                 android:lineSpacingExtra="@dimen/medium_margin"
                 android:paddingStart="@dimen/small_margin"
                 android:paddingTop="@dimen/normal_margin"
+                android:paddingEnd="@dimen/normal_margin"
                 android:paddingBottom="@dimen/normal_margin"
                 android:textSize="@dimen/bigger_text_size"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/contact_notes_extras"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignTop="@+id/contact_notes"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:paddingEnd="@dimen/normal_margin" >
+
+                <CheckBox
+                    android:id="@+id/contact_notes_share_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:checked="true"
+                    android:text=""
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/contact_notes_share_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="-10dp"
+                    android:contentDescription="@null"
+                    android:src="@android:drawable/ic_menu_share"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/contact_ringtone_image"
+                android:layout_width="@dimen/contact_icons_size"
+                android:layout_height="@dimen/contact_icons_size"
+                android:layout_alignTop="@+id/contact_ringtone"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:contentDescription="@null"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/small_margin"
+                android:paddingBottom="@dimen/small_margin"
+                android:src="@drawable/ic_bell_vector"
                 android:visibility="gone" />
 
             <com.simplemobiletools.commons.views.MyTextView
@@ -371,20 +356,65 @@
                 android:textSize="@dimen/bigger_text_size"
                 android:visibility="gone" />
 
+            <ImageView
+                android:id="@+id/contact_organization_image"
+                android:layout_width="@dimen/contact_icons_size"
+                android:layout_height="@dimen/contact_icons_size"
+                android:layout_alignTop="@+id/contact_organization_company"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:contentDescription="@null"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/small_margin"
+                android:paddingBottom="@dimen/small_margin"
+                android:src="@drawable/ic_business_vector"
+                android:visibility="gone" />
+
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/contact_organization_company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/contact_ringtone"
                 android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/contact_organization_extras"
                 android:layout_toEndOf="@+id/contact_organization_image"
                 android:background="?attr/selectableItemBackground"
                 android:lineSpacingExtra="@dimen/medium_margin"
                 android:paddingStart="@dimen/small_margin"
                 android:paddingTop="@dimen/normal_margin"
+                android:paddingEnd="@dimen/normal_margin"
                 android:paddingBottom="@dimen/normal_margin"
                 android:textSize="@dimen/bigger_text_size"
                 android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/contact_organization_extras"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignTop="@+id/contact_organization_company"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:layout_marginEnd="@dimen/normal_margin" >
+
+                <CheckBox
+                    android:id="@+id/contact_organization_share_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=""
+                    android:checked="true"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/contact_organization_share_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="-10dp"
+                    android:contentDescription="@null"
+                    android:src="@android:drawable/ic_menu_share"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/contact_organization_job_position"
@@ -401,6 +431,105 @@
                 android:textSize="@dimen/bigger_text_size"
                 android:visibility="gone" />
 
+            <ImageView
+                android:id="@+id/contact_websites_image"
+                android:layout_width="@dimen/contact_icons_size"
+                android:layout_height="@dimen/contact_icons_size"
+                android:layout_alignTop="@+id/contact_websites_holder"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:contentDescription="@null"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/small_margin"
+                android:paddingBottom="@dimen/small_margin"
+                android:src="@drawable/ic_link_vector"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/contact_websites_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_organization_job_position"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- <include layout="@layout/item_view_website" /> -->
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/contact_relations_image"
+                android:layout_width="@dimen/contact_icons_size"
+                android:layout_height="@dimen/contact_icons_size"
+                android:layout_alignTop="@+id/contact_relations_holder"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:contentDescription="@null"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/small_margin"
+                android:paddingBottom="@dimen/small_margin"
+                android:src="@drawable/ic_connect3_vector"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/contact_relations_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_websites_holder"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include layout="@layout/item_view_relation" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/contact_groups_image"
+                android:layout_width="@dimen/contact_icons_size"
+                android:layout_height="@dimen/contact_icons_size"
+                android:layout_alignTop="@+id/contact_groups_holder"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:contentDescription="@null"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/small_margin"
+                android:paddingBottom="@dimen/small_margin"
+                android:src="@drawable/ic_people_vector"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/contact_groups_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_relations_holder"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- <include layout="@layout/item_view_group" /> -->
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/contact_source_image"
+                android:layout_width="@dimen/contact_icons_size"
+                android:layout_height="@dimen/contact_icons_size"
+                android:layout_alignTop="@+id/contact_sources_holder"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:contentDescription="@null"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/small_margin"
+                android:paddingBottom="@dimen/small_margin"
+                android:src="@drawable/ic_account_box_vector"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/contact_sources_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_groups_holder"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- <include layout="@layout/item_view_contact_source" /> -->
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 
@@ -413,7 +542,8 @@
         android:clickable="true"
         android:padding="@dimen/activity_margin"
         android:scaleType="fitCenter"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:src="@drawable/ic_person_vector" />
 
     <ImageView
         android:id="@+id/contact_photo_top_shadow"

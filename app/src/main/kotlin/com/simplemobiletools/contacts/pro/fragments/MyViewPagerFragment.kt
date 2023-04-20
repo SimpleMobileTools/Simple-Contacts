@@ -104,6 +104,24 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
+    fun contactListNameFormatChanged(showFormattedName: Boolean, nameFormat: ContactNameFormat) {
+        Contact.setNameFormat(showFormattedName, nameFormat)
+        if (this !is GroupsFragment) {
+            (fragment_list.adapter as? ContactsAdapter)?.apply {
+                (this@MyViewPagerFragment.activity!! as MainActivity).refreshContacts(TAB_CONTACTS or TAB_FAVORITES)
+            }
+        }
+    }
+
+    fun contactListSortOrderChanged(sortBy: ContactNameSortBy, inverse: Boolean) {
+        Contact.setSortOrder(sortBy, inverse)
+        if (this !is GroupsFragment) {
+            (fragment_list.adapter as? ContactsAdapter)?.apply {
+                (this@MyViewPagerFragment.activity!! as MainActivity).refreshContacts(TAB_CONTACTS or TAB_FAVORITES)
+            }
+        }
+    }
+
     fun refreshContacts(contacts: ArrayList<Contact>, placeholderText: String? = null) {
         if ((config.showTabs and TAB_CONTACTS == 0 && this is ContactsFragment && activity !is InsertOrEditContactActivity) ||
             (config.showTabs and TAB_FAVORITES == 0 && this is FavoritesFragment) ||
@@ -305,11 +323,11 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 val contact = contacts[position]
                 var name = when {
                     contact.isABusinessContact() -> contact.getFullCompany()
-                    sorting and SORT_BY_SURNAME != 0 && contact.surname.isNotEmpty() -> contact.surname
-                    sorting and SORT_BY_MIDDLE_NAME != 0 && contact.middleName.isNotEmpty() -> contact.middleName
-                    sorting and SORT_BY_FIRST_NAME != 0 && contact.firstName.isNotEmpty() -> contact.firstName
-                    context.config.startNameWithSurname -> contact.surname
-                    else -> contact.firstName
+                    ((sorting and SORT_BY_SURNAME) != 0) && contact.name.familyName.isNotEmpty() -> contact.name.familyName
+                    ((sorting and SORT_BY_MIDDLE_NAME) != 0) && contact.name.middleName.isNotEmpty() -> contact.name.middleName
+                    ((sorting and SORT_BY_FIRST_NAME) != 0) && contact.name.givenName.isNotEmpty() -> contact.name.givenName
+                    context.config.startNameWithSurname -> contact.name.familyName
+                    else -> contact.name.givenName
                 }
 
                 if (name.isEmpty()) {
@@ -348,18 +366,24 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             val shouldNormalize = text.normalizeString() == text
             val filtered = contactsIgnoringSearch.filter {
                 getProperText(it.getNameToDisplay(), shouldNormalize).contains(text, true) ||
-                    getProperText(it.nickname, shouldNormalize).contains(text, true) ||
+                    it.nicknames.any { it.name.contains(text, true) } ||
                     it.phoneNumbers.any {
                         text.normalizePhoneNumber().isNotEmpty() && (it.normalizedNumber
                             ?: it.value).contains(text.normalizePhoneNumber(), true)
                     } ||
-                    it.emails.any { it.value.contains(text, true) } ||
-                    it.addresses.any { getProperText(it.value, shouldNormalize).contains(text, true) } ||
-                    it.IMs.any { it.value.contains(text, true) } ||
+                    it.emails.any { it.address.contains(text, true) } ||
+                    it.addresses.any { getProperText(it.formattedAddress, shouldNormalize).contains(text, true) } ||
+                    it.addresses.any { getProperText(it.street, shouldNormalize).contains(text, true) } ||
+                    it.addresses.any { getProperText(it.city, shouldNormalize).contains(text, true) } ||
+                    it.addresses.any { getProperText(it.region, shouldNormalize).contains(text, true) } ||
+                    it.addresses.any { getProperText(it.postalCode, shouldNormalize).contains(text, true) } ||
+                    it.addresses.any { getProperText(it.country, shouldNormalize).contains(text, true) } ||
+                    it.IMs.any { it.data.contains(text, true) } ||
                     getProperText(it.notes, shouldNormalize).contains(text, true) ||
                     getProperText(it.organization.company, shouldNormalize).contains(text, true) ||
-                    getProperText(it.organization.jobPosition, shouldNormalize).contains(text, true) ||
-                    it.websites.any { it.contains(text, true) }
+                    getProperText(it.organization.jobTitle, shouldNormalize).contains(text, true) ||
+                    it.websites.any { it.URL.contains(text, true) } ||
+                    it.relations.any { getProperText(it.name, shouldNormalize).contains(text, true) }
             } as ArrayList
 
             filtered.sortBy {

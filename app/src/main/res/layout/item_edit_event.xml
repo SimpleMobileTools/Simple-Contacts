@@ -1,49 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/contact_view_email_holder"
+    android:id="@+id/contact_edit_event_holder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:paddingStart="@dimen/small_margin"
-    android:paddingEnd="@dimen/normal_margin"
-    android:paddingTop="@dimen/tiny_margin"
-    android:paddingBottom="@dimen/tiny_margin">
+    android:paddingStart="0dp"
+    android:paddingEnd="@dimen/activity_margin">
 
     <com.simplemobiletools.commons.views.MyTextView
-        android:id="@+id/contact_email"
+        android:id="@+id/contact_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/contact_email_extras"
-        android:lines="1"
-        android:maxLines="1"
-        android:singleLine="true"
+        android:layout_toStartOf="@+id/contact_event_extras"
+        android:alpha="0.5"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/small_margin"
+        android:paddingTop="@dimen/normal_margin"
+        android:paddingEnd="@dimen/small_margin"
+        android:paddingBottom="@dimen/normal_margin"
+        android:text="@string/unknown"
         android:textSize="@dimen/bigger_text_size" />
 
     <LinearLayout
-        android:id="@+id/contact_email_extras"
+        android:id="@+id/contact_event_extras"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/contact_view_item_height"
-        android:layout_alignTop="@+id/contact_email"
+        android:layout_height="48dp"
+        android:layout_alignTop="@+id/contact_event"
         android:layout_alignParentEnd="true"
         android:orientation="horizontal"
         android:visibility="visible">
 
         <com.simplemobiletools.commons.views.MyTextView
-            android:id="@+id/contact_email_type"
+            android:id="@+id/contact_event_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical|end"
-            android:hint="@string/home"
-            android:minWidth="70dp"
             android:paddingStart="@dimen/medium_margin"
             android:paddingEnd="@dimen/medium_margin"
+            android:text="@string/birthday"
             android:textSize="@dimen/bigger_text_size" />
 
+        <ImageView
+            android:id="@+id/contact_event_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/button_background"
+            android:paddingTop="@dimen/remove_button_top_bottom_margin"
+            android:paddingBottom="@dimen/remove_button_top_bottom_margin"
+            android:paddingStart="@dimen/remove_button_left_right_margin"
+            android:paddingEnd="@dimen/remove_button_left_right_margin"
+            android:src="@drawable/ic_minus_vector"
+            android:contentDescription="@null"
+            android:visibility="visible" />
+
         <CheckBox
-            android:id="@+id/contact_email_share_info"
+            android:id="@+id/contact_event_share_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -52,7 +65,7 @@
             android:visibility="visible" />
 
         <ImageView
-            android:id="@+id/contact_email_share_icon"
+            android:id="@+id/contact_event_share_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

@@ -14,24 +14,38 @@ class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity, val callback: 
 
     init {
         fields.apply {
-            put(SHOW_PREFIX_FIELD, R.id.manage_visible_fields_prefix)
-            put(SHOW_FIRST_NAME_FIELD, R.id.manage_visible_fields_first_name)
-            put(SHOW_MIDDLE_NAME_FIELD, R.id.manage_visible_fields_middle_name)
-            put(SHOW_SURNAME_FIELD, R.id.manage_visible_fields_surname)
-            put(SHOW_SUFFIX_FIELD, R.id.manage_visible_fields_suffix)
-            put(SHOW_NICKNAME_FIELD, R.id.manage_visible_fields_nickname)
-            put(SHOW_PHONE_NUMBERS_FIELD, R.id.manage_visible_fields_phone_numbers)
-            put(SHOW_EMAILS_FIELD, R.id.manage_visible_fields_emails)
-            put(SHOW_ADDRESSES_FIELD, R.id.manage_visible_fields_addresses)
-            put(SHOW_IMS_FIELD, R.id.manage_visible_fields_ims)
-            put(SHOW_EVENTS_FIELD, R.id.manage_visible_fields_events)
-            put(SHOW_NOTES_FIELD, R.id.manage_visible_fields_notes)
-            put(SHOW_ORGANIZATION_FIELD, R.id.manage_visible_fields_organization)
-            put(SHOW_WEBSITES_FIELD, R.id.manage_visible_fields_websites)
-            put(SHOW_GROUPS_FIELD, R.id.manage_visible_fields_groups)
-            put(SHOW_CONTACT_SOURCE_FIELD, R.id.manage_visible_fields_contact_source)
-            put(SHOW_RINGTONE_FIELD, R.id.manage_ringtone)
+            fields.apply {
+                put(SHOW_DISPLAYNAME_FIELD, R.id.manage_visible_fields_display_name)
+                put(SHOW_PREFIX_FIELD, R.id.manage_visible_fields_prefix)
+                put(SHOW_FIRST_NAME_FIELD, R.id.manage_visible_fields_first_name)
+                put(SHOW_MIDDLE_NAME_FIELD, R.id.manage_visible_fields_middle_name)
+                put(SHOW_SURNAME_FIELD, R.id.manage_visible_fields_surname)
+                put(SHOW_SUFFIX_FIELD, R.id.manage_visible_fields_suffix)
+                put(SHOW_PHONETIC_NAME_FIELDS, R.id.manage_visible_fields_phonetic_name)
+                put(SHOW_NICKNAME_FIELD, R.id.manage_visible_fields_nickname)
+                put(SHOW_MULTIPLE_NICKNAMES, R.id.manage_visible_fields_multiple_nicknames)
+                put(SHOW_NICKNAME_TYPES, R.id.manage_visible_fields_nickname_type)
+                put(SHOW_PHONE_NUMBERS_FIELD, R.id.manage_visible_fields_phone_numbers)
+                put(SHOW_EMAILS_FIELD, R.id.manage_visible_fields_emails)
+                // put(SHOW_ADDRESSES_FIELD, R.id.manage_visible_fields_addresses)
+                put(SHOW_ADDRESSES_FIELD, R.id.manage_visible_fields_preformatted_addresses)
+                put(SHOW_STRUCTURED_POSTAL_ACTIVE_ADDRESS_MASK, R.id.manage_visible_fields_structured_addresses)
+                put(SHOW_IMS_FIELD, R.id.manage_visible_fields_ims)
+                put(SHOW_EVENTS_FIELD, R.id.manage_visible_fields_events)
+                put(SHOW_NOTES_FIELD, R.id.manage_visible_fields_notes)
+                put(SHOW_ORGANIZATION_FIELD, R.id.manage_visible_fields_organization)
+                put(SHOW_WEBSITES_FIELD, R.id.manage_visible_fields_websites)
+                put(SHOW_RELATIONS_FIELD, R.id.manage_visible_fields_relations)
+                put(SHOW_GROUPS_FIELD, R.id.manage_visible_fields_groups)
+                put(SHOW_CONTACT_SOURCE_FIELD, R.id.manage_visible_fields_contact_source)
+                put(SHOW_RINGTONE_FIELD, R.id.manage_visible_fields_ringtone)
+            }
         }
+
+        if ((activity.config.showContactFields and SHOW_STRUCTURED_POSTAL_ADDRESS_STREET) != 0)
+            activity.config.showContactFields = activity.config.showContactFields or SHOW_STRUCTURED_POSTAL_ACTIVE_ADDRESS_MASK
+        else
+            activity.config.showContactFields = activity.config.showContactFields and SHOW_STRUCTURED_POSTAL_ADDRESS_MASK.inv()
 
         val showContactFields = activity.config.showContactFields
         for ((key, value) in fields) {
