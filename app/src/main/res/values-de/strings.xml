@@ -47,7 +47,6 @@
     <string name="merge_duplicate_contacts">Duplizierte Kontakte zusammenführen</string>
     <string name="contactlist_show_structuredname">Strukturierten Namen zur Anzeige der Liste verwenden</string>
     <string name="contactlist_nameformat_label">Bevorzugtes Namesformat für die Übersichtsliste</string>
-    <!-- <string name="contactlist_select_fields_for_export">Select fields before sharing a contact</string> -->
     <string name="contactlist_select_fields_for_export">Nur ausgewählte Felder eines Kontakts teilen</string>
     <string name="contactactivity_show_structuredname">Strukturierten Namen zur Anzeige einzelner Kontakte verwenden</string>
     <string name="contactactivity_nameformat_label">Bevorzugtes Namesformat für einzelne Kontakte</string>
@@ -71,27 +70,6 @@
     <string name="editactivity">Bearbeitungsansicht</string>
     <string name="settings_permit_custom_event_types">Benutzerdefinierte Arten für Termine zulassen (nicht nur Geburtstag/Jahrestag)</string>
     <string name="settings_show_remove_buttons">\'Löschen\' Button für jeden Eintrag anzeigen</string>
-    <!-- Building a formatted address from a ContactsContract.CommonDataKinds.StructuredPostal address
-         Address field:
-            %A Streetaddress
-            %D Neighborhood
-            %B POBox
-            %C City
-            %S State/Region
-            %Z PostalCode
-            %N Nation/Country
-            %% %
-            %n NewLine
-          Segment limiters: { }
-            Segments that do not contain any (non-empty) address fields are eliminated
-            Other characters are copied verbatim
-            multiple consecutive spaces are combined to a single space
-          Separator limiters: []
-            Separators that are not followed by a non-empty segment are eliminated
-          Empty lines are eliminated
-          Moved to Simple-Commons!
-            <string name="address_format">%A%n%D%n%B%n{%C}[, ]{%S}[ ]{%Z}%n%N%n</string>
-          -->
 
     <!-- Favorites -->
     <string name="no_favorites">Anscheinend haben Sie bisher keine Kontakte zu den Favoriten hinzugefügt.</string>

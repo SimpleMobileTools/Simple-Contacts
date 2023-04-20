@@ -143,13 +143,14 @@
     <string name="addresses">Addresses</string>
     <string name="preformatted_addresses">Addresses (preformatted)</string>
     <string name="structured_addresses">Addresses (structured)</string>
+    <string name="address">Address</string>
     <string name="address_street">Street</string>
     <string name="address_neighborhood">Neighborhood</string>
     <string name="address_postOfficeBox">POBox</string>
     <string name="address_city">City</string>
     <string name="address_region">State</string>
     <string name="address_postalCode">Postal Code</string>
-    <string name="address_country">Country</string>
+    <string name="address_country">Code</string>
     <string name="instant_messaging">Instant messaging</string>
     <string name="events">Events (birthdays, anniversaries)</string>
     <string name="organization">Organization</string>

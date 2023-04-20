@@ -2582,9 +2582,12 @@ class EditContactActivity : ContactActivity() {
         groupTitleField.apply {
             text = group?.title ?: getString(R.string.no_groups)
             alpha = if (group == null) 0.5f else 1f
+                contact_group_share_icon.beGone()
+                contact_group_share_info.beGone()
             setOnClickListener {
                 showSelectGroupsDialog()
             }
+                contact_groups_holder.addView(this)
         }
     } // EditContactActivity.setupGroupsPicker()
 

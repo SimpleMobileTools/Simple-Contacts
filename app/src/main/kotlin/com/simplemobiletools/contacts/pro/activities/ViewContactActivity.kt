@@ -1204,7 +1204,6 @@ class ViewContactActivity : ContactActivity() {
                     contact_ims_holder.addView(this)
                     contact_im.text = IM.data
                     contact_im_type.text = getIMTypeText(IM.type, IM.label)
-                    contact_im_protocol
                     contact_im_protocol.text = getIMProtocolText(IM.protocol, IM.custom_protocol)
                     copyOnLongClick(IM.data)
 
