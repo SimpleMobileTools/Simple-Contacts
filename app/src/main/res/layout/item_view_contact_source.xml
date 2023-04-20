@@ -34,6 +34,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/small_margin"
         android:scaleType="centerCrop"
+        android:visibility="gone"
         app:shapeAppearanceOverlay="@style/roundedImageView"
         tools:src="@drawable/ic_whatsapp_rect_vector" />
 
