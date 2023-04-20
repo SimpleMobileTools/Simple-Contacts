@@ -4,6 +4,18 @@ import com.simplemobiletools.commons.helpers.TAB_CONTACTS
 import com.simplemobiletools.commons.helpers.TAB_FAVORITES
 import com.simplemobiletools.commons.helpers.TAB_GROUPS
 
+const val PREF_USE_FAMILY_NAME_FOR_PLACEHOLDER_ICON = "use_family_name_placeholder"
+const val PREF_MAIN_ACTIVITY_SHOW_STRUCTURED_NAME = "listview_show_structured_name"
+const val PREF_MAIN_ACTIVITY_LIST_NAME_FORMAT = "listview_name_format"
+const val PREF_MAIN_ACTIVITY_LIST_SORT_BY = "listview_sort_by"
+const val PREF_MAIN_ACTIVITY_LIST_INVERSE_SORT = "listview_inverse_sort"
+const val PREF_CONTACT_ACTIVITY_SHOW_STRUCTURED_NAME = "contact_show_structured_name"
+const val PREF_CONTACT_ACTIVITY_NAME_FORMAT = "contact_name_format"
+const val PREF_AUTO_FORMATTED_NAME_FORMAT = "auto_formatted_name_format"
+const val PREF_CONTACT_ACTIVITY_EXPORT_SELECTED_FIELDS_ONLY = "export_selected_fields_only"
+const val PREF_EDIT_ACTIVITY_PERMIT_CUSTOM_EVENT_TYPES = "permit_custom_event_types"
+const val PREF_EDIT_ACTIVITY_SHOW_REMOVE_BUTTONS = "show_remove_buttons"
+
 const val GROUP = "group"
 const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"
 const val ADD_NEW_CONTACT_NUMBER = "add_new_contact_number"

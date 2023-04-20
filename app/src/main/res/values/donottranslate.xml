@@ -2,17 +2,94 @@
 <resources>
     <string name="package_name">com.simplemobiletools.contacts.pro</string>
 
-    <string name="im">IM</string>
-    <string name="aim">AIM</string>
-    <string name="windows_live">Windows Live</string>
-    <string name="yahoo">Yahoo</string>
-    <string name="skype">Skype</string>
-    <string name="qq">QQ</string>
-    <string name="hangouts">Hangouts</string>
-    <string name="icq">ICQ</string>
-    <string name="jabber">Jabber</string>
-    <string name="telegram">Telegram</string>
-    <string name="viber">Viber</string>
+    <!-- InstantMsg -->
+    <string name="instantmsg_aim">AIM</string>
+    <string name="instantmsg_windows_live">Windows Live</string>
+    <string name="instantmsg_yahoo">Yahoo</string>
+    <string name="instantmsg_skype">Skype</string>
+    <string name="instantmsg_qq">QQ</string>
+    <string name="instantmsg_hangouts">Hangouts</string>
+    <string name="instantmsg_icq">ICQ</string>
+    <string name="instantmsg_jabber">Jabber</string>
+    <string name="instantmsg_xmpp">XMPP</string>
+    <string name="instantmsg_xmpp_jabber">XMPP/Jabber</string>
+    <string name="instantmsg_netmeeting">NetMeeting</string>
+
+    <string name="instantmsg_sip">SIP</string>
+    <string name="instantmsg_irc">IRC</string>
+
+    <string name="instantmsg_matrix">Matrix</string>
+    <string name="instantmsg_matrix_alt">[matrix]</string>
+    <string name="instantmsg_mastodon">mastodon</string>
+    <string name="instantmsg_signal">Signal</string>
+    <string name="instantmsg_telegram">Telegram</string>
+    <string name="instantmsg_diaspora">Diaspora</string>
+    <string name="instantmsg_viber">Viber</string>
+    <string name="instantmsg_threema">Threema</string>
+    <string name="instantmsg_discord">Discord</string>
+    <string name="instantmsg_mumble">Mumble</string>
+    <string name="instantmsg_olvid">Olvid</string>
+    <string name="instantmsg_teamspeak">Teamspeak</string>
+    <string name="instantmsg_facebook">Facebook</string>
+    <string name="instantmsg_instagram">Instagram</string>
+    <string name="instantmsg_whatsapp">WhatsApp</string>
+    <string name="instantmsg_twitter">Twitter</string>
+    <string name="instantmsg_wechat">WeChat</string>
+    <string name="instantmsg_weibo">Weibo</string>
+    <string name="instantmsg_tiktok">TikTok</string>
+    <string name="instantmsg_tumblr">Tumblr</string>
+    <string name="instantmsg_flickr">Flickr</string>
+    <string name="instantmsg_linkedin">LinkedIn</string>
+    <string name="instantmsg_xing">Xing</string>
+    <string name="instantmsg_kik">kik</string>
+    <string name="instantmsg_line">Line</string>
+    <string name="instantmsg_kakaotalk">KakaoTalk</string>
+    <string name="instantmsg_zoom">zoom</string>
+    <string name="instantmsg_github">GitHub</string>
+    <string name="instantmsg_googleplus">Google+</string>
+    <string name="instantmsg_pinterest">Pinterest</string>
+    // <string name="instantmsg_qzone">QZone</string>
+    <string name="instantmsg_youtube">YouTube</string>
+    <string name="instantmsg_snapchat">SnapChat</string>
+    <string name="instantmsg_teams">Teams</string>
+    <string name="instantmsg_googlemeet">Google Meet</string>
+    <string name="instantmsg_teamviewermeet">TeamViewer Meet</string>
+    <string name="instantmsg_nextcloudtalk">Nextcloud Talk</string>
+    <string name="instantmsg_slack">Slack</string>
+    <string name="instantmsg_jitsi">Jitsi</string>
+    <string name="instantmsg_webex">WebEx</string>
+    <string name="instantmsg_gotomeeting">Goto Meeting</string>
+    <string name="instantmsg_bigbluebutton">Big Blue Button</string>
+
+    <!-- List of assigned URI schemes: https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml -->
+    <!--                               https://en.wikipedia.org/wiki/List_of_URI_schemes -->
+    <string name="instantmsg_aim_uri_scheme">aim</string>
+    <string name="instantmsg_windows_live_uri_scheme">msnim</string>
+    <string name="instantmsg_yahoo_uri_scheme">ymsgr</string>
+    <string name="instantmsg_skype_uri_scheme">skype</string>
+    <!-- <string name="instantmsg_qq_uri_scheme">QQ</string> -->
+    <!-- <string name="instantmsg_hangouts_uri_scheme">Google Hangouts</string> -->
+    <string name="instantmsg_icq_uri_scheme">icq</string> <!-- Not in IANA list!! -->
+    <string name="instantmsg_jabber_uri_scheme">jabber</string>
+    <string name="instantmsg_xmpp_uri_scheme">xmpp</string>
+    <!-- <string name="instantmsg_netmeeting_uri_scheme">callto</string> -->
+
+    <string name="instantmsg_sip_uri_scheme">sip</string>
+    <string name="instantmsg_sips_uri_scheme">sip</string>
+    <string name="instantmsg_irc_uri_scheme">irc</string>
+    <string name="instantmsg_ircs_uri_scheme">ircs</string>
+    <string name="instantmsg_matrix_uri_scheme">matrix</string>
+    <!-- The URI schemes for the following protocols have been enable, but not researched - They are probably wrong... -->
+    <string name="instantmsg_mastodon_uri_scheme">mastodon</string>
+    <string name="instantmsg_signal_uri_scheme">signal</string>
+    <string name="instantmsg_telegram_uri_scheme">telegram</string>
+    <string name="instantmsg_diaspora_uri_scheme">diaspora</string>
+    <!-- The URI schemes for the following protocols should be researched...
+    <string name="instantmsg_viber_uri_scheme">viber</string>
+    <string name="instantmsg_mumble_uri_scheme">mumble</string>
+    <string name="instantmsg_teamspeak_uri_scheme">teamspeak</string>
+    <string name="instantmsg_googletalk_uri_scheme">gtalk</string>
+    -->
 
     <!-- Release notes -->
     <string name="release_56">Added an initial implementation of Speed Dial, contacts can be set in the app settings</string>

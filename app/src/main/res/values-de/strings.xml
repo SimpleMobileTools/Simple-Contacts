@@ -47,6 +47,32 @@
     <string name="show_only_contacts_with_numbers">Nur Kontakte mit Telefonnummern anzeigen</string>
     <string name="show_private_contacts">Zeige private Kontakte in Schlichtem Telefon, SMS Messenger und Kalender Pro</string>
     <string name="merge_duplicate_contacts">Duplizierte Kontakte zusammenführen</string>
+    <string name="contactlist_show_structuredname">Strukturierten Namen zur Anzeige der Liste verwenden</string>
+    <string name="contactlist_nameformat_label">Bevorzugtes Namesformat für die Übersichtsliste</string>
+    <string name="contactlist_select_fields_for_export">Nur ausgewählte Felder eines Kontakts teilen</string>
+    <string name="contactactivity_show_structuredname">Strukturierten Namen zur Anzeige einzelner Kontakte verwenden</string>
+    <string name="contactactivity_nameformat_label">Bevorzugtes Namesformat für einzelne Kontakte</string>
+    <string name="autoformat_nameformat_label">Bevorzugtes Namesformat für autom. formattierte Namen</string>
+    <string name="nameformat_example">Nachname, Vorname (Bsp.)</string>
+    <string name="nameformat_formatted_name">Anzeigename</string>
+    <string name="nameformat_family_given">Nachname, Vorname</string>
+    <string name="nameformat_family_given_m">Nachname, Vorname M.</string>
+    <string name="nameformat_family_given_middle">Nachname, Vorname 2.Vorname</string>
+    <string name="nameformat_family_middle_given">Nachname 2.Vorname Vorname</string>
+    <string name="nameformat_family_prefix_given_middle_suffix">Nachname, Prefix Vorn. 2.Vorn., Suffix</string>
+    <string name="nameformat_family_given_middle_prefix_suffix">Nachname Vorn. 2.Vorn. Prefix Suffix</string>
+    <string name="nameformat_given_family">Vorname Nachname</string>
+    <string name="nameformat_given_m_family">Vorname M. Nachname</string>
+    <string name="nameformat_given_middle_family">Vorname 2.Vorname Nachname</string>
+    <string name="nameformat_given_family_middle">Vorname Nachname 2.Vorname</string>
+    <string name="nameformat_prefix_given_middle_family_suffix">Prefix Vorn. 2.Vorn. Nachname, Suffix</string>
+    <string name="nameformat_given_middle_family_prefix_suffix">Vorn. 2.Vorn. Nachname Prefix Suffix</string>
+    <string name="nameformat_invalid">Unbekannt</string>
+    <string name="contactactivity">Detailansicht</string>
+    <string name="editactivity">Bearbeitungsansicht</string>
+    <string name="settings_permit_custom_event_types">Benutzerdefinierte Arten für Termine zulassen (nicht nur Geburtstag/Jahrestag)</string>
+    <string name="settings_show_remove_buttons">\'Löschen\' Button für jeden Eintrag anzeigen</string>
+
     <!-- Favorites -->
     <string name="no_favorites">Anscheinend haben Sie bisher keine Kontakte zu den Favoriten hinzugefügt.</string>
     <string name="toggle_favorite">Favorit umschalten</string>

@@ -13,7 +13,9 @@ import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.getCachePhoto
 import com.simplemobiletools.contacts.pro.extensions.getCachePhotoUri
 import com.simplemobiletools.commons.helpers.ContactsHelper
+import com.simplemobiletools.commons.helpers.DEFAULT_IM_TYPE
 import com.simplemobiletools.commons.helpers.DEFAULT_MIMETYPE
+import com.simplemobiletools.commons.helpers.DEFAULT_ORGANIZATION_TYPE
 import com.simplemobiletools.commons.models.PhoneNumber
 import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
@@ -22,6 +24,7 @@ import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPOR
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPORT_PARTIAL
 import ezvcard.Ezvcard
 import ezvcard.VCard
+import ezvcard.parameter.RelatedType
 import ezvcard.util.PartialDate
 import java.io.File
 import java.io.FileOutputStream
@@ -46,14 +49,21 @@ class VcfImporter(val activity: SimpleActivity) {
 
             val ezContacts = Ezvcard.parse(inputStream).all()
             for (ezContact in ezContacts) {
+                val displayName = ezContact.formattedName.value ?: ""
                 val structuredName = ezContact.structuredName
                 val prefix = structuredName?.prefixes?.firstOrNull() ?: ""
-                val firstName = structuredName?.given ?: ""
+                val givenName = structuredName?.given ?: ""
                 val middleName = structuredName?.additionalNames?.firstOrNull() ?: ""
-                val surname = structuredName?.family ?: ""
+                val familyName = structuredName?.family ?: ""
                 val suffix = structuredName?.suffixes?.firstOrNull() ?: ""
-                val nickname = ezContact.nickname?.values?.firstOrNull() ?: ""
-                var photoUri = ""
+                val name = ContactName(displayName.trim(), prefix.trim(), givenName.trim(),
+                                       middleName.trim(), familyName.trim(), suffix.trim(),
+                                       "", "", "")
+
+                val nicknames = ArrayList<ContactNickname>()
+                ezContact.nickname?.values?.forEach {
+                    nicknames.add(ContactNickname(it, CommonDataKinds.Nickname.TYPE_DEFAULT, ""))
+                }
 
                 val phoneNumbers = ArrayList<PhoneNumber>()
                 ezContact.telephoneNumbers.forEach {
@@ -66,7 +76,7 @@ class VcfImporter(val activity: SimpleActivity) {
                     }
                     val preferred = getPreferredValue(it.types.lastOrNull()?.value) == 1
 
-                    phoneNumbers.add(PhoneNumber(number, type, label, number.normalizePhoneNumber(), preferred))
+                    phoneNumbers.add(PhoneNumber(number.trim(), type, label.trim(), number.normalizePhoneNumber(), preferred))
                 }
 
                 val emails = ArrayList<Email>()
@@ -80,13 +90,12 @@ class VcfImporter(val activity: SimpleActivity) {
                     }
 
                     if (email.isNotEmpty()) {
-                        emails.add(Email(email, type, label))
+                        emails.add(Email(email.trim(), type, label.trim()))
                     }
                 }
 
                 val addresses = ArrayList<Address>()
                 ezContact.addresses.forEach {
-                    var address = it.streetAddress ?: ""
                     val type = getAddressTypeId(it.types.firstOrNull()?.value ?: HOME)
                     val label = if (type == StructuredPostal.TYPE_CUSTOM) {
                         it.types.firstOrNull()?.value ?: ""
@@ -94,59 +103,110 @@ class VcfImporter(val activity: SimpleActivity) {
                         ""
                     }
 
-                    if (it.locality?.isNotEmpty() == true) {
-                        address += " ${it.locality} "
+                    var street = it.streetAddress ?: ""
+                    val postOfficeBox = it.poBox ?: ""
+                    val neighborhood = it.extendedAddress ?: ""
+                    val city = it.locality ?: ""
+                    val region = it.region ?: ""
+                    val postalCode = it.postalCode ?: ""
+                    val country = it.country ?: ""
+
+                    var address = Address("", street.trim(), postOfficeBox.trim(), neighborhood.trim(),
+                        city.trim(), region.trim(), postalCode.trim(), country.trim(), type, label)
+
+                    var formattedAddress = address.getFormattedPostalAddress(Address.defaultAddressFormat)
+                    formattedAddress = formattedAddress.trim()
+
+                    if (formattedAddress.isNotEmpty()) {
+                        addresses.add(address)
+                    }
+                }
+
+                val IMs = ArrayList<IM>()
+                ezContact.impps.forEach {
+                    val protocolString = it.uri.scheme
+                    val value = URLDecoder.decode(it.uri.toString().substring(it.uri.scheme.length + 1), "UTF-8")
+                    val protocol = when {
+                        it.isAim -> Im.PROTOCOL_AIM
+                        it.isYahoo -> Im.PROTOCOL_YAHOO
+                        it.isMsn -> Im.PROTOCOL_MSN
+                        it.isIcq -> Im.PROTOCOL_ICQ
+                        it.isSkype -> Im.PROTOCOL_SKYPE
+                        protocolString == HANGOUTS -> Im.PROTOCOL_GOOGLE_TALK
+                        protocolString == QQ -> Im.PROTOCOL_QQ
+                        protocolString == JABBER -> Im.PROTOCOL_JABBER
+                        else -> Im.PROTOCOL_CUSTOM
                     }
 
-                    if (it.region?.isNotEmpty() == true) {
-                        if (address.isNotEmpty()) {
-                            address = "${address.trim()}, "
-                        }
-                        address += "${it.region} "
-                    }
-
-                    if (it.postalCode?.isNotEmpty() == true) {
-                        address += "${it.postalCode} "
-                    }
-
-                    if (it.country?.isNotEmpty() == true) {
-                        address += "${it.country} "
-                    }
-
-                    address = address.trim()
-
-                    if (address.isNotEmpty()) {
-                        addresses.add(Address(address, type, label))
-                    }
+                    val custom_protocol = if (protocol == Im.PROTOCOL_CUSTOM) URLDecoder.decode(protocolString, "UTF-8") else ""
+                    val IM = IM(value.trim(), DEFAULT_IM_TYPE, "", protocol, custom_protocol.trim())
+                    IMs.add(IM)
                 }
 
                 val events = ArrayList<Event>()
                 ezContact.anniversaries.forEach { anniversary ->
                     val event = if (anniversary.date != null) {
-                        Event(formatDateToDayCode(anniversary.date), CommonDataKinds.Event.TYPE_ANNIVERSARY)
+                        Event(formatDateToDayCode(anniversary.date), CommonDataKinds.Event.TYPE_ANNIVERSARY, "")
                     } else {
-                        Event(formatPartialDateToDayCode(anniversary.partialDate), CommonDataKinds.Event.TYPE_ANNIVERSARY)
+                        Event(formatPartialDateToDayCode(anniversary.partialDate), CommonDataKinds.Event.TYPE_ANNIVERSARY, "")
                     }
                     events.add(event)
                 }
 
                 ezContact.birthdays.forEach { birthday ->
                     val event = if (birthday.date != null) {
-                        Event(formatDateToDayCode(birthday.date), CommonDataKinds.Event.TYPE_BIRTHDAY)
+                        Event(formatDateToDayCode(birthday.date), CommonDataKinds.Event.TYPE_BIRTHDAY, "")
                     } else {
-                        Event(formatPartialDateToDayCode(birthday.partialDate), CommonDataKinds.Event.TYPE_BIRTHDAY)
+                        Event(formatPartialDateToDayCode(birthday.partialDate), CommonDataKinds.Event.TYPE_BIRTHDAY, "")
                     }
                     events.add(event)
                 }
 
-                val starred = 0
-                val contactId = 0
                 val notes = ezContact.notes.firstOrNull()?.value ?: ""
-                val groups = getContactGroups(ezContact)
+
                 val company = ezContact.organization?.values?.firstOrNull() ?: ""
-                val jobPosition = ezContact.titles?.firstOrNull()?.value ?: ""
-                val organization = Organization(company, jobPosition)
-                val websites = ezContact.urls.map { it.value } as ArrayList<String>
+                val jobTitle = ezContact.titles?.firstOrNull()?.value ?: ""
+                val organization = Organization(company.trim(), jobTitle.trim(), "", "", "", "", "", DEFAULT_ORGANIZATION_TYPE, "")
+
+                val websites = ArrayList<ContactWebsite>()
+                ezContact.urls.forEach { url ->
+                    val website: ContactWebsite = ContactWebsite(url.value.trim(), CommonDataKinds.Website.TYPE_HOME, "")
+                    websites.add(website)
+                }
+
+                val relations = ArrayList<ContactRelation>()
+                ezContact.relations.forEach {
+                    val relType = it.types.firstOrNull() ?: RelatedType.CONTACT
+                    val type = when(relType) {
+                        RelatedType.CONTACT -> ContactRelation.TYPE_CONTACT
+                        RelatedType.ACQUAINTANCE -> ContactRelation.TYPE_ACQUAINTANCE
+                        RelatedType.FRIEND -> ContactRelation.TYPE_FRIEND
+                        RelatedType.MET -> ContactRelation.TYPE_MET
+                        RelatedType.CO_WORKER -> ContactRelation.TYPE_CO_WORKER
+                        RelatedType.COLLEAGUE -> ContactRelation.TYPE_COLLEAGUE
+                        RelatedType.CO_RESIDENT -> ContactRelation.TYPE_CO_RESIDENT
+                        RelatedType.NEIGHBOR -> ContactRelation.TYPE_NEIGHBOR
+                        RelatedType.CHILD -> ContactRelation.TYPE_CHILD
+                        RelatedType.PARENT -> ContactRelation.TYPE_PARENT
+                        RelatedType.SIBLING -> ContactRelation.TYPE_SIBLING
+                        RelatedType.SPOUSE -> ContactRelation.TYPE_SPOUSE
+                        RelatedType.KIN -> ContactRelation.TYPE_KIN
+                        RelatedType.MUSE -> ContactRelation.TYPE_MUSE
+                        RelatedType.CRUSH -> ContactRelation.TYPE_CRUSH
+                        RelatedType.DATE -> ContactRelation.TYPE_DATE
+                        RelatedType.SWEETHEART -> ContactRelation.TYPE_SWEETHEART
+                        RelatedType.ME -> ContactRelation.TYPE_ME
+                        RelatedType.AGENT -> ContactRelation.TYPE_AGENT
+                        RelatedType.EMERGENCY -> ContactRelation.TYPE_EMERGENCY
+                        else -> ContactRelation.TYPE_CONTACT
+                    }
+                    val relation = ContactRelation(it.text.trim(), type, "")
+                    relations.add(relation)
+                }
+
+                val groups = getContactGroups(ezContact)
+
+                var photoUri = ""
                 val photoData = ezContact.photos.firstOrNull()?.data
                 val photo = if (photoData != null) {
                     BitmapFactory.decodeByteArray(photoData, 0, photoData.size)
@@ -159,32 +219,15 @@ class VcfImporter(val activity: SimpleActivity) {
                     photoUri = thumbnailUri
                 }
 
+                val starred = 0
                 val ringtone = null
-
-                val IMs = ArrayList<IM>()
-                ezContact.impps.forEach {
-                    val typeString = it.uri.scheme
-                    val value = URLDecoder.decode(it.uri.toString().substring(it.uri.scheme.length + 1), "UTF-8")
-                    val type = when {
-                        it.isAim -> Im.PROTOCOL_AIM
-                        it.isYahoo -> Im.PROTOCOL_YAHOO
-                        it.isMsn -> Im.PROTOCOL_MSN
-                        it.isIcq -> Im.PROTOCOL_ICQ
-                        it.isSkype -> Im.PROTOCOL_SKYPE
-                        typeString == HANGOUTS -> Im.PROTOCOL_GOOGLE_TALK
-                        typeString == QQ -> Im.PROTOCOL_QQ
-                        typeString == JABBER -> Im.PROTOCOL_JABBER
-                        else -> Im.PROTOCOL_CUSTOM
-                    }
-
-                    val label = if (type == Im.PROTOCOL_CUSTOM) URLDecoder.decode(typeString, "UTF-8") else ""
-                    val IM = IM(value, type, label)
-                    IMs.add(IM)
-                }
+                val contactId = 0
 
                 val contact = Contact(
-                    0, prefix, firstName, middleName, surname, suffix, nickname, photoUri, phoneNumbers, emails, addresses, events,
-                    targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, IMs, DEFAULT_MIMETYPE, ringtone
+                    0, name, nicknames, phoneNumbers, emails, addresses,
+                    IMs, events, notes, organization, websites, relations,
+                    groups, thumbnailUri, photoUri, photo, starred, ringtone,
+                    contactId, targetContactSource, DEFAULT_MIMETYPE
                 )
 
                 // if there is no N and ORG fields at the given contact, only FN, treat it as an organization

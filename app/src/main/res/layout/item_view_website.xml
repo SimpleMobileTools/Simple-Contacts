@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/contact_view_email_holder"
+    android:id="@+id/contact_view_website"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
@@ -10,27 +10,31 @@
     android:paddingBottom="@dimen/tiny_margin">
 
     <com.simplemobiletools.commons.views.MyTextView
-        android:id="@+id/contact_email"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/contact_website"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/contact_email_extras"
-        android:lines="1"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:textSize="@dimen/bigger_text_size" />
+        android:layout_toStartOf="@+id/contact_website_extras"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/small_margin"
+        android:paddingEnd="@dimen/normal_margin"
+        android:paddingTop="@dimen/tiny_margin"
+        android:paddingBottom="@dimen/tiny_margin"
+        android:text="@string/unknown"
+        android:textSize="@dimen/bigger_text_size"/>
 
     <LinearLayout
-        android:id="@+id/contact_email_extras"
+        android:id="@+id/contact_website_extras"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/contact_view_item_height"
-        android:layout_alignTop="@+id/contact_email"
+        android:layout_alignTop="@+id/contact_website"
         android:layout_alignParentEnd="true"
         android:orientation="horizontal"
         android:visibility="visible">
 
         <com.simplemobiletools.commons.views.MyTextView
-            android:id="@+id/contact_email_type"
+            android:id="@+id/contact_website_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -43,16 +47,16 @@
             android:textSize="@dimen/bigger_text_size" />
 
         <CheckBox
-            android:id="@+id/contact_email_share_info"
+            android:id="@+id/contact_website_share_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:checked="true"
             android:text=""
+            android:checked="true"
             android:visibility="visible" />
 
         <ImageView
-            android:id="@+id/contact_email_share_icon"
+            android:id="@+id/contact_website_share_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

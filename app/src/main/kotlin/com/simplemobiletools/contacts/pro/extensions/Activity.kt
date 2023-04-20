@@ -16,7 +16,7 @@ import com.simplemobiletools.contacts.pro.activities.EditContactActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.activities.ViewContactActivity
 import com.simplemobiletools.contacts.pro.helpers.DEFAULT_FILE_NAME
-import com.simplemobiletools.contacts.pro.helpers.VcfExporter
+import com.simplemobiletools.commons.helpers.VcfExporter
 
 fun SimpleActivity.startCallIntent(recipient: String) {
     handlePermission(PERMISSION_CALL_PHONE) {

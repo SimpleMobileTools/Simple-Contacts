@@ -131,8 +131,8 @@ class SelectContactsAdapter(
                 if (showContactThumbnails) {
                     val avatarName = when {
                         contact.isABusinessContact() -> contact.getFullCompany()
-                        config.startNameWithSurname -> contact.surname
-                        else -> contact.firstName
+                        config.startNameWithSurname -> contact.name.familyName
+                        else -> contact.name.givenName
                     }
 
                     val placeholderImage = BitmapDrawable(resources, SimpleContactsHelper(context).getContactLetterIcon(avatarName))

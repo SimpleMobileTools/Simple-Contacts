@@ -10,6 +10,7 @@ import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -21,7 +22,8 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.Release
-import com.simplemobiletools.commons.models.contacts.Contact
+import com.simplemobiletools.commons.models.contacts.Contact.*
+import com.simplemobiletools.commons.models.contacts.ContactName.*
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
@@ -34,7 +36,11 @@ import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
 import com.simplemobiletools.contacts.pro.fragments.FavoritesFragment
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.pro.helpers.ALL_TABS_MASK
-import com.simplemobiletools.contacts.pro.helpers.VcfExporter
+import com.simplemobiletools.commons.helpers.VcfExporter
+import com.simplemobiletools.commons.models.contacts.Address
+import com.simplemobiletools.commons.models.contacts.Contact
+import com.simplemobiletools.commons.models.contacts.ContactNameFormat
+import com.simplemobiletools.commons.models.contacts.ContactNameSortBy
 import com.simplemobiletools.contacts.pro.helpers.tabsList
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import kotlinx.android.synthetic.main.activity_main.*
@@ -50,14 +56,23 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private val PICK_IMPORT_SOURCE_INTENT = 1
     private val PICK_EXPORT_FILE_INTENT = 2
 
+    private var isSearchOpen = false
+    private var mSearchMenuItem: MenuItem? = null
+    private var searchQuery = ""
+
     private var werePermissionsHandled = false
     private var isFirstResume = true
     private var isGettingContacts = false
     private var ignoredExportContactSources = HashSet<String>()
 
-    private var storedShowContactThumbnails = false
-    private var storedShowPhoneNumbers = false
-    private var storedStartNameWithSurname = false
+    private var storedStartNameWithSurname: Boolean = true
+    private var storedShowContactThumbnails: Boolean = false
+    private var storedShowPhoneNumbers: Boolean = false
+    private var storedContactListShowFormattedName: Boolean = false
+    private var storedContactListNameFormat: ContactNameFormat = ContactNameFormat.NAMEFORMAT_FAMILY_GIVEN // Format for names in the MainActivity list view
+    private var storedContactListSortBy: ContactNameSortBy = ContactNameSortBy.NAMESORTBY_FAMILY_NAME      // Sorting order for names in the MainActivity list view
+    private var storedContactListInverseSortOrder: Boolean = false   // Invert sorting order for names in the MainActivity list view
+
     private var storedFontSize = 0
     private var storedShowTabs = 0
 
@@ -125,10 +140,30 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         updateMenuColors()
         setupTabColors()
 
+        /*
         val configStartNameWithSurname = config.startNameWithSurname
         if (storedStartNameWithSurname != configStartNameWithSurname) {
             contacts_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
             favorites_fragment?.startNameWithSurnameChanged(configStartNameWithSurname)
+        }
+        */
+
+        val configContactListShowFormattedName = config.contactListShowFormattedName
+        val configContactListNameFormat = config.contactListNameFormat
+        Contact.setNameFormat(configContactListShowFormattedName, configContactListNameFormat)
+        if ((storedContactListShowFormattedName != configContactListShowFormattedName) ||
+            (storedContactListNameFormat != configContactListNameFormat)) {
+            contacts_fragment?.contactListNameFormatChanged(configContactListShowFormattedName, configContactListNameFormat)
+            favorites_fragment?.contactListNameFormatChanged(configContactListShowFormattedName, configContactListNameFormat)
+        }
+
+        val configContactListSortBy: ContactNameSortBy = config.contactListSortBy
+        val configContactListInverseSortOrder: Boolean = config.contactListInverseSortOrder
+        Contact.setSortOrder(configContactListSortBy, configContactListInverseSortOrder)
+        if ((storedContactListSortBy != configContactListSortBy) ||
+            (storedContactListInverseSortOrder != configContactListInverseSortOrder)) {
+            contacts_fragment?.contactListSortOrderChanged(configContactListSortBy, configContactListInverseSortOrder)
+            favorites_fragment?.contactListSortOrderChanged(configContactListSortBy, configContactListInverseSortOrder)
         }
 
         val configFontSize = config.fontSize
@@ -239,13 +274,18 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun storeStateVariables() {
-        config.apply {
-            storedShowContactThumbnails = showContactThumbnails
-            storedShowPhoneNumbers = showPhoneNumbers
-            storedStartNameWithSurname = startNameWithSurname
-            storedShowTabs = showTabs
-            storedFontSize = fontSize
-        }
+        storedShowContactThumbnails = config.showContactThumbnails
+        storedShowPhoneNumbers = config.showPhoneNumbers
+        storedStartNameWithSurname  = config.startNameWithSurname
+        storedContactListShowFormattedName = config.contactListShowFormattedName
+        storedContactListNameFormat = config.contactListNameFormat
+        storedContactListSortBy = config.contactListSortBy
+        storedContactListInverseSortOrder = config.contactListInverseSortOrder
+        storedShowTabs = config.showTabs
+        storedFontSize = config.fontSize
+
+        Contact.setNameFormat(config.contactListShowFormattedName, config.contactListNameFormat)
+        Address.setAddressFormat(getString(R.string.address_format))
     }
 
     @SuppressLint("NewApi")
@@ -548,11 +588,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun launchSettings() {
+        closeSearch()
         hideKeyboard()
         startActivity(Intent(applicationContext, SettingsActivity::class.java))
     }
 
     private fun launchAbout() {
+        closeSearch()
         val licenses = LICENSE_JODA or LICENSE_GLIDE or LICENSE_GSON or LICENSE_INDICATOR_FAST_SCROLL or LICENSE_AUTOFITTEXTVIEW
 
         val faqItems = arrayListOf(
@@ -641,6 +683,15 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                     0
                 }
             }
+        }
+    }
+
+    private fun closeSearch() {
+        if (isSearchOpen) {
+            getAllFragments().forEach {
+                it?.onSearchQueryChanged("")
+            }
+            mSearchMenuItem?.collapseActionView()
         }
     }
 

@@ -9,17 +9,17 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleTabsDialog
 import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.commons.models.contacts.ContactName
+import com.simplemobiletools.commons.models.contacts.ContactNameFormat
+
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 
 class SettingsActivity : SimpleActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-        updateMaterialActivityViews(settings_coordinator, settings_holder, useTransparentNavigation = true, useTopSearchMenu = false)
-        setupMaterialScrollListener(settings_nested_scrollview, settings_toolbar)
     }
 
     override fun onResume() {
@@ -36,6 +36,14 @@ class SettingsActivity : SimpleActivity() {
         setupShowPhoneNumbers()
         setupShowContactsWithNumbers()
         setupStartNameWithSurname()
+        setupContactListShowStructuredName()
+        setupContactListNameFormat()
+        setupContactActivityShowStructuredName()
+        setupContactActivityNameFormat()
+        setupContactActivitySelectSharedFields()
+        setupAutoFormatNameFormat()
+        setupPermitCustomEventTypes()
+        setupShowRemoveButtons()
         setupMergeDuplicateContacts()
         setupShowCallConfirmation()
         setupShowDialpadButton()
@@ -44,13 +52,22 @@ class SettingsActivity : SimpleActivity() {
         setupDefaultTab()
         updateTextColors(settings_holder)
 
-        arrayOf(settings_color_customization_section_label, settings_general_settings_label, settings_main_screen_label, settings_list_view_label).forEach {
+        arrayOf(settings_color_customization_label, settings_general_settings_label, settings_main_screen_label, settings_list_view_label).forEach {
             it.setTextColor(getProperPrimaryColor())
+        }
+
+        arrayOf(
+            settings_color_customization_holder,
+            settings_general_settings_holder,
+            settings_main_screen_holder,
+            settings_list_view_holder
+        ).forEach {
+            it.background.applyColorFilter(getProperBackgroundColor().getContrastColor())
         }
     }
 
     private fun setupCustomizeColors() {
-        settings_color_customization_holder.setOnClickListener {
+        settings_customize_colors_holder.setOnClickListener {
             startCustomizationActivity()
         }
     }
@@ -123,6 +140,11 @@ class SettingsActivity : SimpleActivity() {
     private fun setupLanguage() {
         settings_language.text = Locale.getDefault().displayLanguage
         settings_language_holder.beVisibleIf(isTiramisuPlus())
+
+        if (settings_use_english_holder.isGone() && settings_language_holder.isGone()) {
+            settings_font_size_holder.background = resources.getDrawable(R.drawable.ripple_top_corners, theme)
+        }
+
         settings_language_holder.setOnClickListener {
             launchChangeAppLanguageIntent()
         }
@@ -153,12 +175,129 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupStartNameWithSurname() {
+        /*
         settings_start_name_with_surname.isChecked = config.startNameWithSurname
         settings_start_name_with_surname_holder.setOnClickListener {
             settings_start_name_with_surname.toggle()
             config.startNameWithSurname = settings_start_name_with_surname.isChecked
         }
+        */
+        settings_start_name_with_surname.beGone()
+        settings_start_name_with_surname_holder.beGone()
     }
+
+    private fun setupContactListShowStructuredName() {
+        settings_contactlist_show_structuredname.isChecked = !config.contactListShowFormattedName
+        settings_contactlist_show_structuredname_holder.setOnClickListener {
+            settings_contactlist_show_structuredname.toggle()
+            config.contactListShowFormattedName = !settings_contactlist_show_structuredname.isChecked
+        }
+    }
+
+    private fun setupContactListNameFormat() {
+        settings_contactlist_nameformat.text = getNameFormatText(config.contactListNameFormat)
+        settings_contactlist_nameformat_holder.setOnClickListener {
+            val items = getNameFormatList()
+            RadioGroupDialog(this@SettingsActivity, items, config.contactListNameFormat.ordinal) {
+                val format = ContactNameFormat.values()[it as Int]
+                config.contactListNameFormat = format
+                config.startNameWithSurname = format.startsWithFamilyName()
+                settings_contactlist_nameformat.text = getNameFormatText(format)
+            }
+        }
+    }
+
+    private fun setupContactActivityShowStructuredName() {
+        settings_contactactivity_show_structuredname.isChecked = !config.contactNameShowFormattedName
+        settings_contactactivity_show_structuredname_holder.setOnClickListener {
+            settings_contactactivity_show_structuredname.toggle()
+            config.contactNameShowFormattedName = !settings_contactactivity_show_structuredname.isChecked
+        }
+    }
+
+    private fun setupContactActivityNameFormat() {
+        settings_contactactivity_nameformat.text = getNameFormatText(config.contactNameFormat)
+        settings_contactactivity_nameformat_holder.setOnClickListener {
+            val items = getNameFormatList()
+            RadioGroupDialog(this@SettingsActivity, items, config.contactNameFormat.ordinal) {
+                val format = ContactNameFormat.values()[it as Int]
+                config.contactNameFormat = format
+                settings_contactactivity_nameformat.text = getNameFormatText(format)
+            }
+        }
+    }
+
+    private fun setupContactActivitySelectSharedFields() {
+        settings_contactlist_export_selected_fields_only.isChecked = config.exportSelectedFieldsOnly
+        settings_contactlist_export_selected_fields_only_holder.setOnClickListener {
+            settings_contactlist_export_selected_fields_only.toggle()
+            config.exportSelectedFieldsOnly = settings_contactlist_export_selected_fields_only.isChecked
+        }
+    }
+
+    private fun setupAutoFormatNameFormat() {
+        settings_autoformat_nameformat.text = getNameFormatText(config.autoFormattedNameFormat)
+        settings_autoformat_nameformat_holder.setOnClickListener {
+            val items = getNameFormatList()
+            RadioGroupDialog(this@SettingsActivity, items, config.autoFormattedNameFormat.ordinal) {
+                val format = ContactNameFormat.values()[it as Int]
+                config.autoFormattedNameFormat = format
+                settings_autoformat_nameformat.text = getNameFormatText(format)
+            }
+        }
+    }
+
+    private fun setupPermitCustomEventTypes() {
+        settings_permit_custom_event_types.isChecked = config.permitCustomEventTypes
+        settings_permit_custom_event_types_holder.setOnClickListener {
+            settings_permit_custom_event_types.toggle()
+            config.permitCustomEventTypes = settings_permit_custom_event_types.isChecked
+        }
+    }
+
+    private fun setupShowRemoveButtons() {
+        settings_show_remove_buttons.isChecked = config.showRemoveButtons
+        settings_show_remove_buttons_holder.setOnClickListener {
+            settings_show_remove_buttons.toggle()
+            config.showRemoveButtons = settings_show_remove_buttons.isChecked
+        }
+    }
+
+    private fun getNameFormatList(): ArrayList<RadioItem> {
+        val items = arrayListOf(
+            // RadioItem(ContactNameFormat.NAMEFORMAT_FORMATTED_NAME.ordinal, getString(R.string.nameformat_formatted_name)),
+            RadioItem(ContactNameFormat.NAMEFORMAT_FAMILY_GIVEN.ordinal, getString(R.string.nameformat_family_given)),
+            RadioItem(ContactNameFormat.NAMEFORMAT_FAMILY_GIVEN_M.ordinal, getString(R.string.nameformat_family_given_m)),
+            RadioItem(ContactNameFormat.NAMEFORMAT_FAMILY_GIVEN_MIDDLE.ordinal, getString(R.string.nameformat_family_given_middle)),
+            RadioItem(ContactNameFormat.NAMEFORMAT_FAMILY_MIDDLE_GIVEN.ordinal, getString(R.string.nameformat_family_middle_given)),
+            RadioItem(ContactNameFormat.NAMEFORMAT_FAMILY_PREFIX_GIVEN_MIDDLE_SUFFIX.ordinal, getString(R.string.nameformat_family_prefix_given_middle_suffix)),
+            RadioItem(ContactNameFormat.NAMEFORMAT_GIVEN_FAMILY.ordinal, getString(R.string.nameformat_given_family)),
+            RadioItem(ContactNameFormat.NAMEFORMAT_GIVEN_M_FAMILY.ordinal, getString(R.string.nameformat_given_m_family)),
+            RadioItem(ContactNameFormat.NAMEFORMAT_GIVEN_MIDDLE_FAMILY.ordinal, getString(R.string.nameformat_given_middle_family)),
+            RadioItem(ContactNameFormat.NAMEFORMAT_PREFIX_GIVEN_MIDDLE_FAMILY_SUFFIX.ordinal, getString(R.string.nameformat_prefix_given_middle_family_suffix))
+            )
+        return(items)
+    }
+
+    private fun getNameFormatText(format : ContactNameFormat): String = getString(
+        when (format) {
+            // ContactNameFormat.NAMEFORMAT_DEFAULT -> R.string.nameformat_invalid
+            ContactNameFormat.NAMEFORMAT_FORMATTED_NAME -> R.string.nameformat_formatted_name
+            ContactNameFormat.NAMEFORMAT_FAMILY_GIVEN -> R.string.nameformat_family_given
+            ContactNameFormat.NAMEFORMAT_FAMILY_GIVEN_M -> R.string.nameformat_family_given_m
+            ContactNameFormat.NAMEFORMAT_FAMILY_GIVEN_MIDDLE -> R.string.nameformat_family_given_middle
+            ContactNameFormat.NAMEFORMAT_FAMILY_MIDDLE_GIVEN -> R.string.nameformat_family_middle_given
+            ContactNameFormat.NAMEFORMAT_FAMILY_PREFIX_GIVEN_MIDDLE_SUFFIX -> R.string.nameformat_family_prefix_given_middle_suffix
+            ContactNameFormat.NAMEFORMAT_FAMILY_GIVEN_MIDDLE_PREFIX_SUFFIX -> R.string.nameformat_family_given_middle_prefix_suffix
+            ContactNameFormat.NAMEFORMAT_GIVEN_FAMILY -> R.string.nameformat_given_family
+            ContactNameFormat.NAMEFORMAT_GIVEN_M_FAMILY -> R.string.nameformat_given_m_family
+            ContactNameFormat.NAMEFORMAT_GIVEN_MIDDLE_FAMILY -> R.string.nameformat_given_middle_family
+            ContactNameFormat.NAMEFORMAT_GIVEN_FAMILY_MIDDLE -> R.string.nameformat_given_family_middle
+            ContactNameFormat.NAMEFORMAT_PREFIX_GIVEN_MIDDLE_FAMILY_SUFFIX -> R.string.nameformat_prefix_given_middle_family_suffix
+            ContactNameFormat.NAMEFORMAT_GIVEN_MIDDLE_FAMILY_PREFIX_SUFFIX -> R.string.nameformat_given_middle_family_prefix_suffix
+            // else -> R.string.nameformat_invalid
+        }
+    )
 
     private fun setupShowDialpadButton() {
         settings_show_dialpad_button.isChecked = config.showDialpadButton

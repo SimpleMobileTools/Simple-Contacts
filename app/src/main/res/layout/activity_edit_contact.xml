@@ -52,14 +52,44 @@
                 android:id="@+id/contact_change_photo"
                 android:layout_width="@dimen/contact_actions_size"
                 android:layout_height="@dimen/contact_actions_size"
-                android:layout_alignEnd="@+id/contact_photo"
                 android:layout_alignBottom="@+id/contact_photo"
-                android:layout_marginEnd="@dimen/medium_margin"
                 android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_toStartOf="@+id/contact_photo_extras"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/change_photo"
                 android:padding="@dimen/small_margin"
                 android:src="@drawable/ic_camera_vector" />
+
+            <LinearLayout
+                android:id="@+id/contact_photo_extras"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignBottom="@+id/contact_photo"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <CheckBox
+                    android:id="@+id/contact_photo_share_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:checked="true"
+                    android:text=""
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/contact_photo_share_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="-10dp"
+                    android:src="@android:drawable/ic_menu_share"
+                    android:contentDescription="@null"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/contact_name_image"
@@ -74,18 +104,50 @@
                 android:src="@drawable/ic_person_vector" />
 
             <com.simplemobiletools.commons.views.MyEditText
-                android:id="@+id/contact_prefix"
+                android:id="@+id/contact_display_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/contact_photo"
+                android:layout_toStartOf="@+id/contact_refresh_display_name"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:hint="@string/display_name"
+                android:inputType="textCapWords"
+                android:lines="1"
+                android:maxLines="1"
+                android:minHeight="48dp"
+                android:paddingEnd="@dimen/small_margin"
+                android:singleLine="true"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/bigger_text_size" />
+
+            <ImageView
+                android:id="@+id/contact_refresh_display_name"
+                android:layout_width="@dimen/contact_icons_size"
+                android:layout_height="@dimen/contact_icons_size"
+                android:layout_below="@+id/contact_photo"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:contentDescription="@null"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/medium_margin"
+                android:paddingBottom="@dimen/small_margin"
+                android:src="@android:drawable/ic_popup_sync" />
+
+            <com.simplemobiletools.commons.views.MyEditText
+                android:id="@+id/contact_prefix"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_display_name"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_marginBottom="@dimen/normal_margin"
+                android:layout_marginBottom="@dimen/small_margin"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:hint="@string/prefix"
                 android:inputType="textCapWords"
                 android:lines="1"
                 android:maxLines="1"
+                android:minHeight="48dp"
                 android:singleLine="true"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/bigger_text_size" />
@@ -97,12 +159,13 @@
                 android:layout_below="@+id/contact_prefix"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_marginBottom="@dimen/normal_margin"
+                android:layout_marginBottom="@dimen/small_margin"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:hint="@string/first_name"
                 android:inputType="textCapWords"
                 android:lines="1"
                 android:maxLines="1"
+                android:minHeight="48dp"
                 android:singleLine="true"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/bigger_text_size" />
@@ -114,12 +177,13 @@
                 android:layout_below="@+id/contact_first_name"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_marginBottom="@dimen/normal_margin"
+                android:layout_marginBottom="@dimen/small_margin"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:hint="@string/middle_name"
                 android:inputType="textCapWords"
                 android:lines="1"
                 android:maxLines="1"
+                android:minHeight="48dp"
                 android:singleLine="true"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/bigger_text_size" />
@@ -131,12 +195,13 @@
                 android:layout_below="@+id/contact_middle_name"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_marginBottom="@dimen/normal_margin"
+                android:layout_marginBottom="@dimen/small_margin"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:hint="@string/surname"
                 android:inputType="textCapWords"
                 android:lines="1"
                 android:maxLines="1"
+                android:minHeight="48dp"
                 android:singleLine="true"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/bigger_text_size" />
@@ -148,32 +213,146 @@
                 android:layout_below="@+id/contact_surname"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/small_margin"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:hint="@string/suffix"
                 android:inputType="textCapWords"
                 android:lines="1"
                 android:maxLines="1"
+                android:minHeight="48dp"
                 android:singleLine="true"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/bigger_text_size" />
 
             <com.simplemobiletools.commons.views.MyEditText
-                android:id="@+id/contact_nickname"
+                android:id="@+id/contact_phonetic_given_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/contact_suffix"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/small_margin"
                 android:layout_toEndOf="@+id/contact_name_image"
+                android:hint="@string/phonetic_given_name"
+                android:inputType="textCapWords"
+                android:lines="1"
+                android:maxLines="1"
+                android:minHeight="48dp"
+                android:singleLine="true"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/bigger_text_size" />
+
+            <com.simplemobiletools.commons.views.MyEditText
+                android:id="@+id/contact_phonetic_middle_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_phonetic_given_name"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:hint="@string/phonetic_middle_name"
+                android:inputType="textCapWords"
+                android:lines="1"
+                android:maxLines="1"
+                android:minHeight="48dp"
+                android:singleLine="true"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/bigger_text_size" />
+
+            <com.simplemobiletools.commons.views.MyEditText
+                android:id="@+id/contact_phonetic_surname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_phonetic_middle_name"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:hint="@string/phonetic_surname"
+                android:inputType="textCapWords"
+                android:lines="1"
+                android:maxLines="1"
+                android:minHeight="48dp"
+                android:singleLine="true"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/bigger_text_size" />
+<!--
+            <com.simplemobiletools.commons.views.MyEditText
+                android:id="@+id/contact_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_phonetic_surname"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:layout_toStartOf="@+id/contact_nickname_extras"
                 android:hint="@string/nickname"
                 android:inputType="textCapWords"
                 android:lines="1"
                 android:maxLines="1"
+                android:minHeight="48dp"
                 android:singleLine="true"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/bigger_text_size" />
+
+            <LinearLayout
+                android:id="@+id/contact_nickname_extras"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignTop="@+id/contact_nickname"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+            <CheckBox
+                android:id="@+id/contact_nickname_share_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:checked="true"
+                android:text=""
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/contact_nickname_share_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="-10dp"
+                android:src="@android:drawable/ic_menu_share"
+                android:contentDescription="@null"
+                android:visibility="visible" />
+            </LinearLayout>
+-->
+            <LinearLayout
+                android:id="@+id/contact_nicknames_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_phonetic_surname"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:layout_toEndOf="@+id/contact_numbers_image"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_edit_nickname" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/contact_nicknames_add_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_nicknames_holder"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:background="@drawable/button_background"
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/activity_margin"
+                android:paddingBottom="@dimen/medium_margin"
+                android:src="@drawable/ic_plus_vector"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/contact_numbers_image"
@@ -191,7 +370,7 @@
                 android:id="@+id/contact_numbers_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_nickname"
+                android:layout_below="@+id/contact_nicknames_add_new"
                 android:layout_marginBottom="@dimen/small_margin"
                 android:layout_toEndOf="@+id/contact_numbers_image"
                 android:orientation="vertical">
@@ -212,7 +391,8 @@
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/medium_margin"
-                android:src="@drawable/ic_plus_vector" />
+                android:src="@drawable/ic_plus_vector"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/contact_emails_image"
@@ -250,7 +430,8 @@
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/medium_margin"
-                android:src="@drawable/ic_plus_vector" />
+                android:src="@drawable/ic_plus_vector"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/contact_addresses_image"
@@ -289,7 +470,8 @@
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/medium_margin"
-                android:src="@drawable/ic_plus_vector" />
+                android:src="@drawable/ic_plus_vector"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/contact_ims_image"
@@ -328,7 +510,8 @@
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/medium_margin"
-                android:src="@drawable/ic_plus_vector" />
+                android:src="@drawable/ic_plus_vector"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/contact_events_image"
@@ -351,7 +534,7 @@
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:orientation="vertical">
 
-                <include layout="@layout/item_event" />
+                <include layout="@layout/item_edit_event" />
 
             </LinearLayout>
 
@@ -367,7 +550,8 @@
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/medium_margin"
-                android:src="@drawable/ic_plus_vector" />
+                android:src="@drawable/ic_plus_vector"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/contact_notes_image"
@@ -388,12 +572,41 @@
                 android:layout_below="@+id/contact_events_add_new"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/activity_margin"
+                android:layout_toStartOf="@+id/contact_notes_extras"
                 android:layout_toEndOf="@+id/contact_notes_image"
                 android:hint="@string/notes"
                 android:inputType="textCapSentences|textMultiLine"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/bigger_text_size" />
+
+            <LinearLayout
+                android:id="@+id/contact_notes_extras"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignTop="@+id/contact_notes"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:paddingEnd="@dimen/activity_margin" >
+
+                <CheckBox
+                    android:id="@+id/contact_notes_share_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=""
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/contact_notes_share_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="-10dp"
+                    android:contentDescription="@null"
+                    android:src="@android:drawable/ic_menu_share"
+                    android:visibility="visible" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/contact_ringtone_image"
@@ -440,7 +653,7 @@
                 android:layout_below="@+id/contact_ringtone"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/activity_margin"
+                android:layout_toStartOf="@+id/contact_organization_extras"
                 android:layout_toEndOf="@+id/contact_organization_image"
                 android:hint="@string/company"
                 android:inputType="textCapWords"
@@ -449,8 +662,37 @@
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/bigger_text_size" />
 
+            <LinearLayout
+                android:id="@+id/contact_organization_extras"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignTop="@+id/contact_organization_company"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:layout_marginEnd="@dimen/activity_margin" >
+
+                <CheckBox
+                    android:id="@+id/contact_organization_share_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=""
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/contact_organization_share_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="-10dp"
+                    android:contentDescription="@null"
+                    android:src="@android:drawable/ic_menu_share"
+                    android:visibility="visible" />
+            </LinearLayout>
+
             <com.simplemobiletools.commons.views.MyEditText
-                android:id="@+id/contact_organization_job_position"
+                android:id="@+id/contact_organization_job_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/contact_organization_company"
@@ -481,13 +723,12 @@
                 android:id="@+id/contact_websites_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_organization_job_position"
+                android:layout_below="@+id/contact_organization_job_title"
                 android:layout_marginTop="@dimen/medium_margin"
-                android:layout_toEndOf="@+id/contact_name_image"
+                android:layout_toEndOf="@+id/contact_websites_image"
                 android:orientation="vertical">
 
                 <include layout="@layout/item_edit_website" />
-
             </LinearLayout>
 
             <ImageView
@@ -502,7 +743,47 @@
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/medium_margin"
-                android:src="@drawable/ic_plus_vector" />
+                android:src="@drawable/ic_plus_vector"
+                android:contentDescription="@null" />
+
+            <ImageView
+                android:id="@+id/contact_relations_image"
+                android:layout_width="@dimen/contact_icons_size"
+                android:layout_height="@dimen/contact_icons_size"
+                android:layout_alignTop="@+id/contact_relations_holder"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:contentDescription="@null"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/small_margin"
+                android:paddingBottom="@dimen/small_margin"
+                android:src="@drawable/ic_connect3_vector" />
+
+            <LinearLayout
+                android:id="@+id/contact_relations_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_websites_add_new"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_toEndOf="@+id/contact_relations_image"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_edit_relation" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/contact_relations_add_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_relations_holder"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/small_margin"
+                android:background="@drawable/button_background"
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/activity_margin"
+                android:paddingBottom="@dimen/medium_margin"
+                android:src="@drawable/ic_plus_vector"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/contact_groups_image"
@@ -520,7 +801,7 @@
                 android:id="@+id/contact_groups_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_websites_add_new"
+                android:layout_below="@+id/contact_relations_add_new"
                 android:layout_marginTop="@dimen/medium_margin"
                 android:layout_toEndOf="@+id/contact_name_image"
                 android:orientation="vertical">
@@ -541,7 +822,8 @@
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/medium_margin"
-                android:src="@drawable/ic_plus_vector" />
+                android:src="@drawable/ic_plus_vector"
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/contact_source_image"
@@ -568,7 +850,6 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/small_margin"
                 android:paddingTop="@dimen/normal_margin"
-                android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/normal_margin"
                 android:singleLine="true"
                 android:textSize="@dimen/bigger_text_size"

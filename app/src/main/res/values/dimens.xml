@@ -2,7 +2,10 @@
 <resources>
     <dimen name="contact_photo_size">88dp</dimen>
     <dimen name="contact_actions_size">48dp</dimen>
+    <dimen name="contact_view_item_height">36dp</dimen>
     <dimen name="contact_icons_size">40dp</dimen>
     <dimen name="dialpad_button_size">60dp</dimen>
     <dimen name="top_contact_image_height">300dp</dimen>
+    <dimen name="remove_button_top_bottom_margin">4dp</dimen>
+    <dimen name="remove_button_left_right_margin">8dp</dimen>
 </resources>
