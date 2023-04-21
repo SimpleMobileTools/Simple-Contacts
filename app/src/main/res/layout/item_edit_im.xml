@@ -39,7 +39,7 @@
             android:minWidth="70dp"
             android:paddingStart="@dimen/medium_margin"
             android:paddingEnd="@dimen/medium_margin"
-            android:text="@string/im_label_matrix"
+            android:text="@string/instantmsg_matrix"
             android:textSize="@dimen/bigger_text_size" />
 
         <com.simplemobiletools.commons.views.MyTextView

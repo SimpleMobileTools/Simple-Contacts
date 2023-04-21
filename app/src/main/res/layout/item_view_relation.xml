@@ -36,7 +36,7 @@
             android:layout_gravity="center_vertical"
             android:background="?attr/selectableItemBackground"
             android:gravity="center_vertical|end"
-            android:hint="@string/relation_friend"
+            android:hint="@string/relation_hint"
             android:minWidth="70dp"
             android:paddingStart="@dimen/medium_margin"
             android:paddingEnd="@dimen/medium_margin"
