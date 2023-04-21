@@ -50,13 +50,13 @@
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
-    <string name="contactlist_show_structuredname">Display name from structured name info</string> <!--FIXME -->
-    <string name="contactlist_nameformat_label">Preferred name format</string> <!--FIXME -->
+    <string name="contactlist_show_structuredname">Display name from structured name info</string>
+    <string name="contactlist_nameformat_label">Preferred name format</string>
     <!-- <string name="contactlist_select_fields_for_export">Select fields before sharing a contact</string> -->
     <string name="contactlist_select_fields_for_export">Only share selected fields of a contact</string>
-    <string name="contactactivity_show_structuredname">Display name from structured name info</string> <!--FIXME -->
-    <string name="contactactivity_nameformat_label">Preferred name format</string> <!--FIXME -->
-    <string name="autoformat_nameformat_label">Preferred name format</string> <!--FIXME -->
+    <string name="contactactivity_show_structuredname">Display name from structured name info</string>
+    <string name="contactactivity_nameformat_label">Preferred name format</string>
+    <string name="autoformat_nameformat_label">Preferred name format</string>
     <string name="nameformat_example">Last, First (Example)</string>
     <string name="nameformat_formatted_name">Displayname</string>
     <string name="nameformat_family_given">Last, First</string>
@@ -96,7 +96,7 @@
           Empty lines are eliminated
           Moved to Simple-Commons!
             <string name="address_format">%A%n%D%n%B%n{%C}[, ]{%S}[ ]{%Z}%n%N%n</string>
-          -->
+    -->
 
     <!-- Favorites -->
     <string name="no_favorites">Seems like you haven\'t added any favorite contacts yet.</string>
@@ -139,17 +139,17 @@
     <string name="nickname_type">Nickname Types</string>
     <string name="phone_numbers">Phone numbers</string>
     <string name="emails">Emails</string>
+    <string name="address">Address</string>
     <string name="addresses">Addresses</string>
     <string name="preformatted_addresses">Addresses (preformatted)</string>
     <string name="structured_addresses">Addresses (structured)</string>
-    <string name="address">Address</string>
     <string name="address_street">Street</string>
     <string name="address_neighborhood">Neighborhood</string>
     <string name="address_postOfficeBox">POBox</string>
     <string name="address_city">City</string>
     <string name="address_region">State</string>
     <string name="address_postalCode">Postal Code</string>
-    <string name="address_country">Code</string>
+    <string name="address_country">Country</string>
     <string name="instant_messaging">Instant messaging</string>
     <string name="events">Events (birthdays, anniversaries)</string>
     <string name="organization">Organization</string>

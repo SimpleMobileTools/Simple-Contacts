@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Basit Kişiler</string>
     <string name="app_launcher_name">Kişiler</string>
-    <string name="address">Adres</string>
     <string name="inserting">Ekleniyor…</string>
     <string name="updating">Güncelleniyor…</string>
     <string name="phone_storage">Telefon belleği</string>
@@ -21,7 +20,6 @@
     <string name="new_contact">Yeni kişi</string>
     <string name="edit_contact">Kişiyi düzenle</string>
     <string name="select_contact">Kişi seç</string>
-    <string name="nickname">Takma adı</string>
     <!-- Groups -->
     <string name="no_groups">Grup yok</string>
     <string name="create_new_group">Yeni grup oluştur</string>
@@ -47,6 +45,53 @@
     <string name="show_only_contacts_with_numbers">Yalnızca telefon numaraları olan kişileri göster</string>
     <string name="show_private_contacts">Özel kişileri Basit Çevirici, Basit SMS Messenger ve Basit Takvim Pro\'a göster</string>
     <string name="merge_duplicate_contacts">Yinelenen kişileri birleştir</string>
+    <string name="contactlist_show_structuredname">Display name from structured name info</string>
+    <string name="contactlist_nameformat_label">Preferred name format</string>
+    <!-- <string name="contactlist_select_fields_for_export">Select fields before sharing a contact</string> -->
+    <string name="contactlist_select_fields_for_export">Only share selected fields of a contact</string>
+    <string name="contactactivity_show_structuredname">Display name from structured name info</string>
+    <string name="contactactivity_nameformat_label">Preferred name format</string>
+    <string name="autoformat_nameformat_label">Preferred name format</string>
+    <string name="nameformat_example">Last, First (Example)</string>
+    <string name="nameformat_formatted_name">Displayname</string>
+    <string name="nameformat_family_given">Last, First</string>
+    <string name="nameformat_family_given_m">Last, First M.</string>
+    <string name="nameformat_family_given_middle">Last, First Middle</string>
+    <string name="nameformat_family_middle_given">Last Middle Given</string>
+    <string name="nameformat_family_prefix_given_middle_suffix">Last, Prefix First Middle, Suffix</string>
+    <string name="nameformat_family_given_middle_prefix_suffix">Last First Middle Prefix Suffix</string>
+    <string name="nameformat_given_family">First Last</string>
+    <string name="nameformat_given_m_family">First M. Last</string>
+    <string name="nameformat_given_middle_family">First Middle Last</string>
+    <string name="nameformat_given_family_middle">First Last Middle</string>
+    <string name="nameformat_prefix_given_middle_family_suffix">Prefix First Middle Last, Suffix</string>
+    <string name="nameformat_given_middle_family_prefix_suffix">First Middle Last Prefix Suffix</string>
+    <string name="nameformat_invalid">Invalid setting</string>
+    <string name="contactactivity">Detail View</string>
+    <string name="editactivity">Edit View</string>
+    <string name="settings_permit_custom_event_types">Permit custom types for events (not just birthday/anniversary)</string>
+    <string name="settings_show_remove_buttons">Show \'Remove\' buttons for each item</string>
+    <!-- Building a formatted address from a ContactsContract.CommonDataKinds.StructuredPostal address
+         Address field:
+            %A Streetaddress
+            %D Neighborhood
+            %B POBox
+            %C City
+            %S State/Region
+            %Z PostalCode
+            %N Nation/Country
+            %% %
+            %n NewLine
+          Segment limiters: { }
+            Segments that do not contain any (non-empty) address fields are eliminated
+            Other characters are copied verbatim
+            multiple consecutive spaces are combined to a single space
+          Separator limiters: []
+            Separators that are not followed by a non-empty segment are eliminated
+          Empty lines are eliminated
+          Moved to Simple-Commons!
+            <string name="address_format">%A%n%D%n%B%n{%C}[, ]{%S}[ ]{%Z}%n%N%n</string>
+    -->
     <!-- Favorites -->
     <string name="no_favorites">Henüz herhangi bir favori kişi eklememişsiniz.</string>
     <string name="toggle_favorite">Favoriyi göster/gizle</string>
@@ -55,6 +100,7 @@
     <string name="search_favorites">Favorileri ara</string>
     <string name="search_groups">Grupları ara</string>
     <!-- Export / Import -->
+    <string name="select_exportable_fields_and_click_again">Select the contact fields that you want to share and click the share icon again.</string>
     <string name="import_contacts">Kişileri içe aktar</string>
     <string name="export_contacts">Kişileri dışa aktar</string>
     <string name="import_contacts_from_vcf">Kişileri bir .vcf dosyasından içe aktar</string>
@@ -67,14 +113,34 @@
     <string name="dialpad">Tuş takımı</string>
     <string name="add_number_to_contact">Kişiye numara ekle</string>
     <!-- Visible fields -->
+    <string name="display_name">Full Name</string>
     <string name="prefix">Ön ek</string>
     <string name="suffix">Son ek</string>
+    <string name="phonetic_name">Phonetic name</string>
+    <string name="phonetic_given_name">First name (phonetic)</string>
+    <string name="phonetic_middle_name">Middle name (phonetic)</string>
+    <string name="phonetic_surname">Surname (phonetic)</string>
+    <string name="nickname">Takma adı</string>
+    <string name="multiple_nickname">Multiple Nicknames</string>
+    <string name="nickname_type">Nickname Types</string>
     <string name="phone_numbers">Telefon numaraları</string>
     <string name="emails">E-postalar</string>
+    <string name="address">Adres</string>
     <string name="addresses">Adresler</string>
+    <string name="preformatted_addresses">Addresses (preformatted)</string>
+    <string name="structured_addresses">Addresses (structured)</string>
+    <string name="address_street">Street</string>
+    <string name="address_neighborhood">Neighborhood</string>
+    <string name="address_postOfficeBox">POBox</string>
+    <string name="address_city">City</string>
+    <string name="address_region">State</string>
+    <string name="address_postalCode">Postal Code</string>
+    <string name="address_country">Country</string>
     <string name="events">Etkinlikler (doğum günleri, yıldönümleri)</string>
     <string name="organization">Organizasyon</string>
     <string name="websites">Web siteleri</string>
+    <string name="relations">Relations</string>
+    <string name="relation_hint">Relation</string>
     <string name="groups">Gruplar</string>
     <string name="contact_source">Kişi kaynağı</string>
     <string name="instant_messaging">Anlık mesajlaşma (IM)</string>

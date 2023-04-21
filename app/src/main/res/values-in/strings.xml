@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Simple Contacts</string>
     <string name="app_launcher_name">Kontak</string>
-    <string name="address">Alamat</string>
     <string name="inserting">Menyimpan…</string>
     <string name="updating">Memperbarui…</string>
     <string name="phone_storage">Penyimpanan telepon</string>
@@ -21,7 +20,6 @@
     <string name="new_contact">Kontak baru</string>
     <string name="edit_contact">Sunting kontak</string>
     <string name="select_contact">Pilih kontak</string>
-    <string name="nickname">Nama panggilan</string>
     <!-- Groups -->
     <string name="no_groups">Tidak ada grup</string>
     <string name="create_new_group">Buat grup baru</string>
@@ -47,6 +45,53 @@
     <string name="show_only_contacts_with_numbers">Hanya tampilkan kontak dengan nomor telepon</string>
     <string name="show_private_contacts">Tampilkan kontak privat ke Simple Dialer, Simple SMS Messenger dan Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Gabungkan kontak duplikat</string>
+    <string name="contactlist_show_structuredname">Display name from structured name info</string>
+    <string name="contactlist_nameformat_label">Preferred name format</string>
+    <!-- <string name="contactlist_select_fields_for_export">Select fields before sharing a contact</string> -->
+    <string name="contactlist_select_fields_for_export">Only share selected fields of a contact</string>
+    <string name="contactactivity_show_structuredname">Display name from structured name info</string>
+    <string name="contactactivity_nameformat_label">Preferred name format</string>
+    <string name="autoformat_nameformat_label">Preferred name format</string>
+    <string name="nameformat_example">Last, First (Example)</string>
+    <string name="nameformat_formatted_name">Displayname</string>
+    <string name="nameformat_family_given">Last, First</string>
+    <string name="nameformat_family_given_m">Last, First M.</string>
+    <string name="nameformat_family_given_middle">Last, First Middle</string>
+    <string name="nameformat_family_middle_given">Last Middle Given</string>
+    <string name="nameformat_family_prefix_given_middle_suffix">Last, Prefix First Middle, Suffix</string>
+    <string name="nameformat_family_given_middle_prefix_suffix">Last First Middle Prefix Suffix</string>
+    <string name="nameformat_given_family">First Last</string>
+    <string name="nameformat_given_m_family">First M. Last</string>
+    <string name="nameformat_given_middle_family">First Middle Last</string>
+    <string name="nameformat_given_family_middle">First Last Middle</string>
+    <string name="nameformat_prefix_given_middle_family_suffix">Prefix First Middle Last, Suffix</string>
+    <string name="nameformat_given_middle_family_prefix_suffix">First Middle Last Prefix Suffix</string>
+    <string name="nameformat_invalid">Invalid setting</string>
+    <string name="contactactivity">Detail View</string>
+    <string name="editactivity">Edit View</string>
+    <string name="settings_permit_custom_event_types">Permit custom types for events (not just birthday/anniversary)</string>
+    <string name="settings_show_remove_buttons">Show \'Remove\' buttons for each item</string>
+    <!-- Building a formatted address from a ContactsContract.CommonDataKinds.StructuredPostal address
+         Address field:
+            %A Streetaddress
+            %D Neighborhood
+            %B POBox
+            %C City
+            %S State/Region
+            %Z PostalCode
+            %N Nation/Country
+            %% %
+            %n NewLine
+          Segment limiters: { }
+            Segments that do not contain any (non-empty) address fields are eliminated
+            Other characters are copied verbatim
+            multiple consecutive spaces are combined to a single space
+          Separator limiters: []
+            Separators that are not followed by a non-empty segment are eliminated
+          Empty lines are eliminated
+          Moved to Simple-Commons!
+            <string name="address_format">%A%n%D%n%B%n{%C}[, ]{%S}[ ]{%Z}%n%N%n</string>
+    -->
     <!-- Favorites -->
     <string name="no_favorites">Sepertinya anda belum menambahkan kontak favorit.</string>
     <string name="toggle_favorite">Alih favorit</string>
@@ -55,6 +100,7 @@
     <string name="search_favorites">Cari favorit</string>
     <string name="search_groups">Cari grup</string>
     <!-- Export / Import -->
+    <string name="select_exportable_fields_and_click_again">Select the contact fields that you want to share and click the share icon again.</string>
     <string name="import_contacts">Impor kontak</string>
     <string name="export_contacts">Ekspor kontak</string>
     <string name="import_contacts_from_vcf">Impor kontak dari berkas .vcf</string>
@@ -67,14 +113,34 @@
     <string name="dialpad">Telepon</string>
     <string name="add_number_to_contact">Tambah nomor ke kontak</string>
     <!-- Visible fields -->
+    <string name="display_name">Full Name</string>
     <string name="prefix">Awalan</string>
     <string name="suffix">Akhiran</string>
+    <string name="phonetic_name">Phonetic name</string>
+    <string name="phonetic_given_name">First name (phonetic)</string>
+    <string name="phonetic_middle_name">Middle name (phonetic)</string>
+    <string name="phonetic_surname">Surname (phonetic)</string>
+    <string name="nickname">Nama panggilan</string>
+    <string name="multiple_nickname">Multiple Nicknames</string>
+    <string name="nickname_type">Nickname Types</string>
     <string name="phone_numbers">Nomor telepon</string>
     <string name="emails">Surel</string>
+    <string name="address">Alamat</string>
     <string name="addresses">Alamat</string>
+    <string name="preformatted_addresses">Addresses (preformatted)</string>
+    <string name="structured_addresses">Addresses (structured)</string>
+    <string name="address_street">Street</string>
+    <string name="address_neighborhood">Neighborhood</string>
+    <string name="address_postOfficeBox">POBox</string>
+    <string name="address_city">City</string>
+    <string name="address_region">State</string>
+    <string name="address_postalCode">Postal Code</string>
+    <string name="address_country">Country</string>
     <string name="events">Acara (ulang tahun, hari jadi)</string>
     <string name="organization">Organisasi</string>
     <string name="websites">Situs web</string>
+    <string name="relations">Relations</string>
+    <string name="relation_hint">Relation</string>
     <string name="groups">Grup</string>
     <string name="contact_source">Sumber kontak</string>
     <string name="instant_messaging">Pesan singkat (IM)</string>

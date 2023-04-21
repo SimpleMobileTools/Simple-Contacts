@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Schlichte Kontakte</string>
     <string name="app_launcher_name">Kontakte</string>
-    <string name="address">Adresse</string>
     <string name="inserting">Einfügen …</string>
     <string name="updating">Aktualisieren …</string>
     <string name="phone_storage">Gerätespeicher</string>
@@ -21,7 +20,6 @@
     <string name="new_contact">Neuer Kontakt</string>
     <string name="edit_contact">Kontakt bearbeiten</string>
     <string name="select_contact">Kontakt auswählen</string>
-    <string name="nickname">Spitzname</string>
     <!-- Groups -->
     <string name="no_groups">Keine Gruppen</string>
     <string name="create_new_group">Eine neue Gruppe erstellen</string>
@@ -49,6 +47,7 @@
     <string name="merge_duplicate_contacts">Duplizierte Kontakte zusammenführen</string>
     <string name="contactlist_show_structuredname">Strukturierten Namen zur Anzeige der Liste verwenden</string>
     <string name="contactlist_nameformat_label">Bevorzugtes Namesformat für die Übersichtsliste</string>
+    <!-- <string name="contactlist_select_fields_for_export">Select fields before sharing a contact</string> -->
     <string name="contactlist_select_fields_for_export">Nur ausgewählte Felder eines Kontakts teilen</string>
     <string name="contactactivity_show_structuredname">Strukturierten Namen zur Anzeige einzelner Kontakte verwenden</string>
     <string name="contactactivity_nameformat_label">Bevorzugtes Namesformat für einzelne Kontakte</string>
@@ -72,15 +71,39 @@
     <string name="editactivity">Bearbeitungsansicht</string>
     <string name="settings_permit_custom_event_types">Benutzerdefinierte Arten für Termine zulassen (nicht nur Geburtstag/Jahrestag)</string>
     <string name="settings_show_remove_buttons">\'Löschen\' Button für jeden Eintrag anzeigen</string>
+    <!-- Building a formatted address from a ContactsContract.CommonDataKinds.StructuredPostal address
+         Address field:
+            %A Streetaddress
+            %D Neighborhood
+            %B POBox
+            %C City
+            %S State/Region
+            %Z PostalCode
+            %N Nation/Country
+            %% %
+            %n NewLine
+          Segment limiters: { }
+            Segments that do not contain any (non-empty) address fields are eliminated
+            Other characters are copied verbatim
+            multiple consecutive spaces are combined to a single space
+          Separator limiters: []
+            Separators that are not followed by a non-empty segment are eliminated
+          Empty lines are eliminated
+          Moved to Simple-Commons!
+            <string name="address_format">%A%n%D%n%B%n{%C}[, ]{%S}[ ]{%Z}%n%N%n</string>
+          -->
 
     <!-- Favorites -->
     <string name="no_favorites">Anscheinend haben Sie bisher keine Kontakte zu den Favoriten hinzugefügt.</string>
     <string name="toggle_favorite">Favorit umschalten</string>
+
     <!-- Search -->
     <string name="search_contacts">Kontakte durchsuchen</string>
     <string name="search_favorites">Favoriten durchsuchen</string>
     <string name="search_groups">Gruppen durchsuchen</string>
+
     <!-- Export / Import -->
+    <string name="select_exportable_fields_and_click_again">Wählen Sie die Felder die Sie teilen wollen und klicken Sie dann noch einmal auf das Teilen Icon.</string>
     <string name="import_contacts">Kontakte importieren</string>
     <string name="export_contacts">Kontakte exportieren</string>
     <string name="import_contacts_from_vcf">Kontakte aus .vcf-Datei importieren</string>
@@ -89,18 +112,41 @@
     <string name="target_contact_source">Zielkontaktquelle</string>
     <string name="include_contact_sources">Kontaktquellen einschließen</string>
     <string name="filename_without_vcf">Dateiname (ohne .vcf)</string>
+
     <!-- Dialpad -->
     <string name="dialpad">Wähltastenfeld</string>
     <string name="add_number_to_contact">Nummer zu Kontakt hinzufügen</string>
+
     <!-- Visible fields -->
+    <string name="display_name">Vollständiger Name</string>
     <string name="prefix">Titel</string>
     <string name="suffix">angehängter Titel (z. B. PhD)</string>
+    <string name="phonetic_name">Phonetischer Name</string>
+    <string name="phonetic_given_name">Vorname (phonetisch)</string>
+    <string name="phonetic_middle_name">Zweiter Vorname (phonetisch)</string>
+    <string name="phonetic_surname">Nachname (phonetisch)</string>
+    <string name="nickname">Spitzname</string>
+    <string name="multiple_nickname">Mehrere Spitznamen</string>
+    <string name="nickname_type">Arten von Spitznamen</string>
+
     <string name="phone_numbers">Telefonnummern</string>
     <string name="emails">E-Mails</string>
+    <string name="address">Adresse</string>
     <string name="addresses">Adressen</string>
+    <string name="preformatted_addresses">Addressen (vorformatiert)</string>
+    <string name="structured_addresses">Addressen (detailliert)</string>
+    <string name="address_street">Straße</string>
+    <string name="address_neighborhood">Adresszusatz</string>
+    <string name="address_postOfficeBox">Postfach</string>
+    <string name="address_city">Stadt</string>
+    <string name="address_region">Bundesland/Provinz</string>
+    <string name="address_postalCode">Postleitzahl</string>
+    <string name="address_country">Staat</string>
     <string name="events">Termine (Geburtstage, Jahrestage)</string>
     <string name="organization">Organisation</string>
     <string name="websites">Webseiten</string>
+    <string name="relations">Zugehörige Personen</string>
+    <string name="relation_hint">Zugehörige Person</string>
     <string name="groups">Gruppen</string>
     <string name="contact_source">Kontaktquelle</string>
     <string name="instant_messaging">Sofortige Nachrichtenübermittlung (IM)</string>
