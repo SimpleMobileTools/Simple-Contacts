@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">簡易通訊錄</string>
     <string name="app_launcher_name">簡易通訊錄</string>
-    <string name="address">地址</string>
     <string name="inserting">添加中…</string>
     <string name="updating">更新中…</string>
     <string name="phone_storage">手機空間</string>
@@ -21,7 +20,6 @@
     <string name="new_contact">新聯絡人</string>
     <string name="edit_contact">編輯聯絡人</string>
     <string name="select_contact">選擇聯絡人</string>
-    <string name="nickname">暱稱</string>
     <!-- Groups -->
     <string name="no_groups">沒有群組</string>
     <string name="create_new_group">建立一個新群組</string>
@@ -47,6 +45,53 @@
     <string name="show_only_contacts_with_numbers">只顯示含有電話話碼的聯絡人</string>
     <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">合併相同的聯絡資訊</string>
+    <string name="contactlist_show_structuredname">Display name from structured name info</string>
+    <string name="contactlist_nameformat_label">Preferred name format</string>
+    <!-- <string name="contactlist_select_fields_for_export">Select fields before sharing a contact</string> -->
+    <string name="contactlist_select_fields_for_export">Only share selected fields of a contact</string>
+    <string name="contactactivity_show_structuredname">Display name from structured name info</string>
+    <string name="contactactivity_nameformat_label">Preferred name format</string>
+    <string name="autoformat_nameformat_label">Preferred name format</string>
+    <string name="nameformat_example">Last, First (Example)</string>
+    <string name="nameformat_formatted_name">Displayname</string>
+    <string name="nameformat_family_given">Last, First</string>
+    <string name="nameformat_family_given_m">Last, First M.</string>
+    <string name="nameformat_family_given_middle">Last, First Middle</string>
+    <string name="nameformat_family_middle_given">Last Middle Given</string>
+    <string name="nameformat_family_prefix_given_middle_suffix">Last, Prefix First Middle, Suffix</string>
+    <string name="nameformat_family_given_middle_prefix_suffix">Last First Middle Prefix Suffix</string>
+    <string name="nameformat_given_family">First Last</string>
+    <string name="nameformat_given_m_family">First M. Last</string>
+    <string name="nameformat_given_middle_family">First Middle Last</string>
+    <string name="nameformat_given_family_middle">First Last Middle</string>
+    <string name="nameformat_prefix_given_middle_family_suffix">Prefix First Middle Last, Suffix</string>
+    <string name="nameformat_given_middle_family_prefix_suffix">First Middle Last Prefix Suffix</string>
+    <string name="nameformat_invalid">Invalid setting</string>
+    <string name="contactactivity">Detail View</string>
+    <string name="editactivity">Edit View</string>
+    <string name="settings_permit_custom_event_types">Permit custom types for events (not just birthday/anniversary)</string>
+    <string name="settings_show_remove_buttons">Show \'Remove\' buttons for each item</string>
+    <!-- Building a formatted address from a ContactsContract.CommonDataKinds.StructuredPostal address
+         Address field:
+            %A Streetaddress
+            %D Neighborhood
+            %B POBox
+            %C City
+            %S State/Region
+            %Z PostalCode
+            %N Nation/Country
+            %% %
+            %n NewLine
+          Segment limiters: { }
+            Segments that do not contain any (non-empty) address fields are eliminated
+            Other characters are copied verbatim
+            multiple consecutive spaces are combined to a single space
+          Separator limiters: []
+            Separators that are not followed by a non-empty segment are eliminated
+          Empty lines are eliminated
+          Moved to Simple-Commons!
+            <string name="address_format">%A%n%D%n%B%n{%C}[, ]{%S}[ ]{%Z}%n%N%n</string>
+    -->
     <!-- Favorites -->
     <string name="no_favorites">你似乎還沒加入任何我的最愛聯絡人。</string>
     <string name="toggle_favorite">Toggle favorite</string>
@@ -55,6 +100,7 @@
     <string name="search_favorites">搜尋我的最愛</string>
     <string name="search_groups">搜尋群組</string>
     <!-- Export / Import -->
+    <string name="select_exportable_fields_and_click_again">Select the contact fields that you want to share and click the share icon again.</string>
     <string name="import_contacts">匯入聯絡人</string>
     <string name="export_contacts">匯出聯絡人</string>
     <string name="import_contacts_from_vcf">從.vcf檔案匯入聯絡人</string>
@@ -67,14 +113,34 @@
     <string name="dialpad">撥號畫面</string>
     <string name="add_number_to_contact">添加號碼至通訊錄</string>
     <!-- Visible fields -->
+    <string name="display_name">Full Name</string>
     <string name="prefix">前缀</string>
     <string name="suffix">後綴</string>
+    <string name="phonetic_name">Phonetic name</string>
+    <string name="phonetic_given_name">First name (phonetic)</string>
+    <string name="phonetic_middle_name">Middle name (phonetic)</string>
+    <string name="phonetic_surname">Surname (phonetic)</string>
+    <string name="nickname">暱稱</string>
+    <string name="multiple_nickname">Multiple Nicknames</string>
+    <string name="nickname_type">Nickname Types</string>
     <string name="phone_numbers">電話號碼</string>
     <string name="emails">電子信箱</string>
+    <string name="address">地址</string>
     <string name="addresses">地址</string>
+    <string name="preformatted_addresses">Addresses (preformatted)</string>
+    <string name="structured_addresses">Addresses (structured)</string>
+    <string name="address_street">Street</string>
+    <string name="address_neighborhood">Neighborhood</string>
+    <string name="address_postOfficeBox">POBox</string>
+    <string name="address_city">City</string>
+    <string name="address_region">State</string>
+    <string name="address_postalCode">Postal Code</string>
+    <string name="address_country">Country</string>
     <string name="events">活動 (生日、紀念日)</string>
     <string name="organization">組織</string>
     <string name="websites">網站</string>
+    <string name="relations">Relations</string>
+    <string name="relation_hint">Relation</string>
     <string name="groups">群組</string>
     <string name="contact_source">聯絡人來源</string>
     <string name="instant_messaging">即時通訊 (IM)</string>

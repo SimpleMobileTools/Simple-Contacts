@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Простые контакты</string>
     <string name="app_launcher_name">Контакты</string>
-    <string name="address">Адрес</string>
     <string name="inserting">Добавление…</string>
     <string name="updating">Обновление…</string>
     <string name="phone_storage">Память устройства</string>
@@ -21,7 +20,6 @@
     <string name="new_contact">Новый контакт</string>
     <string name="edit_contact">Редактировать контакт</string>
     <string name="select_contact">Выбрать контакт</string>
-    <string name="nickname">Псевдоним</string>
     <!-- Groups -->
     <string name="no_groups">Нет групп</string>
     <string name="create_new_group">Создать новую группу</string>
@@ -47,6 +45,53 @@
     <string name="show_only_contacts_with_numbers">Показывать только контакты с номерами телефонов</string>
     <string name="show_private_contacts">Показывать личные контакты в \"Простом телефоне\", \"Простых сообщениях\" и \"Простом календаре\"</string>
     <string name="merge_duplicate_contacts">Объединять дублирующие контакты</string>
+    <string name="contactlist_show_structuredname">Display name from structured name info</string>
+    <string name="contactlist_nameformat_label">Preferred name format</string>
+    <!-- <string name="contactlist_select_fields_for_export">Select fields before sharing a contact</string> -->
+    <string name="contactlist_select_fields_for_export">Only share selected fields of a contact</string>
+    <string name="contactactivity_show_structuredname">Display name from structured name info</string>
+    <string name="contactactivity_nameformat_label">Preferred name format</string>
+    <string name="autoformat_nameformat_label">Preferred name format</string>
+    <string name="nameformat_example">Last, First (Example)</string>
+    <string name="nameformat_formatted_name">Displayname</string>
+    <string name="nameformat_family_given">Last, First</string>
+    <string name="nameformat_family_given_m">Last, First M.</string>
+    <string name="nameformat_family_given_middle">Last, First Middle</string>
+    <string name="nameformat_family_middle_given">Last Middle Given</string>
+    <string name="nameformat_family_prefix_given_middle_suffix">Last, Prefix First Middle, Suffix</string>
+    <string name="nameformat_family_given_middle_prefix_suffix">Last First Middle Prefix Suffix</string>
+    <string name="nameformat_given_family">First Last</string>
+    <string name="nameformat_given_m_family">First M. Last</string>
+    <string name="nameformat_given_middle_family">First Middle Last</string>
+    <string name="nameformat_given_family_middle">First Last Middle</string>
+    <string name="nameformat_prefix_given_middle_family_suffix">Prefix First Middle Last, Suffix</string>
+    <string name="nameformat_given_middle_family_prefix_suffix">First Middle Last Prefix Suffix</string>
+    <string name="nameformat_invalid">Invalid setting</string>
+    <string name="contactactivity">Detail View</string>
+    <string name="editactivity">Edit View</string>
+    <string name="settings_permit_custom_event_types">Permit custom types for events (not just birthday/anniversary)</string>
+    <string name="settings_show_remove_buttons">Show \'Remove\' buttons for each item</string>
+    <!-- Building a formatted address from a ContactsContract.CommonDataKinds.StructuredPostal address
+         Address field:
+            %A Streetaddress
+            %D Neighborhood
+            %B POBox
+            %C City
+            %S State/Region
+            %Z PostalCode
+            %N Nation/Country
+            %% %
+            %n NewLine
+          Segment limiters: { }
+            Segments that do not contain any (non-empty) address fields are eliminated
+            Other characters are copied verbatim
+            multiple consecutive spaces are combined to a single space
+          Separator limiters: []
+            Separators that are not followed by a non-empty segment are eliminated
+          Empty lines are eliminated
+          Moved to Simple-Commons!
+            <string name="address_format">%A%n%D%n%B%n{%C}[, ]{%S}[ ]{%Z}%n%N%n</string>
+    -->
     <!-- Favorites -->
     <string name="no_favorites">Похоже, вы ещё не добавили избранные контакты.</string>
     <string name="toggle_favorite">Переключить избранное</string>
@@ -55,6 +100,7 @@
     <string name="search_favorites">Поиск избранного</string>
     <string name="search_groups">Поиск групп</string>
     <!-- Export / Import -->
+    <string name="select_exportable_fields_and_click_again">Select the contact fields that you want to share and click the share icon again.</string>
     <string name="import_contacts">Импортировать контакты</string>
     <string name="export_contacts">Экспортировать контакты</string>
     <string name="import_contacts_from_vcf">Импорт из файла VCF</string>
@@ -67,14 +113,34 @@
     <string name="dialpad">Номеронабиратель</string>
     <string name="add_number_to_contact">Добавить номер к контакту</string>
     <!-- Visible fields -->
+    <string name="display_name">Full Name</string>
     <string name="prefix">Префикс</string>
     <string name="suffix">Суффикс</string>
+    <string name="phonetic_name">Phonetic name</string>
+    <string name="phonetic_given_name">First name (phonetic)</string>
+    <string name="phonetic_middle_name">Middle name (phonetic)</string>
+    <string name="phonetic_surname">Surname (phonetic)</string>
+    <string name="nickname">Псевдоним</string>
+    <string name="multiple_nickname">Multiple Nicknames</string>
+    <string name="nickname_type">Nickname Types</string>
     <string name="phone_numbers">Телефонные номера</string>
     <string name="emails">Электронная почта</string>
+    <string name="address">Адрес</string>
     <string name="addresses">Адреса</string>
+    <string name="preformatted_addresses">Addresses (preformatted)</string>
+    <string name="structured_addresses">Addresses (structured)</string>
+    <string name="address_street">Street</string>
+    <string name="address_neighborhood">Neighborhood</string>
+    <string name="address_postOfficeBox">POBox</string>
+    <string name="address_city">City</string>
+    <string name="address_region">State</string>
+    <string name="address_postalCode">Postal Code</string>
+    <string name="address_country">Country</string>
     <string name="events">События (дни рождения, юбилеи)</string>
     <string name="organization">Организация</string>
     <string name="websites">Сайты</string>
+    <string name="relations">Relations</string>
+    <string name="relation_hint">Relation</string>
     <string name="groups">Группы</string>
     <string name="contact_source">Источник контакта</string>
     <string name="instant_messaging">Мессенджеры</string>
