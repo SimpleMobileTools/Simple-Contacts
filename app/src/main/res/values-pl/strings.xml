@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Proste kontakty</string>
     <string name="app_launcher_name">Kontakty</string>
-    <string name="address">Adres</string>
     <string name="inserting">Dodawanie…</string>
     <string name="updating">Aktualizowanie…</string>
     <string name="phone_storage">Pamięć telefonu</string>
