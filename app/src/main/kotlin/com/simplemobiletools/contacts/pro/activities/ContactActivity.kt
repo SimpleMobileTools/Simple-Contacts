@@ -35,7 +35,6 @@ import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.shareContacts
 import com.simplemobiletools.commons.models.contacts.Contact
-import com.simplemobiletools.commons.models.contacts.ContactNickname
 import com.simplemobiletools.commons.models.contacts.ContactRelation
 import com.simplemobiletools.commons.models.contacts.IM
 
