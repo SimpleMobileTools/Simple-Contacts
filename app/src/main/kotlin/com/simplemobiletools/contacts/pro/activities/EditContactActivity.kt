@@ -22,6 +22,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsCompat
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
@@ -83,6 +84,12 @@ class EditContactActivity : ContactActivity() {
         }
 
         contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        onApplyWindowInsets {
+            val insets = it.getInsets(WindowInsetsCompat.Type.ime())
+            contact_scrollview.run {
+                setPadding(paddingLeft, paddingTop, paddingRight, insets.bottom)
+            }
+        }
         setupMenu()
 
         val action = intent.action
