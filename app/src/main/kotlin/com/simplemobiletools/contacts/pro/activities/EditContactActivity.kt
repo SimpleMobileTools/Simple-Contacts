@@ -1536,7 +1536,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupAutofill(nameTextViews: List<MyAutoCompleteTextView>) {
-        ContactsHelper(this).getContacts { contacts ->
+        ContactsHelper(this).getContacts(getAll = true) { contacts ->
             val adapter = AutoCompleteTextViewAdapter(this, contacts)
             val handler = Handler(mainLooper)
             nameTextViews.forEach { view ->

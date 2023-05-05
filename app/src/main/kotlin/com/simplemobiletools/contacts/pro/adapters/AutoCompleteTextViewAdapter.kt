@@ -21,17 +21,20 @@ import kotlinx.android.synthetic.main.item_autocomplete_name_number.view.item_au
 import kotlinx.android.synthetic.main.item_autocomplete_name_number.view.item_autocomplete_name
 import kotlinx.android.synthetic.main.item_autocomplete_name_number.view.item_autocomplete_number
 
-class AutoCompleteTextViewAdapter(val activity: SimpleActivity, val contacts: ArrayList<Contact>, var enableAutoFill: Boolean = false) : ArrayAdapter<Contact>(activity, 0, contacts) {
+class AutoCompleteTextViewAdapter(
+    val activity: SimpleActivity,
+    val contacts: ArrayList<Contact>,
+    var enableAutoFill: Boolean = false
+) : ArrayAdapter<Contact>(activity, 0, contacts) {
     var resultList = ArrayList<Contact>()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val contact = resultList[position]
         var listItem = convertView
-        if (listItem == null || listItem.tag != contact.name.isNotEmpty()) {
+        val nameToUse = contact.getNameToDisplay()
+        if (listItem == null || listItem.tag != nameToUse.isNotEmpty()) {
             listItem = LayoutInflater.from(activity).inflate(R.layout.item_autocomplete_name_number, parent, false)
         }
-
-        val nameToUse = contact.name
 
         val placeholder = BitmapDrawable(activity.resources, SimpleContactsHelper(context).getContactLetterIcon(nameToUse))
         listItem!!.apply {
@@ -39,8 +42,8 @@ class AutoCompleteTextViewAdapter(val activity: SimpleActivity, val contacts: Ar
             item_autocomplete_name.setTextColor(context.getProperTextColor())
             item_autocomplete_number.setTextColor(context.getProperTextColor())
 
-            tag = contact.name.isNotEmpty()
-            item_autocomplete_name.text = contact.name
+            tag = nameToUse.isNotEmpty()
+            item_autocomplete_name.text = nameToUse
             item_autocomplete_number.text = contact.phoneNumbers.run {
                 firstOrNull { it.isPrimary }?.normalizedNumber ?: firstOrNull()?.normalizedNumber
             }
@@ -70,7 +73,7 @@ class AutoCompleteTextViewAdapter(val activity: SimpleActivity, val contacts: Ar
                 if (enableAutoFill) {
                     val searchString = constraint.toString().normalizeString()
                     contacts.forEach {
-                        if (it.name.contains(searchString, true)) {
+                        if (it.getNameToDisplay().contains(searchString, true)) {
                             resultList.add(it)
                         }
                     }
