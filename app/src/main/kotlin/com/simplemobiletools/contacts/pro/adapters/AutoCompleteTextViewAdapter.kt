@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.simplemobiletools.commons.extensions.beGone
 import com.simplemobiletools.commons.extensions.getProperBackgroundColor
 import com.simplemobiletools.commons.extensions.getProperTextColor
 import com.simplemobiletools.commons.extensions.normalizeString
@@ -44,8 +45,13 @@ class AutoCompleteTextViewAdapter(
 
             tag = nameToUse.isNotEmpty()
             item_autocomplete_name.text = nameToUse
-            item_autocomplete_number.text = contact.phoneNumbers.run {
-                firstOrNull { it.isPrimary }?.normalizedNumber ?: firstOrNull()?.normalizedNumber
+            contact.phoneNumbers.apply {
+                val phoneNumber = firstOrNull { it.isPrimary }?.normalizedNumber ?: firstOrNull()?.normalizedNumber
+                if (phoneNumber.isNullOrEmpty()) {
+                    item_autocomplete_number.beGone()
+                } else {
+                    item_autocomplete_number.text = phoneNumber
+                }
             }
 
             val options = RequestOptions()
