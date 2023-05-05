@@ -59,7 +59,7 @@ class EditContactActivity : ContactActivity() {
     private val CHOOSE_PHOTO = 2
     private val REMOVE_PHOTO = 3
 
-    private val AUTO_FILL_DELAY = 5000L
+    private val AUTO_COMPLETE_DELAY = 5000L
 
     private var mLastSavePromptTS = 0L
     private var wasActivityInitialized = false
@@ -1558,7 +1558,7 @@ class EditContactActivity : ContactActivity() {
                     handler.postDelayed({
                         adapter.autoComplete = true
                         adapter.filter.filter(it)
-                    }, AUTO_FILL_DELAY)
+                    }, AUTO_COMPLETE_DELAY)
                 }
             }
         }
