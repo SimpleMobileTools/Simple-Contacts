@@ -17,10 +17,7 @@ import android.telephony.PhoneNumberUtils
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.ContextCompat
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -33,7 +30,9 @@ import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.commons.models.contacts.Email
 import com.simplemobiletools.commons.models.contacts.Event
 import com.simplemobiletools.commons.models.contacts.Organization
+import com.simplemobiletools.commons.views.MyAutoCompleteTextView
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.adapters.AutoCompleteTextViewAdapter
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.MyDatePickerDialog
@@ -252,6 +251,11 @@ class EditContactActivity : ContactActivity() {
             setImageDrawable(getStarDrawable(contact!!.starred == 1))
             tag = contact!!.starred
             setOnLongClickListener { toast(R.string.toggle_favorite); true; }
+        }
+
+        val nameTextViews = arrayOf(contact_first_name, contact_middle_name, contact_surname).filter { it.isVisible() }
+        if (nameTextViews.isNotEmpty()) {
+            setupAutofill(nameTextViews)
         }
 
         updateTextColors(contact_scrollview)
@@ -1525,5 +1529,27 @@ class EditContactActivity : ContactActivity() {
         getString(R.string.icq) -> Im.PROTOCOL_ICQ
         getString(R.string.jabber) -> Im.PROTOCOL_JABBER
         else -> Im.PROTOCOL_CUSTOM
+    }
+
+    private fun setupAutofill(nameTextViews: List<MyAutoCompleteTextView>) {
+        ContactsHelper(this).getContacts { contacts ->
+            val adapter = AutoCompleteTextViewAdapter(this, contacts)
+            nameTextViews.forEach { view ->
+                view.setAdapter(adapter)
+                view.setOnItemClickListener { _, _, position, _ ->
+                    val selectedContact = adapter.resultList[position]
+
+                    if (contact_first_name.isVisible()) {
+                        contact_first_name.setText(selectedContact.firstName)
+                    }
+                    if (contact_middle_name.isVisible()) {
+                        contact_middle_name.setText(selectedContact.middleName)
+                    }
+                    if (contact_surname.isVisible()) {
+                        contact_surname.setText(selectedContact.surname)
+                    }
+                }
+            }
+        }
     }
 }

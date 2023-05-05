@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <RelativeLayout
             android:id="@+id/contact_holder"
@@ -90,7 +91,7 @@
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/bigger_text_size" />
 
-            <com.simplemobiletools.commons.views.MyEditText
+            <com.simplemobiletools.commons.views.MyAutoCompleteTextView
                 android:id="@+id/contact_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,6 +100,7 @@
                 android:layout_marginEnd="@dimen/activity_margin"
                 android:layout_marginBottom="@dimen/normal_margin"
                 android:layout_toEndOf="@+id/contact_name_image"
+                android:completionThreshold="2"
                 android:hint="@string/first_name"
                 android:inputType="textCapWords"
                 android:lines="1"
@@ -107,7 +109,7 @@
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/bigger_text_size" />
 
-            <com.simplemobiletools.commons.views.MyEditText
+            <com.simplemobiletools.commons.views.MyAutoCompleteTextView
                 android:id="@+id/contact_middle_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,6 +118,7 @@
                 android:layout_marginEnd="@dimen/activity_margin"
                 android:layout_marginBottom="@dimen/normal_margin"
                 android:layout_toEndOf="@+id/contact_name_image"
+                android:completionThreshold="2"
                 android:hint="@string/middle_name"
                 android:inputType="textCapWords"
                 android:lines="1"
@@ -124,7 +127,7 @@
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/bigger_text_size" />
 
-            <com.simplemobiletools.commons.views.MyEditText
+            <com.simplemobiletools.commons.views.MyAutoCompleteTextView
                 android:id="@+id/contact_surname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,6 +136,7 @@
                 android:layout_marginEnd="@dimen/activity_margin"
                 android:layout_marginBottom="@dimen/normal_margin"
                 android:layout_toEndOf="@+id/contact_name_image"
+                android:completionThreshold="2"
                 android:hint="@string/surname"
                 android:inputType="textCapWords"
                 android:lines="1"
