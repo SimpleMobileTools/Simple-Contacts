@@ -259,7 +259,7 @@ class EditContactActivity : ContactActivity() {
 
         val nameTextViews = arrayOf(contact_first_name, contact_middle_name, contact_surname).filter { it.isVisible() }
         if (nameTextViews.isNotEmpty()) {
-            setupAutofill(nameTextViews)
+            setupAutoComplete(nameTextViews)
         }
 
         updateTextColors(contact_scrollview)
@@ -1535,7 +1535,7 @@ class EditContactActivity : ContactActivity() {
         else -> Im.PROTOCOL_CUSTOM
     }
 
-    private fun setupAutofill(nameTextViews: List<MyAutoCompleteTextView>) {
+    private fun setupAutoComplete(nameTextViews: List<MyAutoCompleteTextView>) {
         ContactsHelper(this).getContacts { contacts ->
             val adapter = AutoCompleteTextViewAdapter(this, contacts)
             val handler = Handler(mainLooper)
@@ -1556,7 +1556,7 @@ class EditContactActivity : ContactActivity() {
                 }
                 view.doAfterTextChanged {
                     handler.postDelayed({
-                        adapter.enableAutoFill = true
+                        adapter.autoComplete = true
                         adapter.filter.filter(it)
                     }, AUTO_FILL_DELAY)
                 }

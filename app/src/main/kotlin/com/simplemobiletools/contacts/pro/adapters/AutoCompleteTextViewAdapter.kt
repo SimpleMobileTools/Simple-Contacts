@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.item_autocomplete_name_number.view.item_au
 class AutoCompleteTextViewAdapter(
     val activity: SimpleActivity,
     val contacts: ArrayList<Contact>,
-    var enableAutoFill: Boolean = false
+    var autoComplete: Boolean = false
 ) : ArrayAdapter<Contact>(activity, 0, contacts) {
     var resultList = ArrayList<Contact>()
 
@@ -76,7 +76,7 @@ class AutoCompleteTextViewAdapter(
             val filterResults = FilterResults()
             if (constraint != null) {
                 resultList.clear()
-                if (enableAutoFill) {
+                if (autoComplete) {
                     val searchString = constraint.toString().normalizeString()
                     contacts.forEach {
                         if (it.getNameToDisplay().contains(searchString, true)) {
