@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.item_autocomplete_name_number.view.item_au
 import kotlinx.android.synthetic.main.item_autocomplete_name_number.view.item_autocomplete_name
 import kotlinx.android.synthetic.main.item_autocomplete_name_number.view.item_autocomplete_number
 
-class AutoCompleteTextViewAdapter(val activity: SimpleActivity, val contacts: ArrayList<Contact>) : ArrayAdapter<Contact>(activity, 0, contacts) {
+class AutoCompleteTextViewAdapter(val activity: SimpleActivity, val contacts: ArrayList<Contact>, var enableAutoFill: Boolean = false) : ArrayAdapter<Contact>(activity, 0, contacts) {
     var resultList = ArrayList<Contact>()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -67,20 +67,22 @@ class AutoCompleteTextViewAdapter(val activity: SimpleActivity, val contacts: Ar
             val filterResults = FilterResults()
             if (constraint != null) {
                 resultList.clear()
-                val searchString = constraint.toString().normalizeString()
-                contacts.forEach {
-                    if (it.name.contains(searchString, true)) {
-                        resultList.add(it)
+                if (enableAutoFill) {
+                    val searchString = constraint.toString().normalizeString()
+                    contacts.forEach {
+                        if (it.name.contains(searchString, true)) {
+                            resultList.add(it)
+                        }
                     }
+
+                    resultList.sortWith(compareBy<Contact>
+                    { it.name.startsWith(searchString, true) }.thenBy
+                    { it.name.contains(searchString, true) })
+                    resultList.reverse()
+
+                    filterResults.values = resultList
+                    filterResults.count = resultList.size
                 }
-
-                resultList.sortWith(compareBy<Contact>
-                { it.name.startsWith(searchString, true) }.thenBy
-                { it.name.contains(searchString, true) })
-                resultList.reverse()
-
-                filterResults.values = resultList
-                filterResults.count = resultList.size
             }
             return filterResults
         }

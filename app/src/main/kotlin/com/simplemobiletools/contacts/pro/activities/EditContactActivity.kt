@@ -10,6 +10,7 @@ import android.media.AudioManager
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.CommonDataKinds.*
 import android.provider.MediaStore
@@ -19,6 +20,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
@@ -56,6 +58,8 @@ class EditContactActivity : ContactActivity() {
     private val TAKE_PHOTO = 1
     private val CHOOSE_PHOTO = 2
     private val REMOVE_PHOTO = 3
+
+    private val AUTO_FILL_DELAY = 5000L
 
     private var mLastSavePromptTS = 0L
     private var wasActivityInitialized = false
@@ -1534,6 +1538,7 @@ class EditContactActivity : ContactActivity() {
     private fun setupAutofill(nameTextViews: List<MyAutoCompleteTextView>) {
         ContactsHelper(this).getContacts { contacts ->
             val adapter = AutoCompleteTextViewAdapter(this, contacts)
+            val handler = Handler(mainLooper)
             nameTextViews.forEach { view ->
                 view.setAdapter(adapter)
                 view.setOnItemClickListener { _, _, position, _ ->
@@ -1548,6 +1553,12 @@ class EditContactActivity : ContactActivity() {
                     if (contact_surname.isVisible()) {
                         contact_surname.setText(selectedContact.surname)
                     }
+                }
+                view.doAfterTextChanged {
+                    handler.postDelayed({
+                        adapter.enableAutoFill = true
+                        adapter.filter.filter(it)
+                    }, AUTO_FILL_DELAY)
                 }
             }
         }
