@@ -2,6 +2,14 @@ package com.simplemobiletools.contacts.pro.helpers
 
 import android.content.Context
 import com.simplemobiletools.commons.helpers.BaseConfig
+import com.simplemobiletools.commons.helpers.SHOW_DISPLAYNAME_FIELD
+import com.simplemobiletools.commons.helpers.SHOW_PREFIX_FIELD
+import com.simplemobiletools.commons.helpers.SHOW_FIRST_NAME_FIELD
+import com.simplemobiletools.commons.helpers.SHOW_MIDDLE_NAME_FIELD
+import com.simplemobiletools.commons.helpers.SHOW_SURNAME_FIELD
+import com.simplemobiletools.commons.helpers.SHOW_SUFFIX_FIELD
+import com.simplemobiletools.commons.helpers.SHOW_NICKNAME_FIELD
+import com.simplemobiletools.commons.helpers.SHOW_PHONETIC_NAME_FIELDS
 import com.simplemobiletools.commons.helpers.SHOW_TABS
 import com.simplemobiletools.commons.models.contacts.ContactNameSortBy
 import com.simplemobiletools.commons.models.contacts.ContactNameFormat
@@ -110,5 +118,43 @@ class Config(context: Context) : BaseConfig(context) {
     var showRemoveButtons: Boolean
         get() = prefs.getBoolean(PREF_EDIT_ACTIVITY_SHOW_REMOVE_BUTTONS, true)
         set(selected) = prefs.edit().putBoolean(PREF_EDIT_ACTIVITY_SHOW_REMOVE_BUTTONS, selected).apply()
+
+    // If the formatted address of a contact matches the text that would be
+    // created if a formatted addresses would be created from the structured
+    // address (or when the formatted address is empty), then we shall
+    // automatically update the formatted address every time that the
+    // structured address is modified (and ONLY in this direction!
+    // Manually editing the formatted address does NOT update the structured
+    // address!).
+    // If we want to recreate this link, we could either delete the complete
+    // formatted address and then edit the structured address, or we could
+    // press the 'Update-Formatted-Address' button, if such a button is supplied.
+    // However such a button requires screen space and might be confusing to
+    // the user. Should we really display it?
+    // Currently (2023-05) this is just an internal setting. There is no
+    // corresponding checkbox in the settings activity. Should we add one?
+    var showUpdateFormattedAddressButton: Boolean
+        get() = prefs.getBoolean(PREF_EDIT_ACTIVITY_SHOW_UPDATE_FORMATTED_ADDRESS_BUTTON, false)
+        set(selected) = prefs.edit().putBoolean(PREF_EDIT_ACTIVITY_SHOW_UPDATE_FORMATTED_ADDRESS_BUTTON, selected).apply()
+
+    // We have showContactFields to select which fields shall be displayed
+    // in a ViewActivity or EditActivity. If fields that contain data are
+    // not displayed in the edit activity, there might be stale and/or
+    // confidential data that the user is unaware of when editing. Thus we
+    // might to choose to force the display of data fields that actually
+    // contain (non-null) data, even if corresponding field was disabled in
+    // showContactFields. Obvioulsly this is a violation of the users intentions
+    // (since he disable the field in showContactFields, however it might
+    // still be desirable to show these fields anyhow.
+    // We currently just force the editable display of filled name parts,
+    // but not of other fields. Is this a clever choice?
+    // Currently (2023-05) this is just an internal setting. There is no
+    // corresponding checkbox in the settings activity. Should we add one?
+    var alwaysShowNonEmptyContactFields: Int
+        get() = prefs.getInt(PREF_EDIT_ACTIVITY_ALWAYS_SHOW_NONEMPTY_FIELDS,
+            SHOW_DISPLAYNAME_FIELD or SHOW_PREFIX_FIELD or SHOW_FIRST_NAME_FIELD or
+            SHOW_MIDDLE_NAME_FIELD or SHOW_SURNAME_FIELD or SHOW_SUFFIX_FIELD or
+            SHOW_NICKNAME_FIELD or SHOW_PHONETIC_NAME_FIELDS)
+        set(selected) = prefs.edit().putInt(PREF_EDIT_ACTIVITY_ALWAYS_SHOW_NONEMPTY_FIELDS, selected).apply()
 }
 

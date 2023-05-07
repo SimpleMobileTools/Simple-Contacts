@@ -557,7 +557,7 @@
                 android:id="@+id/contact_notes_image"
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
-                android:layout_alignTop="@+id/contact_notes"
+                android:layout_alignTop="@+id/contact_notes_holder"
                 android:layout_marginStart="@dimen/normal_margin"
                 android:contentDescription="@null"
                 android:paddingTop="@dimen/medium_margin"
@@ -565,47 +565,16 @@
                 android:paddingBottom="@dimen/small_margin"
                 android:src="@drawable/ic_label_vector" />
 
-            <com.simplemobiletools.commons.views.MyEditText
-                android:id="@+id/contact_notes"
+            <LinearLayout
+                android:id="@+id/contact_notes_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/contact_events_add_new"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_toStartOf="@+id/contact_notes_extras"
-                android:layout_toEndOf="@+id/contact_notes_image"
-                android:hint="@string/notes"
-                android:inputType="textCapSentences|textMultiLine"
-                android:textCursorDrawable="@null"
-                android:textSize="@dimen/bigger_text_size" />
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/contact_notes_extras"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_alignTop="@+id/contact_notes"
-                android:layout_alignParentEnd="true"
-                android:orientation="horizontal"
-                android:visibility="visible"
-                android:paddingEnd="@dimen/activity_margin" >
-
-                <CheckBox
-                    android:id="@+id/contact_notes_share_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text=""
-                    android:visibility="visible" />
-
-                <ImageView
-                    android:id="@+id/contact_notes_share_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="-10dp"
-                    android:contentDescription="@null"
-                    android:src="@android:drawable/ic_menu_share"
-                    android:visibility="visible" />
+                <include layout="@layout/item_edit_note" />
             </LinearLayout>
 
             <ImageView
@@ -624,7 +593,7 @@
                 android:id="@+id/contact_ringtone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_notes"
+                android:layout_below="@+id/contact_notes_holder"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginEnd="@dimen/activity_margin"
@@ -638,7 +607,7 @@
                 android:id="@+id/contact_organization_image"
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
-                android:layout_alignTop="@+id/contact_organization_company"
+                android:layout_alignTop="@+id/contact_organization_holder"
                 android:layout_marginStart="@dimen/normal_margin"
                 android:contentDescription="@null"
                 android:paddingTop="@dimen/medium_margin"
@@ -646,66 +615,17 @@
                 android:paddingBottom="@dimen/small_margin"
                 android:src="@drawable/ic_business_vector" />
 
-            <com.simplemobiletools.commons.views.MyEditText
-                android:id="@+id/contact_organization_company"
+            <LinearLayout
+                android:id="@+id/contact_organization_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/contact_ringtone"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_toStartOf="@+id/contact_organization_extras"
-                android:layout_toEndOf="@+id/contact_organization_image"
-                android:hint="@string/company"
-                android:inputType="textCapWords"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textCursorDrawable="@null"
-                android:textSize="@dimen/bigger_text_size" />
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_toEndOf="@+id/contact_name_image"
+                android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/contact_organization_extras"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_alignTop="@+id/contact_organization_company"
-                android:layout_alignParentEnd="true"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                android:layout_marginEnd="@dimen/activity_margin" >
-
-                <CheckBox
-                    android:id="@+id/contact_organization_share_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text=""
-                    android:visibility="visible" />
-
-                <ImageView
-                    android:id="@+id/contact_organization_share_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="-10dp"
-                    android:contentDescription="@null"
-                    android:src="@android:drawable/ic_menu_share"
-                    android:visibility="visible" />
+                <include layout="@layout/item_edit_organization" />
             </LinearLayout>
-
-            <com.simplemobiletools.commons.views.MyEditText
-                android:id="@+id/contact_organization_job_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_organization_company"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_toEndOf="@+id/contact_organization_image"
-                android:hint="@string/job_position"
-                android:inputType="textCapWords"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textCursorDrawable="@null"
-                android:textSize="@dimen/bigger_text_size" />
 
             <ImageView
                 android:id="@+id/contact_websites_image"
@@ -723,7 +643,7 @@
                 android:id="@+id/contact_websites_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_organization_job_title"
+                android:layout_below="@+id/contact_organization_holder"
                 android:layout_marginTop="@dimen/medium_margin"
                 android:layout_toEndOf="@+id/contact_websites_image"
                 android:orientation="vertical">

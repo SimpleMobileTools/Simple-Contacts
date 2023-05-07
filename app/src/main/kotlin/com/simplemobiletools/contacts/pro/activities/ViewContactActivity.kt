@@ -145,7 +145,9 @@ class ViewContactActivity : ContactActivity() {
 
     override fun onResume() {
         super.onResume()
-        isViewIntent = intent.action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT || intent.action == Intent.ACTION_VIEW
+        showFields = config.showContactFields
+        isViewIntent = (intent.action == ContactsContract.QuickContact.ACTION_QUICK_CONTACT) ||
+                       (intent.action == Intent.ACTION_VIEW)
         if (isViewIntent) {
             handlePermission(PERMISSION_READ_CONTACTS) {
                 if (it) {
@@ -315,6 +317,8 @@ class ViewContactActivity : ContactActivity() {
             }
 
             findItem(R.id.manage_visible_fields).setOnMenuItemClickListener {
+                // if (prevSavedInstanceState != null)
+                //     onSaveInstanceState(prevSavedInstanceState!!)
                 ManageVisibleFieldsDialog(this@ViewContactActivity) {
                     showFields = config.showContactFields
                     ensureBackgroundThread {
@@ -399,6 +403,7 @@ class ViewContactActivity : ContactActivity() {
         if (isDestroyed || isFinishing) {
             return
         }
+        showFields = config.showContactFields
 
         if (contact == null)
             return
@@ -1045,7 +1050,7 @@ class ViewContactActivity : ContactActivity() {
                     contact_number_type.text = getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)
                     copyOnLongClick(phoneNumber.value)
 
-                    contact_number_share_info.isChecked = state.shareNumber[index]
+                    contact_number_share_info.isChecked = if (index < state.shareNumber.size) state.shareNumber[index] else true
                     contact_number_share_info.beVisibleIf(showShareCheckbox)
                     contact_number_share_icon.beVisibleIf(showShareCheckbox)
 
@@ -1104,7 +1109,7 @@ class ViewContactActivity : ContactActivity() {
                     contact_email_type.text = getEmailTypeText(email.type, email.label)
                     copyOnLongClick(email.address)
 
-                    contact_email_share_info.isChecked = state.shareEmail[index]
+                    contact_email_share_info.isChecked = if (index < state.shareEmail.size) state.shareEmail[index] else true
                     contact_email_share_info.beVisibleIf(showShareCheckbox)
                     contact_email_share_icon.beVisibleIf(showShareCheckbox)
 
@@ -1159,7 +1164,7 @@ class ViewContactActivity : ContactActivity() {
                     contact_address_type.text = getAddressTypeText(address.type, address.label)
                     copyOnLongClick(displayAddress)
 
-                    contact_address_share_info.isChecked = state.shareAddress[index]
+                    contact_address_share_info.isChecked = if (index < state.shareAddress.size) state.shareAddress[index] else true
                     contact_address_share_info.beVisibleIf(showShareCheckbox)
                     contact_address_share_icon.beVisibleIf(showShareCheckbox)
 
@@ -1203,7 +1208,7 @@ class ViewContactActivity : ContactActivity() {
                     contact_im_protocol.text = getIMProtocolText(IM.protocol, IM.custom_protocol)
                     copyOnLongClick(IM.data)
 
-                    contact_im_share_info.isChecked = state.shareIM[index]
+                    contact_im_share_info.isChecked = if (index < state.shareIM.size) state.shareIM[index] else true
                     contact_im_share_info.beVisibleIf(showShareCheckbox)
                     contact_im_share_icon.beVisibleIf(showShareCheckbox)
                 }
@@ -1241,7 +1246,7 @@ class ViewContactActivity : ContactActivity() {
                     contact_event_type.setText(getEventTypeText(event.type, event.label))
                     copyOnLongClick(event.startDate)
 
-                    contact_event_share_info.isChecked = state.shareEvent[index]
+                    contact_event_share_info.isChecked = if (index < state.shareEvent.size) state.shareEvent[index] else true
                     contact_event_share_info.beVisibleIf(showShareCheckbox)
                     contact_event_share_icon.beVisibleIf(showShareCheckbox)
                 }
@@ -1280,7 +1285,7 @@ class ViewContactActivity : ContactActivity() {
                     contact_website_type.beVisible()
                     copyOnLongClick(url.URL)
 
-                    contact_website_share_info.isChecked = state.shareWebsite[index]
+                    contact_website_share_info.isChecked = if (index < state.shareWebsite.size) state.shareWebsite[index] else true
                     contact_website_share_info.beVisibleIf(showShareCheckbox)
                     contact_website_share_icon.beVisibleIf(showShareCheckbox)
 
@@ -1323,7 +1328,7 @@ class ViewContactActivity : ContactActivity() {
                     contact_relation_type.beVisible()
                     copyOnLongClick(relation.name)
 
-                    contact_relation_share_info.isChecked = state.shareRelation[index]
+                    contact_relation_share_info.isChecked = if (index < state.shareRelation.size) state.shareRelation[index] else true
                     contact_relation_share_info.beVisibleIf(showShareCheckbox)
                     contact_relation_share_icon.beVisibleIf(showShareCheckbox)
 
@@ -1364,7 +1369,7 @@ class ViewContactActivity : ContactActivity() {
                     contact_group.text = group.title
                     copyOnLongClick(group.title)
 
-                    contact_group_share_info.isChecked = state.shareGroup[index]
+                    contact_group_share_info.isChecked = if (index < state.shareGroup.size) state.shareGroup[index] else true
                     contact_group_share_info.beVisibleIf(showShareCheckbox)
                     contact_group_share_icon.beVisibleIf(showShareCheckbox)
                 }
@@ -1510,7 +1515,7 @@ class ViewContactActivity : ContactActivity() {
             val ringtone = viewContact.ringtone
             if (ringtone?.isEmpty() == true) {
                 contact_ringtone.text = getString(R.string.no_sound)
-            } else if (ringtone?.isNotEmpty() == true && ringtone != getDefaultRingtoneUri().toString()) {
+            } else if ((ringtone?.isNotEmpty() == true) && (ringtone != getDefaultRingtoneUri().toString())) {
                 if (ringtone == SILENT) {
                     contact_ringtone.text = getString(R.string.no_sound)
                 } else {
@@ -1537,7 +1542,11 @@ class ViewContactActivity : ContactActivity() {
                         RingtoneManager.TYPE_RINGTONE,
                         true,
                         onAlarmPicked = {
-                            contact_ringtone.text = it?.title
+                            val ringtoneFilename = it?.title
+                            if (!isSoundOfSilence(ringtoneFilename))
+                                contact_ringtone.text = ringtoneFilename
+                            else
+                                contact_ringtone.text = getString(R.string.no_sound)
                             ringtoneUpdated(it?.uri)
                         },
                         onAlarmSoundDeleted = {}
@@ -1650,7 +1659,11 @@ class ViewContactActivity : ContactActivity() {
     // *****************************************************************
 
     override fun customRingtoneSelected(ringtonePath: String) {
-        contact_ringtone.text = ringtonePath.getFilenameFromPath()
+        val ringtoneFilename = ringtonePath.getFilenameFromPath()
+        if (!isSoundOfSilence(ringtoneFilename))
+            contact_ringtone.text = ringtoneFilename
+        else
+            contact_ringtone.text = getString(R.string.no_sound)
         ringtoneUpdated(ringtonePath)
     } // ViewContactActivity.customRingtoneSelected()
 
@@ -1658,7 +1671,11 @@ class ViewContactActivity : ContactActivity() {
 
     override fun systemRingtoneSelected(uri: Uri?) {
         val contactRingtone = RingtoneManager.getRingtone(this, uri)
-        contact_ringtone.text = contactRingtone.getTitle(this)
+        val ringtoneFilename = contactRingtone.getTitle(this)
+        if ((uri != null) && !isSoundOfSilence(ringtoneFilename))
+            contact_ringtone.text = ringtoneFilename
+        else
+            contact_ringtone.text = getString(R.string.no_sound)
         ringtoneUpdated(uri?.toString() ?: "")
     } // ViewContactActivity.systemRingtoneSelected()
 

@@ -15,6 +15,8 @@ const val PREF_AUTO_FORMATTED_NAME_FORMAT = "auto_formatted_name_format"
 const val PREF_CONTACT_ACTIVITY_EXPORT_SELECTED_FIELDS_ONLY = "export_selected_fields_only"
 const val PREF_EDIT_ACTIVITY_PERMIT_CUSTOM_EVENT_TYPES = "permit_custom_event_types"
 const val PREF_EDIT_ACTIVITY_SHOW_REMOVE_BUTTONS = "show_remove_buttons"
+const val PREF_EDIT_ACTIVITY_SHOW_UPDATE_FORMATTED_ADDRESS_BUTTON = "show_update_address_button"
+const val PREF_EDIT_ACTIVITY_ALWAYS_SHOW_NONEMPTY_FIELDS = "always_show_non_empty_fields"
 
 const val GROUP = "group"
 const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"

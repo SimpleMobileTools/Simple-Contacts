@@ -41,12 +41,47 @@ import com.simplemobiletools.contacts.pro.dialogs.SelectGroupsDialog
 import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
 import kotlinx.android.synthetic.main.activity_edit_contact.*
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_addresses_holder
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_addresses_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_appbar
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_emails_holder
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_emails_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_events_holder
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_events_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_groups_holder
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_groups_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_ims_holder
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_ims_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_name_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_notes_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_numbers_holder
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_numbers_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_organization_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_photo
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_photo_bottom_shadow
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_photo_share_icon
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_photo_share_info
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_relations_holder
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_relations_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_ringtone
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_ringtone_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_scrollview
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_source_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_toggle_favorite
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_toolbar
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_websites_holder
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_websites_image
+import kotlinx.android.synthetic.main.activity_edit_contact.contact_wrapper
+import kotlinx.android.synthetic.main.activity_edit_contact.view.*
+import kotlinx.android.synthetic.main.activity_view_contact.*
 import kotlinx.android.synthetic.main.item_edit_nickname.view.*
 import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
 import kotlinx.android.synthetic.main.item_edit_email.view.*
 import kotlinx.android.synthetic.main.item_edit_address.view.*
 import kotlinx.android.synthetic.main.item_edit_im.view.*
 import kotlinx.android.synthetic.main.item_edit_event.view.*
+import kotlinx.android.synthetic.main.item_edit_note.view.*
+import kotlinx.android.synthetic.main.item_edit_organization.view.*
 import kotlinx.android.synthetic.main.item_edit_website.view.*
 import kotlinx.android.synthetic.main.item_edit_relation.view.*
 import kotlinx.android.synthetic.main.item_edit_group.view.*
@@ -139,7 +174,7 @@ class EditContactActivity : ContactActivity() {
     private fun initContact() {
         var contactId = intent.getIntExtra(CONTACT_ID, 0)
         val action = intent.action
-        if (contactId == 0 && (action == Intent.ACTION_EDIT || action == ADD_NEW_CONTACT_NUMBER)) {
+        if ((contactId == 0) && (action == Intent.ACTION_EDIT || action == ADD_NEW_CONTACT_NUMBER)) {
             val data = intent.data
             if (data != null && data.path != null) {
                 val rawId = if (data.path!!.contains("lookup")) {
@@ -172,7 +207,6 @@ class EditContactActivity : ContactActivity() {
                     if (srcContact != origContact) {
                         contact = srcContact
                         origContact = contact!!.deepCopy()
-                        initActivityState()
                     }
 
                     runOnUiThread {
@@ -188,12 +222,14 @@ class EditContactActivity : ContactActivity() {
     // *****************************************************************
 
     private fun gotContact() {
+        // contact_scrollview.beVisible()
         if (contact == null) {
             setupNewContact()
-        } else {
-            setupEditContact()
-            originalRingtone = contact?.ringtone
         }
+
+        initActivityState()
+        setupEditContact()
+        originalRingtone = contact?.ringtone
 
         val action = intent.action
         if (((contact!!.id == 0 && action == Intent.ACTION_INSERT) || action == ADD_NEW_CONTACT_NUMBER) && intent.extras != null) {
@@ -409,9 +445,9 @@ class EditContactActivity : ContactActivity() {
             state.shareEvent.add(eventHolder.contact_event_share_info.isChecked)
         }
 
-        state.shareNotes = contact_notes_share_info.isChecked
+        state.shareNotes = contact_notes_holder.contact_note_share_info.isChecked
         // state.shareRingtone = false
-        state.shareOrganization = contact_organization_share_info.isChecked
+        state.shareOrganization = contact_organization_holder.contact_organization_share_info.isChecked
 
         state.shareWebsite.clear()
         itemCnt = contact_websites_holder.childCount
@@ -448,6 +484,7 @@ class EditContactActivity : ContactActivity() {
     override fun onBackPressed() {
         if (state.selectShareFieldsActive) {
             state.selectShareFieldsActive = false
+            setupFieldVisibility(false)
             setupFieldShareIcons(false)
         } else if ((System.currentTimeMillis() - mLastSavePromptTS > SAVE_DISCARD_PROMPT_INTERVAL) && hasContactChanged()) {
             mLastSavePromptTS = System.currentTimeMillis()
@@ -472,6 +509,7 @@ class EditContactActivity : ContactActivity() {
             findItem(R.id.save).setOnMenuItemClickListener {
                 if (state.selectShareFieldsActive) {
                     state.selectShareFieldsActive = false
+                    setupFieldVisibility(false)
                     setupFieldShareIcons(false)
                 }
                 saveContact()
@@ -488,6 +526,7 @@ class EditContactActivity : ContactActivity() {
             findItem(R.id.open_with).setOnMenuItemClickListener {
                 if (state.selectShareFieldsActive) {
                     state.selectShareFieldsActive = false
+                    setupFieldVisibility(false)
                     setupFieldShareIcons(false)
                 }
                 openWith()
@@ -497,6 +536,7 @@ class EditContactActivity : ContactActivity() {
             findItem(R.id.delete).setOnMenuItemClickListener {
                 if (state.selectShareFieldsActive) {
                     state.selectShareFieldsActive = false
+                    setupFieldVisibility(false)
                     setupFieldShareIcons(false)
                 }
                 deleteContact()
@@ -505,8 +545,12 @@ class EditContactActivity : ContactActivity() {
             }
 
             findItem(R.id.manage_visible_fields).setOnMenuItemClickListener {
+                // if (prevSavedInstanceState != null)
+                //     onSaveInstanceState(prevSavedInstanceState!!)
+                contact = fillContactValues(false, true, true)
                 ManageVisibleFieldsDialog(this@EditContactActivity) {
-                    initContact()
+                    // initContact()
+                    gotContact()
                 }
                 true
             }
@@ -612,6 +656,7 @@ class EditContactActivity : ContactActivity() {
         var exportNow: Boolean = false
         if (exportSelectedFieldsOnly) {
             state.selectShareFieldsActive = !state.selectShareFieldsActive
+            setupFieldVisibility(state.selectShareFieldsActive)
             setupFieldShareIcons(state.selectShareFieldsActive)
             if (state.selectShareFieldsActive)
                 toast(R.string.select_exportable_fields_and_click_again)
@@ -633,6 +678,7 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupFieldShareIcons(selectShareActive: Boolean) {
         val showRemove: Boolean = config.showRemoveButtons
+        // val showContactFields: Int = config.showContactFields
         setupPhotoShareIcons(selectShareActive)
         setupNameShareIcons(selectShareActive)
         setupNicknameShareIcons(selectShareActive, showRemove)
@@ -781,18 +827,20 @@ class EditContactActivity : ContactActivity() {
     // *****************************************************************
 
     private fun setupNoteShareIcons(selectShareActive: Boolean) {
-        contact_notes.isEnabled = !selectShareActive
-        contact_notes_share_info.beVisibleIf(selectShareActive)
-        contact_notes_share_icon.beVisibleIf(selectShareActive)
+        val noteHolder = contact_notes_holder as View
+        noteHolder.contact_note.isEnabled = !selectShareActive
+        noteHolder.contact_note_share_info.beVisibleIf(selectShareActive)
+        noteHolder.contact_note_share_icon.beVisibleIf(selectShareActive)
     } // EditContactActivity.setupNoteShareIcons()
 
     // *****************************************************************
 
     private fun setupOrganizationShareIcons(selectShareActive: Boolean) {
-        contact_organization_company.isEnabled = !selectShareActive
-        contact_organization_job_title.isEnabled = !selectShareActive
-        contact_organization_share_info.beVisibleIf(selectShareActive)
-        contact_organization_share_icon.beVisibleIf(selectShareActive)
+        val organizationHolder = contact_organization_holder as View
+        organizationHolder.contact_organization_company.isEnabled = !selectShareActive
+        organizationHolder.contact_organization_job_title.isEnabled = !selectShareActive
+        organizationHolder.contact_organization_share_info.beVisibleIf(selectShareActive)
+        organizationHolder.contact_organization_share_icon.beVisibleIf(selectShareActive)
     } // EditContactActivity.setupOrganizationShareIcons()
 
     // *****************************************************************
@@ -845,7 +893,37 @@ class EditContactActivity : ContactActivity() {
     // *****************************************************************
 
     private fun setupFieldVisibility(selectShareActive: Boolean) {
-        val showFields = config.showContactFields
+        var showFields = config.showContactFields
+        var alwaysShowFields = config.alwaysShowNonEmptyContactFields
+        if (((showFields and SHOW_DISPLAYNAME_FIELD) == 0) &&
+            ((alwaysShowFields and SHOW_DISPLAYNAME_FIELD) != 0) &&
+            (contact!!.name.formattedName.isNotEmpty()))
+            showFields = showFields or SHOW_DISPLAYNAME_FIELD
+        if (((showFields and SHOW_PREFIX_FIELD) == 0) &&
+            ((alwaysShowFields and SHOW_PREFIX_FIELD) != 0) &&
+            (contact!!.name.prefix.isNotEmpty()))
+            showFields = showFields or SHOW_PREFIX_FIELD
+        if (((showFields and SHOW_FIRST_NAME_FIELD) == 0) &&
+            ((alwaysShowFields and SHOW_FIRST_NAME_FIELD) != 0) &&
+            (contact!!.name.givenName.isNotEmpty()))
+            showFields = showFields or SHOW_FIRST_NAME_FIELD
+        if (((showFields and SHOW_MIDDLE_NAME_FIELD) == 0) &&
+            ((alwaysShowFields and SHOW_MIDDLE_NAME_FIELD) != 0) &&
+            (contact!!.name.middleName.isNotEmpty()))
+            showFields = showFields or SHOW_MIDDLE_NAME_FIELD
+        if (((showFields and SHOW_SURNAME_FIELD) == 0) &&
+            ((alwaysShowFields and SHOW_SURNAME_FIELD) != 0) &&
+            (contact!!.name.familyName.isNotEmpty()))
+            showFields = showFields or SHOW_SURNAME_FIELD
+        if (((showFields and SHOW_SUFFIX_FIELD) == 0) &&
+            ((alwaysShowFields and SHOW_SUFFIX_FIELD) != 0) &&
+            (contact!!.name.suffix.isNotEmpty()))
+            showFields = showFields or SHOW_SUFFIX_FIELD
+        if (((showFields and SHOW_PREFIX_FIELD) == 0) &&
+            ((alwaysShowFields and SHOW_PREFIX_FIELD) != 0) &&
+            (contact!!.name.prefix.isNotEmpty()))
+            showFields = showFields or SHOW_PREFIX_FIELD
+
         if (showFields and (SHOW_DISPLAYNAME_FIELD or SHOW_PREFIX_FIELD or SHOW_FIRST_NAME_FIELD or
                             SHOW_MIDDLE_NAME_FIELD or SHOW_SURNAME_FIELD or SHOW_SUFFIX_FIELD) == 0) {
             contact_name_image.beInvisible()
@@ -853,65 +931,146 @@ class EditContactActivity : ContactActivity() {
 
         contact_display_name.beVisibleIf((showFields and SHOW_DISPLAYNAME_FIELD) != 0)
         contact_refresh_display_name.beVisibleIf((showFields and SHOW_DISPLAYNAME_FIELD) != 0)
-        contact_prefix.beVisibleIf(((showFields and SHOW_PREFIX_FIELD) != 0) || (contact!!.name.prefix.isNotEmpty()))
-        contact_first_name.beVisibleIf(((showFields and SHOW_FIRST_NAME_FIELD) != 0) || (contact!!.name.givenName.isNotEmpty()))
-        contact_middle_name.beVisibleIf(((showFields and SHOW_MIDDLE_NAME_FIELD) != 0) || (contact!!.name.middleName.isNotEmpty()))
-        contact_surname.beVisibleIf(((showFields and SHOW_SURNAME_FIELD) != 0) || (contact!!.name.familyName.isNotEmpty()))
-        contact_suffix.beVisibleIf(((showFields and SHOW_SUFFIX_FIELD) != 0) || (contact!!.name.suffix.isNotEmpty()))
-        contact_phonetic_given_name.beVisibleIf((((showFields and SHOW_FIRST_NAME_FIELD) != 0) && ((showFields and SHOW_PHONETIC_NAME_FIELDS) != 0)) || (contact!!.name.phoneticGivenName.isNotEmpty()))
-        contact_phonetic_middle_name.beVisibleIf((((showFields and SHOW_MIDDLE_NAME_FIELD) != 0) && ((showFields and SHOW_PHONETIC_NAME_FIELDS) != 0)) || (contact!!.name.phoneticMiddleName.isNotEmpty()))
-        contact_phonetic_surname.beVisibleIf((((showFields and SHOW_SURNAME_FIELD) != 0) && ((showFields and SHOW_PHONETIC_NAME_FIELDS) != 0)) || (contact!!.name.phoneticFamilyName.isNotEmpty()))
+        contact_prefix.beVisibleIf((showFields and SHOW_PREFIX_FIELD) != 0)
+        contact_first_name.beVisibleIf((showFields and SHOW_FIRST_NAME_FIELD) != 0)
+        contact_middle_name.beVisibleIf((showFields and SHOW_MIDDLE_NAME_FIELD) != 0)
+        contact_surname.beVisibleIf((showFields and SHOW_SURNAME_FIELD) != 0)
+        contact_suffix.beVisibleIf((showFields and SHOW_SUFFIX_FIELD) != 0)
+        contact_phonetic_given_name.beVisibleIf((((showFields and SHOW_FIRST_NAME_FIELD) != 0) && ((showFields and SHOW_PHONETIC_NAME_FIELDS) != 0)) ||
+            (((alwaysShowFields and SHOW_FIRST_NAME_FIELD) != 0) && ((alwaysShowFields and SHOW_PHONETIC_NAME_FIELDS) != 0) && (contact!!.name.phoneticGivenName.isNotEmpty())))
+        contact_phonetic_middle_name.beVisibleIf((((showFields and SHOW_MIDDLE_NAME_FIELD) != 0) && ((showFields and SHOW_PHONETIC_NAME_FIELDS) != 0)) ||
+            (((alwaysShowFields and SHOW_MIDDLE_NAME_FIELD) != 0) && ((alwaysShowFields and SHOW_PHONETIC_NAME_FIELDS) != 0) && (contact!!.name.phoneticMiddleName.isNotEmpty())))
+        contact_phonetic_surname.beVisibleIf((((showFields and SHOW_SURNAME_FIELD) != 0) && ((showFields and SHOW_PHONETIC_NAME_FIELDS) != 0)) ||
+            (((alwaysShowFields and SHOW_SURNAME_FIELD) != 0) && ((alwaysShowFields and SHOW_PHONETIC_NAME_FIELDS) != 0) && (contact!!.name.phoneticFamilyName.isNotEmpty())))
 
         val areNicknamesVisible: Boolean = ((showFields and SHOW_NICKNAME_FIELD) != 0)
         contact_nicknames_holder.beVisibleIf(areNicknamesVisible)
         contact_nicknames_add_new.beVisibleIf(areNicknamesVisible &&
             ((showFields and SHOW_MULTIPLE_NICKNAMES) != 0) && !selectShareActive)
 
-        val arePhoneNumbersVisible = ((showFields and SHOW_PHONE_NUMBERS_FIELD) != 0)
+        var arePhoneNumbersVisible = ((showFields and SHOW_PHONE_NUMBERS_FIELD) != 0)
+        if (arePhoneNumbersVisible) {
+            arePhoneNumbersVisible = !selectShareActive
+            val numbersHolder = contact_numbers_holder
+            numbersHolder.children.forEach { numberHolder ->
+            val validEntry = numberHolder.contact_number.value.trim().isNotEmpty()
+            numberHolder.beVisibleIf(validEntry || !selectShareActive)
+            arePhoneNumbersVisible = arePhoneNumbersVisible || validEntry
+            }
+        }
         contact_numbers_image.beVisibleIf(arePhoneNumbersVisible)
         contact_numbers_holder.beVisibleIf(arePhoneNumbersVisible)
         contact_numbers_add_new.beVisibleIf(arePhoneNumbersVisible && !selectShareActive)
 
-        val areEmailsVisible = ((showFields and SHOW_EMAILS_FIELD) != 0)
+        var areEmailsVisible = ((showFields and SHOW_EMAILS_FIELD) != 0)
+        if (areEmailsVisible) {
+            areEmailsVisible = !selectShareActive
+            val emailsHolder = contact_emails_holder
+            emailsHolder.children.forEach { emailHolder ->
+                val validEntry = emailHolder.contact_email.value.trim().isNotEmpty()
+                emailHolder.beVisibleIf(validEntry || !selectShareActive)
+                areEmailsVisible = areEmailsVisible || validEntry
+            }
+        }
         contact_emails_image.beVisibleIf(areEmailsVisible)
         contact_emails_holder.beVisibleIf(areEmailsVisible)
         contact_emails_add_new.beVisibleIf(areEmailsVisible && !selectShareActive)
 
-        val areAddressesVisible = ((showFields and SHOW_ADDRESSES_FIELD) != 0)
+        val areAddressesVisible = ((showFields and (SHOW_ADDRESSES_FIELD or SHOW_STRUCTURED_POSTAL_ACTIVE_ADDRESS_MASK)) != 0)
         contact_addresses_image.beVisibleIf(areAddressesVisible)
         contact_addresses_holder.beVisibleIf(areAddressesVisible)
         contact_addresses_add_new.beVisibleIf(areAddressesVisible && !selectShareActive)
 
-        val areIMsVisible = ((showFields and SHOW_IMS_FIELD) != 0)
+        var areIMsVisible = ((showFields and SHOW_IMS_FIELD) != 0)
+        if (areIMsVisible) {
+            areIMsVisible = !selectShareActive
+            val imsHolder = contact_ims_holder
+            imsHolder.children.forEach { imHolder ->
+                val validEntry = imHolder.contact_im.value.trim().isNotEmpty()
+                imHolder.beVisibleIf(validEntry || !selectShareActive)
+                areIMsVisible = areIMsVisible || validEntry
+            }
+        }
         contact_ims_image.beVisibleIf(areIMsVisible)
         contact_ims_holder.beVisibleIf(areIMsVisible)
         contact_ims_add_new.beVisibleIf(areIMsVisible && !selectShareActive)
 
-        val areEventsVisible = ((showFields and SHOW_EVENTS_FIELD) != 0)
+        var areEventsVisible = ((showFields and SHOW_EVENTS_FIELD) != 0)
+        if (areEventsVisible) {
+            areEventsVisible = !selectShareActive
+            val eventsHolder = contact_events_holder
+            eventsHolder.children.forEach { eventHolder ->
+                val validEntry = eventHolder.contact_event.value.trim().isNotEmpty()
+                eventHolder.beVisibleIf(validEntry || !selectShareActive)
+                areEventsVisible = areEventsVisible || validEntry
+            }
+        }
         contact_events_image.beVisibleIf(areEventsVisible)
         contact_events_holder.beVisibleIf(areEventsVisible)
         contact_events_add_new.beVisibleIf(areEventsVisible && !selectShareActive)
 
-        val areNotesVisible = ((showFields and SHOW_NOTES_FIELD) != 0)
+        var areNotesVisible = ((showFields and SHOW_NOTES_FIELD) != 0)
+        if (areNotesVisible) {
+            areNotesVisible = !selectShareActive
+            val notesHolder = contact_notes_holder
+            val validEntry = notesHolder.contact_note.value.trim().isNotEmpty()
+            notesHolder.beVisibleIf(validEntry || !selectShareActive)
+            areNotesVisible = areNotesVisible || validEntry
+        }
         contact_notes_image.beVisibleIf(areNotesVisible)
-        contact_notes.beVisibleIf(areNotesVisible)
+        contact_notes_holder.beVisibleIf(areNotesVisible)
 
-        val isOrganizationVisible = ((showFields and SHOW_ORGANIZATION_FIELD) != 0)
+        var isOrganizationVisible = ((showFields and SHOW_ORGANIZATION_FIELD) != 0)
+        if (isOrganizationVisible) {
+            isOrganizationVisible = !selectShareActive
+            val organizationHolder = contact_organization_holder
+            val validEntry =
+                contact_organization_holder.contact_organization_company.value.trim().isNotEmpty() ||
+                contact_organization_holder.contact_organization_job_title.value.trim().isNotEmpty()
+            organizationHolder.beVisibleIf(validEntry || !selectShareActive)
+            isOrganizationVisible = isOrganizationVisible || validEntry
+        }
         contact_organization_image.beVisibleIf(isOrganizationVisible)
-        contact_organization_company.beVisibleIf(isOrganizationVisible)
-        contact_organization_job_title.beVisibleIf(isOrganizationVisible)
+        contact_organization_holder.beVisibleIf(isOrganizationVisible)
 
-        val areWebsitesVisible = ((showFields and SHOW_WEBSITES_FIELD) != 0)
+        var areWebsitesVisible = ((showFields and SHOW_WEBSITES_FIELD) != 0)
+        if (areWebsitesVisible) {
+            areWebsitesVisible = !selectShareActive
+            val websitesHolder = contact_websites_holder
+            websitesHolder.children.forEach { websiteHolder ->
+                val validEntry = websiteHolder.contact_website.value.trim().isNotEmpty()
+                websiteHolder.beVisibleIf(validEntry || !selectShareActive)
+                areWebsitesVisible = areWebsitesVisible || validEntry
+            }
+        }
         contact_websites_image.beVisibleIf(areWebsitesVisible)
         contact_websites_holder.beVisibleIf(areWebsitesVisible)
         contact_websites_add_new.beVisibleIf(areWebsitesVisible && !selectShareActive)
 
-        val areRelationsVisible: Boolean = ((showFields and SHOW_RELATIONS_FIELD) != 0)
+        var areRelationsVisible: Boolean = ((showFields and SHOW_RELATIONS_FIELD) != 0)
+        if (areRelationsVisible) {
+            areRelationsVisible = !selectShareActive
+            val relationsHolder = contact_relations_holder
+            relationsHolder.children.forEach { relationHolder ->
+                val validEntry = relationHolder.contact_relation.value.trim().isNotEmpty()
+                relationHolder.beVisibleIf(validEntry || !selectShareActive)
+                areRelationsVisible = areRelationsVisible || validEntry
+            }
+        }
         contact_relations_image.beVisibleIf(areRelationsVisible)
         contact_relations_holder.beVisibleIf(areRelationsVisible)
         contact_relations_add_new.beVisibleIf(areRelationsVisible && !selectShareActive)
 
-        val areGroupsVisible = ((showFields and SHOW_GROUPS_FIELD) != 0)
+        var areGroupsVisible = ((showFields and SHOW_GROUPS_FIELD) != 0)
+        if (areGroupsVisible) {
+            areGroupsVisible = !selectShareActive
+            val groupsHolder = contact_groups_holder
+            groupsHolder.children.forEach { groupHolder ->
+                val validEntry = groupHolder.contact_group.value.trim().isNotEmpty()
+                groupHolder.beVisibleIf(validEntry || !selectShareActive)
+                areGroupsVisible = areGroupsVisible || validEntry
+            }
+        }
         contact_groups_image.beVisibleIf(areGroupsVisible)
         contact_groups_holder.beVisibleIf(areGroupsVisible)
         contact_groups_add_new.beVisibleIf(areGroupsVisible && !selectShareActive)
@@ -1299,7 +1458,7 @@ class EditContactActivity : ContactActivity() {
                 val emailHolder: ViewGroup = addEmailField(emailListHolder, index, showRemove, showShare)
                 emailHolder.contact_email.setText(email.address)
                 setupEmailTypePicker(emailHolder.contact_email_type, email.type, email.label)
-                // adjustEmailFieldWidgets(emailHolder!! as ViewGroup, showRemove, showShare)
+                // adjustEmailFieldWidgets(emailHolder, showRemove, showShare)
                 emailHolder.contact_email_share_info.isChecked = state.shareEmail[index]
                 emailHolder.contact_email.alpha = 1.0f
             }
@@ -1421,6 +1580,8 @@ class EditContactActivity : ContactActivity() {
 
                 addressHolder.contact_address_topline.setText(getTopVisibleAddressField(addressHolder)?.value)
                 setupAddressTypePicker(addressHolder.contact_address_type, address.type, address.label)
+                setupRefreshDisplayAddress(addressHolder as ViewGroup)
+                // adjustAddressFieldWidgets(addressHolder, addressHolder.contact_address_topline, showRemove, showShare)
                 addressHolder.contact_address_share_info.isChecked = state.shareAddress[index]
             }
         }
@@ -1450,6 +1611,7 @@ class EditContactActivity : ContactActivity() {
         setupAddressHolderCallbacks(addressHolder)
 
         setupAddressTypePicker(addressHolder.contact_address_type, DEFAULT_ADDRESS_TYPE, "")
+        setupRefreshDisplayAddress(addressHolder as ViewGroup)
 
         addressHolder.contact_address_remove.applyColorFilter(getProperPrimaryColor())
         addressHolder.contact_address_remove.background.applyColorFilter(getProperTextColor())
@@ -1464,6 +1626,10 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupAddressFieldVisibility(addressHolder : View) {
         val showFields = config.showContactFields
+        addressHolder.contact_refresh_display_address.beVisibleIf(
+            ((showFields and SHOW_ADDRESSES_FIELD) != 0) &&
+                    ((showFields and SHOW_STRUCTURED_POSTAL_ACTIVE_ADDRESS_MASK) != 0) &&
+                    config.showUpdateFormattedAddressButton)
         addressHolder.contact_address.beVisibleIf((showFields and SHOW_ADDRESSES_FIELD) != 0)
         addressHolder.contact_address_street.beVisibleIf((showFields and SHOW_STRUCTURED_POSTAL_ADDRESS_STREET) != 0)
         addressHolder.contact_address_neighborhood.beVisibleIf((showFields and SHOW_STRUCTURED_POSTAL_ADDRESS_EXTADDR) != 0)
@@ -1687,6 +1853,16 @@ class EditContactActivity : ContactActivity() {
 
     // *****************************************************************
 
+    private fun setupRefreshDisplayAddress(addressHolder: ViewGroup) {
+        addressHolder.contact_refresh_display_address.setOnClickListener {
+            val addressIndex: Int = (addressHolder.parent as ViewGroup).indexOfChild(addressHolder)
+            state.autoCalcFormattedAddress[addressIndex] = true
+            setAutoFormattedAddress(addressHolder)
+        }
+    } // EditContactActivity.setupRefreshDisplayAddress()
+
+    // *****************************************************************
+
     private fun showAddressTypePicker(addressTypeField: TextView) {
         val items = arrayListOf(
             RadioItem(StructuredPostal.TYPE_HOME, getString(R.string.home)),
@@ -1736,12 +1912,12 @@ class EditContactActivity : ContactActivity() {
                 imHolder.contact_im.setText(IM.data)
                 setupIMProtocolPicker(imHolder.contact_im_protocol, IM.protocol, IM.custom_protocol)
                 setupIMTypePicker(imHolder.contact_im_type, IM.type, IM.label)
-                // adjustIMFieldWidgets(imHolder!! as ViewGroup, showRemove, showShare)
+                // adjustIMFieldWidgets(imHolder, showRemove, showShare)
                 val shareIM: Boolean = state.shareIM[index]
                 imHolder.contact_im_share_info.setChecked(shareIM)
             }
         } else /* (IMs.isEmpty()) */ {
-            addIMField(imListHolder, 0, true, false)
+            addIMField(imListHolder, 0, showRemove, showShare)
         }
     } // EditContactActivity.setupIMs()
 
@@ -1920,12 +2096,15 @@ class EditContactActivity : ContactActivity() {
                 val eventItemHolder = addEventField(eventListHolder, index, showRemove, showShare)
 
                 (eventItemHolder.contact_event).apply {
-                    event.startDate.getDateTimeFromDateString(true, this)
+                    if (event.startDate.isNotEmpty())
+                        event.startDate.getDateTimeFromDateString(true, this)
+                    else
+                        ""
                     tag = event.startDate
-                    alpha = 1f
                 }
 
                 setupEventTypePicker(eventItemHolder, event.type, event.label)
+                // adjustEventFieldWidgets(eventItemHolder, showRemove, showShare)
                 val shareEvent: Boolean = state.shareEvent[index]
                 eventItemHolder.contact_event_share_info.setChecked(shareEvent)
             }
@@ -1964,8 +2143,6 @@ class EditContactActivity : ContactActivity() {
             9999, config.showRemoveButtons, false)
 
         (eventHolder.contact_event).apply {
-            alpha = 0.5f
-            text = getString(R.string.unknown)
             setTextColor(getProperTextColor())
         }
     } // EditContactActivity.addNewEventField()
@@ -1996,7 +2173,6 @@ class EditContactActivity : ContactActivity() {
                 eventField.apply {
                     dateTag.getDateTimeFromDateString(true, this)
                     tag = dateTag
-                    alpha = 1f
                 }
             }
         }
@@ -2045,36 +2221,31 @@ class EditContactActivity : ContactActivity() {
     // *****************************************************************
     // *****************************************************************
 
-    private fun setupNotes(showShareCheckbox: Boolean) {   // FIXME FIXME
-        contact_notes.setText(contact!!.notes)
-
-        val params: RelativeLayout.LayoutParams = contact_notes.getLayoutParams() as RelativeLayout.LayoutParams
-        if (!showShareCheckbox)
-            params.addRule(RelativeLayout.ALIGN_PARENT_END)
-        else
-            params.removeRule(RelativeLayout.ALIGN_PARENT_END)
-        contact_notes.setLayoutParams(params)
-
-        contact_notes_share_info.beVisibleIf(showShareCheckbox)
-        contact_notes_share_icon.beVisibleIf(showShareCheckbox)
-        contact_notes_share_info.isChecked = state.shareNotes
+    private fun setupNotes(showShare: Boolean) {   // FIXME FIXME
+        val notesHolder: ViewGroup = contact_notes_holder
+        notesHolder.contact_note.setText(contact!!.notes)
+        notesHolder.contact_note_remove.beVisibleIf(false)
+        notesHolder.contact_note_share_info.beVisibleIf(showShare)
+        notesHolder.contact_note_share_icon.beVisibleIf(showShare)
+        notesHolder.contact_note_share_info.isChecked = state.shareNotes
     } // EditContactActivity.setupNotes()
 
     // *****************************************************************
     // *****************************************************************
 
     private fun setupOrganization(showShare: Boolean) {
-        contact_organization_company.setText(contact!!.organization.company)
-        contact_organization_job_title.setText(contact!!.organization.jobTitle)
-        // adjustOrganisationFieldWidgets(showShare)
-        contact_organization_share_info.isChecked = state.shareOrganization
+        val organizationHolder: ViewGroup = contact_organization_holder.contact_organization_holder
+        organizationHolder.contact_organization_company.setText(contact!!.organization.company)
+        organizationHolder.contact_organization_job_title.setText(contact!!.organization.jobTitle)
+        adjustOrganisationFieldWidgets(organizationHolder, showShare)
+        organizationHolder.contact_organization_share_info.isChecked = state.shareOrganization
     } // setupOrganization.setupOrganization()
 
     // *****************************************************************
 
-    private fun adjustOrganisationFieldWidgets(showShare: Boolean) {
-        contact_organization_share_info.beVisibleIf(showShare)
-        contact_organization_share_icon.beVisibleIf(showShare)
+    private fun adjustOrganisationFieldWidgets(organizationHolder: ViewGroup, showShare: Boolean) {
+        organizationHolder.contact_organization_share_info.beVisibleIf(showShare)
+        organizationHolder.contact_organization_share_icon.beVisibleIf(showShare)
     } // EditContactActivity.adjustOrganisationFieldWidgets()
 
     // *****************************************************************
@@ -2088,11 +2259,11 @@ class EditContactActivity : ContactActivity() {
                 var websiteHolder = addWebsiteField(websiteListHolder, index, showRemove, showShare)
                 websiteHolder.contact_website.setText(website.URL)
                 setupWebsiteTypePicker(websiteHolder.contact_website_type, website.type, website.label)
-                // adjustWebsiteFieldWidgets(websiteHolder!! as ViewGroup, showRemove, showShare)
+                // adjustWebsiteFieldWidgets(websiteHolder, showRemove, showShare)
                 websiteHolder.contact_website_share_info.isChecked = state.shareWebsite[index]
             }
         } else /* (websites.isEmpty()) */ {
-            addWebsiteField(websiteListHolder, 0, true, false)
+            addWebsiteField(websiteListHolder, 0, showRemove, showShare)
         }
     } // EditContactActivity.setupWebsites()
 
@@ -2196,10 +2367,11 @@ class EditContactActivity : ContactActivity() {
                 var relationHolder = addRelationField(relationListHolder, index, showRemove, showShare)
                 relationHolder.contact_relation.setText(relation.name)
                 setupRelationTypePicker(relationHolder.contact_relation_type, relation.type, relation.label)
+                // adjustRelationFieldWidgets(relationHolder, showRemove, showShare)
                 relationHolder.contact_relation_share_info.isChecked = state.shareRelation[index]
             }
         } else /* (relations.isEmpty()) */ {
-            addRelationField(relationListHolder, 0, true, false)
+            addRelationField(relationListHolder, 0, showRemove, showShare)
         }
     } // EditContactActivity.setupRelations()
 
@@ -2382,21 +2554,25 @@ class EditContactActivity : ContactActivity() {
         }
 
         if (groups.isEmpty()) {
-            layoutInflater.inflate(R.layout.item_edit_group, contact_groups_holder, false).apply {
-                contact_group.apply {
-                    alpha = 0.5f
-                    text = getString(R.string.no_groups)
-                    setTextColor(getProperTextColor())
-                }
-
-                contact_group_remove.beGone()
-                contact_group_share_icon.beGone()
-                contact_group_share_info.beGone()
-                setOnClickListener {
-                    showSelectGroupsDialog()
-                }
-                contact_groups_holder.addView(this)
+            var groupHolder = contact_groups_holder.getChildAt(0)
+            if (groupHolder == null) {
+                groupHolder = layoutInflater.inflate(R.layout.item_edit_group, contact_groups_holder, false)
+                contact_groups_holder.addView(groupHolder)
             }
+
+            groupHolder.contact_group.apply {
+                alpha = 0.5f
+                text = getString(R.string.no_groups)
+                setTextColor(getProperTextColor())
+            }
+
+            groupHolder.setOnClickListener {
+                showSelectGroupsDialog()
+            }
+
+            groupHolder.contact_group_remove.beGone()
+            groupHolder.contact_group_share_icon.beGone()
+            groupHolder.contact_group_share_info.beGone()
         }
     } // EditContactActivity.setupGroups()
 
@@ -2461,7 +2637,11 @@ class EditContactActivity : ContactActivity() {
                 SelectAlarmSoundDialog(this, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
                     onAlarmPicked = {
                         contact!!.ringtone = it?.uri
-                        contact_ringtone.text = it?.title
+                        val ringtoneFilename = it?.title
+                        if (!isSoundOfSilence(ringtoneFilename))
+                            contact_ringtone.text = ringtoneFilename
+                        else
+                            contact_ringtone.text = getString(R.string.no_sound)
                     }, onAlarmSoundDeleted = {}
                 )
             }
@@ -2549,6 +2729,7 @@ class EditContactActivity : ContactActivity() {
             (addressHolder as? ViewGroup)?.contact_address_type?.apply {
                 setupAddressTypePicker(this, DEFAULT_ADDRESS_TYPE, "")
             }
+            setupRefreshDisplayAddress(addressHolder as ViewGroup)
         }
 
         if (contact!!.IMs.isEmpty()) {
@@ -2577,9 +2758,9 @@ class EditContactActivity : ContactActivity() {
 
     private fun resetContactEvent(contactEvent: TextView, removeContactEventButton: ImageView) {
         contactEvent.apply {
-            text = getString(R.string.unknown)
+            text = "" // getString(R.string.unknown)
             tag = ""
-            alpha = 0.5f
+            // alpha = 0.5f
         }
         removeContactEventButton.beGone()
     } // EditContactActivity.resetContactEvent()
@@ -2595,24 +2776,25 @@ class EditContactActivity : ContactActivity() {
         // convertKnownIMTypeIDsToCustomTypes(contactValues.IMs)
         // convertKnownRelationCustomTypesToIDs(contactValues.relations)
 
-        if (currentContactPhotoPath.isEmpty() &&
+        if (// currentContactPhotoPath.isEmpty() &&
         contactValues.name.formattedName.isEmpty() &&
         contactValues.name.prefix.isEmpty() &&
         contactValues.name.givenName.isEmpty() &&
         contactValues.name.middleName.isEmpty() &&
         contactValues.name.familyName.isEmpty() &&
         contactValues.name.suffix.isEmpty() &&
-        contactValues.nicknames.isEmpty() &&
-        contactValues.phoneNumbers.isEmpty() &&
+        // contactValues.nicknames.isEmpty() &&
+        // contactValues.phoneNumbers.isEmpty() &&
         contactValues.emails.isEmpty() &&
-        contactValues.addresses.isEmpty() &&
-        contactValues.IMs.isEmpty() &&
-        contactValues.events.isEmpty() &&
-        contactValues.notes.isEmpty() &&
+        // contactValues.addresses.isEmpty() &&
+        // contactValues.IMs.isEmpty() &&
+        // contactValues.events.isEmpty() &&
+        // contactValues.notes.isEmpty() &&
         contactValues.organization.company.isEmpty() &&
-        contactValues.organization.jobTitle.isEmpty() &&
-        contactValues.websites.isEmpty() &&
-        contactValues.relations.isEmpty()) {
+        // contactValues.organization.jobTitle.isEmpty() &&
+        // contactValues.websites.isEmpty() &&
+        // contactValues.relations.isEmpty() &&
+        true ) {
             toast(R.string.fields_empty)
             return
         }
@@ -2647,17 +2829,11 @@ class EditContactActivity : ContactActivity() {
         val filledAddresses = getFilledAddresses(getSelectedFieldsOnly, getHiddenFields, getEmptyLines)
         val filledIMs = getFilledIMs(getSelectedFieldsOnly, getHiddenFields, getEmptyLines)
         val filledEvents = getFilledEvents(getSelectedFieldsOnly, getHiddenFields, getEmptyLines)
+        val filledNotes = getFilledNotes(getSelectedFieldsOnly, getHiddenFields, getEmptyLines)
+        val filledOrganization = getFilledOrganization(getSelectedFieldsOnly, getHiddenFields, getEmptyLines)
         val filledWebsites = getFilledWebsites(getSelectedFieldsOnly, getHiddenFields, getEmptyLines)
         val filledRelations = getFilledRelations(getSelectedFieldsOnly, getHiddenFields, getEmptyLines)
-
         val selectedGroups = getSelectedGroups(getSelectedFieldsOnly, getHiddenFields, getEmptyLines)
-
-        val filledOrganization = contact!!.organization.deepCopy()
-        if ((getHiddenFields || contact_organization_company.isVisible()) &&
-            (!getSelectedFieldsOnly || contact_organization_share_info.isChecked)) {
-            filledOrganization.company = contact_organization_company.value
-            filledOrganization.jobTitle = contact_organization_job_title.value
-        } /* if (isChecked) */
 
         val newContact = contact!!.copy(
             name = filledName,
@@ -2667,7 +2843,7 @@ class EditContactActivity : ContactActivity() {
             addresses = filledAddresses,
             IMs = filledIMs,
             events = filledEvents,
-            notes = if (!getSelectedFieldsOnly || contact_notes_share_info.isChecked) contact_notes.value else "",
+            notes = filledNotes,
             organization = filledOrganization,
             websites = filledWebsites,
             relations = filledRelations,
@@ -2873,18 +3049,42 @@ class EditContactActivity : ContactActivity() {
                 val eventHolder = contact_events_holder.getChildAt(i)
                 if (!getSelectedFieldsOnly || eventHolder.contact_event_share_info.isChecked) {
                     val event = eventHolder.contact_event.value.trim()
+                    val eventTag = eventHolder.contact_event.tag?.toString() ?: ""
                     val eventType = eventHolder.contact_event_type.value.trim()
                     val eventTypeID = getEventTypeId(eventType)
                     val eventLabel = if (eventTypeID == CommonDataKinds.Event.TYPE_CUSTOM) eventType else ""
 
                     if ((event.isNotEmpty() || getEmptyLines) && (event != unknown)) {
-                        events.add(Event(eventHolder.contact_event.tag.toString(), eventTypeID, eventLabel))
+                        events.add(Event(eventTag, eventTypeID, eventLabel))
                     }
                 } /* if (isChecked) */
             }
         }
         return events
     } // EditContactActivity.getFilledEvents()
+
+    // *****************************************************************
+
+    private fun getFilledNotes(getSelectedFieldsOnly: Boolean, getHiddenFields: Boolean, getEmptyLines: Boolean): String {
+        val notesHolder = contact_notes_holder
+        if (!getSelectedFieldsOnly || notesHolder.contact_note_share_info.isChecked)
+            return(notesHolder.contact_note.value)
+        else
+            return("")
+    } // EditContactActivity.getFilledNotes()
+
+    // *****************************************************************
+
+    private fun getFilledOrganization(getSelectedFieldsOnly: Boolean, getHiddenFields: Boolean, getEmptyLines: Boolean): Organization {
+        val organizationHolder = contact_organization_holder
+        var organization: Organization = contact!!.organization.deepCopy()
+        if ((getHiddenFields || organizationHolder.contact_organization_company.isVisible()) &&
+            (!getSelectedFieldsOnly || organizationHolder.contact_organization_share_info.isChecked)) {
+            organization.company = organizationHolder.contact_organization_company.value
+            organization.jobTitle = organizationHolder.contact_organization_job_title.value
+        }
+        return(organization)
+    } // EditContactActivity.getFilledOrganization()
 
     // *****************************************************************
 
@@ -2973,6 +3173,7 @@ class EditContactActivity : ContactActivity() {
             }
         } else {
             toast(R.string.unknown_error_occurred)
+            isSaving = false
         }
     } // EditContactActivity.insertNewContact()
 
@@ -2995,6 +3196,7 @@ class EditContactActivity : ContactActivity() {
             }
         } else {
             toast(R.string.unknown_error_occurred)
+            isSaving = false
         }
     } // EditContactActivity.updateContact()
 
@@ -3376,7 +3578,11 @@ class EditContactActivity : ContactActivity() {
 
     override fun customRingtoneSelected(ringtonePath: String) {
         contact!!.ringtone = ringtonePath
-        contact_ringtone.text = ringtonePath.getFilenameFromPath()
+        val ringtoneFilename = ringtonePath.getFilenameFromPath()
+        if (!isSoundOfSilence(ringtoneFilename))
+            contact_ringtone.text = ringtoneFilename
+        else
+            contact_ringtone.text = getString(R.string.no_sound)
     } // EditContactActivity.customRingtoneSelected()
 
     // *****************************************************************
@@ -3384,7 +3590,11 @@ class EditContactActivity : ContactActivity() {
     override fun systemRingtoneSelected(uri: Uri?) {
         contact!!.ringtone = uri?.toString() ?: ""
         val contactRingtone = RingtoneManager.getRingtone(this, uri)
-        contact_ringtone.text = contactRingtone.getTitle(this)
+        val ringtoneFilename = contactRingtone.getTitle(this)
+        if ((uri != null) && !isSoundOfSilence(ringtoneFilename))
+            contact_ringtone.text = ringtoneFilename
+        else
+            contact_ringtone.text = getString(R.string.no_sound)
     } // EditContactActivity.systemRingtoneSelected()
 
     // *****************************************************************
