@@ -38,7 +38,7 @@
             android:background="?attr/selectableItemBackground"
             android:gravity="center_vertical|end"
             android:hint="@string/home"
-            android:minWidth="70dp"
+            android:minWidth="20dp"
             android:paddingStart="@dimen/medium_margin"
             android:paddingEnd="@dimen/medium_margin"
             android:textSize="@dimen/bigger_text_size" />

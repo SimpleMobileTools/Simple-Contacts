@@ -447,7 +447,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/settings_contactactiviy_label"
+                android:id="@+id/settings_contactactivity_label"
                 style="@style/SettingsSectionLabelStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

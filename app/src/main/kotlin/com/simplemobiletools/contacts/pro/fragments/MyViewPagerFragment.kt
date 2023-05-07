@@ -316,26 +316,25 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
+    private fun getSortByFromSorting(sorting: Int): ContactNameSortBy {
+        return when {
+            ((sorting and SORT_BY_SURNAME) != 0) -> ContactNameSortBy.NAMESORTBY_FAMILY_NAME
+            ((sorting and SORT_BY_FIRST_NAME) != 0) -> ContactNameSortBy.NAMESORTBY_GIVEN_NAME
+            ((sorting and SORT_BY_MIDDLE_NAME) != 0) -> ContactNameSortBy.NAMESORTBY_MIDDLE_NAME
+            else -> ContactNameSortBy.NAMESORTBY_DISPLAY_NAME
+        }
+    }
+
     private fun setupLetterFastscroller(contacts: ArrayList<Contact>) {
-        val sorting = context.config.sorting
+        // val sortBy: ContactNameSortBy = getSortByFromSorting(context.config.sorting)
+        val sortBy: ContactNameSortBy = context.config.contactListSortBy
+        val showFormattedName: Boolean = context.config.contactListShowFormattedName
+        val nameFormat: ContactNameFormat = context.config.contactListNameFormat
         letter_fastscroller.setupWithRecyclerView(fragment_list, { position ->
             try {
                 val contact = contacts[position]
-                var name = when {
-                    contact.isABusinessContact() -> contact.getFullCompany()
-                    ((sorting and SORT_BY_SURNAME) != 0) && contact.name.familyName.isNotEmpty() -> contact.name.familyName
-                    ((sorting and SORT_BY_MIDDLE_NAME) != 0) && contact.name.middleName.isNotEmpty() -> contact.name.middleName
-                    ((sorting and SORT_BY_FIRST_NAME) != 0) && contact.name.givenName.isNotEmpty() -> contact.name.givenName
-                    context.config.startNameWithSurname -> contact.name.familyName
-                    else -> contact.name.givenName
-                }
-
-                if (name.isEmpty()) {
-                    name = contact.getNameToDisplay()
-                }
-
-                val character = if (name.isNotEmpty()) name.substring(0, 1) else ""
-                FastScrollItemIndicator.Text(character.normalizeString().toUpperCase(Locale.getDefault()))
+                val scrollChar = contact.getLetterForFastScroller(sortBy, showFormattedName, nameFormat)
+                FastScrollItemIndicator.Text(scrollChar.normalizeString().toUpperCase(Locale.getDefault()))
             } catch (e: Exception) {
                 FastScrollItemIndicator.Text("")
             }

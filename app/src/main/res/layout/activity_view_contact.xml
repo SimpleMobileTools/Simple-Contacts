@@ -288,6 +288,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/contact_events_holder"
                 android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/contact_notes_extras"
                 android:layout_toEndOf="@+id/contact_notes_image"
                 android:background="?attr/selectableItemBackground"
                 android:lineSpacingExtra="@dimen/medium_margin"

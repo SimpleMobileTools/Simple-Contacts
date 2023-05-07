@@ -28,6 +28,17 @@
         android:orientation="horizontal"
         android:visibility="visible">
 
+        <ImageView
+            android:id="@+id/contact_refresh_display_address"
+            android:layout_width="@dimen/contact_icons_size"
+            android:layout_height="@dimen/contact_icons_size"
+            android:layout_marginStart="2dp"
+            android:contentDescription="@null"
+            android:paddingTop="@dimen/medium_margin"
+            android:paddingEnd="2dp"
+            android:paddingBottom="@dimen/small_margin"
+            android:src="@android:drawable/ic_popup_sync" />
+
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/contact_address_type"
             android:layout_width="wrap_content"
@@ -36,7 +47,7 @@
             android:background="?attr/selectableItemBackground"
             android:gravity="center_vertical|end"
             android:hint="@string/home"
-            android:minWidth="70dp"
+            android:minWidth="48dp"
             android:paddingStart="@dimen/medium_margin"
             android:paddingEnd="@dimen/medium_margin"
             android:textSize="@dimen/bigger_text_size" />

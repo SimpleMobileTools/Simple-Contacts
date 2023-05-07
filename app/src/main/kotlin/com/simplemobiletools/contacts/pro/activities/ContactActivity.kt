@@ -25,6 +25,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.simplemobiletools.commons.helpers.SILENT
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
@@ -125,12 +126,14 @@ data class ContactActivityState(
         for (i in 1..itemCnt)
             shareIM.add(true)
 
+        // Birthday/Anniversary information is sensitive - We do NOT share it by default!
         shareEvent.clear()
         itemCnt = srcContact.events.count()
         for (i in 1..itemCnt)
-            shareEvent.add(true)
+            shareEvent.add(false)
 
-        shareNotes = true
+        // Notes might contain sensitive information - We do NOT share them by default!
+        shareNotes = false
         shareOrganization = true
 
         shareWebsite.clear()
@@ -138,10 +141,11 @@ data class ContactActivityState(
         for (i in 1..itemCnt)
             shareWebsite.add(true)
 
+        // Relation information is personal/sensitive information - We do NOT share it by default!
         shareRelation.clear()
         itemCnt = srcContact.relations.count()
         for (i in 1..itemCnt)
-            shareRelation.add(true)
+            shareRelation.add(false)
 
         shareGroup.clear()
         itemCnt = srcContact.groups.count()
@@ -169,7 +173,10 @@ abstract class ContactActivity : SimpleActivity() {
     protected var currentContactPhotoPath = ""
     protected var useFamilyNameForPlaceholderIcon: Boolean = true
 
+    // protected var prevSavedInstanceState: Bundle? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        // prevSavedInstanceState = savedInstanceState
         super.onCreate(savedInstanceState)
 
         contact = restoreContact(savedInstanceState, "ActiveContact")
@@ -239,6 +246,10 @@ abstract class ContactActivity : SimpleActivity() {
     abstract fun customRingtoneSelected(ringtonePath: String)
 
     abstract fun systemRingtoneSelected(uri: Uri?)
+
+    fun isSoundOfSilence(ringtone: String?): Boolean {
+        return ((ringtone == null) || (ringtone.isEmpty()) || (ringtone == SILENT))
+    }
 
     fun showPhotoPlaceholder(photoView: ImageView) {
         val placeholder = BitmapDrawable(resources, getBigLetterPlaceholder(contact?.getNameToDisplay() ?: "A"))
