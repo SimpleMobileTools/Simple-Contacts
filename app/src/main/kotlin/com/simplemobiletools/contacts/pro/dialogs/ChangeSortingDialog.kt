@@ -42,11 +42,11 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val showCust
         }
 
         val sortBtn = when {
-            currSorting and SORT_BY_FIRST_NAME != 0 -> sortingRadio.sorting_dialog_radio_first_name
-            currSorting and SORT_BY_MIDDLE_NAME != 0 -> sortingRadio.sorting_dialog_radio_middle_name
-            currSorting and SORT_BY_SURNAME != 0 -> sortingRadio.sorting_dialog_radio_surname
-            currSorting and SORT_BY_FULL_NAME != 0 -> sortingRadio.sorting_dialog_radio_full_name
-            currSorting and SORT_BY_CUSTOM != 0 -> sortingRadio.sorting_dialog_radio_custom
+            ((currSorting and SORT_BY_FIRST_NAME) != 0) -> sortingRadio.sorting_dialog_radio_first_name
+            ((currSorting and SORT_BY_MIDDLE_NAME) != 0) -> sortingRadio.sorting_dialog_radio_middle_name
+            ((currSorting and SORT_BY_SURNAME) != 0) -> sortingRadio.sorting_dialog_radio_surname
+            ((currSorting and SORT_BY_FULL_NAME) != 0) -> sortingRadio.sorting_dialog_radio_full_name
+            ((currSorting and SORT_BY_CUSTOM) != 0) -> sortingRadio.sorting_dialog_radio_custom
             else -> sortingRadio.sorting_dialog_radio_date_created
         }
         sortBtn.isChecked = true
@@ -61,7 +61,7 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val showCust
         val orderRadio = view.sorting_dialog_radio_order
         var orderBtn = orderRadio.sorting_dialog_radio_ascending
 
-        if (currSorting and SORT_DESCENDING != 0) {
+        if ((currSorting and SORT_DESCENDING) != 0) {
             orderBtn = orderRadio.sorting_dialog_radio_descending
         }
         orderBtn.isChecked = true
@@ -78,7 +78,8 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val showCust
             else -> SORT_BY_DATE_CREATED
         }
 
-        if (sorting != SORT_BY_CUSTOM && view.sorting_dialog_radio_order.checkedRadioButtonId == R.id.sorting_dialog_radio_descending) {
+        if ((sorting != SORT_BY_CUSTOM) &&
+            (view.sorting_dialog_radio_order.checkedRadioButtonId == R.id.sorting_dialog_radio_descending)) {
             sorting = sorting or SORT_DESCENDING
         }
 

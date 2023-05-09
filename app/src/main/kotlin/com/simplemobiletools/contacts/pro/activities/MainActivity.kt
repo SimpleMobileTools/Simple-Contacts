@@ -451,6 +451,16 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun showSortingDialog(showCustomSorting: Boolean) {
         ChangeSortingDialog(this, showCustomSorting) {
+            val sorting = config.sorting
+            config.contactListSortBy = when {
+                ((sorting and SORT_BY_FIRST_NAME) != 0) -> ContactNameSortBy.NAMESORTBY_GIVEN_NAME
+                ((sorting and SORT_BY_MIDDLE_NAME) != 0) -> ContactNameSortBy.NAMESORTBY_MIDDLE_NAME
+                ((sorting and SORT_BY_SURNAME) != 0) -> ContactNameSortBy.NAMESORTBY_FAMILY_NAME
+                ((sorting and SORT_BY_FULL_NAME) != 0) -> ContactNameSortBy.NAMESORTBY_DISPLAY_NAME
+                ((sorting and SORT_BY_CUSTOM) != 0) -> ContactNameSortBy.NAMESORTBY_CONTACT_ID
+                else -> ContactNameSortBy.NAMESORTBY_FAMILY_NAME
+            }
+            config.contactListInverseSortOrder = ((sorting and SORT_DESCENDING) != 0)
             refreshContacts(TAB_CONTACTS or TAB_FAVORITES)
         }
     }
