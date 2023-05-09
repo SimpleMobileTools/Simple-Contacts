@@ -578,17 +578,6 @@
             </LinearLayout>
 
             <ImageView
-                    android:id="@+id/contact_notes_share_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="-10dp"
-                    android:contentDescription="@null"
-                    android:src="@android:drawable/ic_menu_share"
-                    android:visibility="visible" />
-            </LinearLayout>
-
-            <ImageView
                 android:id="@+id/contact_ringtone_image"
                 android:layout_width="@dimen/contact_icons_size"
                 android:layout_height="@dimen/contact_icons_size"
@@ -775,7 +764,7 @@
                 android:layout_below="@+id/contact_groups_add_new"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/medium_margin"
-                android:layout_toEndOf="@+id/contact_name_image"
+                android:layout_toEndOf="@+id/contact_source_image"
                 android:background="?attr/selectableItemBackground"
                 android:lines="1"
                 android:maxLines="1"
@@ -785,7 +774,6 @@
                 android:singleLine="true"
                 android:textSize="@dimen/bigger_text_size"
                 tools:text="hello@simplemobiletools.com" />
-
         </RelativeLayout>
     </ScrollView>
 
