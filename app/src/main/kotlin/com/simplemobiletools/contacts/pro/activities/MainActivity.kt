@@ -74,7 +74,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         checkWhatsNewDialog()
 
         if (isPackageInstalled("com.simplemobiletools.contacts")) {
-            val dialogText = getString(R.string.upgraded_to_pro_contacts, getString(R.string.phone_storage_hidden))
+            val dialogText = getString(R.string.upgraded_from_free_contacts, getString(R.string.phone_storage_hidden))
             ConfirmationDialog(this, dialogText, 0, R.string.ok, 0, false) {}
         }
     }

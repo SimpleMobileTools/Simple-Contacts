@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Kontaktu sinpleak</string>
     <string name="app_launcher_name">Kontaktuak</string>
@@ -12,18 +13,15 @@
     <string name="send_email_to_contacts">Bidali emaila kontaktuei</string>
     <string name="send_sms_to_group">Bidali SMSa taldera</string>
     <string name="send_email_to_group">Bidali emaila taldeari</string>
-    <string name="fields_empty">At least 1 field has to be filled out</string>
+    <string name="fields_empty">Gutxienez eremu bat bete behar da</string>
     <string name="must_be_at_edit">Kontaktu bat aldatzeko edizio pantailan egon behar zara</string>
-
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails">No contacts with emails have been found</string>
-    <string name="no_contacts_with_phone_numbers">No contacts with phone numbers have been found</string>
-
+    <string name="no_contacts_with_emails">Ez da aurkitu posta elektronikoa duen kontakturik</string>
+    <string name="no_contacts_with_phone_numbers">Ez da telefono zenbakia duen kontakturik aurkitu</string>
     <string name="new_contact">Kontaktu berria</string>
     <string name="edit_contact">Editatu taldea</string>
     <string name="select_contact">Hautatu kontaktuak</string>
-    <string name="nickname">Nickname</string>
-
+    <string name="nickname">Ezizena</string>
     <!-- Groups -->
     <string name="no_groups">Talderik ez</string>
     <string name="create_new_group">Sortu talde berria</string>
@@ -34,47 +32,40 @@
     <string name="create_group">Sortu taldea</string>
     <string name="add_to_group">Gehitu taldera</string>
     <string name="create_group_under_account">Kontu honetarako taldea sortu</string>
-
     <!-- Photo -->
     <string name="remove_photo">Kendu argazkia</string>
-    <string name="change_photo">Change photo</string>
-
+    <string name="change_photo">Aldatu argazkia</string>
     <!-- Settings -->
-    <string name="show_phone_numbers">Erakutsi telefono zenbakiak pantaila nagusian</string>
-    <string name="show_contact_thumbnails">Show contact thumbnails</string>
-    <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
+    <string name="show_phone_numbers">Erakutsi telefono zenbakiak</string>
+    <string name="show_contact_thumbnails">Kontaktuen miniaturak erakutsi</string>
+    <string name="show_dialpad_button">Erakutsi teklatuaren botoia pantaila nagusian</string>
     <string name="on_contact_click">Kontaktu sakatzean</string>
     <string name="call_contact">Kontaktua deitu</string>
     <string name="view_contact">Ikusi kontaktu detaileak</string>
     <string name="manage_shown_contact_fields">Kudeatu erakutsitako kontaktu eremuak</string>
     <string name="contacts">Kontaktuak</string>
-    <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
-    <string name="show_private_contacts">Show private contacts to Simple Dialer, Simple SMS Messenger and Simple Calendar Pro</string>
-    <string name="merge_duplicate_contacts">Merge duplicate contacts</string>
-
+    <string name="show_only_contacts_with_numbers">Erakutsi telefono zenbakia duten kontaktuak soilik</string>
+    <string name="show_private_contacts">Erakutsi kontaktu pribatuak Simple Dialer, Simple SMS Messenger eta Simple Calendar Pro-ri</string>
+    <string name="merge_duplicate_contacts">Batu bikoiztutako kontaktuak</string>
     <!-- Favorites -->
     <string name="no_favorites">Ez duzu oraindik gogokorik gehitu.</string>
-    <string name="toggle_favorite">Toggle favorite</string>
-
+    <string name="toggle_favorite">Aldatu gogokoa</string>
     <!-- Search -->
     <string name="search_contacts">Bilatu kontaktuak</string>
     <string name="search_favorites">Bilatu gogokoak</string>
-    <string name="search_groups">Search groups</string>
-
+    <string name="search_groups">Bilatu taldeak</string>
     <!-- Export / Import -->
     <string name="import_contacts">Inportatu kontaktuak</string>
     <string name="export_contacts">Esportatu kontaktuak</string>
     <string name="import_contacts_from_vcf">Inportatu .vcf fitxategiko kontaktuak</string>
     <string name="import_contacts_from_vcf_pro">Inportatu .vcf fitxategiko kontaktuak (Pro)</string>
     <string name="export_contacts_to_vcf">Esportatu kontaktua .vcf fitxategi batera</string>
-    <string name="target_contact_source">Target contact source</string>
-    <string name="include_contact_sources">Include contact sources</string>
+    <string name="target_contact_source">Hautatu kontaktuaren iturria</string>
+    <string name="include_contact_sources">Sartu kontaktuen iturriak</string>
     <string name="filename_without_vcf">Fitxategi izena (.vcf gabe)</string>
-
     <!-- Dialpad -->
-    <string name="dialpad">Dialpad</string>
+    <string name="dialpad">Markagailua</string>
     <string name="add_number_to_contact">Add number to contact</string>
-
     <!-- Visible fields -->
     <string name="prefix">Aurrizkia</string>
     <string name="suffix">Atzizkia</string>
@@ -86,20 +77,17 @@
     <string name="websites">Webguneak</string>
     <string name="groups">Taldeak</string>
     <string name="contact_source">Kontaktu jatorria</string>
-    <string name="instant_messaging">Instant messaging (IM)</string>
-    <string name="ringtone">Ringtone</string>
-
+    <string name="instant_messaging">Berehalako mezularitza (IM)</string>
+    <string name="ringtone">Dei-tonua</string>
     <!-- Confirmation dialog -->
-    <string name="delete_from_all_sources">The contact will be removed from all contact sources.</string>
-
+    <string name="delete_from_all_sources">Kontaktua kontaktu iturri guztietatik kenduko da.</string>
     <plurals name="delete_groups">
-        <item quantity="one">%d group</item>
-        <item quantity="other">%d groups</item>
+        <item quantity="one">talde %d</item>
+        <item quantity="other">%d talde</item>
     </plurals>
-
     <!-- FAQ -->
     <string name="faq_1_title">Aldatu ditzaket kontaktuetan ikusgarri dauden eremuak?</string>
-    <string name="faq_1_text">Bai, joan hona: Ezarpenak -> Kudeatu erakutsitako kontaktu eremuan. Hor hautatu dezakezu zein eremu nahi duzun ikusgarri izatea. Batzuk desaktibatuta daude era lehenetsian, berri batzuk aurkitu ditzakezu.</string>
+    <string name="faq_1_text">Bai, joan hona: Ezarpenak -&gt; Kudeatu erakutsitako kontaktu eremuan. Hor hautatu dezakezu zein eremu nahi duzun ikusgarri izatea. Batzuk desaktibatuta daude era lehenetsian, berri batzuk aurkitu ditzakezu.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

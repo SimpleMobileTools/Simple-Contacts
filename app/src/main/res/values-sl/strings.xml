@@ -51,9 +51,9 @@
     <string name="no_favorites">Videti je, da še niste dodali nobenega priljubljenega stika.</string>
     <string name="toggle_favorite">Preklopi priljubljene</string>
     <!-- Search -->
-    <string name="search_contacts">Iskanje stikov</string>
-    <string name="search_favorites">Iskanje priljubljenih</string>
-    <string name="search_groups">Iskanje skupin</string>
+    <string name="search_contacts">Poišči stike</string>
+    <string name="search_favorites">Išči priljubljene</string>
+    <string name="search_groups">Išči skupine</string>
     <!-- Export / Import -->
     <string name="import_contacts">Uvoz stikov</string>
     <string name="export_contacts">Izvoz stikov</string>
@@ -65,7 +65,7 @@
     <string name="filename_without_vcf">Ime datoteke (brez .ics)</string>
     <!-- Dialpad -->
     <string name="dialpad">Številčnica</string>
-    <string name="add_number_to_contact">Dodaj številko stiku</string>
+    <string name="add_number_to_contact">Dodaj številko k stiku</string>
     <!-- Visible fields -->
     <string name="prefix">Predpona</string>
     <string name="suffix">Pripona</string>
