@@ -74,30 +74,31 @@ class AutoCompleteTextViewAdapter(
     override fun getFilter() = object : Filter() {
         override fun performFiltering(constraint: CharSequence?): FilterResults {
             val filterResults = FilterResults()
-            if (constraint != null) {
-                resultList.clear()
-                if (autoComplete) {
-                    val searchString = constraint.toString().normalizeString()
-                    contacts.forEach {
-                        if (it.getNameToDisplay().contains(searchString, true)) {
-                            resultList.add(it)
-                        }
+            if (constraint != null && autoComplete) {
+                val searchString = constraint.toString().normalizeString()
+                val results = mutableListOf<Contact>()
+                contacts.forEach {
+                    if (it.getNameToDisplay().contains(searchString, true)) {
+                        results.add(it)
                     }
-
-                    resultList.sortWith(compareBy<Contact>
-                    { it.name.startsWith(searchString, true) }.thenBy
-                    { it.name.contains(searchString, true) })
-                    resultList.reverse()
-
-                    filterResults.values = resultList
-                    filterResults.count = resultList.size
                 }
+
+                results.sortWith(compareBy<Contact>
+                { it.name.startsWith(searchString, true) }.thenBy
+                { it.name.contains(searchString, true) })
+                results.reverse()
+
+                filterResults.values = results
+                filterResults.count = results.size
             }
             return filterResults
         }
 
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-            if ((results?.count ?: -1) > 0) {
+            if (results != null && results.count > 0) {
+                resultList.clear()
+                @Suppress("UNCHECKED_CAST")
+                resultList.addAll(results.values as List<Contact>)
                 notifyDataSetChanged()
             } else {
                 notifyDataSetInvalidated()
