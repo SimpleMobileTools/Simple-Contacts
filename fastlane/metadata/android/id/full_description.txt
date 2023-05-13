@@ -1,31 +1,31 @@
-Aplikasi kontak pintar nomor telepon ringan untuk mengelola kontak Anda yang disukai oleh jutaan orang. Kontak dapat disimpan di perangkat Anda hanya melalui aplikasi buku telepon kontak pintar ini dan juga dapat disinkronkan dengan berbagai cara. Buku telepon kontak pintar nomor telepon ini akan membantu Anda menyimpan kontak di satu tempat tanpa perlu repot mencadangkan kontak Anda karena cadangan kontak selalu sinkron dengan kontak yang Anda tambahkan. Aplikasi ini menyala di ruang dan efektif ketika Anda harus membuat cadangan kontak dan menyimpan buku telepon yang akan membantu Anda dalam menjaga kontak cerdas.
+Aplikasi kontak pintar yang ringan untuk mengelola kontak Anda yang dicintai oleh jutaan orang. Kontak dapat disimpan di perangkat Anda saja, atau dapat juga disinkronkan dengan berbagai cara. Buku telepon kontak pintar nomor telepon ini akan membantu Anda menyimpan kontak di satu tempat tanpa perlu repot mencadangkan kontak karena cadangan kontak selalu sinkron dengan kontak yang Anda tambahkan. Aplikasi ini hemat tempat dan efektif saat Anda harus membuat cadangan kontak dan menyimpan buku telepon yang akan membantu Anda dalam menyimpan kontak secara cerdas.
 
-Anda juga dapat menggunakannya untuk mengelola email dan acara pengguna. Ini memiliki kemampuan untuk mengurutkan / memfilter berdasarkan beberapa parameter, secara opsional menampilkan nama belakang sebagai nama depan. Dengan cara ini, Anda dapat mencapai pengambilan kontak cerdas dengan cara yang cepat. Anda tidak perlu menggulir ke bawah untuk menemukan kontak yang Anda butuhkan. Selain itu, setiap kali Anda menambahkan kontak baru, kontak tersebut secara otomatis akan membuat cadangan untuk memastikan integritas kontak.
+Anda juga dapat menggunakannya untuk mengelola email dan acara pengguna. Aplikasi ini memiliki kemampuan untuk mengurutkan / memfilter berdasarkan beberapa parameter, secara opsional menampilkan nama keluarga sebagai nama depan. Dengan cara ini, Anda dapat mencapai pengambilan kontak cerdas dengan cara yang cepat. Anda tidak perlu menggulir ke bawah untuk menemukan kontak yang dibutuhkan. Selain itu, setiap kali Anda menambahkan kontak baru, cadangan kontak secara otomatis memastikan integritas kontak. 
 
-Anda dapat menampilkan orang atau grup favorit Anda pada daftar terpisah. Grup dapat digunakan untuk mengirimkan email atau SMS batch, untuk menghemat waktu, Anda dapat mengganti namanya dengan mudah. Anda tidak perlu menyimpan buku telepon sekarang! Buat saja grup kontak cerdas dan kirim pesan ke orang yang Anda cintai.
+Anda dapat menampilkan orang atau grup favorit Anda pada daftar terpisah. Grup dapat digunakan untuk mengirimkan email atau SMS, untuk menghemat waktu, Anda dapat mengganti namanya dengan mudah. Anda tidak perlu menyimpan buku telepon sekarang! Cukup buat grup kontak cerdas dan kirim pesan ke orang yang Anda cintai.
 
-Ini berisi tombol praktis untuk menelepon, atau mengirim SMS ke kerabat Anda. Semua bidang yang terlihat dapat disesuaikan sesuai keinginan, Anda dapat dengan mudah menyembunyikan yang tidak digunakan. Fungsi pencarian akan mencari string yang diberikan di setiap bidang orang yang terlihat, untuk membuat Anda menemukan yang Anda inginkan dengan mudah.
+Di dalamnya terdapat tombol-tombol praktis untuk menelepon, atau mengirim pesan kepada kerabat Anda. Semua bidang yang terlihat dapat disesuaikan sesuai keinginan, Anda dapat dengan mudah menyembunyikan bidang yang tidak terpakai. Fungsi pencarian akan mencari string yang diberikan di setiap bidang orang yang terlihat, untuk membuat Anda menemukan orang yang diinginkan dengan mudah.
 
-Ini mendukung mengekspor / mengimpor kontak dalam format vCard ke file .vcf, untuk migrasi yang mudah atau mencadangkan data Anda. Cadangan kontak adalah hal penting dalam penyimpanan buku telepon. Aplikasi ini dilengkapi dengan teknologi pencadangan kontak pintar yang menyinkronkan kontak baru dan lama secara teratur untuk menyimpan cadangan nomor-nomor ini.
+Mendukung ekspor/impor kontak dalam format vCard ke file .vcf, untuk memudahkan migrasi atau mencadangkan data Anda. Pencadangan kontak adalah hal yang sangat penting dalam penyimpanan buku telepon. Aplikasi ini dilengkapi dengan teknologi pencadangan kontak pintar yang menyinkronkan kontak baru dan lama secara teratur untuk menyimpan cadangan nomor-nomor ini.
 
-Dengan pengelola nomor telepon yang modern dan stabil ini, Anda dapat melindunginya dengan tidak membagikannya dengan aplikasi lain, sehingga Anda dapat membuatnya tetap pribadi.
+Dengan pengelola nomor telepon yang modern dan stabil ini, Anda dapat melindunginya dengan tidak membaginya dengan aplikasi lain, sehingga Anda dapat menjaganya tetap pribadi.
 
 Seperti sumber kontak, Anda juga dapat dengan mudah mengubah nama, email, nomor telepon, alamat, organisasi, grup, dan banyak bidang lain yang dapat disesuaikan. Anda juga dapat menggunakannya untuk menyimpan acara kontak, seperti ulang tahun, hari jadi, atau acara khusus lainnya.
 
-Editor kontak sederhana ini memiliki banyak pengaturan praktis seperti menampilkan nomor telepon di layar utama, mengubah visibilitas thumbnail kontak, hanya menampilkan kontak dengan nomor telepon, menampilkan dialog konfirmasi panggilan sebelum memulai panggilan. Muncul dengan dialer cepat yang juga menggunakan huruf.
+Editor kontak yang sederhana ini memiliki banyak pengaturan praktis seperti menampilkan nomor telepon di layar utama, mengaktifkan visibilitas gambar mini kontak, hanya menampilkan kontak dengan nomor telepon, menampilkan dialog konfirmasi panggilan sebelum memulai panggilan. Aplikasi ini dilengkapi dengan pemanggil cepat yang juga menggunakan huruf.
 
-Untuk lebih meningkatkan pengalaman pengguna, Anda dapat menyesuaikan apa yang terjadi dengan mengklik kontak. Anda dapat memulai panggilan, pergi ke layar Lihat Detail, atau mengedit yang dipilih.
+Untuk lebih meningkatkan pengalaman pengguna, Anda dapat menyesuaikan apa yang terjadi saat mengklik kontak. Anda dapat memulai panggilan, membuka layar Lihat Detail, atau mengedit kontak yang dipilih.
 
-Untuk menghindari menunjukkan kontak yang mungkin tidak diinginkan, ia memiliki penggabungan entri duplikat bawaan yang kuat.
+Untuk menghindari menampilkan kontak yang mungkin tidak diinginkan, aplikasi ini memiliki penggabungan entri duplikat bawaan yang kuat.
 
-Muncul dengan desain material dan tema gelap secara default, memberikan pengalaman pengguna yang luar biasa untuk penggunaan yang mudah. Kurangnya akses internet memberi Anda lebih banyak privasi, keamanan, dan stabilitas daripada aplikasi lain.
+Aplikasi ini hadir dengan desain material dan tema gelap secara default, memberikan pengalaman pengguna yang luar biasa untuk penggunaan yang mudah. Kurangnya akses internet memberi Anda lebih banyak privasi, keamanan, dan stabilitas daripada aplikasi lain.
 
-Tidak mengandung iklan atau izin yang tidak perlu. Ini sepenuhnya open source, memberikan warna yang dapat.
+Tidak mengandung iklan atau izin yang tidak perlu. Ini sepenuhnya open source, menyediakan warna yang dapat disesuaikan.
 
-Lihat rangkaian lengkap Alat Sederhana di sini:
+Lihat rangkaian lengkap Simple Tools di sini:
 https://www.simplemobiletools.com
 
-Facebook:
+Facebook
 https://www.facebook.com/simplemobiletools
 
 Reddit:

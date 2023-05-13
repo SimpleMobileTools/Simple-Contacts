@@ -20,7 +20,7 @@ Per migliorare ulteriormente l'esperienza dell'utente, è possibile personalizza
 
 Per evitare di mostrare contatti potenzialmente indesiderati, ha incorporato un potente strumento per la fusione delle voci duplicate.
 
-Non contiene annunci o autorizzazioni non necessarie. È completamente opensource, fornisce colori personalizzabili.
+Non contiene annunci o autorizzazioni non necessarie. È completamente open source, fornisce colori personalizzabili.
 
 Scopri la suite completa di Simple Tools qui:
 https://www.simplemobiletools.com
