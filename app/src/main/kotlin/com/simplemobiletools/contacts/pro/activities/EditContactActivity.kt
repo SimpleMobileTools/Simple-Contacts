@@ -10,6 +10,7 @@ import android.media.AudioManager
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.provider.ContactsContract.CommonDataKinds
 import android.provider.ContactsContract.CommonDataKinds.*
 import android.provider.MediaStore
@@ -17,12 +18,10 @@ import android.telephony.PhoneNumberUtils
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.doAfterTextChanged
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
@@ -34,7 +33,9 @@ import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.commons.models.contacts.Email
 import com.simplemobiletools.commons.models.contacts.Event
 import com.simplemobiletools.commons.models.contacts.Organization
+import com.simplemobiletools.commons.views.MyAutoCompleteTextView
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.adapters.AutoCompleteTextViewAdapter
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.MyDatePickerDialog
@@ -58,6 +59,8 @@ class EditContactActivity : ContactActivity() {
     private val TAKE_PHOTO = 1
     private val CHOOSE_PHOTO = 2
     private val REMOVE_PHOTO = 3
+
+    private val AUTO_COMPLETE_DELAY = 5000L
 
     private var mLastSavePromptTS = 0L
     private var wasActivityInitialized = false
@@ -259,6 +262,11 @@ class EditContactActivity : ContactActivity() {
             setImageDrawable(getStarDrawable(contact!!.starred == 1))
             tag = contact!!.starred
             setOnLongClickListener { toast(R.string.toggle_favorite); true; }
+        }
+
+        val nameTextViews = arrayOf(contact_first_name, contact_middle_name, contact_surname).filter { it.isVisible() }
+        if (nameTextViews.isNotEmpty()) {
+            setupAutoComplete(nameTextViews)
         }
 
         updateTextColors(contact_scrollview)
@@ -1532,5 +1540,34 @@ class EditContactActivity : ContactActivity() {
         getString(R.string.icq) -> Im.PROTOCOL_ICQ
         getString(R.string.jabber) -> Im.PROTOCOL_JABBER
         else -> Im.PROTOCOL_CUSTOM
+    }
+
+    private fun setupAutoComplete(nameTextViews: List<MyAutoCompleteTextView>) {
+        ContactsHelper(this).getContacts { contacts ->
+            val adapter = AutoCompleteTextViewAdapter(this, contacts)
+            val handler = Handler(mainLooper)
+            nameTextViews.forEach { view ->
+                view.setAdapter(adapter)
+                view.setOnItemClickListener { _, _, position, _ ->
+                    val selectedContact = adapter.resultList[position]
+
+                    if (contact_first_name.isVisible()) {
+                        contact_first_name.setText(selectedContact.firstName)
+                    }
+                    if (contact_middle_name.isVisible()) {
+                        contact_middle_name.setText(selectedContact.middleName)
+                    }
+                    if (contact_surname.isVisible()) {
+                        contact_surname.setText(selectedContact.surname)
+                    }
+                }
+                view.doAfterTextChanged {
+                    handler.postDelayed({
+                        adapter.autoComplete = true
+                        adapter.filter.filter(it)
+                    }, AUTO_COMPLETE_DELAY)
+                }
+            }
+        }
     }
 }
