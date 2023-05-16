@@ -30,6 +30,7 @@ import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.shareContacts
 import com.simplemobiletools.commons.models.contacts.Contact
+import com.simplemobiletools.commons.models.contacts.ContactRelation
 
 abstract class ContactActivity : SimpleActivity() {
     protected val PICK_RINGTONE_INTENT_ID = 1500
@@ -211,6 +212,80 @@ abstract class ContactActivity : SimpleActivity() {
         Event.TYPE_BIRTHDAY -> R.string.birthday
         else -> R.string.other
     }
+
+    fun getRelationTypeText(type: Int, label: String): String {
+        return if (type == BaseTypes.TYPE_CUSTOM) {
+            label
+        } else {
+            getString(
+                when (type) {
+                    // Relation.TYPE_CUSTOM   -> R.string.custom
+                    Relation.TYPE_ASSISTANT   -> R.string.relation_assistant
+                    Relation.TYPE_BROTHER     -> R.string.relation_brother
+                    Relation.TYPE_CHILD       -> R.string.relation_child
+                    Relation.TYPE_DOMESTIC_PARTNER -> R.string.relation_domestic_partner
+                    Relation.TYPE_FATHER      -> R.string.relation_father
+                    Relation.TYPE_FRIEND      -> R.string.relation_friend
+                    Relation.TYPE_MANAGER     -> R.string.relation_manager
+                    Relation.TYPE_MOTHER      -> R.string.relation_mother
+                    Relation.TYPE_PARENT      -> R.string.relation_parent
+                    Relation.TYPE_PARTNER     -> R.string.relation_partner
+                    Relation.TYPE_REFERRED_BY -> R.string.relation_referred_by
+                    Relation.TYPE_RELATIVE    -> R.string.relation_relative
+                    Relation.TYPE_SISTER      -> R.string.relation_sister
+                    Relation.TYPE_SPOUSE      -> R.string.relation_spouse
+
+                    // Relation types defined in vCard 4.0
+                    ContactRelation.TYPE_CONTACT -> R.string.relation_contact
+                    ContactRelation.TYPE_ACQUAINTANCE -> R.string.relation_acquaintance
+                    // ContactRelation.TYPE_FRIEND -> R.string.relation_friend
+                    ContactRelation.TYPE_MET -> R.string.relation_met
+                    ContactRelation.TYPE_CO_WORKER -> R.string.relation_co_worker
+                    ContactRelation.TYPE_COLLEAGUE -> R.string.relation_colleague
+                    ContactRelation.TYPE_CO_RESIDENT -> R.string.relation_co_resident
+                    ContactRelation.TYPE_NEIGHBOR -> R.string.relation_neighbor
+                    // ContactRelation.TYPE_CHILD -> R.string.relation_child
+                    // ContactRelation.TYPE_PARENT -> R.string.relation_parent
+                    ContactRelation.TYPE_SIBLING -> R.string.relation_sibling
+                    // ContactRelation.TYPE_SPOUSE -> R.string.relation_spouse
+                    ContactRelation.TYPE_KIN -> R.string.relation_kin
+                    ContactRelation.TYPE_MUSE -> R.string.relation_muse
+                    ContactRelation.TYPE_CRUSH -> R.string.relation_crush
+                    ContactRelation.TYPE_DATE -> R.string.relation_date
+                    ContactRelation.TYPE_SWEETHEART -> R.string.relation_sweetheart
+                    ContactRelation.TYPE_ME -> R.string.relation_me
+                    ContactRelation.TYPE_AGENT -> R.string.relation_agent
+                    ContactRelation.TYPE_EMERGENCY -> R.string.relation_emergency
+
+                    ContactRelation.TYPE_SUPERIOR -> R.string.relation_superior
+                    ContactRelation.TYPE_SUBORDINATE -> R.string.relation_subordinate
+                    ContactRelation.TYPE_HUSBAND -> R.string.relation_husband
+                    ContactRelation.TYPE_WIFE -> R.string.relation_wife
+                    ContactRelation.TYPE_SON -> R.string.relation_son
+                    ContactRelation.TYPE_DAUGHTER -> R.string.relation_daughter
+                    ContactRelation.TYPE_GRANDPARENT -> R.string.relation_grandparent
+                    ContactRelation.TYPE_GRANDFATHER -> R.string.relation_grandfather
+                    ContactRelation.TYPE_GRANDMOTHER -> R.string.relation_grandmother
+                    ContactRelation.TYPE_GRANDCHILD -> R.string.relation_grandchild
+                    ContactRelation.TYPE_GRANDSON -> R.string.relation_grandson
+                    ContactRelation.TYPE_GRANDDAUGHTER -> R.string.relation_granddaughter
+                    ContactRelation.TYPE_UNCLE -> R.string.relation_uncle
+                    ContactRelation.TYPE_AUNT -> R.string.relation_aunt
+                    ContactRelation.TYPE_NEPHEW -> R.string.relation_nephew
+                    ContactRelation.TYPE_NIECE -> R.string.relation_niece
+                    ContactRelation.TYPE_FATHER_IN_LAW -> R.string.relation_father_in_law
+                    ContactRelation.TYPE_MOTHER_IN_LAW -> R.string.relation_mother_in_law
+                    ContactRelation.TYPE_SON_IN_LAW -> R.string.relation_son_in_law
+                    ContactRelation.TYPE_DAUGHTER_IN_LAW -> R.string.relation_daughter_in_law
+                    ContactRelation.TYPE_BROTHER_IN_LAW -> R.string.relation_brother_in_law
+                    ContactRelation.TYPE_SISTER_IN_LAW -> R.string.relation_sister_in_law
+
+                    else -> R.string.other
+                }
+            )
+        }
+    }
+
 
     private fun getBigLetterPlaceholder(name: String): Bitmap {
         val letter = name.getNameLetter()

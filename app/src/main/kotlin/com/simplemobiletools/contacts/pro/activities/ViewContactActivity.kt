@@ -36,6 +36,7 @@ import kotlinx.android.synthetic.main.item_view_event.view.*
 import kotlinx.android.synthetic.main.item_view_group.view.*
 import kotlinx.android.synthetic.main.item_view_im.view.*
 import kotlinx.android.synthetic.main.item_view_phone_number.view.*
+import kotlinx.android.synthetic.main.item_view_relation.view.*
 import kotlinx.android.synthetic.main.item_website.view.*
 
 class ViewContactActivity : ContactActivity() {
@@ -229,8 +230,11 @@ class ViewContactActivity : ContactActivity() {
 
         val textColor = getProperTextColor()
         arrayOf(
-            contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_ims_image, contact_events_image,
-            contact_source_image, contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image
+            contact_name_image, contact_numbers_image, contact_emails_image,
+            contact_addresses_image, contact_ims_image, contact_events_image,
+            contact_source_image, contact_notes_image, contact_ringtone_image,
+            contact_organization_image, contact_websites_image, contact_relations_image,
+            contact_groups_image
         ).forEach {
             it.applyColorFilter(textColor)
         }
@@ -276,6 +280,7 @@ class ViewContactActivity : ContactActivity() {
         setupIMs()
         setupEvents()
         setupWebsites()
+        setupRelations()
         setupGroups()
         setupContactSources()
         setupNotes()
@@ -567,6 +572,38 @@ class ViewContactActivity : ContactActivity() {
         } else {
             contact_websites_image.beGone()
             contact_websites_holder.beGone()
+        }
+    }
+
+    private fun setupRelations() {
+        var relations: ArrayList<ContactRelation> = contact!!.relations
+
+        if (mergeDuplicate) {
+            duplicateContacts.forEach {
+                relations.addAll(it.relations)
+            }
+        }
+
+        relations.sortBy { it.type }
+        fullContact!!.relations = relations
+
+        contact_relations_holder.removeAllViews()
+
+        if (relations.isNotEmpty() && ((showFields and SHOW_RELATIONS_FIELD) != 0)) {
+            relations.forEach {
+                val relation = it
+                layoutInflater.inflate(R.layout.item_view_relation, contact_relations_holder, false).apply {
+                    contact_relations_holder.addView(this)
+                    contact_relation.text = relation.name
+                    contact_relation_type.text = getRelationTypeText(relation.type, relation.label)
+                    copyOnLongClick(relation.name)
+                }
+            }
+            contact_relations_image.beVisible()
+            contact_relations_holder.beVisible()
+        } else {
+            contact_relations_image.beGone()
+            contact_relations_holder.beGone()
         }
     }
 

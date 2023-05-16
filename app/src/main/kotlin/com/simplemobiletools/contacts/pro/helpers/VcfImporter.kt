@@ -22,6 +22,7 @@ import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPOR
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPORT_PARTIAL
 import ezvcard.Ezvcard
 import ezvcard.VCard
+import ezvcard.parameter.RelatedType
 import ezvcard.util.PartialDate
 import java.io.File
 import java.io.FileOutputStream
@@ -161,6 +162,15 @@ class VcfImporter(val activity: SimpleActivity) {
 
                 val ringtone = null
 
+                val relations = ArrayList<ContactRelation>()
+                ezContact.relations.forEach {
+                    val name = it.text
+                    val type = getRelationTypeId(it.types.firstOrNull())
+                    if (name.isNotEmpty()) {
+                        relations.add(ContactRelation(name, type, ""))
+                    }
+                }
+
                 val IMs = ArrayList<IM>()
                 ezContact.impps.forEach {
                     val typeString = it.uri.scheme
@@ -184,7 +194,7 @@ class VcfImporter(val activity: SimpleActivity) {
 
                 val contact = Contact(
                     0, prefix, firstName, middleName, surname, suffix, nickname, photoUri, phoneNumbers, emails, addresses, events,
-                    targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, IMs, DEFAULT_MIMETYPE, ringtone
+                    targetContactSource, starred, contactId, thumbnailUri, photo, notes, groups, organization, websites, relations, IMs, DEFAULT_MIMETYPE, ringtone
                 )
 
                 // if there is no N and ORG fields at the given contact, only FN, treat it as an organization
@@ -285,11 +295,41 @@ class VcfImporter(val activity: SimpleActivity) {
         else -> CommonDataKinds.Email.TYPE_CUSTOM
     }
 
-    private fun getAddressTypeId(type: String) = when (type.toUpperCase()) {
+    private fun getAddressTypeId(type: String): Int = when (type.toUpperCase()) {
         HOME -> StructuredPostal.TYPE_HOME
         WORK -> StructuredPostal.TYPE_WORK
         OTHER -> StructuredPostal.TYPE_OTHER
         else -> StructuredPostal.TYPE_CUSTOM
+    }
+
+    private fun getRelationTypeId(type: RelatedType?): Int {
+        if (type == null) {
+            return (ContactRelation.TYPE_CONTACT)
+        } else {
+            return when (type) {
+                RelatedType.ACQUAINTANCE -> ContactRelation.TYPE_ACQUAINTANCE
+                RelatedType.AGENT -> ContactRelation.TYPE_AGENT
+                RelatedType.CHILD -> ContactRelation.TYPE_CHILD
+                RelatedType.CO_RESIDENT -> ContactRelation.TYPE_CO_RESIDENT
+                RelatedType.CO_WORKER -> ContactRelation.TYPE_CO_WORKER
+                RelatedType.COLLEAGUE -> ContactRelation.TYPE_COLLEAGUE
+                RelatedType.CONTACT -> ContactRelation.TYPE_CONTACT
+                RelatedType.CRUSH -> ContactRelation.TYPE_CRUSH
+                RelatedType.DATE -> ContactRelation.TYPE_DATE
+                RelatedType.EMERGENCY -> ContactRelation.TYPE_EMERGENCY
+                RelatedType.FRIEND -> ContactRelation.TYPE_FRIEND
+                RelatedType.ME -> ContactRelation.TYPE_ME
+                RelatedType.MET -> ContactRelation.TYPE_MET
+                RelatedType.MUSE -> ContactRelation.TYPE_MUSE
+                RelatedType.NEIGHBOR -> ContactRelation.TYPE_NEIGHBOR
+                RelatedType.PARENT -> ContactRelation.TYPE_PARENT
+                RelatedType.SIBLING -> ContactRelation.TYPE_SIBLING
+                RelatedType.SPOUSE -> ContactRelation.TYPE_SPOUSE
+                RelatedType.SWEETHEART -> ContactRelation.TYPE_SWEETHEART
+                RelatedType.PARENT -> ContactRelation.TYPE_PARENT
+                else -> ContactRelation.TYPE_CONTACT
+            }
+        }
     }
 
     private fun savePhoto(byteArray: ByteArray?): String {
