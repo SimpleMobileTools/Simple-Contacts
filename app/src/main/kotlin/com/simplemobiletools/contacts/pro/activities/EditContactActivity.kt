@@ -18,7 +18,10 @@ import android.telephony.PhoneNumberUtils
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doAfterTextChanged
@@ -40,16 +43,29 @@ import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.MyDatePickerDialog
 import com.simplemobiletools.contacts.pro.dialogs.SelectGroupsDialog
-import com.simplemobiletools.contacts.pro.extensions.*
-import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.extensions.getCachePhotoUri
+import com.simplemobiletools.contacts.pro.extensions.showContactSourcePicker
+import com.simplemobiletools.contacts.pro.helpers.ADD_NEW_CONTACT_NUMBER
+import com.simplemobiletools.contacts.pro.helpers.IS_FROM_SIMPLE_CONTACTS
+import com.simplemobiletools.contacts.pro.helpers.KEY_EMAIL
+import com.simplemobiletools.contacts.pro.helpers.KEY_NAME
 import kotlinx.android.synthetic.main.activity_edit_contact.*
-import kotlinx.android.synthetic.main.item_edit_address.view.*
-import kotlinx.android.synthetic.main.item_edit_email.view.*
-import kotlinx.android.synthetic.main.item_edit_group.view.*
-import kotlinx.android.synthetic.main.item_edit_im.view.*
-import kotlinx.android.synthetic.main.item_edit_phone_number.view.*
-import kotlinx.android.synthetic.main.item_edit_website.view.*
-import kotlinx.android.synthetic.main.item_event.view.*
+import kotlinx.android.synthetic.main.item_edit_address.view.contact_address
+import kotlinx.android.synthetic.main.item_edit_address.view.contact_address_type
+import kotlinx.android.synthetic.main.item_edit_email.view.contact_email
+import kotlinx.android.synthetic.main.item_edit_email.view.contact_email_type
+import kotlinx.android.synthetic.main.item_edit_group.view.contact_group
+import kotlinx.android.synthetic.main.item_edit_group.view.contact_group_remove
+import kotlinx.android.synthetic.main.item_edit_im.view.contact_im
+import kotlinx.android.synthetic.main.item_edit_im.view.contact_im_type
+import kotlinx.android.synthetic.main.item_edit_phone_number.view.contact_number
+import kotlinx.android.synthetic.main.item_edit_phone_number.view.contact_number_type
+import kotlinx.android.synthetic.main.item_edit_phone_number.view.default_toggle_icon
+import kotlinx.android.synthetic.main.item_edit_website.view.contact_website
+import kotlinx.android.synthetic.main.item_event.view.contact_event
+import kotlinx.android.synthetic.main.item_event.view.contact_event_remove
+import kotlinx.android.synthetic.main.item_event.view.contact_event_type
 
 class EditContactActivity : ContactActivity() {
     private val INTENT_TAKE_PHOTO = 1
@@ -87,12 +103,7 @@ class EditContactActivity : ContactActivity() {
         }
 
         contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        onApplyWindowInsets {
-            val insets = it.getInsets(WindowInsetsCompat.Type.ime())
-            contact_scrollview.run {
-                setPadding(paddingLeft, paddingTop, paddingRight, insets.bottom)
-            }
-        }
+        setupInsets()
         setupMenu()
 
         val action = intent.action
@@ -293,6 +304,17 @@ class EditContactActivity : ContactActivity() {
             }
         } else {
             super.onBackPressed()
+        }
+    }
+
+    private fun setupInsets() {
+        contact_wrapper.setOnApplyWindowInsetsListener { _, insets ->
+            val windowInsets = WindowInsetsCompat.toWindowInsetsCompat(insets)
+            val imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
+            contact_scrollview.run {
+                setPadding(paddingLeft, paddingTop, paddingRight, imeInsets.bottom)
+            }
+            insets
         }
     }
 
