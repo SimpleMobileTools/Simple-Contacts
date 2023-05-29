@@ -21,7 +21,7 @@
     <string name="target_contact_source">Nguồn liên hệ mục tiêu</string>
     <string name="include_contact_sources">Bao gồm các nguồn liên hệ</string>
     <string name="filename_without_vcf">Tên tệp (không có .vcf)</string>
-    <string name="dialpad">Bàn phím quay số</string>
+    <string name="dialpad">Dialpad</string>
     <string name="app_name">Danh bạ Đơn giản</string>
     <string name="app_launcher_name">Liên lạc</string>
     <string name="address">Địa chỉ</string>
