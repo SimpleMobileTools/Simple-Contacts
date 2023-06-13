@@ -51,9 +51,9 @@
     <string name="no_favorites">Det ser ud til, at du ikke har tilføjet nogen favoritkontakter endnu.</string>
     <string name="toggle_favorite">Slå favorit til/fra</string>
     <!-- Search -->
-    <string name="search_contacts">Søg kontakter</string>
-    <string name="search_favorites">Søg favoritter</string>
-    <string name="search_groups">Søg grupper</string>
+    <string name="search_contacts">Søg i kontakter</string>
+    <string name="search_favorites">Søg blandt favoritter</string>
+    <string name="search_groups">Søg blandt grupper</string>
     <!-- Export / Import -->
     <string name="import_contacts">Importér kontakter</string>
     <string name="export_contacts">Eksportér kontakter</string>
