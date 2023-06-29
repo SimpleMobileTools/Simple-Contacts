@@ -36,6 +36,7 @@ class VcfExporter {
         outputStream: OutputStream?,
         contacts: ArrayList<Contact>,
         showExportingToast: Boolean,
+        version: VCardVersion = VCardVersion.V4_0,
         callback: (result: ExportResult) -> Unit
     ) {
         try {
@@ -164,7 +165,7 @@ class VcfExporter {
                 contactsExported++
             }
 
-            Ezvcard.write(cards).version(VCardVersion.V4_0).go(outputStream)
+            Ezvcard.write(cards).version(version).go(outputStream)
         } catch (e: Exception) {
             activity.showErrorToast(e)
         }
