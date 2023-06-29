@@ -16,6 +16,7 @@ import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.activities.ViewContactActivity
 import com.simplemobiletools.contacts.pro.helpers.DEFAULT_FILE_NAME
 import com.simplemobiletools.contacts.pro.helpers.VcfExporter
+import ezvcard.VCardVersion
 
 fun SimpleActivity.startCallIntent(recipient: String) {
     handlePermission(PERMISSION_CALL_PHONE) {
@@ -63,7 +64,7 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
     }
 
     getFileOutputStream(file.toFileDirItem(this), true) {
-        VcfExporter().exportContacts(this, it, contacts, false) {
+        VcfExporter().exportContacts(this, it, contacts, false, version = VCardVersion.V3_0) {
             if (it == VcfExporter.ExportResult.EXPORT_OK) {
                 sharePathIntent(file.absolutePath, BuildConfig.APPLICATION_ID)
             } else {
