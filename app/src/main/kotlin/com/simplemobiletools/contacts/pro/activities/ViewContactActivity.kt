@@ -236,7 +236,7 @@ class ViewContactActivity : ContactActivity() {
         }
 
         contact_send_sms.setOnClickListener { trySendSMS() }
-        contact_start_call.setOnClickListener { tryStartCall(contact!!) }
+        contact_start_call.setOnClickListener { tryInitiateCall(contact!!) { startCallIntent(it) } }
         contact_send_email.setOnClickListener { trySendEmail() }
 
         contact_send_sms.setOnLongClickListener { toast(R.string.send_sms); true; }
