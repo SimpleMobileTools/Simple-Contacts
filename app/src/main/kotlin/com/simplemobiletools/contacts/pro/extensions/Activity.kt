@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.commons.dialogs.CallConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
@@ -24,37 +23,6 @@ fun SimpleActivity.startCallIntent(recipient: String) {
         Intent(action).apply {
             data = Uri.fromParts("tel", recipient, null)
             launchActivityIntent(this)
-        }
-    }
-}
-
-fun SimpleActivity.tryStartCall(contact: Contact) {
-    if (config.showCallConfirmation) {
-        CallConfirmationDialog(this, contact.getNameToDisplay()) {
-            startCall(contact)
-        }
-    } else {
-        startCall(contact)
-    }
-}
-
-fun SimpleActivity.startCall(contact: Contact) {
-    val numbers = contact.phoneNumbers
-    if (numbers.size == 1) {
-        startCallIntent(numbers.first().value)
-    } else if (numbers.size > 1) {
-        val primaryNumber = contact.phoneNumbers.find { it.isPrimary }
-        if (primaryNumber != null) {
-            startCallIntent(primaryNumber.value)
-        } else {
-            val items = ArrayList<RadioItem>()
-            numbers.forEachIndexed { index, phoneNumber ->
-                items.add(RadioItem(index, "${phoneNumber.value} (${getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)})", phoneNumber.value))
-            }
-
-            RadioGroupDialog(this, items) {
-                startCallIntent(it as String)
-            }
         }
     }
 }
@@ -116,7 +84,7 @@ fun SimpleActivity.handleGenericContactClick(contact: Contact) {
 fun SimpleActivity.callContact(contact: Contact) {
     hideKeyboard()
     if (contact.phoneNumbers.isNotEmpty()) {
-        tryStartCall(contact)
+        tryInitiateCall(contact) { startCallIntent(it) }
     } else {
         toast(R.string.no_phone_number_found)
     }
