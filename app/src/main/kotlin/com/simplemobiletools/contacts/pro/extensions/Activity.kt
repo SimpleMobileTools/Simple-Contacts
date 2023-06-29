@@ -64,6 +64,8 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
     }
 
     getFileOutputStream(file.toFileDirItem(this), true) {
+
+        // whatsApp does not support vCard version 4.0 yet
         VcfExporter().exportContacts(this, it, contacts, false, version = VCardVersion.V3_0) {
             if (it == VcfExporter.ExportResult.EXPORT_OK) {
                 sharePathIntent(file.absolutePath, BuildConfig.APPLICATION_ID)

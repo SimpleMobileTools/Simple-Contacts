@@ -165,7 +165,6 @@ class VcfExporter {
                 contactsExported++
             }
 
-            // whatsapp does not support version 4.0 yet
             Ezvcard.write(cards).version(version).go(outputStream)
         } catch (e: Exception) {
             activity.showErrorToast(e)
