@@ -13,9 +13,9 @@ import android.view.Menu
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -28,12 +28,11 @@ import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
-import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.interfaces.ItemMoveCallback
 import com.simplemobiletools.commons.interfaces.ItemTouchHelperContract
 import com.simplemobiletools.commons.interfaces.StartReorderDragListener
 import com.simplemobiletools.commons.models.RadioItem
-import com.simplemobiletools.commons.models.contacts.Contact
+import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
@@ -43,7 +42,6 @@ import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.interfaces.RemoveFromGroupListener
-import com.simplemobiletools.commons.models.contacts.*
 import java.util.*
 
 class ContactsAdapter(
@@ -371,7 +369,8 @@ class ContactsAdapter(
 
     private fun setupView(view: View, contact: Contact, holder: ViewHolder) {
         view.apply {
-            findViewById<FrameLayout>(R.id.item_contact_frame)?.isSelected = selectedKeys.contains(contact.id)
+            setupViewBackground(activity)
+            findViewById<ConstraintLayout>(R.id.item_contact_frame)?.isSelected = selectedKeys.contains(contact.id)
             val fullName = contact.getNameToDisplay()
             findViewById<TextView>(R.id.item_contact_name).text = if (textToHighlight.isEmpty()) fullName else {
                 if (fullName.contains(textToHighlight, true)) {
