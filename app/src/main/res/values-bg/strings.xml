@@ -51,9 +51,9 @@
     <string name="no_favorites">Все още нямате добавени контакти към любимите.</string>
     <string name="toggle_favorite">Превключване на любимите</string>
     <!-- Search -->
-    <string name="search_contacts">Търсене в контактите</string>
-    <string name="search_favorites">Търсене в любимите</string>
-    <string name="search_groups">Търсене в групите</string>
+    <string name="search_contacts">Търсене на контакти</string>
+    <string name="search_favorites">Търсене на любими</string>
+    <string name="search_groups">Търсене на групи</string>
     <!-- Export / Import -->
     <string name="import_contacts">Внасяне на контакти</string>
     <string name="export_contacts">Изнасяне на контакти</string>
