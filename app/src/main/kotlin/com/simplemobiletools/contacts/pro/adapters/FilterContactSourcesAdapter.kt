@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_filter_contact_source.view.*
 class FilterContactSourcesAdapter(
     val activity: SimpleActivity,
     private val contactSources: List<ContactSource>,
-    private val displayContactSources: ArrayList<String>
+    private val displayContactSources: List<String>
 ) : RecyclerView.Adapter<FilterContactSourcesAdapter.ViewHolder>() {
 
     private val selectedKeys = HashSet<Int>()
