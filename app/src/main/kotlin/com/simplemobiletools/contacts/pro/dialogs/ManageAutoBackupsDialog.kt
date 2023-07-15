@@ -12,7 +12,6 @@ import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.extensions.value
 import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import com.simplemobiletools.commons.models.contacts.ContactSource
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.extensions.config
@@ -26,21 +25,9 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
     private val view = (activity.layoutInflater.inflate(R.layout.dialog_manage_automatic_backups, null) as ViewGroup)
     private val config = activity.config
     private var backupFolder = config.autoBackupFolder
-    private var selectedContactTypes = HashSet<ContactSource>()
-
-    private fun setContactTypes() {
-        ContactsHelper(activity).getContactSources { contactSources ->
-            val availableContactSources = contactSources.toSet()
-            if (config.autoBackupContactSources.isEmpty()) {
-                selectedContactTypes = contactSources.toHashSet()
-            } else {
-                selectedContactTypes = availableContactSources.filter { it.name in config.autoBackupContactSources }.toHashSet()
-            }
-        }
-    }
+    private var selectedContactSources = config.autoBackupContactSources
 
     init {
-        setContactTypes()
         view.apply {
             backup_events_folder.setText(activity.humanizePath(backupFolder))
             val filename = config.autoBackupFilename.ifEmpty {
@@ -63,8 +50,8 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
 
             manage_event_types_holder.setOnClickListener {
                 activity.runOnUiThread {
-                    SelectContactTypesDialog(activity, selectedContactTypes.map { it.name }) {
-                        selectedContactTypes = it
+                    SelectContactTypesDialog(activity, selectedContactSources.toList()) {
+                        selectedContactSources = it.map { it.name }.toSet()
                         config.autoBackupContactSources = it.map { it.name }.toSet()
                     }
                 }
@@ -86,7 +73,7 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
                                     return@setOnClickListener
                                 }
 
-                                if (selectedContactTypes.isEmpty()) {
+                                if (selectedContactSources.isEmpty()) {
                                     activity.toast(R.string.no_entries_for_exporting)
                                     return@setOnClickListener
                                 }
@@ -95,9 +82,6 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
                                     config.apply {
                                         autoBackupFolder = backupFolder
                                         autoBackupFilename = filename
-                                        if (autoBackupContactSources != selectedContactTypes) {
-                                            autoBackupContactSources = selectedContactTypes.map { it.type }.toSet()
-                                        }
                                     }
 
                                     activity.runOnUiThread {
