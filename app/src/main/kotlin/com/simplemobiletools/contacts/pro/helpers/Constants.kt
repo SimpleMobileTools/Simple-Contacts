@@ -17,11 +17,6 @@ const val AVOID_CHANGING_VISIBILITY_TAG = "avoid_changing_visibility_tag"
 const val AUTOMATIC_BACKUP_REQUEST_CODE = 10001
 const val AUTO_BACKUP_INTERVAL_IN_DAYS = 1
 
-const val AUTO_BACKUP = "auto_backup"
-const val AUTO_BACKUP_FOLDER = "auto_backup_folder"
-const val AUTO_BACKUP_FILENAME = "auto_backup_filename"
-const val LAST_AUTO_BACKUP_TIME = "last_auto_backup_time"
-
 const val AUTO_BACKUP_CONTACT_SOURCES = "auto_backup_contact_sources"
 
 // extras used at third party intents
