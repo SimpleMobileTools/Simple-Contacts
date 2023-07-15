@@ -105,7 +105,7 @@ fun Context.backupContacts() {
                 mkdirs()
             }
 
-            var exportFile = File(outputFolder, "$filename.json")
+            var exportFile = File(outputFolder, "$filename.vcf")
             var exportFilePath = exportFile.absolutePath
             val outputStream = try {
                 if (hasProperStoredFirstParentUri(exportFilePath)) {
@@ -118,7 +118,7 @@ fun Context.backupContacts() {
                     var num = 0
                     while (getDoesFilePathExist(exportFilePath) && !exportFile.canWrite()) {
                         num++
-                        exportFile = File(outputFolder, "${filename}_${num}.json")
+                        exportFile = File(outputFolder, "${filename}_${num}.vcf")
                         exportFilePath = exportFile.absolutePath
                     }
                     FileOutputStream(exportFile)
