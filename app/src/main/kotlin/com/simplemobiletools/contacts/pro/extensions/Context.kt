@@ -105,7 +105,7 @@ fun Context.backupContacts() {
                 mkdirs()
             }
 
-            var exportFile = File(outputFolder, "$filename.ics")
+            var exportFile = File(outputFolder, "$filename.json")
             var exportFilePath = exportFile.absolutePath
             val outputStream = try {
                 if (hasProperStoredFirstParentUri(exportFilePath)) {
