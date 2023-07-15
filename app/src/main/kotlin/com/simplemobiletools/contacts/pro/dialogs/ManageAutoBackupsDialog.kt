@@ -1,69 +1,78 @@
 package com.simplemobiletools.contacts.pro.dialogs
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
-import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
-import com.simplemobiletools.commons.extensions.hideKeyboard
-import com.simplemobiletools.commons.extensions.humanizePath
-import com.simplemobiletools.commons.extensions.isAValidFilename
-import com.simplemobiletools.commons.extensions.setupDialogStuff
-import com.simplemobiletools.commons.extensions.toast
-import com.simplemobiletools.commons.extensions.value
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.models.contacts.Contact
+import com.simplemobiletools.commons.models.contacts.ContactSource
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
+import com.simplemobiletools.contacts.pro.adapters.FilterContactSourcesAdapter
 import com.simplemobiletools.contacts.pro.extensions.config
-import kotlinx.android.synthetic.main.dialog_manage_automatic_backups.view.backup_events_filename
-import kotlinx.android.synthetic.main.dialog_manage_automatic_backups.view.backup_events_filename_hint
-import kotlinx.android.synthetic.main.dialog_manage_automatic_backups.view.backup_events_folder
-import kotlinx.android.synthetic.main.dialog_manage_automatic_backups.view.manage_event_types_holder
+import kotlinx.android.synthetic.main.dialog_manage_automatic_backups.view.backup_contact_sources_list
+import kotlinx.android.synthetic.main.dialog_manage_automatic_backups.view.backup_contacts_filename
+import kotlinx.android.synthetic.main.dialog_manage_automatic_backups.view.backup_contacts_filename_hint
+import kotlinx.android.synthetic.main.dialog_manage_automatic_backups.view.backup_contacts_folder
 import java.io.File
 
 class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: () -> Unit) {
     private val view = (activity.layoutInflater.inflate(R.layout.dialog_manage_automatic_backups, null) as ViewGroup)
     private val config = activity.config
     private var backupFolder = config.autoBackupFolder
+    private var contactSources = mutableListOf<ContactSource>()
     private var selectedContactSources = config.autoBackupContactSources
+    private var contacts = ArrayList<Contact>()
+    private var isContactSourcesReady = false
+    private var isContactsReady = false
 
     init {
         view.apply {
-            backup_events_folder.setText(activity.humanizePath(backupFolder))
+            backup_contacts_folder.setText(activity.humanizePath(backupFolder))
             val filename = config.autoBackupFilename.ifEmpty {
                 "${activity.getString(R.string.contacts)}_%Y%M%D_%h%m%s"
             }
 
-            backup_events_filename.setText(filename)
-            backup_events_filename_hint.setEndIconOnClickListener {
+            backup_contacts_filename.setText(filename)
+            backup_contacts_filename_hint.setEndIconOnClickListener {
                 DateTimePatternInfoDialog(activity)
             }
 
-            backup_events_filename_hint.setEndIconOnLongClickListener {
+            backup_contacts_filename_hint.setEndIconOnLongClickListener {
                 DateTimePatternInfoDialog(activity)
                 true
             }
 
-            backup_events_folder.setOnClickListener {
+            backup_contacts_folder.setOnClickListener {
                 selectBackupFolder()
             }
 
-            manage_event_types_holder.setOnClickListener {
-                activity.runOnUiThread {
-                    SelectContactTypesDialog(activity, selectedContactSources.toList()) {
-                        selectedContactSources = it.map { it.name }.toSet()
-                        config.autoBackupContactSources = it.map { it.name }.toSet()
-                    }
-                }
+            ContactsHelper(activity).getContactSources { sources ->
+                contactSources = sources
+                isContactSourcesReady = true
+                processDataIfReady(this)
+            }
+
+            ContactsHelper(activity).getContacts(getAll = true) { receivedContacts ->
+                contacts = receivedContacts
+                isContactsReady = true
+                processDataIfReady(this)
             }
         }
+
         activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok, null)
             .setNegativeButton(R.string.cancel, null)
             .apply {
                 activity.setupDialogStuff(view, this, R.string.manage_automatic_backups) { dialog ->
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                        val filename = view.backup_events_filename.value
+                        if (view.backup_contact_sources_list.adapter == null) {
+                            return@setOnClickListener
+                        }
+                        val filename = view.backup_contacts_filename.value
                         when {
                             filename.isEmpty() -> activity.toast(R.string.empty_name)
                             filename.isAValidFilename() -> {
@@ -73,10 +82,13 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
                                     return@setOnClickListener
                                 }
 
-                                if (selectedContactSources.isEmpty()) {
+                                val selectedSources = (view.backup_contact_sources_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
+                                if (selectedSources.isEmpty()) {
                                     activity.toast(R.string.no_entries_for_exporting)
                                     return@setOnClickListener
                                 }
+
+                                config.autoBackupContactSources = selectedSources.map { it.name }.toSet()
 
                                 ensureBackgroundThread {
                                     config.apply {
@@ -99,8 +111,27 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
             }
     }
 
+    private fun processDataIfReady(view: View) {
+        if (!isContactSourcesReady || !isContactsReady) {
+            return
+        }
+
+        val contactSourcesWithCount = mutableListOf<ContactSource>()
+        for (source in contactSources) {
+            val count = contacts.filter { it.source == source.name }.count()
+            contactSourcesWithCount.add(source.copy(count = count))
+        }
+
+        contactSources.clear()
+        contactSources.addAll(contactSourcesWithCount)
+
+        activity.runOnUiThread {
+            view.backup_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, contactSourcesWithCount, selectedContactSources.toList())
+        }
+    }
+
     private fun selectBackupFolder() {
-        activity.hideKeyboard(view.backup_events_filename)
+        activity.hideKeyboard(view.backup_contacts_filename)
         FilePickerDialog(activity, backupFolder, false, showFAB = true) { path ->
             activity.handleSAFDialog(path) { grantedSAF ->
                 if (!grantedSAF) {
@@ -113,7 +144,7 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
                     }
 
                     backupFolder = path
-                    view.backup_events_folder.setText(activity.humanizePath(path))
+                    view.backup_contacts_folder.setText(activity.humanizePath(path))
                 }
             }
         }

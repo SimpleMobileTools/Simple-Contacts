@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/export_events_scrollview"
+    android:id="@+id/backup_contacts_scrollview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/backup_events_holder"
+        android:id="@+id/backup_contacts_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="@dimen/activity_margin">
 
         <com.simplemobiletools.commons.views.MyTextInputLayout
-            android:id="@+id/backup_events_folder_hint"
+            android:id="@+id/backup_contacts_folder_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_margin"
@@ -22,7 +22,7 @@
             android:hint="@string/folder">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/backup_events_folder"
+                android:id="@+id/backup_contacts_folder"
                 style="@style/UnclickableEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -30,7 +30,7 @@
         </com.simplemobiletools.commons.views.MyTextInputLayout>
 
         <com.simplemobiletools.commons.views.MyTextInputLayout
-            android:id="@+id/backup_events_filename_hint"
+            android:id="@+id/backup_contacts_filename_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_margin"
@@ -40,7 +40,7 @@
             app:endIconMode="custom">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/backup_events_filename"
+                android:id="@+id/backup_contacts_filename"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
@@ -51,34 +51,33 @@
         </com.simplemobiletools.commons.views.MyTextInputLayout>
 
         <ImageView
-            android:id="@+id/select_event_types_divider"
+            android:id="@+id/backup_contacts_divider"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_height"
+            android:layout_height="1px"
             android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
             android:background="@color/divider_grey"
             android:importantForAccessibility="no" />
 
-        <RelativeLayout
-            android:id="@+id/manage_event_types_holder"
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/backup_contacts_pick_sources_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:text="@string/include_contact_sources"
+            android:textSize="@dimen/smaller_text_size" />
+
+        <com.simplemobiletools.commons.views.MyRecyclerView
+            android:id="@+id/backup_contact_sources_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:paddingVertical="@dimen/medium_margin"
-            android:paddingStart="@dimen/normal_margin"
-            android:paddingEnd="@dimen/activity_margin">
-
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/manage_event_types"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:clickable="false"
-                android:paddingHorizontal="@dimen/medium_margin"
-                android:paddingVertical="@dimen/normal_margin"
-                android:text="@string/include_contact_sources"
-                android:textSize="@dimen/normal_text_size" />
-
-        </RelativeLayout>
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingTop="@dimen/medium_margin"
+            app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
 
     </LinearLayout>
 </ScrollView>
