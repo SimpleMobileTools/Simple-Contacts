@@ -3,10 +3,19 @@ package com.simplemobiletools.contacts.pro.fragments
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
+import com.simplemobiletools.commons.extensions.areSystemAnimationsEnabled
 import com.simplemobiletools.commons.extensions.hideKeyboard
+import com.simplemobiletools.commons.models.contacts.Contact
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
 import com.simplemobiletools.contacts.pro.activities.InsertOrEditContactActivity
 import com.simplemobiletools.contacts.pro.activities.MainActivity
+import com.simplemobiletools.contacts.pro.activities.SimpleActivity
+import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
+import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.helpers.LOCATION_CONTACTS_TAB
+import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
+import kotlinx.android.synthetic.main.fragment_layout.view.fragment_list
+import java.util.ArrayList
 
 class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun fabClicked() {
@@ -21,6 +30,41 @@ class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPag
             (activity as MainActivity).showFilterDialog()
         } else if (activity is InsertOrEditContactActivity) {
             (activity as InsertOrEditContactActivity).showFilterDialog()
+        }
+    }
+
+    fun setupContactsAdapter(contacts: List<Contact>) {
+        setupViewVisibility(contacts.isNotEmpty())
+        val currAdapter = fragment_list.adapter
+
+        if (currAdapter == null || forceListRedraw) {
+            forceListRedraw = false
+            val location = LOCATION_CONTACTS_TAB
+
+            ContactsAdapter(
+                activity = activity as SimpleActivity,
+                contactItems = contacts.toMutableList(),
+                refreshListener = activity as RefreshContactsListener,
+                location = location,
+                removeListener = null,
+                recyclerView = fragment_list,
+                enableDrag = false,
+            ) {
+                (activity as RefreshContactsListener).contactClicked(it as Contact)
+            }.apply {
+                fragment_list.adapter = this
+            }
+
+            if (context.areSystemAnimationsEnabled) {
+                fragment_list.scheduleLayoutAnimation()
+            }
+        } else {
+            (currAdapter as ContactsAdapter).apply {
+                startNameWithSurname = context.config.startNameWithSurname
+                showPhoneNumbers = context.config.showPhoneNumbers
+                showContactThumbnails = context.config.showContactThumbnails
+                updateItems(contacts)
+            }
         }
     }
 }

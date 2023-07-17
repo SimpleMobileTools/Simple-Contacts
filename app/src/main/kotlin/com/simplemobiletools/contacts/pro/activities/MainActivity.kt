@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.databases.ContactsDatabase
+import com.simplemobiletools.commons.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
@@ -198,6 +199,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
             findItem(R.id.dialpad).isVisible = !config.showDialpadButton
+            findItem(R.id.change_view_type).isVisible = currentFragment == favorites_fragment
             findItem(R.id.more_apps_from_us).isVisible = !resources.getBoolean(R.bool.hide_google_relations)
         }
     }
@@ -225,6 +227,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 R.id.import_contacts -> tryImportContacts()
                 R.id.export_contacts -> tryExportContacts()
                 R.id.more_apps_from_us -> launchMoreAppsFromUsIntent()
+                R.id.change_view_type -> changeViewType()
                 R.id.settings -> launchSettings()
                 R.id.about -> launchAbout()
                 else -> return@setOnMenuItemClickListener false
@@ -659,6 +662,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             add(Release(47, R.string.release_47))
             add(Release(56, R.string.release_56))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
+        }
+    }
+
+    private fun changeViewType() {
+        ChangeViewTypeDialog(this) {
+            favorites_fragment?.updateFavoritesColumnCount()
         }
     }
 }

@@ -10,16 +10,18 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.models.contacts.Contact
+import com.simplemobiletools.commons.models.contacts.Group
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.dialogs.SelectContactsDialog
-import com.simplemobiletools.contacts.pro.extensions.*
+import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
 import com.simplemobiletools.contacts.pro.helpers.GROUP
 import com.simplemobiletools.contacts.pro.helpers.LOCATION_GROUP_CONTACTS
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.interfaces.RemoveFromGroupListener
-import com.simplemobiletools.commons.models.contacts.*
 import kotlinx.android.synthetic.main.activity_group_contacts.*
+import kotlinx.android.synthetic.main.fragment_layout.fragment_list
 
 class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, RefreshContactsListener {
     private var allContacts = ArrayList<Contact>()
@@ -146,7 +148,14 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     private fun updateContacts(contacts: ArrayList<Contact>) {
         val currAdapter = group_contacts_list.adapter
         if (currAdapter == null) {
-            ContactsAdapter(this, contacts, this, LOCATION_GROUP_CONTACTS, this, group_contacts_list) {
+            ContactsAdapter(
+                this,
+                contactItems = contacts,
+                recyclerView = fragment_list,
+                location = LOCATION_GROUP_CONTACTS,
+                removeListener = this,
+                refreshListener = this
+            ) {
                 contactClicked(it as Contact)
             }.apply {
                 group_contacts_list.adapter = this
