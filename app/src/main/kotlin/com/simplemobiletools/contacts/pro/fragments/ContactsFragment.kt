@@ -15,7 +15,6 @@ import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.LOCATION_CONTACTS_TAB
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import kotlinx.android.synthetic.main.fragment_layout.view.fragment_list
-import java.util.ArrayList
 
 class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun fabClicked() {
