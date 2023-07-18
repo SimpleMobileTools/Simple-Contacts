@@ -20,8 +20,9 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/change_view_type"
+        android:icon="@drawable/ic_change_view_vector"
         android:title="@string/change_view_type"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/import_contacts"
         android:showAsAction="never"
