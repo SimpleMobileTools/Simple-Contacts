@@ -686,6 +686,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     private fun changeViewType() {
         ChangeViewTypeDialog(this) {
+            refreshMenuItems()
             favorites_fragment?.updateFavoritesColumnCount()
         }
     }
