@@ -81,7 +81,7 @@ class ContactsAdapter(
         }
 
         if (enableDrag) {
-            touchHelper = ItemTouchHelper(ItemMoveCallback(this))
+            touchHelper = ItemTouchHelper(ItemMoveCallback(this, viewType == VIEW_TYPE_GRID))
             touchHelper!!.attachToRecyclerView(recyclerView)
 
             startReorderDragListener = object : StartReorderDragListener {
