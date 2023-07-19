@@ -18,9 +18,11 @@ import com.simplemobiletools.commons.databases.ContactsDatabase
 import com.simplemobiletools.commons.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
+import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
+import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.commons.models.contacts.Contact
 import com.simplemobiletools.contacts.pro.BuildConfig
@@ -200,6 +202,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
             findItem(R.id.dialpad).isVisible = !config.showDialpadButton
             findItem(R.id.change_view_type).isVisible = currentFragment == favorites_fragment
+            findItem(R.id.column_count).isVisible = currentFragment == favorites_fragment && config.viewType == VIEW_TYPE_GRID
             findItem(R.id.more_apps_from_us).isVisible = !resources.getBoolean(R.bool.hide_google_relations)
         }
     }
@@ -228,11 +231,27 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 R.id.export_contacts -> tryExportContacts()
                 R.id.more_apps_from_us -> launchMoreAppsFromUsIntent()
                 R.id.change_view_type -> changeViewType()
+                R.id.column_count -> changeColumnCount()
                 R.id.settings -> launchSettings()
                 R.id.about -> launchAbout()
                 else -> return@setOnMenuItemClickListener false
             }
             return@setOnMenuItemClickListener true
+        }
+    }
+
+    private fun changeColumnCount() {
+        val items = (CONTACTS_GRID_MIN_COLUMNS_COUNT..CONTACTS_GRID_MAX_COLUMNS_COUNT).map {
+            RadioItem(it, resources.getQuantityString(R.plurals.column_counts, it, it))
+        }
+
+        val currentColumnCount = config.contactsGridColumnCount
+        RadioGroupDialog(this, ArrayList(items), currentColumnCount) {
+            val newColumnCount = it as Int
+            if (currentColumnCount != newColumnCount) {
+                config.contactsGridColumnCount = newColumnCount
+                favorites_fragment.updateFavoritesColumnCount()
+            }
         }
     }
 
