@@ -78,7 +78,7 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
                 }
 
                 onColumnCountListener = { newColumnCount ->
-                    context.config.contactsGridColumnCnt = newColumnCount
+                    context.config.contactsGridColumnCount = newColumnCount
                 }
             }
 
@@ -97,7 +97,7 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
     }
 
     private fun setFavoritesViewType(viewType: Int) {
-        val spanCount = context.config.contactsGridColumnCnt
+        val spanCount = context.config.contactsGridColumnCount
 
         val layoutManager = if (viewType == VIEW_TYPE_GRID) {
             favorites_fragment.letter_fastscroller.beGone()
