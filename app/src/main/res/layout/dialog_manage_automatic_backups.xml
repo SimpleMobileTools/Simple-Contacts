@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_margin"
             android:layout_marginEnd="@dimen/activity_margin"
-            android:hint="@string/filename_without_json"
+            android:hint="@string/filename_without_vcf"
             app:endIconDrawable="@drawable/ic_info_vector"
             app:endIconMode="custom">
 

@@ -76,7 +76,7 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
                         when {
                             filename.isEmpty() -> activity.toast(R.string.empty_name)
                             filename.isAValidFilename() -> {
-                                val file = File(backupFolder, "$filename.ics")
+                                val file = File(backupFolder, "$filename.vcf")
                                 if (file.exists() && !file.canWrite()) {
                                     activity.toast(R.string.name_taken)
                                     return@setOnClickListener
