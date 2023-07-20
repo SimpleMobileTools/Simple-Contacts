@@ -6,11 +6,15 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.dialogs.ManageAutoBackupsDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleTabsDialog
+import com.simplemobiletools.contacts.pro.extensions.cancelScheduledAutomaticBackup
 import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.extensions.scheduleNextAutomaticBackup
 import kotlinx.android.synthetic.main.activity_settings.*
-import java.util.*
+import java.util.Locale
+import kotlin.system.exitProcess
 
 class SettingsActivity : SimpleActivity() {
 
@@ -42,9 +46,17 @@ class SettingsActivity : SimpleActivity() {
         setupShowPrivateContacts()
         setupOnContactClick()
         setupDefaultTab()
+        setupEnableAutomaticBackups()
+        setupManageAutomaticBackups()
         updateTextColors(settings_holder)
 
-        arrayOf(settings_color_customization_section_label, settings_general_settings_label, settings_main_screen_label, settings_list_view_label).forEach {
+        arrayOf(
+            settings_color_customization_section_label,
+            settings_general_settings_label,
+            settings_main_screen_label,
+            settings_list_view_label,
+            settings_backups_label
+        ).forEach {
             it.setTextColor(getProperPrimaryColor())
         }
     }
@@ -116,7 +128,7 @@ class SettingsActivity : SimpleActivity() {
         settings_use_english_holder.setOnClickListener {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
-            System.exit(0)
+            exitProcess(0)
         }
     }
 
@@ -214,5 +226,44 @@ class SettingsActivity : SimpleActivity() {
             settings_merge_duplicate_contacts.toggle()
             config.mergeDuplicateContacts = settings_merge_duplicate_contacts.isChecked
         }
+    }
+
+    private fun setupEnableAutomaticBackups() {
+        settings_backups_label.beVisibleIf(isRPlus())
+        settings_enable_automatic_backups_holder.beVisibleIf(isRPlus())
+        settings_enable_automatic_backups.isChecked = config.autoBackup
+        settings_enable_automatic_backups_holder.setOnClickListener {
+            val wasBackupDisabled = !config.autoBackup
+            if (wasBackupDisabled) {
+                ManageAutoBackupsDialog(
+                    activity = this,
+                    onSuccess = {
+                        enableOrDisableAutomaticBackups(true)
+                        scheduleNextAutomaticBackup()
+                    }
+                )
+            } else {
+                cancelScheduledAutomaticBackup()
+                enableOrDisableAutomaticBackups(false)
+            }
+        }
+    }
+
+    private fun setupManageAutomaticBackups() {
+        settings_manage_automatic_backups_holder.beVisibleIf(isRPlus() && config.autoBackup)
+        settings_manage_automatic_backups_holder.setOnClickListener {
+            ManageAutoBackupsDialog(
+                activity = this,
+                onSuccess = {
+                    scheduleNextAutomaticBackup()
+                }
+            )
+        }
+    }
+
+    private fun enableOrDisableAutomaticBackups(enable: Boolean) {
+        config.autoBackup = enable
+        settings_enable_automatic_backups.isChecked = enable
+        settings_manage_automatic_backups_holder.beVisibleIf(enable)
     }
 }

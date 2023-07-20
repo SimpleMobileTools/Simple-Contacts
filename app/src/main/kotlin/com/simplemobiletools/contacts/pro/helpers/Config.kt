@@ -12,4 +12,9 @@ class Config(context: Context) : BaseConfig(context) {
     var showTabs: Int
         get() = prefs.getInt(SHOW_TABS, ALL_TABS_MASK)
         set(showTabs) = prefs.edit().putInt(SHOW_TABS, showTabs).apply()
+
+    var autoBackupContactSources: Set<String>
+        get() = prefs.getStringSet(AUTO_BACKUP_CONTACT_SOURCES, setOf())!!
+        set(autoBackupContactSources) = prefs.edit().remove(AUTO_BACKUP_CONTACT_SOURCES).putStringSet(AUTO_BACKUP_CONTACT_SOURCES, autoBackupContactSources).apply()
+
 }
