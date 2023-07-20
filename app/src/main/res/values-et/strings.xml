@@ -27,7 +27,7 @@
     <string name="create_new_group">Loo uus rühm</string>
     <string name="remove_from_group">Eemalda rühmast</string>
     <string name="no_group_participants">See rühm on tühi</string>
-    <string name="add_contacts">Kontaktide lisamine</string>
+    <string name="add_contacts">Lisa kontakte</string>
     <string name="no_group_created">Selles nutiseadmes puuduvad kontaktide rühmad</string>
     <string name="create_group">Loo rühm</string>
     <string name="add_to_group">Lisa rühma</string>
@@ -39,7 +39,7 @@
     <string name="show_phone_numbers">Näita telefoninumbreid</string>
     <string name="show_contact_thumbnails">Näita kontaktide pisipilte</string>
     <string name="show_dialpad_button">Näita põhivaates telefoniklahvistikku</string>
-    <string name="on_contact_click">Kontaktil klõpsake</string>
+    <string name="on_contact_click">Kontaktil klõpsamisel</string>
     <string name="call_contact">Helista</string>
     <string name="view_contact">Vaata kontaktandmeid</string>
     <string name="manage_shown_contact_fields">Halda kuvatavaid kontaktkirje välju</string>
@@ -55,8 +55,8 @@
     <string name="search_favorites">Otsi lemmikute hulgast</string>
     <string name="search_groups">Otsi rühmi</string>
     <!-- Export / Import -->
-    <string name="import_contacts">Kontaktide importimine</string>
-    <string name="export_contacts">Kontaktide eksportimine</string>
+    <string name="import_contacts">Impordi kontakte</string>
+    <string name="export_contacts">Ekspordi kontakte</string>
     <string name="import_contacts_from_vcf">Impordi kontatid .vcf failist</string>
     <string name="import_contacts_from_vcf_pro">Impordi kontatid .vcf failist (Pro)</string>
     <string name="export_contacts_to_vcf">Ekspordi kontatid .vcf faili</string>
@@ -65,7 +65,7 @@
     <string name="filename_without_vcf">Faili nimi (ilma .vcf laiendita)</string>
     <!-- Dialpad -->
     <string name="dialpad">Numbriklahvid</string>
-    <string name="add_number_to_contact">Lisa kontaktnumber</string>
+    <string name="add_number_to_contact">Lisa kontaktile telefoninumber</string>
     <!-- Visible fields -->
     <string name="prefix">Eesliide</string>
     <string name="suffix">Järelliide</string>
