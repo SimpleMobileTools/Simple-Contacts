@@ -116,9 +116,13 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
             return
         }
 
+        if (selectedContactSources.isEmpty()) {
+            selectedContactSources = contactSources.map { it.name }.toSet()
+        }
+
         val contactSourcesWithCount = mutableListOf<ContactSource>()
         for (source in contactSources) {
-            val count = contacts.filter { it.source == source.name }.count()
+            val count = contacts.count { it.source == source.name }
             contactSourcesWithCount.add(source.copy(count = count))
         }
 
