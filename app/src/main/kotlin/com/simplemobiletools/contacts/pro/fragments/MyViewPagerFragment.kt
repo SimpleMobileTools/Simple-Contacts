@@ -34,7 +34,6 @@ import java.util.Locale
 abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
     protected var activity: SimpleActivity? = null
     protected var allContacts = ArrayList<Contact>()
-    protected var favouriteContacts = listOf<Contact>()
 
     private var lastHashCode = 0
     private var contactsIgnoringSearch = listOf<Contact>()
@@ -121,11 +120,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
 
         allContacts = contacts
-        favouriteContacts = contacts.filter { it.starred == 1 }.sortFavourites(activity!!.config.isCustomOrderSelected)
         val filtered = when (this) {
             is GroupsFragment -> contacts
             is FavoritesFragment -> {
-                favouriteContacts
+                contacts.filter { it.starred == 1 }.sortFavourites(activity!!.config.isCustomOrderSelected)
             }
 
             else -> {
@@ -139,7 +137,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             currentHash += it.getHashWithoutPrivatePhoto()
         }
 
-        if (currentHash != lastHashCode || skipHashComparing || filtered.size == 0) {
+        if (currentHash != lastHashCode || skipHashComparing || filtered.isEmpty()) {
             skipHashComparing = false
             lastHashCode = currentHash
             activity?.runOnUiThread {

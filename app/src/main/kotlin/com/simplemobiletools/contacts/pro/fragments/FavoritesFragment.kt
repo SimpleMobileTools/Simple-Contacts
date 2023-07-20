@@ -24,6 +24,8 @@ import kotlinx.android.synthetic.main.fragment_favorites.view.favorites_fragment
 import kotlinx.android.synthetic.main.fragment_layout.view.fragment_list
 
 class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
+    private var favouriteContacts = listOf<Contact>()
+
     override fun fabClicked() {
         finishActMode()
         showAddFavoritesDialog()
@@ -45,7 +47,8 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
     }
 
     fun setupContactsFavoritesAdapter(contacts: List<Contact>) {
-        setupViewVisibility(contacts.isNotEmpty())
+        favouriteContacts = contacts
+        setupViewVisibility(favouriteContacts.isNotEmpty())
         val currAdapter = fragment_list.adapter
 
         val viewType = context.config.viewType
@@ -57,7 +60,7 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
 
             ContactsAdapter(
                 activity = activity as SimpleActivity,
-                contactItems = contacts.toMutableList(),
+                contactItems = favouriteContacts.toMutableList(),
                 refreshListener = activity as RefreshContactsListener,
                 location = location,
                 viewType = viewType,
@@ -91,9 +94,13 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
                 showPhoneNumbers = context.config.showPhoneNumbers
                 showContactThumbnails = context.config.showContactThumbnails
                 this.viewType = viewType
-                updateItems(contacts)
+                updateItems(favouriteContacts)
             }
         }
+    }
+
+    fun updateFavouritesAdapter() {
+        setupContactsFavoritesAdapter(favouriteContacts)
     }
 
     private fun setFavoritesViewType(viewType: Int) {
@@ -109,8 +116,11 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
         fragment_list.layoutManager = layoutManager
     }
 
-    fun updateFavoritesColumnCount() {
-        setupContactsFavoritesAdapter(favouriteContacts)
+    fun columnCountChanged() {
+        (fragment_list.layoutManager as MyGridLayoutManager).spanCount = context!!.config.contactsGridColumnCount
+        fragment_list?.adapter?.apply {
+            notifyItemRangeChanged(0, favouriteContacts.size)
+        }
     }
 
     private fun saveCustomOrderToPrefs(items: List<Contact>) {

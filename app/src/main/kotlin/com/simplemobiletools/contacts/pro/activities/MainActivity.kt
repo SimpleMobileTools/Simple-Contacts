@@ -240,6 +240,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
+    private fun changeViewType() {
+        ChangeViewTypeDialog(this) {
+            refreshMenuItems()
+            favorites_fragment?.updateFavouritesAdapter()
+        }
+    }
+
     private fun changeColumnCount() {
         val items = (CONTACTS_GRID_MIN_COLUMNS_COUNT..CONTACTS_GRID_MAX_COLUMNS_COUNT).map {
             RadioItem(it, resources.getQuantityString(R.plurals.column_counts, it, it))
@@ -250,7 +257,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             val newColumnCount = it as Int
             if (currentColumnCount != newColumnCount) {
                 config.contactsGridColumnCount = newColumnCount
-                favorites_fragment.updateFavoritesColumnCount()
+                favorites_fragment?.columnCountChanged()
             }
         }
     }
@@ -681,13 +688,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             add(Release(47, R.string.release_47))
             add(Release(56, R.string.release_56))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
-        }
-    }
-
-    private fun changeViewType() {
-        ChangeViewTypeDialog(this) {
-            refreshMenuItems()
-            favorites_fragment?.updateFavoritesColumnCount()
         }
     }
 }
