@@ -13,7 +13,7 @@ import com.simplemobiletools.contacts.pro.extensions.cancelScheduledAutomaticBac
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.scheduleNextAutomaticBackup
 import kotlinx.android.synthetic.main.activity_settings.*
-import java.util.*
+import java.util.Locale
 import kotlin.system.exitProcess
 
 class SettingsActivity : SimpleActivity() {
@@ -50,7 +50,13 @@ class SettingsActivity : SimpleActivity() {
         setupManageAutomaticBackups()
         updateTextColors(settings_holder)
 
-        arrayOf(settings_color_customization_section_label, settings_general_settings_label, settings_main_screen_label, settings_list_view_label).forEach {
+        arrayOf(
+            settings_color_customization_section_label,
+            settings_general_settings_label,
+            settings_main_screen_label,
+            settings_list_view_label,
+            settings_backups_label
+        ).forEach {
             it.setTextColor(getProperPrimaryColor())
         }
     }
