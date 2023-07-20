@@ -5,11 +5,12 @@ import android.content.Intent
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.google.gson.Gson
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.models.contacts.Contact
+import com.simplemobiletools.commons.models.contacts.Group
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.GroupContactsActivity
 import com.simplemobiletools.contacts.pro.activities.InsertOrEditContactActivity
@@ -17,29 +18,23 @@ import com.simplemobiletools.contacts.pro.activities.MainActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.adapters.GroupsAdapter
-import com.simplemobiletools.commons.helpers.Converters
-import com.simplemobiletools.contacts.pro.helpers.*
-import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
-import com.simplemobiletools.commons.models.contacts.*
-import com.simplemobiletools.commons.views.MyGridLayoutManager
-import com.simplemobiletools.commons.views.MyLinearLayoutManager
 import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.helpers.AVOID_CHANGING_TEXT_TAG
+import com.simplemobiletools.contacts.pro.helpers.AVOID_CHANGING_VISIBILITY_TAG
+import com.simplemobiletools.contacts.pro.helpers.Config
+import com.simplemobiletools.contacts.pro.helpers.GROUP
+import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import kotlinx.android.synthetic.main.dialog_select_contact.view.letter_fastscroller
 import kotlinx.android.synthetic.main.fragment_contacts.view.contacts_fragment
 import kotlinx.android.synthetic.main.fragment_favorites.view.favorites_fragment
 import kotlinx.android.synthetic.main.fragment_layout.view.*
-import kotlinx.android.synthetic.main.fragment_layout.view.fragment_fab
-import kotlinx.android.synthetic.main.fragment_layout.view.fragment_list
-import kotlinx.android.synthetic.main.fragment_layout.view.fragment_placeholder
-import kotlinx.android.synthetic.main.fragment_layout.view.fragment_placeholder_2
-import kotlinx.android.synthetic.main.fragment_layout.view.fragment_wrapper
-import kotlinx.android.synthetic.main.fragment_letters_layout.view.*
-import java.util.*
-import kotlin.collections.ArrayList
+import kotlinx.android.synthetic.main.fragment_letters_layout.view.letter_fastscroller_thumb
+import java.util.Locale
 
 abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
     protected var activity: SimpleActivity? = null
     protected var allContacts = ArrayList<Contact>()
+    protected var favouriteContacts = listOf<Contact>()
 
     private var lastHashCode = 0
     private var contactsIgnoringSearch = listOf<Contact>()
@@ -68,11 +63,13 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 this is ContactsFragment -> {
                     fragment_fab.contentDescription = activity.getString(R.string.create_new_contact)
                 }
+
                 this is FavoritesFragment -> {
                     fragment_placeholder.text = activity.getString(R.string.no_favorites)
                     fragment_placeholder_2.text = activity.getString(R.string.add_favorites)
                     fragment_fab.contentDescription = activity.getString(R.string.add_favorites)
                 }
+
                 this is GroupsFragment -> {
                     fragment_placeholder.text = activity.getString(R.string.no_group_created)
                     fragment_placeholder_2.text = activity.getString(R.string.create_group)
@@ -119,26 +116,21 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
 
         if (config.lastUsedContactSource.isEmpty()) {
-            val grouped = contacts.asSequence().groupBy { it.source }.maxWithOrNull(compareBy { it.value.size })
+            val grouped = contacts.groupBy { it.source }.maxWithOrNull(compareBy { it.value.size })
             config.lastUsedContactSource = grouped?.key ?: ""
         }
 
         allContacts = contacts
-
-        val filtered = when {
-            this is GroupsFragment -> contacts
-            this is FavoritesFragment -> {
-                val favorites = contacts.filter { it.starred == 1 } as ArrayList<Contact>
-
-                if (activity!!.config.isCustomOrderSelected) {
-                    sortByCustomOrder(favorites)
-                } else {
-                    favorites
-                }
+        favouriteContacts = contacts.filter { it.starred == 1 }.sortFavourites(activity!!.config.isCustomOrderSelected)
+        val filtered = when (this) {
+            is GroupsFragment -> contacts
+            is FavoritesFragment -> {
+                favouriteContacts
             }
+
             else -> {
                 val contactSources = activity!!.getVisibleContactSources()
-                contacts.filter { contactSources.contains(it.source) } as ArrayList<Contact>
+                contacts.filter { contactSources.contains(it.source) }
             }
         }
 
@@ -163,33 +155,38 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
-    private fun sortByCustomOrder(starred: List<Contact>): ArrayList<Contact> {
-        val favoritesOrder = activity!!.config.favoritesContactsOrder
+    private fun List<Contact>.sortFavourites(shouldSort: Boolean = true): List<Contact> {
+        return if (shouldSort) {
+            val favoritesOrder = activity!!.config.favoritesContactsOrder
 
-        if (favoritesOrder.isEmpty()) {
-            return ArrayList(starred)
+            if (favoritesOrder.isEmpty()) {
+                return this
+            }
+
+            val orderList = Converters().jsonToStringList(favoritesOrder)
+            val map = orderList.withIndex().associate { it.value to it.index }
+
+            return sortedBy { map[it.id.toString()] }
+        } else {
+            this
         }
-
-        val orderList = Converters().jsonToStringList(favoritesOrder)
-        val map = orderList.withIndex().associate { it.value to it.index }
-        val sorted = starred.sortedBy { map[it.id.toString()] }
-
-        return ArrayList(sorted)
     }
 
-    private fun setupContacts(contacts: ArrayList<Contact>) {
+    private fun setupContacts(contacts: List<Contact>) {
         when (this) {
             is GroupsFragment -> {
                 setupGroupsAdapter(contacts) {
                     groupsIgnoringSearch = (fragment_list?.adapter as? GroupsAdapter)?.groups ?: ArrayList()
                 }
             }
+
             is FavoritesFragment -> {
                 favorites_fragment.setupContactsFavoritesAdapter(contacts)
                 contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: listOf()
                 setupLetterFastscroller(contacts)
                 letter_fastscroller_thumb.setupWithFastScroller(letter_fastscroller)
             }
+
             else -> {
                 contacts_fragment.setupContactsAdapter(contacts)
                 contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
@@ -199,7 +196,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         }
     }
 
-    private fun setupGroupsAdapter(contacts: ArrayList<Contact>, callback: () -> Unit) {
+    private fun setupGroupsAdapter(contacts: List<Contact>, callback: () -> Unit) {
         ContactsHelper(activity!!).getStoredGroups {
             var storedGroups = it
             contacts.forEach {

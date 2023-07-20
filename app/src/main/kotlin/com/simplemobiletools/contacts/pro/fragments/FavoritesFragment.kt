@@ -44,7 +44,7 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
         }
     }
 
-    fun setupContactsFavoritesAdapter(contacts: ArrayList<Contact>) {
+    fun setupContactsFavoritesAdapter(contacts: List<Contact>) {
         setupViewVisibility(contacts.isNotEmpty())
         val currAdapter = fragment_list.adapter
 
@@ -57,7 +57,7 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
 
             ContactsAdapter(
                 activity = activity as SimpleActivity,
-                contactItems = contacts,
+                contactItems = contacts.toMutableList(),
                 refreshListener = activity as RefreshContactsListener,
                 location = location,
                 viewType = viewType,
@@ -110,7 +110,7 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
     }
 
     fun updateFavoritesColumnCount() {
-        setupContactsFavoritesAdapter(allContacts)
+        setupContactsFavoritesAdapter(favouriteContacts)
     }
 
     private fun saveCustomOrderToPrefs(items: List<Contact>) {
