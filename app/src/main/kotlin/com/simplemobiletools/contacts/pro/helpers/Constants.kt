@@ -8,8 +8,6 @@ import org.joda.time.DateTime
 const val GROUP = "group"
 const val IS_FROM_SIMPLE_CONTACTS = "is_from_simple_contacts"
 const val ADD_NEW_CONTACT_NUMBER = "add_new_contact_number"
-const val FIRST_CONTACT_ID = 1000000
-const val FIRST_GROUP_ID = 10000L
 const val DEFAULT_FILE_NAME = "contacts.vcf"
 const val AVOID_CHANGING_TEXT_TAG = "avoid_changing_text_tag"
 const val AVOID_CHANGING_VISIBILITY_TAG = "avoid_changing_visibility_tag"
