@@ -154,19 +154,16 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     private fun List<Contact>.sortFavourites(shouldSort: Boolean = true): List<Contact> {
-        return if (shouldSort) {
-            val favoritesOrder = activity!!.config.favoritesContactsOrder
+        val favoritesOrder = activity?.config?.favoritesContactsOrder
+        if (!shouldSort || favoritesOrder.isNullOrEmpty()) {
+            return this
+        }
 
-            if (favoritesOrder.isEmpty()) {
-                return this
-            }
+        val orderList = Converters().jsonToStringList(favoritesOrder)
+        val map = orderList.withIndex().associate { it.value to it.index }
 
-            val orderList = Converters().jsonToStringList(favoritesOrder)
-            val map = orderList.withIndex().associate { it.value to it.index }
-
-            return sortedBy { map[it.id.toString()] }
-        } else {
-            this
+        return sortedBy { contact ->
+            map[contact.id.toString()]
         }
     }
 
