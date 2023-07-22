@@ -248,12 +248,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun changeColumnCount() {
-        val items = (1..CONTACTS_GRID_MAX_COLUMNS_COUNT).map {
-            RadioItem(it, resources.getQuantityString(R.plurals.column_counts, it, it))
+        val items = ArrayList<RadioItem>()
+        for (i in 1..CONTACTS_GRID_MAX_COLUMNS_COUNT) {
+            items.add(RadioItem(i, resources.getQuantityString(R.plurals.column_counts, i, i)))
         }
 
         val currentColumnCount = config.contactsGridColumnCount
-        RadioGroupDialog(this, ArrayList(items), currentColumnCount) {
+        RadioGroupDialog(this, items, currentColumnCount) {
             val newColumnCount = it as Int
             if (currentColumnCount != newColumnCount) {
                 config.contactsGridColumnCount = newColumnCount
