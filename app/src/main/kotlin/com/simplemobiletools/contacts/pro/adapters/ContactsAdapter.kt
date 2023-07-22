@@ -496,7 +496,7 @@ class ContactsAdapter(
         val layoutManager = recyclerView.layoutManager
         if (layoutManager is GridLayoutManager) {
             val currentSpanCount = layoutManager.spanCount
-            val newSpanCount = (currentSpanCount - 1).coerceIn(CONTACTS_GRID_MIN_COLUMNS_COUNT, CONTACTS_GRID_MAX_COLUMNS_COUNT)
+            val newSpanCount = (currentSpanCount - 1).coerceIn(1, CONTACTS_GRID_MAX_COLUMNS_COUNT)
             layoutManager.spanCount = newSpanCount
             recyclerView.requestLayout()
             onColumnCountListener(newSpanCount)
@@ -507,7 +507,7 @@ class ContactsAdapter(
         val layoutManager = recyclerView.layoutManager
         if (layoutManager is GridLayoutManager) {
             val currentSpanCount = layoutManager.spanCount
-            val newSpanCount = (currentSpanCount + 1).coerceIn(CONTACTS_GRID_MIN_COLUMNS_COUNT, CONTACTS_GRID_MAX_COLUMNS_COUNT)
+            val newSpanCount = (currentSpanCount + 1).coerceIn(1, CONTACTS_GRID_MAX_COLUMNS_COUNT)
             layoutManager.spanCount = newSpanCount
             recyclerView.requestLayout()
             onColumnCountListener(newSpanCount)
