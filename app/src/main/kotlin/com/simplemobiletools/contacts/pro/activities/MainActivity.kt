@@ -248,7 +248,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     }
 
     private fun changeColumnCount() {
-        val items = (CONTACTS_GRID_MIN_COLUMNS_COUNT..CONTACTS_GRID_MAX_COLUMNS_COUNT).map {
+        val items = (1..CONTACTS_GRID_MAX_COLUMNS_COUNT).map {
             RadioItem(it, resources.getQuantityString(R.plurals.column_counts, it, it))
         }
 
