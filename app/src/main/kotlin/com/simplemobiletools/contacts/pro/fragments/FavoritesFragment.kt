@@ -6,12 +6,14 @@ import com.google.gson.Gson
 import com.simplemobiletools.commons.extensions.areSystemAnimationsEnabled
 import com.simplemobiletools.commons.extensions.beGone
 import com.simplemobiletools.commons.extensions.beVisible
+import com.simplemobiletools.commons.helpers.CONTACTS_GRID_MAX_COLUMNS_COUNT
 import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.TAB_FAVORITES
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
 import com.simplemobiletools.commons.models.contacts.Contact
 import com.simplemobiletools.commons.views.MyGridLayoutManager
 import com.simplemobiletools.commons.views.MyLinearLayoutManager
+import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.activities.MainActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
@@ -25,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_layout.view.fragment_list
 
 class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     private var favouriteContacts = listOf<Contact>()
+    private var zoomListener: MyRecyclerView.MyZoomListener? = null
 
     override fun fabClicked() {
         finishActMode()
@@ -34,6 +37,8 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
     override fun placeholderClicked() {
         showAddFavoritesDialog()
     }
+
+    private fun getRecyclerAdapter() = fragment_list.adapter as? ContactsAdapter
 
     private fun showAddFavoritesDialog() {
         SelectContactsDialog(activity!!, allContacts, true, false) { addedContacts, removedContacts ->
@@ -49,10 +54,11 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
     fun setupContactsFavoritesAdapter(contacts: List<Contact>) {
         favouriteContacts = contacts
         setupViewVisibility(favouriteContacts.isNotEmpty())
-        val currAdapter = fragment_list.adapter
+        val currAdapter = getRecyclerAdapter()
 
         val viewType = context.config.viewType
         setFavoritesViewType(viewType)
+        initZoomListener(viewType)
 
         if (currAdapter == null || forceListRedraw) {
             forceListRedraw = false
@@ -71,6 +77,7 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
                 (activity as RefreshContactsListener).contactClicked(it as Contact)
             }.apply {
                 fragment_list.adapter = this
+                setupZoomListener(zoomListener)
                 onDragEndListener = {
                     val adapter = fragment_list?.adapter
                     if (adapter is ContactsAdapter) {
@@ -79,17 +86,13 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
                         setupLetterFastscroller(items)
                     }
                 }
-
-                onColumnCountListener = { newColumnCount ->
-                    context.config.contactsGridColumnCount = newColumnCount
-                }
             }
 
             if (context.areSystemAnimationsEnabled) {
                 fragment_list.scheduleLayoutAnimation()
             }
         } else {
-            (currAdapter as ContactsAdapter).apply {
+            currAdapter.apply {
                 startNameWithSurname = context.config.startNameWithSurname
                 showPhoneNumbers = context.config.showPhoneNumbers
                 showContactThumbnails = context.config.showContactThumbnails
@@ -106,19 +109,55 @@ class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPa
     private fun setFavoritesViewType(viewType: Int) {
         val spanCount = context.config.contactsGridColumnCount
 
-        val layoutManager = if (viewType == VIEW_TYPE_GRID) {
+        if (viewType == VIEW_TYPE_GRID) {
             favorites_fragment.letter_fastscroller.beGone()
-            MyGridLayoutManager(context, spanCount)
+            fragment_list.layoutManager = MyGridLayoutManager(context, spanCount)
         } else {
             favorites_fragment.letter_fastscroller.beVisible()
-            MyLinearLayoutManager(context)
+            fragment_list.layoutManager = MyLinearLayoutManager(context)
         }
-        fragment_list.layoutManager = layoutManager
+    }
+
+    private fun initZoomListener(viewType: Int) {
+        if (viewType == VIEW_TYPE_GRID) {
+            val layoutManager = fragment_list.layoutManager as MyGridLayoutManager
+            zoomListener = object : MyRecyclerView.MyZoomListener {
+                override fun zoomIn() {
+                    if (layoutManager.spanCount > 1) {
+                        reduceColumnCount()
+                        getRecyclerAdapter()?.finishActMode()
+                    }
+                }
+
+                override fun zoomOut() {
+                    if (layoutManager.spanCount < CONTACTS_GRID_MAX_COLUMNS_COUNT) {
+                        increaseColumnCount()
+                        getRecyclerAdapter()?.finishActMode()
+                    }
+                }
+            }
+        } else {
+            zoomListener = null
+        }
+    }
+
+    private fun increaseColumnCount() {
+        if (context.config.viewType == VIEW_TYPE_GRID) {
+            context!!.config.contactsGridColumnCount += 1
+            columnCountChanged()
+        }
+    }
+
+    private fun reduceColumnCount() {
+        if (context.config.viewType == VIEW_TYPE_GRID) {
+            context!!.config.contactsGridColumnCount -= 1
+            columnCountChanged()
+        }
     }
 
     fun columnCountChanged() {
-        (fragment_list.layoutManager as MyGridLayoutManager).spanCount = context!!.config.contactsGridColumnCount
-        fragment_list?.adapter?.apply {
+        (fragment_list.layoutManager as? MyGridLayoutManager)?.spanCount = context!!.config.contactsGridColumnCount
+        getRecyclerAdapter()?.apply {
             notifyItemRangeChanged(0, favouriteContacts.size)
         }
     }
