@@ -1,7 +1,9 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
@@ -63,7 +65,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.SimpleMobileTools:Simple-Commons:35d685c042'
+    implementation 'com.github.SimpleMobileTools:Simple-Commons:91763fe00f'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
     implementation 'com.github.tibbi:IndicatorFastScroll:4524cd0b61'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'

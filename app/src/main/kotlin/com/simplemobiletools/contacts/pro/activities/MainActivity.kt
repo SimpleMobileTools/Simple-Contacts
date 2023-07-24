@@ -15,11 +15,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.databases.ContactsDatabase
+import com.simplemobiletools.commons.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
+import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
+import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.commons.models.contacts.Contact
 import com.simplemobiletools.contacts.pro.BuildConfig
@@ -172,9 +175,9 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
-        if (requestCode == PICK_IMPORT_SOURCE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
+        if (requestCode == PICK_IMPORT_SOURCE_INTENT && resultCode == Activity.RESULT_OK && resultData?.data != null) {
             tryImportContactsFromFile(resultData.data!!)
-        } else if (requestCode == PICK_EXPORT_FILE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
+        } else if (requestCode == PICK_EXPORT_FILE_INTENT && resultCode == Activity.RESULT_OK && resultData?.data != null) {
             try {
                 val outputStream = contentResolver.openOutputStream(resultData.data!!)
                 exportContactsTo(ignoredExportContactSources, outputStream)
@@ -198,6 +201,8 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             findItem(R.id.sort).isVisible = currentFragment != groups_fragment
             findItem(R.id.filter).isVisible = currentFragment != groups_fragment
             findItem(R.id.dialpad).isVisible = !config.showDialpadButton
+            findItem(R.id.change_view_type).isVisible = currentFragment == favorites_fragment
+            findItem(R.id.column_count).isVisible = currentFragment == favorites_fragment && config.viewType == VIEW_TYPE_GRID
             findItem(R.id.more_apps_from_us).isVisible = !resources.getBoolean(R.bool.hide_google_relations)
         }
     }
@@ -225,11 +230,36 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 R.id.import_contacts -> tryImportContacts()
                 R.id.export_contacts -> tryExportContacts()
                 R.id.more_apps_from_us -> launchMoreAppsFromUsIntent()
+                R.id.change_view_type -> changeViewType()
+                R.id.column_count -> changeColumnCount()
                 R.id.settings -> launchSettings()
                 R.id.about -> launchAbout()
                 else -> return@setOnMenuItemClickListener false
             }
             return@setOnMenuItemClickListener true
+        }
+    }
+
+    private fun changeViewType() {
+        ChangeViewTypeDialog(this) {
+            refreshMenuItems()
+            favorites_fragment?.updateFavouritesAdapter()
+        }
+    }
+
+    private fun changeColumnCount() {
+        val items = ArrayList<RadioItem>()
+        for (i in 1..CONTACTS_GRID_MAX_COLUMNS_COUNT) {
+            items.add(RadioItem(i, resources.getQuantityString(R.plurals.column_counts, i, i)))
+        }
+
+        val currentColumnCount = config.contactsGridColumnCount
+        RadioGroupDialog(this, items, currentColumnCount) {
+            val newColumnCount = it as Int
+            if (currentColumnCount != newColumnCount) {
+                config.contactsGridColumnCount = newColumnCount
+                favorites_fragment?.columnCountChanged()
+            }
         }
     }
 

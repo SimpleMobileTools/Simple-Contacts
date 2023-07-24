@@ -46,12 +46,13 @@ import java.util.*
 
 class ContactsAdapter(
     activity: SimpleActivity,
-    var contactItems: ArrayList<Contact>,
+    var contactItems: MutableList<Contact>,
+    recyclerView: MyRecyclerView,
+    highlightText: String = "",
+    var viewType: Int = VIEW_TYPE_LIST,
     private val refreshListener: RefreshContactsListener?,
     private val location: Int,
     private val removeListener: RemoveFromGroupListener?,
-    recyclerView: MyRecyclerView,
-    highlightText: String = "",
     private val enableDrag: Boolean = false,
     itemClick: (Any) -> Unit
 ) : MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate, ItemTouchHelperContract {
@@ -67,7 +68,6 @@ class ContactsAdapter(
     var fontSize = activity.getTextSize()
     var onDragEndListener: (() -> Unit)? = null
 
-    private val itemLayout = if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
     private var touchHelper: ItemTouchHelper? = null
     private var startReorderDragListener: StartReorderDragListener? = null
 
@@ -75,7 +75,7 @@ class ContactsAdapter(
         setupDragListener(true)
 
         if (enableDrag) {
-            touchHelper = ItemTouchHelper(ItemMoveCallback(this))
+            touchHelper = ItemTouchHelper(ItemMoveCallback(this, viewType == VIEW_TYPE_GRID))
             touchHelper!!.attachToRecyclerView(recyclerView)
 
             startReorderDragListener = object : StartReorderDragListener {
@@ -143,7 +143,21 @@ class ContactsAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(itemLayout, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layout = when (viewType) {
+            VIEW_TYPE_GRID -> {
+                if (showPhoneNumbers) R.layout.item_contact_with_number_grid else R.layout.item_contact_without_number_grid
+            }
+            else -> {
+                if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
+            }
+        }
+        return createViewHolder(layout, parent)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return viewType
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val contact = contactItems[position]
@@ -158,9 +172,9 @@ class ContactsAdapter(
 
     private fun getItemWithKey(key: Int): Contact? = contactItems.firstOrNull { it.id == key }
 
-    fun updateItems(newItems: ArrayList<Contact>, highlightText: String = "") {
+    fun updateItems(newItems: List<Contact>, highlightText: String = "") {
         if (newItems.hashCode() != contactItems.hashCode()) {
-            contactItems = newItems.clone() as ArrayList<Contact>
+            contactItems = newItems.toMutableList()
             textToHighlight = highlightText
             notifyDataSetChanged()
             finishActMode()
