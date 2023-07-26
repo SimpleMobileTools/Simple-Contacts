@@ -14,7 +14,7 @@
     <string name="send_sms_to_group">SMS an Gruppe senden</string>
     <string name="send_email_to_group">E-Mail an Gruppe senden</string>
     <string name="fields_empty">Mindestens 1 Feld muss ausgefüllt werden</string>
-    <string name="must_be_at_edit">Sie müssen sich im Bearbeitungsmodus befinden, um einen Kontakt zu bearbeiten</string>
+    <string name="must_be_at_edit">Du musst dich im Bearbeitungsmodus befinden, um einen Kontakt zu bearbeiten</string>
     <!-- Placeholders -->
     <string name="no_contacts_with_emails">Keine Kontakte mit E-Mail-Adressen gefunden</string>
     <string name="no_contacts_with_phone_numbers">Keine Kontakte mit Telefonnummern gefunden</string>
