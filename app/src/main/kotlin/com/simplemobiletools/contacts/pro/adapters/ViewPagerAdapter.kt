@@ -19,7 +19,7 @@ class ViewPagerAdapter(val activity: SimpleActivity, val currTabsList: ArrayList
         val view = activity.layoutInflater.inflate(layout, container, false)
         container.addView(view)
 
-        (view as MyViewPagerFragment).apply {
+        (view as MyViewPagerFragment<*>).apply {
             setupFragment(activity)
             setupColors(activity.getProperTextColor(), activity.getProperPrimaryColor())
         }

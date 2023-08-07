@@ -4,19 +4,18 @@ import androidx.appcompat.app.AlertDialog
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.commons.models.contacts.Contact
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.SelectContactsAdapter
-import com.simplemobiletools.commons.models.contacts.*
-import kotlinx.android.synthetic.main.dialog_select_contact.view.*
-import java.util.*
+import com.simplemobiletools.contacts.pro.databinding.DialogSelectContactBinding
+import java.util.Locale
 
 class SelectContactsDialog(
     val activity: SimpleActivity, initialContacts: ArrayList<Contact>, val allowSelectMultiple: Boolean, val showOnlyContactsWithNumber: Boolean,
     selectContacts: ArrayList<Contact>? = null, val callback: (addedContacts: ArrayList<Contact>, removedContacts: ArrayList<Contact>) -> Unit
 ) {
     private var dialog: AlertDialog? = null
-    private var view = activity.layoutInflater.inflate(R.layout.dialog_select_contact, null)
+    private val binding = DialogSelectContactBinding.inflate(activity.layoutInflater)
     private var initiallySelectedContacts = ArrayList<Contact>()
 
     init {
@@ -42,30 +41,30 @@ class SelectContactsDialog(
             dialog!!.dismiss()
         }
 
-        view.apply {
-            select_contact_list.adapter = SelectContactsAdapter(
+        binding.apply {
+            selectContactList.adapter = SelectContactsAdapter(
                 activity, allContacts, initiallySelectedContacts, allowSelectMultiple,
-                select_contact_list, contactClickCallback
+                selectContactList, contactClickCallback
             )
 
-            if (context.areSystemAnimationsEnabled) {
-                select_contact_list.scheduleLayoutAnimation()
+            if (root.context.areSystemAnimationsEnabled) {
+                selectContactList.scheduleLayoutAnimation()
             }
 
-            select_contact_list.beVisibleIf(allContacts.isNotEmpty())
-            select_contact_placeholder.beVisibleIf(allContacts.isEmpty())
+            selectContactList.beVisibleIf(allContacts.isNotEmpty())
+            selectContactPlaceholder.beVisibleIf(allContacts.isEmpty())
         }
 
         setupFastscroller(allContacts)
 
         val builder = activity.getAlertDialogBuilder()
         if (allowSelectMultiple) {
-            builder.setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
+            builder.setPositiveButton(com.simplemobiletools.commons.R.string.ok) { dialog, which -> dialogConfirmed() }
         }
-        builder.setNegativeButton(R.string.cancel, null)
+        builder.setNegativeButton(com.simplemobiletools.commons.R.string.cancel, null)
 
         builder.apply {
-            activity.setupDialogStuff(view, this) { alertDialog ->
+            activity.setupDialogStuff(binding.root, this) { alertDialog ->
                 dialog = alertDialog
             }
         }
@@ -73,7 +72,7 @@ class SelectContactsDialog(
 
     private fun dialogConfirmed() {
         ensureBackgroundThread {
-            val adapter = view?.select_contact_list?.adapter as? SelectContactsAdapter
+            val adapter = binding.selectContactList.adapter as? SelectContactsAdapter
             val selectedContacts = adapter?.getSelectedItemsSet()?.toList() ?: ArrayList()
 
             val newlySelectedContacts = selectedContacts.filter { !initiallySelectedContacts.contains(it) } as ArrayList
@@ -84,16 +83,16 @@ class SelectContactsDialog(
 
     private fun setupFastscroller(allContacts: ArrayList<Contact>) {
         val adjustedPrimaryColor = activity.getProperPrimaryColor()
-        view.apply {
-            letter_fastscroller?.textColor = context.getProperTextColor().getColorStateList()
-            letter_fastscroller?.pressedTextColor = adjustedPrimaryColor
-            letter_fastscroller_thumb?.fontSize = context.getTextSize()
-            letter_fastscroller_thumb?.textColor = adjustedPrimaryColor.getContrastColor()
-            letter_fastscroller_thumb?.thumbColor = adjustedPrimaryColor.getColorStateList()
-            letter_fastscroller_thumb.setupWithFastScroller(letter_fastscroller)
+        binding.apply {
+            letterFastscroller.textColor = root.context.getProperTextColor().getColorStateList()
+            letterFastscroller.pressedTextColor = adjustedPrimaryColor
+            letterFastscrollerThumb.fontSize = root.context.getTextSize()
+            letterFastscrollerThumb.textColor = adjustedPrimaryColor.getContrastColor()
+            letterFastscrollerThumb.thumbColor = adjustedPrimaryColor.getColorStateList()
+            letterFastscrollerThumb.setupWithFastScroller(letterFastscroller)
         }
 
-        view.letter_fastscroller.setupWithRecyclerView(view.select_contact_list, { position ->
+        binding.letterFastscroller.setupWithRecyclerView(binding.selectContactList, { position ->
             try {
                 val name = allContacts[position].getNameToDisplay()
                 val character = if (name.isNotEmpty()) name.substring(0, 1) else ""

@@ -59,7 +59,7 @@ fun BaseSimpleActivity.shareContacts(contacts: ArrayList<Contact>) {
 
     val file = getTempFile(filename)
     if (file == null) {
-        toast(R.string.unknown_error_occurred)
+        toast(com.simplemobiletools.commons.R.string.unknown_error_occurred)
         return
     }
 
@@ -89,7 +89,7 @@ fun SimpleActivity.callContact(contact: Contact) {
     if (contact.phoneNumbers.isNotEmpty()) {
         tryInitiateCall(contact) { startCallIntent(it) }
     } else {
-        toast(R.string.no_phone_number_found)
+        toast(com.simplemobiletools.commons.R.string.no_phone_number_found)
     }
 }
 

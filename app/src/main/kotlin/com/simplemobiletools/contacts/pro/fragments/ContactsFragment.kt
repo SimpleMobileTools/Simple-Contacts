@@ -11,12 +11,22 @@ import com.simplemobiletools.contacts.pro.activities.InsertOrEditContactActivity
 import com.simplemobiletools.contacts.pro.activities.MainActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
+import com.simplemobiletools.contacts.pro.databinding.FragmentContactsBinding
+import com.simplemobiletools.contacts.pro.databinding.FragmentLettersLayoutBinding
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.LOCATION_CONTACTS_TAB
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
-import kotlinx.android.synthetic.main.fragment_layout.view.fragment_list
 
-class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
+class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment<MyViewPagerFragment.LetterLayout>(context, attributeSet) {
+
+    private lateinit var binding: FragmentContactsBinding
+
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+        binding = FragmentContactsBinding.bind(this)
+        innerBinding = LetterLayout(FragmentLettersLayoutBinding.bind(binding.root))
+    }
+
     override fun fabClicked() {
         activity?.hideKeyboard()
         Intent(context, EditContactActivity::class.java).apply {
@@ -34,7 +44,7 @@ class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPag
 
     fun setupContactsAdapter(contacts: List<Contact>) {
         setupViewVisibility(contacts.isNotEmpty())
-        val currAdapter = fragment_list.adapter
+        val currAdapter = innerBinding.fragmentList.adapter
 
         if (currAdapter == null || forceListRedraw) {
             forceListRedraw = false
@@ -46,16 +56,16 @@ class ContactsFragment(context: Context, attributeSet: AttributeSet) : MyViewPag
                 refreshListener = activity as RefreshContactsListener,
                 location = location,
                 removeListener = null,
-                recyclerView = fragment_list,
+                recyclerView = innerBinding.fragmentList,
                 enableDrag = false,
             ) {
                 (activity as RefreshContactsListener).contactClicked(it as Contact)
             }.apply {
-                fragment_list.adapter = this
+                innerBinding.fragmentList.adapter = this
             }
 
             if (context.areSystemAnimationsEnabled) {
-                fragment_list.scheduleLayoutAnimation()
+                innerBinding.fragmentList.scheduleLayoutAnimation()
             }
         } else {
             (currAdapter as ContactsAdapter).apply {

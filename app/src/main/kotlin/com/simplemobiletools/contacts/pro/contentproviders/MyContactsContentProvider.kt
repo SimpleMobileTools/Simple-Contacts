@@ -6,8 +6,8 @@ import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
 import com.google.gson.Gson
-import com.simplemobiletools.commons.helpers.MyContactsContentProvider
 import com.simplemobiletools.commons.helpers.LocalContactsHelper
+import com.simplemobiletools.commons.helpers.MyContactsContentProvider
 import com.simplemobiletools.contacts.pro.extensions.config
 
 class MyContactsContentProvider : ContentProvider() {

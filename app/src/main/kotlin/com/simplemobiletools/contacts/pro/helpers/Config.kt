@@ -15,6 +15,7 @@ class Config(context: Context) : BaseConfig(context) {
 
     var autoBackupContactSources: Set<String>
         get() = prefs.getStringSet(AUTO_BACKUP_CONTACT_SOURCES, setOf())!!
-        set(autoBackupContactSources) = prefs.edit().remove(AUTO_BACKUP_CONTACT_SOURCES).putStringSet(AUTO_BACKUP_CONTACT_SOURCES, autoBackupContactSources).apply()
+        set(autoBackupContactSources) = prefs.edit().remove(AUTO_BACKUP_CONTACT_SOURCES).putStringSet(AUTO_BACKUP_CONTACT_SOURCES, autoBackupContactSources)
+            .apply()
 
 }

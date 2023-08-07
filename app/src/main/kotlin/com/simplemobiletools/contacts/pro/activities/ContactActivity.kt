@@ -27,9 +27,9 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.letterBackgroundColors
 import com.simplemobiletools.commons.models.RadioItem
+import com.simplemobiletools.commons.models.contacts.Contact
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.extensions.shareContacts
-import com.simplemobiletools.commons.models.contacts.Contact
 
 abstract class ContactActivity : SimpleActivity() {
     protected val PICK_RINGTONE_INTENT_ID = 1500
@@ -164,10 +164,10 @@ abstract class ContactActivity : SimpleActivity() {
         } else {
             getString(
                 when (type) {
-                    Email.TYPE_HOME -> R.string.home
-                    Email.TYPE_WORK -> R.string.work
-                    Email.TYPE_MOBILE -> R.string.mobile
-                    else -> R.string.other
+                    Email.TYPE_HOME -> com.simplemobiletools.commons.R.string.home
+                    Email.TYPE_WORK -> com.simplemobiletools.commons.R.string.work
+                    Email.TYPE_MOBILE -> com.simplemobiletools.commons.R.string.mobile
+                    else -> com.simplemobiletools.commons.R.string.other
                 }
             )
         }
@@ -179,9 +179,9 @@ abstract class ContactActivity : SimpleActivity() {
         } else {
             getString(
                 when (type) {
-                    StructuredPostal.TYPE_HOME -> R.string.home
-                    StructuredPostal.TYPE_WORK -> R.string.work
-                    else -> R.string.other
+                    StructuredPostal.TYPE_HOME -> com.simplemobiletools.commons.R.string.home
+                    StructuredPostal.TYPE_WORK -> com.simplemobiletools.commons.R.string.work
+                    else -> com.simplemobiletools.commons.R.string.other
                 }
             )
         }
@@ -207,9 +207,9 @@ abstract class ContactActivity : SimpleActivity() {
     }
 
     fun getEventTextId(type: Int) = when (type) {
-        Event.TYPE_ANNIVERSARY -> R.string.anniversary
-        Event.TYPE_BIRTHDAY -> R.string.birthday
-        else -> R.string.other
+        Event.TYPE_ANNIVERSARY -> com.simplemobiletools.commons.R.string.anniversary
+        Event.TYPE_BIRTHDAY -> com.simplemobiletools.commons.R.string.birthday
+        else -> com.simplemobiletools.commons.R.string.other
     }
 
     private fun getBigLetterPlaceholder(name: String): Bitmap {

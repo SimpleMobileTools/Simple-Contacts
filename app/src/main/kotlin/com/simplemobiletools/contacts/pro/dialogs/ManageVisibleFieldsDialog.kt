@@ -3,9 +3,9 @@ package com.simplemobiletools.contacts.pro.dialogs
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.contacts.pro.R
-import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.extensions.config
 
 class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity, val callback: (hasSomethingChanged: Boolean) -> Unit) {
@@ -39,8 +39,8 @@ class ManageVisibleFieldsDialog(val activity: BaseSimpleActivity, val callback: 
         }
 
         activity.getAlertDialogBuilder()
-            .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
-            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(com.simplemobiletools.commons.R.string.ok) { dialog, which -> dialogConfirmed() }
+            .setNegativeButton(com.simplemobiletools.commons.R.string.cancel, null)
             .apply {
                 activity.setupDialogStuff(view, this)
             }

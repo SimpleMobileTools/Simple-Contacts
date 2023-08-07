@@ -65,9 +65,9 @@ open class SimpleActivity : BaseSimpleActivity() {
 
     protected fun getTabIcon(position: Int): Drawable {
         val drawableId = when (position) {
-            LOCATION_CONTACTS_TAB -> R.drawable.ic_person_vector
-            LOCATION_FAVORITES_TAB -> R.drawable.ic_star_vector
-            else -> R.drawable.ic_people_vector
+            LOCATION_CONTACTS_TAB -> com.simplemobiletools.commons.R.drawable.ic_person_vector
+            LOCATION_FAVORITES_TAB -> com.simplemobiletools.commons.R.drawable.ic_star_vector
+            else -> com.simplemobiletools.commons.R.drawable.ic_people_vector
         }
 
         return resources.getColoredDrawableWithColor(drawableId, getProperTextColor())
@@ -75,9 +75,9 @@ open class SimpleActivity : BaseSimpleActivity() {
 
     protected fun getTabLabel(position: Int): String {
         val stringId = when (position) {
-            LOCATION_CONTACTS_TAB -> R.string.contacts_tab
-            LOCATION_FAVORITES_TAB -> R.string.favorites_tab
-            else -> R.string.groups_tab
+            LOCATION_CONTACTS_TAB -> com.simplemobiletools.commons.R.string.contacts_tab
+            LOCATION_FAVORITES_TAB -> com.simplemobiletools.commons.R.string.favorites_tab
+            else -> com.simplemobiletools.commons.R.string.groups_tab
         }
 
         return resources.getString(stringId)

@@ -13,7 +13,6 @@ import com.simplemobiletools.commons.extensions.getDateTimeFromDateString
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.models.contacts.Contact
-import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.helpers.VcfExporter.ExportResult.EXPORT_FAIL
 import ezvcard.Ezvcard
 import ezvcard.VCard
@@ -21,7 +20,7 @@ import ezvcard.VCardVersion
 import ezvcard.parameter.ImageType
 import ezvcard.property.*
 import java.io.OutputStream
-import java.util.*
+import java.util.Calendar
 
 class VcfExporter {
     enum class ExportResult {
@@ -46,7 +45,7 @@ class VcfExporter {
             }
 
             if (showExportingToast) {
-                activity.toast(R.string.exporting)
+                activity.toast(com.simplemobiletools.commons.R.string.exporting)
             }
 
             val cards = ArrayList<VCard>()

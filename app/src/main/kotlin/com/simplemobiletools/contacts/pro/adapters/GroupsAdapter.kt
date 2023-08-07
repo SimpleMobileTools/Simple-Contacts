@@ -7,20 +7,22 @@ import android.view.ViewGroup
 import com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getTextSize
+import com.simplemobiletools.commons.extensions.groupsDB
+import com.simplemobiletools.commons.extensions.highlightTextPart
+import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.helpers.TAB_GROUPS
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.models.contacts.Group
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
+import com.simplemobiletools.contacts.pro.databinding.ItemGroupBinding
 import com.simplemobiletools.contacts.pro.dialogs.RenameGroupDialog
-import com.simplemobiletools.commons.helpers.ContactsHelper
-import com.simplemobiletools.commons.models.contacts.Group
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
-import kotlinx.android.synthetic.main.item_group.view.*
-import java.util.*
 
 class GroupsAdapter(
     activity: SimpleActivity, var groups: ArrayList<Group>, val refreshListener: RefreshContactsListener?, recyclerView: MyRecyclerView,
@@ -67,7 +69,9 @@ class GroupsAdapter(
 
     override fun onActionModeDestroyed() {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.item_group, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return createViewHolder(ItemGroupBinding.inflate(layoutInflater, parent, false).root)
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val group = groups[position]
@@ -110,7 +114,7 @@ class GroupsAdapter(
             resources.getQuantityString(R.plurals.delete_groups, itemsCnt, itemsCnt)
         }
 
-        val baseString = R.string.deletion_confirmation
+        val baseString = com.simplemobiletools.commons.R.string.deletion_confirmation
         val question = String.format(resources.getString(baseString), items)
 
         ConfirmationDialog(activity, question) {
@@ -149,8 +153,8 @@ class GroupsAdapter(
     private fun getSelectedItems() = groups.filter { selectedKeys.contains(it.id?.toInt()) } as ArrayList<Group>
 
     private fun setupView(view: View, group: Group) {
-        view.apply {
-            group_frame?.isSelected = selectedKeys.contains(group.id!!.toInt())
+        ItemGroupBinding.bind(view).apply {
+            groupFrame.isSelected = selectedKeys.contains(group.id!!.toInt())
             val titleWithCnt = "${group.title} (${group.contactsCount})"
             val groupTitle = if (textToHighlight.isEmpty()) {
                 titleWithCnt
@@ -158,15 +162,15 @@ class GroupsAdapter(
                 titleWithCnt.highlightTextPart(textToHighlight, properPrimaryColor)
             }
 
-            group_name.apply {
+            groupName.apply {
                 setTextColor(textColor)
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
                 text = groupTitle
             }
 
-            group_tmb.beVisibleIf(showContactThumbnails)
+            groupTmb.beVisibleIf(showContactThumbnails)
             if (showContactThumbnails) {
-                group_tmb.setImageDrawable(SimpleContactsHelper(activity).getColoredGroupIcon(group.title))
+                groupTmb.setImageDrawable(SimpleContactsHelper(activity).getColoredGroupIcon(group.title))
             }
         }
     }

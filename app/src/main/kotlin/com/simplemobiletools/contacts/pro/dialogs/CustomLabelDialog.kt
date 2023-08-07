@@ -3,23 +3,22 @@ package com.simplemobiletools.contacts.pro.dialogs
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.contacts.pro.R
-import kotlinx.android.synthetic.main.dialog_custom_label.view.*
+import com.simplemobiletools.contacts.pro.databinding.DialogCustomLabelBinding
 
 class CustomLabelDialog(val activity: BaseSimpleActivity, val callback: (label: String) -> Unit) {
     init {
-        val view = activity.layoutInflater.inflate(R.layout.dialog_custom_label, null)
+        val binding = DialogCustomLabelBinding.inflate(activity.layoutInflater)
 
         activity.getAlertDialogBuilder()
-            .setPositiveButton(R.string.ok, null)
-            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(com.simplemobiletools.commons.R.string.ok, null)
+            .setNegativeButton(com.simplemobiletools.commons.R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this, R.string.label) { alertDialog ->
-                    alertDialog.showKeyboard(view.custom_label_edittext)
+                activity.setupDialogStuff(binding.root, this, com.simplemobiletools.commons.R.string.label) { alertDialog ->
+                    alertDialog.showKeyboard(binding.customLabelEdittext)
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                        val label = view.custom_label_edittext.value
+                        val label = binding.customLabelEdittext.value
                         if (label.isEmpty()) {
-                            activity.toast(R.string.empty_name)
+                            activity.toast(com.simplemobiletools.commons.R.string.empty_name)
                             return@setOnClickListener
                         }
 

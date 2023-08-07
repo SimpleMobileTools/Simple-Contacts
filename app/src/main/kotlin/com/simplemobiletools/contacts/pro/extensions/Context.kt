@@ -78,7 +78,7 @@ fun Context.backupContacts() {
         val config = config
         ContactsHelper(this).getContactsToExport(selectedContactSources = config.autoBackupContactSources) { contactsToBackup ->
             if (contactsToBackup.isEmpty()) {
-                toast(R.string.no_entries_for_exporting)
+                toast(com.simplemobiletools.commons.R.string.no_entries_for_exporting)
                 config.lastAutoBackupTime = DateTime.now().millis
                 scheduleNextAutomaticBackup()
                 return@getContactsToExport
@@ -136,8 +136,8 @@ fun Context.backupContacts() {
             }
 
             when (exportResult) {
-                ExportResult.EXPORT_OK -> toast(R.string.exporting_successful)
-                else -> toast(R.string.exporting_failed)
+                ExportResult.EXPORT_OK -> toast(com.simplemobiletools.commons.R.string.exporting_successful)
+                else -> toast(com.simplemobiletools.commons.R.string.exporting_failed)
             }
 
             config.lastAutoBackupTime = DateTime.now().millis
