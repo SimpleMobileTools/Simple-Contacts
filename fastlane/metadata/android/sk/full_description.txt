@@ -1,28 +1,28 @@
-Ľahká apka na správu kontaktov používaná miliónmi ľudí. Kontakty môžu byť uložené buď lokálne iba na vašom zariadení, alebo synchronizované cez Google, alebo iné účty.
+Ľahká inteligentná kontaktná aplikácia pre správu vašich kontaktov miloval milióny ľudí. Kontakty môžu byť uložené iba na vašom zariadení, alebo môžu byť tiež synchronizované rôznymi prostriedkami. Toto telefónne číslo smart kontaktná kniha vám pomôže udržať vaše kontakty na jednom mieste bez ťažkostí zálohovania kontaktov ako zálohovanie kontaktov sú vždy v synchronizácii s kontaktmi, ktoré pridáte. Táto aplikácia svetlo na priestore a je účinná, keď budete musieť vykonať kontakty zálohovanie a udržať telefón knihu, ktorá vám pomôže v inteligentného kontaktného vedenia.
 
-Viete ju použiť aj na zobrazenie emailov a udalostí kontaktov. Ponúka možnosť zoradenia/filtrovania podľa rôznych parametrov, ako aj možnosť začatia mena priezviskom.
+Môžete ho použiť aj pre správu e-mailov užívateľov a udalostí. Má schopnosť triediť/filter viacerými parametrami, voliteľne zobrazovať priezvisko ako prvé meno. Týmto spôsobom môžete dosiahnuť šikovný kontakt v rýchlom spôsobom. Nemusíte posúvať, aby ste našli požadovaný kontakt. Navyše, keď pridáte nový kontakt, zálohovanie kontaktov automaticky zaistí integritu kontaktov.
 
-Obľúbené kontakty, alebo skupiny, viete zobraziť ako vlastný zoznam. Skupiny môžu byť použité na odosielanie skupinových emailov, alebo SMS, viete ich aj premenovať.
+Môžete zobraziť svoje obľúbené osoby alebo skupiny na samostatnom zozname. Skupiny môžu byť použité na odosielanie e-mailov šarže alebo SMS, aby ste ušetrili nejaký čas, môžete ich premenovať ľahko. Nemusíte mať telefónovú knihu teraz! Stačí vytvoriť šikovnú skupinu kontaktov a poslať správy svojim blízkym.
 
-Nachádzajú sa tu aj užitočné tlačidlá na rýchle volanie, alebo odosielanie správ kontaktom. Viditeľné položky pri kontaktoch sa dajú meniť, viete tak jednoducho odstrániť nepoužívané. Hľadaním cez všetky polia viete nájsť kontakty rýchlo.
+Obsahuje užitočné tlačidlá pre volanie, alebo text vašich príbuzných. Všetky viditeľné polia môžu byť prispôsobené ako si prajete, môžete ľahko skryť nepoužité. Funkcia vyhľadávania bude hľadať daný reťazec na každej viditeľné osoby pole, aby ste našli požadovanú jedno ľahko.
 
-Podporuje export a import kontaktov cez vCard formát a .vcf súbory, pre jednoduché migrovanie, alebo zálohovanie dát.
+Podporuje export/importačné kontakty vo formáte vCard do .vcf súborov, pre jednoduché migrácie alebo zálohovanie vašich údajov. Kontakty zálohovanie je kľúčovou vecou v udržiavaní telefónnych kníh. Táto aplikácia prichádza s šikovnou technológiou zálohovanie kontaktov, ktorá pravidelne synchronizuje nové a staré kontakty, aby sa zálohovanie týchto čísel.
 
-S týmto moderným a stabilným správcom kontaktov viete ochrániť vaše kontakty pred zdieľaním s inými apkami, keďže ich viete uložiť aj súkromne.
+S týmto moderným a stabilným telefónnym číslom manažérom ich môžete chrániť tým, že ich nezdieľate s inými aplikáciami, takže ich môžete udržať v súkromí.
 
-Ako zdroj kontaktu, viete upraviť aj meno, email, telefónne číslo, adresu, organizáciu, skupiny a iné voliteľné položky. Apku viete použiť aj na ukladanie udalostí kontaktov ako narodeniny, výročia a iné.
+Rovnako ako zdroj kontaktov, môžete tiež ľahko zmeniť svoje meno, e-mail, telefónne číslo, adresa, organizácia, skupiny a mnoho ďalších vlastných nástrojov. Môžete ho použiť aj na ukladanie kontaktných udalostí, ako sú narodeniny, aniversaries alebo iné vlastné.
 
-Tento jednoduchý editor kontaktov má veľa užitočných nastavení ako zobrazovanie telefónnych čísel na hlavnej obrazovke, prepnutie viditeľnosti fotiek kontaktov, zobrazenie iba kontaktov s telefónnymi číslami, zobrazenie potvrdenia hovoru pred jeho začatím.
+Tento jednoduchý kontaktný editor má veľa užitočných nastavení, ako je zobrazovanie telefónnych čísel na hlavnej obrazovke, prepnúť kontakt s náhľadom palca, ukazuje iba kontakty s telefónnymi číslami, ktoré ukazujú dialógové potvrdenie hovorov pred začiatkom hovoru. Je dodávaný s rýchlym dialerom, ktorý tiež využíva písmená.
 
-Na ďalšie vylepšenie používateľskej skúsenosti viete upraviť, čo sa stale po kliknutí na kontakt. Viete buď začať hovor, zobraziť detaily, alebo upraviť daný kontakt.
+Ak chcete ďalej zlepšiť používateľskú skúsenosť, môžete prispôsobiť, čo sa stane pri kliknutí na kontakt. Môžete buď iniciovať hovor, ísť na Zobraziť podrobnosti obrazovky, alebo upraviť vybraný.
 
-Na prevenciu zobrazovania duplicitných kontaktov sú automaticky spájané.
+Aby sa zabránilo zobrazovaniu potenciálne nežiaduce kontakty, má silný postavený v duplikácii vstupného vstupu.
 
-Táto apka je založená na Material dizajne a má prednastavenú tmavú tému, poskytuje výbornú používateľskú skúsenosť pre ľahké používanie. Chýbajúci prístup k internetu garantuje lepšie súkromie, bezpečnosť a stabilitu ako ostatné apky.
+Ide o dizajn materiálu a tmavú tému predvolene, poskytuje skvelé užívateľské skúsenosti pre jednoduché použitie. Nedostatok prístupu k internetu vám dáva viac súkromia, bezpečnosti a stability ako iné aplikácie.
 
-Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje možnosť zmeny farieb.
+Neobsahuje žiadne reklamy alebo zbytočné povolenia. Je plne otvorený zdroj, poskytuje prispôsobiteľné farby.
 
-Pozrite si celú sadu aplikácií na:
+Pozrite sa na celú sadu jednoduchých nástrojov tu:
 https://www.simplemobiletools.com
 
 Facebook:
