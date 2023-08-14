@@ -20,7 +20,7 @@ Da bi se izognili prikazovanju morebitnih neželenih stikov, ima vgrajen združe
 
 Privzeto je opremljen z materialnim oblikovanjem in temno temo, kar zagotavlja odlično uporabniško izkušnjo za uporabo. Zaradi odsotnosti internetnega dostopa zagotavlja več zasebnosti, varnosti in stabilnosti kot druge aplikacije.
 
-Ne vsebuje oglasov ali nepotrebnih dovoljenj. Je popolnoma odprta izvorna kamera, zagotavlja prilagodljive barve.
+Ne vsebuje oglasov ali nepotrebnih dovoljenj. Je popolnoma odprtokodna, zagotavlja prilagodljive barve.
 
 Celoten nabor preprostih orodij si oglejte tukaj:
 https://www.simplemobiletools.com.

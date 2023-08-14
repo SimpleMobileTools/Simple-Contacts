@@ -16,8 +16,8 @@
     <string name="fields_empty">Au moins un champ doit être rempli</string>
     <string name="must_be_at_edit">Vous devez être sur l\'écran Modifier pour modifier un contact</string>
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails">Aucun contact avec des adresses courriel n\’a été trouvé</string>
-    <string name="no_contacts_with_phone_numbers">Aucun contact avec des numéros de téléphone n\’a été trouvé</string>
+    <string name="no_contacts_with_emails">Aucun contact avec des adresses courriel n\'a été trouvé</string>
+    <string name="no_contacts_with_phone_numbers">Aucun contact avec des numéros de téléphone n\'a été trouvé</string>
     <string name="new_contact">Nouveau contact</string>
     <string name="edit_contact">Modifier le contact</string>
     <string name="select_contact">Sélectionner un contact</string>
@@ -28,7 +28,7 @@
     <string name="remove_from_group">Supprimer du groupe</string>
     <string name="no_group_participants">Ce groupe est vide</string>
     <string name="add_contacts">Ajouter des contacts</string>
-    <string name="no_group_created">Il n\’y a aucun groupe de contacts sur l\’appareil</string>
+    <string name="no_group_created">Il n\'y a aucun groupe de contacts sur l\'appareil</string>
     <string name="create_group">Créer un groupe</string>
     <string name="add_to_group">Ajouter à un groupe</string>
     <string name="create_group_under_account">Créer un groupe dans le compte</string>
@@ -44,8 +44,8 @@
     <string name="view_contact">Afficher les détails du contact</string>
     <string name="manage_shown_contact_fields">Gérer l\'affichage des champs des contacts</string>
     <string name="contacts">Contacts</string>
-    <string name="show_only_contacts_with_numbers">N\’afficher que les contacts avec un numéro de téléphone</string>
-    <string name="show_private_contacts">Présenter les contacts privés à Simple composeur, Simple SMS Messenger et Simple Calendar Pro</string>
+    <string name="show_only_contacts_with_numbers">N\'afficher que les contacts avec un numéro de téléphone</string>
+    <string name="show_private_contacts">Présenter les contacts privés à Simple Dialer, Simple SMS Messenger et Simple Calendar Pro</string>
     <string name="merge_duplicate_contacts">Fusionner les contacts en double</string>
     <!-- Favorites -->
     <string name="no_favorites">Il semble que vous n\'avez pas encore ajouté de contacts favoris.</string>

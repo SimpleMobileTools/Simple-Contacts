@@ -18,7 +18,7 @@ A potenciálisan nem kívánt kapcsolatok megjelenítésének elkerülése érde
 
 DIzájnos és sötét témával rendelkezik, nagyszerű felhasználói élményt nyújt a könnyű használathoz. Az internet-hozzáférés hiánya nagyobb magánéletet, biztonságot és stabilitást biztosít, mint más alkalmazások.
 
-Nem tartalmaz hirdetéseket vagy felesleges engedélyeket. Teljesen nyílt kameraforrás és testreszabható színeket biztosít.
+Nem tartalmaz hirdetéseket vagy felesleges engedélyeket. Teljesen nyílt forráskódú és testreszabható színeket biztosít.
 
 Nézd meg a Simple Tools teljes csomagját itt:
 https://www.simplemobiletools.com
