@@ -48,7 +48,11 @@ fun Context.scheduleNextAutomaticBackup() {
         val pendingIntent = getAutomaticBackupIntent()
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         try {
-            AlarmManagerCompat.setExactAndAllowWhileIdle(alarmManager, AlarmManager.RTC_WAKEUP, backupAtMillis, pendingIntent)
+            if (isUpsideDownCakePlus() && alarmManager.canScheduleExactAlarms()) {
+                AlarmManagerCompat.setExactAndAllowWhileIdle(alarmManager, AlarmManager.RTC_WAKEUP, backupAtMillis, pendingIntent)
+            } else {
+                AlarmManagerCompat.setAndAllowWhileIdle(alarmManager, AlarmManager.RTC_WAKEUP, backupAtMillis, pendingIntent)
+            }
         } catch (e: Exception) {
             showErrorToast(e)
         }
