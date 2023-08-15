@@ -27,7 +27,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     private var groupContacts = ArrayList<Contact>()
     private var wasInit = false
     lateinit var group: Group
-    private lateinit var binding: ActivityGroupContactsBinding
+    private val binding: ActivityGroupContactsBinding by viewBinding(ActivityGroupContactsBinding::inflate)
 
     protected val INTENT_SELECT_RINGTONE = 600
 
@@ -36,7 +36,6 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
-        binding = ActivityGroupContactsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         updateTextColors(binding.groupContactsCoordinator)
         setupOptionsMenu()

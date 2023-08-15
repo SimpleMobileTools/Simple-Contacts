@@ -27,7 +27,7 @@ import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 class FavoritesFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment<MyViewPagerFragment.LetterLayout>(context, attributeSet) {
     private var favouriteContacts = listOf<Contact>()
     private var zoomListener: MyRecyclerView.MyZoomListener? = null
-    lateinit var binding: FragmentFavoritesBinding
+    private lateinit var binding: FragmentFavoritesBinding
 
     override fun onFinishInflate() {
         super.onFinishInflate()

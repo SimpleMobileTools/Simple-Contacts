@@ -33,7 +33,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
     private var isSelectContactIntent = false
     private var specialMimeType: String? = null
-    private lateinit var binding: ActivityInsertEditContactBinding
+    private val binding: ActivityInsertEditContactBinding by viewBinding(ActivityInsertEditContactBinding::inflate)
 
     private val contactsFavoritesList = arrayListOf(
         TAB_CONTACTS,

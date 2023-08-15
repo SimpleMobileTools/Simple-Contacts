@@ -42,7 +42,7 @@ class ViewContactActivity : ContactActivity() {
     private var fullContact: Contact? = null    // contact with all fields filled from duplicates
     private var duplicateInitialized = false
     private val mergeDuplicate: Boolean get() = config.mergeDuplicateContacts
-    private lateinit var binding: ActivityViewContactBinding
+    private val binding: ActivityViewContactBinding by viewBinding(ActivityViewContactBinding::inflate)
 
     companion object {
         private const val COMPARABLE_PHONE_NUMBER_LENGTH = 9
@@ -51,7 +51,6 @@ class ViewContactActivity : ContactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         showTransparentTop = true
         super.onCreate(savedInstanceState)
-        binding = ActivityViewContactBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (checkAppSideloading()) {
