@@ -187,7 +187,6 @@ class SelectContactsAdapter(
             override fun bind(view: View): ItemAddFavoriteBinding {
                 return ItemAddFavoriteWithNumberBindingAdapter(ItemAddFavoriteWithNumberBinding.bind(view))
             }
-
         }
 
         data object WithoutNumber : Binding {
@@ -198,7 +197,6 @@ class SelectContactsAdapter(
             override fun bind(view: View): ItemAddFavoriteBinding {
                 return ItemAddFavoriteWithoutNumberBindingAdapter(ItemAddFavoriteWithoutNumberBinding.bind(view))
             }
-
         }
     }
 

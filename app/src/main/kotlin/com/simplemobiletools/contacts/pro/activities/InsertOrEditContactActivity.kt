@@ -42,7 +42,6 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityInsertEditContactBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupOptionsMenu()
         isSelectContactIntent = intent.action == Intent.ACTION_PICK
@@ -92,7 +91,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
 
         binding.insertEditMenu.onSearchClosedListener = {
             getAllFragments().forEach {
-                it?.onSearchClosed()
+                it.onSearchClosed()
             }
         }
 
@@ -140,7 +139,7 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
             override fun onPageSelected(position: Int) {
                 binding.insertEditTabsHolder.getTabAt(position)?.select()
                 getAllFragments().forEach {
-                    it?.finishActMode()
+                    it.finishActMode()
                 }
             }
         })
@@ -149,8 +148,8 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
             refreshContacts(getTabsMask())
         }
 
-        binding.selectContactLabel?.setTextColor(getProperPrimaryColor())
-        binding.newContactTmb?.setImageDrawable(
+        binding.selectContactLabel.setTextColor(getProperPrimaryColor())
+        binding.newContactTmb.setImageDrawable(
             resources.getColoredDrawableWithColor(
                 com.simplemobiletools.commons.R.drawable.ic_add_person_vector,
                 getProperTextColor()
@@ -167,11 +166,13 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         contactsFavoritesList.forEachIndexed { index, value ->
             if (config.showTabs and value != 0) {
                 binding.insertEditTabsHolder.newTab().setCustomView(com.simplemobiletools.commons.R.layout.bottom_tablayout_item).apply tab@{
-                    customView?.let { BottomTablayoutItemBinding.bind(it) }?.apply {
-                        tabItemIcon.setImageDrawable(getTabIcon(index))
-                        tabItemLabel.text = getTabLabel(index)
-                        binding.insertEditTabsHolder.addTab(this@tab)
-                    }
+                    customView
+                        ?.let { BottomTablayoutItemBinding.bind(it) }
+                        ?.apply {
+                            tabItemIcon.setImageDrawable(getTabIcon(index))
+                            tabItemLabel.text = getTabLabel(index)
+                            binding.insertEditTabsHolder.addTab(this@tab)
+                        }
                 }
             }
         }

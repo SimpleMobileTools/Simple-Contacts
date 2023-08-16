@@ -417,12 +417,14 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         tabsList.forEachIndexed { index, value ->
             if (config.showTabs and value != 0) {
                 binding.mainTabsHolder.newTab().setCustomView(com.simplemobiletools.commons.R.layout.bottom_tablayout_item).apply tab@{
-                    customView?.let { BottomTablayoutItemBinding.bind(it) }?.apply {
-                        tabItemIcon.setImageDrawable(getTabIcon(index))
-                        tabItemLabel.text = getTabLabel(index)
-                        AutofitHelper.create(tabItemLabel)
-                        binding.mainTabsHolder.addTab(this@tab)
-                    }
+                    customView
+                        ?.let { BottomTablayoutItemBinding.bind(it) }
+                        ?.apply {
+                            tabItemIcon.setImageDrawable(getTabIcon(index))
+                            tabItemLabel.text = getTabLabel(index)
+                            AutofitHelper.create(tabItemLabel)
+                            binding.mainTabsHolder.addTab(this@tab)
+                        }
                 }
             }
         }
