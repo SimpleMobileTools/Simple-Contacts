@@ -27,7 +27,7 @@ class GroupContactsActivity : SimpleActivity(), RemoveFromGroupListener, Refresh
     private var groupContacts = ArrayList<Contact>()
     private var wasInit = false
     lateinit var group: Group
-    private val binding: ActivityGroupContactsBinding by viewBinding(ActivityGroupContactsBinding::inflate)
+    private val binding by viewBinding(ActivityGroupContactsBinding::inflate)
 
     protected val INTENT_SELECT_RINGTONE = 600
 

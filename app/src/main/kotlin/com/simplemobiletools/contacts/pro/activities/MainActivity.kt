@@ -61,7 +61,7 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var storedStartNameWithSurname = false
     private var storedFontSize = 0
     private var storedShowTabs = 0
-    private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::inflate)
+    private val binding by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

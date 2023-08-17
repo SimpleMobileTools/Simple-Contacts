@@ -74,7 +74,7 @@ class EditContactActivity : ContactActivity() {
     private var numberViewToColor: EditText? = null
     private var emailViewToColor: EditText? = null
     private var originalContactSource = ""
-    private val binding: ActivityEditContactBinding by viewBinding(ActivityEditContactBinding::inflate)
+    private val binding by viewBinding(ActivityEditContactBinding::inflate)
 
     enum class PrimaryNumberStatus {
         UNCHANGED, STARRED, UNSTARRED
