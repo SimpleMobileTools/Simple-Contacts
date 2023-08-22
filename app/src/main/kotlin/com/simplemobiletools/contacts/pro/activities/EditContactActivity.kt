@@ -519,8 +519,8 @@ class EditContactActivity : ContactActivity() {
         phoneNumbers.forEachIndexed { index, number ->
             val numberHolderView = binding.contactNumbersHolder.getChildAt(index)
             val numberHolder = if (numberHolderView == null) {
-                ItemEditPhoneNumberBinding.inflate(layoutInflater, binding.contactNumbersHolder, false).also {
-                    binding.contactNumbersHolder.addView(it.root)
+                ItemEditPhoneNumberBinding.inflate(layoutInflater, binding.contactNumbersHolder, false).apply {
+                    binding.contactNumbersHolder.addView(root)
                 }
             } else {
                 ItemEditPhoneNumberBinding.bind(numberHolderView)
@@ -591,8 +591,8 @@ class EditContactActivity : ContactActivity() {
         contact!!.emails.forEachIndexed { index, email ->
             val emailHolderView = binding.contactEmailsHolder.getChildAt(index)
             val emailHolder = if (emailHolderView == null) {
-                ItemEditEmailBinding.inflate(layoutInflater, binding.contactEmailsHolder, false).also {
-                    binding.contactEmailsHolder.addView(it.root)
+                ItemEditEmailBinding.inflate(layoutInflater, binding.contactEmailsHolder, false).apply {
+                    binding.contactEmailsHolder.addView(root)
                 }
             } else {
                 ItemEditEmailBinding.bind(emailHolderView)
@@ -612,8 +612,8 @@ class EditContactActivity : ContactActivity() {
         contact!!.addresses.forEachIndexed { index, address ->
             val addressHolderView = binding.contactAddressesHolder.getChildAt(index)
             val addressHolder = if (addressHolderView == null) {
-                ItemEditAddressBinding.inflate(layoutInflater, binding.contactAddressesHolder, false).also {
-                    binding.contactAddressesHolder.addView(it.root)
+                ItemEditAddressBinding.inflate(layoutInflater, binding.contactAddressesHolder, false).apply {
+                    binding.contactAddressesHolder.addView(root)
                 }
             } else {
                 ItemEditAddressBinding.bind(addressHolderView)
@@ -630,8 +630,8 @@ class EditContactActivity : ContactActivity() {
         contact!!.IMs.forEachIndexed { index, IM ->
             val imHolderView = binding.contactImsHolder.getChildAt(index)
             val imHolder = if (imHolderView == null) {
-                ItemEditImBinding.inflate(layoutInflater, binding.contactImsHolder, false).also {
-                    binding.contactImsHolder.addView(it.root)
+                ItemEditImBinding.inflate(layoutInflater, binding.contactImsHolder, false).apply {
+                    binding.contactImsHolder.addView(root)
                 }
             } else {
                 ItemEditImBinding.bind(imHolderView)
@@ -689,8 +689,8 @@ class EditContactActivity : ContactActivity() {
         contact!!.websites.forEachIndexed { index, website ->
             val websitesHolderView = binding.contactWebsitesHolder.getChildAt(index)
             val websitesHolder = if (websitesHolderView == null) {
-                ItemEditWebsiteBinding.inflate(layoutInflater, binding.contactWebsitesHolder, false).also {
-                    binding.contactWebsitesHolder.addView(it.root)
+                ItemEditWebsiteBinding.inflate(layoutInflater, binding.contactWebsitesHolder, false).apply {
+                    binding.contactWebsitesHolder.addView(root)
                 }
             } else {
                 ItemEditWebsiteBinding.bind(websitesHolderView)
@@ -704,8 +704,8 @@ class EditContactActivity : ContactActivity() {
         contact!!.events.forEachIndexed { index, event ->
             val eventHolderView = binding.contactEventsHolder.getChildAt(index)
             val eventHolder = if (eventHolderView == null) {
-                ItemEventBinding.inflate(layoutInflater, binding.contactEventsHolder, false).also {
-                    binding.contactEventsHolder.addView(it.root)
+                ItemEventBinding.inflate(layoutInflater, binding.contactEventsHolder, false).apply {
+                    binding.contactEventsHolder.addView(root)
                 }
             } else {
                 ItemEventBinding.bind(eventHolderView)
@@ -738,8 +738,8 @@ class EditContactActivity : ContactActivity() {
         groups.forEachIndexed { index, group ->
             val groupHolderView = binding.contactGroupsHolder.getChildAt(index)
             val groupHolder = if (groupHolderView == null) {
-                ItemEditGroupBinding.inflate(layoutInflater, binding.contactGroupsHolder, false).also {
-                    binding.contactGroupsHolder.addView(it.root)
+                ItemEditGroupBinding.inflate(layoutInflater, binding.contactGroupsHolder, false).apply {
+                    binding.contactGroupsHolder.addView(root)
                 }
             } else {
                 ItemEditGroupBinding.bind(groupHolderView)
