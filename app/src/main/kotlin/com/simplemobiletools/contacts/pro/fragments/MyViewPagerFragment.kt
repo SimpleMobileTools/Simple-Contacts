@@ -49,7 +49,6 @@ abstract class MyViewPagerFragment<BINDING : MyViewPagerFragment.InnerBinding>(c
     var skipHashComparing = false
     var forceListRedraw = false
 
-
     fun setupFragment(activity: SimpleActivity) {
         config = activity.config
         if (this.activity == null) {
