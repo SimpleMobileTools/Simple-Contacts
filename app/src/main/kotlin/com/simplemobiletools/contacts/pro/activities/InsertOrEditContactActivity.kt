@@ -166,13 +166,13 @@ class InsertOrEditContactActivity : SimpleActivity(), RefreshContactsListener {
         contactsFavoritesList.forEachIndexed { index, value ->
             if (config.showTabs and value != 0) {
                 binding.insertEditTabsHolder.newTab().setCustomView(com.simplemobiletools.commons.R.layout.bottom_tablayout_item).apply tab@{
-                    customView
-                        ?.let { BottomTablayoutItemBinding.bind(it) }
-                        ?.apply {
-                            tabItemIcon.setImageDrawable(getTabIcon(index))
-                            tabItemLabel.text = getTabLabel(index)
-                            binding.insertEditTabsHolder.addTab(this@tab)
-                        }
+                    customView?.let {
+                        BottomTablayoutItemBinding.bind(it)
+                    }?.apply {
+                        tabItemIcon.setImageDrawable(getTabIcon(index))
+                        tabItemLabel.text = getTabLabel(index)
+                        binding.insertEditTabsHolder.addTab(this@tab)
+                    }
                 }
             }
         }
