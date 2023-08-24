@@ -35,7 +35,7 @@ import com.simplemobiletools.contacts.pro.helpers.GROUP
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import java.util.Locale
 
-abstract class MyViewPagerFragment<BINDING : MyViewPagerFragment.InnerBinding>(context: Context, attributeSet: AttributeSet) :
+abstract class MyViewPagerFragment<Binding : MyViewPagerFragment.InnerBinding>(context: Context, attributeSet: AttributeSet) :
     CoordinatorLayout(context, attributeSet) {
     protected var activity: SimpleActivity? = null
     protected var allContacts = ArrayList<Contact>()
@@ -44,7 +44,7 @@ abstract class MyViewPagerFragment<BINDING : MyViewPagerFragment.InnerBinding>(c
     private var contactsIgnoringSearch = listOf<Contact>()
     private var groupsIgnoringSearch = listOf<Group>()
     private lateinit var config: Config
-    protected lateinit var innerBinding: BINDING
+    protected lateinit var innerBinding: Binding
 
     var skipHashComparing = false
     var forceListRedraw = false
