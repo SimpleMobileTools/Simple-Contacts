@@ -20,7 +20,7 @@
     <string name="no_contacts_with_phone_numbers">Не са открити контакти с телефонен номер</string>
     <string name="new_contact">Нов контакт</string>
     <string name="edit_contact">Редактиране на контакт</string>
-    <string name="select_contact">Избор на контакт</string>
+    <string name="select_contact">Избeри контакт</string>
     <string name="nickname">Прякор</string>
     <!-- Groups -->
     <string name="no_groups">Няма групи</string>
