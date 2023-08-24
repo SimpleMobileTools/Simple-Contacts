@@ -1,18 +1,17 @@
 package com.simplemobiletools.contacts.pro.dialogs
 
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import com.simplemobiletools.commons.models.contacts.*
+import com.simplemobiletools.commons.models.contacts.Contact
+import com.simplemobiletools.commons.models.contacts.ContactSource
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.FilterContactSourcesAdapter
+import com.simplemobiletools.contacts.pro.databinding.DialogExportContactsBinding
 import com.simplemobiletools.contacts.pro.extensions.config
-import kotlinx.android.synthetic.main.dialog_export_contacts.view.*
 import java.io.File
 
 class ExportContactsDialog(
@@ -27,17 +26,17 @@ class ExportContactsDialog(
     private var isContactsReady = false
 
     init {
-        val view = (activity.layoutInflater.inflate(R.layout.dialog_export_contacts, null) as ViewGroup).apply {
-            export_contacts_folder.setText(activity.humanizePath(realPath))
-            export_contacts_filename.setText("contacts_${activity.getCurrentFormattedDateTime()}")
+        val binding = DialogExportContactsBinding.inflate(activity.layoutInflater).apply {
+            exportContactsFolder.setText(activity.humanizePath(realPath))
+            exportContactsFilename.setText("contacts_${activity.getCurrentFormattedDateTime()}")
 
             if (hidePath) {
-                export_contacts_folder_hint.beGone()
+                exportContactsFolderHint.beGone()
             } else {
-                export_contacts_folder.setOnClickListener {
-                    activity.hideKeyboard(export_contacts_filename)
+                exportContactsFolder.setOnClickListener {
+                    activity.hideKeyboard(exportContactsFilename)
                     FilePickerDialog(activity, realPath, false, showFAB = true) {
-                        export_contacts_folder.setText(activity.humanizePath(it))
+                        exportContactsFolder.setText(activity.humanizePath(it))
                         realPath = it
                     }
                 }
@@ -57,29 +56,29 @@ class ExportContactsDialog(
         }
 
         activity.getAlertDialogBuilder()
-            .setPositiveButton(R.string.ok, null)
-            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(com.simplemobiletools.commons.R.string.ok, null)
+            .setNegativeButton(com.simplemobiletools.commons.R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this, R.string.export_contacts) { alertDialog ->
+                activity.setupDialogStuff(binding.root, this, R.string.export_contacts) { alertDialog ->
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                        if (view.export_contacts_list.adapter == null || ignoreClicks) {
+                        if (binding.exportContactsList.adapter == null || ignoreClicks) {
                             return@setOnClickListener
                         }
 
-                        val filename = view.export_contacts_filename.value
+                        val filename = binding.exportContactsFilename.value
                         when {
-                            filename.isEmpty() -> activity.toast(R.string.empty_name)
+                            filename.isEmpty() -> activity.toast(com.simplemobiletools.commons.R.string.empty_name)
                             filename.isAValidFilename() -> {
                                 val file = File(realPath, "$filename.vcf")
                                 if (!hidePath && file.exists()) {
-                                    activity.toast(R.string.name_taken)
+                                    activity.toast(com.simplemobiletools.commons.R.string.name_taken)
                                     return@setOnClickListener
                                 }
 
                                 ignoreClicks = true
                                 ensureBackgroundThread {
                                     activity.config.lastExportPath = file.absolutePath.getParentPath()
-                                    val selectedSources = (view.export_contacts_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
+                                    val selectedSources = (binding.exportContactsList.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
                                     val ignoredSources = contactSources
                                         .filter { !selectedSources.contains(it) }
                                         .map { it.getFullIdentifier() }
@@ -88,14 +87,15 @@ class ExportContactsDialog(
                                     alertDialog.dismiss()
                                 }
                             }
-                            else -> activity.toast(R.string.invalid_name)
+
+                            else -> activity.toast(com.simplemobiletools.commons.R.string.invalid_name)
                         }
                     }
                 }
             }
     }
 
-    private fun processDataIfReady(view: View) {
+    private fun processDataIfReady(binding: DialogExportContactsBinding) {
         if (!isContactSourcesReady || !isContactsReady) {
             return
         }
@@ -110,7 +110,7 @@ class ExportContactsDialog(
         contactSources.addAll(contactSourcesWithCount)
 
         activity.runOnUiThread {
-            view.export_contacts_list.adapter = FilterContactSourcesAdapter(activity, contactSourcesWithCount, activity.getVisibleContactSources())
+            binding.exportContactsList.adapter = FilterContactSourcesAdapter(activity, contactSourcesWithCount, activity.getVisibleContactSources())
         }
     }
 }

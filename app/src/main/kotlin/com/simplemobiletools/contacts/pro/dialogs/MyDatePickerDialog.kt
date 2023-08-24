@@ -4,21 +4,20 @@ import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.isSPlus
-import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.databinding.DialogDatePickerBinding
 import com.simplemobiletools.contacts.pro.extensions.config
-import kotlinx.android.synthetic.main.dialog_date_picker.view.*
 import org.joda.time.DateTime
-import java.util.*
+import java.util.Calendar
 
 class MyDatePickerDialog(val activity: BaseSimpleActivity, val defaultDate: String, val callback: (dateTag: String) -> Unit) {
-    private var view = activity.layoutInflater.inflate(R.layout.dialog_date_picker, null)
+    private val binding = DialogDatePickerBinding.inflate(activity.layoutInflater)
 
     init {
         activity.getAlertDialogBuilder()
-            .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
-            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(com.simplemobiletools.commons.R.string.ok) { dialog, which -> dialogConfirmed() }
+            .setNegativeButton(com.simplemobiletools.commons.R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this) { alertDialog ->
+                activity.setupDialogStuff(binding.root, this) { alertDialog ->
                     val today = Calendar.getInstance()
                     var year = today.get(Calendar.YEAR)
                     var month = today.get(Calendar.MONTH)
@@ -26,7 +25,7 @@ class MyDatePickerDialog(val activity: BaseSimpleActivity, val defaultDate: Stri
 
                     if (defaultDate.isNotEmpty()) {
                         val ignoreYear = defaultDate.startsWith("-")
-                        view.hide_year.isChecked = ignoreYear
+                        binding.hideYear.isChecked = ignoreYear
 
                         if (ignoreYear) {
                             month = defaultDate.substring(2, 4).toInt() - 1
@@ -39,23 +38,23 @@ class MyDatePickerDialog(val activity: BaseSimpleActivity, val defaultDate: Stri
                     }
 
                     if (activity.config.isUsingSystemTheme && isSPlus()) {
-                        val dialogBackgroundColor = activity.getColor(R.color.you_dialog_background_color)
-                        view.dialog_holder.setBackgroundColor(dialogBackgroundColor)
-                        view.date_picker.setBackgroundColor(dialogBackgroundColor)
+                        val dialogBackgroundColor = activity.getColor(com.simplemobiletools.commons.R.color.you_dialog_background_color)
+                        binding.dialogHolder.setBackgroundColor(dialogBackgroundColor)
+                        binding.datePicker.setBackgroundColor(dialogBackgroundColor)
                     }
 
-                    view.date_picker.updateDate(year, month, day)
+                    binding.datePicker.updateDate(year, month, day)
                 }
             }
     }
 
     private fun dialogConfirmed() {
-        val year = view.date_picker.year
-        val month = view.date_picker.month + 1
-        val day = view.date_picker.dayOfMonth
+        val year = binding.datePicker.year
+        val month = binding.datePicker.month + 1
+        val day = binding.datePicker.dayOfMonth
         val date = DateTime().withDate(year, month, day).withTimeAtStartOfDay()
 
-        val tag = if (view.hide_year.isChecked) {
+        val tag = if (binding.hideYear.isChecked) {
             date.toString("--MM-dd")
         } else {
             date.toString("yyyy-MM-dd")

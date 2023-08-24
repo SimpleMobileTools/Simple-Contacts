@@ -16,7 +16,6 @@ import android.provider.ContactsContract.CommonDataKinds.*
 import android.provider.MediaStore
 import android.telephony.PhoneNumberUtils
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -39,6 +38,7 @@ import com.simplemobiletools.commons.models.contacts.Organization
 import com.simplemobiletools.commons.views.MyAutoCompleteTextView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.AutoCompleteTextViewAdapter
+import com.simplemobiletools.contacts.pro.databinding.*
 import com.simplemobiletools.contacts.pro.dialogs.CustomLabelDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.MyDatePickerDialog
@@ -50,33 +50,19 @@ import com.simplemobiletools.contacts.pro.helpers.ADD_NEW_CONTACT_NUMBER
 import com.simplemobiletools.contacts.pro.helpers.IS_FROM_SIMPLE_CONTACTS
 import com.simplemobiletools.contacts.pro.helpers.KEY_EMAIL
 import com.simplemobiletools.contacts.pro.helpers.KEY_NAME
-import kotlinx.android.synthetic.main.activity_edit_contact.*
-import kotlinx.android.synthetic.main.item_edit_address.view.contact_address
-import kotlinx.android.synthetic.main.item_edit_address.view.contact_address_type
-import kotlinx.android.synthetic.main.item_edit_email.view.contact_email
-import kotlinx.android.synthetic.main.item_edit_email.view.contact_email_type
-import kotlinx.android.synthetic.main.item_edit_group.view.contact_group
-import kotlinx.android.synthetic.main.item_edit_group.view.contact_group_remove
-import kotlinx.android.synthetic.main.item_edit_im.view.contact_im
-import kotlinx.android.synthetic.main.item_edit_im.view.contact_im_type
-import kotlinx.android.synthetic.main.item_edit_phone_number.view.contact_number
-import kotlinx.android.synthetic.main.item_edit_phone_number.view.contact_number_type
-import kotlinx.android.synthetic.main.item_edit_phone_number.view.default_toggle_icon
-import kotlinx.android.synthetic.main.item_edit_website.view.contact_website
-import kotlinx.android.synthetic.main.item_event.view.contact_event
-import kotlinx.android.synthetic.main.item_event.view.contact_event_remove
-import kotlinx.android.synthetic.main.item_event.view.contact_event_type
 
 class EditContactActivity : ContactActivity() {
-    private val INTENT_TAKE_PHOTO = 1
-    private val INTENT_CHOOSE_PHOTO = 2
-    private val INTENT_CROP_PHOTO = 3
+    companion object {
+        private const val INTENT_TAKE_PHOTO = 1
+        private const val INTENT_CHOOSE_PHOTO = 2
+        private const val INTENT_CROP_PHOTO = 3
 
-    private val TAKE_PHOTO = 1
-    private val CHOOSE_PHOTO = 2
-    private val REMOVE_PHOTO = 3
+        private const val TAKE_PHOTO = 1
+        private const val CHOOSE_PHOTO = 2
+        private const val REMOVE_PHOTO = 3
 
-    private val AUTO_COMPLETE_DELAY = 5000L
+        private const val AUTO_COMPLETE_DELAY = 5000L
+    }
 
     private var mLastSavePromptTS = 0L
     private var wasActivityInitialized = false
@@ -88,6 +74,7 @@ class EditContactActivity : ContactActivity() {
     private var numberViewToColor: EditText? = null
     private var emailViewToColor: EditText? = null
     private var originalContactSource = ""
+    private val binding by viewBinding(ActivityEditContactBinding::inflate)
 
     enum class PrimaryNumberStatus {
         UNCHANGED, STARRED, UNSTARRED
@@ -96,13 +83,13 @@ class EditContactActivity : ContactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         showTransparentTop = true
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_contact)
+        setContentView(binding.root)
 
         if (checkAppSideloading()) {
             return
         }
 
-        contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        binding.contactWrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         setupInsets()
         setupMenu()
 
@@ -116,13 +103,13 @@ class EditContactActivity : ContactActivity() {
                         if (it) {
                             initContact()
                         } else {
-                            toast(R.string.no_contacts_permission)
+                            toast(com.simplemobiletools.commons.R.string.no_contacts_permission)
                             hideKeyboard()
                             finish()
                         }
                     }
                 } else {
-                    toast(R.string.no_contacts_permission)
+                    toast(com.simplemobiletools.commons.R.string.no_contacts_permission)
                     hideKeyboard()
                     finish()
                 }
@@ -137,7 +124,7 @@ class EditContactActivity : ContactActivity() {
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 INTENT_TAKE_PHOTO, INTENT_CHOOSE_PHOTO -> startCropPhotoIntent(lastPhotoIntentUri, resultData?.data)
-                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString(), contact_photo, contact_photo_bottom_shadow)
+                INTENT_CROP_PHOTO -> updateContactPhoto(lastPhotoIntentUri.toString(), binding.contactPhoto, binding.contactPhotoBottomShadow)
             }
         }
     }
@@ -168,7 +155,7 @@ class EditContactActivity : ContactActivity() {
             ensureBackgroundThread {
                 contact = ContactsHelper(this).getContactWithId(contactId, intent.getBooleanExtra(IS_PRIVATE, false))
                 if (contact == null) {
-                    toast(R.string.unknown_error_occurred)
+                    toast(com.simplemobiletools.commons.R.string.unknown_error_occurred)
                     hideKeyboard()
                     finish()
                 } else {
@@ -183,7 +170,7 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun gotContact() {
-        contact_scrollview.beVisible()
+        binding.contactScrollview.beVisible()
         if (contact == null) {
             setupNewContact()
         } else {
@@ -224,68 +211,83 @@ class EditContactActivity : ContactActivity() {
         setupRingtone()
 
         if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
-            showPhotoPlaceholder(contact_photo)
-            contact_photo_bottom_shadow.beGone()
+            showPhotoPlaceholder(binding.contactPhoto)
+            binding.contactPhotoBottomShadow.beGone()
         } else {
-            updateContactPhoto(contact!!.photoUri, contact_photo, contact_photo_bottom_shadow, contact!!.photo)
+            updateContactPhoto(contact!!.photoUri, binding.contactPhoto, binding.contactPhotoBottomShadow, contact!!.photo)
         }
 
         val textColor = getProperTextColor()
         arrayOf(
-            contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_ims_image, contact_events_image,
-            contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image, contact_source_image
+            binding.contactNameImage,
+            binding.contactNumbersImage,
+            binding.contactEmailsImage,
+            binding.contactAddressesImage,
+            binding.contactImsImage,
+            binding.contactEventsImage,
+            binding.contactNotesImage,
+            binding.contactRingtoneImage,
+            binding.contactOrganizationImage,
+            binding.contactWebsitesImage,
+            binding.contactGroupsImage,
+            binding.contactSourceImage
         ).forEach {
             it.applyColorFilter(textColor)
         }
 
         val properPrimaryColor = getProperPrimaryColor()
         arrayOf(
-            contact_numbers_add_new, contact_emails_add_new, contact_addresses_add_new, contact_ims_add_new, contact_events_add_new,
-            contact_websites_add_new, contact_groups_add_new
+            binding.contactNumbersAddNew, binding.contactEmailsAddNew, binding.contactAddressesAddNew, binding.contactImsAddNew, binding.contactEventsAddNew,
+            binding.contactWebsitesAddNew, binding.contactGroupsAddNew
         ).forEach {
             it.applyColorFilter(properPrimaryColor)
         }
 
         arrayOf(
-            contact_numbers_add_new.background, contact_emails_add_new.background, contact_addresses_add_new.background, contact_ims_add_new.background,
-            contact_events_add_new.background, contact_websites_add_new.background, contact_groups_add_new.background
+            binding.contactNumbersAddNew.background,
+            binding.contactEmailsAddNew.background,
+            binding.contactAddressesAddNew.background,
+            binding.contactImsAddNew.background,
+            binding.contactEventsAddNew.background,
+            binding.contactWebsitesAddNew.background,
+            binding.contactGroupsAddNew.background
         ).forEach {
             it.applyColorFilter(textColor)
         }
 
-        contact_toggle_favorite.setOnClickListener { toggleFavorite() }
-        contact_photo.setOnClickListener { trySetPhoto() }
-        contact_change_photo.setOnClickListener { trySetPhoto() }
-        contact_numbers_add_new.setOnClickListener { addNewPhoneNumberField() }
-        contact_emails_add_new.setOnClickListener { addNewEmailField() }
-        contact_addresses_add_new.setOnClickListener { addNewAddressField() }
-        contact_ims_add_new.setOnClickListener { addNewIMField() }
-        contact_events_add_new.setOnClickListener { addNewEventField() }
-        contact_websites_add_new.setOnClickListener { addNewWebsiteField() }
-        contact_groups_add_new.setOnClickListener { showSelectGroupsDialog() }
-        contact_source.setOnClickListener { showSelectContactSourceDialog() }
+        binding.contactToggleFavorite.setOnClickListener { toggleFavorite() }
+        binding.contactPhoto.setOnClickListener { trySetPhoto() }
+        binding.contactChangePhoto.setOnClickListener { trySetPhoto() }
+        binding.contactNumbersAddNew.setOnClickListener { addNewPhoneNumberField() }
+        binding.contactEmailsAddNew.setOnClickListener { addNewEmailField() }
+        binding.contactAddressesAddNew.setOnClickListener { addNewAddressField() }
+        binding.contactImsAddNew.setOnClickListener { addNewIMField() }
+        binding.contactEventsAddNew.setOnClickListener { addNewEventField() }
+        binding.contactWebsitesAddNew.setOnClickListener { addNewWebsiteField() }
+        binding.contactGroupsAddNew.setOnClickListener { showSelectGroupsDialog() }
+        binding.contactSource.setOnClickListener { showSelectContactSourceDialog() }
 
-        contact_change_photo.setOnLongClickListener { toast(R.string.change_photo); true; }
+        binding.contactChangePhoto.setOnLongClickListener { toast(R.string.change_photo); true; }
 
         setupFieldVisibility()
 
-        contact_toggle_favorite.apply {
+        binding.contactToggleFavorite.apply {
             setImageDrawable(getStarDrawable(contact!!.starred == 1))
             tag = contact!!.starred
             setOnLongClickListener { toast(R.string.toggle_favorite); true; }
         }
 
-        val nameTextViews = arrayOf(contact_first_name, contact_middle_name, contact_surname).filter { it.isVisible() }
+        val nameTextViews = arrayOf(binding.contactFirstName, binding.contactMiddleName, binding.contactSurname).filter { it.isVisible() }
         if (nameTextViews.isNotEmpty()) {
             setupAutoComplete(nameTextViews)
         }
 
-        updateTextColors(contact_scrollview)
+        updateTextColors(binding.contactScrollview)
         numberViewToColor?.setTextColor(properPrimaryColor)
         emailViewToColor?.setTextColor(properPrimaryColor)
         wasActivityInitialized = true
 
-        contact_toolbar.menu.apply {
+        binding.contactToolbar.menu.apply {
             findItem(R.id.delete).isVisible = contact?.id != 0
             findItem(R.id.share).isVisible = contact?.id != 0
             findItem(R.id.open_with).isVisible = contact?.id != 0 && contact?.isPrivate() == false
@@ -295,7 +297,13 @@ class EditContactActivity : ContactActivity() {
     override fun onBackPressed() {
         if (System.currentTimeMillis() - mLastSavePromptTS > SAVE_DISCARD_PROMPT_INTERVAL && hasContactChanged()) {
             mLastSavePromptTS = System.currentTimeMillis()
-            ConfirmationAdvancedDialog(this, "", R.string.save_before_closing, R.string.save, R.string.discard) {
+            ConfirmationAdvancedDialog(
+                this,
+                "",
+                com.simplemobiletools.commons.R.string.save_before_closing,
+                com.simplemobiletools.commons.R.string.save,
+                com.simplemobiletools.commons.R.string.discard
+            ) {
                 if (it) {
                     saveContact()
                 } else {
@@ -308,10 +316,10 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupInsets() {
-        contact_wrapper.setOnApplyWindowInsetsListener { _, insets ->
+        binding.contactWrapper.setOnApplyWindowInsetsListener { _, insets ->
             val windowInsets = WindowInsetsCompat.toWindowInsetsCompat(insets)
             val imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
-            contact_scrollview.run {
+            binding.contactScrollview.run {
                 setPadding(paddingLeft, paddingTop, paddingRight, imeInsets.bottom)
             }
             insets
@@ -319,8 +327,8 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupMenu() {
-        (contact_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
-        contact_toolbar.menu.apply {
+        (binding.contactAppbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
+        binding.contactToolbar.menu.apply {
             findItem(R.id.save).setOnMenuItemClickListener {
                 saveContact()
                 true
@@ -349,7 +357,7 @@ class EditContactActivity : ContactActivity() {
             }
         }
 
-        contact_toolbar.setNavigationOnClickListener {
+        binding.contactToolbar.setNavigationOnClickListener {
             hideKeyboard()
             finish()
         }
@@ -367,7 +375,7 @@ class EditContactActivity : ContactActivity() {
 
     private fun startCropPhotoIntent(primaryUri: Uri?, backupUri: Uri?) {
         if (primaryUri == null) {
-            toast(R.string.unknown_error_occurred)
+            toast(com.simplemobiletools.commons.R.string.unknown_error_occurred)
             return
         }
 
@@ -407,7 +415,7 @@ class EditContactActivity : ContactActivity() {
             try {
                 startActivityForResult(this, INTENT_CROP_PHOTO)
             } catch (e: ActivityNotFoundException) {
-                toast(R.string.no_app_found)
+                toast(com.simplemobiletools.commons.R.string.no_app_found)
             } catch (e: Exception) {
                 showErrorToast(e)
             }
@@ -417,66 +425,66 @@ class EditContactActivity : ContactActivity() {
     private fun setupFieldVisibility() {
         val showFields = config.showContactFields
         if (showFields and (SHOW_PREFIX_FIELD or SHOW_FIRST_NAME_FIELD or SHOW_MIDDLE_NAME_FIELD or SHOW_SURNAME_FIELD or SHOW_SUFFIX_FIELD) == 0) {
-            contact_name_image.beInvisible()
+            binding.contactNameImage.beInvisible()
         }
 
-        contact_prefix.beVisibleIf(showFields and SHOW_PREFIX_FIELD != 0)
-        contact_first_name.beVisibleIf(showFields and SHOW_FIRST_NAME_FIELD != 0)
-        contact_middle_name.beVisibleIf(showFields and SHOW_MIDDLE_NAME_FIELD != 0)
-        contact_surname.beVisibleIf(showFields and SHOW_SURNAME_FIELD != 0)
-        contact_suffix.beVisibleIf(showFields and SHOW_SUFFIX_FIELD != 0)
-        contact_nickname.beVisibleIf(showFields and SHOW_NICKNAME_FIELD != 0)
+        binding.contactPrefix.beVisibleIf(showFields and SHOW_PREFIX_FIELD != 0)
+        binding.contactFirstName.beVisibleIf(showFields and SHOW_FIRST_NAME_FIELD != 0)
+        binding.contactMiddleName.beVisibleIf(showFields and SHOW_MIDDLE_NAME_FIELD != 0)
+        binding.contactSurname.beVisibleIf(showFields and SHOW_SURNAME_FIELD != 0)
+        binding.contactSuffix.beVisibleIf(showFields and SHOW_SUFFIX_FIELD != 0)
+        binding.contactNickname.beVisibleIf(showFields and SHOW_NICKNAME_FIELD != 0)
 
-        contact_source.beVisibleIf(showFields and SHOW_CONTACT_SOURCE_FIELD != 0)
-        contact_source_image.beVisibleIf(showFields and SHOW_CONTACT_SOURCE_FIELD != 0)
+        binding.contactSource.beVisibleIf(showFields and SHOW_CONTACT_SOURCE_FIELD != 0)
+        binding.contactSourceImage.beVisibleIf(showFields and SHOW_CONTACT_SOURCE_FIELD != 0)
 
         val arePhoneNumbersVisible = showFields and SHOW_PHONE_NUMBERS_FIELD != 0
-        contact_numbers_image.beVisibleIf(arePhoneNumbersVisible)
-        contact_numbers_holder.beVisibleIf(arePhoneNumbersVisible)
-        contact_numbers_add_new.beVisibleIf(arePhoneNumbersVisible)
+        binding.contactNumbersImage.beVisibleIf(arePhoneNumbersVisible)
+        binding.contactNumbersHolder.beVisibleIf(arePhoneNumbersVisible)
+        binding.contactNumbersAddNew.beVisibleIf(arePhoneNumbersVisible)
 
         val areEmailsVisible = showFields and SHOW_EMAILS_FIELD != 0
-        contact_emails_image.beVisibleIf(areEmailsVisible)
-        contact_emails_holder.beVisibleIf(areEmailsVisible)
-        contact_emails_add_new.beVisibleIf(areEmailsVisible)
+        binding.contactEmailsImage.beVisibleIf(areEmailsVisible)
+        binding.contactEmailsHolder.beVisibleIf(areEmailsVisible)
+        binding.contactEmailsAddNew.beVisibleIf(areEmailsVisible)
 
         val areAddressesVisible = showFields and SHOW_ADDRESSES_FIELD != 0
-        contact_addresses_image.beVisibleIf(areAddressesVisible)
-        contact_addresses_holder.beVisibleIf(areAddressesVisible)
-        contact_addresses_add_new.beVisibleIf(areAddressesVisible)
+        binding.contactAddressesImage.beVisibleIf(areAddressesVisible)
+        binding.contactAddressesHolder.beVisibleIf(areAddressesVisible)
+        binding.contactAddressesAddNew.beVisibleIf(areAddressesVisible)
 
         val areIMsVisible = showFields and SHOW_IMS_FIELD != 0
-        contact_ims_image.beVisibleIf(areIMsVisible)
-        contact_ims_holder.beVisibleIf(areIMsVisible)
-        contact_ims_add_new.beVisibleIf(areIMsVisible)
+        binding.contactImsImage.beVisibleIf(areIMsVisible)
+        binding.contactImsHolder.beVisibleIf(areIMsVisible)
+        binding.contactImsAddNew.beVisibleIf(areIMsVisible)
 
         val isOrganizationVisible = showFields and SHOW_ORGANIZATION_FIELD != 0
-        contact_organization_company.beVisibleIf(isOrganizationVisible)
-        contact_organization_job_position.beVisibleIf(isOrganizationVisible)
-        contact_organization_image.beVisibleIf(isOrganizationVisible)
+        binding.contactOrganizationCompany.beVisibleIf(isOrganizationVisible)
+        binding.contactOrganizationJobPosition.beVisibleIf(isOrganizationVisible)
+        binding.contactOrganizationImage.beVisibleIf(isOrganizationVisible)
 
         val areEventsVisible = showFields and SHOW_EVENTS_FIELD != 0
-        contact_events_image.beVisibleIf(areEventsVisible)
-        contact_events_holder.beVisibleIf(areEventsVisible)
-        contact_events_add_new.beVisibleIf(areEventsVisible)
+        binding.contactEventsImage.beVisibleIf(areEventsVisible)
+        binding.contactEventsHolder.beVisibleIf(areEventsVisible)
+        binding.contactEventsAddNew.beVisibleIf(areEventsVisible)
 
         val areWebsitesVisible = showFields and SHOW_WEBSITES_FIELD != 0
-        contact_websites_image.beVisibleIf(areWebsitesVisible)
-        contact_websites_holder.beVisibleIf(areWebsitesVisible)
-        contact_websites_add_new.beVisibleIf(areWebsitesVisible)
+        binding.contactWebsitesImage.beVisibleIf(areWebsitesVisible)
+        binding.contactWebsitesHolder.beVisibleIf(areWebsitesVisible)
+        binding.contactWebsitesAddNew.beVisibleIf(areWebsitesVisible)
 
         val areGroupsVisible = showFields and SHOW_GROUPS_FIELD != 0
-        contact_groups_image.beVisibleIf(areGroupsVisible)
-        contact_groups_holder.beVisibleIf(areGroupsVisible)
-        contact_groups_add_new.beVisibleIf(areGroupsVisible)
+        binding.contactGroupsImage.beVisibleIf(areGroupsVisible)
+        binding.contactGroupsHolder.beVisibleIf(areGroupsVisible)
+        binding.contactGroupsAddNew.beVisibleIf(areGroupsVisible)
 
         val areNotesVisible = showFields and SHOW_NOTES_FIELD != 0
-        contact_notes.beVisibleIf(areNotesVisible)
-        contact_notes_image.beVisibleIf(areNotesVisible)
+        binding.contactNotes.beVisibleIf(areNotesVisible)
+        binding.contactNotesImage.beVisibleIf(areNotesVisible)
 
         val isRingtoneVisible = showFields and SHOW_RINGTONE_FIELD != 0
-        contact_ringtone.beVisibleIf(isRingtoneVisible)
-        contact_ringtone_image.beVisibleIf(isRingtoneVisible)
+        binding.contactRingtone.beVisibleIf(isRingtoneVisible)
+        binding.contactRingtoneImage.beVisibleIf(isRingtoneVisible)
     }
 
     private fun setupEditContact() {
@@ -496,12 +504,12 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupNames() {
         contact!!.apply {
-            contact_prefix.setText(prefix)
-            contact_first_name.setText(firstName)
-            contact_middle_name.setText(middleName)
-            contact_surname.setText(surname)
-            contact_suffix.setText(suffix)
-            contact_nickname.setText(nickname)
+            binding.contactPrefix.setText(prefix)
+            binding.contactFirstName.setText(firstName)
+            binding.contactMiddleName.setText(middleName)
+            binding.contactSurname.setText(surname)
+            binding.contactSuffix.setText(suffix)
+            binding.contactNickname.setText(nickname)
         }
     }
 
@@ -509,21 +517,24 @@ class EditContactActivity : ContactActivity() {
         val phoneNumbers = contact!!.phoneNumbers
 
         phoneNumbers.forEachIndexed { index, number ->
-            var numberHolder = contact_numbers_holder.getChildAt(index)
-            if (numberHolder == null) {
-                numberHolder = layoutInflater.inflate(R.layout.item_edit_phone_number, contact_numbers_holder, false)
-                contact_numbers_holder.addView(numberHolder)
+            val numberHolderView = binding.contactNumbersHolder.getChildAt(index)
+            val numberHolder = if (numberHolderView == null) {
+                ItemEditPhoneNumberBinding.inflate(layoutInflater, binding.contactNumbersHolder, false).apply {
+                    binding.contactNumbersHolder.addView(root)
+                }
+            } else {
+                ItemEditPhoneNumberBinding.bind(numberHolderView)
             }
 
-            numberHolder!!.apply {
-                contact_number.setText(number.value)
-                contact_number.tag = number.normalizedNumber
-                setupPhoneNumberTypePicker(contact_number_type, number.type, number.label)
+            numberHolder.apply {
+                contactNumber.setText(number.value)
+                contactNumber.tag = number.normalizedNumber
+                setupPhoneNumberTypePicker(contactNumberType, number.type, number.label)
                 if (highlightLastPhoneNumber && index == phoneNumbers.size - 1) {
-                    numberViewToColor = contact_number
+                    numberViewToColor = contactNumber
                 }
 
-                default_toggle_icon.tag = if (number.isPrimary) 1 else 0
+                defaultToggleIcon.tag = if (number.isPrimary) 1 else 0
             }
         }
 
@@ -531,9 +542,9 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setDefaultNumber(selected: ImageView) {
-        val numbersCount = contact_numbers_holder.childCount
+        val numbersCount = binding.contactNumbersHolder.childCount
         for (i in 0 until numbersCount) {
-            val toggleIcon = contact_numbers_holder.getChildAt(i).default_toggle_icon
+            val toggleIcon = ItemEditPhoneNumberBinding.bind(binding.contactNumbersHolder.getChildAt(i)).defaultToggleIcon
             if (toggleIcon != selected) {
                 toggleIcon.tag = 0
             }
@@ -545,21 +556,21 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun initNumberHolders() {
-        val numbersCount = contact_numbers_holder.childCount
+        val numbersCount = binding.contactNumbersHolder.childCount
 
         if (numbersCount == 1) {
-            contact_numbers_holder.getChildAt(0).default_toggle_icon.beGone()
+            ItemEditPhoneNumberBinding.bind(binding.contactNumbersHolder.getChildAt(0)).defaultToggleIcon.beGone()
             return
         }
 
         for (i in 0 until numbersCount) {
-            val toggleIcon = contact_numbers_holder.getChildAt(i).default_toggle_icon
+            val toggleIcon = ItemEditPhoneNumberBinding.bind(binding.contactNumbersHolder.getChildAt(i)).defaultToggleIcon
             val isPrimary = toggleIcon.tag == 1
 
             val drawableId = if (isPrimary) {
-                R.drawable.ic_star_vector
+                com.simplemobiletools.commons.R.drawable.ic_star_vector
             } else {
-                R.drawable.ic_star_outline_vector
+                com.simplemobiletools.commons.R.drawable.ic_star_outline_vector
             }
 
             val drawable = ContextCompat.getDrawable(this@EditContactActivity, drawableId)
@@ -578,17 +589,20 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupEmails() {
         contact!!.emails.forEachIndexed { index, email ->
-            var emailHolder = contact_emails_holder.getChildAt(index)
-            if (emailHolder == null) {
-                emailHolder = layoutInflater.inflate(R.layout.item_edit_email, contact_emails_holder, false)
-                contact_emails_holder.addView(emailHolder)
+            val emailHolderView = binding.contactEmailsHolder.getChildAt(index)
+            val emailHolder = if (emailHolderView == null) {
+                ItemEditEmailBinding.inflate(layoutInflater, binding.contactEmailsHolder, false).apply {
+                    binding.contactEmailsHolder.addView(root)
+                }
+            } else {
+                ItemEditEmailBinding.bind(emailHolderView)
             }
 
-            emailHolder!!.apply {
-                contact_email.setText(email.value)
-                setupEmailTypePicker(contact_email_type, email.type, email.label)
+            emailHolder.apply {
+                contactEmail.setText(email.value)
+                setupEmailTypePicker(contactEmailType, email.type, email.label)
                 if (highlightLastEmail && index == contact!!.emails.size - 1) {
-                    emailViewToColor = contact_email
+                    emailViewToColor = contactEmail
                 }
             }
         }
@@ -596,40 +610,46 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupAddresses() {
         contact!!.addresses.forEachIndexed { index, address ->
-            var addressHolder = contact_addresses_holder.getChildAt(index)
-            if (addressHolder == null) {
-                addressHolder = layoutInflater.inflate(R.layout.item_edit_address, contact_addresses_holder, false)
-                contact_addresses_holder.addView(addressHolder)
+            val addressHolderView = binding.contactAddressesHolder.getChildAt(index)
+            val addressHolder = if (addressHolderView == null) {
+                ItemEditAddressBinding.inflate(layoutInflater, binding.contactAddressesHolder, false).apply {
+                    binding.contactAddressesHolder.addView(root)
+                }
+            } else {
+                ItemEditAddressBinding.bind(addressHolderView)
             }
 
-            addressHolder!!.apply {
-                contact_address.setText(address.value)
-                setupAddressTypePicker(contact_address_type, address.type, address.label)
+            addressHolder.apply {
+                contactAddress.setText(address.value)
+                setupAddressTypePicker(contactAddressType, address.type, address.label)
             }
         }
     }
 
     private fun setupIMs() {
         contact!!.IMs.forEachIndexed { index, IM ->
-            var imHolder = contact_ims_holder.getChildAt(index)
-            if (imHolder == null) {
-                imHolder = layoutInflater.inflate(R.layout.item_edit_im, contact_ims_holder, false)
-                contact_ims_holder.addView(imHolder)
+            val imHolderView = binding.contactImsHolder.getChildAt(index)
+            val imHolder = if (imHolderView == null) {
+                ItemEditImBinding.inflate(layoutInflater, binding.contactImsHolder, false).apply {
+                    binding.contactImsHolder.addView(root)
+                }
+            } else {
+                ItemEditImBinding.bind(imHolderView)
             }
 
-            imHolder!!.apply {
-                contact_im.setText(IM.value)
-                setupIMTypePicker(contact_im_type, IM.type, IM.label)
+            imHolder.apply {
+                contactIm.setText(IM.value)
+                setupIMTypePicker(contactImType, IM.type, IM.label)
             }
         }
     }
 
     private fun setupNotes() {
-        contact_notes.setText(contact!!.notes)
+        binding.contactNotes.setText(contact!!.notes)
     }
 
     private fun setupRingtone() {
-        contact_ringtone.setOnClickListener {
+        binding.contactRingtone.setOnClickListener {
             hideKeyboard()
             val ringtonePickerIntent = getRingtonePickerIntent()
             try {
@@ -639,7 +659,7 @@ class EditContactActivity : ContactActivity() {
                 SelectAlarmSoundDialog(this, currentRingtone, AudioManager.STREAM_RING, PICK_RINGTONE_INTENT_ID, RingtoneManager.TYPE_RINGTONE, true,
                     onAlarmPicked = {
                         contact!!.ringtone = it?.uri
-                        contact_ringtone.text = it?.title
+                        binding.contactRingtone.text = it?.title
                     }, onAlarmSoundDeleted = {}
                 )
             }
@@ -647,46 +667,52 @@ class EditContactActivity : ContactActivity() {
 
         val ringtone = contact!!.ringtone
         if (ringtone?.isEmpty() == true) {
-            contact_ringtone.text = getString(R.string.no_sound)
+            binding.contactRingtone.text = getString(com.simplemobiletools.commons.R.string.no_sound)
         } else if (ringtone?.isNotEmpty() == true) {
             if (ringtone == SILENT) {
-                contact_ringtone.text = getString(R.string.no_sound)
+                binding.contactRingtone.text = getString(com.simplemobiletools.commons.R.string.no_sound)
             } else {
                 systemRingtoneSelected(Uri.parse(ringtone))
             }
         } else {
             val default = getDefaultAlarmSound(RingtoneManager.TYPE_RINGTONE)
-            contact_ringtone.text = default.title
+            binding.contactRingtone.text = default.title
         }
     }
 
     private fun setupOrganization() {
-        contact_organization_company.setText(contact!!.organization.company)
-        contact_organization_job_position.setText(contact!!.organization.jobPosition)
+        binding.contactOrganizationCompany.setText(contact!!.organization.company)
+        binding.contactOrganizationJobPosition.setText(contact!!.organization.jobPosition)
     }
 
     private fun setupWebsites() {
         contact!!.websites.forEachIndexed { index, website ->
-            var websitesHolder = contact_websites_holder.getChildAt(index)
-            if (websitesHolder == null) {
-                websitesHolder = layoutInflater.inflate(R.layout.item_edit_website, contact_websites_holder, false)
-                contact_websites_holder.addView(websitesHolder)
+            val websitesHolderView = binding.contactWebsitesHolder.getChildAt(index)
+            val websitesHolder = if (websitesHolderView == null) {
+                ItemEditWebsiteBinding.inflate(layoutInflater, binding.contactWebsitesHolder, false).apply {
+                    binding.contactWebsitesHolder.addView(root)
+                }
+            } else {
+                ItemEditWebsiteBinding.bind(websitesHolderView)
             }
 
-            websitesHolder!!.contact_website.setText(website)
+            websitesHolder.contactWebsite.setText(website)
         }
     }
 
     private fun setupEvents() {
         contact!!.events.forEachIndexed { index, event ->
-            var eventHolder = contact_events_holder.getChildAt(index)
-            if (eventHolder == null) {
-                eventHolder = layoutInflater.inflate(R.layout.item_event, contact_events_holder, false)
-                contact_events_holder.addView(eventHolder)
+            val eventHolderView = binding.contactEventsHolder.getChildAt(index)
+            val eventHolder = if (eventHolderView == null) {
+                ItemEventBinding.inflate(layoutInflater, binding.contactEventsHolder, false).apply {
+                    binding.contactEventsHolder.addView(root)
+                }
+            } else {
+                ItemEventBinding.bind(eventHolderView)
             }
 
-            (eventHolder as ViewGroup).apply {
-                val contactEvent = contact_event.apply {
+            eventHolder.apply {
+                val contactEvent = contactEvent.apply {
                     event.value.getDateTimeFromDateString(true, this)
                     tag = event.value
                     alpha = 1f
@@ -694,7 +720,7 @@ class EditContactActivity : ContactActivity() {
 
                 setupEventTypePicker(this, event.type)
 
-                contact_event_remove.apply {
+                contactEventRemove.apply {
                     beVisible()
                     applyColorFilter(getProperPrimaryColor())
                     background.applyColorFilter(getProperTextColor())
@@ -707,28 +733,31 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun setupGroups() {
-        contact_groups_holder.removeAllViews()
+        binding.contactGroupsHolder.removeAllViews()
         val groups = contact!!.groups
         groups.forEachIndexed { index, group ->
-            var groupHolder = contact_groups_holder.getChildAt(index)
-            if (groupHolder == null) {
-                groupHolder = layoutInflater.inflate(R.layout.item_edit_group, contact_groups_holder, false)
-                contact_groups_holder.addView(groupHolder)
+            val groupHolderView = binding.contactGroupsHolder.getChildAt(index)
+            val groupHolder = if (groupHolderView == null) {
+                ItemEditGroupBinding.inflate(layoutInflater, binding.contactGroupsHolder, false).apply {
+                    binding.contactGroupsHolder.addView(root)
+                }
+            } else {
+                ItemEditGroupBinding.bind(groupHolderView)
             }
 
-            (groupHolder as ViewGroup).apply {
-                contact_group.apply {
+            groupHolder.apply {
+                contactGroup.apply {
                     text = group.title
                     setTextColor(getProperTextColor())
                     tag = group.id
                     alpha = 1f
                 }
 
-                setOnClickListener {
+                root.setOnClickListener {
                     showSelectGroupsDialog()
                 }
 
-                contact_group_remove.apply {
+                contactGroupRemove.apply {
                     beVisible()
                     applyColorFilter(getProperPrimaryColor())
                     background.applyColorFilter(getProperTextColor())
@@ -740,16 +769,16 @@ class EditContactActivity : ContactActivity() {
         }
 
         if (groups.isEmpty()) {
-            layoutInflater.inflate(R.layout.item_edit_group, contact_groups_holder, false).apply {
-                contact_group.apply {
+            ItemEditGroupBinding.inflate(layoutInflater, binding.contactGroupsHolder, false).apply {
+                contactGroup.apply {
                     alpha = 0.5f
                     text = getString(R.string.no_groups)
                     setTextColor(getProperTextColor())
                 }
 
-                contact_groups_holder.addView(this)
-                contact_group_remove.beGone()
-                setOnClickListener {
+                contactGroupHolder.addView(root)
+                contactGroupRemove.beGone()
+                root.setOnClickListener {
                     showSelectGroupsDialog()
                 }
             }
@@ -759,7 +788,7 @@ class EditContactActivity : ContactActivity() {
     private fun setupContactSource() {
         originalContactSource = contact!!.source
         getPublicContactSource(contact!!.source) {
-            contact_source.text = if (it == "") getString(R.string.phone_storage) else it
+            binding.contactSource.text = if (it == "") getString(R.string.phone_storage) else it
         }
     }
 
@@ -767,7 +796,7 @@ class EditContactActivity : ContactActivity() {
         originalContactSource = if (hasContactPermissions()) config.lastUsedContactSource else SMT_PRIVATE
         contact = getEmptyContact()
         getPublicContactSource(contact!!.source) {
-            contact_source.text = if (it == "") getString(R.string.phone_storage) else it
+            binding.contactSource.text = if (it == "") getString(R.string.phone_storage) else it
         }
 
         // if the last used contact source is not available anymore, use the first available one. Could happen at ejecting SIM card
@@ -777,7 +806,7 @@ class EditContactActivity : ContactActivity() {
                 originalContactSource = sourceNames.first()
                 contact?.source = originalContactSource
                 getPublicContactSource(contact!!.source) {
-                    contact_source.text = if (it == "") getString(R.string.phone_storage) else it
+                    binding.contactSource.text = if (it == "") getString(R.string.phone_storage) else it
                 }
             }
         }
@@ -785,43 +814,43 @@ class EditContactActivity : ContactActivity() {
 
     private fun setupTypePickers() {
         if (contact!!.phoneNumbers.isEmpty()) {
-            val numberHolder = contact_numbers_holder.getChildAt(0)
-            (numberHolder as? ViewGroup)?.contact_number_type?.apply {
+            val numberHolder = ItemEditPhoneNumberBinding.bind(binding.contactNumbersHolder.getChildAt(0))
+            numberHolder.contactNumberType.apply {
                 setupPhoneNumberTypePicker(this, DEFAULT_PHONE_NUMBER_TYPE, "")
             }
         }
 
         if (contact!!.emails.isEmpty()) {
-            val emailHolder = contact_emails_holder.getChildAt(0)
-            (emailHolder as? ViewGroup)?.contact_email_type?.apply {
+            val emailHolder = ItemEditEmailBinding.bind(binding.contactEmailsHolder.getChildAt(0))
+            emailHolder.contactEmailType.apply {
                 setupEmailTypePicker(this, DEFAULT_EMAIL_TYPE, "")
             }
         }
 
         if (contact!!.addresses.isEmpty()) {
-            val addressHolder = contact_addresses_holder.getChildAt(0)
-            (addressHolder as? ViewGroup)?.contact_address_type?.apply {
+            val addressHolder = ItemEditAddressBinding.bind(binding.contactAddressesHolder.getChildAt(0))
+            addressHolder.contactAddressType.apply {
                 setupAddressTypePicker(this, DEFAULT_ADDRESS_TYPE, "")
             }
         }
 
         if (contact!!.IMs.isEmpty()) {
-            val IMHolder = contact_ims_holder.getChildAt(0)
-            (IMHolder as? ViewGroup)?.contact_im_type?.apply {
+            val IMHolder = ItemEditImBinding.bind(binding.contactImsHolder.getChildAt(0))
+            IMHolder.contactImType.apply {
                 setupIMTypePicker(this, DEFAULT_IM_TYPE, "")
             }
         }
 
         if (contact!!.events.isEmpty()) {
-            val eventHolder = contact_events_holder.getChildAt(0)
-            (eventHolder as? ViewGroup)?.apply {
+            val eventHolder = ItemEventBinding.bind(binding.contactEventsHolder.getChildAt(0))
+            eventHolder.apply {
                 setupEventTypePicker(this)
             }
         }
 
         if (contact!!.groups.isEmpty()) {
-            val groupsHolder = contact_groups_holder.getChildAt(0)
-            (groupsHolder as? ViewGroup)?.contact_group?.apply {
+            val groupsHolder = ItemEditGroupBinding.bind(binding.contactGroupsHolder.getChildAt(0))
+            groupsHolder.contactGroup.apply {
                 setupGroupsPicker(this)
             }
         }
@@ -863,15 +892,15 @@ class EditContactActivity : ContactActivity() {
         }
     }
 
-    private fun setupEventTypePicker(eventHolder: ViewGroup, type: Int = DEFAULT_EVENT_TYPE) {
-        eventHolder.contact_event_type.apply {
+    private fun setupEventTypePicker(eventHolder: ItemEventBinding, type: Int = DEFAULT_EVENT_TYPE) {
+        eventHolder.contactEventType.apply {
             setText(getEventTextId(type))
             setOnClickListener {
                 showEventTypePicker(it as TextView)
             }
         }
 
-        val eventField = eventHolder.contact_event
+        val eventField = eventHolder.contactEvent
         eventField.setOnClickListener {
             MyDatePickerDialog(this, eventField.tag?.toString() ?: "") { dateTag ->
                 eventField.apply {
@@ -882,7 +911,7 @@ class EditContactActivity : ContactActivity() {
             }
         }
 
-        eventHolder.contact_event_remove.apply {
+        eventHolder.contactEventRemove.apply {
             applyColorFilter(getProperPrimaryColor())
             background.applyColorFilter(getProperTextColor())
             setOnClickListener {
@@ -903,7 +932,7 @@ class EditContactActivity : ContactActivity() {
 
     private fun resetContactEvent(contactEvent: TextView, removeContactEventButton: ImageView) {
         contactEvent.apply {
-            text = getString(R.string.unknown)
+            text = getString(com.simplemobiletools.commons.R.string.unknown)
             tag = ""
             alpha = 0.5f
         }
@@ -917,15 +946,15 @@ class EditContactActivity : ContactActivity() {
 
     private fun showNumberTypePicker(numberTypeField: TextView) {
         val items = arrayListOf(
-            RadioItem(Phone.TYPE_MOBILE, getString(R.string.mobile)),
-            RadioItem(Phone.TYPE_HOME, getString(R.string.home)),
-            RadioItem(Phone.TYPE_WORK, getString(R.string.work)),
-            RadioItem(Phone.TYPE_MAIN, getString(R.string.main_number)),
-            RadioItem(Phone.TYPE_FAX_WORK, getString(R.string.work_fax)),
-            RadioItem(Phone.TYPE_FAX_HOME, getString(R.string.home_fax)),
-            RadioItem(Phone.TYPE_PAGER, getString(R.string.pager)),
-            RadioItem(Phone.TYPE_OTHER, getString(R.string.other)),
-            RadioItem(Phone.TYPE_CUSTOM, getString(R.string.custom))
+            RadioItem(Phone.TYPE_MOBILE, getString(com.simplemobiletools.commons.R.string.mobile)),
+            RadioItem(Phone.TYPE_HOME, getString(com.simplemobiletools.commons.R.string.home)),
+            RadioItem(Phone.TYPE_WORK, getString(com.simplemobiletools.commons.R.string.work)),
+            RadioItem(Phone.TYPE_MAIN, getString(com.simplemobiletools.commons.R.string.main_number)),
+            RadioItem(Phone.TYPE_FAX_WORK, getString(com.simplemobiletools.commons.R.string.work_fax)),
+            RadioItem(Phone.TYPE_FAX_HOME, getString(com.simplemobiletools.commons.R.string.home_fax)),
+            RadioItem(Phone.TYPE_PAGER, getString(com.simplemobiletools.commons.R.string.pager)),
+            RadioItem(Phone.TYPE_OTHER, getString(com.simplemobiletools.commons.R.string.other)),
+            RadioItem(Phone.TYPE_CUSTOM, getString(com.simplemobiletools.commons.R.string.custom))
         )
 
         val currentNumberTypeId = getPhoneNumberTypeId(numberTypeField.value)
@@ -942,11 +971,11 @@ class EditContactActivity : ContactActivity() {
 
     private fun showEmailTypePicker(emailTypeField: TextView) {
         val items = arrayListOf(
-            RadioItem(CommonDataKinds.Email.TYPE_HOME, getString(R.string.home)),
-            RadioItem(CommonDataKinds.Email.TYPE_WORK, getString(R.string.work)),
-            RadioItem(CommonDataKinds.Email.TYPE_MOBILE, getString(R.string.mobile)),
-            RadioItem(CommonDataKinds.Email.TYPE_OTHER, getString(R.string.other)),
-            RadioItem(CommonDataKinds.Email.TYPE_CUSTOM, getString(R.string.custom))
+            RadioItem(CommonDataKinds.Email.TYPE_HOME, getString(com.simplemobiletools.commons.R.string.home)),
+            RadioItem(CommonDataKinds.Email.TYPE_WORK, getString(com.simplemobiletools.commons.R.string.work)),
+            RadioItem(CommonDataKinds.Email.TYPE_MOBILE, getString(com.simplemobiletools.commons.R.string.mobile)),
+            RadioItem(CommonDataKinds.Email.TYPE_OTHER, getString(com.simplemobiletools.commons.R.string.other)),
+            RadioItem(CommonDataKinds.Email.TYPE_CUSTOM, getString(com.simplemobiletools.commons.R.string.custom))
         )
 
         val currentEmailTypeId = getEmailTypeId(emailTypeField.value)
@@ -963,10 +992,10 @@ class EditContactActivity : ContactActivity() {
 
     private fun showAddressTypePicker(addressTypeField: TextView) {
         val items = arrayListOf(
-            RadioItem(StructuredPostal.TYPE_HOME, getString(R.string.home)),
-            RadioItem(StructuredPostal.TYPE_WORK, getString(R.string.work)),
-            RadioItem(StructuredPostal.TYPE_OTHER, getString(R.string.other)),
-            RadioItem(StructuredPostal.TYPE_CUSTOM, getString(R.string.custom))
+            RadioItem(StructuredPostal.TYPE_HOME, getString(com.simplemobiletools.commons.R.string.home)),
+            RadioItem(StructuredPostal.TYPE_WORK, getString(com.simplemobiletools.commons.R.string.work)),
+            RadioItem(StructuredPostal.TYPE_OTHER, getString(com.simplemobiletools.commons.R.string.other)),
+            RadioItem(StructuredPostal.TYPE_CUSTOM, getString(com.simplemobiletools.commons.R.string.custom))
         )
 
         val currentAddressTypeId = getAddressTypeId(addressTypeField.value)
@@ -991,7 +1020,7 @@ class EditContactActivity : ContactActivity() {
             RadioItem(Im.PROTOCOL_GOOGLE_TALK, getString(R.string.hangouts)),
             RadioItem(Im.PROTOCOL_ICQ, getString(R.string.icq)),
             RadioItem(Im.PROTOCOL_JABBER, getString(R.string.jabber)),
-            RadioItem(Im.PROTOCOL_CUSTOM, getString(R.string.custom))
+            RadioItem(Im.PROTOCOL_CUSTOM, getString(com.simplemobiletools.commons.R.string.custom))
         )
 
         val currentIMTypeId = getIMTypeId(imTypeField.value)
@@ -1008,9 +1037,9 @@ class EditContactActivity : ContactActivity() {
 
     private fun showEventTypePicker(eventTypeField: TextView) {
         val items = arrayListOf(
-            RadioItem(CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(R.string.anniversary)),
-            RadioItem(CommonDataKinds.Event.TYPE_BIRTHDAY, getString(R.string.birthday)),
-            RadioItem(CommonDataKinds.Event.TYPE_OTHER, getString(R.string.other))
+            RadioItem(CommonDataKinds.Event.TYPE_ANNIVERSARY, getString(com.simplemobiletools.commons.R.string.anniversary)),
+            RadioItem(CommonDataKinds.Event.TYPE_BIRTHDAY, getString(com.simplemobiletools.commons.R.string.birthday)),
+            RadioItem(CommonDataKinds.Event.TYPE_OTHER, getString(com.simplemobiletools.commons.R.string.other))
         )
 
         val currentEventTypeId = getEventTypeId(eventTypeField.value)
@@ -1030,7 +1059,7 @@ class EditContactActivity : ContactActivity() {
         showContactSourcePicker(contact!!.source) {
             contact!!.source = if (it == getString(R.string.phone_storage_hidden)) SMT_PRIVATE else it
             getPublicContactSource(it) {
-                contact_source.text = if (it == "") getString(R.string.phone_storage) else it
+                binding.contactSource.text = if (it == "") getString(R.string.phone_storage) else it
             }
         }
     }
@@ -1041,8 +1070,8 @@ class EditContactActivity : ContactActivity() {
         }
 
         val contactFields = arrayListOf(
-            contact_prefix, contact_first_name, contact_middle_name, contact_surname, contact_suffix, contact_nickname,
-            contact_notes, contact_organization_company, contact_organization_job_position
+            binding.contactPrefix, binding.contactFirstName, binding.contactMiddleName, binding.contactSurname, binding.contactSuffix, binding.contactNickname,
+            binding.contactNotes, binding.contactOrganizationCompany, binding.contactOrganizationJobPosition
         )
 
         if (contactFields.all { it.value.isEmpty() }) {
@@ -1090,12 +1119,12 @@ class EditContactActivity : ContactActivity() {
         val filledWebsites = getFilledWebsites()
 
         val newContact = contact!!.copy(
-            prefix = contact_prefix.value,
-            firstName = contact_first_name.value,
-            middleName = contact_middle_name.value,
-            surname = contact_surname.value,
-            suffix = contact_suffix.value,
-            nickname = contact_nickname.value,
+            prefix = binding.contactPrefix.value,
+            firstName = binding.contactFirstName.value,
+            middleName = binding.contactMiddleName.value,
+            surname = binding.contactSurname.value,
+            suffix = binding.contactSuffix.value,
+            nickname = binding.contactNickname.value,
             photoUri = currentContactPhotoPath,
             phoneNumbers = filledPhoneNumbers,
             emails = filledEmails,
@@ -1103,36 +1132,36 @@ class EditContactActivity : ContactActivity() {
             IMs = filledIMs,
             events = filledEvents,
             starred = if (isContactStarred()) 1 else 0,
-            notes = contact_notes.value,
+            notes = binding.contactNotes.value,
             websites = filledWebsites,
         )
 
-        val company = contact_organization_company.value
-        val jobPosition = contact_organization_job_position.value
+        val company = binding.contactOrganizationCompany.value
+        val jobPosition = binding.contactOrganizationJobPosition.value
         newContact.organization = Organization(company, jobPosition)
         return newContact
     }
 
     private fun getFilledPhoneNumbers(): ArrayList<PhoneNumber> {
         val phoneNumbers = ArrayList<PhoneNumber>()
-        val numbersCount = contact_numbers_holder.childCount
+        val numbersCount = binding.contactNumbersHolder.childCount
         for (i in 0 until numbersCount) {
-            val numberHolder = contact_numbers_holder.getChildAt(i)
-            val number = numberHolder.contact_number.value
-            val numberType = getPhoneNumberTypeId(numberHolder.contact_number_type.value)
-            val numberLabel = if (numberType == Phone.TYPE_CUSTOM) numberHolder.contact_number_type.value else ""
+            val numberHolder = ItemEditPhoneNumberBinding.bind(binding.contactNumbersHolder.getChildAt(i))
+            val number = numberHolder.contactNumber.value
+            val numberType = getPhoneNumberTypeId(numberHolder.contactNumberType.value)
+            val numberLabel = if (numberType == Phone.TYPE_CUSTOM) numberHolder.contactNumberType.value else ""
 
             if (number.isNotEmpty()) {
                 var normalizedNumber = number.normalizePhoneNumber()
 
                 // fix a glitch when onBackPressed the app thinks that a number changed because we fetched
                 // normalized number +421903123456, then at getting it from the input field we get 0903123456, can happen at WhatsApp contacts
-                val fetchedNormalizedNumber = numberHolder.contact_number.tag?.toString() ?: ""
+                val fetchedNormalizedNumber = numberHolder.contactNumber.tag?.toString() ?: ""
                 if (PhoneNumberUtils.compare(number.normalizePhoneNumber(), fetchedNormalizedNumber)) {
                     normalizedNumber = fetchedNormalizedNumber
                 }
 
-                val isPrimary = numberHolder.default_toggle_icon.tag == 1
+                val isPrimary = numberHolder.defaultToggleIcon.tag == 1
                 phoneNumbers.add(PhoneNumber(number, numberType, numberLabel, normalizedNumber, isPrimary))
             }
         }
@@ -1141,12 +1170,12 @@ class EditContactActivity : ContactActivity() {
 
     private fun getFilledEmails(): ArrayList<Email> {
         val emails = ArrayList<Email>()
-        val emailsCount = contact_emails_holder.childCount
+        val emailsCount = binding.contactEmailsHolder.childCount
         for (i in 0 until emailsCount) {
-            val emailHolder = contact_emails_holder.getChildAt(i)
-            val email = emailHolder.contact_email.value
-            val emailType = getEmailTypeId(emailHolder.contact_email_type.value)
-            val emailLabel = if (emailType == CommonDataKinds.Email.TYPE_CUSTOM) emailHolder.contact_email_type.value else ""
+            val emailHolder = ItemEditEmailBinding.bind(binding.contactEmailsHolder.getChildAt(i))
+            val email = emailHolder.contactEmail.value
+            val emailType = getEmailTypeId(emailHolder.contactEmailType.value)
+            val emailLabel = if (emailType == CommonDataKinds.Email.TYPE_CUSTOM) emailHolder.contactEmailType.value else ""
 
             if (email.isNotEmpty()) {
                 emails.add(Email(email, emailType, emailLabel))
@@ -1157,12 +1186,12 @@ class EditContactActivity : ContactActivity() {
 
     private fun getFilledAddresses(): ArrayList<Address> {
         val addresses = ArrayList<Address>()
-        val addressesCount = contact_addresses_holder.childCount
+        val addressesCount = binding.contactAddressesHolder.childCount
         for (i in 0 until addressesCount) {
-            val addressHolder = contact_addresses_holder.getChildAt(i)
-            val address = addressHolder.contact_address.value
-            val addressType = getAddressTypeId(addressHolder.contact_address_type.value)
-            val addressLabel = if (addressType == StructuredPostal.TYPE_CUSTOM) addressHolder.contact_address_type.value else ""
+            val addressHolder = ItemEditAddressBinding.bind(binding.contactAddressesHolder.getChildAt(i))
+            val address = addressHolder.contactAddress.value
+            val addressType = getAddressTypeId(addressHolder.contactAddressType.value)
+            val addressLabel = if (addressType == StructuredPostal.TYPE_CUSTOM) addressHolder.contactAddressType.value else ""
 
             if (address.isNotEmpty()) {
                 addresses.add(Address(address, addressType, addressLabel))
@@ -1173,12 +1202,12 @@ class EditContactActivity : ContactActivity() {
 
     private fun getFilledIMs(): ArrayList<IM> {
         val IMs = ArrayList<IM>()
-        val IMsCount = contact_ims_holder.childCount
+        val IMsCount = binding.contactImsHolder.childCount
         for (i in 0 until IMsCount) {
-            val IMsHolder = contact_ims_holder.getChildAt(i)
-            val IM = IMsHolder.contact_im.value
-            val IMType = getIMTypeId(IMsHolder.contact_im_type.value)
-            val IMLabel = if (IMType == Im.PROTOCOL_CUSTOM) IMsHolder.contact_im_type.value else ""
+            val IMsHolder = ItemEditImBinding.bind(binding.contactImsHolder.getChildAt(i))
+            val IM = IMsHolder.contactIm.value
+            val IMType = getIMTypeId(IMsHolder.contactImType.value)
+            val IMLabel = if (IMType == Im.PROTOCOL_CUSTOM) IMsHolder.contactImType.value else ""
 
             if (IM.isNotEmpty()) {
                 IMs.add(IM(IM, IMType, IMLabel))
@@ -1188,16 +1217,16 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun getFilledEvents(): ArrayList<Event> {
-        val unknown = getString(R.string.unknown)
+        val unknown = getString(com.simplemobiletools.commons.R.string.unknown)
         val events = ArrayList<Event>()
-        val eventsCount = contact_events_holder.childCount
+        val eventsCount = binding.contactEventsHolder.childCount
         for (i in 0 until eventsCount) {
-            val eventHolder = contact_events_holder.getChildAt(i)
-            val event = eventHolder.contact_event.value
-            val eventType = getEventTypeId(eventHolder.contact_event_type.value)
+            val eventHolder = ItemEventBinding.bind(binding.contactEventsHolder.getChildAt(i))
+            val event = eventHolder.contactEvent.value
+            val eventType = getEventTypeId(eventHolder.contactEventType.value)
 
             if (event.isNotEmpty() && event != unknown) {
-                events.add(Event(eventHolder.contact_event.tag.toString(), eventType))
+                events.add(Event(eventHolder.contactEvent.tag.toString(), eventType))
             }
         }
         return events
@@ -1205,10 +1234,10 @@ class EditContactActivity : ContactActivity() {
 
     private fun getFilledWebsites(): ArrayList<String> {
         val websites = ArrayList<String>()
-        val websitesCount = contact_websites_holder.childCount
+        val websitesCount = binding.contactWebsitesHolder.childCount
         for (i in 0 until websitesCount) {
-            val websiteHolder = contact_websites_holder.getChildAt(i)
-            val website = websiteHolder.contact_website.value
+            val websiteHolder = ItemEditWebsiteBinding.bind(binding.contactWebsitesHolder.getChildAt(i))
+            val website = websiteHolder.contactWebsite.value
             if (website.isNotEmpty()) {
                 websites.add(website)
             }
@@ -1236,7 +1265,7 @@ class EditContactActivity : ContactActivity() {
                 finish()
             }
         } else {
-            toast(R.string.unknown_error_occurred)
+            toast(com.simplemobiletools.commons.R.string.unknown_error_occurred)
         }
     }
 
@@ -1256,7 +1285,7 @@ class EditContactActivity : ContactActivity() {
                 finish()
             }
         } else {
-            toast(R.string.unknown_error_occurred)
+            toast(com.simplemobiletools.commons.R.string.unknown_error_occurred)
         }
     }
 
@@ -1322,61 +1351,61 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun addNewPhoneNumberField() {
-        val numberHolder = layoutInflater.inflate(R.layout.item_edit_phone_number, contact_numbers_holder, false) as ViewGroup
-        updateTextColors(numberHolder)
-        setupPhoneNumberTypePicker(numberHolder.contact_number_type, DEFAULT_PHONE_NUMBER_TYPE, "")
-        contact_numbers_holder.addView(numberHolder)
-        contact_numbers_holder.onGlobalLayout {
-            numberHolder.contact_number.requestFocus()
-            showKeyboard(numberHolder.contact_number)
+        val numberHolder = ItemEditPhoneNumberBinding.inflate(layoutInflater, binding.contactNumbersHolder, false)
+        updateTextColors(numberHolder.root)
+        setupPhoneNumberTypePicker(numberHolder.contactNumberType, DEFAULT_PHONE_NUMBER_TYPE, "")
+        binding.contactNumbersHolder.addView(numberHolder.root)
+        binding.contactNumbersHolder.onGlobalLayout {
+            numberHolder.contactNumber.requestFocus()
+            showKeyboard(numberHolder.contactNumber)
         }
-        numberHolder.default_toggle_icon.tag = 0
+        numberHolder.defaultToggleIcon.tag = 0
         initNumberHolders()
     }
 
     private fun addNewEmailField() {
-        val emailHolder = layoutInflater.inflate(R.layout.item_edit_email, contact_emails_holder, false) as ViewGroup
-        updateTextColors(emailHolder)
-        setupEmailTypePicker(emailHolder.contact_email_type, DEFAULT_EMAIL_TYPE, "")
-        contact_emails_holder.addView(emailHolder)
-        contact_emails_holder.onGlobalLayout {
-            emailHolder.contact_email.requestFocus()
-            showKeyboard(emailHolder.contact_email)
+        val emailHolder = ItemEditEmailBinding.inflate(layoutInflater, binding.contactEmailsHolder, false)
+        updateTextColors(emailHolder.root)
+        setupEmailTypePicker(emailHolder.contactEmailType, DEFAULT_EMAIL_TYPE, "")
+        binding.contactEmailsHolder.addView(emailHolder.root)
+        binding.contactEmailsHolder.onGlobalLayout {
+            emailHolder.contactEmail.requestFocus()
+            showKeyboard(emailHolder.contactEmail)
         }
     }
 
     private fun addNewAddressField() {
-        val addressHolder = layoutInflater.inflate(R.layout.item_edit_address, contact_addresses_holder, false) as ViewGroup
-        updateTextColors(addressHolder)
-        setupAddressTypePicker(addressHolder.contact_address_type, DEFAULT_ADDRESS_TYPE, "")
-        contact_addresses_holder.addView(addressHolder)
-        contact_addresses_holder.onGlobalLayout {
-            addressHolder.contact_address.requestFocus()
-            showKeyboard(addressHolder.contact_address)
+        val addressHolder = ItemEditAddressBinding.inflate(layoutInflater, binding.contactAddressesHolder, false)
+        updateTextColors(addressHolder.root)
+        setupAddressTypePicker(addressHolder.contactAddressType, DEFAULT_ADDRESS_TYPE, "")
+        binding.contactAddressesHolder.addView(addressHolder.root)
+        binding.contactAddressesHolder.onGlobalLayout {
+            addressHolder.contactAddress.requestFocus()
+            showKeyboard(addressHolder.contactAddress)
         }
     }
 
     private fun addNewIMField() {
-        val IMHolder = layoutInflater.inflate(R.layout.item_edit_im, contact_ims_holder, false) as ViewGroup
-        updateTextColors(IMHolder)
-        setupIMTypePicker(IMHolder.contact_im_type, DEFAULT_IM_TYPE, "")
-        contact_ims_holder.addView(IMHolder)
-        contact_ims_holder.onGlobalLayout {
-            IMHolder.contact_im.requestFocus()
-            showKeyboard(IMHolder.contact_im)
+        val IMHolder = ItemEditImBinding.inflate(layoutInflater, binding.contactImsHolder, false)
+        updateTextColors(IMHolder.root)
+        setupIMTypePicker(IMHolder.contactImType, DEFAULT_IM_TYPE, "")
+        binding.contactImsHolder.addView(IMHolder.root)
+        binding.contactImsHolder.onGlobalLayout {
+            IMHolder.contactIm.requestFocus()
+            showKeyboard(IMHolder.contactIm)
         }
     }
 
     private fun addNewEventField() {
-        val eventHolder = layoutInflater.inflate(R.layout.item_event, contact_events_holder, false) as ViewGroup
-        updateTextColors(eventHolder)
+        val eventHolder = ItemEventBinding.inflate(layoutInflater, binding.contactEventsHolder, false)
+        updateTextColors(eventHolder.root)
         setupEventTypePicker(eventHolder)
-        contact_events_holder.addView(eventHolder)
+        binding.contactEventsHolder.addView(eventHolder.root)
     }
 
     private fun toggleFavorite() {
         val isStarred = isContactStarred()
-        contact_toggle_favorite.apply {
+        binding.contactToggleFavorite.apply {
             setImageDrawable(getStarDrawable(!isStarred))
             tag = if (isStarred) 0 else 1
 
@@ -1385,23 +1414,24 @@ class EditContactActivity : ContactActivity() {
     }
 
     private fun addNewWebsiteField() {
-        val websitesHolder = layoutInflater.inflate(R.layout.item_edit_website, contact_websites_holder, false) as ViewGroup
-        updateTextColors(websitesHolder)
-        contact_websites_holder.addView(websitesHolder)
-        contact_websites_holder.onGlobalLayout {
-            websitesHolder.contact_website.requestFocus()
-            showKeyboard(websitesHolder.contact_website)
+        val websitesHolder = ItemEditWebsiteBinding.inflate(layoutInflater, binding.contactWebsitesHolder, false)
+        updateTextColors(websitesHolder.root)
+        binding.contactWebsitesHolder.addView(websitesHolder.root)
+        binding.contactWebsitesHolder.onGlobalLayout {
+            websitesHolder.contactWebsite.requestFocus()
+            showKeyboard(websitesHolder.contactWebsite)
         }
     }
 
-    private fun isContactStarred() = contact_toggle_favorite.tag == 1
+    private fun isContactStarred() = binding.contactToggleFavorite.tag == 1
 
-    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_vector else R.drawable.ic_star_outline_vector)
+    private fun getStarDrawable(on: Boolean) =
+        resources.getDrawable(if (on) com.simplemobiletools.commons.R.drawable.ic_star_vector else com.simplemobiletools.commons.R.drawable.ic_star_outline_vector)
 
     private fun trySetPhoto() {
         val items = arrayListOf(
-            RadioItem(TAKE_PHOTO, getString(R.string.take_photo)),
-            RadioItem(CHOOSE_PHOTO, getString(R.string.choose_photo))
+            RadioItem(TAKE_PHOTO, getString(com.simplemobiletools.commons.R.string.take_photo)),
+            RadioItem(CHOOSE_PHOTO, getString(com.simplemobiletools.commons.R.string.choose_photo))
         )
 
         if (currentContactPhotoPath.isNotEmpty() || contact!!.photo != null) {
@@ -1413,8 +1443,8 @@ class EditContactActivity : ContactActivity() {
                 TAKE_PHOTO -> startTakePhotoIntent()
                 CHOOSE_PHOTO -> startChoosePhotoIntent()
                 else -> {
-                    showPhotoPlaceholder(contact_photo)
-                    contact_photo_bottom_shadow.beGone()
+                    showPhotoPlaceholder(binding.contactPhoto)
+                    binding.contactPhotoBottomShadow.beGone()
                 }
             }
         }
@@ -1481,7 +1511,7 @@ class EditContactActivity : ContactActivity() {
             try {
                 startActivityForResult(this, INTENT_TAKE_PHOTO)
             } catch (e: ActivityNotFoundException) {
-                toast(R.string.no_app_found)
+                toast(com.simplemobiletools.commons.R.string.no_app_found)
             } catch (e: Exception) {
                 showErrorToast(e)
             }
@@ -1501,7 +1531,7 @@ class EditContactActivity : ContactActivity() {
             try {
                 startActivityForResult(this, INTENT_CHOOSE_PHOTO)
             } catch (e: ActivityNotFoundException) {
-                toast(R.string.no_app_found)
+                toast(com.simplemobiletools.commons.R.string.no_app_found)
             } catch (e: Exception) {
                 showErrorToast(e)
             }
@@ -1510,45 +1540,45 @@ class EditContactActivity : ContactActivity() {
 
     override fun customRingtoneSelected(ringtonePath: String) {
         contact!!.ringtone = ringtonePath
-        contact_ringtone.text = ringtonePath.getFilenameFromPath()
+        binding.contactRingtone.text = ringtonePath.getFilenameFromPath()
     }
 
     override fun systemRingtoneSelected(uri: Uri?) {
         contact!!.ringtone = uri?.toString() ?: ""
         val contactRingtone = RingtoneManager.getRingtone(this, uri)
-        contact_ringtone.text = contactRingtone.getTitle(this)
+        binding.contactRingtone.text = contactRingtone.getTitle(this)
     }
 
     private fun getPhoneNumberTypeId(value: String) = when (value) {
-        getString(R.string.mobile) -> Phone.TYPE_MOBILE
-        getString(R.string.home) -> Phone.TYPE_HOME
-        getString(R.string.work) -> Phone.TYPE_WORK
-        getString(R.string.main_number) -> Phone.TYPE_MAIN
-        getString(R.string.work_fax) -> Phone.TYPE_FAX_WORK
-        getString(R.string.home_fax) -> Phone.TYPE_FAX_HOME
-        getString(R.string.pager) -> Phone.TYPE_PAGER
-        getString(R.string.other) -> Phone.TYPE_OTHER
+        getString(com.simplemobiletools.commons.R.string.mobile) -> Phone.TYPE_MOBILE
+        getString(com.simplemobiletools.commons.R.string.home) -> Phone.TYPE_HOME
+        getString(com.simplemobiletools.commons.R.string.work) -> Phone.TYPE_WORK
+        getString(com.simplemobiletools.commons.R.string.main_number) -> Phone.TYPE_MAIN
+        getString(com.simplemobiletools.commons.R.string.work_fax) -> Phone.TYPE_FAX_WORK
+        getString(com.simplemobiletools.commons.R.string.home_fax) -> Phone.TYPE_FAX_HOME
+        getString(com.simplemobiletools.commons.R.string.pager) -> Phone.TYPE_PAGER
+        getString(com.simplemobiletools.commons.R.string.other) -> Phone.TYPE_OTHER
         else -> Phone.TYPE_CUSTOM
     }
 
     private fun getEmailTypeId(value: String) = when (value) {
-        getString(R.string.home) -> CommonDataKinds.Email.TYPE_HOME
-        getString(R.string.work) -> CommonDataKinds.Email.TYPE_WORK
-        getString(R.string.mobile) -> CommonDataKinds.Email.TYPE_MOBILE
-        getString(R.string.other) -> CommonDataKinds.Email.TYPE_OTHER
+        getString(com.simplemobiletools.commons.R.string.home) -> CommonDataKinds.Email.TYPE_HOME
+        getString(com.simplemobiletools.commons.R.string.work) -> CommonDataKinds.Email.TYPE_WORK
+        getString(com.simplemobiletools.commons.R.string.mobile) -> CommonDataKinds.Email.TYPE_MOBILE
+        getString(com.simplemobiletools.commons.R.string.other) -> CommonDataKinds.Email.TYPE_OTHER
         else -> CommonDataKinds.Email.TYPE_CUSTOM
     }
 
     private fun getEventTypeId(value: String) = when (value) {
-        getString(R.string.anniversary) -> CommonDataKinds.Event.TYPE_ANNIVERSARY
-        getString(R.string.birthday) -> CommonDataKinds.Event.TYPE_BIRTHDAY
+        getString(com.simplemobiletools.commons.R.string.anniversary) -> CommonDataKinds.Event.TYPE_ANNIVERSARY
+        getString(com.simplemobiletools.commons.R.string.birthday) -> CommonDataKinds.Event.TYPE_BIRTHDAY
         else -> CommonDataKinds.Event.TYPE_OTHER
     }
 
     private fun getAddressTypeId(value: String) = when (value) {
-        getString(R.string.home) -> StructuredPostal.TYPE_HOME
-        getString(R.string.work) -> StructuredPostal.TYPE_WORK
-        getString(R.string.other) -> StructuredPostal.TYPE_OTHER
+        getString(com.simplemobiletools.commons.R.string.home) -> StructuredPostal.TYPE_HOME
+        getString(com.simplemobiletools.commons.R.string.work) -> StructuredPostal.TYPE_WORK
+        getString(com.simplemobiletools.commons.R.string.other) -> StructuredPostal.TYPE_OTHER
         else -> StructuredPostal.TYPE_CUSTOM
     }
 
@@ -1573,14 +1603,14 @@ class EditContactActivity : ContactActivity() {
                 view.setOnItemClickListener { _, _, position, _ ->
                     val selectedContact = adapter.resultList[position]
 
-                    if (contact_first_name.isVisible()) {
-                        contact_first_name.setText(selectedContact.firstName)
+                    if (binding.contactFirstName.isVisible()) {
+                        binding.contactFirstName.setText(selectedContact.firstName)
                     }
-                    if (contact_middle_name.isVisible()) {
-                        contact_middle_name.setText(selectedContact.middleName)
+                    if (binding.contactMiddleName.isVisible()) {
+                        binding.contactMiddleName.setText(selectedContact.middleName)
                     }
-                    if (contact_surname.isVisible()) {
-                        contact_surname.setText(selectedContact.surname)
+                    if (binding.contactSurname.isVisible()) {
+                        binding.contactSurname.setText(selectedContact.surname)
                     }
                 }
                 view.doAfterTextChanged {

@@ -7,16 +7,16 @@ import android.provider.ContactsContract.CommonDataKinds.Im
 import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.provider.ContactsContract.CommonDataKinds.StructuredPostal
 import android.widget.Toast
+import com.simplemobiletools.commons.extensions.getCachePhoto
 import com.simplemobiletools.commons.extensions.groupsDB
 import com.simplemobiletools.commons.extensions.normalizePhoneNumber
 import com.simplemobiletools.commons.extensions.showErrorToast
-import com.simplemobiletools.commons.extensions.getCachePhoto
-import com.simplemobiletools.contacts.pro.extensions.getCachePhotoUri
 import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.DEFAULT_MIMETYPE
 import com.simplemobiletools.commons.models.PhoneNumber
 import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
+import com.simplemobiletools.contacts.pro.extensions.getCachePhotoUri
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPORT_FAIL
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPORT_OK
 import com.simplemobiletools.contacts.pro.helpers.VcfImporter.ImportResult.IMPORT_PARTIAL
@@ -26,7 +26,7 @@ import ezvcard.util.PartialDate
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URLDecoder
-import java.util.*
+import java.util.Date
 
 class VcfImporter(val activity: SimpleActivity) {
     enum class ImportResult {
@@ -261,6 +261,7 @@ class VcfImporter(val activity: SimpleActivity) {
                 Phone.TYPE_HOME
             }
         }
+
         WORK -> {
             if (subtype?.toUpperCase() == FAX) {
                 Phone.TYPE_FAX_WORK
@@ -268,6 +269,7 @@ class VcfImporter(val activity: SimpleActivity) {
                 Phone.TYPE_WORK
             }
         }
+
         MAIN -> Phone.TYPE_MAIN
         WORK_FAX -> Phone.TYPE_FAX_WORK
         HOME_FAX -> Phone.TYPE_FAX_HOME

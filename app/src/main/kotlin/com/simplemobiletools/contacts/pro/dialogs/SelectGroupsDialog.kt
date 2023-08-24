@@ -1,6 +1,5 @@
 package com.simplemobiletools.contacts.pro.dialogs
 
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ContactsHelper
@@ -8,12 +7,12 @@ import com.simplemobiletools.commons.models.contacts.Group
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
-import kotlinx.android.synthetic.main.dialog_select_groups.view.*
-import kotlinx.android.synthetic.main.item_checkbox.view.*
-import kotlinx.android.synthetic.main.item_textview.view.*
+import com.simplemobiletools.contacts.pro.databinding.DialogSelectGroupsBinding
+import com.simplemobiletools.contacts.pro.databinding.ItemCheckboxBinding
+import com.simplemobiletools.contacts.pro.databinding.ItemTextviewBinding
 
 class SelectGroupsDialog(val activity: SimpleActivity, val selectedGroups: ArrayList<Group>, val callback: (newGroups: ArrayList<Group>) -> Unit) {
-    private val view = activity.layoutInflater.inflate(R.layout.dialog_select_groups, null) as ViewGroup
+    private val binding = DialogSelectGroupsBinding.inflate(activity.layoutInflater)
     private val checkboxes = ArrayList<MyAppCompatCheckbox>()
     private var groups = ArrayList<Group>()
     private var dialog: AlertDialog? = null
@@ -35,44 +34,44 @@ class SelectGroupsDialog(val activity: SimpleActivity, val selectedGroups: Array
         addCreateNewGroupButton()
 
         activity.getAlertDialogBuilder()
-            .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
-            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(com.simplemobiletools.commons.R.string.ok) { dialog, which -> dialogConfirmed() }
+            .setNegativeButton(com.simplemobiletools.commons.R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this) { alertDialog ->
+                activity.setupDialogStuff(binding.root, this) { alertDialog ->
                     dialog = alertDialog
                 }
             }
     }
 
     private fun addGroupCheckbox(group: Group) {
-        activity.layoutInflater.inflate(R.layout.item_checkbox, null, false).apply {
-            checkboxes.add(item_checkbox)
-            item_checkbox_holder.setOnClickListener {
-                item_checkbox.toggle()
+        ItemCheckboxBinding.inflate(activity.layoutInflater, null, false).apply {
+            checkboxes.add(itemCheckbox)
+            itemCheckboxHolder.setOnClickListener {
+                itemCheckbox.toggle()
             }
 
-            item_checkbox.apply {
+            itemCheckbox.apply {
                 isChecked = selectedGroups.contains(group)
                 text = group.title
                 tag = group.id
                 setColors(activity.getProperTextColor(), activity.getProperPrimaryColor(), activity.getProperBackgroundColor())
             }
-            view.dialog_groups_holder.addView(this)
+            binding.dialogGroupsHolder.addView(this.root)
         }
     }
 
     private fun addCreateNewGroupButton() {
         val newGroup = Group(0, activity.getString(R.string.create_new_group))
-        activity.layoutInflater.inflate(R.layout.item_textview, null, false).item_textview.apply {
+        ItemTextviewBinding.inflate(activity.layoutInflater, null, false).itemTextview.apply {
             text = newGroup.title
             tag = newGroup.id
             setTextColor(activity.getProperTextColor())
-            view.dialog_groups_holder.addView(this)
+            binding.dialogGroupsHolder.addView(this)
             setOnClickListener {
                 CreateNewGroupDialog(activity) {
                     selectedGroups.add(it)
                     groups.add(it)
-                    view.dialog_groups_holder.removeViewAt(view.dialog_groups_holder.childCount - 1)
+                    binding.dialogGroupsHolder.removeViewAt(binding.dialogGroupsHolder.childCount - 1)
                     addGroupCheckbox(it)
                     addCreateNewGroupButton()
                 }

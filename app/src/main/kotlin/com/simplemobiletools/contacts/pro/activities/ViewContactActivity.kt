@@ -24,19 +24,14 @@ import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.PhoneNumber
 import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.databinding.*
 import com.simplemobiletools.contacts.pro.dialogs.ChooseSocialDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
-import com.simplemobiletools.contacts.pro.extensions.*
+import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.extensions.editContact
+import com.simplemobiletools.contacts.pro.extensions.getPackageDrawable
+import com.simplemobiletools.contacts.pro.extensions.startCallIntent
 import com.simplemobiletools.contacts.pro.helpers.*
-import kotlinx.android.synthetic.main.activity_view_contact.*
-import kotlinx.android.synthetic.main.item_view_address.view.*
-import kotlinx.android.synthetic.main.item_view_contact_source.view.*
-import kotlinx.android.synthetic.main.item_view_email.view.*
-import kotlinx.android.synthetic.main.item_view_event.view.*
-import kotlinx.android.synthetic.main.item_view_group.view.*
-import kotlinx.android.synthetic.main.item_view_im.view.*
-import kotlinx.android.synthetic.main.item_view_phone_number.view.*
-import kotlinx.android.synthetic.main.item_website.view.*
 
 class ViewContactActivity : ContactActivity() {
     private var isViewIntent = false
@@ -47,20 +42,23 @@ class ViewContactActivity : ContactActivity() {
     private var fullContact: Contact? = null    // contact with all fields filled from duplicates
     private var duplicateInitialized = false
     private val mergeDuplicate: Boolean get() = config.mergeDuplicateContacts
+    private val binding by viewBinding(ActivityViewContactBinding::inflate)
 
-    private val COMPARABLE_PHONE_NUMBER_LENGTH = 9
+    companion object {
+        private const val COMPARABLE_PHONE_NUMBER_LENGTH = 9
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         showTransparentTop = true
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_contact)
+        setContentView(binding.root)
 
         if (checkAppSideloading()) {
             return
         }
 
         showFields = config.showContactFields
-        contact_wrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        binding.contactWrapper.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         setupMenu()
     }
 
@@ -74,7 +72,7 @@ class ViewContactActivity : ContactActivity() {
                         initContact()
                     }
                 } else {
-                    toast(R.string.no_contacts_permission)
+                    toast(com.simplemobiletools.commons.R.string.no_contacts_permission)
                     finish()
                 }
             }
@@ -86,7 +84,7 @@ class ViewContactActivity : ContactActivity() {
     }
 
     override fun onBackPressed() {
-        if (contact_photo_big.alpha == 1f) {
+        if (binding.contactPhotoBig.alpha == 1f) {
             hideBigContactPhoto()
         } else {
             super.onBackPressed()
@@ -94,8 +92,8 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupMenu() {
-        (contact_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
-        contact_toolbar.menu.apply {
+        (binding.contactAppbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
+        binding.contactToolbar.menu.apply {
             findItem(R.id.share).setOnMenuItemClickListener {
                 if (fullContact != null) {
                     shareContact(fullContact!!)
@@ -131,7 +129,7 @@ class ViewContactActivity : ContactActivity() {
             }
         }
 
-        contact_toolbar.setNavigationOnClickListener {
+        binding.contactToolbar.setNavigationOnClickListener {
             finish()
         }
     }
@@ -173,7 +171,7 @@ class ViewContactActivity : ContactActivity() {
 
             if (contact == null) {
                 if (!wasEditLaunched) {
-                    toast(R.string.unknown_error_occurred)
+                    toast(com.simplemobiletools.commons.R.string.unknown_error_occurred)
                 }
                 finish()
             } else {
@@ -197,54 +195,55 @@ class ViewContactActivity : ContactActivity() {
             return
         }
 
-        contact_scrollview.beVisible()
+        binding.contactScrollview.beVisible()
         setupViewContact()
-        contact_send_sms.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
-        contact_start_call.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
-        contact_send_email.beVisibleIf(contact!!.emails.isNotEmpty())
+        binding.contactSendSms.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
+        binding.contactStartCall.beVisibleIf(contact!!.phoneNumbers.isNotEmpty())
+        binding.contactSendEmail.beVisibleIf(contact!!.emails.isNotEmpty())
 
         if (contact!!.photoUri.isEmpty() && contact!!.photo == null) {
-            showPhotoPlaceholder(contact_photo)
-            contact_photo_bottom_shadow.beGone()
+            showPhotoPlaceholder(binding.contactPhoto)
+            binding.contactPhotoBottomShadow.beGone()
         } else {
-            updateContactPhoto(contact!!.photoUri, contact_photo, contact_photo_bottom_shadow, contact!!.photo)
+            updateContactPhoto(contact!!.photoUri, binding.contactPhoto, binding.contactPhotoBottomShadow, contact!!.photo)
             val options = RequestOptions()
-                .transform(FitCenter(), RoundedCorners(resources.getDimension(R.dimen.normal_margin).toInt()))
+                .transform(FitCenter(), RoundedCorners(resources.getDimension(com.simplemobiletools.commons.R.dimen.normal_margin).toInt()))
 
             Glide.with(this)
                 .load(contact!!.photo ?: currentContactPhotoPath)
                 .apply(options)
-                .into(contact_photo_big)
+                .into(binding.contactPhotoBig)
 
-            contact_photo.setOnClickListener {
-                contact_photo_big.alpha = 0f
-                contact_photo_big.beVisible()
-                contact_photo_big.animate().alpha(1f).start()
+            binding.contactPhoto.setOnClickListener {
+                binding.contactPhotoBig.alpha = 0f
+                binding.contactPhotoBig.beVisible()
+                binding.contactPhotoBig.animate().alpha(1f).start()
             }
 
-            contact_photo_big.setOnClickListener {
+            binding.contactPhotoBig.setOnClickListener {
                 hideBigContactPhoto()
             }
         }
 
         val textColor = getProperTextColor()
         arrayOf(
-            contact_name_image, contact_numbers_image, contact_emails_image, contact_addresses_image, contact_ims_image, contact_events_image,
-            contact_source_image, contact_notes_image, contact_ringtone_image, contact_organization_image, contact_websites_image, contact_groups_image
+            binding.contactNameImage, binding.contactNumbersImage, binding.contactEmailsImage, binding.contactAddressesImage, binding.contactImsImage,
+            binding.contactEventsImage, binding.contactSourceImage, binding.contactNotesImage, binding.contactRingtoneImage, binding.contactOrganizationImage,
+            binding.contactWebsitesImage, binding.contactGroupsImage
         ).forEach {
             it.applyColorFilter(textColor)
         }
 
-        contact_send_sms.setOnClickListener { trySendSMS() }
-        contact_start_call.setOnClickListener { tryInitiateCall(contact!!) { startCallIntent(it) } }
-        contact_send_email.setOnClickListener { trySendEmail() }
+        binding.contactSendSms.setOnClickListener { trySendSMS() }
+        binding.contactStartCall.setOnClickListener { tryInitiateCall(contact!!) { startCallIntent(it) } }
+        binding.contactSendEmail.setOnClickListener { trySendEmail() }
 
-        contact_send_sms.setOnLongClickListener { toast(R.string.send_sms); true; }
-        contact_start_call.setOnLongClickListener { toast(R.string.call_contact); true; }
-        contact_send_email.setOnLongClickListener { toast(R.string.send_email); true; }
+        binding.contactSendSms.setOnLongClickListener { toast(com.simplemobiletools.commons.R.string.send_sms); true; }
+        binding.contactStartCall.setOnLongClickListener { toast(R.string.call_contact); true; }
+        binding.contactSendEmail.setOnLongClickListener { toast(com.simplemobiletools.commons.R.string.send_email); true; }
 
-        updateTextColors(contact_scrollview)
-        contact_toolbar.menu.findItem(R.id.open_with).isVisible = contact?.isPrivate() == false
+        updateTextColors(binding.contactScrollview)
+        binding.contactToolbar.menu.findItem(R.id.open_with).isVisible = contact?.isPrivate() == false
     }
 
     private fun setupViewContact() {
@@ -281,7 +280,7 @@ class ViewContactActivity : ContactActivity() {
         setupNotes()
         setupRingtone()
         setupOrganization()
-        updateTextColors(contact_scrollview)
+        updateTextColors(binding.contactScrollview)
     }
 
     private fun launchEditContact(contact: Contact) {
@@ -298,7 +297,7 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun setupFavorite() {
-        contact_toggle_favorite.apply {
+        binding.contactToggleFavorite.apply {
             beVisible()
             tag = contact!!.starred
             setImageDrawable(getStarDrawable(tag == 1))
@@ -331,10 +330,10 @@ class ViewContactActivity : ContactActivity() {
         val showNameFields = showFields and SHOW_PREFIX_FIELD != 0 || showFields and SHOW_FIRST_NAME_FIELD != 0 || showFields and SHOW_MIDDLE_NAME_FIELD != 0 ||
             showFields and SHOW_SURNAME_FIELD != 0 || showFields and SHOW_SUFFIX_FIELD != 0
 
-        contact_name.text = displayName
-        contact_name.copyOnLongClick(displayName)
-        contact_name.beVisibleIf(displayName.isNotEmpty() && !contact!!.isABusinessContact() && showNameFields)
-        contact_name_image.beInvisibleIf(contact_name.isGone())
+        binding.contactName.text = displayName
+        binding.contactName.copyOnLongClick(displayName)
+        binding.contactName.beVisibleIf(displayName.isNotEmpty() && !contact!!.isABusinessContact() && showNameFields)
+        binding.contactNameImage.beInvisibleIf(binding.contactName.isGone())
     }
 
     private fun setupPhoneNumbers() {
@@ -377,17 +376,17 @@ class ViewContactActivity : ContactActivity() {
 
         phoneNumbers = phoneNumbers.sortedBy { it.type }.toMutableSet() as LinkedHashSet<PhoneNumber>
         fullContact!!.phoneNumbers = phoneNumbers.toMutableList() as ArrayList<PhoneNumber>
-        contact_numbers_holder.removeAllViews()
+        binding.contactNumbersHolder.removeAllViews()
 
         if (phoneNumbers.isNotEmpty() && showFields and SHOW_PHONE_NUMBERS_FIELD != 0) {
             phoneNumbers.forEach { phoneNumber ->
-                layoutInflater.inflate(R.layout.item_view_phone_number, contact_numbers_holder, false).apply {
-                    contact_numbers_holder.addView(this)
-                    contact_number.text = phoneNumber.value
-                    contact_number_type.text = getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)
-                    copyOnLongClick(phoneNumber.value)
+                ItemViewPhoneNumberBinding.inflate(layoutInflater, binding.contactNumbersHolder, false).apply {
+                    binding.contactNumbersHolder.addView(root)
+                    contactNumber.text = phoneNumber.value
+                    contactNumberType.text = getPhoneNumberTypeText(phoneNumber.type, phoneNumber.label)
+                    root.copyOnLongClick(phoneNumber.value)
 
-                    setOnClickListener {
+                    root.setOnClickListener {
                         if (config.showCallConfirmation) {
                             CallConfirmationDialog(this@ViewContactActivity, phoneNumber.value) {
                                 startCallIntent(phoneNumber.value)
@@ -397,46 +396,46 @@ class ViewContactActivity : ContactActivity() {
                         }
                     }
 
-                    contact_number_holder.default_toggle_icon.isVisible = phoneNumber.isPrimary
+                    defaultToggleIcon.isVisible = phoneNumber.isPrimary
                 }
             }
-            contact_numbers_image.beVisible()
-            contact_numbers_holder.beVisible()
+            binding.contactNumbersImage.beVisible()
+            binding.contactNumbersHolder.beVisible()
         } else {
-            contact_numbers_image.beGone()
-            contact_numbers_holder.beGone()
+            binding.contactNumbersImage.beGone()
+            binding.contactNumbersHolder.beGone()
         }
 
         // make sure the Call and SMS buttons are visible if any phone number is shown
         if (phoneNumbers.isNotEmpty()) {
-            contact_send_sms.beVisible()
-            contact_start_call.beVisible()
+            binding.contactSendSms.beVisible()
+            binding.contactStartCall.beVisible()
         }
     }
 
     // a contact cannot have different emails per contact source. Such contacts are handled as separate ones, not duplicates of each other
     private fun setupEmails() {
-        contact_emails_holder.removeAllViews()
+        binding.contactEmailsHolder.removeAllViews()
         val emails = contact!!.emails
         if (emails.isNotEmpty() && showFields and SHOW_EMAILS_FIELD != 0) {
             emails.forEach {
-                layoutInflater.inflate(R.layout.item_view_email, contact_emails_holder, false).apply {
+                ItemViewEmailBinding.inflate(layoutInflater, binding.contactEmailsHolder, false).apply {
                     val email = it
-                    contact_emails_holder.addView(this)
-                    contact_email.text = email.value
-                    contact_email_type.text = getEmailTypeText(email.type, email.label)
-                    copyOnLongClick(email.value)
+                    binding.contactEmailsHolder.addView(root)
+                    contactEmail.text = email.value
+                    contactEmailType.text = getEmailTypeText(email.type, email.label)
+                    root.copyOnLongClick(email.value)
 
-                    setOnClickListener {
+                    root.setOnClickListener {
                         sendEmailIntent(email.value)
                     }
                 }
             }
-            contact_emails_image.beVisible()
-            contact_emails_holder.beVisible()
+            binding.contactEmailsImage.beVisible()
+            binding.contactEmailsHolder.beVisible()
         } else {
-            contact_emails_image.beGone()
-            contact_emails_holder.beGone()
+            binding.contactEmailsImage.beGone()
+            binding.contactEmailsHolder.beGone()
         }
     }
 
@@ -451,27 +450,27 @@ class ViewContactActivity : ContactActivity() {
 
         addresses = addresses.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Address>
         fullContact!!.addresses = addresses.toMutableList() as ArrayList<Address>
-        contact_addresses_holder.removeAllViews()
+        binding.contactAddressesHolder.removeAllViews()
 
         if (addresses.isNotEmpty() && showFields and SHOW_ADDRESSES_FIELD != 0) {
             addresses.forEach {
-                layoutInflater.inflate(R.layout.item_view_address, contact_addresses_holder, false).apply {
+                ItemViewAddressBinding.inflate(layoutInflater, binding.contactAddressesHolder, false).apply {
                     val address = it
-                    contact_addresses_holder.addView(this)
-                    contact_address.text = address.value
-                    contact_address_type.text = getAddressTypeText(address.type, address.label)
-                    copyOnLongClick(address.value)
+                    binding.contactAddressesHolder.addView(root)
+                    contactAddress.text = address.value
+                    contactAddressType.text = getAddressTypeText(address.type, address.label)
+                    root.copyOnLongClick(address.value)
 
-                    setOnClickListener {
+                    root.setOnClickListener {
                         sendAddressIntent(address.value)
                     }
                 }
             }
-            contact_addresses_image.beVisible()
-            contact_addresses_holder.beVisible()
+            binding.contactAddressesImage.beVisible()
+            binding.contactAddressesHolder.beVisible()
         } else {
-            contact_addresses_image.beGone()
-            contact_addresses_holder.beGone()
+            binding.contactAddressesImage.beGone()
+            binding.contactAddressesHolder.beGone()
         }
     }
 
@@ -486,23 +485,23 @@ class ViewContactActivity : ContactActivity() {
 
         IMs = IMs.sortedBy { it.type }.toMutableSet() as LinkedHashSet<IM>
         fullContact!!.IMs = IMs.toMutableList() as ArrayList<IM>
-        contact_ims_holder.removeAllViews()
+        binding.contactImsHolder.removeAllViews()
 
         if (IMs.isNotEmpty() && showFields and SHOW_IMS_FIELD != 0) {
             IMs.forEach {
-                layoutInflater.inflate(R.layout.item_view_im, contact_ims_holder, false).apply {
+                ItemViewImBinding.inflate(layoutInflater, binding.contactImsHolder, false).apply {
                     val IM = it
-                    contact_ims_holder.addView(this)
-                    contact_im.text = IM.value
-                    contact_im_type.text = getIMTypeText(IM.type, IM.label)
-                    copyOnLongClick(IM.value)
+                    binding.contactImsHolder.addView(root)
+                    contactIm.text = IM.value
+                    contactImType.text = getIMTypeText(IM.type, IM.label)
+                    root.copyOnLongClick(IM.value)
                 }
             }
-            contact_ims_image.beVisible()
-            contact_ims_holder.beVisible()
+            binding.contactImsImage.beVisible()
+            binding.contactImsHolder.beVisible()
         } else {
-            contact_ims_image.beGone()
-            contact_ims_holder.beGone()
+            binding.contactImsImage.beGone()
+            binding.contactImsHolder.beGone()
         }
     }
 
@@ -517,22 +516,22 @@ class ViewContactActivity : ContactActivity() {
 
         events = events.sortedBy { it.type }.toMutableSet() as LinkedHashSet<Event>
         fullContact!!.events = events.toMutableList() as ArrayList<Event>
-        contact_events_holder.removeAllViews()
+        binding.contactEventsHolder.removeAllViews()
 
         if (events.isNotEmpty() && showFields and SHOW_EVENTS_FIELD != 0) {
             events.forEach {
-                layoutInflater.inflate(R.layout.item_view_event, contact_events_holder, false).apply {
-                    contact_events_holder.addView(this)
-                    it.value.getDateTimeFromDateString(true, contact_event)
-                    contact_event_type.setText(getEventTextId(it.type))
-                    copyOnLongClick(it.value)
+                ItemViewEventBinding.inflate(layoutInflater, binding.contactEventsHolder, false).apply {
+                    binding.contactEventsHolder.addView(root)
+                    it.value.getDateTimeFromDateString(true, contactEvent)
+                    contactEventType.setText(getEventTextId(it.type))
+                    root.copyOnLongClick(it.value)
                 }
             }
-            contact_events_image.beVisible()
-            contact_events_holder.beVisible()
+            binding.contactEventsImage.beVisible()
+            binding.contactEventsHolder.beVisible()
         } else {
-            contact_events_image.beGone()
-            contact_events_holder.beGone()
+            binding.contactEventsImage.beGone()
+            binding.contactEventsHolder.beGone()
         }
     }
 
@@ -547,26 +546,26 @@ class ViewContactActivity : ContactActivity() {
 
         websites = websites.sorted().toMutableSet() as LinkedHashSet<String>
         fullContact!!.websites = websites.toMutableList() as ArrayList<String>
-        contact_websites_holder.removeAllViews()
+        binding.contactWebsitesHolder.removeAllViews()
 
         if (websites.isNotEmpty() && showFields and SHOW_WEBSITES_FIELD != 0) {
             websites.forEach {
                 val url = it
-                layoutInflater.inflate(R.layout.item_website, contact_websites_holder, false).apply {
-                    contact_websites_holder.addView(this)
-                    contact_website.text = url
-                    copyOnLongClick(url)
+                ItemWebsiteBinding.inflate(layoutInflater, binding.contactWebsitesHolder, false).apply {
+                    binding.contactWebsitesHolder.addView(root)
+                    contactWebsite.text = url
+                    root.copyOnLongClick(url)
 
-                    setOnClickListener {
+                    root.setOnClickListener {
                         openWebsiteIntent(url)
                     }
                 }
             }
-            contact_websites_image.beVisible()
-            contact_websites_holder.beVisible()
+            binding.contactWebsitesImage.beVisible()
+            binding.contactWebsitesHolder.beVisible()
         } else {
-            contact_websites_image.beGone()
-            contact_websites_holder.beGone()
+            binding.contactWebsitesImage.beGone()
+            binding.contactWebsitesHolder.beGone()
         }
     }
 
@@ -581,27 +580,27 @@ class ViewContactActivity : ContactActivity() {
 
         groups = groups.sortedBy { it.title }.toMutableSet() as LinkedHashSet<Group>
         fullContact!!.groups = groups.toMutableList() as ArrayList<Group>
-        contact_groups_holder.removeAllViews()
+        binding.contactGroupsHolder.removeAllViews()
 
         if (groups.isNotEmpty() && showFields and SHOW_GROUPS_FIELD != 0) {
             groups.forEach {
-                layoutInflater.inflate(R.layout.item_view_group, contact_groups_holder, false).apply {
+                ItemViewGroupBinding.inflate(layoutInflater, binding.contactGroupsHolder, false).apply {
                     val group = it
-                    contact_groups_holder.addView(this)
-                    contact_group.text = group.title
-                    copyOnLongClick(group.title)
+                    binding.contactGroupsHolder.addView(root)
+                    contactGroup.text = group.title
+                    root.copyOnLongClick(group.title)
                 }
             }
-            contact_groups_image.beVisible()
-            contact_groups_holder.beVisible()
+            binding.contactGroupsImage.beVisible()
+            binding.contactGroupsHolder.beVisible()
         } else {
-            contact_groups_image.beGone()
-            contact_groups_holder.beGone()
+            binding.contactGroupsImage.beGone()
+            binding.contactGroupsHolder.beGone()
         }
     }
 
     private fun setupContactSources() {
-        contact_sources_holder.removeAllViews()
+        binding.contactSourcesHolder.removeAllViews()
         if (showFields and SHOW_CONTACT_SOURCE_FIELD != 0) {
             var sources = HashMap<Contact, String>()
             sources[contact!!] = getPublicContactSourceSync(contact!!.source, contactSources)
@@ -617,101 +616,101 @@ class ViewContactActivity : ContactActivity() {
             }
 
             for ((key, value) in sources) {
-                layoutInflater.inflate(R.layout.item_view_contact_source, contact_sources_holder, false).apply {
-                    contact_source.text = if (value == "") getString(R.string.phone_storage) else value
-                    contact_source.copyOnLongClick(value)
-                    contact_sources_holder.addView(this)
+                ItemViewContactSourceBinding.inflate(layoutInflater, binding.contactSourcesHolder, false).apply {
+                    contactSource.text = if (value == "") getString(R.string.phone_storage) else value
+                    contactSource.copyOnLongClick(value)
+                    binding.contactSourcesHolder.addView(root)
 
-                    contact_source.setOnClickListener {
+                    contactSource.setOnClickListener {
                         launchEditContact(key)
                     }
 
                     if (value.toLowerCase() == WHATSAPP) {
-                        contact_source_image.setImageDrawable(getPackageDrawable(WHATSAPP_PACKAGE))
-                        contact_source_image.beVisible()
-                        contact_source_image.setOnClickListener {
+                        contactSourceImage.setImageDrawable(getPackageDrawable(WHATSAPP_PACKAGE))
+                        contactSourceImage.beVisible()
+                        contactSourceImage.setOnClickListener {
                             showSocialActions(key.id)
                         }
                     }
 
                     if (value.toLowerCase() == SIGNAL) {
-                        contact_source_image.setImageDrawable(getPackageDrawable(SIGNAL_PACKAGE))
-                        contact_source_image.beVisible()
-                        contact_source_image.setOnClickListener {
+                        contactSourceImage.setImageDrawable(getPackageDrawable(SIGNAL_PACKAGE))
+                        contactSourceImage.beVisible()
+                        contactSourceImage.setOnClickListener {
                             showSocialActions(key.id)
                         }
                     }
 
                     if (value.toLowerCase() == VIBER) {
-                        contact_source_image.setImageDrawable(getPackageDrawable(VIBER_PACKAGE))
-                        contact_source_image.beVisible()
-                        contact_source_image.setOnClickListener {
+                        contactSourceImage.setImageDrawable(getPackageDrawable(VIBER_PACKAGE))
+                        contactSourceImage.beVisible()
+                        contactSourceImage.setOnClickListener {
                             showSocialActions(key.id)
                         }
                     }
 
                     if (value.toLowerCase() == TELEGRAM) {
-                        contact_source_image.setImageDrawable(getPackageDrawable(TELEGRAM_PACKAGE))
-                        contact_source_image.beVisible()
-                        contact_source_image.setOnClickListener {
+                        contactSourceImage.setImageDrawable(getPackageDrawable(TELEGRAM_PACKAGE))
+                        contactSourceImage.beVisible()
+                        contactSourceImage.setOnClickListener {
                             showSocialActions(key.id)
                         }
                     }
 
                     if (value.toLowerCase() == THREEMA) {
-                        contact_source_image.setImageDrawable(getPackageDrawable(THREEMA_PACKAGE))
-                        contact_source_image.beVisible()
-                        contact_source_image.setOnClickListener {
+                        contactSourceImage.setImageDrawable(getPackageDrawable(THREEMA_PACKAGE))
+                        contactSourceImage.beVisible()
+                        contactSourceImage.setOnClickListener {
                             showSocialActions(key.id)
                         }
                     }
                 }
             }
 
-            contact_source_image.beVisible()
-            contact_sources_holder.beVisible()
+            binding.contactSourceImage.beVisible()
+            binding.contactSourcesHolder.beVisible()
         } else {
-            contact_source_image.beGone()
-            contact_sources_holder.beGone()
+            binding.contactSourceImage.beGone()
+            binding.contactSourcesHolder.beGone()
         }
     }
 
     private fun setupNotes() {
         val notes = contact!!.notes
         if (notes.isNotEmpty() && showFields and SHOW_NOTES_FIELD != 0) {
-            contact_notes.text = notes
-            contact_notes_image.beVisible()
-            contact_notes.beVisible()
-            contact_notes.copyOnLongClick(notes)
+            binding.contactNotes.text = notes
+            binding.contactNotesImage.beVisible()
+            binding.contactNotes.beVisible()
+            binding.contactNotes.copyOnLongClick(notes)
         } else {
-            contact_notes_image.beGone()
-            contact_notes.beGone()
+            binding.contactNotesImage.beGone()
+            binding.contactNotes.beGone()
         }
     }
 
     private fun setupRingtone() {
         if (showFields and SHOW_RINGTONE_FIELD != 0) {
-            contact_ringtone_image.beVisible()
-            contact_ringtone.beVisible()
+            binding.contactRingtoneImage.beVisible()
+            binding.contactRingtone.beVisible()
 
             val ringtone = contact!!.ringtone
             if (ringtone?.isEmpty() == true) {
-                contact_ringtone.text = getString(R.string.no_sound)
+                binding.contactRingtone.text = getString(com.simplemobiletools.commons.R.string.no_sound)
             } else if (ringtone?.isNotEmpty() == true && ringtone != getDefaultRingtoneUri().toString()) {
                 if (ringtone == SILENT) {
-                    contact_ringtone.text = getString(R.string.no_sound)
+                    binding.contactRingtone.text = getString(com.simplemobiletools.commons.R.string.no_sound)
                 } else {
                     systemRingtoneSelected(Uri.parse(ringtone))
                 }
             } else {
-                contact_ringtone_image.beGone()
-                contact_ringtone.beGone()
+                binding.contactRingtoneImage.beGone()
+                binding.contactRingtone.beGone()
                 return
             }
 
-            contact_ringtone.copyOnLongClick(contact_ringtone.text.toString())
+            binding.contactRingtone.copyOnLongClick(binding.contactRingtone.text.toString())
 
-            contact_ringtone.setOnClickListener {
+            binding.contactRingtone.setOnClickListener {
                 val ringtonePickerIntent = getRingtonePickerIntent()
                 try {
                     startActivityForResult(ringtonePickerIntent, INTENT_SELECT_RINGTONE)
@@ -724,7 +723,7 @@ class ViewContactActivity : ContactActivity() {
                         RingtoneManager.TYPE_RINGTONE,
                         true,
                         onAlarmPicked = {
-                            contact_ringtone.text = it?.title
+                            binding.contactRingtone.text = it?.title
                             ringtoneUpdated(it?.uri)
                         },
                         onAlarmSoundDeleted = {}
@@ -732,29 +731,32 @@ class ViewContactActivity : ContactActivity() {
                 }
             }
         } else {
-            contact_ringtone_image.beGone()
-            contact_ringtone.beGone()
+            binding.contactRingtoneImage.beGone()
+            binding.contactRingtone.beGone()
         }
     }
 
     private fun setupOrganization() {
         val organization = contact!!.organization
         if (organization.isNotEmpty() && showFields and SHOW_ORGANIZATION_FIELD != 0) {
-            contact_organization_company.text = organization.company
-            contact_organization_job_position.text = organization.jobPosition
-            contact_organization_image.beGoneIf(organization.isEmpty())
-            contact_organization_company.beGoneIf(organization.company.isEmpty())
-            contact_organization_job_position.beGoneIf(organization.jobPosition.isEmpty())
-            contact_organization_company.copyOnLongClick(contact_organization_company.value)
-            contact_organization_job_position.copyOnLongClick(contact_organization_job_position.value)
+            binding.contactOrganizationCompany.text = organization.company
+            binding.contactOrganizationJobPosition.text = organization.jobPosition
+            binding.contactOrganizationImage.beGoneIf(organization.isEmpty())
+            binding.contactOrganizationCompany.beGoneIf(organization.company.isEmpty())
+            binding.contactOrganizationJobPosition.beGoneIf(organization.jobPosition.isEmpty())
+            binding.contactOrganizationCompany.copyOnLongClick(binding.contactOrganizationCompany.value)
+            binding.contactOrganizationJobPosition.copyOnLongClick(binding.contactOrganizationJobPosition.value)
 
             if (organization.company.isEmpty() && organization.jobPosition.isNotEmpty()) {
-                (contact_organization_image.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.ALIGN_TOP, contact_organization_job_position.id)
+                (binding.contactOrganizationImage.layoutParams as RelativeLayout.LayoutParams).addRule(
+                    RelativeLayout.ALIGN_TOP,
+                    binding.contactOrganizationJobPosition.id
+                )
             }
         } else {
-            contact_organization_image.beGone()
-            contact_organization_company.beGone()
-            contact_organization_job_position.beGone()
+            binding.contactOrganizationImage.beGone()
+            binding.contactOrganizationCompany.beGone()
+            binding.contactOrganizationJobPosition.beGone()
         }
     }
 
@@ -775,11 +777,11 @@ class ViewContactActivity : ContactActivity() {
                                     if (success) {
                                         startActivity(this)
                                     } else {
-                                        toast(R.string.no_phone_call_permission)
+                                        toast(com.simplemobiletools.commons.R.string.no_phone_call_permission)
                                     }
                                 }
                             } catch (e: ActivityNotFoundException) {
-                                toast(R.string.no_app_found)
+                                toast(com.simplemobiletools.commons.R.string.no_app_found)
                             } catch (e: Exception) {
                                 showErrorToast(e)
                             }
@@ -791,13 +793,13 @@ class ViewContactActivity : ContactActivity() {
     }
 
     override fun customRingtoneSelected(ringtonePath: String) {
-        contact_ringtone.text = ringtonePath.getFilenameFromPath()
+        binding.contactRingtone.text = ringtonePath.getFilenameFromPath()
         ringtoneUpdated(ringtonePath)
     }
 
     override fun systemRingtoneSelected(uri: Uri?) {
         val contactRingtone = RingtoneManager.getRingtone(this, uri)
-        contact_ringtone.text = contactRingtone.getTitle(this)
+        binding.contactRingtone.text = contactRingtone.getTitle(this)
         ringtoneUpdated(uri?.toString() ?: "")
     }
 
@@ -833,13 +835,13 @@ class ViewContactActivity : ContactActivity() {
     }
 
     private fun deleteContactFromAllSources() {
-        val addition = if (contact_sources_holder.childCount > 1) {
+        val addition = if (binding.contactSourcesHolder.childCount > 1) {
             "\n\n${getString(R.string.delete_from_all_sources)}"
         } else {
             ""
         }
 
-        val message = "${getString(R.string.proceed_with_deletion)}$addition"
+        val message = "${getString(com.simplemobiletools.commons.R.string.proceed_with_deletion)}$addition"
         ConfirmationDialog(this, message) {
             if (contact != null) {
                 ContactsHelper(this).deleteContact(contact!!, true) {
@@ -849,10 +851,11 @@ class ViewContactActivity : ContactActivity() {
         }
     }
 
-    private fun getStarDrawable(on: Boolean) = resources.getDrawable(if (on) R.drawable.ic_star_vector else R.drawable.ic_star_outline_vector)
+    private fun getStarDrawable(on: Boolean) =
+        resources.getDrawable(if (on) com.simplemobiletools.commons.R.drawable.ic_star_vector else com.simplemobiletools.commons.R.drawable.ic_star_outline_vector)
 
     private fun hideBigContactPhoto() {
-        contact_photo_big.animate().alpha(0f).withEndAction { contact_photo_big.beGone() }.start()
+        binding.contactPhotoBig.animate().alpha(0f).withEndAction { binding.contactPhotoBig.beGone() }.start()
     }
 
     private fun View.copyOnLongClick(value: String) {

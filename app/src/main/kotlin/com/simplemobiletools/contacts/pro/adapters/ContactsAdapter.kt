@@ -146,10 +146,11 @@ class ContactsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout = when (viewType) {
             VIEW_TYPE_GRID -> {
-                if (showPhoneNumbers) R.layout.item_contact_with_number_grid else R.layout.item_contact_without_number_grid
+                if (showPhoneNumbers) com.simplemobiletools.commons.R.layout.item_contact_with_number_grid else com.simplemobiletools.commons.R.layout.item_contact_without_number_grid
             }
+
             else -> {
-                if (showPhoneNumbers) R.layout.item_contact_with_number else R.layout.item_contact_without_number
+                if (showPhoneNumbers) com.simplemobiletools.commons.R.layout.item_contact_with_number else com.simplemobiletools.commons.R.layout.item_contact_without_number
             }
         }
         return createViewHolder(layout, parent)
@@ -194,10 +195,10 @@ class ContactsAdapter(
         val items = if (itemsCnt == 1) {
             "\"${getSelectedItems().first().getNameToDisplay()}\""
         } else {
-            resources.getQuantityString(R.plurals.delete_contacts, itemsCnt, itemsCnt)
+            resources.getQuantityString(com.simplemobiletools.commons.R.plurals.delete_contacts, itemsCnt, itemsCnt)
         }
 
-        val baseString = R.string.deletion_confirmation
+        val baseString = com.simplemobiletools.commons.R.string.deletion_confirmation
         val question = String.format(resources.getString(baseString), items)
 
         ConfirmationDialog(activity, question) {
@@ -345,7 +346,7 @@ class ContactsAdapter(
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .error(placeholderImage)
 
-                val size = activity.resources.getDimension(R.dimen.shortcut_size).toInt()
+                val size = activity.resources.getDimension(com.simplemobiletools.commons.R.dimen.shortcut_size).toInt()
                 val itemToLoad: Any? = if (contact.photoUri.isNotEmpty()) {
                     contact.photoUri
                 } else {
@@ -377,16 +378,16 @@ class ContactsAdapter(
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isDestroyed && !activity.isFinishing) {
-            Glide.with(activity).clear(holder.itemView.findViewById<ImageView>(R.id.item_contact_image))
+            Glide.with(activity).clear(holder.itemView.findViewById<ImageView>(com.simplemobiletools.commons.R.id.item_contact_image))
         }
     }
 
     private fun setupView(view: View, contact: Contact, holder: ViewHolder) {
         view.apply {
             setupViewBackground(activity)
-            findViewById<ConstraintLayout>(R.id.item_contact_frame)?.isSelected = selectedKeys.contains(contact.id)
+            findViewById<ConstraintLayout>(com.simplemobiletools.commons.R.id.item_contact_frame)?.isSelected = selectedKeys.contains(contact.id)
             val fullName = contact.getNameToDisplay()
-            findViewById<TextView>(R.id.item_contact_name).text = if (textToHighlight.isEmpty()) fullName else {
+            findViewById<TextView>(com.simplemobiletools.commons.R.id.item_contact_name).text = if (textToHighlight.isEmpty()) fullName else {
                 if (fullName.contains(textToHighlight, true)) {
                     fullName.highlightTextPart(textToHighlight, properPrimaryColor)
                 } else {
@@ -394,12 +395,12 @@ class ContactsAdapter(
                 }
             }
 
-            findViewById<TextView>(R.id.item_contact_name).apply {
+            findViewById<TextView>(com.simplemobiletools.commons.R.id.item_contact_name).apply {
                 setTextColor(textColor)
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
             }
 
-            if (findViewById<TextView>(R.id.item_contact_number) != null) {
+            if (findViewById<TextView>(com.simplemobiletools.commons.R.id.item_contact_number) != null) {
                 val phoneNumberToUse = if (textToHighlight.isEmpty()) {
                     contact.phoneNumbers.firstOrNull()
                 } else {
@@ -407,19 +408,19 @@ class ContactsAdapter(
                 }
 
                 val numberText = phoneNumberToUse?.value ?: ""
-                findViewById<TextView>(R.id.item_contact_number).apply {
+                findViewById<TextView>(com.simplemobiletools.commons.R.id.item_contact_number).apply {
                     text = if (textToHighlight.isEmpty()) numberText else numberText.highlightTextPart(textToHighlight, properPrimaryColor, false, true)
                     setTextColor(textColor)
                     setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
                 }
             }
 
-            findViewById<TextView>(R.id.item_contact_image).beVisibleIf(showContactThumbnails)
+            findViewById<TextView>(com.simplemobiletools.commons.R.id.item_contact_image).beVisibleIf(showContactThumbnails)
 
             if (showContactThumbnails) {
                 val placeholderImage = BitmapDrawable(resources, SimpleContactsHelper(context).getContactLetterIcon(fullName))
                 if (contact.photoUri.isEmpty() && contact.photo == null) {
-                    findViewById<ImageView>(R.id.item_contact_image).setImageDrawable(placeholderImage)
+                    findViewById<ImageView>(com.simplemobiletools.commons.R.id.item_contact_image).setImageDrawable(placeholderImage)
                 } else {
                     val options = RequestOptions()
                         .signature(ObjectKey(contact.getSignatureKey()))
@@ -437,11 +438,11 @@ class ContactsAdapter(
                         .load(itemToLoad)
                         .apply(options)
                         .apply(RequestOptions.circleCropTransform())
-                        .into(findViewById(R.id.item_contact_image))
+                        .into(findViewById(com.simplemobiletools.commons.R.id.item_contact_image))
                 }
             }
 
-            val dragIcon = findViewById<ImageView>(R.id.drag_handle_icon)
+            val dragIcon = findViewById<ImageView>(com.simplemobiletools.commons.R.id.drag_handle_icon)
             if (enableDrag && textToHighlight.isEmpty()) {
                 dragIcon.apply {
                     beVisibleIf(selectedKeys.isNotEmpty())

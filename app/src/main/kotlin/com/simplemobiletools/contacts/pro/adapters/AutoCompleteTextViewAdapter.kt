@@ -1,7 +1,6 @@
 package com.simplemobiletools.contacts.pro.adapters
 
 import android.graphics.drawable.BitmapDrawable
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -16,11 +15,8 @@ import com.simplemobiletools.commons.extensions.getProperTextColor
 import com.simplemobiletools.commons.extensions.normalizeString
 import com.simplemobiletools.commons.helpers.SimpleContactsHelper
 import com.simplemobiletools.commons.models.contacts.Contact
-import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
-import kotlinx.android.synthetic.main.item_autocomplete_name_number.view.item_autocomplete_image
-import kotlinx.android.synthetic.main.item_autocomplete_name_number.view.item_autocomplete_name
-import kotlinx.android.synthetic.main.item_autocomplete_name_number.view.item_autocomplete_number
+import com.simplemobiletools.contacts.pro.databinding.ItemAutocompleteNameNumberBinding
 
 class AutoCompleteTextViewAdapter(
     val activity: SimpleActivity,
@@ -34,23 +30,23 @@ class AutoCompleteTextViewAdapter(
         var listItem = convertView
         val nameToUse = contact.getNameToDisplay()
         if (listItem == null || listItem.tag != nameToUse.isNotEmpty()) {
-            listItem = LayoutInflater.from(activity).inflate(R.layout.item_autocomplete_name_number, parent, false)
+            listItem = ItemAutocompleteNameNumberBinding.inflate(activity.layoutInflater, parent, false).root
         }
 
         val placeholder = BitmapDrawable(activity.resources, SimpleContactsHelper(context).getContactLetterIcon(nameToUse))
-        listItem!!.apply {
-            setBackgroundColor(context.getProperBackgroundColor())
-            item_autocomplete_name.setTextColor(context.getProperTextColor())
-            item_autocomplete_number.setTextColor(context.getProperTextColor())
+        ItemAutocompleteNameNumberBinding.bind(listItem).apply {
+            root.setBackgroundColor(context.getProperBackgroundColor())
+            itemAutocompleteName.setTextColor(context.getProperTextColor())
+            itemAutocompleteNumber.setTextColor(context.getProperTextColor())
 
-            tag = nameToUse.isNotEmpty()
-            item_autocomplete_name.text = nameToUse
+            root.tag = nameToUse.isNotEmpty()
+            itemAutocompleteName.text = nameToUse
             contact.phoneNumbers.apply {
                 val phoneNumber = firstOrNull { it.isPrimary }?.normalizedNumber ?: firstOrNull()?.normalizedNumber
                 if (phoneNumber.isNullOrEmpty()) {
-                    item_autocomplete_number.beGone()
+                    itemAutocompleteNumber.beGone()
                 } else {
-                    item_autocomplete_number.text = phoneNumber
+                    itemAutocompleteNumber.text = phoneNumber
                 }
             }
 
@@ -65,7 +61,7 @@ class AutoCompleteTextViewAdapter(
                 .placeholder(placeholder)
                 .apply(options)
                 .apply(RequestOptions.circleCropTransform())
-                .into(item_autocomplete_image)
+                .into(itemAutocompleteImage)
         }
 
         return listItem

@@ -4,13 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
+import com.reddit.indicatorfastscroll.FastScrollerThumbView
+import com.reddit.indicatorfastscroll.FastScrollerView
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.contacts.Contact
 import com.simplemobiletools.commons.models.contacts.Group
+import com.simplemobiletools.commons.views.MyFloatingActionButton
+import com.simplemobiletools.commons.views.MyRecyclerView
+import com.simplemobiletools.commons.views.MyTextView
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.GroupContactsActivity
 import com.simplemobiletools.contacts.pro.activities.InsertOrEditContactActivity
@@ -18,20 +25,18 @@ import com.simplemobiletools.contacts.pro.activities.MainActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.ContactsAdapter
 import com.simplemobiletools.contacts.pro.adapters.GroupsAdapter
+import com.simplemobiletools.contacts.pro.databinding.FragmentLayoutBinding
+import com.simplemobiletools.contacts.pro.databinding.FragmentLettersLayoutBinding
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.helpers.AVOID_CHANGING_TEXT_TAG
 import com.simplemobiletools.contacts.pro.helpers.AVOID_CHANGING_VISIBILITY_TAG
 import com.simplemobiletools.contacts.pro.helpers.Config
 import com.simplemobiletools.contacts.pro.helpers.GROUP
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
-import kotlinx.android.synthetic.main.dialog_select_contact.view.letter_fastscroller
-import kotlinx.android.synthetic.main.fragment_contacts.view.contacts_fragment
-import kotlinx.android.synthetic.main.fragment_favorites.view.favorites_fragment
-import kotlinx.android.synthetic.main.fragment_layout.view.*
-import kotlinx.android.synthetic.main.fragment_letters_layout.view.letter_fastscroller_thumb
 import java.util.Locale
 
-abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet) {
+abstract class MyViewPagerFragment<Binding : MyViewPagerFragment.InnerBinding>(context: Context, attributeSet: AttributeSet) :
+    CoordinatorLayout(context, attributeSet) {
     protected var activity: SimpleActivity? = null
     protected var allContacts = ArrayList<Contact>()
 
@@ -39,6 +44,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     private var contactsIgnoringSearch = listOf<Contact>()
     private var groupsIgnoringSearch = listOf<Group>()
     private lateinit var config: Config
+    protected lateinit var innerBinding: Binding
 
     var skipHashComparing = false
     var forceListRedraw = false
@@ -47,59 +53,59 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         config = activity.config
         if (this.activity == null) {
             this.activity = activity
-            fragment_fab?.beGoneIf(activity is InsertOrEditContactActivity)
-            fragment_fab?.setOnClickListener {
+            innerBinding.fragmentFab.beGoneIf(activity is InsertOrEditContactActivity)
+            innerBinding.fragmentFab.setOnClickListener {
                 fabClicked()
             }
 
-            fragment_placeholder_2?.setOnClickListener {
+            innerBinding.fragmentPlaceholder2.setOnClickListener {
                 placeholderClicked()
             }
 
-            fragment_placeholder_2?.underlineText()
+            innerBinding.fragmentPlaceholder2.underlineText()
 
-            when {
-                this is ContactsFragment -> {
-                    fragment_fab.contentDescription = activity.getString(R.string.create_new_contact)
+            when (this) {
+                is ContactsFragment -> {
+                    innerBinding.fragmentFab.contentDescription = activity.getString(com.simplemobiletools.commons.R.string.create_new_contact)
                 }
 
-                this is FavoritesFragment -> {
-                    fragment_placeholder.text = activity.getString(R.string.no_favorites)
-                    fragment_placeholder_2.text = activity.getString(R.string.add_favorites)
-                    fragment_fab.contentDescription = activity.getString(R.string.add_favorites)
+                is FavoritesFragment -> {
+                    innerBinding.fragmentPlaceholder.text = activity.getString(R.string.no_favorites)
+                    innerBinding.fragmentPlaceholder2.text = activity.getString(com.simplemobiletools.commons.R.string.add_favorites)
+                    innerBinding.fragmentFab.contentDescription = activity.getString(com.simplemobiletools.commons.R.string.add_favorites)
                 }
 
-                this is GroupsFragment -> {
-                    fragment_placeholder.text = activity.getString(R.string.no_group_created)
-                    fragment_placeholder_2.text = activity.getString(R.string.create_group)
-                    fragment_fab.contentDescription = activity.getString(R.string.create_group)
+                is GroupsFragment -> {
+                    innerBinding.fragmentPlaceholder.text = activity.getString(R.string.no_group_created)
+                    innerBinding.fragmentPlaceholder2.text = activity.getString(R.string.create_group)
+                    innerBinding.fragmentFab.contentDescription = activity.getString(R.string.create_group)
                 }
             }
         }
     }
 
     fun setupColors(textColor: Int, adjustedPrimaryColor: Int) {
-        when {
-            this is GroupsFragment -> (fragment_list.adapter as? GroupsAdapter)?.updateTextColor(textColor)
-            else -> (fragment_list.adapter as? ContactsAdapter)?.apply {
+        when (this) {
+            is GroupsFragment -> (innerBinding.fragmentList.adapter as? GroupsAdapter)?.updateTextColor(textColor)
+            else -> (innerBinding.fragmentList.adapter as? ContactsAdapter)?.apply {
                 updateTextColor(textColor)
             }
         }
 
-        context.updateTextColors(fragment_wrapper.parent as ViewGroup)
-        fragment_fastscroller?.updateColors(adjustedPrimaryColor)
-        fragment_placeholder_2?.setTextColor(adjustedPrimaryColor)
+        context.updateTextColors(innerBinding.fragmentWrapper.parent as ViewGroup)
+        innerBinding.fragmentFastscroller?.updateColors(adjustedPrimaryColor)
+        innerBinding.fragmentPlaceholder2.setTextColor(adjustedPrimaryColor)
 
-        letter_fastscroller?.textColor = textColor.getColorStateList()
-        letter_fastscroller?.pressedTextColor = adjustedPrimaryColor
-        letter_fastscroller_thumb?.fontSize = context.getTextSize()
-        letter_fastscroller_thumb?.textColor = adjustedPrimaryColor.getContrastColor()
-        letter_fastscroller_thumb?.thumbColor = adjustedPrimaryColor.getColorStateList()
+        innerBinding.letterFastscroller?.textColor = textColor.getColorStateList()
+        innerBinding.letterFastscroller?.pressedTextColor = adjustedPrimaryColor
+        innerBinding.letterFastscrollerThumb?.fontSize = context.getTextSize()
+        innerBinding.letterFastscrollerThumb?.textColor = adjustedPrimaryColor.getContrastColor()
+        innerBinding.letterFastscrollerThumb?.thumbColor = adjustedPrimaryColor.getColorStateList()
     }
 
     fun startNameWithSurnameChanged(startNameWithSurname: Boolean) {
         if (this !is GroupsFragment) {
-            (fragment_list.adapter as? ContactsAdapter)?.apply {
+            (innerBinding.fragmentList.adapter as? ContactsAdapter)?.apply {
                 config.sorting = if (startNameWithSurname) SORT_BY_SURNAME else SORT_BY_FIRST_NAME
                 (this@MyViewPagerFragment.activity!! as MainActivity).refreshContacts(TAB_CONTACTS or TAB_FAVORITES)
             }
@@ -150,10 +156,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
                 setupContacts(filtered)
 
                 if (placeholderText != null) {
-                    fragment_placeholder.text = placeholderText
-                    fragment_placeholder.tag = AVOID_CHANGING_TEXT_TAG
-                    fragment_placeholder_2.beGone()
-                    fragment_placeholder_2.tag = AVOID_CHANGING_VISIBILITY_TAG
+                    innerBinding.fragmentPlaceholder.text = placeholderText
+                    innerBinding.fragmentPlaceholder.tag = AVOID_CHANGING_TEXT_TAG
+                    innerBinding.fragmentPlaceholder2.beGone()
+                    innerBinding.fragmentPlaceholder2.tag = AVOID_CHANGING_VISIBILITY_TAG
                 }
             }
         }
@@ -177,22 +183,22 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         when (this) {
             is GroupsFragment -> {
                 setupGroupsAdapter(contacts) {
-                    groupsIgnoringSearch = (fragment_list?.adapter as? GroupsAdapter)?.groups ?: ArrayList()
+                    groupsIgnoringSearch = (innerBinding.fragmentList.adapter as? GroupsAdapter)?.groups ?: ArrayList()
                 }
             }
 
             is FavoritesFragment -> {
-                favorites_fragment.setupContactsFavoritesAdapter(contacts)
-                contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: listOf()
+                setupContactsFavoritesAdapter(contacts)
+                contactsIgnoringSearch = (innerBinding.fragmentList.adapter as? ContactsAdapter)?.contactItems ?: listOf()
                 setupLetterFastscroller(contacts)
-                letter_fastscroller_thumb.setupWithFastScroller(letter_fastscroller)
+                innerBinding.letterFastscrollerThumb.setupWithFastScroller(innerBinding.letterFastscroller)
             }
 
-            else -> {
-                contacts_fragment.setupContactsAdapter(contacts)
-                contactsIgnoringSearch = (fragment_list?.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
+            is ContactsFragment -> {
+                setupContactsAdapter(contacts)
+                contactsIgnoringSearch = (innerBinding.fragmentList.adapter as? ContactsAdapter)?.contactItems ?: ArrayList()
                 setupLetterFastscroller(contacts)
-                letter_fastscroller_thumb.setupWithFastScroller(letter_fastscroller)
+                innerBinding.letterFastscrollerThumb.setupWithFastScroller(innerBinding.letterFastscroller)
             }
         }
     }
@@ -210,24 +216,24 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
             storedGroups = storedGroups.asSequence().sortedWith(compareBy { it.title.toLowerCase().normalizeString() }).toMutableList() as ArrayList<Group>
 
-            fragment_placeholder_2.beVisibleIf(storedGroups.isEmpty())
-            fragment_placeholder.beVisibleIf(storedGroups.isEmpty())
-            fragment_fastscroller.beVisibleIf(storedGroups.isNotEmpty())
+            innerBinding.fragmentPlaceholder2.beVisibleIf(storedGroups.isEmpty())
+            innerBinding.fragmentPlaceholder.beVisibleIf(storedGroups.isEmpty())
+            innerBinding.letterFastscroller?.beVisibleIf(storedGroups.isNotEmpty())
 
-            val currAdapter = fragment_list.adapter
+            val currAdapter = innerBinding.fragmentList.adapter
             if (currAdapter == null) {
-                GroupsAdapter(activity as SimpleActivity, storedGroups, activity as RefreshContactsListener, fragment_list) {
+                GroupsAdapter(activity as SimpleActivity, storedGroups, activity as RefreshContactsListener, innerBinding.fragmentList) {
                     activity?.hideKeyboard()
                     Intent(activity, GroupContactsActivity::class.java).apply {
                         putExtra(GROUP, it as Group)
                         activity!!.startActivity(this)
                     }
                 }.apply {
-                    fragment_list.adapter = this
+                    innerBinding.fragmentList.adapter = this
                 }
 
                 if (context.areSystemAnimationsEnabled) {
-                    fragment_list.scheduleLayoutAnimation()
+                    innerBinding.fragmentList.scheduleLayoutAnimation()
                 }
             } else {
                 (currAdapter as GroupsAdapter).apply {
@@ -242,12 +248,12 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun showContactThumbnailsChanged(showThumbnails: Boolean) {
         if (this is GroupsFragment) {
-            (fragment_list.adapter as? GroupsAdapter)?.apply {
+            (innerBinding.fragmentList.adapter as? GroupsAdapter)?.apply {
                 showContactThumbnails = showThumbnails
                 notifyDataSetChanged()
             }
         } else {
-            (fragment_list.adapter as? ContactsAdapter)?.apply {
+            (innerBinding.fragmentList.adapter as? ContactsAdapter)?.apply {
                 showContactThumbnails = showThumbnails
                 notifyDataSetChanged()
             }
@@ -256,7 +262,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun setupLetterFastscroller(contacts: List<Contact>) {
         val sorting = context.config.sorting
-        letter_fastscroller.setupWithRecyclerView(fragment_list, { position ->
+        innerBinding.letterFastscroller?.setupWithRecyclerView(innerBinding.fragmentList, { position ->
             try {
                 val contact = contacts[position]
                 var name = when {
@@ -282,12 +288,12 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     fun fontSizeChanged() {
         if (this is GroupsFragment) {
-            (fragment_list.adapter as? GroupsAdapter)?.apply {
+            (innerBinding.fragmentList.adapter as? GroupsAdapter)?.apply {
                 fontSize = activity.getTextSize()
                 notifyDataSetChanged()
             }
         } else {
-            (fragment_list.adapter as? ContactsAdapter)?.apply {
+            (innerBinding.fragmentList.adapter as? ContactsAdapter)?.apply {
                 fontSize = activity.getTextSize()
                 notifyDataSetChanged()
             }
@@ -295,11 +301,11 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     }
 
     fun finishActMode() {
-        (fragment_list.adapter as? MyRecyclerViewAdapter)?.finishActMode()
+        (innerBinding.fragmentList.adapter as? MyRecyclerViewAdapter)?.finishActMode()
     }
 
     fun onSearchQueryChanged(text: String) {
-        val adapter = fragment_list.adapter
+        val adapter = innerBinding.fragmentList.adapter
         if (adapter is ContactsAdapter) {
             val shouldNormalize = text.normalizeString() == text
             val filtered = contactsIgnoringSearch.filter {
@@ -324,12 +330,12 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
 
             if (filtered.isEmpty() && this@MyViewPagerFragment is FavoritesFragment) {
-                if (fragment_placeholder.tag != AVOID_CHANGING_TEXT_TAG) {
-                    fragment_placeholder.text = activity?.getString(R.string.no_contacts_found)
+                if (innerBinding.fragmentPlaceholder.tag != AVOID_CHANGING_TEXT_TAG) {
+                    innerBinding.fragmentPlaceholder.text = activity?.getString(com.simplemobiletools.commons.R.string.no_contacts_found)
                 }
             }
 
-            fragment_placeholder.beVisibleIf(filtered.isEmpty())
+            innerBinding.fragmentPlaceholder.beVisibleIf(filtered.isEmpty())
             (adapter as? ContactsAdapter)?.updateItems(filtered, text.normalizeString())
             setupLetterFastscroller(filtered)
         } else if (adapter is GroupsAdapter) {
@@ -338,39 +344,72 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             } as ArrayList
 
             if (filtered.isEmpty()) {
-                fragment_placeholder.text = activity?.getString(R.string.no_items_found)
+                innerBinding.fragmentPlaceholder.text = activity?.getString(com.simplemobiletools.commons.R.string.no_items_found)
             }
 
-            fragment_placeholder.beVisibleIf(filtered.isEmpty())
+            innerBinding.fragmentPlaceholder.beVisibleIf(filtered.isEmpty())
             (adapter as? GroupsAdapter)?.updateItems(filtered, text)
         }
     }
 
     fun onSearchClosed() {
-        if (fragment_list.adapter is ContactsAdapter) {
-            (fragment_list.adapter as? ContactsAdapter)?.updateItems(contactsIgnoringSearch)
+        if (innerBinding.fragmentList.adapter is ContactsAdapter) {
+            (innerBinding.fragmentList.adapter as? ContactsAdapter)?.updateItems(contactsIgnoringSearch)
             setupLetterFastscroller(contactsIgnoringSearch)
             setupViewVisibility(contactsIgnoringSearch.isNotEmpty())
-        } else if (fragment_list.adapter is GroupsAdapter) {
-            (fragment_list.adapter as? GroupsAdapter)?.updateItems(ArrayList(groupsIgnoringSearch))
+        } else if (innerBinding.fragmentList.adapter is GroupsAdapter) {
+            (innerBinding.fragmentList.adapter as? GroupsAdapter)?.updateItems(ArrayList(groupsIgnoringSearch))
             setupViewVisibility(groupsIgnoringSearch.isNotEmpty())
         }
 
-        if (this is FavoritesFragment && fragment_placeholder.tag != AVOID_CHANGING_TEXT_TAG) {
-            fragment_placeholder.text = activity?.getString(R.string.no_favorites)
+        if (this is FavoritesFragment && innerBinding.fragmentPlaceholder.tag != AVOID_CHANGING_TEXT_TAG) {
+            innerBinding.fragmentPlaceholder.text = activity?.getString(R.string.no_favorites)
         }
     }
 
     fun setupViewVisibility(hasItemsToShow: Boolean) {
-        if (fragment_placeholder_2.tag != AVOID_CHANGING_VISIBILITY_TAG) {
-            fragment_placeholder_2?.beVisibleIf(!hasItemsToShow)
+        if (innerBinding.fragmentPlaceholder2.tag != AVOID_CHANGING_VISIBILITY_TAG) {
+            innerBinding.fragmentPlaceholder2.beVisibleIf(!hasItemsToShow)
         }
 
-        fragment_placeholder?.beVisibleIf(!hasItemsToShow)
-        fragment_list.beVisibleIf(hasItemsToShow)
+        innerBinding.fragmentPlaceholder.beVisibleIf(!hasItemsToShow)
+        innerBinding.fragmentList.beVisibleIf(hasItemsToShow)
     }
 
     abstract fun fabClicked()
 
     abstract fun placeholderClicked()
+
+    interface InnerBinding {
+        val fragmentList: MyRecyclerView
+        val fragmentPlaceholder: MyTextView
+        val fragmentPlaceholder2: MyTextView
+        val fragmentFab: MyFloatingActionButton
+        val fragmentWrapper: RelativeLayout
+        val letterFastscroller: FastScrollerView?
+        val letterFastscrollerThumb: FastScrollerThumbView?
+        val fragmentFastscroller: RecyclerViewFastScroller?
+    }
+
+    class LetterLayout(val binding: FragmentLettersLayoutBinding) : InnerBinding {
+        override val fragmentList: MyRecyclerView = binding.fragmentList
+        override val fragmentPlaceholder: MyTextView = binding.fragmentPlaceholder
+        override val fragmentPlaceholder2: MyTextView = binding.fragmentPlaceholder2
+        override val fragmentFab: MyFloatingActionButton = binding.fragmentFab
+        override val fragmentWrapper: RelativeLayout = binding.fragmentWrapper
+        override val letterFastscroller: FastScrollerView = binding.letterFastscroller
+        override val letterFastscrollerThumb: FastScrollerThumbView = binding.letterFastscrollerThumb
+        override val fragmentFastscroller: RecyclerViewFastScroller? = null
+    }
+
+    class FragmentLayout(val binding: FragmentLayoutBinding) : InnerBinding {
+        override val fragmentList: MyRecyclerView = binding.fragmentList
+        override val fragmentPlaceholder: MyTextView = binding.fragmentPlaceholder
+        override val fragmentPlaceholder2: MyTextView = binding.fragmentPlaceholder2
+        override val fragmentFab: MyFloatingActionButton = binding.fragmentFab
+        override val fragmentWrapper: RelativeLayout = binding.fragmentWrapper
+        override val letterFastscroller: FastScrollerView? = null
+        override val letterFastscrollerThumb: FastScrollerThumbView? = null
+        override val fragmentFastscroller: RecyclerViewFastScroller = binding.fragmentFastscroller
+    }
 }

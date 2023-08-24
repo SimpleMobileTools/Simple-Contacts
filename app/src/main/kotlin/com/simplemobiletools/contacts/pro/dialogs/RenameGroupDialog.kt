@@ -6,30 +6,29 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ContactsHelper
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.contacts.Group
-import com.simplemobiletools.contacts.pro.R
-import kotlinx.android.synthetic.main.dialog_rename_group.view.*
+import com.simplemobiletools.contacts.pro.databinding.DialogRenameGroupBinding
 
 class RenameGroupDialog(val activity: BaseSimpleActivity, val group: Group, val callback: () -> Unit) {
     init {
-        val view = activity.layoutInflater.inflate(R.layout.dialog_rename_group, null).apply {
-            rename_group_title.setText(group.title)
+        val binding = DialogRenameGroupBinding.inflate(activity.layoutInflater).apply {
+            renameGroupTitle.setText(group.title)
         }
 
         activity.getAlertDialogBuilder()
-            .setPositiveButton(R.string.ok, null)
-            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(com.simplemobiletools.commons.R.string.ok, null)
+            .setNegativeButton(com.simplemobiletools.commons.R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this, R.string.rename) { alertDialog ->
-                    alertDialog.showKeyboard(view.rename_group_title)
+                activity.setupDialogStuff(binding.root, this, com.simplemobiletools.commons.R.string.rename) { alertDialog ->
+                    alertDialog.showKeyboard(binding.renameGroupTitle)
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                        val newTitle = view.rename_group_title.value
+                        val newTitle = binding.renameGroupTitle.value
                         if (newTitle.isEmpty()) {
-                            activity.toast(R.string.empty_name)
+                            activity.toast(com.simplemobiletools.commons.R.string.empty_name)
                             return@setOnClickListener
                         }
 
                         if (!newTitle.isAValidFilename()) {
-                            activity.toast(R.string.invalid_name)
+                            activity.toast(com.simplemobiletools.commons.R.string.invalid_name)
                             return@setOnClickListener
                         }
 

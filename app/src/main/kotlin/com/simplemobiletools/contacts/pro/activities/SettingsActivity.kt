@@ -6,29 +6,31 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.databinding.ActivitySettingsBinding
 import com.simplemobiletools.contacts.pro.dialogs.ManageAutoBackupsDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleTabsDialog
 import com.simplemobiletools.contacts.pro.extensions.cancelScheduledAutomaticBackup
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.scheduleNextAutomaticBackup
-import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.Locale
 import kotlin.system.exitProcess
 
 class SettingsActivity : SimpleActivity() {
 
+    private val binding by viewBinding(ActivitySettingsBinding::inflate)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
-        updateMaterialActivityViews(settings_coordinator, settings_holder, useTransparentNavigation = true, useTopSearchMenu = false)
-        setupMaterialScrollListener(settings_nested_scrollview, settings_toolbar)
+        setContentView(binding.root)
+        updateMaterialActivityViews(binding.settingsCoordinator, binding.settingsHolder, useTransparentNavigation = true, useTopSearchMenu = false)
+        setupMaterialScrollListener(binding.settingsNestedScrollview, binding.settingsToolbar)
     }
 
     override fun onResume() {
         super.onResume()
-        setupToolbar(settings_toolbar, NavigationIcon.Arrow)
+        setupToolbar(binding.settingsToolbar, NavigationIcon.Arrow)
 
         setupCustomizeColors()
         setupManageShownContactFields()
@@ -48,149 +50,149 @@ class SettingsActivity : SimpleActivity() {
         setupDefaultTab()
         setupEnableAutomaticBackups()
         setupManageAutomaticBackups()
-        updateTextColors(settings_holder)
+        updateTextColors(binding.settingsHolder)
 
         arrayOf(
-            settings_color_customization_section_label,
-            settings_general_settings_label,
-            settings_main_screen_label,
-            settings_list_view_label,
-            settings_backups_label
+            binding.settingsColorCustomizationSectionLabel,
+            binding.settingsGeneralSettingsLabel,
+            binding.settingsMainScreenLabel,
+            binding.settingsListViewLabel,
+            binding.settingsBackupsLabel
         ).forEach {
             it.setTextColor(getProperPrimaryColor())
         }
     }
 
     private fun setupCustomizeColors() {
-        settings_color_customization_holder.setOnClickListener {
+        binding.settingsColorCustomizationHolder.setOnClickListener {
             startCustomizationActivity()
         }
     }
 
     private fun setupManageShownContactFields() {
-        settings_manage_contact_fields_holder.setOnClickListener {
+        binding.settingsManageContactFieldsHolder.setOnClickListener {
             ManageVisibleFieldsDialog(this) {}
         }
     }
 
     private fun setupManageShownTabs() {
-        settings_manage_shown_tabs_holder.setOnClickListener {
+        binding.settingsManageShownTabsHolder.setOnClickListener {
             ManageVisibleTabsDialog(this)
         }
     }
 
     private fun setupDefaultTab() {
-        settings_default_tab.text = getDefaultTabText()
-        settings_default_tab_holder.setOnClickListener {
+        binding.settingsDefaultTab.text = getDefaultTabText()
+        binding.settingsDefaultTabHolder.setOnClickListener {
             val items = arrayListOf(
-                RadioItem(TAB_CONTACTS, getString(R.string.contacts_tab)),
-                RadioItem(TAB_FAVORITES, getString(R.string.favorites_tab)),
-                RadioItem(TAB_GROUPS, getString(R.string.groups_tab)),
-                RadioItem(TAB_LAST_USED, getString(R.string.last_used_tab))
+                RadioItem(TAB_CONTACTS, getString(com.simplemobiletools.commons.R.string.contacts_tab)),
+                RadioItem(TAB_FAVORITES, getString(com.simplemobiletools.commons.R.string.favorites_tab)),
+                RadioItem(TAB_GROUPS, getString(com.simplemobiletools.commons.R.string.groups_tab)),
+                RadioItem(TAB_LAST_USED, getString(com.simplemobiletools.commons.R.string.last_used_tab))
             )
 
             RadioGroupDialog(this@SettingsActivity, items, config.defaultTab) {
                 config.defaultTab = it as Int
-                settings_default_tab.text = getDefaultTabText()
+                binding.settingsDefaultTab.text = getDefaultTabText()
             }
         }
     }
 
     private fun getDefaultTabText() = getString(
         when (baseConfig.defaultTab) {
-            TAB_CONTACTS -> R.string.contacts_tab
-            TAB_FAVORITES -> R.string.favorites_tab
-            TAB_GROUPS -> R.string.groups_tab
-            else -> R.string.last_used_tab
+            TAB_CONTACTS -> com.simplemobiletools.commons.R.string.contacts_tab
+            TAB_FAVORITES -> com.simplemobiletools.commons.R.string.favorites_tab
+            TAB_GROUPS -> com.simplemobiletools.commons.R.string.groups_tab
+            else -> com.simplemobiletools.commons.R.string.last_used_tab
         }
     )
 
     private fun setupFontSize() {
-        settings_font_size.text = getFontSizeText()
-        settings_font_size_holder.setOnClickListener {
+        binding.settingsFontSize.text = getFontSizeText()
+        binding.settingsFontSizeHolder.setOnClickListener {
             val items = arrayListOf(
-                RadioItem(FONT_SIZE_SMALL, getString(R.string.small)),
-                RadioItem(FONT_SIZE_MEDIUM, getString(R.string.medium)),
-                RadioItem(FONT_SIZE_LARGE, getString(R.string.large)),
-                RadioItem(FONT_SIZE_EXTRA_LARGE, getString(R.string.extra_large))
+                RadioItem(FONT_SIZE_SMALL, getString(com.simplemobiletools.commons.R.string.small)),
+                RadioItem(FONT_SIZE_MEDIUM, getString(com.simplemobiletools.commons.R.string.medium)),
+                RadioItem(FONT_SIZE_LARGE, getString(com.simplemobiletools.commons.R.string.large)),
+                RadioItem(FONT_SIZE_EXTRA_LARGE, getString(com.simplemobiletools.commons.R.string.extra_large))
             )
 
             RadioGroupDialog(this@SettingsActivity, items, config.fontSize) {
                 config.fontSize = it as Int
-                settings_font_size.text = getFontSizeText()
+                binding.settingsFontSize.text = getFontSizeText()
             }
         }
     }
 
     private fun setupUseEnglish() {
-        settings_use_english_holder.beVisibleIf((config.wasUseEnglishToggled || Locale.getDefault().language != "en") && !isTiramisuPlus())
-        settings_use_english.isChecked = config.useEnglish
-        settings_use_english_holder.setOnClickListener {
-            settings_use_english.toggle()
-            config.useEnglish = settings_use_english.isChecked
+        binding.settingsUseEnglishHolder.beVisibleIf((config.wasUseEnglishToggled || Locale.getDefault().language != "en") && !isTiramisuPlus())
+        binding.settingsUseEnglish.isChecked = config.useEnglish
+        binding.settingsUseEnglishHolder.setOnClickListener {
+            binding.settingsUseEnglish.toggle()
+            config.useEnglish = binding.settingsUseEnglish.isChecked
             exitProcess(0)
         }
     }
 
     private fun setupLanguage() {
-        settings_language.text = Locale.getDefault().displayLanguage
-        settings_language_holder.beVisibleIf(isTiramisuPlus())
-        settings_language_holder.setOnClickListener {
+        binding.settingsLanguage.text = Locale.getDefault().displayLanguage
+        binding.settingsLanguageHolder.beVisibleIf(isTiramisuPlus())
+        binding.settingsLanguageHolder.setOnClickListener {
             launchChangeAppLanguageIntent()
         }
     }
 
     private fun setupShowContactThumbnails() {
-        settings_show_contact_thumbnails.isChecked = config.showContactThumbnails
-        settings_show_contact_thumbnails_holder.setOnClickListener {
-            settings_show_contact_thumbnails.toggle()
-            config.showContactThumbnails = settings_show_contact_thumbnails.isChecked
+        binding.settingsShowContactThumbnails.isChecked = config.showContactThumbnails
+        binding.settingsShowContactThumbnailsHolder.setOnClickListener {
+            binding.settingsShowContactThumbnails.toggle()
+            config.showContactThumbnails = binding.settingsShowContactThumbnails.isChecked
         }
     }
 
     private fun setupShowPhoneNumbers() {
-        settings_show_phone_numbers.isChecked = config.showPhoneNumbers
-        settings_show_phone_numbers_holder.setOnClickListener {
-            settings_show_phone_numbers.toggle()
-            config.showPhoneNumbers = settings_show_phone_numbers.isChecked
+        binding.settingsShowPhoneNumbers.isChecked = config.showPhoneNumbers
+        binding.settingsShowPhoneNumbersHolder.setOnClickListener {
+            binding.settingsShowPhoneNumbers.toggle()
+            config.showPhoneNumbers = binding.settingsShowPhoneNumbers.isChecked
         }
     }
 
     private fun setupShowContactsWithNumbers() {
-        settings_show_only_contacts_with_numbers.isChecked = config.showOnlyContactsWithNumbers
-        settings_show_only_contacts_with_numbers_holder.setOnClickListener {
-            settings_show_only_contacts_with_numbers.toggle()
-            config.showOnlyContactsWithNumbers = settings_show_only_contacts_with_numbers.isChecked
+        binding.settingsShowOnlyContactsWithNumbers.isChecked = config.showOnlyContactsWithNumbers
+        binding.settingsShowOnlyContactsWithNumbersHolder.setOnClickListener {
+            binding.settingsShowOnlyContactsWithNumbers.toggle()
+            config.showOnlyContactsWithNumbers = binding.settingsShowOnlyContactsWithNumbers.isChecked
         }
     }
 
     private fun setupStartNameWithSurname() {
-        settings_start_name_with_surname.isChecked = config.startNameWithSurname
-        settings_start_name_with_surname_holder.setOnClickListener {
-            settings_start_name_with_surname.toggle()
-            config.startNameWithSurname = settings_start_name_with_surname.isChecked
+        binding.settingsStartNameWithSurname.isChecked = config.startNameWithSurname
+        binding.settingsStartNameWithSurnameHolder.setOnClickListener {
+            binding.settingsStartNameWithSurname.toggle()
+            config.startNameWithSurname = binding.settingsStartNameWithSurname.isChecked
         }
     }
 
     private fun setupShowDialpadButton() {
-        settings_show_dialpad_button.isChecked = config.showDialpadButton
-        settings_show_dialpad_button_holder.setOnClickListener {
-            settings_show_dialpad_button.toggle()
-            config.showDialpadButton = settings_show_dialpad_button.isChecked
+        binding.settingsShowDialpadButton.isChecked = config.showDialpadButton
+        binding.settingsShowDialpadButtonHolder.setOnClickListener {
+            binding.settingsShowDialpadButton.toggle()
+            config.showDialpadButton = binding.settingsShowDialpadButton.isChecked
         }
     }
 
     private fun setupShowPrivateContacts() {
-        settings_show_private_contacts.isChecked = config.showPrivateContacts
-        settings_show_private_contacts_holder.setOnClickListener {
-            settings_show_private_contacts.toggle()
-            config.showPrivateContacts = settings_show_private_contacts.isChecked
+        binding.settingsShowPrivateContacts.isChecked = config.showPrivateContacts
+        binding.settingsShowPrivateContactsHolder.setOnClickListener {
+            binding.settingsShowPrivateContacts.toggle()
+            config.showPrivateContacts = binding.settingsShowPrivateContacts.isChecked
         }
     }
 
     private fun setupOnContactClick() {
-        settings_on_contact_click.text = getOnContactClickText()
-        settings_on_contact_click_holder.setOnClickListener {
+        binding.settingsOnContactClick.text = getOnContactClickText()
+        binding.settingsOnContactClickHolder.setOnClickListener {
             val items = arrayListOf(
                 RadioItem(ON_CLICK_CALL_CONTACT, getString(R.string.call_contact)),
                 RadioItem(ON_CLICK_VIEW_CONTACT, getString(R.string.view_contact)),
@@ -199,7 +201,7 @@ class SettingsActivity : SimpleActivity() {
 
             RadioGroupDialog(this@SettingsActivity, items, config.onContactClick) {
                 config.onContactClick = it as Int
-                settings_on_contact_click.text = getOnContactClickText()
+                binding.settingsOnContactClick.text = getOnContactClickText()
             }
         }
     }
@@ -213,26 +215,26 @@ class SettingsActivity : SimpleActivity() {
     )
 
     private fun setupShowCallConfirmation() {
-        settings_show_call_confirmation.isChecked = config.showCallConfirmation
-        settings_show_call_confirmation_holder.setOnClickListener {
-            settings_show_call_confirmation.toggle()
-            config.showCallConfirmation = settings_show_call_confirmation.isChecked
+        binding.settingsShowCallConfirmation.isChecked = config.showCallConfirmation
+        binding.settingsShowCallConfirmationHolder.setOnClickListener {
+            binding.settingsShowCallConfirmation.toggle()
+            config.showCallConfirmation = binding.settingsShowCallConfirmation.isChecked
         }
     }
 
     private fun setupMergeDuplicateContacts() {
-        settings_merge_duplicate_contacts.isChecked = config.mergeDuplicateContacts
-        settings_merge_duplicate_contacts_holder.setOnClickListener {
-            settings_merge_duplicate_contacts.toggle()
-            config.mergeDuplicateContacts = settings_merge_duplicate_contacts.isChecked
+        binding.settingsMergeDuplicateContacts.isChecked = config.mergeDuplicateContacts
+        binding.settingsMergeDuplicateContactsHolder.setOnClickListener {
+            binding.settingsMergeDuplicateContacts.toggle()
+            config.mergeDuplicateContacts = binding.settingsMergeDuplicateContacts.isChecked
         }
     }
 
     private fun setupEnableAutomaticBackups() {
-        settings_backups_label.beVisibleIf(isRPlus())
-        settings_enable_automatic_backups_holder.beVisibleIf(isRPlus())
-        settings_enable_automatic_backups.isChecked = config.autoBackup
-        settings_enable_automatic_backups_holder.setOnClickListener {
+        binding.settingsBackupsLabel.beVisibleIf(isRPlus())
+        binding.settingsEnableAutomaticBackupsHolder.beVisibleIf(isRPlus())
+        binding.settingsEnableAutomaticBackups.isChecked = config.autoBackup
+        binding.settingsEnableAutomaticBackupsHolder.setOnClickListener {
             val wasBackupDisabled = !config.autoBackup
             if (wasBackupDisabled) {
                 ManageAutoBackupsDialog(
@@ -250,8 +252,8 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupManageAutomaticBackups() {
-        settings_manage_automatic_backups_holder.beVisibleIf(isRPlus() && config.autoBackup)
-        settings_manage_automatic_backups_holder.setOnClickListener {
+        binding.settingsManageAutomaticBackupsHolder.beVisibleIf(isRPlus() && config.autoBackup)
+        binding.settingsManageAutomaticBackupsHolder.setOnClickListener {
             ManageAutoBackupsDialog(
                 activity = this,
                 onSuccess = {
@@ -263,7 +265,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun enableOrDisableAutomaticBackups(enable: Boolean) {
         config.autoBackup = enable
-        settings_enable_automatic_backups.isChecked = enable
-        settings_manage_automatic_backups_holder.beVisibleIf(enable)
+        binding.settingsEnableAutomaticBackups.isChecked = enable
+        binding.settingsManageAutomaticBackupsHolder.beVisibleIf(enable)
     }
 }

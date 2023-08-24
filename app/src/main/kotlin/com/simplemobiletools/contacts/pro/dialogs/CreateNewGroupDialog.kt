@@ -11,22 +11,22 @@ import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.contacts.ContactSource
 import com.simplemobiletools.commons.models.contacts.Group
 import com.simplemobiletools.contacts.pro.R
-import kotlinx.android.synthetic.main.dialog_create_new_group.view.*
+import com.simplemobiletools.contacts.pro.databinding.DialogCreateNewGroupBinding
 
 class CreateNewGroupDialog(val activity: BaseSimpleActivity, val callback: (newGroup: Group) -> Unit) {
     init {
-        val view = activity.layoutInflater.inflate(R.layout.dialog_create_new_group, null)
+        val binding = DialogCreateNewGroupBinding.inflate(activity.layoutInflater)
 
         activity.getAlertDialogBuilder()
-            .setPositiveButton(R.string.ok, null)
-            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(com.simplemobiletools.commons.R.string.ok, null)
+            .setNegativeButton(com.simplemobiletools.commons.R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this, R.string.create_new_group) { alertDialog ->
-                    alertDialog.showKeyboard(view.group_name)
+                activity.setupDialogStuff(binding.root, this, R.string.create_new_group) { alertDialog ->
+                    alertDialog.showKeyboard(binding.groupName)
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
-                        val name = view.group_name.value
+                        val name = binding.groupName.value
                         if (name.isEmpty()) {
-                            activity.toast(R.string.empty_name)
+                            activity.toast(com.simplemobiletools.commons.R.string.empty_name)
                             return@OnClickListener
                         }
 

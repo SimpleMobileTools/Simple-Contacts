@@ -6,20 +6,20 @@ import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.contacts.pro.R
+import com.simplemobiletools.contacts.pro.databinding.DialogChangeSortingBinding
 import com.simplemobiletools.contacts.pro.extensions.config
-import kotlinx.android.synthetic.main.dialog_change_sorting.view.*
 
 class ChangeSortingDialog(val activity: BaseSimpleActivity, private val showCustomSorting: Boolean = false, private val callback: () -> Unit) {
     private var currSorting = 0
     private var config = activity.config
-    private var view = activity.layoutInflater.inflate(R.layout.dialog_change_sorting, null)
+    private val binding = DialogChangeSortingBinding.inflate(activity.layoutInflater)
 
     init {
         activity.getAlertDialogBuilder()
-            .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
-            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(com.simplemobiletools.commons.R.string.ok) { dialog, which -> dialogConfirmed() }
+            .setNegativeButton(com.simplemobiletools.commons.R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this, R.string.sort_by)
+                activity.setupDialogStuff(binding.root, this, com.simplemobiletools.commons.R.string.sort_by)
             }
 
         currSorting = if (showCustomSorting && config.isCustomOrderSelected) {
@@ -33,42 +33,41 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val showCust
     }
 
     private fun setupSortRadio() {
-        val sortingRadio = view.sorting_dialog_radio_sorting
+        val sortingRadio = binding.sortingDialogRadioSorting
 
         sortingRadio.setOnCheckedChangeListener { group, checkedId ->
-            val isCustomSorting = checkedId == sortingRadio.sorting_dialog_radio_custom.id
-            view.sorting_dialog_radio_order.beGoneIf(isCustomSorting)
-            view.divider.beGoneIf(isCustomSorting)
+            val isCustomSorting = checkedId == binding.sortingDialogRadioCustom.id
+            binding.sortingDialogRadioOrder.beGoneIf(isCustomSorting)
+            binding.divider.beGoneIf(isCustomSorting)
         }
 
         val sortBtn = when {
-            currSorting and SORT_BY_FIRST_NAME != 0 -> sortingRadio.sorting_dialog_radio_first_name
-            currSorting and SORT_BY_MIDDLE_NAME != 0 -> sortingRadio.sorting_dialog_radio_middle_name
-            currSorting and SORT_BY_SURNAME != 0 -> sortingRadio.sorting_dialog_radio_surname
-            currSorting and SORT_BY_FULL_NAME != 0 -> sortingRadio.sorting_dialog_radio_full_name
-            currSorting and SORT_BY_CUSTOM != 0 -> sortingRadio.sorting_dialog_radio_custom
-            else -> sortingRadio.sorting_dialog_radio_date_created
+            currSorting and SORT_BY_FIRST_NAME != 0 -> binding.sortingDialogRadioFirstName
+            currSorting and SORT_BY_MIDDLE_NAME != 0 -> binding.sortingDialogRadioMiddleName
+            currSorting and SORT_BY_SURNAME != 0 -> binding.sortingDialogRadioSurname
+            currSorting and SORT_BY_FULL_NAME != 0 -> binding.sortingDialogRadioFullName
+            currSorting and SORT_BY_CUSTOM != 0 -> binding.sortingDialogRadioCustom
+            else -> binding.sortingDialogRadioDateCreated
         }
         sortBtn.isChecked = true
 
         if (showCustomSorting) {
-            sortingRadio.sorting_dialog_radio_custom.isChecked = config.isCustomOrderSelected
+            binding.sortingDialogRadioCustom.isChecked = config.isCustomOrderSelected
         }
-        view.sorting_dialog_radio_custom.beGoneIf(!showCustomSorting)
+        binding.sortingDialogRadioCustom.beGoneIf(!showCustomSorting)
     }
 
     private fun setupOrderRadio() {
-        val orderRadio = view.sorting_dialog_radio_order
-        var orderBtn = orderRadio.sorting_dialog_radio_ascending
+        var orderBtn = binding.sortingDialogRadioAscending
 
         if (currSorting and SORT_DESCENDING != 0) {
-            orderBtn = orderRadio.sorting_dialog_radio_descending
+            orderBtn = binding.sortingDialogRadioDescending
         }
         orderBtn.isChecked = true
     }
 
     private fun dialogConfirmed() {
-        val sortingRadio = view.sorting_dialog_radio_sorting
+        val sortingRadio = binding.sortingDialogRadioSorting
         var sorting = when (sortingRadio.checkedRadioButtonId) {
             R.id.sorting_dialog_radio_first_name -> SORT_BY_FIRST_NAME
             R.id.sorting_dialog_radio_middle_name -> SORT_BY_MIDDLE_NAME
@@ -78,7 +77,7 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, private val showCust
             else -> SORT_BY_DATE_CREATED
         }
 
-        if (sorting != SORT_BY_CUSTOM && view.sorting_dialog_radio_order.checkedRadioButtonId == R.id.sorting_dialog_radio_descending) {
+        if (sorting != SORT_BY_CUSTOM && binding.sortingDialogRadioOrder.checkedRadioButtonId == R.id.sorting_dialog_radio_descending) {
             sorting = sorting or SORT_DESCENDING
         }
 

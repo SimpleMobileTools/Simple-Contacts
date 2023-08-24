@@ -1,7 +1,5 @@
 package com.simplemobiletools.contacts.pro.dialogs
 
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
@@ -12,15 +10,12 @@ import com.simplemobiletools.commons.models.contacts.ContactSource
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.adapters.FilterContactSourcesAdapter
+import com.simplemobiletools.contacts.pro.databinding.DialogManageAutomaticBackupsBinding
 import com.simplemobiletools.contacts.pro.extensions.config
-import kotlinx.android.synthetic.main.dialog_manage_automatic_backups.view.backup_contact_sources_list
-import kotlinx.android.synthetic.main.dialog_manage_automatic_backups.view.backup_contacts_filename
-import kotlinx.android.synthetic.main.dialog_manage_automatic_backups.view.backup_contacts_filename_hint
-import kotlinx.android.synthetic.main.dialog_manage_automatic_backups.view.backup_contacts_folder
 import java.io.File
 
 class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: () -> Unit) {
-    private val view = (activity.layoutInflater.inflate(R.layout.dialog_manage_automatic_backups, null) as ViewGroup)
+    private val binding = DialogManageAutomaticBackupsBinding.inflate(activity.layoutInflater)
     private val config = activity.config
     private var backupFolder = config.autoBackupFolder
     private var contactSources = mutableListOf<ContactSource>()
@@ -30,23 +25,23 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
     private var isContactsReady = false
 
     init {
-        view.apply {
-            backup_contacts_folder.setText(activity.humanizePath(backupFolder))
+        binding.apply {
+            backupContactsFolder.setText(activity.humanizePath(backupFolder))
             val filename = config.autoBackupFilename.ifEmpty {
                 "${activity.getString(R.string.contacts)}_%Y%M%D_%h%m%s"
             }
 
-            backup_contacts_filename.setText(filename)
-            backup_contacts_filename_hint.setEndIconOnClickListener {
+            backupContactsFilename.setText(filename)
+            backupContactsFilenameHint.setEndIconOnClickListener {
                 DateTimePatternInfoDialog(activity)
             }
 
-            backup_contacts_filename_hint.setEndIconOnLongClickListener {
+            backupContactsFilenameHint.setEndIconOnLongClickListener {
                 DateTimePatternInfoDialog(activity)
                 true
             }
 
-            backup_contacts_folder.setOnClickListener {
+            backupContactsFolder.setOnClickListener {
                 selectBackupFolder()
             }
 
@@ -64,27 +59,27 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
         }
 
         activity.getAlertDialogBuilder()
-            .setPositiveButton(R.string.ok, null)
-            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(com.simplemobiletools.commons.R.string.ok, null)
+            .setNegativeButton(com.simplemobiletools.commons.R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this, R.string.manage_automatic_backups) { dialog ->
+                activity.setupDialogStuff(binding.root, this, com.simplemobiletools.commons.R.string.manage_automatic_backups) { dialog ->
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                        if (view.backup_contact_sources_list.adapter == null) {
+                        if (binding.backupContactSourcesList.adapter == null) {
                             return@setOnClickListener
                         }
-                        val filename = view.backup_contacts_filename.value
+                        val filename = binding.backupContactsFilename.value
                         when {
-                            filename.isEmpty() -> activity.toast(R.string.empty_name)
+                            filename.isEmpty() -> activity.toast(com.simplemobiletools.commons.R.string.empty_name)
                             filename.isAValidFilename() -> {
                                 val file = File(backupFolder, "$filename.vcf")
                                 if (file.exists() && !file.canWrite()) {
-                                    activity.toast(R.string.name_taken)
+                                    activity.toast(com.simplemobiletools.commons.R.string.name_taken)
                                     return@setOnClickListener
                                 }
 
-                                val selectedSources = (view.backup_contact_sources_list.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
+                                val selectedSources = (binding.backupContactSourcesList.adapter as FilterContactSourcesAdapter).getSelectedContactSources()
                                 if (selectedSources.isEmpty()) {
-                                    activity.toast(R.string.no_entries_for_exporting)
+                                    activity.toast(com.simplemobiletools.commons.R.string.no_entries_for_exporting)
                                     return@setOnClickListener
                                 }
 
@@ -104,14 +99,14 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
                                 }
                             }
 
-                            else -> activity.toast(R.string.invalid_name)
+                            else -> activity.toast(com.simplemobiletools.commons.R.string.invalid_name)
                         }
                     }
                 }
             }
     }
 
-    private fun processDataIfReady(view: View) {
+    private fun processDataIfReady(binding: DialogManageAutomaticBackupsBinding) {
         if (!isContactSourcesReady || !isContactsReady) {
             return
         }
@@ -130,12 +125,12 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
         contactSources.addAll(contactSourcesWithCount)
 
         activity.runOnUiThread {
-            view.backup_contact_sources_list.adapter = FilterContactSourcesAdapter(activity, contactSourcesWithCount, selectedContactSources.toList())
+            binding.backupContactSourcesList.adapter = FilterContactSourcesAdapter(activity, contactSourcesWithCount, selectedContactSources.toList())
         }
     }
 
     private fun selectBackupFolder() {
-        activity.hideKeyboard(view.backup_contacts_filename)
+        activity.hideKeyboard(binding.backupContactsFilename)
         FilePickerDialog(activity, backupFolder, false, showFAB = true) { path ->
             activity.handleSAFDialog(path) { grantedSAF ->
                 if (!grantedSAF) {
@@ -148,7 +143,7 @@ class ManageAutoBackupsDialog(private val activity: SimpleActivity, onSuccess: (
                     }
 
                     backupFolder = path
-                    view.backup_contacts_folder.setText(activity.humanizePath(path))
+                    binding.backupContactsFolder.setText(activity.humanizePath(path))
                 }
             }
         }
