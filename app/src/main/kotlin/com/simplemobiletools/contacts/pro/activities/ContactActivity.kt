@@ -88,10 +88,10 @@ abstract class ContactActivity : SimpleActivity() {
             .override(wantedWidth, wantedHeight)
             .listener(object : RequestListener<Drawable> {
                 override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
+                    resource: Drawable,
+                    model: Any,
+                    target: Target<Drawable>,
+                    dataSource: DataSource,
                     isFirstResource: Boolean
                 ): Boolean {
                     photoView.background = ColorDrawable(0)
@@ -99,7 +99,7 @@ abstract class ContactActivity : SimpleActivity() {
                     return false
                 }
 
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>, isFirstResource: Boolean): Boolean {
                     showPhotoPlaceholder(photoView)
                     bottomShadow.beGone()
                     return true
