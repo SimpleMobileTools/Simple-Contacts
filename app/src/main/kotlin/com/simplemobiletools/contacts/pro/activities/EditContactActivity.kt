@@ -776,7 +776,7 @@ class EditContactActivity : ContactActivity() {
                     setTextColor(getProperTextColor())
                 }
 
-                contactGroupHolder.addView(root)
+                binding.contactGroupsHolder.addView(root)
                 contactGroupRemove.beGone()
                 root.setOnClickListener {
                     showSelectGroupsDialog()
