@@ -10,6 +10,11 @@ import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.provider.ContactsContract
+import android.util.Log
+import android.util.SparseArray
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.databases.ContactsDatabase
@@ -21,9 +26,10 @@ import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
+import com.simplemobiletools.commons.models.PhoneNumber
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.Release
-import com.simplemobiletools.commons.models.contacts.Contact
+import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.contacts.pro.BuildConfig
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
@@ -62,10 +68,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     private var storedFontSize = 0
     private var storedShowTabs = 0
     private val binding by viewBinding(ActivityMainBinding::inflate)
-
+    private var timeInMs = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        timeInMs = System.currentTimeMillis()
+
         appLaunched(BuildConfig.APPLICATION_ID)
         setupOptionsMenu()
         refreshMenuItems()
@@ -616,7 +624,12 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             binding.viewPager.currentItem = getDefaultTab()
         }
 
+        val initToLoad = System.currentTimeMillis() - timeInMs
         ContactsHelper(this).getContacts { contacts ->
+            val diff = System.currentTimeMillis() - timeInMs
+            val msg = "loaded ${contacts.size} in $diff ms (init: $initToLoad + load: ${diff - initToLoad})";
+            Log.e("TAGG", msg)
+            toast(msg)
             isGettingContacts = false
             if (isDestroyed || isFinishing) {
                 return@getContacts
