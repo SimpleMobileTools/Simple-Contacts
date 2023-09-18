@@ -20,6 +20,7 @@ import com.simplemobiletools.commons.dialogs.CallConfirmationDialog
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.PhoneNumber
 import com.simplemobiletools.commons.models.contacts.*
@@ -32,6 +33,7 @@ import com.simplemobiletools.contacts.pro.extensions.editContact
 import com.simplemobiletools.contacts.pro.extensions.getPackageDrawable
 import com.simplemobiletools.contacts.pro.extensions.startCallIntent
 import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 
 class ViewContactActivity : ContactActivity() {
     private var isViewIntent = false

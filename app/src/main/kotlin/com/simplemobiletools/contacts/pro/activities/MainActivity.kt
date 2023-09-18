@@ -24,6 +24,7 @@ import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
+//import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.PhoneNumber
@@ -38,11 +39,16 @@ import com.simplemobiletools.contacts.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.contacts.pro.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
 import com.simplemobiletools.contacts.pro.dialogs.ImportContactsDialog
-import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
+import com.simplemobiletools.contacts.pro.extensions.*
+import com.simplemobiletools.contacts.pro.extensions.getTempFile
+import com.simplemobiletools.contacts.pro.extensions.isPackageInstalled
+import com.simplemobiletools.contacts.pro.extensions.showErrorToast
+import com.simplemobiletools.contacts.pro.extensions.toast
+import com.simplemobiletools.contacts.pro.extensions.updateBottomTabItemColors
 import com.simplemobiletools.contacts.pro.fragments.FavoritesFragment
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.pro.helpers.ALL_TABS_MASK
+import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
 import com.simplemobiletools.contacts.pro.helpers.VcfExporter
 import com.simplemobiletools.contacts.pro.helpers.tabsList
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
@@ -624,44 +630,48 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             binding.viewPager.currentItem = getDefaultTab()
         }
 
-        val initToLoad = System.currentTimeMillis() - timeInMs
-        ContactsHelper(this).getContacts { contacts ->
-            val diff = System.currentTimeMillis() - timeInMs
-            val msg = "loaded ${contacts.size} in $diff ms (init: $initToLoad + load: ${diff - initToLoad})";
-            Log.e("TAGG", msg)
-            toast(msg)
-            isGettingContacts = false
-            if (isDestroyed || isFinishing) {
-                return@getContacts
-            }
 
-            if (refreshTabsMask and TAB_CONTACTS != 0) {
-                findViewById<MyViewPagerFragment<*>>(R.id.contacts_fragment)?.apply {
-                    skipHashComparing = true
-                    refreshContacts(contacts)
+        Handler(Looper.getMainLooper()).postDelayed({
+            val initToLoad = System.currentTimeMillis() - timeInMs
+            ContactsHelper(this).getContacts { contacts ->
+                val diff = System.currentTimeMillis() - timeInMs
+                val msg = "loaded ${contacts.size} in $diff ms (init: $initToLoad + load: ${diff - initToLoad})";
+                Log.e("TAGG", msg)
+                toast(msg)
+                isGettingContacts = false
+                if (isDestroyed || isFinishing) {
+                    return@getContacts
                 }
-            }
 
-            if (refreshTabsMask and TAB_FAVORITES != 0) {
-                findViewById<MyViewPagerFragment<*>>(R.id.favorites_fragment)?.apply {
-                    skipHashComparing = true
-                    refreshContacts(contacts)
-                }
-            }
-
-            if (refreshTabsMask and TAB_GROUPS != 0) {
-                findViewById<MyViewPagerFragment<*>>(R.id.groups_fragment)?.apply {
-                    if (refreshTabsMask == TAB_GROUPS) {
+                if (refreshTabsMask and TAB_CONTACTS != 0) {
+                    findViewById<MyViewPagerFragment<*>>(R.id.contacts_fragment)?.apply {
                         skipHashComparing = true
+                        refreshContacts(contacts)
                     }
-                    refreshContacts(contacts)
+                }
+
+                if (refreshTabsMask and TAB_FAVORITES != 0) {
+                    findViewById<MyViewPagerFragment<*>>(R.id.favorites_fragment)?.apply {
+                        skipHashComparing = true
+                        refreshContacts(contacts)
+                    }
+                }
+
+                if (refreshTabsMask and TAB_GROUPS != 0) {
+                    findViewById<MyViewPagerFragment<*>>(R.id.groups_fragment)?.apply {
+                        if (refreshTabsMask == TAB_GROUPS) {
+                            skipHashComparing = true
+                        }
+                        refreshContacts(contacts)
+                    }
+                }
+
+                if (binding.mainMenu.isSearchOpen) {
+                    getCurrentFragment()?.onSearchQueryChanged(binding.mainMenu.getCurrentQuery())
                 }
             }
 
-            if (binding.mainMenu.isSearchOpen) {
-                getCurrentFragment()?.onSearchQueryChanged(binding.mainMenu.getCurrentQuery())
-            }
-        }
+        }, 3000)
     }
 
     override fun contactClicked(contact: Contact) {

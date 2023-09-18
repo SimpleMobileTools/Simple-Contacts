@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.konan.properties.Properties
 plugins {
     alias(libs.plugins.android)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ksp)
 }
 
@@ -88,6 +89,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.simple.tools.commons)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.autofittextview)
