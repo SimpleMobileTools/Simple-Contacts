@@ -38,8 +38,13 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.activities.ViewContactActivity
 import com.simplemobiletools.contacts.pro.dialogs.CreateNewGroupDialog
-import com.simplemobiletools.contacts.pro.extensions.*
+import com.simplemobiletools.contacts.pro.extensions.config
+import com.simplemobiletools.contacts.pro.extensions.editContact
+import com.simplemobiletools.contacts.pro.extensions.shareContacts
 import com.simplemobiletools.contacts.pro.helpers.*
+import com.simplemobiletools.contacts.pro.helpers.ContactsHelper
+//import com.simplemobiletools.contacts.pro.extensions.*
+//import com.simplemobiletools.contacts.pro.helpers.*
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import com.simplemobiletools.contacts.pro.interfaces.RemoveFromGroupListener
 import java.util.*

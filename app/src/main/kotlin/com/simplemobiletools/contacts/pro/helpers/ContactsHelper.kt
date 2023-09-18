@@ -198,6 +198,7 @@ class ContactsHelper(val context: Context) {
     }
 
     private fun getDeviceContacts(contacts: SparseArray<Contact>, ignoredContactSources: HashSet<String>?, gettingDuplicates: Boolean) {
+        var now = System.currentTimeMillis()
         if (!context.hasPermission(PERMISSION_READ_CONTACTS)) {
             return
         }
@@ -268,6 +269,11 @@ class ContactsHelper(val context: Context) {
             }
         }
 
+        val step31 = "#3.1: ${System.currentTimeMillis() - now}ms. context query cursor"
+        durations.add(step31)
+        now = System.currentTimeMillis()
+        Log.e("TAGG", step31)
+
         val emails = getEmails()
         var size = emails.size()
         for (i in 0 until size) {
@@ -287,6 +293,11 @@ class ContactsHelper(val context: Context) {
             return
         }
 
+        val step32 = "#3.2: ${System.currentTimeMillis() - now}ms. mail org"
+        durations.add(step32)
+        now = System.currentTimeMillis()
+        Log.e("TAGG", step32)
+
         val phoneNumbers = getPhoneNumbers(null)
         size = phoneNumbers.size()
         for (i in 0 until size) {
@@ -296,6 +307,11 @@ class ContactsHelper(val context: Context) {
                 contacts[key].phoneNumbers = numbers
             }
         }
+
+        val step33 = "#3.3: ${System.currentTimeMillis() - now}ms. phone"
+        durations.add(step33)
+        now = System.currentTimeMillis()
+        Log.e("TAGG", step33)
 
         val addresses = getAddresses()
         size = addresses.size()
@@ -311,6 +327,11 @@ class ContactsHelper(val context: Context) {
             contacts[key]?.IMs = IMs.valueAt(i)
         }
 
+        val step34 = "#3.4: ${System.currentTimeMillis() - now}ms. add im"
+        durations.add(step34)
+        now = System.currentTimeMillis()
+        Log.e("TAGG", step34)
+
         val events = getEvents()
         size = events.size()
         for (i in 0 until size) {
@@ -325,6 +346,11 @@ class ContactsHelper(val context: Context) {
             contacts[key]?.notes = notes.valueAt(i)
         }
 
+        val step35 = "#3.5: ${System.currentTimeMillis() - now}ms. event notes"
+        durations.add(step35)
+        now = System.currentTimeMillis()
+        Log.e("TAGG", step35)
+
         val nicknames = getNicknames()
         size = nicknames.size()
         for (i in 0 until size) {
@@ -338,6 +364,11 @@ class ContactsHelper(val context: Context) {
             val key = websites.keyAt(i)
             contacts[key]?.websites = websites.valueAt(i)
         }
+
+        val step36 = "#3.6: ${System.currentTimeMillis() - now}ms. nick website"
+        durations.add(step36)
+        now = System.currentTimeMillis()
+        Log.e("TAGG", step36)
     }
 
     private fun getPhoneNumbers(contactId: Int? = null): SparseArray<ArrayList<PhoneNumber>> {
