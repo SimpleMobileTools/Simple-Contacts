@@ -14,16 +14,14 @@ import android.text.TextUtils
 import android.util.Log
 import android.util.SparseArray
 import androidx.appcompat.app.AlertDialog
+import androidx.core.util.forEach
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.extensions.getIntValue
-import com.simplemobiletools.commons.extensions.getLongValue
-import com.simplemobiletools.commons.extensions.getStringValue
-import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.PhoneNumber
 import com.simplemobiletools.commons.models.contacts.*
 import com.simplemobiletools.commons.overloads.times
+import com.simplemobiletools.contacts.pro.extensions.*
 import com.simplemobiletools.contacts.pro.extensions.baseConfig
 import com.simplemobiletools.contacts.pro.extensions.getAllContactSources
 import com.simplemobiletools.contacts.pro.extensions.getPhotoThumbnailSize
@@ -35,11 +33,16 @@ import com.simplemobiletools.contacts.pro.extensions.hasPermission
 import com.simplemobiletools.contacts.pro.extensions.queryCursor
 import com.simplemobiletools.contacts.pro.extensions.showErrorToast
 import com.simplemobiletools.contacts.pro.extensions.toast
+import kotlinx.coroutines.Runnable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.OutputStream
-import java.time.Duration
-import java.util.Locale
+import java.util.*
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
+import kotlin.collections.HashSet
+import kotlin.collections.LinkedHashSet
 
 class ContactsHelper(val context: Context) {
     private val BATCH_SIZE = 50
@@ -47,6 +50,7 @@ class ContactsHelper(val context: Context) {
 
     companion object {
         var durations = mutableListOf("")
+        var startTime = 0L
     }
 
     fun getContacts(
@@ -58,15 +62,8 @@ class ContactsHelper(val context: Context) {
     ) {
         val start = System.currentTimeMillis()
         ensureBackgroundThread {
-            var now = start
-            val contacts = SparseArray<Contact>()
             displayContactSources = context.getVisibleContactSources()
             durations.clear()
-            val step = "#1: ${System.currentTimeMillis() - now}ms. getVisibleContactSources"
-            durations.add(step)
-            Log.e("TAGG", step)
-            now = System.currentTimeMillis()
-
 
             if (getAll) {
                 displayContactSources = if (ignoredContactSources.isEmpty()) {
@@ -78,77 +75,74 @@ class ContactsHelper(val context: Context) {
                 }
             }
 
-            val step2 = "#2: ${System.currentTimeMillis() - now}ms. getAllContactSources"
-            durations.add(step2)
-            Log.e("TAGG", step2)
-            now = System.currentTimeMillis()
 
-            getDeviceContacts(contacts, ignoredContactSources, gettingDuplicates)
-            val step3 = "#3: ${System.currentTimeMillis() - now}ms. getDeviceContacts"
-            durations.add(step3)
-            Log.e("TAGG", step3)
-            now = System.currentTimeMillis()
-
+            val localContacts = Collections.synchronizedList<Contact>(mutableListOf())
+            var localContactsThread: Thread? = null
             if (displayContactSources.contains(SMT_PRIVATE)) {
-                LocalContactsHelper(context).getAllContacts().forEach {
-                    contacts.put(it.id, it)
+                localContactsThread = Thread {
+                    localContacts.addAll(LocalContactsHelper(context).getAllContacts())
                 }
-
-                val step4 = "#4: ${System.currentTimeMillis() - now}ms. getAllContacts - read from db"
-                durations.add(step4)
-                Log.e("TAGG", step4)
-                now = System.currentTimeMillis()
+                localContactsThread.start()
             }
 
-            val contactsSize = contacts.size()
-            val tempContacts = ArrayList<Contact>(contactsSize)
-            val resultContacts = ArrayList<Contact>(contactsSize)
+            val contacts = Collections.synchronizedMap<Int, Contact>(mutableMapOf())
+            val contactsThread = Thread {
+                contacts.putAll(getDeviceContacts(ignoredContactSources, gettingDuplicates))
+            }
+            contactsThread.start()
 
-            (0 until contactsSize).filter {
-                if (ignoredContactSources.isEmpty() && showOnlyContactsWithNumbers) {
-                    contacts.valueAt(it).phoneNumbers.isNotEmpty()
+
+            localContactsThread?.join()
+            localContacts.forEach {
+                contacts[it.id] = it
+            }
+
+            contactsThread.join()
+            val contactsSize = contacts.size
+            val tempContacts = (0 until contactsSize).filter {
+                if (showOnlyContactsWithNumbers && ignoredContactSources.isEmpty()) {
+                    contacts[it]?.phoneNumbers?.isNotEmpty()?: false
                 } else {
                     true
                 }
-            }.mapTo(tempContacts) {
-                contacts.valueAt(it)
+            }.map {
+                contacts[it]
             }
 
+            // groups are obtained with contactID, not rawID, so assign them to proper contacts like this
+            val groups = Collections.synchronizedMap<Int, ArrayList<Group>>(mutableMapOf())
+            val thread = Thread {
+                getContactGroups(getStoredGroupsSync()).forEach { key, value ->
+                    groups[key] = value
+                }
+            }
+            thread.start()
 
+            val resultContacts = ArrayList<Contact>(contactsSize)
             if (context.baseConfig.mergeDuplicateContacts && ignoredContactSources.isEmpty() && !getAll) {
-                tempContacts.filter { displayContactSources.contains(it.source) }.groupBy { it.getNameToDisplay().toLowerCase() }.values.forEach { it ->
+                tempContacts.filter { displayContactSources.contains(it?.source) }.groupBy { it?.getNameToDisplay()?.toLowerCase() }.values.forEach { it ->
                     if (it.size == 1) {
-                        resultContacts.add(it.first())
+                        it.first()?.let { it1 -> resultContacts.add(it1) }
                     } else {
-                        val sorted = it.sortedByDescending { it.getStringToCompare().length }
-                        resultContacts.add(sorted.first())
+                        val sorted = it.sortedByDescending { it?.getStringToCompare()?.length }
+                        sorted.first()?.let { it1 -> resultContacts.add(it1) }
                     }
                 }
             } else {
-                resultContacts.addAll(tempContacts)
+                resultContacts.addAll(tempContacts.filterNotNull())
             }
-            val step5 = "#5: ${System.currentTimeMillis() - now}ms. local resultContacts"
-            durations.add(step5)
-            Log.e("TAGG", step5)
-            now = System.currentTimeMillis()
 
-            // groups are obtained with contactID, not rawID, so assign them to proper contacts like this
-            val groups = getContactGroups(getStoredGroupsSync())
-            val size = groups.size()
-            for (i in 0 until size) {
-                val key = groups.keyAt(i)
-                resultContacts.firstOrNull { it.contactId == key }?.groups = groups.valueAt(i)
+            thread.join()
+            groups.entries.forEach { entry ->
+                resultContacts.firstOrNull { it.contactId == entry.key }?.groups = entry.value
             }
 
             Contact.sorting = context.baseConfig.sorting
             Contact.startWithSurname = context.baseConfig.startNameWithSurname
             resultContacts.sort()
 
-            val step6 = "#6: ${System.currentTimeMillis() - now}ms. local getContactGroups & sort res"
-            durations.add(step6)
-            Log.e("TAGG", step6)
-
             val duration = System.currentTimeMillis() - start
+
             Handler(Looper.getMainLooper()).post {
                 callback(resultContacts)
                 showResultInDialog(context, resultContacts, duration)
@@ -168,16 +162,25 @@ class ContactsHelper(val context: Context) {
         context.toast(title)
     }
 
-    private fun getContentResolverAccounts(): HashSet<ContactSource> {
-        val sources = HashSet<ContactSource>()
-        arrayOf(Groups.CONTENT_URI, Settings.CONTENT_URI, RawContacts.CONTENT_URI).forEach {
-            fillSourcesFromUri(it, sources)
+    private fun getContentResolverAccounts(): MutableSet<ContactSource> {
+        val sourceUris = arrayOf(Groups.CONTENT_URI, Settings.CONTENT_URI, RawContacts.CONTENT_URI)
+        val sources = Collections.synchronizedSet<ContactSource>(hashSetOf())
+
+        val executor = Executors.newFixedThreadPool(5)
+
+        sourceUris.forEach {
+            val worker = Runnable { sources.addAll(getSourceByUri(it)) }
+            executor.execute(worker)
         }
+
+        executor.shutdown()
+        executor.awaitTermination(1, TimeUnit.HOURS)
 
         return sources
     }
 
-    private fun fillSourcesFromUri(uri: Uri, sources: HashSet<ContactSource>) {
+    private fun getSourceByUri(uri: Uri): HashSet<ContactSource> {
+        val sources = hashSetOf<ContactSource>()
         val projection = arrayOf(
             RawContacts.ACCOUNT_NAME,
             RawContacts.ACCOUNT_TYPE
@@ -194,180 +197,211 @@ class ContactsHelper(val context: Context) {
             val source = ContactSource(name, type, publicName)
             sources.add(source)
         }
+        return sources
     }
 
-    private fun getDeviceContacts(contacts: SparseArray<Contact>, ignoredContactSources: HashSet<String>?, gettingDuplicates: Boolean) {
+    private fun getDeviceContacts(ignoredContactSources: HashSet<String>?, gettingDuplicates: Boolean): MutableMap<Int, Contact> {
+        val contacts = Collections.synchronizedMap<Int, Contact>(mutableMapOf())
+
         var now = System.currentTimeMillis()
         if (!context.hasPermission(PERMISSION_READ_CONTACTS)) {
-            return
+            return contacts
         }
 
-        val ignoredSources = ignoredContactSources ?: context.baseConfig.ignoredContactSources
-        val uri = Data.CONTENT_URI
-        val projection = getContactProjection()
+        val ignoredSources = Collections.synchronizedSet(ignoredContactSources ?: context.baseConfig.ignoredContactSources)
 
-        arrayOf(CommonDataKinds.Organization.CONTENT_ITEM_TYPE, CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE).forEach { mimetype ->
-            val selection = "${Data.MIMETYPE} = ?"
-            val selectionArgs = arrayOf(mimetype)
-            val sortOrder = getSortString()
+        val executor1 = Executors.newFixedThreadPool(2)
 
-            context.queryCursor(uri, projection, selection, selectionArgs, sortOrder, true) { cursor ->
-                val accountName = cursor.getStringValue(RawContacts.ACCOUNT_NAME) ?: ""
-                val accountType = cursor.getStringValue(RawContacts.ACCOUNT_TYPE) ?: ""
+        val workers1 = arrayOf(CommonDataKinds.Organization.CONTENT_ITEM_TYPE, CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE).map { mimetype ->
+            Runnable {
+                val uri = Data.CONTENT_URI
+                val projection = getContactProjection()
 
-                if (ignoredSources.contains("$accountName:$accountType")) {
-                    return@queryCursor
+                val selection = "${Data.MIMETYPE} = ?"
+                val selectionArgs = arrayOf(mimetype)
+                val sortOrder = getSortString()
+
+                context.queryCursor(uri, projection, selection, selectionArgs, sortOrder, true) { cursor ->
+                    val accountName = cursor.getStringValue(RawContacts.ACCOUNT_NAME) ?: ""
+                    val accountType = cursor.getStringValue(RawContacts.ACCOUNT_TYPE) ?: ""
+
+                    if (ignoredSources.contains("$accountName:$accountType")) {
+                        return@queryCursor
+                    }
+
+                    val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
+                    var prefix = ""
+                    var firstName = ""
+                    var middleName = ""
+                    var surname = ""
+                    var suffix = ""
+
+                    // ignore names at Organization type contacts
+                    if (mimetype == CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE) {
+                        prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
+                        firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
+                        middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
+                        surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
+                        suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
+                    }
+
+                    var photoUri = ""
+                    var starred = 0
+                    var contactId = 0
+                    var thumbnailUri = ""
+                    var ringtone: String? = null
+
+                    if (!gettingDuplicates) {
+                        photoUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
+                        starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
+                        contactId = cursor.getIntValue(Data.CONTACT_ID)
+                        thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
+                        ringtone = cursor.getStringValue(CommonDataKinds.StructuredName.CUSTOM_RINGTONE)
+                    }
+
+                    val nickname = ""
+                    val numbers = ArrayList<PhoneNumber>()          // proper value is obtained below
+                    val emails = ArrayList<Email>()
+                    val addresses = ArrayList<Address>()
+                    val events = ArrayList<Event>()
+                    val notes = ""
+                    val groups = ArrayList<Group>()
+                    val organization = Organization("", "")
+                    val websites = ArrayList<String>()
+                    val ims = ArrayList<IM>()
+                    val contact = Contact(
+                        id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
+                        events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype, ringtone
+                    )
+
+                    contacts.put(id, contact)
                 }
-
-                val id = cursor.getIntValue(Data.RAW_CONTACT_ID)
-                var prefix = ""
-                var firstName = ""
-                var middleName = ""
-                var surname = ""
-                var suffix = ""
-
-                // ignore names at Organization type contacts
-                if (mimetype == CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE) {
-                    prefix = cursor.getStringValue(CommonDataKinds.StructuredName.PREFIX) ?: ""
-                    firstName = cursor.getStringValue(CommonDataKinds.StructuredName.GIVEN_NAME) ?: ""
-                    middleName = cursor.getStringValue(CommonDataKinds.StructuredName.MIDDLE_NAME) ?: ""
-                    surname = cursor.getStringValue(CommonDataKinds.StructuredName.FAMILY_NAME) ?: ""
-                    suffix = cursor.getStringValue(CommonDataKinds.StructuredName.SUFFIX) ?: ""
-                }
-
-                var photoUri = ""
-                var starred = 0
-                var contactId = 0
-                var thumbnailUri = ""
-                var ringtone: String? = null
-
-                if (!gettingDuplicates) {
-                    photoUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_URI) ?: ""
-                    starred = cursor.getIntValue(CommonDataKinds.StructuredName.STARRED)
-                    contactId = cursor.getIntValue(Data.CONTACT_ID)
-                    thumbnailUri = cursor.getStringValue(CommonDataKinds.StructuredName.PHOTO_THUMBNAIL_URI) ?: ""
-                    ringtone = cursor.getStringValue(CommonDataKinds.StructuredName.CUSTOM_RINGTONE)
-                }
-
-                val nickname = ""
-                val numbers = ArrayList<PhoneNumber>()          // proper value is obtained below
-                val emails = ArrayList<Email>()
-                val addresses = ArrayList<Address>()
-                val events = ArrayList<Event>()
-                val notes = ""
-                val groups = ArrayList<Group>()
-                val organization = Organization("", "")
-                val websites = ArrayList<String>()
-                val ims = ArrayList<IM>()
-                val contact = Contact(
-                    id, prefix, firstName, middleName, surname, suffix, nickname, photoUri, numbers, emails, addresses,
-                    events, accountName, starred, contactId, thumbnailUri, null, notes, groups, organization, websites, ims, mimetype, ringtone
-                )
-
-                contacts.put(id, contact)
             }
         }
 
-        val step31 = "#3.1: ${System.currentTimeMillis() - now}ms. context query cursor"
-        durations.add(step31)
-        now = System.currentTimeMillis()
-        Log.e("TAGG", step31)
-
-        val emails = getEmails()
-        var size = emails.size()
-        for (i in 0 until size) {
-            val key = emails.keyAt(i)
-            contacts[key]?.emails = emails.valueAt(i)
+        workers1.forEach {
+            executor1.execute(it)
         }
 
-        val organizations = getOrganizations()
-        size = organizations.size()
-        for (i in 0 until size) {
-            val key = organizations.keyAt(i)
-            contacts[key]?.organization = organizations.valueAt(i)
+        executor1.shutdown()
+        executor1.awaitTermination(1, TimeUnit.HOURS)
+
+        val executor = Executors.newFixedThreadPool(6)
+
+        val worker1 = Runnable {
+            val emails = getEmails()
+            val size = emails.size()
+            for (i in 0 until size) {
+                val key = emails.keyAt(i)
+                contacts[key]?.emails = emails.valueAt(i)
+            }
+        }
+
+        val worker2 = Runnable {
+            val organizations = getOrganizations()
+            val size = organizations.size()
+            for (i in 0 until size) {
+                val key = organizations.keyAt(i)
+                contacts[key]?.organization = organizations.valueAt(i)
+            }
         }
 
         // no need to fetch some fields if we are only getting duplicates of the current contact
         if (gettingDuplicates) {
-            return
+            return contacts
         }
 
-        val step32 = "#3.2: ${System.currentTimeMillis() - now}ms. mail org"
-        durations.add(step32)
-        now = System.currentTimeMillis()
-        Log.e("TAGG", step32)
 
-        val phoneNumbers = getPhoneNumbers(null)
-        size = phoneNumbers.size()
-        for (i in 0 until size) {
-            val key = phoneNumbers.keyAt(i)
-            if (contacts[key] != null) {
-                val numbers = phoneNumbers.valueAt(i)
-                contacts[key].phoneNumbers = numbers
+        val worker3 = Runnable {
+            val phoneNumbers = getPhoneNumbers(null)
+            val size = phoneNumbers.size()
+            for (i in 0 until size) {
+                val key = phoneNumbers.keyAt(i)
+                if (contacts[key] != null) {
+                    val numbers = phoneNumbers.valueAt(i)
+                    contacts[key]?.phoneNumbers = numbers
+                }
             }
         }
 
-        val step33 = "#3.3: ${System.currentTimeMillis() - now}ms. phone"
-        durations.add(step33)
-        now = System.currentTimeMillis()
-        Log.e("TAGG", step33)
 
-        val addresses = getAddresses()
-        size = addresses.size()
-        for (i in 0 until size) {
-            val key = addresses.keyAt(i)
-            contacts[key]?.addresses = addresses.valueAt(i)
+
+        val worker4 = Runnable {
+            val addresses = getAddresses()
+            val size = addresses.size()
+            for (i in 0 until size) {
+                val key = addresses.keyAt(i)
+                contacts[key]?.addresses = addresses.valueAt(i)
+            }
         }
 
-        val IMs = getIMs()
-        size = IMs.size()
-        for (i in 0 until size) {
-            val key = IMs.keyAt(i)
-            contacts[key]?.IMs = IMs.valueAt(i)
+        val worker5 = Runnable {
+            val IMs = getIMs()
+            val size = IMs.size()
+            for (i in 0 until size) {
+                val key = IMs.keyAt(i)
+                contacts[key]?.IMs = IMs.valueAt(i)
+            }
         }
 
-        val step34 = "#3.4: ${System.currentTimeMillis() - now}ms. add im"
-        durations.add(step34)
-        now = System.currentTimeMillis()
-        Log.e("TAGG", step34)
 
-        val events = getEvents()
-        size = events.size()
-        for (i in 0 until size) {
-            val key = events.keyAt(i)
-            contacts[key]?.events = events.valueAt(i)
+        val worker6 = Runnable {
+            val events = getEvents()
+            val size = events.size()
+            for (i in 0 until size) {
+                val key = events.keyAt(i)
+                contacts[key]?.events = events.valueAt(i)
+            }
         }
 
-        val notes = getNotes()
-        size = notes.size()
-        for (i in 0 until size) {
-            val key = notes.keyAt(i)
-            contacts[key]?.notes = notes.valueAt(i)
+        val worker7 = Runnable {
+            val notes = getNotes()
+            val size = notes.size()
+            for (i in 0 until size) {
+                val key = notes.keyAt(i)
+                contacts[key]?.notes = notes.valueAt(i)
+            }
         }
 
-        val step35 = "#3.5: ${System.currentTimeMillis() - now}ms. event notes"
-        durations.add(step35)
-        now = System.currentTimeMillis()
-        Log.e("TAGG", step35)
 
-        val nicknames = getNicknames()
-        size = nicknames.size()
-        for (i in 0 until size) {
-            val key = nicknames.keyAt(i)
-            contacts[key]?.nickname = nicknames.valueAt(i)
+        val worker8 = Runnable {
+            val nicknames = getNicknames()
+            val size = nicknames.size()
+            for (i in 0 until size) {
+                val key = nicknames.keyAt(i)
+                contacts[key]?.nickname = nicknames.valueAt(i)
+            }
         }
 
-        val websites = getWebsites()
-        size = websites.size()
-        for (i in 0 until size) {
-            val key = websites.keyAt(i)
-            contacts[key]?.websites = websites.valueAt(i)
+        val worker9 = Runnable {
+            val websites = getWebsites()
+            val size = websites.size()
+            for (i in 0 until size) {
+                val key = websites.keyAt(i)
+                contacts[key]?.websites = websites.valueAt(i)
+            }
         }
 
-        val step36 = "#3.6: ${System.currentTimeMillis() - now}ms. nick website"
-        durations.add(step36)
-        now = System.currentTimeMillis()
-        Log.e("TAGG", step36)
+        val workers = listOf(
+            worker1,
+            worker2,
+            worker3,
+            worker4,
+            worker5,
+            worker6,
+            worker7,
+            worker8,
+            worker9,
+        )
+
+        workers.forEach {
+            executor.execute(it)
+        }
+
+        executor.shutdown()
+        executor.awaitTermination(1, TimeUnit.HOURS)
+
+        return contacts
     }
 
     private fun getPhoneNumbers(contactId: Int? = null): SparseArray<ArrayList<PhoneNumber>> {
