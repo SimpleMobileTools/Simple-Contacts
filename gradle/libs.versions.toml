@@ -2,6 +2,7 @@
 #jetbrains
 kotlin = "1.9.0"
 #KSP
+kotlinxCoroutinesCore = "1.7.3"
 ksp = "1.9.0-1.0.12"
 kotlinxSerializationJson = "1.5.1"
 
@@ -32,6 +33,8 @@ app-version-versionName = "6.22.7"
 [libraries]
 #AndroidX
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "androidx-swiperefreshlayout" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesCore" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 #AutoFitTextView

@@ -38,6 +38,7 @@ import com.simplemobiletools.contacts.pro.extensions.toast
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.OutputStream
+import java.time.Duration
 import java.util.Locale
 
 class ContactsHelper(val context: Context) {
@@ -46,7 +47,6 @@ class ContactsHelper(val context: Context) {
 
     companion object {
         var durations = mutableListOf("")
-        var startTime = 0L
     }
 
     fun getContacts(
@@ -56,9 +56,9 @@ class ContactsHelper(val context: Context) {
         showOnlyContactsWithNumbers: Boolean = context.baseConfig.showOnlyContactsWithNumbers,
         callback: (ArrayList<Contact>) -> Unit
     ) {
+        val start = System.currentTimeMillis()
         ensureBackgroundThread {
-            var now = System.currentTimeMillis()
-            startTime = now
+            var now = start
             val contacts = SparseArray<Contact>()
             displayContactSources = context.getVisibleContactSources()
             durations.clear()
@@ -148,25 +148,24 @@ class ContactsHelper(val context: Context) {
             durations.add(step6)
             Log.e("TAGG", step6)
 
+            val duration = System.currentTimeMillis() - start
             Handler(Looper.getMainLooper()).post {
                 callback(resultContacts)
-                showResultInDialog(context, resultContacts)
+                showResultInDialog(context, resultContacts, duration)
             }
         }
     }
 
-    private fun showResultInDialog(context: Context, contacts: java.util.ArrayList<Contact>) {
-        val diff = System.currentTimeMillis() - startTime
-//        val msg = "loaded ${contacts.size} in $diff ms (init: $initToLoad + load: ${diff - initToLoad})";
-//        Log.e("TAGG", msg)
-//        context.toast(msg)
+    private fun showResultInDialog(context: Context, contacts: java.util.ArrayList<Contact>, duration: Long) {
         val msgToShow = ContactsHelper.durations.joinToString(",\n") + "\n"
 
+        val title = "${contacts.size} contacts loaded in $duration ms"
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("${contacts.size} contacts loaded in $diff ms")
+        builder.setTitle(title)
         builder.setMessage(msgToShow)
 
         builder.show()
+        context.toast(title)
     }
 
     private fun getContentResolverAccounts(): HashSet<ContactSource> {
@@ -907,6 +906,8 @@ class ContactsHelper(val context: Context) {
     }
 
     fun getDeviceContactSources(): LinkedHashSet<ContactSource> {
+        var start = System.currentTimeMillis()
+
         val sources = LinkedHashSet<ContactSource>()
         if (!context.hasPermission(PERMISSION_READ_CONTACTS)) {
             return sources
@@ -915,9 +916,13 @@ class ContactsHelper(val context: Context) {
         if (!context.baseConfig.wasLocalAccountInitialized) {
             initializeLocalPhoneAccount()
             context.baseConfig.wasLocalAccountInitialized = true
+            Log.e("TAGGG", "initializeLocalPhoneAccount : ${System.currentTimeMillis() - start}ms")
+            start = System.currentTimeMillis()
         }
 
         val accounts = AccountManager.get(context).accounts
+        Log.e("TAGGG", "AccountManager.get(context).accounts : ${System.currentTimeMillis() - start}ms")
+        start = System.currentTimeMillis()
 
         if (context.hasPermission(PERMISSION_READ_SYNC_SETTINGS)) {
             accounts.forEach {
@@ -930,12 +935,21 @@ class ContactsHelper(val context: Context) {
                     }
                     val contactSource = ContactSource(it.name, it.type, publicName)
                     sources.add(contactSource)
+                    Log.e("TAGGG", "ContentResolver.getIsSyncable true ${it.name} took: ${System.currentTimeMillis() - start}ms")
+                    start = System.currentTimeMillis()
+                } else {
+                    Log.e("TAGGG", "ContentResolver.getIsSyncable false ${it.name} took: ${System.currentTimeMillis() - start}ms")
+                    start = System.currentTimeMillis()
                 }
             }
         }
 
         var hadEmptyAccount = false
         val allAccounts = getContentResolverAccounts()
+
+        Log.e("TAGGG", "getContentResolverAccounts: ${System.currentTimeMillis() - start}ms")
+        start = System.currentTimeMillis()
+
         val contentResolverAccounts = allAccounts.filter {
             if (it.name.isEmpty() && it.type.isEmpty() && allAccounts.none { it.name.lowercase(Locale.getDefault()) == "phone" }) {
                 hadEmptyAccount = true
@@ -943,11 +957,16 @@ class ContactsHelper(val context: Context) {
 
             it.name.isNotEmpty() && it.type.isNotEmpty() && !accounts.contains(Account(it.name, it.type))
         }
+        Log.e("TAGGG", "allAccounts.filter: ${System.currentTimeMillis() - start}ms")
+        start = System.currentTimeMillis()
+
         sources.addAll(contentResolverAccounts)
 
         if (hadEmptyAccount) {
             sources.add(ContactSource("", "", context.getString(R.string.phone_storage)))
         }
+        Log.e("TAGGG", "return sources ${System.currentTimeMillis() - start}ms")
+        start = System.currentTimeMillis()
 
         return sources
     }

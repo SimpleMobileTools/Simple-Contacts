@@ -78,7 +78,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        timeInMs = System.currentTimeMillis()
 
         appLaunched(BuildConfig.APPLICATION_ID)
         setupOptionsMenu()
@@ -630,48 +629,44 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
             binding.viewPager.currentItem = getDefaultTab()
         }
 
+        val start = System.currentTimeMillis()
+        ContactsHelper(this).getContacts { contacts ->
+            val diff = System.currentTimeMillis() - start
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            val initToLoad = System.currentTimeMillis() - timeInMs
-            ContactsHelper(this).getContacts { contacts ->
-                val diff = System.currentTimeMillis() - timeInMs
-                val msg = "loaded ${contacts.size} in $diff ms (init: $initToLoad + load: ${diff - initToLoad})";
-                Log.e("TAGG", msg)
-                toast(msg)
-                isGettingContacts = false
-                if (isDestroyed || isFinishing) {
-                    return@getContacts
-                }
+            val msg = "loaded ${contacts.size} in $diff ms";
+            Log.e("TAGG", msg)
+            isGettingContacts = false
+            if (isDestroyed || isFinishing) {
+                return@getContacts
+            }
 
-                if (refreshTabsMask and TAB_CONTACTS != 0) {
-                    findViewById<MyViewPagerFragment<*>>(R.id.contacts_fragment)?.apply {
-                        skipHashComparing = true
-                        refreshContacts(contacts)
-                    }
-                }
-
-                if (refreshTabsMask and TAB_FAVORITES != 0) {
-                    findViewById<MyViewPagerFragment<*>>(R.id.favorites_fragment)?.apply {
-                        skipHashComparing = true
-                        refreshContacts(contacts)
-                    }
-                }
-
-                if (refreshTabsMask and TAB_GROUPS != 0) {
-                    findViewById<MyViewPagerFragment<*>>(R.id.groups_fragment)?.apply {
-                        if (refreshTabsMask == TAB_GROUPS) {
-                            skipHashComparing = true
-                        }
-                        refreshContacts(contacts)
-                    }
-                }
-
-                if (binding.mainMenu.isSearchOpen) {
-                    getCurrentFragment()?.onSearchQueryChanged(binding.mainMenu.getCurrentQuery())
+            if (refreshTabsMask and TAB_CONTACTS != 0) {
+                findViewById<MyViewPagerFragment<*>>(R.id.contacts_fragment)?.apply {
+                    skipHashComparing = true
+                    refreshContacts(contacts)
                 }
             }
 
-        }, 3000)
+            if (refreshTabsMask and TAB_FAVORITES != 0) {
+                findViewById<MyViewPagerFragment<*>>(R.id.favorites_fragment)?.apply {
+                    skipHashComparing = true
+                    refreshContacts(contacts)
+                }
+            }
+
+            if (refreshTabsMask and TAB_GROUPS != 0) {
+                findViewById<MyViewPagerFragment<*>>(R.id.groups_fragment)?.apply {
+                    if (refreshTabsMask == TAB_GROUPS) {
+                        skipHashComparing = true
+                    }
+                    refreshContacts(contacts)
+                }
+            }
+
+            if (binding.mainMenu.isSearchOpen) {
+                getCurrentFragment()?.onSearchQueryChanged(binding.mainMenu.getCurrentQuery())
+            }
+        }
     }
 
     override fun contactClicked(contact: Contact) {

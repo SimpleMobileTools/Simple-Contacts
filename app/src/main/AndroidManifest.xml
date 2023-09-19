@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.simplemobiletools.contacts.pro"
     android:installLocation="auto">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -34,11 +33,13 @@
         android:allowBackup="true"
         android:appCategory="social"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_launcher_name"
+        android:label="Contacts multithread"
         android:localeConfig="@xml/locale_config"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <profileable android:shell="true" android:enabled="true"/>
 
         <activity
             android:name=".activities.SplashActivity"
@@ -226,7 +227,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
+            android:authorities="${applicationId}.provider2"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -236,7 +237,7 @@
 
         <provider
             android:name=".contentproviders.MyContactsContentProvider"
-            android:authorities="com.simplemobiletools.commons.contactsprovider"
+            android:authorities="com.simplemobiletools.commons.contactsprovider2"
             android:exported="true" />
 
         <activity-alias

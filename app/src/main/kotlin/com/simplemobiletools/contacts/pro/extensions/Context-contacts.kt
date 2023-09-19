@@ -10,6 +10,7 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.ContactsContract
 import android.telephony.PhoneNumberUtils
+import android.util.Log
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.databases.ContactsDatabase
@@ -270,8 +271,12 @@ fun Context.getContactPublicUri(contact: Contact): Uri {
 fun Context.getVisibleContactSources(): ArrayList<String> {
     val sources = getAllContactSources()
     val ignoredContactSources = baseConfig.ignoredContactSources
-    return ArrayList(sources).filter { !ignoredContactSources.contains(it.getFullIdentifier()) }
+    val start = System.currentTimeMillis()
+    val res = ArrayList(sources).filter { !ignoredContactSources.contains(it.getFullIdentifier()) }
         .map { it.name }.toMutableList() as ArrayList<String>
+    Log.e("TAGGG", "getVisibleContactSources sort filter: ${System.currentTimeMillis() - start}ms")
+
+    return res
 }
 
 fun Context.getAllContactSources(): ArrayList<ContactSource> {
