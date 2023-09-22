@@ -29,7 +29,7 @@
     <string name="organization">Organization</string>
     <string name="faq_1_text">Yes, all you have to do is go in Settings -&gt; Manage shown contact fields. There you can select what fields should be visible. Some of them are even disabled by default, so you might find some new ones there।</string>
     <string name="nickname">Nickname</string>
-    <string name="prefix">Prefix</string>
+    <string name="prefix">ଉପସର୍ଗ</string>
     <string name="show_only_contacts_with_numbers">Show only contacts with phone numbers</string>
     <string name="job_position">Job position</string>
     <string name="app_launcher_name">Contacts</string>
@@ -49,7 +49,7 @@
     <string name="no_contacts_with_emails">No contacts with emails have been found</string>
     <string name="events">Events (birthdays, anniversaries)</string>
     <string name="updating">Updating…</string>
-    <string name="address">Address</string>
+    <string name="address">ଠିକଣା</string>
     <string name="show_dialpad_button">Show a dialpad button on the main screen</string>
     <string name="dialpad">Dialpad</string>
     <string name="show_phone_numbers">Show phone numbers</string>
@@ -63,7 +63,7 @@
     <string name="inserting">Inserting…</string>
     <string name="contact_source">Contact source</string>
     <string name="phone_storage">Phone storage</string>
-    <string name="suffix">Suffix</string>
+    <string name="suffix">ପରସର୍ଗ</string>
     <string name="fields_empty">At least 1 field has to be filled out</string>
     <string name="add_contacts">Add contacts</string>
     <string name="app_name">Simple Contacts</string>
