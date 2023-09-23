@@ -4,9 +4,9 @@
     <string name="app_launcher_name">Contacts</string>
     <string name="address">Adresse</string>
     <string name="inserting">Insertion…</string>
-    <string name="updating">Actualisation…</string>
-    <string name="phone_storage">Mémoire du téléphone</string>
-    <string name="phone_storage_hidden">Mémoire du téléphone (invisible pour les autres applis)</string>
+    <string name="updating">Mise à jour…</string>
+    <string name="phone_storage">Stockage du téléphone</string>
+    <string name="phone_storage_hidden">Stockage du téléphone (non visible par les autres applications)</string>
     <string name="company">Entreprise</string>
     <string name="job_position">Poste</string>
     <string name="send_sms_to_contacts">Envoyer un texto aux contacts</string>
@@ -51,9 +51,9 @@
     <string name="no_favorites">Il semble que vous n\'avez pas encore ajouté de contacts favoris.</string>
     <string name="toggle_favorite">Activer/désactiver le favori</string>
     <!-- Search -->
-    <string name="search_contacts">Chercher dans les contacts</string>
-    <string name="search_favorites">Chercher dans les favoris</string>
-    <string name="search_groups">Chercher dans les groupes</string>
+    <string name="search_contacts">Rechercher des contacts</string>
+    <string name="search_favorites">Rechercher des favoris</string>
+    <string name="search_groups">Rechercher des groupes</string>
     <!-- Export / Import -->
     <string name="import_contacts">Importer des contacts</string>
     <string name="export_contacts">Exporter des contacts</string>
@@ -65,7 +65,7 @@
     <string name="filename_without_vcf">Nom du fichier (sans .vcf)</string>
     <!-- Dialpad -->
     <string name="dialpad">Clavier de téléphone</string>
-    <string name="add_number_to_contact">Ajouter le numéro à un contact</string>
+    <string name="add_number_to_contact">Ajouter un numéro au contact</string>
     <!-- Visible fields -->
     <string name="prefix">Préfixe</string>
     <string name="suffix">Suffixe</string>
