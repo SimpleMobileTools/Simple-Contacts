@@ -38,7 +38,7 @@
     <!-- Settings -->
     <string name="show_phone_numbers">Afficher les numéros de téléphone</string>
     <string name="show_contact_thumbnails">Afficher les vignettes des contacts</string>
-    <string name="show_dialpad_button">Afficher un bouton de clavier de téléphone sur l\'écran principal</string>
+    <string name="show_dialpad_button">Afficher un bouton de pavé numérique sur l\'écran principal</string>
     <string name="on_contact_click">En touchant un contact</string>
     <string name="call_contact">Appeler le contact</string>
     <string name="view_contact">Afficher les détails du contact</string>
@@ -64,7 +64,7 @@
     <string name="include_contact_sources">Sources de contacts à inclure</string>
     <string name="filename_without_vcf">Nom du fichier (sans .vcf)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Clavier de téléphone</string>
+    <string name="dialpad">Pavé numérique</string>
     <string name="add_number_to_contact">Ajouter un numéro au contact</string>
     <!-- Visible fields -->
     <string name="prefix">Préfixe</string>
