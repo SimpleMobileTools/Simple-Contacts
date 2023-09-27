@@ -68,7 +68,7 @@
     <string name="add_number_to_contact">Lägg till nummer i kontakt</string>
     <!-- Visible fields -->
     <string name="prefix">Prefix</string>
-    <string name="suffix">Suffix</string>
+    <string name="suffix">Ändelse</string>
     <string name="phone_numbers">Telefonnummer</string>
     <string name="emails">E-postadresser</string>
     <string name="addresses">Adresser</string>
