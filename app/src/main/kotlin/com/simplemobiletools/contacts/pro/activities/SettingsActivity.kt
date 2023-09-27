@@ -1,24 +1,36 @@
 package com.simplemobiletools.contacts.pro.activities
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.databinding.ActivitySettingsBinding
+import com.simplemobiletools.contacts.pro.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageAutoBackupsDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleFieldsDialog
 import com.simplemobiletools.contacts.pro.dialogs.ManageVisibleTabsDialog
-import com.simplemobiletools.contacts.pro.extensions.cancelScheduledAutomaticBackup
-import com.simplemobiletools.contacts.pro.extensions.config
-import com.simplemobiletools.contacts.pro.extensions.scheduleNextAutomaticBackup
+import com.simplemobiletools.contacts.pro.extensions.*
+import com.simplemobiletools.contacts.pro.helpers.VcfExporter
+import java.io.OutputStream
 import java.util.Locale
 import kotlin.system.exitProcess
 
 class SettingsActivity : SimpleActivity() {
+    companion object {
+        private const val PICK_IMPORT_SOURCE_INTENT = 1
+        private const val PICK_EXPORT_FILE_INTENT = 2
+    }
 
     private val binding by viewBinding(ActivitySettingsBinding::inflate)
+
+    private var ignoredExportContactSources = HashSet<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
@@ -50,6 +62,8 @@ class SettingsActivity : SimpleActivity() {
         setupDefaultTab()
         setupEnableAutomaticBackups()
         setupManageAutomaticBackups()
+        setupExportContacts()
+        setupImportContacts()
         updateTextColors(binding.settingsHolder)
 
         arrayOf(
@@ -57,7 +71,8 @@ class SettingsActivity : SimpleActivity() {
             binding.settingsGeneralSettingsLabel,
             binding.settingsMainScreenLabel,
             binding.settingsListViewLabel,
-            binding.settingsBackupsLabel
+            binding.settingsBackupsLabel,
+            binding.settingsMigratingLabel
         ).forEach {
             it.setTextColor(getProperPrimaryColor())
         }
@@ -267,5 +282,110 @@ class SettingsActivity : SimpleActivity() {
         config.autoBackup = enable
         binding.settingsEnableAutomaticBackups.isChecked = enable
         binding.settingsManageAutomaticBackupsHolder.beVisibleIf(enable)
+    }
+
+    private fun setupExportContacts() {
+        binding.contactsExportHolder.setOnClickListener {
+            tryExportContacts()
+        }
+    }
+
+    private fun setupImportContacts() {
+        binding.contactsImportHolder.setOnClickListener {
+            tryImportContacts()
+        }
+    }
+
+    private fun tryImportContacts() {
+        if (isQPlus()) {
+            Intent(Intent.ACTION_GET_CONTENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "text/x-vcard"
+
+                try {
+                    startActivityForResult(this, PICK_IMPORT_SOURCE_INTENT)
+                } catch (e: ActivityNotFoundException) {
+                    toast(com.simplemobiletools.commons.R.string.system_service_disabled, Toast.LENGTH_LONG)
+                } catch (e: Exception) {
+                    showErrorToast(e)
+                }
+            }
+        } else {
+            handlePermission(PERMISSION_READ_STORAGE) {
+                if (it) {
+                    importContacts()
+                }
+            }
+        }
+    }
+
+    private fun importContacts() {
+        FilePickerDialog(this) {
+            showImportContactsDialog(it) {}
+        }
+    }
+
+    private fun tryExportContacts() {
+        if (isQPlus()) {
+            ExportContactsDialog(this, config.lastExportPath, true) { file, ignoredContactSources ->
+                ignoredExportContactSources = ignoredContactSources
+
+                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                    type = "text/x-vcard"
+                    putExtra(Intent.EXTRA_TITLE, file.name)
+                    addCategory(Intent.CATEGORY_OPENABLE)
+
+                    try {
+                        startActivityForResult(this, PICK_EXPORT_FILE_INTENT)
+                    } catch (e: ActivityNotFoundException) {
+                        toast(com.simplemobiletools.commons.R.string.no_app_found, Toast.LENGTH_LONG)
+                    } catch (e: Exception) {
+                        showErrorToast(e)
+                    }
+                }
+            }
+        } else {
+            handlePermission(PERMISSION_WRITE_STORAGE) {
+                if (it) {
+                    ExportContactsDialog(this, config.lastExportPath, false) { file, ignoredContactSources ->
+                        getFileOutputStream(file.toFileDirItem(this), true) {
+                            exportContactsTo(ignoredContactSources, it)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun exportContactsTo(ignoredContactSources: HashSet<String>, outputStream: OutputStream?) {
+        ContactsHelper(this).getContacts(true, false, ignoredContactSources) { contacts ->
+            if (contacts.isEmpty()) {
+                toast(com.simplemobiletools.commons.R.string.no_entries_for_exporting)
+            } else {
+                VcfExporter().exportContacts(this, outputStream, contacts, true) { result ->
+                    toast(
+                        when (result) {
+                            VcfExporter.ExportResult.EXPORT_OK -> com.simplemobiletools.commons.R.string.exporting_successful
+                            VcfExporter.ExportResult.EXPORT_PARTIAL -> com.simplemobiletools.commons.R.string.exporting_some_entries_failed
+                            else -> com.simplemobiletools.commons.R.string.exporting_failed
+                        }
+                    )
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == PICK_IMPORT_SOURCE_INTENT && resultCode == Activity.RESULT_OK && resultData?.data != null) {
+            tryImportContactsFromFile(resultData.data!!) {}
+        } else if (requestCode == PICK_EXPORT_FILE_INTENT && resultCode == Activity.RESULT_OK && resultData?.data != null) {
+            try {
+                val outputStream = contentResolver.openOutputStream(resultData.data!!)
+                exportContactsTo(ignoredExportContactSources, outputStream)
+            } catch (e: Exception) {
+                showErrorToast(e)
+            }
+        }
     }
 }

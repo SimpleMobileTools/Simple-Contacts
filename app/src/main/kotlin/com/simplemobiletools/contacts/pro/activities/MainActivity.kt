@@ -1,22 +1,18 @@
 package com.simplemobiletools.contacts.pro.activities
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
-import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.databases.ContactsDatabase
 import com.simplemobiletools.commons.databinding.BottomTablayoutItemBinding
 import com.simplemobiletools.commons.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
-import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
@@ -29,32 +25,22 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.adapters.ViewPagerAdapter
 import com.simplemobiletools.contacts.pro.databinding.ActivityMainBinding
 import com.simplemobiletools.contacts.pro.dialogs.ChangeSortingDialog
-import com.simplemobiletools.contacts.pro.dialogs.ExportContactsDialog
 import com.simplemobiletools.contacts.pro.dialogs.FilterContactSourcesDialog
-import com.simplemobiletools.contacts.pro.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.pro.extensions.config
 import com.simplemobiletools.contacts.pro.extensions.handleGenericContactClick
+import com.simplemobiletools.contacts.pro.extensions.tryImportContactsFromFile
 import com.simplemobiletools.contacts.pro.fragments.FavoritesFragment
 import com.simplemobiletools.contacts.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.contacts.pro.helpers.ALL_TABS_MASK
-import com.simplemobiletools.contacts.pro.helpers.VcfExporter
 import com.simplemobiletools.contacts.pro.helpers.tabsList
 import com.simplemobiletools.contacts.pro.interfaces.RefreshContactsListener
 import me.grantland.widget.AutofitHelper
-import java.io.FileOutputStream
-import java.io.OutputStream
 import java.util.*
 
 class MainActivity : SimpleActivity(), RefreshContactsListener {
-    companion object {
-        private const val PICK_IMPORT_SOURCE_INTENT = 1
-        private const val PICK_EXPORT_FILE_INTENT = 2
-    }
-
     private var werePermissionsHandled = false
     private var isFirstResume = true
     private var isGettingContacts = false
-    private var ignoredExportContactSources = HashSet<String>()
 
     private var storedShowContactThumbnails = false
     private var storedShowPhoneNumbers = false
@@ -173,20 +159,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, resultData)
-        if (requestCode == PICK_IMPORT_SOURCE_INTENT && resultCode == Activity.RESULT_OK && resultData?.data != null) {
-            tryImportContactsFromFile(resultData.data!!)
-        } else if (requestCode == PICK_EXPORT_FILE_INTENT && resultCode == Activity.RESULT_OK && resultData?.data != null) {
-            try {
-                val outputStream = contentResolver.openOutputStream(resultData.data!!)
-                exportContactsTo(ignoredExportContactSources, outputStream)
-            } catch (e: Exception) {
-                showErrorToast(e)
-            }
-        }
-    }
-
     override fun onBackPressed() {
         if (binding.mainMenu.isSearchOpen) {
             binding.mainMenu.closeSearch()
@@ -227,8 +199,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 R.id.sort -> showSortingDialog(showCustomSorting = getCurrentFragment() is FavoritesFragment)
                 R.id.filter -> showFilterDialog()
                 R.id.dialpad -> launchDialpad()
-                R.id.import_contacts -> tryImportContacts()
-                R.id.export_contacts -> tryExportContacts()
                 R.id.more_apps_from_us -> launchMoreAppsFromUsIntent()
                 R.id.change_view_type -> changeViewType()
                 R.id.column_count -> changeColumnCount()
@@ -403,7 +373,13 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
         }
 
         if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
-            tryImportContactsFromFile(intent.data!!)
+            tryImportContactsFromFile(intent.data!!) {
+                if (it) {
+                    runOnUiThread {
+                        refreshContacts(ALL_TABS_MASK)
+                    }
+                }
+            }
             intent.data = null
         }
 
@@ -465,119 +441,6 @@ class MainActivity : SimpleActivity(), RefreshContactsListener {
                 toast(com.simplemobiletools.commons.R.string.no_app_found)
             } catch (e: Exception) {
                 showErrorToast(e)
-            }
-        }
-    }
-
-    private fun tryImportContacts() {
-        if (isQPlus()) {
-            Intent(Intent.ACTION_GET_CONTENT).apply {
-                addCategory(Intent.CATEGORY_OPENABLE)
-                type = "text/x-vcard"
-
-                try {
-                    startActivityForResult(this, PICK_IMPORT_SOURCE_INTENT)
-                } catch (e: ActivityNotFoundException) {
-                    toast(com.simplemobiletools.commons.R.string.system_service_disabled, Toast.LENGTH_LONG)
-                } catch (e: Exception) {
-                    showErrorToast(e)
-                }
-            }
-        } else {
-            handlePermission(PERMISSION_READ_STORAGE) {
-                if (it) {
-                    importContacts()
-                }
-            }
-        }
-    }
-
-    private fun importContacts() {
-        FilePickerDialog(this) {
-            showImportContactsDialog(it)
-        }
-    }
-
-    private fun showImportContactsDialog(path: String) {
-        ImportContactsDialog(this, path) {
-            if (it) {
-                runOnUiThread {
-                    refreshContacts(ALL_TABS_MASK)
-                }
-            }
-        }
-    }
-
-    private fun tryImportContactsFromFile(uri: Uri) {
-        when {
-            uri.scheme == "file" -> showImportContactsDialog(uri.path!!)
-            uri.scheme == "content" -> {
-                val tempFile = getTempFile()
-                if (tempFile == null) {
-                    toast(com.simplemobiletools.commons.R.string.unknown_error_occurred)
-                    return
-                }
-
-                try {
-                    val inputStream = contentResolver.openInputStream(uri)
-                    val out = FileOutputStream(tempFile)
-                    inputStream!!.copyTo(out)
-                    showImportContactsDialog(tempFile.absolutePath)
-                } catch (e: Exception) {
-                    showErrorToast(e)
-                }
-            }
-
-            else -> toast(com.simplemobiletools.commons.R.string.invalid_file_format)
-        }
-    }
-
-    private fun tryExportContacts() {
-        if (isQPlus()) {
-            ExportContactsDialog(this, config.lastExportPath, true) { file, ignoredContactSources ->
-                ignoredExportContactSources = ignoredContactSources
-
-                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                    type = "text/x-vcard"
-                    putExtra(Intent.EXTRA_TITLE, file.name)
-                    addCategory(Intent.CATEGORY_OPENABLE)
-
-                    try {
-                        startActivityForResult(this, PICK_EXPORT_FILE_INTENT)
-                    } catch (e: ActivityNotFoundException) {
-                        toast(com.simplemobiletools.commons.R.string.no_app_found, Toast.LENGTH_LONG)
-                    } catch (e: Exception) {
-                        showErrorToast(e)
-                    }
-                }
-            }
-        } else {
-            handlePermission(PERMISSION_WRITE_STORAGE) {
-                if (it) {
-                    ExportContactsDialog(this, config.lastExportPath, false) { file, ignoredContactSources ->
-                        getFileOutputStream(file.toFileDirItem(this), true) {
-                            exportContactsTo(ignoredContactSources, it)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun exportContactsTo(ignoredContactSources: HashSet<String>, outputStream: OutputStream?) {
-        ContactsHelper(this).getContacts(true, false, ignoredContactSources) { contacts ->
-            if (contacts.isEmpty()) {
-                toast(com.simplemobiletools.commons.R.string.no_entries_for_exporting)
-            } else {
-                VcfExporter().exportContacts(this, outputStream, contacts, true) { result ->
-                    toast(
-                        when (result) {
-                            VcfExporter.ExportResult.EXPORT_OK -> com.simplemobiletools.commons.R.string.exporting_successful
-                            VcfExporter.ExportResult.EXPORT_PARTIAL -> com.simplemobiletools.commons.R.string.exporting_some_entries_failed
-                            else -> com.simplemobiletools.commons.R.string.exporting_failed
-                        }
-                    )
-                }
             }
         }
     }

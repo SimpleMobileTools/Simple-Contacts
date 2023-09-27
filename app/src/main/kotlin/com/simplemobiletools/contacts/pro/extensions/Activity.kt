@@ -14,9 +14,11 @@ import com.simplemobiletools.contacts.pro.R
 import com.simplemobiletools.contacts.pro.activities.EditContactActivity
 import com.simplemobiletools.contacts.pro.activities.SimpleActivity
 import com.simplemobiletools.contacts.pro.activities.ViewContactActivity
+import com.simplemobiletools.contacts.pro.dialogs.ImportContactsDialog
 import com.simplemobiletools.contacts.pro.helpers.DEFAULT_FILE_NAME
 import com.simplemobiletools.contacts.pro.helpers.VcfExporter
 import ezvcard.VCardVersion
+import java.io.FileOutputStream
 
 fun SimpleActivity.startCallIntent(recipient: String) {
     handlePermission(PERMISSION_CALL_PHONE) {
@@ -110,3 +112,32 @@ fun Activity.editContact(contact: Contact) {
         startActivity(this)
     }
 }
+
+fun SimpleActivity.tryImportContactsFromFile(uri: Uri, callback: (Boolean) -> Unit) {
+    when (uri.scheme) {
+        "file" -> showImportContactsDialog(uri.path!!, callback)
+        "content" -> {
+            val tempFile = getTempFile()
+            if (tempFile == null) {
+                toast(com.simplemobiletools.commons.R.string.unknown_error_occurred)
+                return
+            }
+
+            try {
+                val inputStream = contentResolver.openInputStream(uri)
+                val out = FileOutputStream(tempFile)
+                inputStream!!.copyTo(out)
+                showImportContactsDialog(tempFile.absolutePath, callback)
+            } catch (e: Exception) {
+                showErrorToast(e)
+            }
+        }
+
+        else -> toast(com.simplemobiletools.commons.R.string.invalid_file_format)
+    }
+}
+
+fun SimpleActivity.showImportContactsDialog(path: String, callback: (Boolean) -> Unit) {
+    ImportContactsDialog(this, path, callback)
+}
+
