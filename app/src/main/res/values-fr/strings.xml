@@ -38,14 +38,14 @@
     <!-- Settings -->
     <string name="show_phone_numbers">Afficher les numéros de téléphone</string>
     <string name="show_contact_thumbnails">Afficher les vignettes des contacts</string>
-    <string name="show_dialpad_button">Afficher un bouton de clavier de téléphone sur l\'écran principal</string>
+    <string name="show_dialpad_button">Afficher un bouton de pavé numérique sur l\'écran principal</string>
     <string name="on_contact_click">En touchant un contact</string>
     <string name="call_contact">Appeler le contact</string>
     <string name="view_contact">Afficher les détails du contact</string>
     <string name="manage_shown_contact_fields">Gérer l\'affichage des champs des contacts</string>
     <string name="contacts">Contacts</string>
     <string name="show_only_contacts_with_numbers">N\'afficher que les contacts avec un numéro de téléphone</string>
-    <string name="show_private_contacts">Afficher les contacts privés dans Téléphone simple, Messagerie SMS simple et Calendrier simple Pro</string>
+    <string name="show_private_contacts">Afficher les contacts privés dans « Téléphone simple », « Messagerie SMS simple » et « Agenda simple Pro »</string>
     <string name="merge_duplicate_contacts">Fusionner les contacts en double</string>
     <!-- Favorites -->
     <string name="no_favorites">Il semble que vous n\'avez pas encore ajouté de contacts favoris.</string>
@@ -64,7 +64,7 @@
     <string name="include_contact_sources">Sources de contacts à inclure</string>
     <string name="filename_without_vcf">Nom du fichier (sans .vcf)</string>
     <!-- Dialpad -->
-    <string name="dialpad">Clavier de téléphone</string>
+    <string name="dialpad">Pavé numérique</string>
     <string name="add_number_to_contact">Ajouter un numéro au contact</string>
     <!-- Visible fields -->
     <string name="prefix">Préfixe</string>
