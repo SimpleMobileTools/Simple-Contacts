@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple contacts</string>
+    <string name="app_name">Contacts simples</string>
     <string name="app_launcher_name">Contacts</string>
     <string name="address">Adresse</string>
     <string name="inserting">Insertion…</string>
@@ -45,7 +45,7 @@
     <string name="manage_shown_contact_fields">Gérer l\'affichage des champs des contacts</string>
     <string name="contacts">Contacts</string>
     <string name="show_only_contacts_with_numbers">N\'afficher que les contacts avec un numéro de téléphone</string>
-    <string name="show_private_contacts">Présenter les contacts privés à Simple Dialer, Simple SMS Messenger et Simple Calendar Pro</string>
+    <string name="show_private_contacts">Afficher les contacts privés dans Téléphone simple, Messagerie SMS simple et Calendrier simple Pro</string>
     <string name="merge_duplicate_contacts">Fusionner les contacts en double</string>
     <!-- Favorites -->
     <string name="no_favorites">Il semble que vous n\'avez pas encore ajouté de contacts favoris.</string>
