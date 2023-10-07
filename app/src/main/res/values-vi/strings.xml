@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Danh bạ Đơn giản</string>
-    <string name="app_launcher_name">Liên lạc</string>
+    <string name="app_launcher_name">Danh bạ</string>
     <string name="address">Địa chỉ</string>
     <string name="inserting">Đang chèn…</string>
     <string name="updating">Đang cập nhật…</string>
@@ -14,9 +14,9 @@
     <string name="send_sms_to_group">Gửi tin nhắn SMS đến nhóm</string>
     <string name="send_email_to_group">Gửi email đến nhóm</string>
     <string name="fields_empty">Phải điền ít nhất một trường</string>
-    <string name="must_be_at_edit">Bạn phải ở màn hình Chỉnh sửa để sửa đổi một số liên lạc</string>
+    <string name="must_be_at_edit">Bạn phải ở màn hình Chỉnh sửa để sửa đổi liên hệ</string>
     <!-- Placeholders -->
-    <string name="no_contacts_with_emails">Không tìm thấy liên hệ với e-mail</string>
+    <string name="no_contacts_with_emails">Không tìm thấy liên hệ với email</string>
     <string name="no_contacts_with_phone_numbers">Không tìm thấy liên hệ với số điện thoại</string>
     <string name="new_contact">Liên hệ mới</string>
     <string name="edit_contact">Chỉnh sửa liên hệ</string>
@@ -34,7 +34,7 @@
     <string name="create_group_under_account">Tạo nhóm theo tài khoản</string>
     <!-- Photo -->
     <string name="remove_photo">Gỡ bỏ hình</string>
-    <string name="change_photo">Thay đổi hình ảnh</string>
+    <string name="change_photo">Thay đổi hình</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Hiển thị số điện thoại</string>
     <string name="show_contact_thumbnails">Hiển thị hình thu nhỏ của liên hệ</string>
@@ -49,7 +49,7 @@
     <string name="merge_duplicate_contacts">Hợp nhất các liên hệ trùng lặp</string>
     <!-- Favorites -->
     <string name="no_favorites">Có vẻ như bạn chưa thêm bất kỳ liên hệ yêu thích nào.</string>
-    <string name="toggle_favorite">chuyển đổi yêu thích</string>
+    <string name="toggle_favorite">Chuyển đổi yêu thích</string>
     <!-- Search -->
     <string name="search_contacts">Tìm liên hệ</string>
     <string name="search_favorites">Tìm kiếm yêu thích</string>
