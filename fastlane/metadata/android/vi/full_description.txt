@@ -1,0 +1,35 @@
+Một ứng dụng liên hệ thông minh nhẹ để quản lý danh bạ của bạn, được yêu thích bởi hàng triệu người dùng. Danh bạ chỉ có thể được lưu trữ trên thiết bị của bạn hoặc chúng cũng có thể được đồng bộ hóa bằng các phương tiện khác nhau. Danh bạ điện thoại thông minh này sẽ giúp bạn giữ danh bạ của mình ở một nơi mà không gặp rắc rối khi sao lưu danh bạ vì bản sao lưu danh bạ luôn đồng bộ với danh bạ bạn thêm. Ứng dụng này tiết kiệm không gian và hiệu quả khi bạn phải sao lưu và lưu giữ danh bạ điện thoại, điều này sẽ giúp bạn giữ liên lạc một cách thông minh.
+
+Bạn cũng có thể sử dụng nó để quản lý email và sự kiện của người dùng. Nó có khả năng sắp xếp/lọc theo nhiều tham số, tùy chọn hiển thị họ thành tên. Bằng cách này, bạn có thể đạt được khả năng truy xuất liên hệ thông minh một cách nhanh chóng. Bạn không cần phải cuộn xuống để tìm liên hệ bạn cần. Hơn nữa, bất cứ khi nào bạn thêm một liên hệ mới, bản sao lưu danh bạ sẽ tự động đảm bảo tính toàn vẹn của các liên hệ.
+
+Bạn có thể hiển thị những người hoặc nhóm yêu thích của mình trên một danh sách riêng. Các nhóm có thể được sử dụng để gửi hàng loạt email hoặc SMS, để tiết kiệm thời gian, bạn có thể đổi tên chúng một cách dễ dàng. Bạn không cần phải giữ một cuống sổ danh bạ nữa! Chỉ cần tạo một nhóm liên lạc thông minh và gửi tin nhắn cho những người thân yêu của bạn.
+
+Ứng dụng có các nút tiện dụng để gọi điện hoặc nhắn tin cho người thân của bạn. Tất cả các trường hiển thị có thể được tùy chỉnh theo ý muốn, bạn có thể dễ dàng ẩn những trường không sử dụng. Chức năng tìm kiếm sẽ tìm kiếm chuỗi đã cho ở mọi trường người hiển thị, giúp bạn dễ dàng tìm thấy chuỗi mong muốn.
+
+Ứng dụng hỗ trợ xuất/nhập danh bạ ở định dạng vCard sang tệp .vcf để dễ dàng di chuyển hoặc sao lưu dữ liệu của bạn. Sao lưu danh bạ là một điều quan trọng trong việc lưu giữ danh bạ điện thoại. Ứng dụng này đi kèm với công nghệ sao lưu danh bạ thông minh giúp đồng bộ hóa danh bạ mới và cũ thường xuyên để sao lưu những số này.
+
+Với trình quản lý số điện thoại hiện đại và ổn định này, bạn có thể bảo vệ chúng bằng cách không chia sẻ chúng với các ứng dụng khác, do đó bạn có thể giữ chúng một cách riêng tư.
+
+Giống như nguồn liên hệ, bạn cũng có thể dễ dàng thay đổi tên, email, số điện thoại, địa chỉ, tổ chức, nhóm và nhiều trường có thể tùy chỉnh khác. Bạn cũng có thể sử dụng nó để lưu trữ các sự kiện liên hệ, như sinh nhật, ngày kỷ niệm hoặc bất kỳ sự kiện tùy chỉnh nào khác.
+
+Trình chỉnh sửa liên hệ đơn giản này có nhiều cài đặt tiện dụng như hiển thị số điện thoại trên màn hình chính, chuyển đổi chế độ hiển thị hình thu nhỏ của liên hệ, chỉ hiển thị các liên hệ có số điện thoại, hiển thị hộp thoại xác nhận cuộc gọi trước khi bắt đầu cuộc gọi. Nó đi kèm với một trình quay số nhanh cũng sử dụng các chữ cái.
+
+Để cải thiện hơn nữa trải nghiệm người dùng, bạn có thể tùy chỉnh những gì xảy ra khi nhấp vào một liên hệ. Bạn có thể bắt đầu cuộc gọi, đi tới màn hình Xem chi tiết hoặc chỉnh sửa cuộc gọi đã chọn.
+
+Để tránh hiển thị các liên hệ có thể không mong muốn, nó có tính năng hợp nhất mục nhập trùng lặp được tích hợp sẵn mạnh mẽ.
+
+Nó đi kèm với thiết kế Material và chủ đề tối theo mặc định, mang lại trải nghiệm người dùng tuyệt vời để dễ dàng sử dụng. Việc không có quyền truy cập Internet mang lại cho bạn sự riêng tư, bảo mật và ổn định hơn các ứng dụng khác.
+
+Không chứa quảng cáo hoặc các quyền không cần thiết. Hoàn toàn là nguồn mở, màu sắc có thể tùy chỉnh.
+
+Kiểm tra bộ công cụ đơn giản đầy đủ tại đây:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
