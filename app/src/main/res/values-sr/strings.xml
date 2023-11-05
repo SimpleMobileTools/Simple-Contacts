@@ -6,7 +6,7 @@
     <string name="inserting">Уметање…</string>
     <string name="updating">Ажурирање…</string>
     <string name="phone_storage">Меморија телефона</string>
-    <string name="phone_storage_hidden">Складиште телефона (није видљиво другим апликацијама)</string>
+    <string name="phone_storage_hidden">Меморија телефона (није видљиво другим апликацијама)</string>
     <string name="company">Компанија</string>
     <string name="job_position">Радно место</string>
     <string name="send_sms_to_contacts">Пошаљите СМС контактима</string>
@@ -49,10 +49,10 @@
     <string name="merge_duplicate_contacts">Споји дупликате контаката</string>
     <!-- Favorites -->
     <string name="no_favorites">Изгледа да још увек нисте додали ниједан омиљени контакт.</string>
-    <string name="toggle_favorite">Укључите фаворит</string>
+    <string name="toggle_favorite">Укључи омиљено</string>
     <!-- Search -->
-    <string name="search_contacts">Претражите контакте</string>
-    <string name="search_favorites">Претражите фаворите</string>
+    <string name="search_contacts">Претрага контаката</string>
+    <string name="search_favorites">Претрага омиљених</string>
     <string name="search_groups">Претрага група</string>
     <!-- Export / Import -->
     <string name="import_contacts">Увоз контаката</string>
@@ -65,7 +65,7 @@
     <string name="filename_without_vcf">Име датотеке (без .вцф)</string>
     <!-- Dialpad -->
     <string name="dialpad">Тастер за бирање бројева</string>
-    <string name="add_number_to_contact">Додајте број контакту</string>
+    <string name="add_number_to_contact">Додај број у контакте</string>
     <!-- Visible fields -->
     <string name="prefix">Префикс</string>
     <string name="suffix">Суфикс</string>

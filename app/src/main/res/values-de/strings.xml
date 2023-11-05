@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Schlichte Kontakte</string>
+    <string name="app_name">Einfache Kontakte</string>
     <string name="app_launcher_name">Kontakte</string>
     <string name="address">Adresse</string>
     <string name="inserting">Einfügen …</string>
@@ -37,7 +37,7 @@
     <string name="change_photo">Foto ändern</string>
     <!-- Settings -->
     <string name="show_phone_numbers">Telefonnummern anzeigen</string>
-    <string name="show_contact_thumbnails">Vorschaubilder der Kontakte zeigen</string>
+    <string name="show_contact_thumbnails">Vorschaubilder der Kontakte anzeigen</string>
     <string name="show_dialpad_button">Eine Wähltastenfeld-Schaltfläche auf dem Hauptbildschirm anzeigen</string>
     <string name="on_contact_click">Beim Klicken auf den Kontakt</string>
     <string name="call_contact">Kontakt anrufen</string>
@@ -45,7 +45,7 @@
     <string name="manage_shown_contact_fields">Sichtbare Kontaktfelder bearbeiten</string>
     <string name="contacts">Kontakte</string>
     <string name="show_only_contacts_with_numbers">Nur Kontakte mit Telefonnummern anzeigen</string>
-    <string name="show_private_contacts">Zeige private Kontakte in Schlichtem Telefon, SMS Messenger und Kalender Pro</string>
+    <string name="show_private_contacts">Private Kontakte in Einfaches Telefon, Einfacher SMS-Messenger und Einfacher Kalender Pro anzeigen</string>
     <string name="merge_duplicate_contacts">Duplizierte Kontakte zusammenführen</string>
     <!-- Favorites -->
     <string name="no_favorites">Anscheinend haben Sie bisher keine Kontakte zu den Favoriten hinzugefügt.</string>
